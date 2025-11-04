@@ -66,6 +66,13 @@ impl CalendarAddOnManifest {
     }
 
     /// Sets the value of [homepage_trigger][crate::model::CalendarAddOnManifest::homepage_trigger].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apps_script_type_calendar::model::CalendarAddOnManifest;
+    /// use apps_script_type::model::HomepageExtensionPoint;
+    /// let x = CalendarAddOnManifest::new().set_homepage_trigger(HomepageExtensionPoint::default()/* use setters */);
+    /// ```
     pub fn set_homepage_trigger<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<apps_script_type::model::HomepageExtensionPoint>,
@@ -75,6 +82,14 @@ impl CalendarAddOnManifest {
     }
 
     /// Sets or clears the value of [homepage_trigger][crate::model::CalendarAddOnManifest::homepage_trigger].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apps_script_type_calendar::model::CalendarAddOnManifest;
+    /// use apps_script_type::model::HomepageExtensionPoint;
+    /// let x = CalendarAddOnManifest::new().set_or_clear_homepage_trigger(Some(HomepageExtensionPoint::default()/* use setters */));
+    /// let x = CalendarAddOnManifest::new().set_or_clear_homepage_trigger(None::<HomepageExtensionPoint>);
+    /// ```
     pub fn set_or_clear_homepage_trigger<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<apps_script_type::model::HomepageExtensionPoint>,
@@ -84,6 +99,17 @@ impl CalendarAddOnManifest {
     }
 
     /// Sets the value of [conference_solution][crate::model::CalendarAddOnManifest::conference_solution].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apps_script_type_calendar::model::CalendarAddOnManifest;
+    /// use google_cloud_apps_script_type_calendar::model::ConferenceSolution;
+    /// let x = CalendarAddOnManifest::new()
+    ///     .set_conference_solution([
+    ///         ConferenceSolution::default()/* use setters */,
+    ///         ConferenceSolution::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_conference_solution<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -95,6 +121,12 @@ impl CalendarAddOnManifest {
     }
 
     /// Sets the value of [create_settings_url_function][crate::model::CalendarAddOnManifest::create_settings_url_function].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apps_script_type_calendar::model::CalendarAddOnManifest;
+    /// let x = CalendarAddOnManifest::new().set_create_settings_url_function("example");
+    /// ```
     pub fn set_create_settings_url_function<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -104,6 +136,13 @@ impl CalendarAddOnManifest {
     }
 
     /// Sets the value of [event_open_trigger][crate::model::CalendarAddOnManifest::event_open_trigger].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apps_script_type_calendar::model::CalendarAddOnManifest;
+    /// use google_cloud_apps_script_type_calendar::model::CalendarExtensionPoint;
+    /// let x = CalendarAddOnManifest::new().set_event_open_trigger(CalendarExtensionPoint::default()/* use setters */);
+    /// ```
     pub fn set_event_open_trigger<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::CalendarExtensionPoint>,
@@ -113,6 +152,14 @@ impl CalendarAddOnManifest {
     }
 
     /// Sets or clears the value of [event_open_trigger][crate::model::CalendarAddOnManifest::event_open_trigger].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apps_script_type_calendar::model::CalendarAddOnManifest;
+    /// use google_cloud_apps_script_type_calendar::model::CalendarExtensionPoint;
+    /// let x = CalendarAddOnManifest::new().set_or_clear_event_open_trigger(Some(CalendarExtensionPoint::default()/* use setters */));
+    /// let x = CalendarAddOnManifest::new().set_or_clear_event_open_trigger(None::<CalendarExtensionPoint>);
+    /// ```
     pub fn set_or_clear_event_open_trigger<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CalendarExtensionPoint>,
@@ -122,6 +169,13 @@ impl CalendarAddOnManifest {
     }
 
     /// Sets the value of [event_update_trigger][crate::model::CalendarAddOnManifest::event_update_trigger].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apps_script_type_calendar::model::CalendarAddOnManifest;
+    /// use google_cloud_apps_script_type_calendar::model::CalendarExtensionPoint;
+    /// let x = CalendarAddOnManifest::new().set_event_update_trigger(CalendarExtensionPoint::default()/* use setters */);
+    /// ```
     pub fn set_event_update_trigger<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::CalendarExtensionPoint>,
@@ -131,6 +185,14 @@ impl CalendarAddOnManifest {
     }
 
     /// Sets or clears the value of [event_update_trigger][crate::model::CalendarAddOnManifest::event_update_trigger].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apps_script_type_calendar::model::CalendarAddOnManifest;
+    /// use google_cloud_apps_script_type_calendar::model::CalendarExtensionPoint;
+    /// let x = CalendarAddOnManifest::new().set_or_clear_event_update_trigger(Some(CalendarExtensionPoint::default()/* use setters */));
+    /// let x = CalendarAddOnManifest::new().set_or_clear_event_update_trigger(None::<CalendarExtensionPoint>);
+    /// ```
     pub fn set_or_clear_event_update_trigger<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CalendarExtensionPoint>,
@@ -140,6 +202,15 @@ impl CalendarAddOnManifest {
     }
 
     /// Sets the value of [current_event_access][crate::model::CalendarAddOnManifest::current_event_access].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apps_script_type_calendar::model::CalendarAddOnManifest;
+    /// use google_cloud_apps_script_type_calendar::model::calendar_add_on_manifest::EventAccess;
+    /// let x0 = CalendarAddOnManifest::new().set_current_event_access(EventAccess::Metadata);
+    /// let x1 = CalendarAddOnManifest::new().set_current_event_access(EventAccess::Read);
+    /// let x2 = CalendarAddOnManifest::new().set_current_event_access(EventAccess::Write);
+    /// ```
     pub fn set_current_event_access<
         T: std::convert::Into<crate::model::calendar_add_on_manifest::EventAccess>,
     >(
@@ -344,6 +415,12 @@ impl ConferenceSolution {
     }
 
     /// Sets the value of [on_create_function][crate::model::ConferenceSolution::on_create_function].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apps_script_type_calendar::model::ConferenceSolution;
+    /// let x = ConferenceSolution::new().set_on_create_function("example");
+    /// ```
     pub fn set_on_create_function<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -353,18 +430,36 @@ impl ConferenceSolution {
     }
 
     /// Sets the value of [id][crate::model::ConferenceSolution::id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apps_script_type_calendar::model::ConferenceSolution;
+    /// let x = ConferenceSolution::new().set_id("example");
+    /// ```
     pub fn set_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.id = v.into();
         self
     }
 
     /// Sets the value of [name][crate::model::ConferenceSolution::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apps_script_type_calendar::model::ConferenceSolution;
+    /// let x = ConferenceSolution::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [logo_url][crate::model::ConferenceSolution::logo_url].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apps_script_type_calendar::model::ConferenceSolution;
+    /// let x = ConferenceSolution::new().set_logo_url("example");
+    /// ```
     pub fn set_logo_url<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.logo_url = v.into();
         self
@@ -394,6 +489,12 @@ impl CalendarExtensionPoint {
     }
 
     /// Sets the value of [run_function][crate::model::CalendarExtensionPoint::run_function].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apps_script_type_calendar::model::CalendarExtensionPoint;
+    /// let x = CalendarExtensionPoint::new().set_run_function("example");
+    /// ```
     pub fn set_run_function<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.run_function = v.into();
         self

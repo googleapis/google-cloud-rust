@@ -94,18 +94,39 @@ impl ErrorInfo {
     }
 
     /// Sets the value of [reason][crate::model::ErrorInfo::reason].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rpc::model::ErrorInfo;
+    /// let x = ErrorInfo::new().set_reason("example");
+    /// ```
     pub fn set_reason<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.reason = v.into();
         self
     }
 
     /// Sets the value of [domain][crate::model::ErrorInfo::domain].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rpc::model::ErrorInfo;
+    /// let x = ErrorInfo::new().set_domain("example");
+    /// ```
     pub fn set_domain<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.domain = v.into();
         self
     }
 
     /// Sets the value of [metadata][crate::model::ErrorInfo::metadata].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rpc::model::ErrorInfo;
+    /// let x = ErrorInfo::new().set_metadata([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_metadata<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -152,6 +173,13 @@ impl RetryInfo {
     }
 
     /// Sets the value of [retry_delay][crate::model::RetryInfo::retry_delay].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rpc::model::RetryInfo;
+    /// use wkt::Duration;
+    /// let x = RetryInfo::new().set_retry_delay(Duration::default()/* use setters */);
+    /// ```
     pub fn set_retry_delay<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -161,6 +189,14 @@ impl RetryInfo {
     }
 
     /// Sets or clears the value of [retry_delay][crate::model::RetryInfo::retry_delay].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rpc::model::RetryInfo;
+    /// use wkt::Duration;
+    /// let x = RetryInfo::new().set_or_clear_retry_delay(Some(Duration::default()/* use setters */));
+    /// let x = RetryInfo::new().set_or_clear_retry_delay(None::<Duration>);
+    /// ```
     pub fn set_or_clear_retry_delay<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -195,6 +231,12 @@ impl DebugInfo {
     }
 
     /// Sets the value of [stack_entries][crate::model::DebugInfo::stack_entries].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rpc::model::DebugInfo;
+    /// let x = DebugInfo::new().set_stack_entries(["a", "b", "c"]);
+    /// ```
     pub fn set_stack_entries<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -206,6 +248,12 @@ impl DebugInfo {
     }
 
     /// Sets the value of [detail][crate::model::DebugInfo::detail].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rpc::model::DebugInfo;
+    /// let x = DebugInfo::new().set_detail("example");
+    /// ```
     pub fn set_detail<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.detail = v.into();
         self
@@ -244,6 +292,17 @@ impl QuotaFailure {
     }
 
     /// Sets the value of [violations][crate::model::QuotaFailure::violations].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rpc::model::QuotaFailure;
+    /// use google_cloud_rpc::model::quota_failure::Violation;
+    /// let x = QuotaFailure::new()
+    ///     .set_violations([
+    ///         Violation::default()/* use setters */,
+    ///         Violation::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_violations<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -359,24 +418,48 @@ pub mod quota_failure {
         }
 
         /// Sets the value of [subject][crate::model::quota_failure::Violation::subject].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_rpc::model::quota_failure::Violation;
+        /// let x = Violation::new().set_subject("example");
+        /// ```
         pub fn set_subject<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.subject = v.into();
             self
         }
 
         /// Sets the value of [description][crate::model::quota_failure::Violation::description].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_rpc::model::quota_failure::Violation;
+        /// let x = Violation::new().set_description("example");
+        /// ```
         pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.description = v.into();
             self
         }
 
         /// Sets the value of [api_service][crate::model::quota_failure::Violation::api_service].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_rpc::model::quota_failure::Violation;
+        /// let x = Violation::new().set_api_service("example");
+        /// ```
         pub fn set_api_service<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.api_service = v.into();
             self
         }
 
         /// Sets the value of [quota_metric][crate::model::quota_failure::Violation::quota_metric].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_rpc::model::quota_failure::Violation;
+        /// let x = Violation::new().set_quota_metric("example");
+        /// ```
         pub fn set_quota_metric<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -386,12 +469,27 @@ pub mod quota_failure {
         }
 
         /// Sets the value of [quota_id][crate::model::quota_failure::Violation::quota_id].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_rpc::model::quota_failure::Violation;
+        /// let x = Violation::new().set_quota_id("example");
+        /// ```
         pub fn set_quota_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.quota_id = v.into();
             self
         }
 
         /// Sets the value of [quota_dimensions][crate::model::quota_failure::Violation::quota_dimensions].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_rpc::model::quota_failure::Violation;
+        /// let x = Violation::new().set_quota_dimensions([
+        ///     ("key0", "abc"),
+        ///     ("key1", "xyz"),
+        /// ]);
+        /// ```
         pub fn set_quota_dimensions<T, K, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = (K, V)>,
@@ -404,12 +502,24 @@ pub mod quota_failure {
         }
 
         /// Sets the value of [quota_value][crate::model::quota_failure::Violation::quota_value].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_rpc::model::quota_failure::Violation;
+        /// let x = Violation::new().set_quota_value(42);
+        /// ```
         pub fn set_quota_value<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
             self.quota_value = v.into();
             self
         }
 
         /// Sets the value of [future_quota_value][crate::model::quota_failure::Violation::future_quota_value].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_rpc::model::quota_failure::Violation;
+        /// let x = Violation::new().set_future_quota_value(42);
+        /// ```
         pub fn set_future_quota_value<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<i64>,
@@ -419,6 +529,13 @@ pub mod quota_failure {
         }
 
         /// Sets or clears the value of [future_quota_value][crate::model::quota_failure::Violation::future_quota_value].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_rpc::model::quota_failure::Violation;
+        /// let x = Violation::new().set_or_clear_future_quota_value(Some(42));
+        /// let x = Violation::new().set_or_clear_future_quota_value(None::<i32>);
+        /// ```
         pub fn set_or_clear_future_quota_value<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<i64>,
@@ -455,6 +572,17 @@ impl PreconditionFailure {
     }
 
     /// Sets the value of [violations][crate::model::PreconditionFailure::violations].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rpc::model::PreconditionFailure;
+    /// use google_cloud_rpc::model::precondition_failure::Violation;
+    /// let x = PreconditionFailure::new()
+    ///     .set_violations([
+    ///         Violation::default()/* use setters */,
+    ///         Violation::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_violations<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -506,18 +634,36 @@ pub mod precondition_failure {
         }
 
         /// Sets the value of [r#type][crate::model::precondition_failure::Violation::type].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_rpc::model::precondition_failure::Violation;
+        /// let x = Violation::new().set_type("example");
+        /// ```
         pub fn set_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.r#type = v.into();
             self
         }
 
         /// Sets the value of [subject][crate::model::precondition_failure::Violation::subject].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_rpc::model::precondition_failure::Violation;
+        /// let x = Violation::new().set_subject("example");
+        /// ```
         pub fn set_subject<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.subject = v.into();
             self
         }
 
         /// Sets the value of [description][crate::model::precondition_failure::Violation::description].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_rpc::model::precondition_failure::Violation;
+        /// let x = Violation::new().set_description("example");
+        /// ```
         pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.description = v.into();
             self
@@ -548,6 +694,17 @@ impl BadRequest {
     }
 
     /// Sets the value of [field_violations][crate::model::BadRequest::field_violations].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rpc::model::BadRequest;
+    /// use google_cloud_rpc::model::bad_request::FieldViolation;
+    /// let x = BadRequest::new()
+    ///     .set_field_violations([
+    ///         FieldViolation::default()/* use setters */,
+    ///         FieldViolation::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_field_violations<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -639,24 +796,49 @@ pub mod bad_request {
         }
 
         /// Sets the value of [field][crate::model::bad_request::FieldViolation::field].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_rpc::model::bad_request::FieldViolation;
+        /// let x = FieldViolation::new().set_field("example");
+        /// ```
         pub fn set_field<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.field = v.into();
             self
         }
 
         /// Sets the value of [description][crate::model::bad_request::FieldViolation::description].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_rpc::model::bad_request::FieldViolation;
+        /// let x = FieldViolation::new().set_description("example");
+        /// ```
         pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.description = v.into();
             self
         }
 
         /// Sets the value of [reason][crate::model::bad_request::FieldViolation::reason].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_rpc::model::bad_request::FieldViolation;
+        /// let x = FieldViolation::new().set_reason("example");
+        /// ```
         pub fn set_reason<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.reason = v.into();
             self
         }
 
         /// Sets the value of [localized_message][crate::model::bad_request::FieldViolation::localized_message].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_rpc::model::bad_request::FieldViolation;
+        /// use google_cloud_rpc::model::LocalizedMessage;
+        /// let x = FieldViolation::new().set_localized_message(LocalizedMessage::default()/* use setters */);
+        /// ```
         pub fn set_localized_message<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::LocalizedMessage>,
@@ -666,6 +848,14 @@ pub mod bad_request {
         }
 
         /// Sets or clears the value of [localized_message][crate::model::bad_request::FieldViolation::localized_message].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_rpc::model::bad_request::FieldViolation;
+        /// use google_cloud_rpc::model::LocalizedMessage;
+        /// let x = FieldViolation::new().set_or_clear_localized_message(Some(LocalizedMessage::default()/* use setters */));
+        /// let x = FieldViolation::new().set_or_clear_localized_message(None::<LocalizedMessage>);
+        /// ```
         pub fn set_or_clear_localized_message<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::LocalizedMessage>,
@@ -704,12 +894,24 @@ impl RequestInfo {
     }
 
     /// Sets the value of [request_id][crate::model::RequestInfo::request_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rpc::model::RequestInfo;
+    /// let x = RequestInfo::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
     }
 
     /// Sets the value of [serving_data][crate::model::RequestInfo::serving_data].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rpc::model::RequestInfo;
+    /// let x = RequestInfo::new().set_serving_data("example");
+    /// ```
     pub fn set_serving_data<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.serving_data = v.into();
         self
@@ -758,24 +960,48 @@ impl ResourceInfo {
     }
 
     /// Sets the value of [resource_type][crate::model::ResourceInfo::resource_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rpc::model::ResourceInfo;
+    /// let x = ResourceInfo::new().set_resource_type("example");
+    /// ```
     pub fn set_resource_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.resource_type = v.into();
         self
     }
 
     /// Sets the value of [resource_name][crate::model::ResourceInfo::resource_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rpc::model::ResourceInfo;
+    /// let x = ResourceInfo::new().set_resource_name("example");
+    /// ```
     pub fn set_resource_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.resource_name = v.into();
         self
     }
 
     /// Sets the value of [owner][crate::model::ResourceInfo::owner].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rpc::model::ResourceInfo;
+    /// let x = ResourceInfo::new().set_owner("example");
+    /// ```
     pub fn set_owner<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.owner = v.into();
         self
     }
 
     /// Sets the value of [description][crate::model::ResourceInfo::description].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rpc::model::ResourceInfo;
+    /// let x = ResourceInfo::new().set_description("example");
+    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
@@ -808,6 +1034,17 @@ impl Help {
     }
 
     /// Sets the value of [links][crate::model::Help::links].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rpc::model::Help;
+    /// use google_cloud_rpc::model::help::Link;
+    /// let x = Help::new()
+    ///     .set_links([
+    ///         Link::default()/* use setters */,
+    ///         Link::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_links<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -849,12 +1086,24 @@ pub mod help {
         }
 
         /// Sets the value of [description][crate::model::help::Link::description].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_rpc::model::help::Link;
+        /// let x = Link::new().set_description("example");
+        /// ```
         pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.description = v.into();
             self
         }
 
         /// Sets the value of [url][crate::model::help::Link::url].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_rpc::model::help::Link;
+        /// let x = Link::new().set_url("example");
+        /// ```
         pub fn set_url<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.url = v.into();
             self
@@ -890,12 +1139,24 @@ impl LocalizedMessage {
     }
 
     /// Sets the value of [locale][crate::model::LocalizedMessage::locale].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rpc::model::LocalizedMessage;
+    /// let x = LocalizedMessage::new().set_locale("example");
+    /// ```
     pub fn set_locale<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.locale = v.into();
         self
     }
 
     /// Sets the value of [message][crate::model::LocalizedMessage::message].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rpc::model::LocalizedMessage;
+    /// let x = LocalizedMessage::new().set_message("example");
+    /// ```
     pub fn set_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.message = v.into();
         self
@@ -934,18 +1195,41 @@ impl HttpRequest {
     }
 
     /// Sets the value of [method][crate::model::HttpRequest::method].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rpc::model::HttpRequest;
+    /// let x = HttpRequest::new().set_method("example");
+    /// ```
     pub fn set_method<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.method = v.into();
         self
     }
 
     /// Sets the value of [uri][crate::model::HttpRequest::uri].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rpc::model::HttpRequest;
+    /// let x = HttpRequest::new().set_uri("example");
+    /// ```
     pub fn set_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.uri = v.into();
         self
     }
 
     /// Sets the value of [headers][crate::model::HttpRequest::headers].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rpc::model::HttpRequest;
+    /// use google_cloud_rpc::model::HttpHeader;
+    /// let x = HttpRequest::new()
+    ///     .set_headers([
+    ///         HttpHeader::default()/* use setters */,
+    ///         HttpHeader::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_headers<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -957,6 +1241,12 @@ impl HttpRequest {
     }
 
     /// Sets the value of [body][crate::model::HttpRequest::body].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rpc::model::HttpRequest;
+    /// let x = HttpRequest::new().set_body(bytes::Bytes::from_static(b"example"));
+    /// ```
     pub fn set_body<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.body = v.into();
         self
@@ -995,18 +1285,41 @@ impl HttpResponse {
     }
 
     /// Sets the value of [status][crate::model::HttpResponse::status].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rpc::model::HttpResponse;
+    /// let x = HttpResponse::new().set_status(42);
+    /// ```
     pub fn set_status<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.status = v.into();
         self
     }
 
     /// Sets the value of [reason][crate::model::HttpResponse::reason].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rpc::model::HttpResponse;
+    /// let x = HttpResponse::new().set_reason("example");
+    /// ```
     pub fn set_reason<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.reason = v.into();
         self
     }
 
     /// Sets the value of [headers][crate::model::HttpResponse::headers].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rpc::model::HttpResponse;
+    /// use google_cloud_rpc::model::HttpHeader;
+    /// let x = HttpResponse::new()
+    ///     .set_headers([
+    ///         HttpHeader::default()/* use setters */,
+    ///         HttpHeader::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_headers<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1018,6 +1331,12 @@ impl HttpResponse {
     }
 
     /// Sets the value of [body][crate::model::HttpResponse::body].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rpc::model::HttpResponse;
+    /// let x = HttpResponse::new().set_body(bytes::Bytes::from_static(b"example"));
+    /// ```
     pub fn set_body<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.body = v.into();
         self
@@ -1049,12 +1368,24 @@ impl HttpHeader {
     }
 
     /// Sets the value of [key][crate::model::HttpHeader::key].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rpc::model::HttpHeader;
+    /// let x = HttpHeader::new().set_key("example");
+    /// ```
     pub fn set_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.key = v.into();
         self
     }
 
     /// Sets the value of [value][crate::model::HttpHeader::value].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rpc::model::HttpHeader;
+    /// let x = HttpHeader::new().set_value("example");
+    /// ```
     pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.value = v.into();
         self
@@ -1104,18 +1435,41 @@ impl Status {
     }
 
     /// Sets the value of [code][crate::model::Status::code].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rpc::model::Status;
+    /// let x = Status::new().set_code(42);
+    /// ```
     pub fn set_code<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.code = v.into();
         self
     }
 
     /// Sets the value of [message][crate::model::Status::message].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rpc::model::Status;
+    /// let x = Status::new().set_message("example");
+    /// ```
     pub fn set_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.message = v.into();
         self
     }
 
     /// Sets the value of [details][crate::model::Status::details].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rpc::model::Status;
+    /// use wkt::Any;
+    /// let x = Status::new()
+    ///     .set_details([
+    ///         Any::default()/* use setters */,
+    ///         Any::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_details<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,

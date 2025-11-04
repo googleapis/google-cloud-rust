@@ -71,12 +71,27 @@ impl PubsubMessage {
     }
 
     /// Sets the value of [data][crate::model::PubsubMessage::data].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_pubsub::model::PubsubMessage;
+    /// let x = PubsubMessage::new().set_data(bytes::Bytes::from_static(b"example"));
+    /// ```
     pub fn set_data<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.data = v.into();
         self
     }
 
     /// Sets the value of [attributes][crate::model::PubsubMessage::attributes].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_pubsub::model::PubsubMessage;
+    /// let x = PubsubMessage::new().set_attributes([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_attributes<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -89,12 +104,25 @@ impl PubsubMessage {
     }
 
     /// Sets the value of [message_id][crate::model::PubsubMessage::message_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_pubsub::model::PubsubMessage;
+    /// let x = PubsubMessage::new().set_message_id("example");
+    /// ```
     pub fn set_message_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.message_id = v.into();
         self
     }
 
     /// Sets the value of [publish_time][crate::model::PubsubMessage::publish_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_pubsub::model::PubsubMessage;
+    /// use wkt::Timestamp;
+    /// let x = PubsubMessage::new().set_publish_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_publish_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -104,6 +132,14 @@ impl PubsubMessage {
     }
 
     /// Sets or clears the value of [publish_time][crate::model::PubsubMessage::publish_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_pubsub::model::PubsubMessage;
+    /// use wkt::Timestamp;
+    /// let x = PubsubMessage::new().set_or_clear_publish_time(Some(Timestamp::default()/* use setters */));
+    /// let x = PubsubMessage::new().set_or_clear_publish_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_publish_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -113,6 +149,12 @@ impl PubsubMessage {
     }
 
     /// Sets the value of [ordering_key][crate::model::PubsubMessage::ordering_key].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_pubsub::model::PubsubMessage;
+    /// let x = PubsubMessage::new().set_ordering_key("example");
+    /// ```
     pub fn set_ordering_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.ordering_key = v.into();
         self
@@ -145,12 +187,29 @@ impl PublishRequest {
     }
 
     /// Sets the value of [topic][crate::model::PublishRequest::topic].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_pubsub::model::PublishRequest;
+    /// let x = PublishRequest::new().set_topic("example");
+    /// ```
     pub fn set_topic<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.topic = v.into();
         self
     }
 
     /// Sets the value of [messages][crate::model::PublishRequest::messages].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_pubsub::model::PublishRequest;
+    /// use google_cloud_pubsub::model::PubsubMessage;
+    /// let x = PublishRequest::new()
+    ///     .set_messages([
+    ///         PubsubMessage::default()/* use setters */,
+    ///         PubsubMessage::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_messages<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -186,6 +245,12 @@ impl PublishResponse {
     }
 
     /// Sets the value of [message_ids][crate::model::PublishResponse::message_ids].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_pubsub::model::PublishResponse;
+    /// let x = PublishResponse::new().set_message_ids(["a", "b", "c"]);
+    /// ```
     pub fn set_message_ids<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,

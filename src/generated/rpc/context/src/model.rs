@@ -89,6 +89,13 @@ impl AttributeContext {
     }
 
     /// Sets the value of [origin][crate::model::AttributeContext::origin].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rpc_context::model::AttributeContext;
+    /// use google_cloud_rpc_context::model::attribute_context::Peer;
+    /// let x = AttributeContext::new().set_origin(Peer::default()/* use setters */);
+    /// ```
     pub fn set_origin<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::attribute_context::Peer>,
@@ -98,6 +105,14 @@ impl AttributeContext {
     }
 
     /// Sets or clears the value of [origin][crate::model::AttributeContext::origin].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rpc_context::model::AttributeContext;
+    /// use google_cloud_rpc_context::model::attribute_context::Peer;
+    /// let x = AttributeContext::new().set_or_clear_origin(Some(Peer::default()/* use setters */));
+    /// let x = AttributeContext::new().set_or_clear_origin(None::<Peer>);
+    /// ```
     pub fn set_or_clear_origin<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::attribute_context::Peer>,
@@ -107,6 +122,13 @@ impl AttributeContext {
     }
 
     /// Sets the value of [source][crate::model::AttributeContext::source].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rpc_context::model::AttributeContext;
+    /// use google_cloud_rpc_context::model::attribute_context::Peer;
+    /// let x = AttributeContext::new().set_source(Peer::default()/* use setters */);
+    /// ```
     pub fn set_source<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::attribute_context::Peer>,
@@ -116,6 +138,14 @@ impl AttributeContext {
     }
 
     /// Sets or clears the value of [source][crate::model::AttributeContext::source].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rpc_context::model::AttributeContext;
+    /// use google_cloud_rpc_context::model::attribute_context::Peer;
+    /// let x = AttributeContext::new().set_or_clear_source(Some(Peer::default()/* use setters */));
+    /// let x = AttributeContext::new().set_or_clear_source(None::<Peer>);
+    /// ```
     pub fn set_or_clear_source<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::attribute_context::Peer>,
@@ -125,6 +155,13 @@ impl AttributeContext {
     }
 
     /// Sets the value of [destination][crate::model::AttributeContext::destination].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rpc_context::model::AttributeContext;
+    /// use google_cloud_rpc_context::model::attribute_context::Peer;
+    /// let x = AttributeContext::new().set_destination(Peer::default()/* use setters */);
+    /// ```
     pub fn set_destination<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::attribute_context::Peer>,
@@ -134,6 +171,14 @@ impl AttributeContext {
     }
 
     /// Sets or clears the value of [destination][crate::model::AttributeContext::destination].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rpc_context::model::AttributeContext;
+    /// use google_cloud_rpc_context::model::attribute_context::Peer;
+    /// let x = AttributeContext::new().set_or_clear_destination(Some(Peer::default()/* use setters */));
+    /// let x = AttributeContext::new().set_or_clear_destination(None::<Peer>);
+    /// ```
     pub fn set_or_clear_destination<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::attribute_context::Peer>,
@@ -143,6 +188,13 @@ impl AttributeContext {
     }
 
     /// Sets the value of [request][crate::model::AttributeContext::request].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rpc_context::model::AttributeContext;
+    /// use google_cloud_rpc_context::model::attribute_context::Request;
+    /// let x = AttributeContext::new().set_request(Request::default()/* use setters */);
+    /// ```
     pub fn set_request<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::attribute_context::Request>,
@@ -152,6 +204,14 @@ impl AttributeContext {
     }
 
     /// Sets or clears the value of [request][crate::model::AttributeContext::request].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rpc_context::model::AttributeContext;
+    /// use google_cloud_rpc_context::model::attribute_context::Request;
+    /// let x = AttributeContext::new().set_or_clear_request(Some(Request::default()/* use setters */));
+    /// let x = AttributeContext::new().set_or_clear_request(None::<Request>);
+    /// ```
     pub fn set_or_clear_request<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::attribute_context::Request>,
@@ -161,6 +221,13 @@ impl AttributeContext {
     }
 
     /// Sets the value of [response][crate::model::AttributeContext::response].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rpc_context::model::AttributeContext;
+    /// use google_cloud_rpc_context::model::attribute_context::Response;
+    /// let x = AttributeContext::new().set_response(Response::default()/* use setters */);
+    /// ```
     pub fn set_response<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::attribute_context::Response>,
@@ -170,6 +237,14 @@ impl AttributeContext {
     }
 
     /// Sets or clears the value of [response][crate::model::AttributeContext::response].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rpc_context::model::AttributeContext;
+    /// use google_cloud_rpc_context::model::attribute_context::Response;
+    /// let x = AttributeContext::new().set_or_clear_response(Some(Response::default()/* use setters */));
+    /// let x = AttributeContext::new().set_or_clear_response(None::<Response>);
+    /// ```
     pub fn set_or_clear_response<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::attribute_context::Response>,
@@ -179,6 +254,13 @@ impl AttributeContext {
     }
 
     /// Sets the value of [resource][crate::model::AttributeContext::resource].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rpc_context::model::AttributeContext;
+    /// use google_cloud_rpc_context::model::attribute_context::Resource;
+    /// let x = AttributeContext::new().set_resource(Resource::default()/* use setters */);
+    /// ```
     pub fn set_resource<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::attribute_context::Resource>,
@@ -188,6 +270,14 @@ impl AttributeContext {
     }
 
     /// Sets or clears the value of [resource][crate::model::AttributeContext::resource].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rpc_context::model::AttributeContext;
+    /// use google_cloud_rpc_context::model::attribute_context::Resource;
+    /// let x = AttributeContext::new().set_or_clear_resource(Some(Resource::default()/* use setters */));
+    /// let x = AttributeContext::new().set_or_clear_resource(None::<Resource>);
+    /// ```
     pub fn set_or_clear_resource<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::attribute_context::Resource>,
@@ -197,6 +287,13 @@ impl AttributeContext {
     }
 
     /// Sets the value of [api][crate::model::AttributeContext::api].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rpc_context::model::AttributeContext;
+    /// use google_cloud_rpc_context::model::attribute_context::Api;
+    /// let x = AttributeContext::new().set_api(Api::default()/* use setters */);
+    /// ```
     pub fn set_api<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::attribute_context::Api>,
@@ -206,6 +303,14 @@ impl AttributeContext {
     }
 
     /// Sets or clears the value of [api][crate::model::AttributeContext::api].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rpc_context::model::AttributeContext;
+    /// use google_cloud_rpc_context::model::attribute_context::Api;
+    /// let x = AttributeContext::new().set_or_clear_api(Some(Api::default()/* use setters */));
+    /// let x = AttributeContext::new().set_or_clear_api(None::<Api>);
+    /// ```
     pub fn set_or_clear_api<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::attribute_context::Api>,
@@ -215,6 +320,17 @@ impl AttributeContext {
     }
 
     /// Sets the value of [extensions][crate::model::AttributeContext::extensions].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rpc_context::model::AttributeContext;
+    /// use wkt::Any;
+    /// let x = AttributeContext::new()
+    ///     .set_extensions([
+    ///         Any::default()/* use setters */,
+    ///         Any::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_extensions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -272,18 +388,39 @@ pub mod attribute_context {
         }
 
         /// Sets the value of [ip][crate::model::attribute_context::Peer::ip].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_rpc_context::model::attribute_context::Peer;
+        /// let x = Peer::new().set_ip("example");
+        /// ```
         pub fn set_ip<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.ip = v.into();
             self
         }
 
         /// Sets the value of [port][crate::model::attribute_context::Peer::port].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_rpc_context::model::attribute_context::Peer;
+        /// let x = Peer::new().set_port(42);
+        /// ```
         pub fn set_port<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
             self.port = v.into();
             self
         }
 
         /// Sets the value of [labels][crate::model::attribute_context::Peer::labels].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_rpc_context::model::attribute_context::Peer;
+        /// let x = Peer::new().set_labels([
+        ///     ("key0", "abc"),
+        ///     ("key1", "xyz"),
+        /// ]);
+        /// ```
         pub fn set_labels<T, K, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = (K, V)>,
@@ -296,12 +433,24 @@ pub mod attribute_context {
         }
 
         /// Sets the value of [principal][crate::model::attribute_context::Peer::principal].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_rpc_context::model::attribute_context::Peer;
+        /// let x = Peer::new().set_principal("example");
+        /// ```
         pub fn set_principal<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.principal = v.into();
             self
         }
 
         /// Sets the value of [region_code][crate::model::attribute_context::Peer::region_code].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_rpc_context::model::attribute_context::Peer;
+        /// let x = Peer::new().set_region_code("example");
+        /// ```
         pub fn set_region_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.region_code = v.into();
             self
@@ -347,24 +496,48 @@ pub mod attribute_context {
         }
 
         /// Sets the value of [service][crate::model::attribute_context::Api::service].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_rpc_context::model::attribute_context::Api;
+        /// let x = Api::new().set_service("example");
+        /// ```
         pub fn set_service<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.service = v.into();
             self
         }
 
         /// Sets the value of [operation][crate::model::attribute_context::Api::operation].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_rpc_context::model::attribute_context::Api;
+        /// let x = Api::new().set_operation("example");
+        /// ```
         pub fn set_operation<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.operation = v.into();
             self
         }
 
         /// Sets the value of [protocol][crate::model::attribute_context::Api::protocol].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_rpc_context::model::attribute_context::Api;
+        /// let x = Api::new().set_protocol("example");
+        /// ```
         pub fn set_protocol<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.protocol = v.into();
             self
         }
 
         /// Sets the value of [version][crate::model::attribute_context::Api::version].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_rpc_context::model::attribute_context::Api;
+        /// let x = Api::new().set_version("example");
+        /// ```
         pub fn set_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.version = v.into();
             self
@@ -447,12 +620,24 @@ pub mod attribute_context {
         }
 
         /// Sets the value of [principal][crate::model::attribute_context::Auth::principal].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_rpc_context::model::attribute_context::Auth;
+        /// let x = Auth::new().set_principal("example");
+        /// ```
         pub fn set_principal<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.principal = v.into();
             self
         }
 
         /// Sets the value of [audiences][crate::model::attribute_context::Auth::audiences].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_rpc_context::model::attribute_context::Auth;
+        /// let x = Auth::new().set_audiences(["a", "b", "c"]);
+        /// ```
         pub fn set_audiences<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -464,12 +649,25 @@ pub mod attribute_context {
         }
 
         /// Sets the value of [presenter][crate::model::attribute_context::Auth::presenter].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_rpc_context::model::attribute_context::Auth;
+        /// let x = Auth::new().set_presenter("example");
+        /// ```
         pub fn set_presenter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.presenter = v.into();
             self
         }
 
         /// Sets the value of [claims][crate::model::attribute_context::Auth::claims].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_rpc_context::model::attribute_context::Auth;
+        /// use wkt::Struct;
+        /// let x = Auth::new().set_claims(Struct::default()/* use setters */);
+        /// ```
         pub fn set_claims<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Struct>,
@@ -479,6 +677,14 @@ pub mod attribute_context {
         }
 
         /// Sets or clears the value of [claims][crate::model::attribute_context::Auth::claims].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_rpc_context::model::attribute_context::Auth;
+        /// use wkt::Struct;
+        /// let x = Auth::new().set_or_clear_claims(Some(Struct::default()/* use setters */));
+        /// let x = Auth::new().set_or_clear_claims(None::<Struct>);
+        /// ```
         pub fn set_or_clear_claims<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Struct>,
@@ -488,6 +694,12 @@ pub mod attribute_context {
         }
 
         /// Sets the value of [access_levels][crate::model::attribute_context::Auth::access_levels].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_rpc_context::model::attribute_context::Auth;
+        /// let x = Auth::new().set_access_levels(["a", "b", "c"]);
+        /// ```
         pub fn set_access_levels<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -567,18 +779,39 @@ pub mod attribute_context {
         }
 
         /// Sets the value of [id][crate::model::attribute_context::Request::id].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_rpc_context::model::attribute_context::Request;
+        /// let x = Request::new().set_id("example");
+        /// ```
         pub fn set_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.id = v.into();
             self
         }
 
         /// Sets the value of [method][crate::model::attribute_context::Request::method].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_rpc_context::model::attribute_context::Request;
+        /// let x = Request::new().set_method("example");
+        /// ```
         pub fn set_method<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.method = v.into();
             self
         }
 
         /// Sets the value of [headers][crate::model::attribute_context::Request::headers].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_rpc_context::model::attribute_context::Request;
+        /// let x = Request::new().set_headers([
+        ///     ("key0", "abc"),
+        ///     ("key1", "xyz"),
+        /// ]);
+        /// ```
         pub fn set_headers<T, K, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = (K, V)>,
@@ -591,30 +824,61 @@ pub mod attribute_context {
         }
 
         /// Sets the value of [path][crate::model::attribute_context::Request::path].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_rpc_context::model::attribute_context::Request;
+        /// let x = Request::new().set_path("example");
+        /// ```
         pub fn set_path<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.path = v.into();
             self
         }
 
         /// Sets the value of [host][crate::model::attribute_context::Request::host].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_rpc_context::model::attribute_context::Request;
+        /// let x = Request::new().set_host("example");
+        /// ```
         pub fn set_host<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.host = v.into();
             self
         }
 
         /// Sets the value of [scheme][crate::model::attribute_context::Request::scheme].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_rpc_context::model::attribute_context::Request;
+        /// let x = Request::new().set_scheme("example");
+        /// ```
         pub fn set_scheme<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.scheme = v.into();
             self
         }
 
         /// Sets the value of [query][crate::model::attribute_context::Request::query].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_rpc_context::model::attribute_context::Request;
+        /// let x = Request::new().set_query("example");
+        /// ```
         pub fn set_query<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.query = v.into();
             self
         }
 
         /// Sets the value of [time][crate::model::attribute_context::Request::time].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_rpc_context::model::attribute_context::Request;
+        /// use wkt::Timestamp;
+        /// let x = Request::new().set_time(Timestamp::default()/* use setters */);
+        /// ```
         pub fn set_time<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -624,6 +888,14 @@ pub mod attribute_context {
         }
 
         /// Sets or clears the value of [time][crate::model::attribute_context::Request::time].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_rpc_context::model::attribute_context::Request;
+        /// use wkt::Timestamp;
+        /// let x = Request::new().set_or_clear_time(Some(Timestamp::default()/* use setters */));
+        /// let x = Request::new().set_or_clear_time(None::<Timestamp>);
+        /// ```
         pub fn set_or_clear_time<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -633,24 +905,49 @@ pub mod attribute_context {
         }
 
         /// Sets the value of [size][crate::model::attribute_context::Request::size].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_rpc_context::model::attribute_context::Request;
+        /// let x = Request::new().set_size(42);
+        /// ```
         pub fn set_size<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
             self.size = v.into();
             self
         }
 
         /// Sets the value of [protocol][crate::model::attribute_context::Request::protocol].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_rpc_context::model::attribute_context::Request;
+        /// let x = Request::new().set_protocol("example");
+        /// ```
         pub fn set_protocol<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.protocol = v.into();
             self
         }
 
         /// Sets the value of [reason][crate::model::attribute_context::Request::reason].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_rpc_context::model::attribute_context::Request;
+        /// let x = Request::new().set_reason("example");
+        /// ```
         pub fn set_reason<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.reason = v.into();
             self
         }
 
         /// Sets the value of [auth][crate::model::attribute_context::Request::auth].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_rpc_context::model::attribute_context::Request;
+        /// use google_cloud_rpc_context::model::attribute_context::Auth;
+        /// let x = Request::new().set_auth(Auth::default()/* use setters */);
+        /// ```
         pub fn set_auth<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::attribute_context::Auth>,
@@ -660,6 +957,14 @@ pub mod attribute_context {
         }
 
         /// Sets or clears the value of [auth][crate::model::attribute_context::Request::auth].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_rpc_context::model::attribute_context::Request;
+        /// use google_cloud_rpc_context::model::attribute_context::Auth;
+        /// let x = Request::new().set_or_clear_auth(Some(Auth::default()/* use setters */));
+        /// let x = Request::new().set_or_clear_auth(None::<Auth>);
+        /// ```
         pub fn set_or_clear_auth<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::attribute_context::Auth>,
@@ -710,18 +1015,39 @@ pub mod attribute_context {
         }
 
         /// Sets the value of [code][crate::model::attribute_context::Response::code].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_rpc_context::model::attribute_context::Response;
+        /// let x = Response::new().set_code(42);
+        /// ```
         pub fn set_code<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
             self.code = v.into();
             self
         }
 
         /// Sets the value of [size][crate::model::attribute_context::Response::size].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_rpc_context::model::attribute_context::Response;
+        /// let x = Response::new().set_size(42);
+        /// ```
         pub fn set_size<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
             self.size = v.into();
             self
         }
 
         /// Sets the value of [headers][crate::model::attribute_context::Response::headers].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_rpc_context::model::attribute_context::Response;
+        /// let x = Response::new().set_headers([
+        ///     ("key0", "abc"),
+        ///     ("key1", "xyz"),
+        /// ]);
+        /// ```
         pub fn set_headers<T, K, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = (K, V)>,
@@ -734,6 +1060,13 @@ pub mod attribute_context {
         }
 
         /// Sets the value of [time][crate::model::attribute_context::Response::time].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_rpc_context::model::attribute_context::Response;
+        /// use wkt::Timestamp;
+        /// let x = Response::new().set_time(Timestamp::default()/* use setters */);
+        /// ```
         pub fn set_time<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -743,6 +1076,14 @@ pub mod attribute_context {
         }
 
         /// Sets or clears the value of [time][crate::model::attribute_context::Response::time].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_rpc_context::model::attribute_context::Response;
+        /// use wkt::Timestamp;
+        /// let x = Response::new().set_or_clear_time(Some(Timestamp::default()/* use setters */));
+        /// let x = Response::new().set_or_clear_time(None::<Timestamp>);
+        /// ```
         pub fn set_or_clear_time<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -752,6 +1093,13 @@ pub mod attribute_context {
         }
 
         /// Sets the value of [backend_latency][crate::model::attribute_context::Response::backend_latency].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_rpc_context::model::attribute_context::Response;
+        /// use wkt::Duration;
+        /// let x = Response::new().set_backend_latency(Duration::default()/* use setters */);
+        /// ```
         pub fn set_backend_latency<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
@@ -761,6 +1109,14 @@ pub mod attribute_context {
         }
 
         /// Sets or clears the value of [backend_latency][crate::model::attribute_context::Response::backend_latency].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_rpc_context::model::attribute_context::Response;
+        /// use wkt::Duration;
+        /// let x = Response::new().set_or_clear_backend_latency(Some(Duration::default()/* use setters */));
+        /// let x = Response::new().set_or_clear_backend_latency(None::<Duration>);
+        /// ```
         pub fn set_or_clear_backend_latency<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
@@ -867,24 +1223,51 @@ pub mod attribute_context {
         }
 
         /// Sets the value of [service][crate::model::attribute_context::Resource::service].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_rpc_context::model::attribute_context::Resource;
+        /// let x = Resource::new().set_service("example");
+        /// ```
         pub fn set_service<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.service = v.into();
             self
         }
 
         /// Sets the value of [name][crate::model::attribute_context::Resource::name].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_rpc_context::model::attribute_context::Resource;
+        /// let x = Resource::new().set_name("example");
+        /// ```
         pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.name = v.into();
             self
         }
 
         /// Sets the value of [r#type][crate::model::attribute_context::Resource::type].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_rpc_context::model::attribute_context::Resource;
+        /// let x = Resource::new().set_type("example");
+        /// ```
         pub fn set_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.r#type = v.into();
             self
         }
 
         /// Sets the value of [labels][crate::model::attribute_context::Resource::labels].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_rpc_context::model::attribute_context::Resource;
+        /// let x = Resource::new().set_labels([
+        ///     ("key0", "abc"),
+        ///     ("key1", "xyz"),
+        /// ]);
+        /// ```
         pub fn set_labels<T, K, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = (K, V)>,
@@ -897,12 +1280,27 @@ pub mod attribute_context {
         }
 
         /// Sets the value of [uid][crate::model::attribute_context::Resource::uid].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_rpc_context::model::attribute_context::Resource;
+        /// let x = Resource::new().set_uid("example");
+        /// ```
         pub fn set_uid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.uid = v.into();
             self
         }
 
         /// Sets the value of [annotations][crate::model::attribute_context::Resource::annotations].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_rpc_context::model::attribute_context::Resource;
+        /// let x = Resource::new().set_annotations([
+        ///     ("key0", "abc"),
+        ///     ("key1", "xyz"),
+        /// ]);
+        /// ```
         pub fn set_annotations<T, K, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = (K, V)>,
@@ -915,6 +1313,12 @@ pub mod attribute_context {
         }
 
         /// Sets the value of [display_name][crate::model::attribute_context::Resource::display_name].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_rpc_context::model::attribute_context::Resource;
+        /// let x = Resource::new().set_display_name("example");
+        /// ```
         pub fn set_display_name<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -924,6 +1328,13 @@ pub mod attribute_context {
         }
 
         /// Sets the value of [create_time][crate::model::attribute_context::Resource::create_time].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_rpc_context::model::attribute_context::Resource;
+        /// use wkt::Timestamp;
+        /// let x = Resource::new().set_create_time(Timestamp::default()/* use setters */);
+        /// ```
         pub fn set_create_time<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -933,6 +1344,14 @@ pub mod attribute_context {
         }
 
         /// Sets or clears the value of [create_time][crate::model::attribute_context::Resource::create_time].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_rpc_context::model::attribute_context::Resource;
+        /// use wkt::Timestamp;
+        /// let x = Resource::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+        /// let x = Resource::new().set_or_clear_create_time(None::<Timestamp>);
+        /// ```
         pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -942,6 +1361,13 @@ pub mod attribute_context {
         }
 
         /// Sets the value of [update_time][crate::model::attribute_context::Resource::update_time].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_rpc_context::model::attribute_context::Resource;
+        /// use wkt::Timestamp;
+        /// let x = Resource::new().set_update_time(Timestamp::default()/* use setters */);
+        /// ```
         pub fn set_update_time<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -951,6 +1377,14 @@ pub mod attribute_context {
         }
 
         /// Sets or clears the value of [update_time][crate::model::attribute_context::Resource::update_time].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_rpc_context::model::attribute_context::Resource;
+        /// use wkt::Timestamp;
+        /// let x = Resource::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+        /// let x = Resource::new().set_or_clear_update_time(None::<Timestamp>);
+        /// ```
         pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -960,6 +1394,13 @@ pub mod attribute_context {
         }
 
         /// Sets the value of [delete_time][crate::model::attribute_context::Resource::delete_time].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_rpc_context::model::attribute_context::Resource;
+        /// use wkt::Timestamp;
+        /// let x = Resource::new().set_delete_time(Timestamp::default()/* use setters */);
+        /// ```
         pub fn set_delete_time<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -969,6 +1410,14 @@ pub mod attribute_context {
         }
 
         /// Sets or clears the value of [delete_time][crate::model::attribute_context::Resource::delete_time].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_rpc_context::model::attribute_context::Resource;
+        /// use wkt::Timestamp;
+        /// let x = Resource::new().set_or_clear_delete_time(Some(Timestamp::default()/* use setters */));
+        /// let x = Resource::new().set_or_clear_delete_time(None::<Timestamp>);
+        /// ```
         pub fn set_or_clear_delete_time<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -978,12 +1427,24 @@ pub mod attribute_context {
         }
 
         /// Sets the value of [etag][crate::model::attribute_context::Resource::etag].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_rpc_context::model::attribute_context::Resource;
+        /// let x = Resource::new().set_etag("example");
+        /// ```
         pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.etag = v.into();
             self
         }
 
         /// Sets the value of [location][crate::model::attribute_context::Resource::location].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_rpc_context::model::attribute_context::Resource;
+        /// let x = Resource::new().set_location("example");
+        /// ```
         pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.location = v.into();
             self
@@ -1031,12 +1492,25 @@ impl AuditContext {
     }
 
     /// Sets the value of [audit_log][crate::model::AuditContext::audit_log].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rpc_context::model::AuditContext;
+    /// let x = AuditContext::new().set_audit_log(bytes::Bytes::from_static(b"example"));
+    /// ```
     pub fn set_audit_log<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.audit_log = v.into();
         self
     }
 
     /// Sets the value of [scrubbed_request][crate::model::AuditContext::scrubbed_request].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rpc_context::model::AuditContext;
+    /// use wkt::Struct;
+    /// let x = AuditContext::new().set_scrubbed_request(Struct::default()/* use setters */);
+    /// ```
     pub fn set_scrubbed_request<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Struct>,
@@ -1046,6 +1520,14 @@ impl AuditContext {
     }
 
     /// Sets or clears the value of [scrubbed_request][crate::model::AuditContext::scrubbed_request].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rpc_context::model::AuditContext;
+    /// use wkt::Struct;
+    /// let x = AuditContext::new().set_or_clear_scrubbed_request(Some(Struct::default()/* use setters */));
+    /// let x = AuditContext::new().set_or_clear_scrubbed_request(None::<Struct>);
+    /// ```
     pub fn set_or_clear_scrubbed_request<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Struct>,
@@ -1055,6 +1537,13 @@ impl AuditContext {
     }
 
     /// Sets the value of [scrubbed_response][crate::model::AuditContext::scrubbed_response].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rpc_context::model::AuditContext;
+    /// use wkt::Struct;
+    /// let x = AuditContext::new().set_scrubbed_response(Struct::default()/* use setters */);
+    /// ```
     pub fn set_scrubbed_response<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Struct>,
@@ -1064,6 +1553,14 @@ impl AuditContext {
     }
 
     /// Sets or clears the value of [scrubbed_response][crate::model::AuditContext::scrubbed_response].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rpc_context::model::AuditContext;
+    /// use wkt::Struct;
+    /// let x = AuditContext::new().set_or_clear_scrubbed_response(Some(Struct::default()/* use setters */));
+    /// let x = AuditContext::new().set_or_clear_scrubbed_response(None::<Struct>);
+    /// ```
     pub fn set_or_clear_scrubbed_response<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Struct>,
@@ -1073,12 +1570,24 @@ impl AuditContext {
     }
 
     /// Sets the value of [scrubbed_response_item_count][crate::model::AuditContext::scrubbed_response_item_count].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rpc_context::model::AuditContext;
+    /// let x = AuditContext::new().set_scrubbed_response_item_count(42);
+    /// ```
     pub fn set_scrubbed_response_item_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.scrubbed_response_item_count = v.into();
         self
     }
 
     /// Sets the value of [target_resource][crate::model::AuditContext::target_resource].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rpc_context::model::AuditContext;
+    /// let x = AuditContext::new().set_target_resource("example");
+    /// ```
     pub fn set_target_resource<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.target_resource = v.into();
         self

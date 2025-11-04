@@ -62,12 +62,25 @@ impl CreateWorkloadRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateWorkloadRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_assuredworkloads_v1::model::CreateWorkloadRequest;
+    /// let x = CreateWorkloadRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [workload][crate::model::CreateWorkloadRequest::workload].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_assuredworkloads_v1::model::CreateWorkloadRequest;
+    /// use google_cloud_assuredworkloads_v1::model::Workload;
+    /// let x = CreateWorkloadRequest::new().set_workload(Workload::default()/* use setters */);
+    /// ```
     pub fn set_workload<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Workload>,
@@ -77,6 +90,14 @@ impl CreateWorkloadRequest {
     }
 
     /// Sets or clears the value of [workload][crate::model::CreateWorkloadRequest::workload].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_assuredworkloads_v1::model::CreateWorkloadRequest;
+    /// use google_cloud_assuredworkloads_v1::model::Workload;
+    /// let x = CreateWorkloadRequest::new().set_or_clear_workload(Some(Workload::default()/* use setters */));
+    /// let x = CreateWorkloadRequest::new().set_or_clear_workload(None::<Workload>);
+    /// ```
     pub fn set_or_clear_workload<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Workload>,
@@ -86,6 +107,12 @@ impl CreateWorkloadRequest {
     }
 
     /// Sets the value of [external_id][crate::model::CreateWorkloadRequest::external_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_assuredworkloads_v1::model::CreateWorkloadRequest;
+    /// let x = CreateWorkloadRequest::new().set_external_id("example");
+    /// ```
     pub fn set_external_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.external_id = v.into();
         self
@@ -120,6 +147,13 @@ impl UpdateWorkloadRequest {
     }
 
     /// Sets the value of [workload][crate::model::UpdateWorkloadRequest::workload].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_assuredworkloads_v1::model::UpdateWorkloadRequest;
+    /// use google_cloud_assuredworkloads_v1::model::Workload;
+    /// let x = UpdateWorkloadRequest::new().set_workload(Workload::default()/* use setters */);
+    /// ```
     pub fn set_workload<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Workload>,
@@ -129,6 +163,14 @@ impl UpdateWorkloadRequest {
     }
 
     /// Sets or clears the value of [workload][crate::model::UpdateWorkloadRequest::workload].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_assuredworkloads_v1::model::UpdateWorkloadRequest;
+    /// use google_cloud_assuredworkloads_v1::model::Workload;
+    /// let x = UpdateWorkloadRequest::new().set_or_clear_workload(Some(Workload::default()/* use setters */));
+    /// let x = UpdateWorkloadRequest::new().set_or_clear_workload(None::<Workload>);
+    /// ```
     pub fn set_or_clear_workload<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Workload>,
@@ -138,6 +180,13 @@ impl UpdateWorkloadRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateWorkloadRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_assuredworkloads_v1::model::UpdateWorkloadRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateWorkloadRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -147,6 +196,14 @@ impl UpdateWorkloadRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateWorkloadRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_assuredworkloads_v1::model::UpdateWorkloadRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateWorkloadRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateWorkloadRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -184,12 +241,24 @@ impl DeleteWorkloadRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteWorkloadRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_assuredworkloads_v1::model::DeleteWorkloadRequest;
+    /// let x = DeleteWorkloadRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [etag][crate::model::DeleteWorkloadRequest::etag].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_assuredworkloads_v1::model::DeleteWorkloadRequest;
+    /// let x = DeleteWorkloadRequest::new().set_etag("example");
+    /// ```
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
@@ -222,6 +291,12 @@ impl GetWorkloadRequest {
     }
 
     /// Sets the value of [name][crate::model::GetWorkloadRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_assuredworkloads_v1::model::GetWorkloadRequest;
+    /// let x = GetWorkloadRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -263,24 +338,48 @@ impl ListWorkloadsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListWorkloadsRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_assuredworkloads_v1::model::ListWorkloadsRequest;
+    /// let x = ListWorkloadsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListWorkloadsRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_assuredworkloads_v1::model::ListWorkloadsRequest;
+    /// let x = ListWorkloadsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListWorkloadsRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_assuredworkloads_v1::model::ListWorkloadsRequest;
+    /// let x = ListWorkloadsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListWorkloadsRequest::filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_assuredworkloads_v1::model::ListWorkloadsRequest;
+    /// let x = ListWorkloadsRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
@@ -312,6 +411,17 @@ impl ListWorkloadsResponse {
     }
 
     /// Sets the value of [workloads][crate::model::ListWorkloadsResponse::workloads].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_assuredworkloads_v1::model::ListWorkloadsResponse;
+    /// use google_cloud_assuredworkloads_v1::model::Workload;
+    /// let x = ListWorkloadsResponse::new()
+    ///     .set_workloads([
+    ///         Workload::default()/* use setters */,
+    ///         Workload::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_workloads<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -323,6 +433,12 @@ impl ListWorkloadsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListWorkloadsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_assuredworkloads_v1::model::ListWorkloadsResponse;
+    /// let x = ListWorkloadsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -449,18 +565,41 @@ impl Workload {
     }
 
     /// Sets the value of [name][crate::model::Workload::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_assuredworkloads_v1::model::Workload;
+    /// let x = Workload::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [display_name][crate::model::Workload::display_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_assuredworkloads_v1::model::Workload;
+    /// let x = Workload::new().set_display_name("example");
+    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
     }
 
     /// Sets the value of [resources][crate::model::Workload::resources].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_assuredworkloads_v1::model::Workload;
+    /// use google_cloud_assuredworkloads_v1::model::workload::ResourceInfo;
+    /// let x = Workload::new()
+    ///     .set_resources([
+    ///         ResourceInfo::default()/* use setters */,
+    ///         ResourceInfo::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_resources<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -472,6 +611,15 @@ impl Workload {
     }
 
     /// Sets the value of [compliance_regime][crate::model::Workload::compliance_regime].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_assuredworkloads_v1::model::Workload;
+    /// use google_cloud_assuredworkloads_v1::model::workload::ComplianceRegime;
+    /// let x0 = Workload::new().set_compliance_regime(ComplianceRegime::Il4);
+    /// let x1 = Workload::new().set_compliance_regime(ComplianceRegime::Cjis);
+    /// let x2 = Workload::new().set_compliance_regime(ComplianceRegime::FedrampHigh);
+    /// ```
     pub fn set_compliance_regime<
         T: std::convert::Into<crate::model::workload::ComplianceRegime>,
     >(
@@ -483,6 +631,13 @@ impl Workload {
     }
 
     /// Sets the value of [create_time][crate::model::Workload::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_assuredworkloads_v1::model::Workload;
+    /// use wkt::Timestamp;
+    /// let x = Workload::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -492,6 +647,14 @@ impl Workload {
     }
 
     /// Sets or clears the value of [create_time][crate::model::Workload::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_assuredworkloads_v1::model::Workload;
+    /// use wkt::Timestamp;
+    /// let x = Workload::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Workload::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -501,18 +664,39 @@ impl Workload {
     }
 
     /// Sets the value of [billing_account][crate::model::Workload::billing_account].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_assuredworkloads_v1::model::Workload;
+    /// let x = Workload::new().set_billing_account("example");
+    /// ```
     pub fn set_billing_account<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.billing_account = v.into();
         self
     }
 
     /// Sets the value of [etag][crate::model::Workload::etag].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_assuredworkloads_v1::model::Workload;
+    /// let x = Workload::new().set_etag("example");
+    /// ```
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
     }
 
     /// Sets the value of [labels][crate::model::Workload::labels].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_assuredworkloads_v1::model::Workload;
+    /// let x = Workload::new().set_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -525,6 +709,12 @@ impl Workload {
     }
 
     /// Sets the value of [provisioned_resources_parent][crate::model::Workload::provisioned_resources_parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_assuredworkloads_v1::model::Workload;
+    /// let x = Workload::new().set_provisioned_resources_parent("example");
+    /// ```
     pub fn set_provisioned_resources_parent<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -534,6 +724,13 @@ impl Workload {
     }
 
     /// Sets the value of [kms_settings][crate::model::Workload::kms_settings].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_assuredworkloads_v1::model::Workload;
+    /// use google_cloud_assuredworkloads_v1::model::workload::KMSSettings;
+    /// let x = Workload::new().set_kms_settings(KMSSettings::default()/* use setters */);
+    /// ```
     #[deprecated]
     pub fn set_kms_settings<T>(mut self, v: T) -> Self
     where
@@ -544,6 +741,14 @@ impl Workload {
     }
 
     /// Sets or clears the value of [kms_settings][crate::model::Workload::kms_settings].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_assuredworkloads_v1::model::Workload;
+    /// use google_cloud_assuredworkloads_v1::model::workload::KMSSettings;
+    /// let x = Workload::new().set_or_clear_kms_settings(Some(KMSSettings::default()/* use setters */));
+    /// let x = Workload::new().set_or_clear_kms_settings(None::<KMSSettings>);
+    /// ```
     #[deprecated]
     pub fn set_or_clear_kms_settings<T>(mut self, v: std::option::Option<T>) -> Self
     where
@@ -554,6 +759,17 @@ impl Workload {
     }
 
     /// Sets the value of [resource_settings][crate::model::Workload::resource_settings].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_assuredworkloads_v1::model::Workload;
+    /// use google_cloud_assuredworkloads_v1::model::workload::ResourceSettings;
+    /// let x = Workload::new()
+    ///     .set_resource_settings([
+    ///         ResourceSettings::default()/* use setters */,
+    ///         ResourceSettings::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_resource_settings<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -565,6 +781,14 @@ impl Workload {
     }
 
     /// Sets the value of [kaj_enrollment_state][crate::model::Workload::kaj_enrollment_state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_assuredworkloads_v1::model::Workload;
+    /// use google_cloud_assuredworkloads_v1::model::workload::KajEnrollmentState;
+    /// let x0 = Workload::new().set_kaj_enrollment_state(KajEnrollmentState::Pending);
+    /// let x1 = Workload::new().set_kaj_enrollment_state(KajEnrollmentState::Complete);
+    /// ```
     pub fn set_kaj_enrollment_state<
         T: std::convert::Into<crate::model::workload::KajEnrollmentState>,
     >(
@@ -576,12 +800,25 @@ impl Workload {
     }
 
     /// Sets the value of [enable_sovereign_controls][crate::model::Workload::enable_sovereign_controls].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_assuredworkloads_v1::model::Workload;
+    /// let x = Workload::new().set_enable_sovereign_controls(true);
+    /// ```
     pub fn set_enable_sovereign_controls<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.enable_sovereign_controls = v.into();
         self
     }
 
     /// Sets the value of [saa_enrollment_response][crate::model::Workload::saa_enrollment_response].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_assuredworkloads_v1::model::Workload;
+    /// use google_cloud_assuredworkloads_v1::model::workload::SaaEnrollmentResponse;
+    /// let x = Workload::new().set_saa_enrollment_response(SaaEnrollmentResponse::default()/* use setters */);
+    /// ```
     pub fn set_saa_enrollment_response<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::workload::SaaEnrollmentResponse>,
@@ -591,6 +828,14 @@ impl Workload {
     }
 
     /// Sets or clears the value of [saa_enrollment_response][crate::model::Workload::saa_enrollment_response].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_assuredworkloads_v1::model::Workload;
+    /// use google_cloud_assuredworkloads_v1::model::workload::SaaEnrollmentResponse;
+    /// let x = Workload::new().set_or_clear_saa_enrollment_response(Some(SaaEnrollmentResponse::default()/* use setters */));
+    /// let x = Workload::new().set_or_clear_saa_enrollment_response(None::<SaaEnrollmentResponse>);
+    /// ```
     pub fn set_or_clear_saa_enrollment_response<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::workload::SaaEnrollmentResponse>,
@@ -600,6 +845,12 @@ impl Workload {
     }
 
     /// Sets the value of [compliant_but_disallowed_services][crate::model::Workload::compliant_but_disallowed_services].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_assuredworkloads_v1::model::Workload;
+    /// let x = Workload::new().set_compliant_but_disallowed_services(["a", "b", "c"]);
+    /// ```
     pub fn set_compliant_but_disallowed_services<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -611,6 +862,13 @@ impl Workload {
     }
 
     /// Sets the value of [partner][crate::model::Workload::partner].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_assuredworkloads_v1::model::Workload;
+    /// use google_cloud_assuredworkloads_v1::model::workload::Partner;
+    /// let x0 = Workload::new().set_partner(Partner::LocalControlsByS3Ns);
+    /// ```
     pub fn set_partner<T: std::convert::Into<crate::model::workload::Partner>>(
         mut self,
         v: T,
@@ -651,12 +909,27 @@ pub mod workload {
         }
 
         /// Sets the value of [resource_id][crate::model::workload::ResourceInfo::resource_id].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_assuredworkloads_v1::model::workload::ResourceInfo;
+        /// let x = ResourceInfo::new().set_resource_id(42);
+        /// ```
         pub fn set_resource_id<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
             self.resource_id = v.into();
             self
         }
 
         /// Sets the value of [resource_type][crate::model::workload::ResourceInfo::resource_type].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_assuredworkloads_v1::model::workload::ResourceInfo;
+        /// use google_cloud_assuredworkloads_v1::model::workload::resource_info::ResourceType;
+        /// let x0 = ResourceInfo::new().set_resource_type(ResourceType::ConsumerFolder);
+        /// let x1 = ResourceInfo::new().set_resource_type(ResourceType::EncryptionKeysProject);
+        /// let x2 = ResourceInfo::new().set_resource_type(ResourceType::Keyring);
+        /// ```
         pub fn set_resource_type<
             T: std::convert::Into<crate::model::workload::resource_info::ResourceType>,
         >(
@@ -862,6 +1135,13 @@ pub mod workload {
         }
 
         /// Sets the value of [next_rotation_time][crate::model::workload::KMSSettings::next_rotation_time].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_assuredworkloads_v1::model::workload::KMSSettings;
+        /// use wkt::Timestamp;
+        /// let x = KMSSettings::new().set_next_rotation_time(Timestamp::default()/* use setters */);
+        /// ```
         pub fn set_next_rotation_time<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -871,6 +1151,14 @@ pub mod workload {
         }
 
         /// Sets or clears the value of [next_rotation_time][crate::model::workload::KMSSettings::next_rotation_time].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_assuredworkloads_v1::model::workload::KMSSettings;
+        /// use wkt::Timestamp;
+        /// let x = KMSSettings::new().set_or_clear_next_rotation_time(Some(Timestamp::default()/* use setters */));
+        /// let x = KMSSettings::new().set_or_clear_next_rotation_time(None::<Timestamp>);
+        /// ```
         pub fn set_or_clear_next_rotation_time<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -880,6 +1168,13 @@ pub mod workload {
         }
 
         /// Sets the value of [rotation_period][crate::model::workload::KMSSettings::rotation_period].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_assuredworkloads_v1::model::workload::KMSSettings;
+        /// use wkt::Duration;
+        /// let x = KMSSettings::new().set_rotation_period(Duration::default()/* use setters */);
+        /// ```
         pub fn set_rotation_period<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
@@ -889,6 +1184,14 @@ pub mod workload {
         }
 
         /// Sets or clears the value of [rotation_period][crate::model::workload::KMSSettings::rotation_period].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_assuredworkloads_v1::model::workload::KMSSettings;
+        /// use wkt::Duration;
+        /// let x = KMSSettings::new().set_or_clear_rotation_period(Some(Duration::default()/* use setters */));
+        /// let x = KMSSettings::new().set_or_clear_rotation_period(None::<Duration>);
+        /// ```
         pub fn set_or_clear_rotation_period<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
@@ -934,12 +1237,27 @@ pub mod workload {
         }
 
         /// Sets the value of [resource_id][crate::model::workload::ResourceSettings::resource_id].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_assuredworkloads_v1::model::workload::ResourceSettings;
+        /// let x = ResourceSettings::new().set_resource_id("example");
+        /// ```
         pub fn set_resource_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.resource_id = v.into();
             self
         }
 
         /// Sets the value of [resource_type][crate::model::workload::ResourceSettings::resource_type].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_assuredworkloads_v1::model::workload::ResourceSettings;
+        /// use google_cloud_assuredworkloads_v1::model::workload::resource_info::ResourceType;
+        /// let x0 = ResourceSettings::new().set_resource_type(ResourceType::ConsumerFolder);
+        /// let x1 = ResourceSettings::new().set_resource_type(ResourceType::EncryptionKeysProject);
+        /// let x2 = ResourceSettings::new().set_resource_type(ResourceType::Keyring);
+        /// ```
         pub fn set_resource_type<
             T: std::convert::Into<crate::model::workload::resource_info::ResourceType>,
         >(
@@ -951,6 +1269,12 @@ pub mod workload {
         }
 
         /// Sets the value of [display_name][crate::model::workload::ResourceSettings::display_name].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_assuredworkloads_v1::model::workload::ResourceSettings;
+        /// let x = ResourceSettings::new().set_display_name("example");
+        /// ```
         pub fn set_display_name<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -987,6 +1311,14 @@ pub mod workload {
         }
 
         /// Sets the value of [setup_status][crate::model::workload::SaaEnrollmentResponse::setup_status].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_assuredworkloads_v1::model::workload::SaaEnrollmentResponse;
+        /// use google_cloud_assuredworkloads_v1::model::workload::saa_enrollment_response::SetupState;
+        /// let x0 = SaaEnrollmentResponse::new().set_setup_status(SetupState::StatusPending);
+        /// let x1 = SaaEnrollmentResponse::new().set_setup_status(SetupState::StatusComplete);
+        /// ```
         pub fn set_setup_status<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::workload::saa_enrollment_response::SetupState>,
@@ -996,6 +1328,15 @@ pub mod workload {
         }
 
         /// Sets or clears the value of [setup_status][crate::model::workload::SaaEnrollmentResponse::setup_status].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_assuredworkloads_v1::model::workload::SaaEnrollmentResponse;
+        /// use google_cloud_assuredworkloads_v1::model::workload::saa_enrollment_response::SetupState;
+        /// let x0 = SaaEnrollmentResponse::new().set_or_clear_setup_status(Some(SetupState::StatusPending));
+        /// let x1 = SaaEnrollmentResponse::new().set_or_clear_setup_status(Some(SetupState::StatusComplete));
+        /// let x_none = SaaEnrollmentResponse::new().set_or_clear_setup_status(None::<SetupState>);
+        /// ```
         pub fn set_or_clear_setup_status<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::workload::saa_enrollment_response::SetupState>,
@@ -1005,6 +1346,17 @@ pub mod workload {
         }
 
         /// Sets the value of [setup_errors][crate::model::workload::SaaEnrollmentResponse::setup_errors].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_assuredworkloads_v1::model::workload::SaaEnrollmentResponse;
+        /// use google_cloud_assuredworkloads_v1::model::workload::saa_enrollment_response::SetupError;
+        /// let x = SaaEnrollmentResponse::new().set_setup_errors([
+        ///     SetupError::ErrorInvalidBaseSetup,
+        ///     SetupError::ErrorMissingExternalSigningKey,
+        ///     SetupError::ErrorNotAllServicesEnrolled,
+        /// ]);
+        /// ```
         pub fn set_setup_errors<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -1815,6 +2167,13 @@ impl CreateWorkloadOperationMetadata {
     }
 
     /// Sets the value of [create_time][crate::model::CreateWorkloadOperationMetadata::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_assuredworkloads_v1::model::CreateWorkloadOperationMetadata;
+    /// use wkt::Timestamp;
+    /// let x = CreateWorkloadOperationMetadata::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1824,6 +2183,14 @@ impl CreateWorkloadOperationMetadata {
     }
 
     /// Sets or clears the value of [create_time][crate::model::CreateWorkloadOperationMetadata::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_assuredworkloads_v1::model::CreateWorkloadOperationMetadata;
+    /// use wkt::Timestamp;
+    /// let x = CreateWorkloadOperationMetadata::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = CreateWorkloadOperationMetadata::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1833,18 +2200,39 @@ impl CreateWorkloadOperationMetadata {
     }
 
     /// Sets the value of [display_name][crate::model::CreateWorkloadOperationMetadata::display_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_assuredworkloads_v1::model::CreateWorkloadOperationMetadata;
+    /// let x = CreateWorkloadOperationMetadata::new().set_display_name("example");
+    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
     }
 
     /// Sets the value of [parent][crate::model::CreateWorkloadOperationMetadata::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_assuredworkloads_v1::model::CreateWorkloadOperationMetadata;
+    /// let x = CreateWorkloadOperationMetadata::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [compliance_regime][crate::model::CreateWorkloadOperationMetadata::compliance_regime].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_assuredworkloads_v1::model::CreateWorkloadOperationMetadata;
+    /// use google_cloud_assuredworkloads_v1::model::workload::ComplianceRegime;
+    /// let x0 = CreateWorkloadOperationMetadata::new().set_compliance_regime(ComplianceRegime::Il4);
+    /// let x1 = CreateWorkloadOperationMetadata::new().set_compliance_regime(ComplianceRegime::Cjis);
+    /// let x2 = CreateWorkloadOperationMetadata::new().set_compliance_regime(ComplianceRegime::FedrampHigh);
+    /// ```
     pub fn set_compliance_regime<
         T: std::convert::Into<crate::model::workload::ComplianceRegime>,
     >(
@@ -1885,12 +2273,26 @@ impl RestrictAllowedResourcesRequest {
     }
 
     /// Sets the value of [name][crate::model::RestrictAllowedResourcesRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_assuredworkloads_v1::model::RestrictAllowedResourcesRequest;
+    /// let x = RestrictAllowedResourcesRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [restriction_type][crate::model::RestrictAllowedResourcesRequest::restriction_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_assuredworkloads_v1::model::RestrictAllowedResourcesRequest;
+    /// use google_cloud_assuredworkloads_v1::model::restrict_allowed_resources_request::RestrictionType;
+    /// let x0 = RestrictAllowedResourcesRequest::new().set_restriction_type(RestrictionType::AllowAllGcpResources);
+    /// let x1 = RestrictAllowedResourcesRequest::new().set_restriction_type(RestrictionType::AllowCompliantResources);
+    /// ```
     pub fn set_restriction_type<
         T: std::convert::Into<crate::model::restrict_allowed_resources_request::RestrictionType>,
     >(
@@ -2103,18 +2505,36 @@ impl AcknowledgeViolationRequest {
     }
 
     /// Sets the value of [name][crate::model::AcknowledgeViolationRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_assuredworkloads_v1::model::AcknowledgeViolationRequest;
+    /// let x = AcknowledgeViolationRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [comment][crate::model::AcknowledgeViolationRequest::comment].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_assuredworkloads_v1::model::AcknowledgeViolationRequest;
+    /// let x = AcknowledgeViolationRequest::new().set_comment("example");
+    /// ```
     pub fn set_comment<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.comment = v.into();
         self
     }
 
     /// Sets the value of [non_compliant_org_policy][crate::model::AcknowledgeViolationRequest::non_compliant_org_policy].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_assuredworkloads_v1::model::AcknowledgeViolationRequest;
+    /// let x = AcknowledgeViolationRequest::new().set_non_compliant_org_policy("example");
+    /// ```
     #[deprecated]
     pub fn set_non_compliant_org_policy<T: std::convert::Into<std::string::String>>(
         mut self,
@@ -2169,6 +2589,13 @@ impl TimeWindow {
     }
 
     /// Sets the value of [start_time][crate::model::TimeWindow::start_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_assuredworkloads_v1::model::TimeWindow;
+    /// use wkt::Timestamp;
+    /// let x = TimeWindow::new().set_start_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_start_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2178,6 +2605,14 @@ impl TimeWindow {
     }
 
     /// Sets or clears the value of [start_time][crate::model::TimeWindow::start_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_assuredworkloads_v1::model::TimeWindow;
+    /// use wkt::Timestamp;
+    /// let x = TimeWindow::new().set_or_clear_start_time(Some(Timestamp::default()/* use setters */));
+    /// let x = TimeWindow::new().set_or_clear_start_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2187,6 +2622,13 @@ impl TimeWindow {
     }
 
     /// Sets the value of [end_time][crate::model::TimeWindow::end_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_assuredworkloads_v1::model::TimeWindow;
+    /// use wkt::Timestamp;
+    /// let x = TimeWindow::new().set_end_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2196,6 +2638,14 @@ impl TimeWindow {
     }
 
     /// Sets or clears the value of [end_time][crate::model::TimeWindow::end_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_assuredworkloads_v1::model::TimeWindow;
+    /// use wkt::Timestamp;
+    /// let x = TimeWindow::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
+    /// let x = TimeWindow::new().set_or_clear_end_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2242,12 +2692,25 @@ impl ListViolationsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListViolationsRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_assuredworkloads_v1::model::ListViolationsRequest;
+    /// let x = ListViolationsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [interval][crate::model::ListViolationsRequest::interval].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_assuredworkloads_v1::model::ListViolationsRequest;
+    /// use google_cloud_assuredworkloads_v1::model::TimeWindow;
+    /// let x = ListViolationsRequest::new().set_interval(TimeWindow::default()/* use setters */);
+    /// ```
     pub fn set_interval<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::TimeWindow>,
@@ -2257,6 +2720,14 @@ impl ListViolationsRequest {
     }
 
     /// Sets or clears the value of [interval][crate::model::ListViolationsRequest::interval].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_assuredworkloads_v1::model::ListViolationsRequest;
+    /// use google_cloud_assuredworkloads_v1::model::TimeWindow;
+    /// let x = ListViolationsRequest::new().set_or_clear_interval(Some(TimeWindow::default()/* use setters */));
+    /// let x = ListViolationsRequest::new().set_or_clear_interval(None::<TimeWindow>);
+    /// ```
     pub fn set_or_clear_interval<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::TimeWindow>,
@@ -2266,18 +2737,36 @@ impl ListViolationsRequest {
     }
 
     /// Sets the value of [page_size][crate::model::ListViolationsRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_assuredworkloads_v1::model::ListViolationsRequest;
+    /// let x = ListViolationsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListViolationsRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_assuredworkloads_v1::model::ListViolationsRequest;
+    /// let x = ListViolationsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListViolationsRequest::filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_assuredworkloads_v1::model::ListViolationsRequest;
+    /// let x = ListViolationsRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
@@ -2309,6 +2798,17 @@ impl ListViolationsResponse {
     }
 
     /// Sets the value of [violations][crate::model::ListViolationsResponse::violations].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_assuredworkloads_v1::model::ListViolationsResponse;
+    /// use google_cloud_assuredworkloads_v1::model::Violation;
+    /// let x = ListViolationsResponse::new()
+    ///     .set_violations([
+    ///         Violation::default()/* use setters */,
+    ///         Violation::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_violations<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2320,6 +2820,12 @@ impl ListViolationsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListViolationsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_assuredworkloads_v1::model::ListViolationsResponse;
+    /// let x = ListViolationsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -2364,6 +2870,12 @@ impl GetViolationRequest {
     }
 
     /// Sets the value of [name][crate::model::GetViolationRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_assuredworkloads_v1::model::GetViolationRequest;
+    /// let x = GetViolationRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -2447,18 +2959,37 @@ impl Violation {
     }
 
     /// Sets the value of [name][crate::model::Violation::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_assuredworkloads_v1::model::Violation;
+    /// let x = Violation::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [description][crate::model::Violation::description].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_assuredworkloads_v1::model::Violation;
+    /// let x = Violation::new().set_description("example");
+    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [begin_time][crate::model::Violation::begin_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_assuredworkloads_v1::model::Violation;
+    /// use wkt::Timestamp;
+    /// let x = Violation::new().set_begin_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_begin_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2468,6 +2999,14 @@ impl Violation {
     }
 
     /// Sets or clears the value of [begin_time][crate::model::Violation::begin_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_assuredworkloads_v1::model::Violation;
+    /// use wkt::Timestamp;
+    /// let x = Violation::new().set_or_clear_begin_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Violation::new().set_or_clear_begin_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_begin_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2477,6 +3016,13 @@ impl Violation {
     }
 
     /// Sets the value of [update_time][crate::model::Violation::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_assuredworkloads_v1::model::Violation;
+    /// use wkt::Timestamp;
+    /// let x = Violation::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2486,6 +3032,14 @@ impl Violation {
     }
 
     /// Sets or clears the value of [update_time][crate::model::Violation::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_assuredworkloads_v1::model::Violation;
+    /// use wkt::Timestamp;
+    /// let x = Violation::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Violation::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2495,6 +3049,13 @@ impl Violation {
     }
 
     /// Sets the value of [resolve_time][crate::model::Violation::resolve_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_assuredworkloads_v1::model::Violation;
+    /// use wkt::Timestamp;
+    /// let x = Violation::new().set_resolve_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_resolve_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2504,6 +3065,14 @@ impl Violation {
     }
 
     /// Sets or clears the value of [resolve_time][crate::model::Violation::resolve_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_assuredworkloads_v1::model::Violation;
+    /// use wkt::Timestamp;
+    /// let x = Violation::new().set_or_clear_resolve_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Violation::new().set_or_clear_resolve_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_resolve_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2513,12 +3082,27 @@ impl Violation {
     }
 
     /// Sets the value of [category][crate::model::Violation::category].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_assuredworkloads_v1::model::Violation;
+    /// let x = Violation::new().set_category("example");
+    /// ```
     pub fn set_category<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.category = v.into();
         self
     }
 
     /// Sets the value of [state][crate::model::Violation::state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_assuredworkloads_v1::model::Violation;
+    /// use google_cloud_assuredworkloads_v1::model::violation::State;
+    /// let x0 = Violation::new().set_state(State::Resolved);
+    /// let x1 = Violation::new().set_state(State::Unresolved);
+    /// let x2 = Violation::new().set_state(State::Exception);
+    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::violation::State>>(
         mut self,
         v: T,
@@ -2528,6 +3112,12 @@ impl Violation {
     }
 
     /// Sets the value of [org_policy_constraint][crate::model::Violation::org_policy_constraint].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_assuredworkloads_v1::model::Violation;
+    /// let x = Violation::new().set_org_policy_constraint("example");
+    /// ```
     pub fn set_org_policy_constraint<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -2537,12 +3127,24 @@ impl Violation {
     }
 
     /// Sets the value of [audit_log_link][crate::model::Violation::audit_log_link].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_assuredworkloads_v1::model::Violation;
+    /// let x = Violation::new().set_audit_log_link("example");
+    /// ```
     pub fn set_audit_log_link<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.audit_log_link = v.into();
         self
     }
 
     /// Sets the value of [non_compliant_org_policy][crate::model::Violation::non_compliant_org_policy].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_assuredworkloads_v1::model::Violation;
+    /// let x = Violation::new().set_non_compliant_org_policy("example");
+    /// ```
     pub fn set_non_compliant_org_policy<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -2552,6 +3154,13 @@ impl Violation {
     }
 
     /// Sets the value of [remediation][crate::model::Violation::remediation].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_assuredworkloads_v1::model::Violation;
+    /// use google_cloud_assuredworkloads_v1::model::violation::Remediation;
+    /// let x = Violation::new().set_remediation(Remediation::default()/* use setters */);
+    /// ```
     pub fn set_remediation<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::violation::Remediation>,
@@ -2561,6 +3170,14 @@ impl Violation {
     }
 
     /// Sets or clears the value of [remediation][crate::model::Violation::remediation].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_assuredworkloads_v1::model::Violation;
+    /// use google_cloud_assuredworkloads_v1::model::violation::Remediation;
+    /// let x = Violation::new().set_or_clear_remediation(Some(Remediation::default()/* use setters */));
+    /// let x = Violation::new().set_or_clear_remediation(None::<Remediation>);
+    /// ```
     pub fn set_or_clear_remediation<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::violation::Remediation>,
@@ -2570,12 +3187,25 @@ impl Violation {
     }
 
     /// Sets the value of [acknowledged][crate::model::Violation::acknowledged].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_assuredworkloads_v1::model::Violation;
+    /// let x = Violation::new().set_acknowledged(true);
+    /// ```
     pub fn set_acknowledged<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.acknowledged = v.into();
         self
     }
 
     /// Sets the value of [acknowledgement_time][crate::model::Violation::acknowledgement_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_assuredworkloads_v1::model::Violation;
+    /// use wkt::Timestamp;
+    /// let x = Violation::new().set_acknowledgement_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_acknowledgement_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2585,6 +3215,14 @@ impl Violation {
     }
 
     /// Sets or clears the value of [acknowledgement_time][crate::model::Violation::acknowledgement_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_assuredworkloads_v1::model::Violation;
+    /// use wkt::Timestamp;
+    /// let x = Violation::new().set_or_clear_acknowledgement_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Violation::new().set_or_clear_acknowledgement_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_acknowledgement_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2594,6 +3232,12 @@ impl Violation {
     }
 
     /// Sets the value of [exception_audit_log_link][crate::model::Violation::exception_audit_log_link].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_assuredworkloads_v1::model::Violation;
+    /// let x = Violation::new().set_exception_audit_log_link("example");
+    /// ```
     pub fn set_exception_audit_log_link<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -2639,6 +3283,13 @@ pub mod violation {
         }
 
         /// Sets the value of [instructions][crate::model::violation::Remediation::instructions].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_assuredworkloads_v1::model::violation::Remediation;
+        /// use google_cloud_assuredworkloads_v1::model::violation::remediation::Instructions;
+        /// let x = Remediation::new().set_instructions(Instructions::default()/* use setters */);
+        /// ```
         pub fn set_instructions<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::violation::remediation::Instructions>,
@@ -2648,6 +3299,14 @@ pub mod violation {
         }
 
         /// Sets or clears the value of [instructions][crate::model::violation::Remediation::instructions].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_assuredworkloads_v1::model::violation::Remediation;
+        /// use google_cloud_assuredworkloads_v1::model::violation::remediation::Instructions;
+        /// let x = Remediation::new().set_or_clear_instructions(Some(Instructions::default()/* use setters */));
+        /// let x = Remediation::new().set_or_clear_instructions(None::<Instructions>);
+        /// ```
         pub fn set_or_clear_instructions<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::violation::remediation::Instructions>,
@@ -2657,6 +3316,12 @@ pub mod violation {
         }
 
         /// Sets the value of [compliant_values][crate::model::violation::Remediation::compliant_values].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_assuredworkloads_v1::model::violation::Remediation;
+        /// let x = Remediation::new().set_compliant_values(["a", "b", "c"]);
+        /// ```
         pub fn set_compliant_values<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -2668,6 +3333,15 @@ pub mod violation {
         }
 
         /// Sets the value of [remediation_type][crate::model::violation::Remediation::remediation_type].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_assuredworkloads_v1::model::violation::Remediation;
+        /// use google_cloud_assuredworkloads_v1::model::violation::remediation::RemediationType;
+        /// let x0 = Remediation::new().set_remediation_type(RemediationType::RemediationBooleanOrgPolicyViolation);
+        /// let x1 = Remediation::new().set_remediation_type(RemediationType::RemediationListAllowedValuesOrgPolicyViolation);
+        /// let x2 = Remediation::new().set_remediation_type(RemediationType::RemediationListDeniedValuesOrgPolicyViolation);
+        /// ```
         pub fn set_remediation_type<
             T: std::convert::Into<crate::model::violation::remediation::RemediationType>,
         >(
@@ -2711,6 +3385,13 @@ pub mod violation {
             }
 
             /// Sets the value of [gcloud_instructions][crate::model::violation::remediation::Instructions::gcloud_instructions].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_assuredworkloads_v1::model::violation::remediation::Instructions;
+            /// use google_cloud_assuredworkloads_v1::model::violation::remediation::instructions::Gcloud;
+            /// let x = Instructions::new().set_gcloud_instructions(Gcloud::default()/* use setters */);
+            /// ```
             pub fn set_gcloud_instructions<T>(mut self, v: T) -> Self
             where
                 T: std::convert::Into<crate::model::violation::remediation::instructions::Gcloud>,
@@ -2720,6 +3401,14 @@ pub mod violation {
             }
 
             /// Sets or clears the value of [gcloud_instructions][crate::model::violation::remediation::Instructions::gcloud_instructions].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_assuredworkloads_v1::model::violation::remediation::Instructions;
+            /// use google_cloud_assuredworkloads_v1::model::violation::remediation::instructions::Gcloud;
+            /// let x = Instructions::new().set_or_clear_gcloud_instructions(Some(Gcloud::default()/* use setters */));
+            /// let x = Instructions::new().set_or_clear_gcloud_instructions(None::<Gcloud>);
+            /// ```
             pub fn set_or_clear_gcloud_instructions<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<crate::model::violation::remediation::instructions::Gcloud>,
@@ -2729,6 +3418,13 @@ pub mod violation {
             }
 
             /// Sets the value of [console_instructions][crate::model::violation::remediation::Instructions::console_instructions].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_assuredworkloads_v1::model::violation::remediation::Instructions;
+            /// use google_cloud_assuredworkloads_v1::model::violation::remediation::instructions::Console;
+            /// let x = Instructions::new().set_console_instructions(Console::default()/* use setters */);
+            /// ```
             pub fn set_console_instructions<T>(mut self, v: T) -> Self
             where
                 T: std::convert::Into<crate::model::violation::remediation::instructions::Console>,
@@ -2738,6 +3434,14 @@ pub mod violation {
             }
 
             /// Sets or clears the value of [console_instructions][crate::model::violation::remediation::Instructions::console_instructions].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_assuredworkloads_v1::model::violation::remediation::Instructions;
+            /// use google_cloud_assuredworkloads_v1::model::violation::remediation::instructions::Console;
+            /// let x = Instructions::new().set_or_clear_console_instructions(Some(Console::default()/* use setters */));
+            /// let x = Instructions::new().set_or_clear_console_instructions(None::<Console>);
+            /// ```
             pub fn set_or_clear_console_instructions<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<crate::model::violation::remediation::instructions::Console>,
@@ -2780,6 +3484,12 @@ pub mod violation {
                 }
 
                 /// Sets the value of [gcloud_commands][crate::model::violation::remediation::instructions::Gcloud::gcloud_commands].
+                ///
+                /// # Example
+                /// ```
+                /// # use google_cloud_assuredworkloads_v1::model::violation::remediation::instructions::Gcloud;
+                /// let x = Gcloud::new().set_gcloud_commands(["a", "b", "c"]);
+                /// ```
                 pub fn set_gcloud_commands<T, V>(mut self, v: T) -> Self
                 where
                     T: std::iter::IntoIterator<Item = V>,
@@ -2791,6 +3501,12 @@ pub mod violation {
                 }
 
                 /// Sets the value of [steps][crate::model::violation::remediation::instructions::Gcloud::steps].
+                ///
+                /// # Example
+                /// ```
+                /// # use google_cloud_assuredworkloads_v1::model::violation::remediation::instructions::Gcloud;
+                /// let x = Gcloud::new().set_steps(["a", "b", "c"]);
+                /// ```
                 pub fn set_steps<T, V>(mut self, v: T) -> Self
                 where
                     T: std::iter::IntoIterator<Item = V>,
@@ -2802,6 +3518,12 @@ pub mod violation {
                 }
 
                 /// Sets the value of [additional_links][crate::model::violation::remediation::instructions::Gcloud::additional_links].
+                ///
+                /// # Example
+                /// ```
+                /// # use google_cloud_assuredworkloads_v1::model::violation::remediation::instructions::Gcloud;
+                /// let x = Gcloud::new().set_additional_links(["a", "b", "c"]);
+                /// ```
                 pub fn set_additional_links<T, V>(mut self, v: T) -> Self
                 where
                     T: std::iter::IntoIterator<Item = V>,
@@ -2841,6 +3563,12 @@ pub mod violation {
                 }
 
                 /// Sets the value of [console_uris][crate::model::violation::remediation::instructions::Console::console_uris].
+                ///
+                /// # Example
+                /// ```
+                /// # use google_cloud_assuredworkloads_v1::model::violation::remediation::instructions::Console;
+                /// let x = Console::new().set_console_uris(["a", "b", "c"]);
+                /// ```
                 pub fn set_console_uris<T, V>(mut self, v: T) -> Self
                 where
                     T: std::iter::IntoIterator<Item = V>,
@@ -2852,6 +3580,12 @@ pub mod violation {
                 }
 
                 /// Sets the value of [steps][crate::model::violation::remediation::instructions::Console::steps].
+                ///
+                /// # Example
+                /// ```
+                /// # use google_cloud_assuredworkloads_v1::model::violation::remediation::instructions::Console;
+                /// let x = Console::new().set_steps(["a", "b", "c"]);
+                /// ```
                 pub fn set_steps<T, V>(mut self, v: T) -> Self
                 where
                     T: std::iter::IntoIterator<Item = V>,
@@ -2863,6 +3597,12 @@ pub mod violation {
                 }
 
                 /// Sets the value of [additional_links][crate::model::violation::remediation::instructions::Console::additional_links].
+                ///
+                /// # Example
+                /// ```
+                /// # use google_cloud_assuredworkloads_v1::model::violation::remediation::instructions::Console;
+                /// let x = Console::new().set_additional_links(["a", "b", "c"]);
+                /// ```
                 pub fn set_additional_links<T, V>(mut self, v: T) -> Self
                 where
                     T: std::iter::IntoIterator<Item = V>,

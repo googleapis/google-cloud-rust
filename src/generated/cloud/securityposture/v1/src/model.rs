@@ -67,6 +67,13 @@ impl PolicyRule {
     }
 
     /// Sets the value of [condition][crate::model::PolicyRule::condition].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securityposture_v1::model::PolicyRule;
+    /// use gtype::model::Expr;
+    /// let x = PolicyRule::new().set_condition(Expr::default()/* use setters */);
+    /// ```
     pub fn set_condition<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<gtype::model::Expr>,
@@ -76,6 +83,14 @@ impl PolicyRule {
     }
 
     /// Sets or clears the value of [condition][crate::model::PolicyRule::condition].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securityposture_v1::model::PolicyRule;
+    /// use gtype::model::Expr;
+    /// let x = PolicyRule::new().set_or_clear_condition(Some(Expr::default()/* use setters */));
+    /// let x = PolicyRule::new().set_or_clear_condition(None::<Expr>);
+    /// ```
     pub fn set_or_clear_condition<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<gtype::model::Expr>,
@@ -88,6 +103,13 @@ impl PolicyRule {
     ///
     /// Note that all the setters affecting `kind` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securityposture_v1::model::PolicyRule;
+    /// use google_cloud_securityposture_v1::model::policy_rule;
+    /// let x = PolicyRule::new().set_kind(Some(policy_rule::Kind::AllowAll(true)));
+    /// ```
     pub fn set_kind<T: std::convert::Into<std::option::Option<crate::model::policy_rule::Kind>>>(
         mut self,
         v: T,
@@ -114,6 +136,17 @@ impl PolicyRule {
     ///
     /// Note that all the setters affecting `kind` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securityposture_v1::model::PolicyRule;
+    /// use google_cloud_securityposture_v1::model::policy_rule::StringValues;
+    /// let x = PolicyRule::new().set_values(StringValues::default()/* use setters */);
+    /// assert!(x.values().is_some());
+    /// assert!(x.allow_all().is_none());
+    /// assert!(x.deny_all().is_none());
+    /// assert!(x.enforce().is_none());
+    /// ```
     pub fn set_values<
         T: std::convert::Into<std::boxed::Box<crate::model::policy_rule::StringValues>>,
     >(
@@ -140,6 +173,16 @@ impl PolicyRule {
     ///
     /// Note that all the setters affecting `kind` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securityposture_v1::model::PolicyRule;
+    /// let x = PolicyRule::new().set_allow_all(true);
+    /// assert!(x.allow_all().is_some());
+    /// assert!(x.values().is_none());
+    /// assert!(x.deny_all().is_none());
+    /// assert!(x.enforce().is_none());
+    /// ```
     pub fn set_allow_all<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.kind = std::option::Option::Some(crate::model::policy_rule::Kind::AllowAll(v.into()));
         self
@@ -161,6 +204,16 @@ impl PolicyRule {
     ///
     /// Note that all the setters affecting `kind` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securityposture_v1::model::PolicyRule;
+    /// let x = PolicyRule::new().set_deny_all(true);
+    /// assert!(x.deny_all().is_some());
+    /// assert!(x.values().is_none());
+    /// assert!(x.allow_all().is_none());
+    /// assert!(x.enforce().is_none());
+    /// ```
     pub fn set_deny_all<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.kind = std::option::Option::Some(crate::model::policy_rule::Kind::DenyAll(v.into()));
         self
@@ -182,6 +235,16 @@ impl PolicyRule {
     ///
     /// Note that all the setters affecting `kind` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securityposture_v1::model::PolicyRule;
+    /// let x = PolicyRule::new().set_enforce(true);
+    /// assert!(x.enforce().is_some());
+    /// assert!(x.values().is_none());
+    /// assert!(x.allow_all().is_none());
+    /// assert!(x.deny_all().is_none());
+    /// ```
     pub fn set_enforce<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.kind = std::option::Option::Some(crate::model::policy_rule::Kind::Enforce(v.into()));
         self
@@ -234,6 +297,12 @@ pub mod policy_rule {
         }
 
         /// Sets the value of [allowed_values][crate::model::policy_rule::StringValues::allowed_values].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_securityposture_v1::model::policy_rule::StringValues;
+        /// let x = StringValues::new().set_allowed_values(["a", "b", "c"]);
+        /// ```
         pub fn set_allowed_values<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -245,6 +314,12 @@ pub mod policy_rule {
         }
 
         /// Sets the value of [denied_values][crate::model::policy_rule::StringValues::denied_values].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_securityposture_v1::model::policy_rule::StringValues;
+        /// let x = StringValues::new().set_denied_values(["a", "b", "c"]);
+        /// ```
         pub fn set_denied_values<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -343,12 +418,24 @@ impl CustomConstraint {
     }
 
     /// Sets the value of [name][crate::model::CustomConstraint::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securityposture_v1::model::CustomConstraint;
+    /// let x = CustomConstraint::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [resource_types][crate::model::CustomConstraint::resource_types].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securityposture_v1::model::CustomConstraint;
+    /// let x = CustomConstraint::new().set_resource_types(["a", "b", "c"]);
+    /// ```
     pub fn set_resource_types<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -360,6 +447,17 @@ impl CustomConstraint {
     }
 
     /// Sets the value of [method_types][crate::model::CustomConstraint::method_types].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securityposture_v1::model::CustomConstraint;
+    /// use google_cloud_securityposture_v1::model::custom_constraint::MethodType;
+    /// let x = CustomConstraint::new().set_method_types([
+    ///     MethodType::Create,
+    ///     MethodType::Update,
+    ///     MethodType::Delete,
+    /// ]);
+    /// ```
     pub fn set_method_types<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -371,12 +469,26 @@ impl CustomConstraint {
     }
 
     /// Sets the value of [condition][crate::model::CustomConstraint::condition].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securityposture_v1::model::CustomConstraint;
+    /// let x = CustomConstraint::new().set_condition("example");
+    /// ```
     pub fn set_condition<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.condition = v.into();
         self
     }
 
     /// Sets the value of [action_type][crate::model::CustomConstraint::action_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securityposture_v1::model::CustomConstraint;
+    /// use google_cloud_securityposture_v1::model::custom_constraint::ActionType;
+    /// let x0 = CustomConstraint::new().set_action_type(ActionType::Allow);
+    /// let x1 = CustomConstraint::new().set_action_type(ActionType::Deny);
+    /// ```
     pub fn set_action_type<T: std::convert::Into<crate::model::custom_constraint::ActionType>>(
         mut self,
         v: T,
@@ -386,18 +498,37 @@ impl CustomConstraint {
     }
 
     /// Sets the value of [display_name][crate::model::CustomConstraint::display_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securityposture_v1::model::CustomConstraint;
+    /// let x = CustomConstraint::new().set_display_name("example");
+    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
     }
 
     /// Sets the value of [description][crate::model::CustomConstraint::description].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securityposture_v1::model::CustomConstraint;
+    /// let x = CustomConstraint::new().set_description("example");
+    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [update_time][crate::model::CustomConstraint::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securityposture_v1::model::CustomConstraint;
+    /// use wkt::Timestamp;
+    /// let x = CustomConstraint::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -407,6 +538,14 @@ impl CustomConstraint {
     }
 
     /// Sets or clears the value of [update_time][crate::model::CustomConstraint::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securityposture_v1::model::CustomConstraint;
+    /// use wkt::Timestamp;
+    /// let x = CustomConstraint::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = CustomConstraint::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -725,6 +864,12 @@ impl OrgPolicyConstraint {
     }
 
     /// Sets the value of [canned_constraint_id][crate::model::OrgPolicyConstraint::canned_constraint_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securityposture_v1::model::OrgPolicyConstraint;
+    /// let x = OrgPolicyConstraint::new().set_canned_constraint_id("example");
+    /// ```
     pub fn set_canned_constraint_id<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -734,6 +879,17 @@ impl OrgPolicyConstraint {
     }
 
     /// Sets the value of [policy_rules][crate::model::OrgPolicyConstraint::policy_rules].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securityposture_v1::model::OrgPolicyConstraint;
+    /// use google_cloud_securityposture_v1::model::PolicyRule;
+    /// let x = OrgPolicyConstraint::new()
+    ///     .set_policy_rules([
+    ///         PolicyRule::default()/* use setters */,
+    ///         PolicyRule::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_policy_rules<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -770,6 +926,13 @@ impl OrgPolicyConstraintCustom {
     }
 
     /// Sets the value of [custom_constraint][crate::model::OrgPolicyConstraintCustom::custom_constraint].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securityposture_v1::model::OrgPolicyConstraintCustom;
+    /// use google_cloud_securityposture_v1::model::CustomConstraint;
+    /// let x = OrgPolicyConstraintCustom::new().set_custom_constraint(CustomConstraint::default()/* use setters */);
+    /// ```
     pub fn set_custom_constraint<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::CustomConstraint>,
@@ -779,6 +942,14 @@ impl OrgPolicyConstraintCustom {
     }
 
     /// Sets or clears the value of [custom_constraint][crate::model::OrgPolicyConstraintCustom::custom_constraint].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securityposture_v1::model::OrgPolicyConstraintCustom;
+    /// use google_cloud_securityposture_v1::model::CustomConstraint;
+    /// let x = OrgPolicyConstraintCustom::new().set_or_clear_custom_constraint(Some(CustomConstraint::default()/* use setters */));
+    /// let x = OrgPolicyConstraintCustom::new().set_or_clear_custom_constraint(None::<CustomConstraint>);
+    /// ```
     pub fn set_or_clear_custom_constraint<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CustomConstraint>,
@@ -788,6 +959,17 @@ impl OrgPolicyConstraintCustom {
     }
 
     /// Sets the value of [policy_rules][crate::model::OrgPolicyConstraintCustom::policy_rules].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securityposture_v1::model::OrgPolicyConstraintCustom;
+    /// use google_cloud_securityposture_v1::model::PolicyRule;
+    /// let x = OrgPolicyConstraintCustom::new()
+    ///     .set_policy_rules([
+    ///         PolicyRule::default()/* use setters */,
+    ///         PolicyRule::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_policy_rules<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -850,6 +1032,13 @@ impl OperationMetadata {
     }
 
     /// Sets the value of [create_time][crate::model::OperationMetadata::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securityposture_v1::model::OperationMetadata;
+    /// use wkt::Timestamp;
+    /// let x = OperationMetadata::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -859,6 +1048,14 @@ impl OperationMetadata {
     }
 
     /// Sets or clears the value of [create_time][crate::model::OperationMetadata::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securityposture_v1::model::OperationMetadata;
+    /// use wkt::Timestamp;
+    /// let x = OperationMetadata::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = OperationMetadata::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -868,6 +1065,13 @@ impl OperationMetadata {
     }
 
     /// Sets the value of [end_time][crate::model::OperationMetadata::end_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securityposture_v1::model::OperationMetadata;
+    /// use wkt::Timestamp;
+    /// let x = OperationMetadata::new().set_end_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -877,6 +1081,14 @@ impl OperationMetadata {
     }
 
     /// Sets or clears the value of [end_time][crate::model::OperationMetadata::end_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securityposture_v1::model::OperationMetadata;
+    /// use wkt::Timestamp;
+    /// let x = OperationMetadata::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
+    /// let x = OperationMetadata::new().set_or_clear_end_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -886,36 +1098,72 @@ impl OperationMetadata {
     }
 
     /// Sets the value of [target][crate::model::OperationMetadata::target].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securityposture_v1::model::OperationMetadata;
+    /// let x = OperationMetadata::new().set_target("example");
+    /// ```
     pub fn set_target<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.target = v.into();
         self
     }
 
     /// Sets the value of [verb][crate::model::OperationMetadata::verb].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securityposture_v1::model::OperationMetadata;
+    /// let x = OperationMetadata::new().set_verb("example");
+    /// ```
     pub fn set_verb<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.verb = v.into();
         self
     }
 
     /// Sets the value of [status_message][crate::model::OperationMetadata::status_message].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securityposture_v1::model::OperationMetadata;
+    /// let x = OperationMetadata::new().set_status_message("example");
+    /// ```
     pub fn set_status_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.status_message = v.into();
         self
     }
 
     /// Sets the value of [requested_cancellation][crate::model::OperationMetadata::requested_cancellation].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securityposture_v1::model::OperationMetadata;
+    /// let x = OperationMetadata::new().set_requested_cancellation(true);
+    /// ```
     pub fn set_requested_cancellation<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.requested_cancellation = v.into();
         self
     }
 
     /// Sets the value of [api_version][crate::model::OperationMetadata::api_version].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securityposture_v1::model::OperationMetadata;
+    /// let x = OperationMetadata::new().set_api_version("example");
+    /// ```
     pub fn set_api_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.api_version = v.into();
         self
     }
 
     /// Sets the value of [error_message][crate::model::OperationMetadata::error_message].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securityposture_v1::model::OperationMetadata;
+    /// let x = OperationMetadata::new().set_error_message("example");
+    /// ```
     pub fn set_error_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.error_message = v.into();
         self
@@ -987,24 +1235,52 @@ impl Posture {
     }
 
     /// Sets the value of [name][crate::model::Posture::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securityposture_v1::model::Posture;
+    /// let x = Posture::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [state][crate::model::Posture::state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securityposture_v1::model::Posture;
+    /// use google_cloud_securityposture_v1::model::posture::State;
+    /// let x0 = Posture::new().set_state(State::Deprecated);
+    /// let x1 = Posture::new().set_state(State::Draft);
+    /// let x2 = Posture::new().set_state(State::Active);
+    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::posture::State>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
     }
 
     /// Sets the value of [revision_id][crate::model::Posture::revision_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securityposture_v1::model::Posture;
+    /// let x = Posture::new().set_revision_id("example");
+    /// ```
     pub fn set_revision_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.revision_id = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::Posture::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securityposture_v1::model::Posture;
+    /// use wkt::Timestamp;
+    /// let x = Posture::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1014,6 +1290,14 @@ impl Posture {
     }
 
     /// Sets or clears the value of [create_time][crate::model::Posture::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securityposture_v1::model::Posture;
+    /// use wkt::Timestamp;
+    /// let x = Posture::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Posture::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1023,6 +1307,13 @@ impl Posture {
     }
 
     /// Sets the value of [update_time][crate::model::Posture::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securityposture_v1::model::Posture;
+    /// use wkt::Timestamp;
+    /// let x = Posture::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1032,6 +1323,14 @@ impl Posture {
     }
 
     /// Sets or clears the value of [update_time][crate::model::Posture::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securityposture_v1::model::Posture;
+    /// use wkt::Timestamp;
+    /// let x = Posture::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Posture::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1041,12 +1340,29 @@ impl Posture {
     }
 
     /// Sets the value of [description][crate::model::Posture::description].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securityposture_v1::model::Posture;
+    /// let x = Posture::new().set_description("example");
+    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [policy_sets][crate::model::Posture::policy_sets].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securityposture_v1::model::Posture;
+    /// use google_cloud_securityposture_v1::model::PolicySet;
+    /// let x = Posture::new()
+    ///     .set_policy_sets([
+    ///         PolicySet::default()/* use setters */,
+    ///         PolicySet::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_policy_sets<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1058,12 +1374,27 @@ impl Posture {
     }
 
     /// Sets the value of [etag][crate::model::Posture::etag].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securityposture_v1::model::Posture;
+    /// let x = Posture::new().set_etag("example");
+    /// ```
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
     }
 
     /// Sets the value of [annotations][crate::model::Posture::annotations].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securityposture_v1::model::Posture;
+    /// let x = Posture::new().set_annotations([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_annotations<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -1076,6 +1407,12 @@ impl Posture {
     }
 
     /// Sets the value of [reconciling][crate::model::Posture::reconciling].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securityposture_v1::model::Posture;
+    /// let x = Posture::new().set_reconciling(true);
+    /// ```
     pub fn set_reconciling<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.reconciling = v.into();
         self
@@ -1255,18 +1592,41 @@ impl PolicySet {
     }
 
     /// Sets the value of [policy_set_id][crate::model::PolicySet::policy_set_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securityposture_v1::model::PolicySet;
+    /// let x = PolicySet::new().set_policy_set_id("example");
+    /// ```
     pub fn set_policy_set_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.policy_set_id = v.into();
         self
     }
 
     /// Sets the value of [description][crate::model::PolicySet::description].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securityposture_v1::model::PolicySet;
+    /// let x = PolicySet::new().set_description("example");
+    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [policies][crate::model::PolicySet::policies].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securityposture_v1::model::PolicySet;
+    /// use google_cloud_securityposture_v1::model::Policy;
+    /// let x = PolicySet::new()
+    ///     .set_policies([
+    ///         Policy::default()/* use setters */,
+    ///         Policy::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_policies<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1310,12 +1670,29 @@ impl Policy {
     }
 
     /// Sets the value of [policy_id][crate::model::Policy::policy_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securityposture_v1::model::Policy;
+    /// let x = Policy::new().set_policy_id("example");
+    /// ```
     pub fn set_policy_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.policy_id = v.into();
         self
     }
 
     /// Sets the value of [compliance_standards][crate::model::Policy::compliance_standards].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securityposture_v1::model::Policy;
+    /// use google_cloud_securityposture_v1::model::policy::ComplianceStandard;
+    /// let x = Policy::new()
+    ///     .set_compliance_standards([
+    ///         ComplianceStandard::default()/* use setters */,
+    ///         ComplianceStandard::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_compliance_standards<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1327,6 +1704,13 @@ impl Policy {
     }
 
     /// Sets the value of [constraint][crate::model::Policy::constraint].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securityposture_v1::model::Policy;
+    /// use google_cloud_securityposture_v1::model::Constraint;
+    /// let x = Policy::new().set_constraint(Constraint::default()/* use setters */);
+    /// ```
     pub fn set_constraint<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Constraint>,
@@ -1336,6 +1720,14 @@ impl Policy {
     }
 
     /// Sets or clears the value of [constraint][crate::model::Policy::constraint].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securityposture_v1::model::Policy;
+    /// use google_cloud_securityposture_v1::model::Constraint;
+    /// let x = Policy::new().set_or_clear_constraint(Some(Constraint::default()/* use setters */));
+    /// let x = Policy::new().set_or_clear_constraint(None::<Constraint>);
+    /// ```
     pub fn set_or_clear_constraint<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Constraint>,
@@ -1345,6 +1737,12 @@ impl Policy {
     }
 
     /// Sets the value of [description][crate::model::Policy::description].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securityposture_v1::model::Policy;
+    /// let x = Policy::new().set_description("example");
+    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
@@ -1381,12 +1779,24 @@ pub mod policy {
         }
 
         /// Sets the value of [standard][crate::model::policy::ComplianceStandard::standard].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_securityposture_v1::model::policy::ComplianceStandard;
+        /// let x = ComplianceStandard::new().set_standard("example");
+        /// ```
         pub fn set_standard<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.standard = v.into();
             self
         }
 
         /// Sets the value of [control][crate::model::policy::ComplianceStandard::control].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_securityposture_v1::model::policy::ComplianceStandard;
+        /// let x = ComplianceStandard::new().set_control("example");
+        /// ```
         pub fn set_control<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.control = v.into();
             self
@@ -1418,6 +1828,14 @@ impl Constraint {
     ///
     /// Note that all the setters affecting `implementation` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securityposture_v1::model::Constraint;
+    /// use google_cloud_securityposture_v1::model::constraint;
+    /// use google_cloud_securityposture_v1::model::SecurityHealthAnalyticsModule;
+    /// let x = Constraint::new().set_implementation(Some(constraint::Implementation::SecurityHealthAnalyticsModule(SecurityHealthAnalyticsModule::default().into())));
+    /// ```
     pub fn set_implementation<
         T: std::convert::Into<std::option::Option<crate::model::constraint::Implementation>>,
     >(
@@ -1448,6 +1866,17 @@ impl Constraint {
     ///
     /// Note that all the setters affecting `implementation` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securityposture_v1::model::Constraint;
+    /// use google_cloud_securityposture_v1::model::SecurityHealthAnalyticsModule;
+    /// let x = Constraint::new().set_security_health_analytics_module(SecurityHealthAnalyticsModule::default()/* use setters */);
+    /// assert!(x.security_health_analytics_module().is_some());
+    /// assert!(x.security_health_analytics_custom_module().is_none());
+    /// assert!(x.org_policy_constraint().is_none());
+    /// assert!(x.org_policy_constraint_custom().is_none());
+    /// ```
     pub fn set_security_health_analytics_module<
         T: std::convert::Into<std::boxed::Box<crate::model::SecurityHealthAnalyticsModule>>,
     >(
@@ -1481,6 +1910,17 @@ impl Constraint {
     ///
     /// Note that all the setters affecting `implementation` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securityposture_v1::model::Constraint;
+    /// use google_cloud_securityposture_v1::model::SecurityHealthAnalyticsCustomModule;
+    /// let x = Constraint::new().set_security_health_analytics_custom_module(SecurityHealthAnalyticsCustomModule::default()/* use setters */);
+    /// assert!(x.security_health_analytics_custom_module().is_some());
+    /// assert!(x.security_health_analytics_module().is_none());
+    /// assert!(x.org_policy_constraint().is_none());
+    /// assert!(x.org_policy_constraint_custom().is_none());
+    /// ```
     pub fn set_security_health_analytics_custom_module<
         T: std::convert::Into<std::boxed::Box<crate::model::SecurityHealthAnalyticsCustomModule>>,
     >(
@@ -1513,6 +1953,17 @@ impl Constraint {
     ///
     /// Note that all the setters affecting `implementation` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securityposture_v1::model::Constraint;
+    /// use google_cloud_securityposture_v1::model::OrgPolicyConstraint;
+    /// let x = Constraint::new().set_org_policy_constraint(OrgPolicyConstraint::default()/* use setters */);
+    /// assert!(x.org_policy_constraint().is_some());
+    /// assert!(x.security_health_analytics_module().is_none());
+    /// assert!(x.security_health_analytics_custom_module().is_none());
+    /// assert!(x.org_policy_constraint_custom().is_none());
+    /// ```
     pub fn set_org_policy_constraint<
         T: std::convert::Into<std::boxed::Box<crate::model::OrgPolicyConstraint>>,
     >(
@@ -1545,6 +1996,17 @@ impl Constraint {
     ///
     /// Note that all the setters affecting `implementation` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securityposture_v1::model::Constraint;
+    /// use google_cloud_securityposture_v1::model::OrgPolicyConstraintCustom;
+    /// let x = Constraint::new().set_org_policy_constraint_custom(OrgPolicyConstraintCustom::default()/* use setters */);
+    /// assert!(x.org_policy_constraint_custom().is_some());
+    /// assert!(x.security_health_analytics_module().is_none());
+    /// assert!(x.security_health_analytics_custom_module().is_none());
+    /// assert!(x.org_policy_constraint().is_none());
+    /// ```
     pub fn set_org_policy_constraint_custom<
         T: std::convert::Into<std::boxed::Box<crate::model::OrgPolicyConstraintCustom>>,
     >(
@@ -1608,18 +2070,36 @@ impl ListPosturesRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListPosturesRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securityposture_v1::model::ListPosturesRequest;
+    /// let x = ListPosturesRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListPosturesRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securityposture_v1::model::ListPosturesRequest;
+    /// let x = ListPosturesRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListPosturesRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securityposture_v1::model::ListPosturesRequest;
+    /// let x = ListPosturesRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -1654,6 +2134,17 @@ impl ListPosturesResponse {
     }
 
     /// Sets the value of [postures][crate::model::ListPosturesResponse::postures].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securityposture_v1::model::ListPosturesResponse;
+    /// use google_cloud_securityposture_v1::model::Posture;
+    /// let x = ListPosturesResponse::new()
+    ///     .set_postures([
+    ///         Posture::default()/* use setters */,
+    ///         Posture::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_postures<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1665,12 +2156,24 @@ impl ListPosturesResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListPosturesResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securityposture_v1::model::ListPosturesResponse;
+    /// let x = ListPosturesResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListPosturesResponse::unreachable].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securityposture_v1::model::ListPosturesResponse;
+    /// let x = ListPosturesResponse::new().set_unreachable(["a", "b", "c"]);
+    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1725,18 +2228,36 @@ impl ListPostureRevisionsRequest {
     }
 
     /// Sets the value of [name][crate::model::ListPostureRevisionsRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securityposture_v1::model::ListPostureRevisionsRequest;
+    /// let x = ListPostureRevisionsRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListPostureRevisionsRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securityposture_v1::model::ListPostureRevisionsRequest;
+    /// let x = ListPostureRevisionsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListPostureRevisionsRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securityposture_v1::model::ListPostureRevisionsRequest;
+    /// let x = ListPostureRevisionsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -1768,6 +2289,17 @@ impl ListPostureRevisionsResponse {
     }
 
     /// Sets the value of [revisions][crate::model::ListPostureRevisionsResponse::revisions].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securityposture_v1::model::ListPostureRevisionsResponse;
+    /// use google_cloud_securityposture_v1::model::Posture;
+    /// let x = ListPostureRevisionsResponse::new()
+    ///     .set_revisions([
+    ///         Posture::default()/* use setters */,
+    ///         Posture::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_revisions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1779,6 +2311,12 @@ impl ListPostureRevisionsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListPostureRevisionsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securityposture_v1::model::ListPostureRevisionsResponse;
+    /// let x = ListPostureRevisionsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -1824,12 +2362,24 @@ impl GetPostureRequest {
     }
 
     /// Sets the value of [name][crate::model::GetPostureRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securityposture_v1::model::GetPostureRequest;
+    /// let x = GetPostureRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [revision_id][crate::model::GetPostureRequest::revision_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securityposture_v1::model::GetPostureRequest;
+    /// let x = GetPostureRequest::new().set_revision_id("example");
+    /// ```
     pub fn set_revision_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.revision_id = v.into();
         self
@@ -1865,18 +2415,37 @@ impl CreatePostureRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreatePostureRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securityposture_v1::model::CreatePostureRequest;
+    /// let x = CreatePostureRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [posture_id][crate::model::CreatePostureRequest::posture_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securityposture_v1::model::CreatePostureRequest;
+    /// let x = CreatePostureRequest::new().set_posture_id("example");
+    /// ```
     pub fn set_posture_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.posture_id = v.into();
         self
     }
 
     /// Sets the value of [posture][crate::model::CreatePostureRequest::posture].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securityposture_v1::model::CreatePostureRequest;
+    /// use google_cloud_securityposture_v1::model::Posture;
+    /// let x = CreatePostureRequest::new().set_posture(Posture::default()/* use setters */);
+    /// ```
     pub fn set_posture<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Posture>,
@@ -1886,6 +2455,14 @@ impl CreatePostureRequest {
     }
 
     /// Sets or clears the value of [posture][crate::model::CreatePostureRequest::posture].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securityposture_v1::model::CreatePostureRequest;
+    /// use google_cloud_securityposture_v1::model::Posture;
+    /// let x = CreatePostureRequest::new().set_or_clear_posture(Some(Posture::default()/* use setters */));
+    /// let x = CreatePostureRequest::new().set_or_clear_posture(None::<Posture>);
+    /// ```
     pub fn set_or_clear_posture<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Posture>,
@@ -1927,6 +2504,13 @@ impl UpdatePostureRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdatePostureRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securityposture_v1::model::UpdatePostureRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdatePostureRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -1936,6 +2520,14 @@ impl UpdatePostureRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdatePostureRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securityposture_v1::model::UpdatePostureRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdatePostureRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdatePostureRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -1945,6 +2537,13 @@ impl UpdatePostureRequest {
     }
 
     /// Sets the value of [posture][crate::model::UpdatePostureRequest::posture].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securityposture_v1::model::UpdatePostureRequest;
+    /// use google_cloud_securityposture_v1::model::Posture;
+    /// let x = UpdatePostureRequest::new().set_posture(Posture::default()/* use setters */);
+    /// ```
     pub fn set_posture<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Posture>,
@@ -1954,6 +2553,14 @@ impl UpdatePostureRequest {
     }
 
     /// Sets or clears the value of [posture][crate::model::UpdatePostureRequest::posture].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securityposture_v1::model::UpdatePostureRequest;
+    /// use google_cloud_securityposture_v1::model::Posture;
+    /// let x = UpdatePostureRequest::new().set_or_clear_posture(Some(Posture::default()/* use setters */));
+    /// let x = UpdatePostureRequest::new().set_or_clear_posture(None::<Posture>);
+    /// ```
     pub fn set_or_clear_posture<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Posture>,
@@ -1963,6 +2570,12 @@ impl UpdatePostureRequest {
     }
 
     /// Sets the value of [revision_id][crate::model::UpdatePostureRequest::revision_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securityposture_v1::model::UpdatePostureRequest;
+    /// let x = UpdatePostureRequest::new().set_revision_id("example");
+    /// ```
     pub fn set_revision_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.revision_id = v.into();
         self
@@ -1994,12 +2607,24 @@ impl DeletePostureRequest {
     }
 
     /// Sets the value of [name][crate::model::DeletePostureRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securityposture_v1::model::DeletePostureRequest;
+    /// let x = DeletePostureRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [etag][crate::model::DeletePostureRequest::etag].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securityposture_v1::model::DeletePostureRequest;
+    /// let x = DeletePostureRequest::new().set_etag("example");
+    /// ```
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
@@ -2042,18 +2667,36 @@ impl ExtractPostureRequest {
     }
 
     /// Sets the value of [parent][crate::model::ExtractPostureRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securityposture_v1::model::ExtractPostureRequest;
+    /// let x = ExtractPostureRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [posture_id][crate::model::ExtractPostureRequest::posture_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securityposture_v1::model::ExtractPostureRequest;
+    /// let x = ExtractPostureRequest::new().set_posture_id("example");
+    /// ```
     pub fn set_posture_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.posture_id = v.into();
         self
     }
 
     /// Sets the value of [workload][crate::model::ExtractPostureRequest::workload].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securityposture_v1::model::ExtractPostureRequest;
+    /// let x = ExtractPostureRequest::new().set_workload("example");
+    /// ```
     pub fn set_workload<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.workload = v.into();
         self
@@ -2147,18 +2790,39 @@ impl PostureDeployment {
     }
 
     /// Sets the value of [name][crate::model::PostureDeployment::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securityposture_v1::model::PostureDeployment;
+    /// let x = PostureDeployment::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [target_resource][crate::model::PostureDeployment::target_resource].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securityposture_v1::model::PostureDeployment;
+    /// let x = PostureDeployment::new().set_target_resource("example");
+    /// ```
     pub fn set_target_resource<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.target_resource = v.into();
         self
     }
 
     /// Sets the value of [state][crate::model::PostureDeployment::state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securityposture_v1::model::PostureDeployment;
+    /// use google_cloud_securityposture_v1::model::posture_deployment::State;
+    /// let x0 = PostureDeployment::new().set_state(State::Creating);
+    /// let x1 = PostureDeployment::new().set_state(State::Deleting);
+    /// let x2 = PostureDeployment::new().set_state(State::Updating);
+    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::posture_deployment::State>>(
         mut self,
         v: T,
@@ -2168,12 +2832,24 @@ impl PostureDeployment {
     }
 
     /// Sets the value of [posture_id][crate::model::PostureDeployment::posture_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securityposture_v1::model::PostureDeployment;
+    /// let x = PostureDeployment::new().set_posture_id("example");
+    /// ```
     pub fn set_posture_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.posture_id = v.into();
         self
     }
 
     /// Sets the value of [posture_revision_id][crate::model::PostureDeployment::posture_revision_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securityposture_v1::model::PostureDeployment;
+    /// let x = PostureDeployment::new().set_posture_revision_id("example");
+    /// ```
     pub fn set_posture_revision_id<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -2183,6 +2859,13 @@ impl PostureDeployment {
     }
 
     /// Sets the value of [create_time][crate::model::PostureDeployment::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securityposture_v1::model::PostureDeployment;
+    /// use wkt::Timestamp;
+    /// let x = PostureDeployment::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2192,6 +2875,14 @@ impl PostureDeployment {
     }
 
     /// Sets or clears the value of [create_time][crate::model::PostureDeployment::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securityposture_v1::model::PostureDeployment;
+    /// use wkt::Timestamp;
+    /// let x = PostureDeployment::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = PostureDeployment::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2201,6 +2892,13 @@ impl PostureDeployment {
     }
 
     /// Sets the value of [update_time][crate::model::PostureDeployment::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securityposture_v1::model::PostureDeployment;
+    /// use wkt::Timestamp;
+    /// let x = PostureDeployment::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2210,6 +2908,14 @@ impl PostureDeployment {
     }
 
     /// Sets or clears the value of [update_time][crate::model::PostureDeployment::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securityposture_v1::model::PostureDeployment;
+    /// use wkt::Timestamp;
+    /// let x = PostureDeployment::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = PostureDeployment::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2219,18 +2925,39 @@ impl PostureDeployment {
     }
 
     /// Sets the value of [description][crate::model::PostureDeployment::description].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securityposture_v1::model::PostureDeployment;
+    /// let x = PostureDeployment::new().set_description("example");
+    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [etag][crate::model::PostureDeployment::etag].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securityposture_v1::model::PostureDeployment;
+    /// let x = PostureDeployment::new().set_etag("example");
+    /// ```
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
     }
 
     /// Sets the value of [annotations][crate::model::PostureDeployment::annotations].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securityposture_v1::model::PostureDeployment;
+    /// let x = PostureDeployment::new().set_annotations([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_annotations<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -2243,12 +2970,24 @@ impl PostureDeployment {
     }
 
     /// Sets the value of [reconciling][crate::model::PostureDeployment::reconciling].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securityposture_v1::model::PostureDeployment;
+    /// let x = PostureDeployment::new().set_reconciling(true);
+    /// ```
     pub fn set_reconciling<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.reconciling = v.into();
         self
     }
 
     /// Sets the value of [desired_posture_id][crate::model::PostureDeployment::desired_posture_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securityposture_v1::model::PostureDeployment;
+    /// let x = PostureDeployment::new().set_desired_posture_id("example");
+    /// ```
     pub fn set_desired_posture_id<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -2258,6 +2997,12 @@ impl PostureDeployment {
     }
 
     /// Sets the value of [desired_posture_revision_id][crate::model::PostureDeployment::desired_posture_revision_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securityposture_v1::model::PostureDeployment;
+    /// let x = PostureDeployment::new().set_desired_posture_revision_id("example");
+    /// ```
     pub fn set_desired_posture_revision_id<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -2267,6 +3012,12 @@ impl PostureDeployment {
     }
 
     /// Sets the value of [failure_message][crate::model::PostureDeployment::failure_message].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securityposture_v1::model::PostureDeployment;
+    /// let x = PostureDeployment::new().set_failure_message("example");
+    /// ```
     pub fn set_failure_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.failure_message = v.into();
         self
@@ -2479,24 +3230,48 @@ impl ListPostureDeploymentsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListPostureDeploymentsRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securityposture_v1::model::ListPostureDeploymentsRequest;
+    /// let x = ListPostureDeploymentsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListPostureDeploymentsRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securityposture_v1::model::ListPostureDeploymentsRequest;
+    /// let x = ListPostureDeploymentsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListPostureDeploymentsRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securityposture_v1::model::ListPostureDeploymentsRequest;
+    /// let x = ListPostureDeploymentsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListPostureDeploymentsRequest::filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securityposture_v1::model::ListPostureDeploymentsRequest;
+    /// let x = ListPostureDeploymentsRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
@@ -2531,6 +3306,17 @@ impl ListPostureDeploymentsResponse {
     }
 
     /// Sets the value of [posture_deployments][crate::model::ListPostureDeploymentsResponse::posture_deployments].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securityposture_v1::model::ListPostureDeploymentsResponse;
+    /// use google_cloud_securityposture_v1::model::PostureDeployment;
+    /// let x = ListPostureDeploymentsResponse::new()
+    ///     .set_posture_deployments([
+    ///         PostureDeployment::default()/* use setters */,
+    ///         PostureDeployment::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_posture_deployments<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2542,12 +3328,24 @@ impl ListPostureDeploymentsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListPostureDeploymentsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securityposture_v1::model::ListPostureDeploymentsResponse;
+    /// let x = ListPostureDeploymentsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListPostureDeploymentsResponse::unreachable].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securityposture_v1::model::ListPostureDeploymentsResponse;
+    /// let x = ListPostureDeploymentsResponse::new().set_unreachable(["a", "b", "c"]);
+    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2595,6 +3393,12 @@ impl GetPostureDeploymentRequest {
     }
 
     /// Sets the value of [name][crate::model::GetPostureDeploymentRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securityposture_v1::model::GetPostureDeploymentRequest;
+    /// let x = GetPostureDeploymentRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -2631,12 +3435,24 @@ impl CreatePostureDeploymentRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreatePostureDeploymentRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securityposture_v1::model::CreatePostureDeploymentRequest;
+    /// let x = CreatePostureDeploymentRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [posture_deployment_id][crate::model::CreatePostureDeploymentRequest::posture_deployment_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securityposture_v1::model::CreatePostureDeploymentRequest;
+    /// let x = CreatePostureDeploymentRequest::new().set_posture_deployment_id("example");
+    /// ```
     pub fn set_posture_deployment_id<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -2646,6 +3462,13 @@ impl CreatePostureDeploymentRequest {
     }
 
     /// Sets the value of [posture_deployment][crate::model::CreatePostureDeploymentRequest::posture_deployment].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securityposture_v1::model::CreatePostureDeploymentRequest;
+    /// use google_cloud_securityposture_v1::model::PostureDeployment;
+    /// let x = CreatePostureDeploymentRequest::new().set_posture_deployment(PostureDeployment::default()/* use setters */);
+    /// ```
     pub fn set_posture_deployment<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::PostureDeployment>,
@@ -2655,6 +3478,14 @@ impl CreatePostureDeploymentRequest {
     }
 
     /// Sets or clears the value of [posture_deployment][crate::model::CreatePostureDeploymentRequest::posture_deployment].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securityposture_v1::model::CreatePostureDeploymentRequest;
+    /// use google_cloud_securityposture_v1::model::PostureDeployment;
+    /// let x = CreatePostureDeploymentRequest::new().set_or_clear_posture_deployment(Some(PostureDeployment::default()/* use setters */));
+    /// let x = CreatePostureDeploymentRequest::new().set_or_clear_posture_deployment(None::<PostureDeployment>);
+    /// ```
     pub fn set_or_clear_posture_deployment<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::PostureDeployment>,
@@ -2693,6 +3524,13 @@ impl UpdatePostureDeploymentRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdatePostureDeploymentRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securityposture_v1::model::UpdatePostureDeploymentRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdatePostureDeploymentRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -2702,6 +3540,14 @@ impl UpdatePostureDeploymentRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdatePostureDeploymentRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securityposture_v1::model::UpdatePostureDeploymentRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdatePostureDeploymentRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdatePostureDeploymentRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -2711,6 +3557,13 @@ impl UpdatePostureDeploymentRequest {
     }
 
     /// Sets the value of [posture_deployment][crate::model::UpdatePostureDeploymentRequest::posture_deployment].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securityposture_v1::model::UpdatePostureDeploymentRequest;
+    /// use google_cloud_securityposture_v1::model::PostureDeployment;
+    /// let x = UpdatePostureDeploymentRequest::new().set_posture_deployment(PostureDeployment::default()/* use setters */);
+    /// ```
     pub fn set_posture_deployment<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::PostureDeployment>,
@@ -2720,6 +3573,14 @@ impl UpdatePostureDeploymentRequest {
     }
 
     /// Sets or clears the value of [posture_deployment][crate::model::UpdatePostureDeploymentRequest::posture_deployment].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securityposture_v1::model::UpdatePostureDeploymentRequest;
+    /// use google_cloud_securityposture_v1::model::PostureDeployment;
+    /// let x = UpdatePostureDeploymentRequest::new().set_or_clear_posture_deployment(Some(PostureDeployment::default()/* use setters */));
+    /// let x = UpdatePostureDeploymentRequest::new().set_or_clear_posture_deployment(None::<PostureDeployment>);
+    /// ```
     pub fn set_or_clear_posture_deployment<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::PostureDeployment>,
@@ -2754,12 +3615,24 @@ impl DeletePostureDeploymentRequest {
     }
 
     /// Sets the value of [name][crate::model::DeletePostureDeploymentRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securityposture_v1::model::DeletePostureDeploymentRequest;
+    /// let x = DeletePostureDeploymentRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [etag][crate::model::DeletePostureDeploymentRequest::etag].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securityposture_v1::model::DeletePostureDeploymentRequest;
+    /// let x = DeletePostureDeploymentRequest::new().set_etag("example");
+    /// ```
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
@@ -2803,24 +3676,50 @@ impl PostureTemplate {
     }
 
     /// Sets the value of [name][crate::model::PostureTemplate::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securityposture_v1::model::PostureTemplate;
+    /// let x = PostureTemplate::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [revision_id][crate::model::PostureTemplate::revision_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securityposture_v1::model::PostureTemplate;
+    /// let x = PostureTemplate::new().set_revision_id("example");
+    /// ```
     pub fn set_revision_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.revision_id = v.into();
         self
     }
 
     /// Sets the value of [description][crate::model::PostureTemplate::description].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securityposture_v1::model::PostureTemplate;
+    /// let x = PostureTemplate::new().set_description("example");
+    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [state][crate::model::PostureTemplate::state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securityposture_v1::model::PostureTemplate;
+    /// use google_cloud_securityposture_v1::model::posture_template::State;
+    /// let x0 = PostureTemplate::new().set_state(State::Active);
+    /// let x1 = PostureTemplate::new().set_state(State::Deprecated);
+    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::posture_template::State>>(
         mut self,
         v: T,
@@ -2830,6 +3729,17 @@ impl PostureTemplate {
     }
 
     /// Sets the value of [policy_sets][crate::model::PostureTemplate::policy_sets].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securityposture_v1::model::PostureTemplate;
+    /// use google_cloud_securityposture_v1::model::PolicySet;
+    /// let x = PostureTemplate::new()
+    ///     .set_policy_sets([
+    ///         PolicySet::default()/* use setters */,
+    ///         PolicySet::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_policy_sets<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3013,24 +3923,48 @@ impl ListPostureTemplatesRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListPostureTemplatesRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securityposture_v1::model::ListPostureTemplatesRequest;
+    /// let x = ListPostureTemplatesRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListPostureTemplatesRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securityposture_v1::model::ListPostureTemplatesRequest;
+    /// let x = ListPostureTemplatesRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListPostureTemplatesRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securityposture_v1::model::ListPostureTemplatesRequest;
+    /// let x = ListPostureTemplatesRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListPostureTemplatesRequest::filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securityposture_v1::model::ListPostureTemplatesRequest;
+    /// let x = ListPostureTemplatesRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
@@ -3062,6 +3996,17 @@ impl ListPostureTemplatesResponse {
     }
 
     /// Sets the value of [posture_templates][crate::model::ListPostureTemplatesResponse::posture_templates].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securityposture_v1::model::ListPostureTemplatesResponse;
+    /// use google_cloud_securityposture_v1::model::PostureTemplate;
+    /// let x = ListPostureTemplatesResponse::new()
+    ///     .set_posture_templates([
+    ///         PostureTemplate::default()/* use setters */,
+    ///         PostureTemplate::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_posture_templates<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3073,6 +4018,12 @@ impl ListPostureTemplatesResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListPostureTemplatesResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securityposture_v1::model::ListPostureTemplatesResponse;
+    /// let x = ListPostureTemplatesResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -3119,12 +4070,24 @@ impl GetPostureTemplateRequest {
     }
 
     /// Sets the value of [name][crate::model::GetPostureTemplateRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securityposture_v1::model::GetPostureTemplateRequest;
+    /// let x = GetPostureTemplateRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [revision_id][crate::model::GetPostureTemplateRequest::revision_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securityposture_v1::model::GetPostureTemplateRequest;
+    /// let x = GetPostureTemplateRequest::new().set_revision_id("example");
+    /// ```
     pub fn set_revision_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.revision_id = v.into();
         self
@@ -3157,12 +4120,26 @@ impl SecurityHealthAnalyticsModule {
     }
 
     /// Sets the value of [module_name][crate::model::SecurityHealthAnalyticsModule::module_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securityposture_v1::model::SecurityHealthAnalyticsModule;
+    /// let x = SecurityHealthAnalyticsModule::new().set_module_name("example");
+    /// ```
     pub fn set_module_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.module_name = v.into();
         self
     }
 
     /// Sets the value of [module_enablement_state][crate::model::SecurityHealthAnalyticsModule::module_enablement_state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securityposture_v1::model::SecurityHealthAnalyticsModule;
+    /// use google_cloud_securityposture_v1::model::EnablementState;
+    /// let x0 = SecurityHealthAnalyticsModule::new().set_module_enablement_state(EnablementState::Enabled);
+    /// let x1 = SecurityHealthAnalyticsModule::new().set_module_enablement_state(EnablementState::Disabled);
+    /// ```
     pub fn set_module_enablement_state<T: std::convert::Into<crate::model::EnablementState>>(
         mut self,
         v: T,
@@ -3210,18 +4187,37 @@ impl SecurityHealthAnalyticsCustomModule {
     }
 
     /// Sets the value of [id][crate::model::SecurityHealthAnalyticsCustomModule::id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securityposture_v1::model::SecurityHealthAnalyticsCustomModule;
+    /// let x = SecurityHealthAnalyticsCustomModule::new().set_id("example");
+    /// ```
     pub fn set_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.id = v.into();
         self
     }
 
     /// Sets the value of [display_name][crate::model::SecurityHealthAnalyticsCustomModule::display_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securityposture_v1::model::SecurityHealthAnalyticsCustomModule;
+    /// let x = SecurityHealthAnalyticsCustomModule::new().set_display_name("example");
+    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
     }
 
     /// Sets the value of [config][crate::model::SecurityHealthAnalyticsCustomModule::config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securityposture_v1::model::SecurityHealthAnalyticsCustomModule;
+    /// use google_cloud_securityposture_v1::model::CustomConfig;
+    /// let x = SecurityHealthAnalyticsCustomModule::new().set_config(CustomConfig::default()/* use setters */);
+    /// ```
     pub fn set_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::CustomConfig>,
@@ -3231,6 +4227,14 @@ impl SecurityHealthAnalyticsCustomModule {
     }
 
     /// Sets or clears the value of [config][crate::model::SecurityHealthAnalyticsCustomModule::config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securityposture_v1::model::SecurityHealthAnalyticsCustomModule;
+    /// use google_cloud_securityposture_v1::model::CustomConfig;
+    /// let x = SecurityHealthAnalyticsCustomModule::new().set_or_clear_config(Some(CustomConfig::default()/* use setters */));
+    /// let x = SecurityHealthAnalyticsCustomModule::new().set_or_clear_config(None::<CustomConfig>);
+    /// ```
     pub fn set_or_clear_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CustomConfig>,
@@ -3240,6 +4244,14 @@ impl SecurityHealthAnalyticsCustomModule {
     }
 
     /// Sets the value of [module_enablement_state][crate::model::SecurityHealthAnalyticsCustomModule::module_enablement_state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securityposture_v1::model::SecurityHealthAnalyticsCustomModule;
+    /// use google_cloud_securityposture_v1::model::EnablementState;
+    /// let x0 = SecurityHealthAnalyticsCustomModule::new().set_module_enablement_state(EnablementState::Enabled);
+    /// let x1 = SecurityHealthAnalyticsCustomModule::new().set_module_enablement_state(EnablementState::Disabled);
+    /// ```
     pub fn set_module_enablement_state<T: std::convert::Into<crate::model::EnablementState>>(
         mut self,
         v: T,
@@ -3296,6 +4308,13 @@ impl CustomConfig {
     }
 
     /// Sets the value of [predicate][crate::model::CustomConfig::predicate].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securityposture_v1::model::CustomConfig;
+    /// use gtype::model::Expr;
+    /// let x = CustomConfig::new().set_predicate(Expr::default()/* use setters */);
+    /// ```
     pub fn set_predicate<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<gtype::model::Expr>,
@@ -3305,6 +4324,14 @@ impl CustomConfig {
     }
 
     /// Sets or clears the value of [predicate][crate::model::CustomConfig::predicate].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securityposture_v1::model::CustomConfig;
+    /// use gtype::model::Expr;
+    /// let x = CustomConfig::new().set_or_clear_predicate(Some(Expr::default()/* use setters */));
+    /// let x = CustomConfig::new().set_or_clear_predicate(None::<Expr>);
+    /// ```
     pub fn set_or_clear_predicate<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<gtype::model::Expr>,
@@ -3314,6 +4341,13 @@ impl CustomConfig {
     }
 
     /// Sets the value of [custom_output][crate::model::CustomConfig::custom_output].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securityposture_v1::model::CustomConfig;
+    /// use google_cloud_securityposture_v1::model::custom_config::CustomOutputSpec;
+    /// let x = CustomConfig::new().set_custom_output(CustomOutputSpec::default()/* use setters */);
+    /// ```
     pub fn set_custom_output<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::custom_config::CustomOutputSpec>,
@@ -3323,6 +4357,14 @@ impl CustomConfig {
     }
 
     /// Sets or clears the value of [custom_output][crate::model::CustomConfig::custom_output].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securityposture_v1::model::CustomConfig;
+    /// use google_cloud_securityposture_v1::model::custom_config::CustomOutputSpec;
+    /// let x = CustomConfig::new().set_or_clear_custom_output(Some(CustomOutputSpec::default()/* use setters */));
+    /// let x = CustomConfig::new().set_or_clear_custom_output(None::<CustomOutputSpec>);
+    /// ```
     pub fn set_or_clear_custom_output<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::custom_config::CustomOutputSpec>,
@@ -3332,6 +4374,13 @@ impl CustomConfig {
     }
 
     /// Sets the value of [resource_selector][crate::model::CustomConfig::resource_selector].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securityposture_v1::model::CustomConfig;
+    /// use google_cloud_securityposture_v1::model::custom_config::ResourceSelector;
+    /// let x = CustomConfig::new().set_resource_selector(ResourceSelector::default()/* use setters */);
+    /// ```
     pub fn set_resource_selector<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::custom_config::ResourceSelector>,
@@ -3341,6 +4390,14 @@ impl CustomConfig {
     }
 
     /// Sets or clears the value of [resource_selector][crate::model::CustomConfig::resource_selector].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securityposture_v1::model::CustomConfig;
+    /// use google_cloud_securityposture_v1::model::custom_config::ResourceSelector;
+    /// let x = CustomConfig::new().set_or_clear_resource_selector(Some(ResourceSelector::default()/* use setters */));
+    /// let x = CustomConfig::new().set_or_clear_resource_selector(None::<ResourceSelector>);
+    /// ```
     pub fn set_or_clear_resource_selector<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::custom_config::ResourceSelector>,
@@ -3350,6 +4407,15 @@ impl CustomConfig {
     }
 
     /// Sets the value of [severity][crate::model::CustomConfig::severity].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securityposture_v1::model::CustomConfig;
+    /// use google_cloud_securityposture_v1::model::custom_config::Severity;
+    /// let x0 = CustomConfig::new().set_severity(Severity::Critical);
+    /// let x1 = CustomConfig::new().set_severity(Severity::High);
+    /// let x2 = CustomConfig::new().set_severity(Severity::Medium);
+    /// ```
     pub fn set_severity<T: std::convert::Into<crate::model::custom_config::Severity>>(
         mut self,
         v: T,
@@ -3359,12 +4425,24 @@ impl CustomConfig {
     }
 
     /// Sets the value of [description][crate::model::CustomConfig::description].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securityposture_v1::model::CustomConfig;
+    /// let x = CustomConfig::new().set_description("example");
+    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [recommendation][crate::model::CustomConfig::recommendation].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securityposture_v1::model::CustomConfig;
+    /// let x = CustomConfig::new().set_recommendation("example");
+    /// ```
     pub fn set_recommendation<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.recommendation = v.into();
         self
@@ -3401,6 +4479,17 @@ pub mod custom_config {
         }
 
         /// Sets the value of [properties][crate::model::custom_config::CustomOutputSpec::properties].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_securityposture_v1::model::custom_config::CustomOutputSpec;
+        /// use google_cloud_securityposture_v1::model::custom_config::custom_output_spec::Property;
+        /// let x = CustomOutputSpec::new()
+        ///     .set_properties([
+        ///         Property::default()/* use setters */,
+        ///         Property::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
         pub fn set_properties<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -3444,12 +4533,25 @@ pub mod custom_config {
             }
 
             /// Sets the value of [name][crate::model::custom_config::custom_output_spec::Property::name].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_securityposture_v1::model::custom_config::custom_output_spec::Property;
+            /// let x = Property::new().set_name("example");
+            /// ```
             pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
                 self.name = v.into();
                 self
             }
 
             /// Sets the value of [value_expression][crate::model::custom_config::custom_output_spec::Property::value_expression].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_securityposture_v1::model::custom_config::custom_output_spec::Property;
+            /// use gtype::model::Expr;
+            /// let x = Property::new().set_value_expression(Expr::default()/* use setters */);
+            /// ```
             pub fn set_value_expression<T>(mut self, v: T) -> Self
             where
                 T: std::convert::Into<gtype::model::Expr>,
@@ -3459,6 +4561,14 @@ pub mod custom_config {
             }
 
             /// Sets or clears the value of [value_expression][crate::model::custom_config::custom_output_spec::Property::value_expression].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_securityposture_v1::model::custom_config::custom_output_spec::Property;
+            /// use gtype::model::Expr;
+            /// let x = Property::new().set_or_clear_value_expression(Some(Expr::default()/* use setters */));
+            /// let x = Property::new().set_or_clear_value_expression(None::<Expr>);
+            /// ```
             pub fn set_or_clear_value_expression<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<gtype::model::Expr>,
@@ -3491,6 +4601,12 @@ pub mod custom_config {
         }
 
         /// Sets the value of [resource_types][crate::model::custom_config::ResourceSelector::resource_types].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_securityposture_v1::model::custom_config::ResourceSelector;
+        /// let x = ResourceSelector::new().set_resource_types(["a", "b", "c"]);
+        /// ```
         pub fn set_resource_types<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,

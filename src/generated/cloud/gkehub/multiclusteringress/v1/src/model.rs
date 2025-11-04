@@ -46,6 +46,12 @@ impl FeatureSpec {
     }
 
     /// Sets the value of [config_membership][crate::model::FeatureSpec::config_membership].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_multiclusteringress_v1::model::FeatureSpec;
+    /// let x = FeatureSpec::new().set_config_membership("example");
+    /// ```
     pub fn set_config_membership<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,

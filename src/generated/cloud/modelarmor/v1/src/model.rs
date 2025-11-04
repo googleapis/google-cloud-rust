@@ -66,12 +66,25 @@ impl Template {
     }
 
     /// Sets the value of [name][crate::model::Template::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_modelarmor_v1::model::Template;
+    /// let x = Template::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::Template::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_modelarmor_v1::model::Template;
+    /// use wkt::Timestamp;
+    /// let x = Template::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -81,6 +94,14 @@ impl Template {
     }
 
     /// Sets or clears the value of [create_time][crate::model::Template::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_modelarmor_v1::model::Template;
+    /// use wkt::Timestamp;
+    /// let x = Template::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Template::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -90,6 +111,13 @@ impl Template {
     }
 
     /// Sets the value of [update_time][crate::model::Template::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_modelarmor_v1::model::Template;
+    /// use wkt::Timestamp;
+    /// let x = Template::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -99,6 +127,14 @@ impl Template {
     }
 
     /// Sets or clears the value of [update_time][crate::model::Template::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_modelarmor_v1::model::Template;
+    /// use wkt::Timestamp;
+    /// let x = Template::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Template::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -108,6 +144,15 @@ impl Template {
     }
 
     /// Sets the value of [labels][crate::model::Template::labels].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_modelarmor_v1::model::Template;
+    /// let x = Template::new().set_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -120,6 +165,13 @@ impl Template {
     }
 
     /// Sets the value of [filter_config][crate::model::Template::filter_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_modelarmor_v1::model::Template;
+    /// use google_cloud_modelarmor_v1::model::FilterConfig;
+    /// let x = Template::new().set_filter_config(FilterConfig::default()/* use setters */);
+    /// ```
     pub fn set_filter_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::FilterConfig>,
@@ -129,6 +181,14 @@ impl Template {
     }
 
     /// Sets or clears the value of [filter_config][crate::model::Template::filter_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_modelarmor_v1::model::Template;
+    /// use google_cloud_modelarmor_v1::model::FilterConfig;
+    /// let x = Template::new().set_or_clear_filter_config(Some(FilterConfig::default()/* use setters */));
+    /// let x = Template::new().set_or_clear_filter_config(None::<FilterConfig>);
+    /// ```
     pub fn set_or_clear_filter_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::FilterConfig>,
@@ -138,6 +198,13 @@ impl Template {
     }
 
     /// Sets the value of [template_metadata][crate::model::Template::template_metadata].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_modelarmor_v1::model::Template;
+    /// use google_cloud_modelarmor_v1::model::template::TemplateMetadata;
+    /// let x = Template::new().set_template_metadata(TemplateMetadata::default()/* use setters */);
+    /// ```
     pub fn set_template_metadata<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::template::TemplateMetadata>,
@@ -147,6 +214,14 @@ impl Template {
     }
 
     /// Sets or clears the value of [template_metadata][crate::model::Template::template_metadata].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_modelarmor_v1::model::Template;
+    /// use google_cloud_modelarmor_v1::model::template::TemplateMetadata;
+    /// let x = Template::new().set_or_clear_template_metadata(Some(TemplateMetadata::default()/* use setters */));
+    /// let x = Template::new().set_or_clear_template_metadata(None::<TemplateMetadata>);
+    /// ```
     pub fn set_or_clear_template_metadata<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::template::TemplateMetadata>,
@@ -213,6 +288,12 @@ pub mod template {
         }
 
         /// Sets the value of [ignore_partial_invocation_failures][crate::model::template::TemplateMetadata::ignore_partial_invocation_failures].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_modelarmor_v1::model::template::TemplateMetadata;
+        /// let x = TemplateMetadata::new().set_ignore_partial_invocation_failures(true);
+        /// ```
         pub fn set_ignore_partial_invocation_failures<T: std::convert::Into<bool>>(
             mut self,
             v: T,
@@ -222,6 +303,12 @@ pub mod template {
         }
 
         /// Sets the value of [custom_prompt_safety_error_code][crate::model::template::TemplateMetadata::custom_prompt_safety_error_code].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_modelarmor_v1::model::template::TemplateMetadata;
+        /// let x = TemplateMetadata::new().set_custom_prompt_safety_error_code(42);
+        /// ```
         pub fn set_custom_prompt_safety_error_code<T: std::convert::Into<i32>>(
             mut self,
             v: T,
@@ -231,6 +318,12 @@ pub mod template {
         }
 
         /// Sets the value of [custom_prompt_safety_error_message][crate::model::template::TemplateMetadata::custom_prompt_safety_error_message].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_modelarmor_v1::model::template::TemplateMetadata;
+        /// let x = TemplateMetadata::new().set_custom_prompt_safety_error_message("example");
+        /// ```
         pub fn set_custom_prompt_safety_error_message<
             T: std::convert::Into<std::string::String>,
         >(
@@ -242,6 +335,12 @@ pub mod template {
         }
 
         /// Sets the value of [custom_llm_response_safety_error_code][crate::model::template::TemplateMetadata::custom_llm_response_safety_error_code].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_modelarmor_v1::model::template::TemplateMetadata;
+        /// let x = TemplateMetadata::new().set_custom_llm_response_safety_error_code(42);
+        /// ```
         pub fn set_custom_llm_response_safety_error_code<T: std::convert::Into<i32>>(
             mut self,
             v: T,
@@ -251,6 +350,12 @@ pub mod template {
         }
 
         /// Sets the value of [custom_llm_response_safety_error_message][crate::model::template::TemplateMetadata::custom_llm_response_safety_error_message].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_modelarmor_v1::model::template::TemplateMetadata;
+        /// let x = TemplateMetadata::new().set_custom_llm_response_safety_error_message("example");
+        /// ```
         pub fn set_custom_llm_response_safety_error_message<
             T: std::convert::Into<std::string::String>,
         >(
@@ -262,18 +367,38 @@ pub mod template {
         }
 
         /// Sets the value of [log_template_operations][crate::model::template::TemplateMetadata::log_template_operations].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_modelarmor_v1::model::template::TemplateMetadata;
+        /// let x = TemplateMetadata::new().set_log_template_operations(true);
+        /// ```
         pub fn set_log_template_operations<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.log_template_operations = v.into();
             self
         }
 
         /// Sets the value of [log_sanitize_operations][crate::model::template::TemplateMetadata::log_sanitize_operations].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_modelarmor_v1::model::template::TemplateMetadata;
+        /// let x = TemplateMetadata::new().set_log_sanitize_operations(true);
+        /// ```
         pub fn set_log_sanitize_operations<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.log_sanitize_operations = v.into();
             self
         }
 
         /// Sets the value of [enforcement_type][crate::model::template::TemplateMetadata::enforcement_type].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_modelarmor_v1::model::template::TemplateMetadata;
+        /// use google_cloud_modelarmor_v1::model::template::template_metadata::EnforcementType;
+        /// let x0 = TemplateMetadata::new().set_enforcement_type(EnforcementType::InspectOnly);
+        /// let x1 = TemplateMetadata::new().set_enforcement_type(EnforcementType::InspectAndBlock);
+        /// ```
         pub fn set_enforcement_type<
             T: std::convert::Into<crate::model::template::template_metadata::EnforcementType>,
         >(
@@ -285,6 +410,13 @@ pub mod template {
         }
 
         /// Sets the value of [multi_language_detection][crate::model::template::TemplateMetadata::multi_language_detection].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_modelarmor_v1::model::template::TemplateMetadata;
+        /// use google_cloud_modelarmor_v1::model::template::template_metadata::MultiLanguageDetection;
+        /// let x = TemplateMetadata::new().set_multi_language_detection(MultiLanguageDetection::default()/* use setters */);
+        /// ```
         pub fn set_multi_language_detection<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<
@@ -296,6 +428,14 @@ pub mod template {
         }
 
         /// Sets or clears the value of [multi_language_detection][crate::model::template::TemplateMetadata::multi_language_detection].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_modelarmor_v1::model::template::TemplateMetadata;
+        /// use google_cloud_modelarmor_v1::model::template::template_metadata::MultiLanguageDetection;
+        /// let x = TemplateMetadata::new().set_or_clear_multi_language_detection(Some(MultiLanguageDetection::default()/* use setters */));
+        /// let x = TemplateMetadata::new().set_or_clear_multi_language_detection(None::<MultiLanguageDetection>);
+        /// ```
         pub fn set_or_clear_multi_language_detection<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<
@@ -334,6 +474,12 @@ pub mod template {
             }
 
             /// Sets the value of [enable_multi_language_detection][crate::model::template::template_metadata::MultiLanguageDetection::enable_multi_language_detection].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_modelarmor_v1::model::template::template_metadata::MultiLanguageDetection;
+            /// let x = MultiLanguageDetection::new().set_enable_multi_language_detection(true);
+            /// ```
             pub fn set_enable_multi_language_detection<T: std::convert::Into<bool>>(
                 mut self,
                 v: T,
@@ -527,12 +673,25 @@ impl FloorSetting {
     }
 
     /// Sets the value of [name][crate::model::FloorSetting::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_modelarmor_v1::model::FloorSetting;
+    /// let x = FloorSetting::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::FloorSetting::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_modelarmor_v1::model::FloorSetting;
+    /// use wkt::Timestamp;
+    /// let x = FloorSetting::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -542,6 +701,14 @@ impl FloorSetting {
     }
 
     /// Sets or clears the value of [create_time][crate::model::FloorSetting::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_modelarmor_v1::model::FloorSetting;
+    /// use wkt::Timestamp;
+    /// let x = FloorSetting::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = FloorSetting::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -551,6 +718,13 @@ impl FloorSetting {
     }
 
     /// Sets the value of [update_time][crate::model::FloorSetting::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_modelarmor_v1::model::FloorSetting;
+    /// use wkt::Timestamp;
+    /// let x = FloorSetting::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -560,6 +734,14 @@ impl FloorSetting {
     }
 
     /// Sets or clears the value of [update_time][crate::model::FloorSetting::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_modelarmor_v1::model::FloorSetting;
+    /// use wkt::Timestamp;
+    /// let x = FloorSetting::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = FloorSetting::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -569,6 +751,13 @@ impl FloorSetting {
     }
 
     /// Sets the value of [filter_config][crate::model::FloorSetting::filter_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_modelarmor_v1::model::FloorSetting;
+    /// use google_cloud_modelarmor_v1::model::FilterConfig;
+    /// let x = FloorSetting::new().set_filter_config(FilterConfig::default()/* use setters */);
+    /// ```
     pub fn set_filter_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::FilterConfig>,
@@ -578,6 +767,14 @@ impl FloorSetting {
     }
 
     /// Sets or clears the value of [filter_config][crate::model::FloorSetting::filter_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_modelarmor_v1::model::FloorSetting;
+    /// use google_cloud_modelarmor_v1::model::FilterConfig;
+    /// let x = FloorSetting::new().set_or_clear_filter_config(Some(FilterConfig::default()/* use setters */));
+    /// let x = FloorSetting::new().set_or_clear_filter_config(None::<FilterConfig>);
+    /// ```
     pub fn set_or_clear_filter_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::FilterConfig>,
@@ -587,6 +784,12 @@ impl FloorSetting {
     }
 
     /// Sets the value of [enable_floor_setting_enforcement][crate::model::FloorSetting::enable_floor_setting_enforcement].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_modelarmor_v1::model::FloorSetting;
+    /// let x = FloorSetting::new().set_enable_floor_setting_enforcement(true);
+    /// ```
     pub fn set_enable_floor_setting_enforcement<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<bool>,
@@ -596,6 +799,13 @@ impl FloorSetting {
     }
 
     /// Sets or clears the value of [enable_floor_setting_enforcement][crate::model::FloorSetting::enable_floor_setting_enforcement].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_modelarmor_v1::model::FloorSetting;
+    /// let x = FloorSetting::new().set_or_clear_enable_floor_setting_enforcement(Some(false));
+    /// let x = FloorSetting::new().set_or_clear_enable_floor_setting_enforcement(None::<bool>);
+    /// ```
     pub fn set_or_clear_enable_floor_setting_enforcement<T>(
         mut self,
         v: std::option::Option<T>,
@@ -608,6 +818,15 @@ impl FloorSetting {
     }
 
     /// Sets the value of [integrated_services][crate::model::FloorSetting::integrated_services].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_modelarmor_v1::model::FloorSetting;
+    /// use google_cloud_modelarmor_v1::model::floor_setting::IntegratedService;
+    /// let x = FloorSetting::new().set_integrated_services([
+    ///     IntegratedService::AiPlatform,
+    /// ]);
+    /// ```
     pub fn set_integrated_services<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -619,6 +838,13 @@ impl FloorSetting {
     }
 
     /// Sets the value of [ai_platform_floor_setting][crate::model::FloorSetting::ai_platform_floor_setting].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_modelarmor_v1::model::FloorSetting;
+    /// use google_cloud_modelarmor_v1::model::AiPlatformFloorSetting;
+    /// let x = FloorSetting::new().set_ai_platform_floor_setting(AiPlatformFloorSetting::default()/* use setters */);
+    /// ```
     pub fn set_ai_platform_floor_setting<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::AiPlatformFloorSetting>,
@@ -628,6 +854,14 @@ impl FloorSetting {
     }
 
     /// Sets or clears the value of [ai_platform_floor_setting][crate::model::FloorSetting::ai_platform_floor_setting].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_modelarmor_v1::model::FloorSetting;
+    /// use google_cloud_modelarmor_v1::model::AiPlatformFloorSetting;
+    /// let x = FloorSetting::new().set_or_clear_ai_platform_floor_setting(Some(AiPlatformFloorSetting::default()/* use setters */));
+    /// let x = FloorSetting::new().set_or_clear_ai_platform_floor_setting(None::<AiPlatformFloorSetting>);
+    /// ```
     pub fn set_or_clear_ai_platform_floor_setting<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AiPlatformFloorSetting>,
@@ -637,6 +871,13 @@ impl FloorSetting {
     }
 
     /// Sets the value of [floor_setting_metadata][crate::model::FloorSetting::floor_setting_metadata].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_modelarmor_v1::model::FloorSetting;
+    /// use google_cloud_modelarmor_v1::model::floor_setting::FloorSettingMetadata;
+    /// let x = FloorSetting::new().set_floor_setting_metadata(FloorSettingMetadata::default()/* use setters */);
+    /// ```
     pub fn set_floor_setting_metadata<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::floor_setting::FloorSettingMetadata>,
@@ -646,6 +887,14 @@ impl FloorSetting {
     }
 
     /// Sets or clears the value of [floor_setting_metadata][crate::model::FloorSetting::floor_setting_metadata].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_modelarmor_v1::model::FloorSetting;
+    /// use google_cloud_modelarmor_v1::model::floor_setting::FloorSettingMetadata;
+    /// let x = FloorSetting::new().set_or_clear_floor_setting_metadata(Some(FloorSettingMetadata::default()/* use setters */));
+    /// let x = FloorSetting::new().set_or_clear_floor_setting_metadata(None::<FloorSettingMetadata>);
+    /// ```
     pub fn set_or_clear_floor_setting_metadata<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::floor_setting::FloorSettingMetadata>,
@@ -684,6 +933,13 @@ pub mod floor_setting {
         }
 
         /// Sets the value of [multi_language_detection][crate::model::floor_setting::FloorSettingMetadata::multi_language_detection].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_modelarmor_v1::model::floor_setting::FloorSettingMetadata;
+        /// use google_cloud_modelarmor_v1::model::floor_setting::floor_setting_metadata::MultiLanguageDetection;
+        /// let x = FloorSettingMetadata::new().set_multi_language_detection(MultiLanguageDetection::default()/* use setters */);
+        /// ```
         pub fn set_multi_language_detection<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<
@@ -695,6 +951,14 @@ pub mod floor_setting {
         }
 
         /// Sets or clears the value of [multi_language_detection][crate::model::floor_setting::FloorSettingMetadata::multi_language_detection].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_modelarmor_v1::model::floor_setting::FloorSettingMetadata;
+        /// use google_cloud_modelarmor_v1::model::floor_setting::floor_setting_metadata::MultiLanguageDetection;
+        /// let x = FloorSettingMetadata::new().set_or_clear_multi_language_detection(Some(MultiLanguageDetection::default()/* use setters */));
+        /// let x = FloorSettingMetadata::new().set_or_clear_multi_language_detection(None::<MultiLanguageDetection>);
+        /// ```
         pub fn set_or_clear_multi_language_detection<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<
@@ -733,6 +997,12 @@ pub mod floor_setting {
             }
 
             /// Sets the value of [enable_multi_language_detection][crate::model::floor_setting::floor_setting_metadata::MultiLanguageDetection::enable_multi_language_detection].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_modelarmor_v1::model::floor_setting::floor_setting_metadata::MultiLanguageDetection;
+            /// let x = MultiLanguageDetection::new().set_enable_multi_language_detection(true);
+            /// ```
             pub fn set_enable_multi_language_detection<T: std::convert::Into<bool>>(
                 mut self,
                 v: T,
@@ -895,6 +1165,12 @@ impl AiPlatformFloorSetting {
     }
 
     /// Sets the value of [enable_cloud_logging][crate::model::AiPlatformFloorSetting::enable_cloud_logging].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_modelarmor_v1::model::AiPlatformFloorSetting;
+    /// let x = AiPlatformFloorSetting::new().set_enable_cloud_logging(true);
+    /// ```
     pub fn set_enable_cloud_logging<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.enable_cloud_logging = v.into();
         self
@@ -904,6 +1180,13 @@ impl AiPlatformFloorSetting {
     ///
     /// Note that all the setters affecting `enforcement_type` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_modelarmor_v1::model::AiPlatformFloorSetting;
+    /// use google_cloud_modelarmor_v1::model::ai_platform_floor_setting;
+    /// let x = AiPlatformFloorSetting::new().set_enforcement_type(Some(ai_platform_floor_setting::EnforcementType::InspectOnly(true)));
+    /// ```
     pub fn set_enforcement_type<
         T: std::convert::Into<
                 std::option::Option<crate::model::ai_platform_floor_setting::EnforcementType>,
@@ -934,6 +1217,14 @@ impl AiPlatformFloorSetting {
     ///
     /// Note that all the setters affecting `enforcement_type` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_modelarmor_v1::model::AiPlatformFloorSetting;
+    /// let x = AiPlatformFloorSetting::new().set_inspect_only(true);
+    /// assert!(x.inspect_only().is_some());
+    /// assert!(x.inspect_and_block().is_none());
+    /// ```
     pub fn set_inspect_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.enforcement_type = std::option::Option::Some(
             crate::model::ai_platform_floor_setting::EnforcementType::InspectOnly(v.into()),
@@ -959,6 +1250,14 @@ impl AiPlatformFloorSetting {
     ///
     /// Note that all the setters affecting `enforcement_type` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_modelarmor_v1::model::AiPlatformFloorSetting;
+    /// let x = AiPlatformFloorSetting::new().set_inspect_and_block(true);
+    /// assert!(x.inspect_and_block().is_some());
+    /// assert!(x.inspect_only().is_none());
+    /// ```
     pub fn set_inspect_and_block<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.enforcement_type = std::option::Option::Some(
             crate::model::ai_platform_floor_setting::EnforcementType::InspectAndBlock(v.into()),
@@ -1020,30 +1319,60 @@ impl ListTemplatesRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListTemplatesRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_modelarmor_v1::model::ListTemplatesRequest;
+    /// let x = ListTemplatesRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListTemplatesRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_modelarmor_v1::model::ListTemplatesRequest;
+    /// let x = ListTemplatesRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListTemplatesRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_modelarmor_v1::model::ListTemplatesRequest;
+    /// let x = ListTemplatesRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListTemplatesRequest::filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_modelarmor_v1::model::ListTemplatesRequest;
+    /// let x = ListTemplatesRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListTemplatesRequest::order_by].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_modelarmor_v1::model::ListTemplatesRequest;
+    /// let x = ListTemplatesRequest::new().set_order_by("example");
+    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
@@ -1078,6 +1407,17 @@ impl ListTemplatesResponse {
     }
 
     /// Sets the value of [templates][crate::model::ListTemplatesResponse::templates].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_modelarmor_v1::model::ListTemplatesResponse;
+    /// use google_cloud_modelarmor_v1::model::Template;
+    /// let x = ListTemplatesResponse::new()
+    ///     .set_templates([
+    ///         Template::default()/* use setters */,
+    ///         Template::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_templates<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1089,12 +1429,24 @@ impl ListTemplatesResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListTemplatesResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_modelarmor_v1::model::ListTemplatesResponse;
+    /// let x = ListTemplatesResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListTemplatesResponse::unreachable].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_modelarmor_v1::model::ListTemplatesResponse;
+    /// let x = ListTemplatesResponse::new().set_unreachable(["a", "b", "c"]);
+    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1142,6 +1494,12 @@ impl GetTemplateRequest {
     }
 
     /// Sets the value of [name][crate::model::GetTemplateRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_modelarmor_v1::model::GetTemplateRequest;
+    /// let x = GetTemplateRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -1193,18 +1551,37 @@ impl CreateTemplateRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateTemplateRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_modelarmor_v1::model::CreateTemplateRequest;
+    /// let x = CreateTemplateRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [template_id][crate::model::CreateTemplateRequest::template_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_modelarmor_v1::model::CreateTemplateRequest;
+    /// let x = CreateTemplateRequest::new().set_template_id("example");
+    /// ```
     pub fn set_template_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.template_id = v.into();
         self
     }
 
     /// Sets the value of [template][crate::model::CreateTemplateRequest::template].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_modelarmor_v1::model::CreateTemplateRequest;
+    /// use google_cloud_modelarmor_v1::model::Template;
+    /// let x = CreateTemplateRequest::new().set_template(Template::default()/* use setters */);
+    /// ```
     pub fn set_template<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Template>,
@@ -1214,6 +1591,14 @@ impl CreateTemplateRequest {
     }
 
     /// Sets or clears the value of [template][crate::model::CreateTemplateRequest::template].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_modelarmor_v1::model::CreateTemplateRequest;
+    /// use google_cloud_modelarmor_v1::model::Template;
+    /// let x = CreateTemplateRequest::new().set_or_clear_template(Some(Template::default()/* use setters */));
+    /// let x = CreateTemplateRequest::new().set_or_clear_template(None::<Template>);
+    /// ```
     pub fn set_or_clear_template<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Template>,
@@ -1223,6 +1608,12 @@ impl CreateTemplateRequest {
     }
 
     /// Sets the value of [request_id][crate::model::CreateTemplateRequest::request_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_modelarmor_v1::model::CreateTemplateRequest;
+    /// let x = CreateTemplateRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -1273,6 +1664,13 @@ impl UpdateTemplateRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateTemplateRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_modelarmor_v1::model::UpdateTemplateRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateTemplateRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -1282,6 +1680,14 @@ impl UpdateTemplateRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateTemplateRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_modelarmor_v1::model::UpdateTemplateRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateTemplateRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateTemplateRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -1291,6 +1697,13 @@ impl UpdateTemplateRequest {
     }
 
     /// Sets the value of [template][crate::model::UpdateTemplateRequest::template].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_modelarmor_v1::model::UpdateTemplateRequest;
+    /// use google_cloud_modelarmor_v1::model::Template;
+    /// let x = UpdateTemplateRequest::new().set_template(Template::default()/* use setters */);
+    /// ```
     pub fn set_template<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Template>,
@@ -1300,6 +1713,14 @@ impl UpdateTemplateRequest {
     }
 
     /// Sets or clears the value of [template][crate::model::UpdateTemplateRequest::template].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_modelarmor_v1::model::UpdateTemplateRequest;
+    /// use google_cloud_modelarmor_v1::model::Template;
+    /// let x = UpdateTemplateRequest::new().set_or_clear_template(Some(Template::default()/* use setters */));
+    /// let x = UpdateTemplateRequest::new().set_or_clear_template(None::<Template>);
+    /// ```
     pub fn set_or_clear_template<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Template>,
@@ -1309,6 +1730,12 @@ impl UpdateTemplateRequest {
     }
 
     /// Sets the value of [request_id][crate::model::UpdateTemplateRequest::request_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_modelarmor_v1::model::UpdateTemplateRequest;
+    /// let x = UpdateTemplateRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -1352,12 +1779,24 @@ impl DeleteTemplateRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteTemplateRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_modelarmor_v1::model::DeleteTemplateRequest;
+    /// let x = DeleteTemplateRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [request_id][crate::model::DeleteTemplateRequest::request_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_modelarmor_v1::model::DeleteTemplateRequest;
+    /// let x = DeleteTemplateRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -1387,6 +1826,12 @@ impl GetFloorSettingRequest {
     }
 
     /// Sets the value of [name][crate::model::GetFloorSettingRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_modelarmor_v1::model::GetFloorSettingRequest;
+    /// let x = GetFloorSettingRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -1422,6 +1867,13 @@ impl UpdateFloorSettingRequest {
     }
 
     /// Sets the value of [floor_setting][crate::model::UpdateFloorSettingRequest::floor_setting].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_modelarmor_v1::model::UpdateFloorSettingRequest;
+    /// use google_cloud_modelarmor_v1::model::FloorSetting;
+    /// let x = UpdateFloorSettingRequest::new().set_floor_setting(FloorSetting::default()/* use setters */);
+    /// ```
     pub fn set_floor_setting<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::FloorSetting>,
@@ -1431,6 +1883,14 @@ impl UpdateFloorSettingRequest {
     }
 
     /// Sets or clears the value of [floor_setting][crate::model::UpdateFloorSettingRequest::floor_setting].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_modelarmor_v1::model::UpdateFloorSettingRequest;
+    /// use google_cloud_modelarmor_v1::model::FloorSetting;
+    /// let x = UpdateFloorSettingRequest::new().set_or_clear_floor_setting(Some(FloorSetting::default()/* use setters */));
+    /// let x = UpdateFloorSettingRequest::new().set_or_clear_floor_setting(None::<FloorSetting>);
+    /// ```
     pub fn set_or_clear_floor_setting<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::FloorSetting>,
@@ -1440,6 +1900,13 @@ impl UpdateFloorSettingRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateFloorSettingRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_modelarmor_v1::model::UpdateFloorSettingRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateFloorSettingRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -1449,6 +1916,14 @@ impl UpdateFloorSettingRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateFloorSettingRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_modelarmor_v1::model::UpdateFloorSettingRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateFloorSettingRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateFloorSettingRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -1491,6 +1966,13 @@ impl FilterConfig {
     }
 
     /// Sets the value of [rai_settings][crate::model::FilterConfig::rai_settings].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_modelarmor_v1::model::FilterConfig;
+    /// use google_cloud_modelarmor_v1::model::RaiFilterSettings;
+    /// let x = FilterConfig::new().set_rai_settings(RaiFilterSettings::default()/* use setters */);
+    /// ```
     pub fn set_rai_settings<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::RaiFilterSettings>,
@@ -1500,6 +1982,14 @@ impl FilterConfig {
     }
 
     /// Sets or clears the value of [rai_settings][crate::model::FilterConfig::rai_settings].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_modelarmor_v1::model::FilterConfig;
+    /// use google_cloud_modelarmor_v1::model::RaiFilterSettings;
+    /// let x = FilterConfig::new().set_or_clear_rai_settings(Some(RaiFilterSettings::default()/* use setters */));
+    /// let x = FilterConfig::new().set_or_clear_rai_settings(None::<RaiFilterSettings>);
+    /// ```
     pub fn set_or_clear_rai_settings<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::RaiFilterSettings>,
@@ -1509,6 +1999,13 @@ impl FilterConfig {
     }
 
     /// Sets the value of [sdp_settings][crate::model::FilterConfig::sdp_settings].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_modelarmor_v1::model::FilterConfig;
+    /// use google_cloud_modelarmor_v1::model::SdpFilterSettings;
+    /// let x = FilterConfig::new().set_sdp_settings(SdpFilterSettings::default()/* use setters */);
+    /// ```
     pub fn set_sdp_settings<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::SdpFilterSettings>,
@@ -1518,6 +2015,14 @@ impl FilterConfig {
     }
 
     /// Sets or clears the value of [sdp_settings][crate::model::FilterConfig::sdp_settings].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_modelarmor_v1::model::FilterConfig;
+    /// use google_cloud_modelarmor_v1::model::SdpFilterSettings;
+    /// let x = FilterConfig::new().set_or_clear_sdp_settings(Some(SdpFilterSettings::default()/* use setters */));
+    /// let x = FilterConfig::new().set_or_clear_sdp_settings(None::<SdpFilterSettings>);
+    /// ```
     pub fn set_or_clear_sdp_settings<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::SdpFilterSettings>,
@@ -1527,6 +2032,13 @@ impl FilterConfig {
     }
 
     /// Sets the value of [pi_and_jailbreak_filter_settings][crate::model::FilterConfig::pi_and_jailbreak_filter_settings].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_modelarmor_v1::model::FilterConfig;
+    /// use google_cloud_modelarmor_v1::model::PiAndJailbreakFilterSettings;
+    /// let x = FilterConfig::new().set_pi_and_jailbreak_filter_settings(PiAndJailbreakFilterSettings::default()/* use setters */);
+    /// ```
     pub fn set_pi_and_jailbreak_filter_settings<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::PiAndJailbreakFilterSettings>,
@@ -1536,6 +2048,14 @@ impl FilterConfig {
     }
 
     /// Sets or clears the value of [pi_and_jailbreak_filter_settings][crate::model::FilterConfig::pi_and_jailbreak_filter_settings].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_modelarmor_v1::model::FilterConfig;
+    /// use google_cloud_modelarmor_v1::model::PiAndJailbreakFilterSettings;
+    /// let x = FilterConfig::new().set_or_clear_pi_and_jailbreak_filter_settings(Some(PiAndJailbreakFilterSettings::default()/* use setters */));
+    /// let x = FilterConfig::new().set_or_clear_pi_and_jailbreak_filter_settings(None::<PiAndJailbreakFilterSettings>);
+    /// ```
     pub fn set_or_clear_pi_and_jailbreak_filter_settings<T>(
         mut self,
         v: std::option::Option<T>,
@@ -1548,6 +2068,13 @@ impl FilterConfig {
     }
 
     /// Sets the value of [malicious_uri_filter_settings][crate::model::FilterConfig::malicious_uri_filter_settings].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_modelarmor_v1::model::FilterConfig;
+    /// use google_cloud_modelarmor_v1::model::MaliciousUriFilterSettings;
+    /// let x = FilterConfig::new().set_malicious_uri_filter_settings(MaliciousUriFilterSettings::default()/* use setters */);
+    /// ```
     pub fn set_malicious_uri_filter_settings<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::MaliciousUriFilterSettings>,
@@ -1557,6 +2084,14 @@ impl FilterConfig {
     }
 
     /// Sets or clears the value of [malicious_uri_filter_settings][crate::model::FilterConfig::malicious_uri_filter_settings].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_modelarmor_v1::model::FilterConfig;
+    /// use google_cloud_modelarmor_v1::model::MaliciousUriFilterSettings;
+    /// let x = FilterConfig::new().set_or_clear_malicious_uri_filter_settings(Some(MaliciousUriFilterSettings::default()/* use setters */));
+    /// let x = FilterConfig::new().set_or_clear_malicious_uri_filter_settings(None::<MaliciousUriFilterSettings>);
+    /// ```
     pub fn set_or_clear_malicious_uri_filter_settings<T>(
         mut self,
         v: std::option::Option<T>,
@@ -1600,6 +2135,14 @@ impl PiAndJailbreakFilterSettings {
     }
 
     /// Sets the value of [filter_enforcement][crate::model::PiAndJailbreakFilterSettings::filter_enforcement].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_modelarmor_v1::model::PiAndJailbreakFilterSettings;
+    /// use google_cloud_modelarmor_v1::model::pi_and_jailbreak_filter_settings::PiAndJailbreakFilterEnforcement;
+    /// let x0 = PiAndJailbreakFilterSettings::new().set_filter_enforcement(PiAndJailbreakFilterEnforcement::Enabled);
+    /// let x1 = PiAndJailbreakFilterSettings::new().set_filter_enforcement(PiAndJailbreakFilterEnforcement::Disabled);
+    /// ```
     pub fn set_filter_enforcement<
         T: std::convert::Into<
                 crate::model::pi_and_jailbreak_filter_settings::PiAndJailbreakFilterEnforcement,
@@ -1613,6 +2156,15 @@ impl PiAndJailbreakFilterSettings {
     }
 
     /// Sets the value of [confidence_level][crate::model::PiAndJailbreakFilterSettings::confidence_level].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_modelarmor_v1::model::PiAndJailbreakFilterSettings;
+    /// use google_cloud_modelarmor_v1::model::DetectionConfidenceLevel;
+    /// let x0 = PiAndJailbreakFilterSettings::new().set_confidence_level(DetectionConfidenceLevel::LowAndAbove);
+    /// let x1 = PiAndJailbreakFilterSettings::new().set_confidence_level(DetectionConfidenceLevel::MediumAndAbove);
+    /// let x2 = PiAndJailbreakFilterSettings::new().set_confidence_level(DetectionConfidenceLevel::High);
+    /// ```
     pub fn set_confidence_level<T: std::convert::Into<crate::model::DetectionConfidenceLevel>>(
         mut self,
         v: T,
@@ -1785,6 +2337,14 @@ impl MaliciousUriFilterSettings {
     }
 
     /// Sets the value of [filter_enforcement][crate::model::MaliciousUriFilterSettings::filter_enforcement].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_modelarmor_v1::model::MaliciousUriFilterSettings;
+    /// use google_cloud_modelarmor_v1::model::malicious_uri_filter_settings::MaliciousUriFilterEnforcement;
+    /// let x0 = MaliciousUriFilterSettings::new().set_filter_enforcement(MaliciousUriFilterEnforcement::Enabled);
+    /// let x1 = MaliciousUriFilterSettings::new().set_filter_enforcement(MaliciousUriFilterEnforcement::Disabled);
+    /// ```
     pub fn set_filter_enforcement<
         T: std::convert::Into<
                 crate::model::malicious_uri_filter_settings::MaliciousUriFilterEnforcement,
@@ -1959,6 +2519,17 @@ impl RaiFilterSettings {
     }
 
     /// Sets the value of [rai_filters][crate::model::RaiFilterSettings::rai_filters].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_modelarmor_v1::model::RaiFilterSettings;
+    /// use google_cloud_modelarmor_v1::model::rai_filter_settings::RaiFilter;
+    /// let x = RaiFilterSettings::new()
+    ///     .set_rai_filters([
+    ///         RaiFilter::default()/* use setters */,
+    ///         RaiFilter::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_rai_filters<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2004,6 +2575,15 @@ pub mod rai_filter_settings {
         }
 
         /// Sets the value of [filter_type][crate::model::rai_filter_settings::RaiFilter::filter_type].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_modelarmor_v1::model::rai_filter_settings::RaiFilter;
+        /// use google_cloud_modelarmor_v1::model::RaiFilterType;
+        /// let x0 = RaiFilter::new().set_filter_type(RaiFilterType::SexuallyExplicit);
+        /// let x1 = RaiFilter::new().set_filter_type(RaiFilterType::HateSpeech);
+        /// let x2 = RaiFilter::new().set_filter_type(RaiFilterType::Harassment);
+        /// ```
         pub fn set_filter_type<T: std::convert::Into<crate::model::RaiFilterType>>(
             mut self,
             v: T,
@@ -2013,6 +2593,15 @@ pub mod rai_filter_settings {
         }
 
         /// Sets the value of [confidence_level][crate::model::rai_filter_settings::RaiFilter::confidence_level].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_modelarmor_v1::model::rai_filter_settings::RaiFilter;
+        /// use google_cloud_modelarmor_v1::model::DetectionConfidenceLevel;
+        /// let x0 = RaiFilter::new().set_confidence_level(DetectionConfidenceLevel::LowAndAbove);
+        /// let x1 = RaiFilter::new().set_confidence_level(DetectionConfidenceLevel::MediumAndAbove);
+        /// let x2 = RaiFilter::new().set_confidence_level(DetectionConfidenceLevel::High);
+        /// ```
         pub fn set_confidence_level<
             T: std::convert::Into<crate::model::DetectionConfidenceLevel>,
         >(
@@ -2050,6 +2639,14 @@ impl SdpFilterSettings {
     ///
     /// Note that all the setters affecting `sdp_configuration` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_modelarmor_v1::model::SdpFilterSettings;
+    /// use google_cloud_modelarmor_v1::model::sdp_filter_settings;
+    /// use google_cloud_modelarmor_v1::model::SdpBasicConfig;
+    /// let x = SdpFilterSettings::new().set_sdp_configuration(Some(sdp_filter_settings::SdpConfiguration::BasicConfig(SdpBasicConfig::default().into())));
+    /// ```
     pub fn set_sdp_configuration<
         T: std::convert::Into<
                 std::option::Option<crate::model::sdp_filter_settings::SdpConfiguration>,
@@ -2082,6 +2679,15 @@ impl SdpFilterSettings {
     ///
     /// Note that all the setters affecting `sdp_configuration` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_modelarmor_v1::model::SdpFilterSettings;
+    /// use google_cloud_modelarmor_v1::model::SdpBasicConfig;
+    /// let x = SdpFilterSettings::new().set_basic_config(SdpBasicConfig::default()/* use setters */);
+    /// assert!(x.basic_config().is_some());
+    /// assert!(x.advanced_config().is_none());
+    /// ```
     pub fn set_basic_config<
         T: std::convert::Into<std::boxed::Box<crate::model::SdpBasicConfig>>,
     >(
@@ -2114,6 +2720,15 @@ impl SdpFilterSettings {
     ///
     /// Note that all the setters affecting `sdp_configuration` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_modelarmor_v1::model::SdpFilterSettings;
+    /// use google_cloud_modelarmor_v1::model::SdpAdvancedConfig;
+    /// let x = SdpFilterSettings::new().set_advanced_config(SdpAdvancedConfig::default()/* use setters */);
+    /// assert!(x.advanced_config().is_some());
+    /// assert!(x.basic_config().is_none());
+    /// ```
     pub fn set_advanced_config<
         T: std::convert::Into<std::boxed::Box<crate::model::SdpAdvancedConfig>>,
     >(
@@ -2172,6 +2787,14 @@ impl SdpBasicConfig {
     }
 
     /// Sets the value of [filter_enforcement][crate::model::SdpBasicConfig::filter_enforcement].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_modelarmor_v1::model::SdpBasicConfig;
+    /// use google_cloud_modelarmor_v1::model::sdp_basic_config::SdpBasicConfigEnforcement;
+    /// let x0 = SdpBasicConfig::new().set_filter_enforcement(SdpBasicConfigEnforcement::Enabled);
+    /// let x1 = SdpBasicConfig::new().set_filter_enforcement(SdpBasicConfigEnforcement::Disabled);
+    /// ```
     pub fn set_filter_enforcement<
         T: std::convert::Into<crate::model::sdp_basic_config::SdpBasicConfigEnforcement>,
     >(
@@ -2369,6 +2992,12 @@ impl SdpAdvancedConfig {
     }
 
     /// Sets the value of [inspect_template][crate::model::SdpAdvancedConfig::inspect_template].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_modelarmor_v1::model::SdpAdvancedConfig;
+    /// let x = SdpAdvancedConfig::new().set_inspect_template("example");
+    /// ```
     pub fn set_inspect_template<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -2378,6 +3007,12 @@ impl SdpAdvancedConfig {
     }
 
     /// Sets the value of [deidentify_template][crate::model::SdpAdvancedConfig::deidentify_template].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_modelarmor_v1::model::SdpAdvancedConfig;
+    /// let x = SdpAdvancedConfig::new().set_deidentify_template("example");
+    /// ```
     pub fn set_deidentify_template<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -2417,12 +3052,25 @@ impl SanitizeUserPromptRequest {
     }
 
     /// Sets the value of [name][crate::model::SanitizeUserPromptRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_modelarmor_v1::model::SanitizeUserPromptRequest;
+    /// let x = SanitizeUserPromptRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [user_prompt_data][crate::model::SanitizeUserPromptRequest::user_prompt_data].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_modelarmor_v1::model::SanitizeUserPromptRequest;
+    /// use google_cloud_modelarmor_v1::model::DataItem;
+    /// let x = SanitizeUserPromptRequest::new().set_user_prompt_data(DataItem::default()/* use setters */);
+    /// ```
     pub fn set_user_prompt_data<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::DataItem>,
@@ -2432,6 +3080,14 @@ impl SanitizeUserPromptRequest {
     }
 
     /// Sets or clears the value of [user_prompt_data][crate::model::SanitizeUserPromptRequest::user_prompt_data].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_modelarmor_v1::model::SanitizeUserPromptRequest;
+    /// use google_cloud_modelarmor_v1::model::DataItem;
+    /// let x = SanitizeUserPromptRequest::new().set_or_clear_user_prompt_data(Some(DataItem::default()/* use setters */));
+    /// let x = SanitizeUserPromptRequest::new().set_or_clear_user_prompt_data(None::<DataItem>);
+    /// ```
     pub fn set_or_clear_user_prompt_data<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DataItem>,
@@ -2441,6 +3097,13 @@ impl SanitizeUserPromptRequest {
     }
 
     /// Sets the value of [multi_language_detection_metadata][crate::model::SanitizeUserPromptRequest::multi_language_detection_metadata].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_modelarmor_v1::model::SanitizeUserPromptRequest;
+    /// use google_cloud_modelarmor_v1::model::MultiLanguageDetectionMetadata;
+    /// let x = SanitizeUserPromptRequest::new().set_multi_language_detection_metadata(MultiLanguageDetectionMetadata::default()/* use setters */);
+    /// ```
     pub fn set_multi_language_detection_metadata<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::MultiLanguageDetectionMetadata>,
@@ -2450,6 +3113,14 @@ impl SanitizeUserPromptRequest {
     }
 
     /// Sets or clears the value of [multi_language_detection_metadata][crate::model::SanitizeUserPromptRequest::multi_language_detection_metadata].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_modelarmor_v1::model::SanitizeUserPromptRequest;
+    /// use google_cloud_modelarmor_v1::model::MultiLanguageDetectionMetadata;
+    /// let x = SanitizeUserPromptRequest::new().set_or_clear_multi_language_detection_metadata(Some(MultiLanguageDetectionMetadata::default()/* use setters */));
+    /// let x = SanitizeUserPromptRequest::new().set_or_clear_multi_language_detection_metadata(None::<MultiLanguageDetectionMetadata>);
+    /// ```
     pub fn set_or_clear_multi_language_detection_metadata<T>(
         mut self,
         v: std::option::Option<T>,
@@ -2495,12 +3166,25 @@ impl SanitizeModelResponseRequest {
     }
 
     /// Sets the value of [name][crate::model::SanitizeModelResponseRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_modelarmor_v1::model::SanitizeModelResponseRequest;
+    /// let x = SanitizeModelResponseRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [model_response_data][crate::model::SanitizeModelResponseRequest::model_response_data].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_modelarmor_v1::model::SanitizeModelResponseRequest;
+    /// use google_cloud_modelarmor_v1::model::DataItem;
+    /// let x = SanitizeModelResponseRequest::new().set_model_response_data(DataItem::default()/* use setters */);
+    /// ```
     pub fn set_model_response_data<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::DataItem>,
@@ -2510,6 +3194,14 @@ impl SanitizeModelResponseRequest {
     }
 
     /// Sets or clears the value of [model_response_data][crate::model::SanitizeModelResponseRequest::model_response_data].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_modelarmor_v1::model::SanitizeModelResponseRequest;
+    /// use google_cloud_modelarmor_v1::model::DataItem;
+    /// let x = SanitizeModelResponseRequest::new().set_or_clear_model_response_data(Some(DataItem::default()/* use setters */));
+    /// let x = SanitizeModelResponseRequest::new().set_or_clear_model_response_data(None::<DataItem>);
+    /// ```
     pub fn set_or_clear_model_response_data<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DataItem>,
@@ -2519,12 +3211,25 @@ impl SanitizeModelResponseRequest {
     }
 
     /// Sets the value of [user_prompt][crate::model::SanitizeModelResponseRequest::user_prompt].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_modelarmor_v1::model::SanitizeModelResponseRequest;
+    /// let x = SanitizeModelResponseRequest::new().set_user_prompt("example");
+    /// ```
     pub fn set_user_prompt<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.user_prompt = v.into();
         self
     }
 
     /// Sets the value of [multi_language_detection_metadata][crate::model::SanitizeModelResponseRequest::multi_language_detection_metadata].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_modelarmor_v1::model::SanitizeModelResponseRequest;
+    /// use google_cloud_modelarmor_v1::model::MultiLanguageDetectionMetadata;
+    /// let x = SanitizeModelResponseRequest::new().set_multi_language_detection_metadata(MultiLanguageDetectionMetadata::default()/* use setters */);
+    /// ```
     pub fn set_multi_language_detection_metadata<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::MultiLanguageDetectionMetadata>,
@@ -2534,6 +3239,14 @@ impl SanitizeModelResponseRequest {
     }
 
     /// Sets or clears the value of [multi_language_detection_metadata][crate::model::SanitizeModelResponseRequest::multi_language_detection_metadata].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_modelarmor_v1::model::SanitizeModelResponseRequest;
+    /// use google_cloud_modelarmor_v1::model::MultiLanguageDetectionMetadata;
+    /// let x = SanitizeModelResponseRequest::new().set_or_clear_multi_language_detection_metadata(Some(MultiLanguageDetectionMetadata::default()/* use setters */));
+    /// let x = SanitizeModelResponseRequest::new().set_or_clear_multi_language_detection_metadata(None::<MultiLanguageDetectionMetadata>);
+    /// ```
     pub fn set_or_clear_multi_language_detection_metadata<T>(
         mut self,
         v: std::option::Option<T>,
@@ -2568,6 +3281,13 @@ impl SanitizeUserPromptResponse {
     }
 
     /// Sets the value of [sanitization_result][crate::model::SanitizeUserPromptResponse::sanitization_result].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_modelarmor_v1::model::SanitizeUserPromptResponse;
+    /// use google_cloud_modelarmor_v1::model::SanitizationResult;
+    /// let x = SanitizeUserPromptResponse::new().set_sanitization_result(SanitizationResult::default()/* use setters */);
+    /// ```
     pub fn set_sanitization_result<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::SanitizationResult>,
@@ -2577,6 +3297,14 @@ impl SanitizeUserPromptResponse {
     }
 
     /// Sets or clears the value of [sanitization_result][crate::model::SanitizeUserPromptResponse::sanitization_result].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_modelarmor_v1::model::SanitizeUserPromptResponse;
+    /// use google_cloud_modelarmor_v1::model::SanitizationResult;
+    /// let x = SanitizeUserPromptResponse::new().set_or_clear_sanitization_result(Some(SanitizationResult::default()/* use setters */));
+    /// let x = SanitizeUserPromptResponse::new().set_or_clear_sanitization_result(None::<SanitizationResult>);
+    /// ```
     pub fn set_or_clear_sanitization_result<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::SanitizationResult>,
@@ -2608,6 +3336,13 @@ impl SanitizeModelResponseResponse {
     }
 
     /// Sets the value of [sanitization_result][crate::model::SanitizeModelResponseResponse::sanitization_result].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_modelarmor_v1::model::SanitizeModelResponseResponse;
+    /// use google_cloud_modelarmor_v1::model::SanitizationResult;
+    /// let x = SanitizeModelResponseResponse::new().set_sanitization_result(SanitizationResult::default()/* use setters */);
+    /// ```
     pub fn set_sanitization_result<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::SanitizationResult>,
@@ -2617,6 +3352,14 @@ impl SanitizeModelResponseResponse {
     }
 
     /// Sets or clears the value of [sanitization_result][crate::model::SanitizeModelResponseResponse::sanitization_result].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_modelarmor_v1::model::SanitizeModelResponseResponse;
+    /// use google_cloud_modelarmor_v1::model::SanitizationResult;
+    /// let x = SanitizeModelResponseResponse::new().set_or_clear_sanitization_result(Some(SanitizationResult::default()/* use setters */));
+    /// let x = SanitizeModelResponseResponse::new().set_or_clear_sanitization_result(None::<SanitizationResult>);
+    /// ```
     pub fn set_or_clear_sanitization_result<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::SanitizationResult>,
@@ -2670,6 +3413,14 @@ impl SanitizationResult {
     }
 
     /// Sets the value of [filter_match_state][crate::model::SanitizationResult::filter_match_state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_modelarmor_v1::model::SanitizationResult;
+    /// use google_cloud_modelarmor_v1::model::FilterMatchState;
+    /// let x0 = SanitizationResult::new().set_filter_match_state(FilterMatchState::NoMatchFound);
+    /// let x1 = SanitizationResult::new().set_filter_match_state(FilterMatchState::MatchFound);
+    /// ```
     pub fn set_filter_match_state<T: std::convert::Into<crate::model::FilterMatchState>>(
         mut self,
         v: T,
@@ -2679,6 +3430,16 @@ impl SanitizationResult {
     }
 
     /// Sets the value of [filter_results][crate::model::SanitizationResult::filter_results].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_modelarmor_v1::model::SanitizationResult;
+    /// use google_cloud_modelarmor_v1::model::FilterResult;
+    /// let x = SanitizationResult::new().set_filter_results([
+    ///     ("key0", FilterResult::default()/* use setters */),
+    ///     ("key1", FilterResult::default()/* use (different) setters */),
+    /// ]);
+    /// ```
     pub fn set_filter_results<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -2691,6 +3452,15 @@ impl SanitizationResult {
     }
 
     /// Sets the value of [invocation_result][crate::model::SanitizationResult::invocation_result].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_modelarmor_v1::model::SanitizationResult;
+    /// use google_cloud_modelarmor_v1::model::InvocationResult;
+    /// let x0 = SanitizationResult::new().set_invocation_result(InvocationResult::Success);
+    /// let x1 = SanitizationResult::new().set_invocation_result(InvocationResult::Partial);
+    /// let x2 = SanitizationResult::new().set_invocation_result(InvocationResult::Failure);
+    /// ```
     pub fn set_invocation_result<T: std::convert::Into<crate::model::InvocationResult>>(
         mut self,
         v: T,
@@ -2700,6 +3470,13 @@ impl SanitizationResult {
     }
 
     /// Sets the value of [sanitization_metadata][crate::model::SanitizationResult::sanitization_metadata].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_modelarmor_v1::model::SanitizationResult;
+    /// use google_cloud_modelarmor_v1::model::sanitization_result::SanitizationMetadata;
+    /// let x = SanitizationResult::new().set_sanitization_metadata(SanitizationMetadata::default()/* use setters */);
+    /// ```
     pub fn set_sanitization_metadata<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::sanitization_result::SanitizationMetadata>,
@@ -2709,6 +3486,14 @@ impl SanitizationResult {
     }
 
     /// Sets or clears the value of [sanitization_metadata][crate::model::SanitizationResult::sanitization_metadata].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_modelarmor_v1::model::SanitizationResult;
+    /// use google_cloud_modelarmor_v1::model::sanitization_result::SanitizationMetadata;
+    /// let x = SanitizationResult::new().set_or_clear_sanitization_metadata(Some(SanitizationMetadata::default()/* use setters */));
+    /// let x = SanitizationResult::new().set_or_clear_sanitization_metadata(None::<SanitizationMetadata>);
+    /// ```
     pub fn set_or_clear_sanitization_metadata<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::sanitization_result::SanitizationMetadata>,
@@ -2752,12 +3537,24 @@ pub mod sanitization_result {
         }
 
         /// Sets the value of [error_code][crate::model::sanitization_result::SanitizationMetadata::error_code].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_modelarmor_v1::model::sanitization_result::SanitizationMetadata;
+        /// let x = SanitizationMetadata::new().set_error_code(42);
+        /// ```
         pub fn set_error_code<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
             self.error_code = v.into();
             self
         }
 
         /// Sets the value of [error_message][crate::model::sanitization_result::SanitizationMetadata::error_message].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_modelarmor_v1::model::sanitization_result::SanitizationMetadata;
+        /// let x = SanitizationMetadata::new().set_error_message("example");
+        /// ```
         pub fn set_error_message<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -2767,6 +3564,12 @@ pub mod sanitization_result {
         }
 
         /// Sets the value of [ignore_partial_invocation_failures][crate::model::sanitization_result::SanitizationMetadata::ignore_partial_invocation_failures].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_modelarmor_v1::model::sanitization_result::SanitizationMetadata;
+        /// let x = SanitizationMetadata::new().set_ignore_partial_invocation_failures(true);
+        /// ```
         pub fn set_ignore_partial_invocation_failures<T: std::convert::Into<bool>>(
             mut self,
             v: T,
@@ -2805,12 +3608,24 @@ impl MultiLanguageDetectionMetadata {
     }
 
     /// Sets the value of [source_language][crate::model::MultiLanguageDetectionMetadata::source_language].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_modelarmor_v1::model::MultiLanguageDetectionMetadata;
+    /// let x = MultiLanguageDetectionMetadata::new().set_source_language("example");
+    /// ```
     pub fn set_source_language<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.source_language = v.into();
         self
     }
 
     /// Sets the value of [enable_multi_language_detection][crate::model::MultiLanguageDetectionMetadata::enable_multi_language_detection].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_modelarmor_v1::model::MultiLanguageDetectionMetadata;
+    /// let x = MultiLanguageDetectionMetadata::new().set_enable_multi_language_detection(true);
+    /// ```
     pub fn set_enable_multi_language_detection<T: std::convert::Into<bool>>(
         mut self,
         v: T,
@@ -2847,6 +3662,14 @@ impl FilterResult {
     ///
     /// Note that all the setters affecting `filter_result` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_modelarmor_v1::model::FilterResult;
+    /// use google_cloud_modelarmor_v1::model::filter_result;
+    /// use google_cloud_modelarmor_v1::model::RaiFilterResult;
+    /// let x = FilterResult::new().set_filter_result(Some(filter_result::FilterResult::RaiFilterResult(RaiFilterResult::default().into())));
+    /// ```
     pub fn set_filter_result<
         T: std::convert::Into<std::option::Option<crate::model::filter_result::FilterResult>>,
     >(
@@ -2877,6 +3700,19 @@ impl FilterResult {
     ///
     /// Note that all the setters affecting `filter_result` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_modelarmor_v1::model::FilterResult;
+    /// use google_cloud_modelarmor_v1::model::RaiFilterResult;
+    /// let x = FilterResult::new().set_rai_filter_result(RaiFilterResult::default()/* use setters */);
+    /// assert!(x.rai_filter_result().is_some());
+    /// assert!(x.sdp_filter_result().is_none());
+    /// assert!(x.pi_and_jailbreak_filter_result().is_none());
+    /// assert!(x.malicious_uri_filter_result().is_none());
+    /// assert!(x.csam_filter_filter_result().is_none());
+    /// assert!(x.virus_scan_filter_result().is_none());
+    /// ```
     pub fn set_rai_filter_result<
         T: std::convert::Into<std::boxed::Box<crate::model::RaiFilterResult>>,
     >(
@@ -2909,6 +3745,19 @@ impl FilterResult {
     ///
     /// Note that all the setters affecting `filter_result` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_modelarmor_v1::model::FilterResult;
+    /// use google_cloud_modelarmor_v1::model::SdpFilterResult;
+    /// let x = FilterResult::new().set_sdp_filter_result(SdpFilterResult::default()/* use setters */);
+    /// assert!(x.sdp_filter_result().is_some());
+    /// assert!(x.rai_filter_result().is_none());
+    /// assert!(x.pi_and_jailbreak_filter_result().is_none());
+    /// assert!(x.malicious_uri_filter_result().is_none());
+    /// assert!(x.csam_filter_filter_result().is_none());
+    /// assert!(x.virus_scan_filter_result().is_none());
+    /// ```
     pub fn set_sdp_filter_result<
         T: std::convert::Into<std::boxed::Box<crate::model::SdpFilterResult>>,
     >(
@@ -2941,6 +3790,19 @@ impl FilterResult {
     ///
     /// Note that all the setters affecting `filter_result` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_modelarmor_v1::model::FilterResult;
+    /// use google_cloud_modelarmor_v1::model::PiAndJailbreakFilterResult;
+    /// let x = FilterResult::new().set_pi_and_jailbreak_filter_result(PiAndJailbreakFilterResult::default()/* use setters */);
+    /// assert!(x.pi_and_jailbreak_filter_result().is_some());
+    /// assert!(x.rai_filter_result().is_none());
+    /// assert!(x.sdp_filter_result().is_none());
+    /// assert!(x.malicious_uri_filter_result().is_none());
+    /// assert!(x.csam_filter_filter_result().is_none());
+    /// assert!(x.virus_scan_filter_result().is_none());
+    /// ```
     pub fn set_pi_and_jailbreak_filter_result<
         T: std::convert::Into<std::boxed::Box<crate::model::PiAndJailbreakFilterResult>>,
     >(
@@ -2973,6 +3835,19 @@ impl FilterResult {
     ///
     /// Note that all the setters affecting `filter_result` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_modelarmor_v1::model::FilterResult;
+    /// use google_cloud_modelarmor_v1::model::MaliciousUriFilterResult;
+    /// let x = FilterResult::new().set_malicious_uri_filter_result(MaliciousUriFilterResult::default()/* use setters */);
+    /// assert!(x.malicious_uri_filter_result().is_some());
+    /// assert!(x.rai_filter_result().is_none());
+    /// assert!(x.sdp_filter_result().is_none());
+    /// assert!(x.pi_and_jailbreak_filter_result().is_none());
+    /// assert!(x.csam_filter_filter_result().is_none());
+    /// assert!(x.virus_scan_filter_result().is_none());
+    /// ```
     pub fn set_malicious_uri_filter_result<
         T: std::convert::Into<std::boxed::Box<crate::model::MaliciousUriFilterResult>>,
     >(
@@ -3005,6 +3880,19 @@ impl FilterResult {
     ///
     /// Note that all the setters affecting `filter_result` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_modelarmor_v1::model::FilterResult;
+    /// use google_cloud_modelarmor_v1::model::CsamFilterResult;
+    /// let x = FilterResult::new().set_csam_filter_filter_result(CsamFilterResult::default()/* use setters */);
+    /// assert!(x.csam_filter_filter_result().is_some());
+    /// assert!(x.rai_filter_result().is_none());
+    /// assert!(x.sdp_filter_result().is_none());
+    /// assert!(x.pi_and_jailbreak_filter_result().is_none());
+    /// assert!(x.malicious_uri_filter_result().is_none());
+    /// assert!(x.virus_scan_filter_result().is_none());
+    /// ```
     pub fn set_csam_filter_filter_result<
         T: std::convert::Into<std::boxed::Box<crate::model::CsamFilterResult>>,
     >(
@@ -3037,6 +3925,19 @@ impl FilterResult {
     ///
     /// Note that all the setters affecting `filter_result` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_modelarmor_v1::model::FilterResult;
+    /// use google_cloud_modelarmor_v1::model::VirusScanFilterResult;
+    /// let x = FilterResult::new().set_virus_scan_filter_result(VirusScanFilterResult::default()/* use setters */);
+    /// assert!(x.virus_scan_filter_result().is_some());
+    /// assert!(x.rai_filter_result().is_none());
+    /// assert!(x.sdp_filter_result().is_none());
+    /// assert!(x.pi_and_jailbreak_filter_result().is_none());
+    /// assert!(x.malicious_uri_filter_result().is_none());
+    /// assert!(x.csam_filter_filter_result().is_none());
+    /// ```
     pub fn set_virus_scan_filter_result<
         T: std::convert::Into<std::boxed::Box<crate::model::VirusScanFilterResult>>,
     >(
@@ -3117,6 +4018,14 @@ impl RaiFilterResult {
     }
 
     /// Sets the value of [execution_state][crate::model::RaiFilterResult::execution_state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_modelarmor_v1::model::RaiFilterResult;
+    /// use google_cloud_modelarmor_v1::model::FilterExecutionState;
+    /// let x0 = RaiFilterResult::new().set_execution_state(FilterExecutionState::ExecutionSuccess);
+    /// let x1 = RaiFilterResult::new().set_execution_state(FilterExecutionState::ExecutionSkipped);
+    /// ```
     pub fn set_execution_state<T: std::convert::Into<crate::model::FilterExecutionState>>(
         mut self,
         v: T,
@@ -3126,6 +4035,17 @@ impl RaiFilterResult {
     }
 
     /// Sets the value of [message_items][crate::model::RaiFilterResult::message_items].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_modelarmor_v1::model::RaiFilterResult;
+    /// use google_cloud_modelarmor_v1::model::MessageItem;
+    /// let x = RaiFilterResult::new()
+    ///     .set_message_items([
+    ///         MessageItem::default()/* use setters */,
+    ///         MessageItem::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_message_items<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3137,6 +4057,14 @@ impl RaiFilterResult {
     }
 
     /// Sets the value of [match_state][crate::model::RaiFilterResult::match_state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_modelarmor_v1::model::RaiFilterResult;
+    /// use google_cloud_modelarmor_v1::model::FilterMatchState;
+    /// let x0 = RaiFilterResult::new().set_match_state(FilterMatchState::NoMatchFound);
+    /// let x1 = RaiFilterResult::new().set_match_state(FilterMatchState::MatchFound);
+    /// ```
     pub fn set_match_state<T: std::convert::Into<crate::model::FilterMatchState>>(
         mut self,
         v: T,
@@ -3146,6 +4074,16 @@ impl RaiFilterResult {
     }
 
     /// Sets the value of [rai_filter_type_results][crate::model::RaiFilterResult::rai_filter_type_results].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_modelarmor_v1::model::RaiFilterResult;
+    /// use google_cloud_modelarmor_v1::model::rai_filter_result::RaiFilterTypeResult;
+    /// let x = RaiFilterResult::new().set_rai_filter_type_results([
+    ///     ("key0", RaiFilterTypeResult::default()/* use setters */),
+    ///     ("key1", RaiFilterTypeResult::default()/* use (different) setters */),
+    /// ]);
+    /// ```
     pub fn set_rai_filter_type_results<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -3191,6 +4129,15 @@ pub mod rai_filter_result {
         }
 
         /// Sets the value of [filter_type][crate::model::rai_filter_result::RaiFilterTypeResult::filter_type].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_modelarmor_v1::model::rai_filter_result::RaiFilterTypeResult;
+        /// use google_cloud_modelarmor_v1::model::RaiFilterType;
+        /// let x0 = RaiFilterTypeResult::new().set_filter_type(RaiFilterType::SexuallyExplicit);
+        /// let x1 = RaiFilterTypeResult::new().set_filter_type(RaiFilterType::HateSpeech);
+        /// let x2 = RaiFilterTypeResult::new().set_filter_type(RaiFilterType::Harassment);
+        /// ```
         pub fn set_filter_type<T: std::convert::Into<crate::model::RaiFilterType>>(
             mut self,
             v: T,
@@ -3200,6 +4147,15 @@ pub mod rai_filter_result {
         }
 
         /// Sets the value of [confidence_level][crate::model::rai_filter_result::RaiFilterTypeResult::confidence_level].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_modelarmor_v1::model::rai_filter_result::RaiFilterTypeResult;
+        /// use google_cloud_modelarmor_v1::model::DetectionConfidenceLevel;
+        /// let x0 = RaiFilterTypeResult::new().set_confidence_level(DetectionConfidenceLevel::LowAndAbove);
+        /// let x1 = RaiFilterTypeResult::new().set_confidence_level(DetectionConfidenceLevel::MediumAndAbove);
+        /// let x2 = RaiFilterTypeResult::new().set_confidence_level(DetectionConfidenceLevel::High);
+        /// ```
         pub fn set_confidence_level<
             T: std::convert::Into<crate::model::DetectionConfidenceLevel>,
         >(
@@ -3211,6 +4167,14 @@ pub mod rai_filter_result {
         }
 
         /// Sets the value of [match_state][crate::model::rai_filter_result::RaiFilterTypeResult::match_state].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_modelarmor_v1::model::rai_filter_result::RaiFilterTypeResult;
+        /// use google_cloud_modelarmor_v1::model::FilterMatchState;
+        /// let x0 = RaiFilterTypeResult::new().set_match_state(FilterMatchState::NoMatchFound);
+        /// let x1 = RaiFilterTypeResult::new().set_match_state(FilterMatchState::MatchFound);
+        /// ```
         pub fn set_match_state<T: std::convert::Into<crate::model::FilterMatchState>>(
             mut self,
             v: T,
@@ -3246,6 +4210,14 @@ impl SdpFilterResult {
     ///
     /// Note that all the setters affecting `result` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_modelarmor_v1::model::SdpFilterResult;
+    /// use google_cloud_modelarmor_v1::model::sdp_filter_result;
+    /// use google_cloud_modelarmor_v1::model::SdpInspectResult;
+    /// let x = SdpFilterResult::new().set_result(Some(sdp_filter_result::Result::InspectResult(SdpInspectResult::default().into())));
+    /// ```
     pub fn set_result<
         T: std::convert::Into<std::option::Option<crate::model::sdp_filter_result::Result>>,
     >(
@@ -3276,6 +4248,15 @@ impl SdpFilterResult {
     ///
     /// Note that all the setters affecting `result` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_modelarmor_v1::model::SdpFilterResult;
+    /// use google_cloud_modelarmor_v1::model::SdpInspectResult;
+    /// let x = SdpFilterResult::new().set_inspect_result(SdpInspectResult::default()/* use setters */);
+    /// assert!(x.inspect_result().is_some());
+    /// assert!(x.deidentify_result().is_none());
+    /// ```
     pub fn set_inspect_result<
         T: std::convert::Into<std::boxed::Box<crate::model::SdpInspectResult>>,
     >(
@@ -3308,6 +4289,15 @@ impl SdpFilterResult {
     ///
     /// Note that all the setters affecting `result` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_modelarmor_v1::model::SdpFilterResult;
+    /// use google_cloud_modelarmor_v1::model::SdpDeidentifyResult;
+    /// let x = SdpFilterResult::new().set_deidentify_result(SdpDeidentifyResult::default()/* use setters */);
+    /// assert!(x.deidentify_result().is_some());
+    /// assert!(x.inspect_result().is_none());
+    /// ```
     pub fn set_deidentify_result<
         T: std::convert::Into<std::boxed::Box<crate::model::SdpDeidentifyResult>>,
     >(
@@ -3382,6 +4372,14 @@ impl SdpInspectResult {
     }
 
     /// Sets the value of [execution_state][crate::model::SdpInspectResult::execution_state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_modelarmor_v1::model::SdpInspectResult;
+    /// use google_cloud_modelarmor_v1::model::FilterExecutionState;
+    /// let x0 = SdpInspectResult::new().set_execution_state(FilterExecutionState::ExecutionSuccess);
+    /// let x1 = SdpInspectResult::new().set_execution_state(FilterExecutionState::ExecutionSkipped);
+    /// ```
     pub fn set_execution_state<T: std::convert::Into<crate::model::FilterExecutionState>>(
         mut self,
         v: T,
@@ -3391,6 +4389,17 @@ impl SdpInspectResult {
     }
 
     /// Sets the value of [message_items][crate::model::SdpInspectResult::message_items].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_modelarmor_v1::model::SdpInspectResult;
+    /// use google_cloud_modelarmor_v1::model::MessageItem;
+    /// let x = SdpInspectResult::new()
+    ///     .set_message_items([
+    ///         MessageItem::default()/* use setters */,
+    ///         MessageItem::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_message_items<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3402,6 +4411,14 @@ impl SdpInspectResult {
     }
 
     /// Sets the value of [match_state][crate::model::SdpInspectResult::match_state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_modelarmor_v1::model::SdpInspectResult;
+    /// use google_cloud_modelarmor_v1::model::FilterMatchState;
+    /// let x0 = SdpInspectResult::new().set_match_state(FilterMatchState::NoMatchFound);
+    /// let x1 = SdpInspectResult::new().set_match_state(FilterMatchState::MatchFound);
+    /// ```
     pub fn set_match_state<T: std::convert::Into<crate::model::FilterMatchState>>(
         mut self,
         v: T,
@@ -3411,6 +4428,17 @@ impl SdpInspectResult {
     }
 
     /// Sets the value of [findings][crate::model::SdpInspectResult::findings].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_modelarmor_v1::model::SdpInspectResult;
+    /// use google_cloud_modelarmor_v1::model::SdpFinding;
+    /// let x = SdpInspectResult::new()
+    ///     .set_findings([
+    ///         SdpFinding::default()/* use setters */,
+    ///         SdpFinding::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_findings<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3422,6 +4450,12 @@ impl SdpInspectResult {
     }
 
     /// Sets the value of [findings_truncated][crate::model::SdpInspectResult::findings_truncated].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_modelarmor_v1::model::SdpInspectResult;
+    /// let x = SdpInspectResult::new().set_findings_truncated(true);
+    /// ```
     pub fn set_findings_truncated<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.findings_truncated = v.into();
         self
@@ -3453,6 +4487,13 @@ impl DataItem {
     ///
     /// Note that all the setters affecting `data_item` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_modelarmor_v1::model::DataItem;
+    /// use google_cloud_modelarmor_v1::model::data_item;
+    /// let x = DataItem::new().set_data_item(Some(data_item::DataItem::Text("example".to_string())));
+    /// ```
     pub fn set_data_item<
         T: std::convert::Into<std::option::Option<crate::model::data_item::DataItem>>,
     >(
@@ -3479,6 +4520,14 @@ impl DataItem {
     ///
     /// Note that all the setters affecting `data_item` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_modelarmor_v1::model::DataItem;
+    /// let x = DataItem::new().set_text("example");
+    /// assert!(x.text().is_some());
+    /// assert!(x.byte_item().is_none());
+    /// ```
     pub fn set_text<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.data_item =
             std::option::Option::Some(crate::model::data_item::DataItem::Text(v.into()));
@@ -3501,6 +4550,15 @@ impl DataItem {
     ///
     /// Note that all the setters affecting `data_item` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_modelarmor_v1::model::DataItem;
+    /// use google_cloud_modelarmor_v1::model::ByteDataItem;
+    /// let x = DataItem::new().set_byte_item(ByteDataItem::default()/* use setters */);
+    /// assert!(x.byte_item().is_some());
+    /// assert!(x.text().is_none());
+    /// ```
     pub fn set_byte_item<T: std::convert::Into<std::boxed::Box<crate::model::ByteDataItem>>>(
         mut self,
         v: T,
@@ -3552,6 +4610,15 @@ impl ByteDataItem {
     }
 
     /// Sets the value of [byte_data_type][crate::model::ByteDataItem::byte_data_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_modelarmor_v1::model::ByteDataItem;
+    /// use google_cloud_modelarmor_v1::model::byte_data_item::ByteItemType;
+    /// let x0 = ByteDataItem::new().set_byte_data_type(ByteItemType::PlaintextUtf8);
+    /// let x1 = ByteDataItem::new().set_byte_data_type(ByteItemType::Pdf);
+    /// let x2 = ByteDataItem::new().set_byte_data_type(ByteItemType::WordDocument);
+    /// ```
     pub fn set_byte_data_type<T: std::convert::Into<crate::model::byte_data_item::ByteItemType>>(
         mut self,
         v: T,
@@ -3561,6 +4628,12 @@ impl ByteDataItem {
     }
 
     /// Sets the value of [byte_data][crate::model::ByteDataItem::byte_data].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_modelarmor_v1::model::ByteDataItem;
+    /// let x = ByteDataItem::new().set_byte_data(bytes::Bytes::from_static(b"example"));
+    /// ```
     pub fn set_byte_data<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.byte_data = v.into();
         self
@@ -3782,6 +4855,14 @@ impl SdpDeidentifyResult {
     }
 
     /// Sets the value of [execution_state][crate::model::SdpDeidentifyResult::execution_state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_modelarmor_v1::model::SdpDeidentifyResult;
+    /// use google_cloud_modelarmor_v1::model::FilterExecutionState;
+    /// let x0 = SdpDeidentifyResult::new().set_execution_state(FilterExecutionState::ExecutionSuccess);
+    /// let x1 = SdpDeidentifyResult::new().set_execution_state(FilterExecutionState::ExecutionSkipped);
+    /// ```
     pub fn set_execution_state<T: std::convert::Into<crate::model::FilterExecutionState>>(
         mut self,
         v: T,
@@ -3791,6 +4872,17 @@ impl SdpDeidentifyResult {
     }
 
     /// Sets the value of [message_items][crate::model::SdpDeidentifyResult::message_items].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_modelarmor_v1::model::SdpDeidentifyResult;
+    /// use google_cloud_modelarmor_v1::model::MessageItem;
+    /// let x = SdpDeidentifyResult::new()
+    ///     .set_message_items([
+    ///         MessageItem::default()/* use setters */,
+    ///         MessageItem::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_message_items<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3802,6 +4894,14 @@ impl SdpDeidentifyResult {
     }
 
     /// Sets the value of [match_state][crate::model::SdpDeidentifyResult::match_state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_modelarmor_v1::model::SdpDeidentifyResult;
+    /// use google_cloud_modelarmor_v1::model::FilterMatchState;
+    /// let x0 = SdpDeidentifyResult::new().set_match_state(FilterMatchState::NoMatchFound);
+    /// let x1 = SdpDeidentifyResult::new().set_match_state(FilterMatchState::MatchFound);
+    /// ```
     pub fn set_match_state<T: std::convert::Into<crate::model::FilterMatchState>>(
         mut self,
         v: T,
@@ -3811,6 +4911,13 @@ impl SdpDeidentifyResult {
     }
 
     /// Sets the value of [data][crate::model::SdpDeidentifyResult::data].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_modelarmor_v1::model::SdpDeidentifyResult;
+    /// use google_cloud_modelarmor_v1::model::DataItem;
+    /// let x = SdpDeidentifyResult::new().set_data(DataItem::default()/* use setters */);
+    /// ```
     pub fn set_data<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::DataItem>,
@@ -3820,6 +4927,14 @@ impl SdpDeidentifyResult {
     }
 
     /// Sets or clears the value of [data][crate::model::SdpDeidentifyResult::data].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_modelarmor_v1::model::SdpDeidentifyResult;
+    /// use google_cloud_modelarmor_v1::model::DataItem;
+    /// let x = SdpDeidentifyResult::new().set_or_clear_data(Some(DataItem::default()/* use setters */));
+    /// let x = SdpDeidentifyResult::new().set_or_clear_data(None::<DataItem>);
+    /// ```
     pub fn set_or_clear_data<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DataItem>,
@@ -3829,12 +4944,24 @@ impl SdpDeidentifyResult {
     }
 
     /// Sets the value of [transformed_bytes][crate::model::SdpDeidentifyResult::transformed_bytes].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_modelarmor_v1::model::SdpDeidentifyResult;
+    /// let x = SdpDeidentifyResult::new().set_transformed_bytes(42);
+    /// ```
     pub fn set_transformed_bytes<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.transformed_bytes = v.into();
         self
     }
 
     /// Sets the value of [info_types][crate::model::SdpDeidentifyResult::info_types].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_modelarmor_v1::model::SdpDeidentifyResult;
+    /// let x = SdpDeidentifyResult::new().set_info_types(["a", "b", "c"]);
+    /// ```
     pub fn set_info_types<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3874,12 +5001,27 @@ impl SdpFinding {
     }
 
     /// Sets the value of [info_type][crate::model::SdpFinding::info_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_modelarmor_v1::model::SdpFinding;
+    /// let x = SdpFinding::new().set_info_type("example");
+    /// ```
     pub fn set_info_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.info_type = v.into();
         self
     }
 
     /// Sets the value of [likelihood][crate::model::SdpFinding::likelihood].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_modelarmor_v1::model::SdpFinding;
+    /// use google_cloud_modelarmor_v1::model::SdpFindingLikelihood;
+    /// let x0 = SdpFinding::new().set_likelihood(SdpFindingLikelihood::VeryUnlikely);
+    /// let x1 = SdpFinding::new().set_likelihood(SdpFindingLikelihood::Unlikely);
+    /// let x2 = SdpFinding::new().set_likelihood(SdpFindingLikelihood::Possible);
+    /// ```
     pub fn set_likelihood<T: std::convert::Into<crate::model::SdpFindingLikelihood>>(
         mut self,
         v: T,
@@ -3889,6 +5031,13 @@ impl SdpFinding {
     }
 
     /// Sets the value of [location][crate::model::SdpFinding::location].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_modelarmor_v1::model::SdpFinding;
+    /// use google_cloud_modelarmor_v1::model::sdp_finding::SdpFindingLocation;
+    /// let x = SdpFinding::new().set_location(SdpFindingLocation::default()/* use setters */);
+    /// ```
     pub fn set_location<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::sdp_finding::SdpFindingLocation>,
@@ -3898,6 +5047,14 @@ impl SdpFinding {
     }
 
     /// Sets or clears the value of [location][crate::model::SdpFinding::location].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_modelarmor_v1::model::SdpFinding;
+    /// use google_cloud_modelarmor_v1::model::sdp_finding::SdpFindingLocation;
+    /// let x = SdpFinding::new().set_or_clear_location(Some(SdpFindingLocation::default()/* use setters */));
+    /// let x = SdpFinding::new().set_or_clear_location(None::<SdpFindingLocation>);
+    /// ```
     pub fn set_or_clear_location<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::sdp_finding::SdpFindingLocation>,
@@ -3942,6 +5099,13 @@ pub mod sdp_finding {
         }
 
         /// Sets the value of [byte_range][crate::model::sdp_finding::SdpFindingLocation::byte_range].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_modelarmor_v1::model::sdp_finding::SdpFindingLocation;
+        /// use google_cloud_modelarmor_v1::model::RangeInfo;
+        /// let x = SdpFindingLocation::new().set_byte_range(RangeInfo::default()/* use setters */);
+        /// ```
         pub fn set_byte_range<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::RangeInfo>,
@@ -3951,6 +5115,14 @@ pub mod sdp_finding {
         }
 
         /// Sets or clears the value of [byte_range][crate::model::sdp_finding::SdpFindingLocation::byte_range].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_modelarmor_v1::model::sdp_finding::SdpFindingLocation;
+        /// use google_cloud_modelarmor_v1::model::RangeInfo;
+        /// let x = SdpFindingLocation::new().set_or_clear_byte_range(Some(RangeInfo::default()/* use setters */));
+        /// let x = SdpFindingLocation::new().set_or_clear_byte_range(None::<RangeInfo>);
+        /// ```
         pub fn set_or_clear_byte_range<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::RangeInfo>,
@@ -3960,6 +5132,13 @@ pub mod sdp_finding {
         }
 
         /// Sets the value of [codepoint_range][crate::model::sdp_finding::SdpFindingLocation::codepoint_range].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_modelarmor_v1::model::sdp_finding::SdpFindingLocation;
+        /// use google_cloud_modelarmor_v1::model::RangeInfo;
+        /// let x = SdpFindingLocation::new().set_codepoint_range(RangeInfo::default()/* use setters */);
+        /// ```
         pub fn set_codepoint_range<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::RangeInfo>,
@@ -3969,6 +5148,14 @@ pub mod sdp_finding {
         }
 
         /// Sets or clears the value of [codepoint_range][crate::model::sdp_finding::SdpFindingLocation::codepoint_range].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_modelarmor_v1::model::sdp_finding::SdpFindingLocation;
+        /// use google_cloud_modelarmor_v1::model::RangeInfo;
+        /// let x = SdpFindingLocation::new().set_or_clear_codepoint_range(Some(RangeInfo::default()/* use setters */));
+        /// let x = SdpFindingLocation::new().set_or_clear_codepoint_range(None::<RangeInfo>);
+        /// ```
         pub fn set_or_clear_codepoint_range<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::RangeInfo>,
@@ -4014,6 +5201,14 @@ impl PiAndJailbreakFilterResult {
     }
 
     /// Sets the value of [execution_state][crate::model::PiAndJailbreakFilterResult::execution_state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_modelarmor_v1::model::PiAndJailbreakFilterResult;
+    /// use google_cloud_modelarmor_v1::model::FilterExecutionState;
+    /// let x0 = PiAndJailbreakFilterResult::new().set_execution_state(FilterExecutionState::ExecutionSuccess);
+    /// let x1 = PiAndJailbreakFilterResult::new().set_execution_state(FilterExecutionState::ExecutionSkipped);
+    /// ```
     pub fn set_execution_state<T: std::convert::Into<crate::model::FilterExecutionState>>(
         mut self,
         v: T,
@@ -4023,6 +5218,17 @@ impl PiAndJailbreakFilterResult {
     }
 
     /// Sets the value of [message_items][crate::model::PiAndJailbreakFilterResult::message_items].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_modelarmor_v1::model::PiAndJailbreakFilterResult;
+    /// use google_cloud_modelarmor_v1::model::MessageItem;
+    /// let x = PiAndJailbreakFilterResult::new()
+    ///     .set_message_items([
+    ///         MessageItem::default()/* use setters */,
+    ///         MessageItem::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_message_items<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4034,6 +5240,14 @@ impl PiAndJailbreakFilterResult {
     }
 
     /// Sets the value of [match_state][crate::model::PiAndJailbreakFilterResult::match_state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_modelarmor_v1::model::PiAndJailbreakFilterResult;
+    /// use google_cloud_modelarmor_v1::model::FilterMatchState;
+    /// let x0 = PiAndJailbreakFilterResult::new().set_match_state(FilterMatchState::NoMatchFound);
+    /// let x1 = PiAndJailbreakFilterResult::new().set_match_state(FilterMatchState::MatchFound);
+    /// ```
     pub fn set_match_state<T: std::convert::Into<crate::model::FilterMatchState>>(
         mut self,
         v: T,
@@ -4043,6 +5257,15 @@ impl PiAndJailbreakFilterResult {
     }
 
     /// Sets the value of [confidence_level][crate::model::PiAndJailbreakFilterResult::confidence_level].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_modelarmor_v1::model::PiAndJailbreakFilterResult;
+    /// use google_cloud_modelarmor_v1::model::DetectionConfidenceLevel;
+    /// let x0 = PiAndJailbreakFilterResult::new().set_confidence_level(DetectionConfidenceLevel::LowAndAbove);
+    /// let x1 = PiAndJailbreakFilterResult::new().set_confidence_level(DetectionConfidenceLevel::MediumAndAbove);
+    /// let x2 = PiAndJailbreakFilterResult::new().set_confidence_level(DetectionConfidenceLevel::High);
+    /// ```
     pub fn set_confidence_level<T: std::convert::Into<crate::model::DetectionConfidenceLevel>>(
         mut self,
         v: T,
@@ -4089,6 +5312,14 @@ impl MaliciousUriFilterResult {
     }
 
     /// Sets the value of [execution_state][crate::model::MaliciousUriFilterResult::execution_state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_modelarmor_v1::model::MaliciousUriFilterResult;
+    /// use google_cloud_modelarmor_v1::model::FilterExecutionState;
+    /// let x0 = MaliciousUriFilterResult::new().set_execution_state(FilterExecutionState::ExecutionSuccess);
+    /// let x1 = MaliciousUriFilterResult::new().set_execution_state(FilterExecutionState::ExecutionSkipped);
+    /// ```
     pub fn set_execution_state<T: std::convert::Into<crate::model::FilterExecutionState>>(
         mut self,
         v: T,
@@ -4098,6 +5329,17 @@ impl MaliciousUriFilterResult {
     }
 
     /// Sets the value of [message_items][crate::model::MaliciousUriFilterResult::message_items].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_modelarmor_v1::model::MaliciousUriFilterResult;
+    /// use google_cloud_modelarmor_v1::model::MessageItem;
+    /// let x = MaliciousUriFilterResult::new()
+    ///     .set_message_items([
+    ///         MessageItem::default()/* use setters */,
+    ///         MessageItem::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_message_items<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4109,6 +5351,14 @@ impl MaliciousUriFilterResult {
     }
 
     /// Sets the value of [match_state][crate::model::MaliciousUriFilterResult::match_state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_modelarmor_v1::model::MaliciousUriFilterResult;
+    /// use google_cloud_modelarmor_v1::model::FilterMatchState;
+    /// let x0 = MaliciousUriFilterResult::new().set_match_state(FilterMatchState::NoMatchFound);
+    /// let x1 = MaliciousUriFilterResult::new().set_match_state(FilterMatchState::MatchFound);
+    /// ```
     pub fn set_match_state<T: std::convert::Into<crate::model::FilterMatchState>>(
         mut self,
         v: T,
@@ -4118,6 +5368,17 @@ impl MaliciousUriFilterResult {
     }
 
     /// Sets the value of [malicious_uri_matched_items][crate::model::MaliciousUriFilterResult::malicious_uri_matched_items].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_modelarmor_v1::model::MaliciousUriFilterResult;
+    /// use google_cloud_modelarmor_v1::model::malicious_uri_filter_result::MaliciousUriMatchedItem;
+    /// let x = MaliciousUriFilterResult::new()
+    ///     .set_malicious_uri_matched_items([
+    ///         MaliciousUriMatchedItem::default()/* use setters */,
+    ///         MaliciousUriMatchedItem::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_malicious_uri_matched_items<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4162,12 +5423,29 @@ pub mod malicious_uri_filter_result {
         }
 
         /// Sets the value of [uri][crate::model::malicious_uri_filter_result::MaliciousUriMatchedItem::uri].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_modelarmor_v1::model::malicious_uri_filter_result::MaliciousUriMatchedItem;
+        /// let x = MaliciousUriMatchedItem::new().set_uri("example");
+        /// ```
         pub fn set_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.uri = v.into();
             self
         }
 
         /// Sets the value of [locations][crate::model::malicious_uri_filter_result::MaliciousUriMatchedItem::locations].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_modelarmor_v1::model::malicious_uri_filter_result::MaliciousUriMatchedItem;
+        /// use google_cloud_modelarmor_v1::model::RangeInfo;
+        /// let x = MaliciousUriMatchedItem::new()
+        ///     .set_locations([
+        ///         RangeInfo::default()/* use setters */,
+        ///         RangeInfo::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
         pub fn set_locations<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -4222,6 +5500,14 @@ impl VirusScanFilterResult {
     }
 
     /// Sets the value of [execution_state][crate::model::VirusScanFilterResult::execution_state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_modelarmor_v1::model::VirusScanFilterResult;
+    /// use google_cloud_modelarmor_v1::model::FilterExecutionState;
+    /// let x0 = VirusScanFilterResult::new().set_execution_state(FilterExecutionState::ExecutionSuccess);
+    /// let x1 = VirusScanFilterResult::new().set_execution_state(FilterExecutionState::ExecutionSkipped);
+    /// ```
     pub fn set_execution_state<T: std::convert::Into<crate::model::FilterExecutionState>>(
         mut self,
         v: T,
@@ -4231,6 +5517,17 @@ impl VirusScanFilterResult {
     }
 
     /// Sets the value of [message_items][crate::model::VirusScanFilterResult::message_items].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_modelarmor_v1::model::VirusScanFilterResult;
+    /// use google_cloud_modelarmor_v1::model::MessageItem;
+    /// let x = VirusScanFilterResult::new()
+    ///     .set_message_items([
+    ///         MessageItem::default()/* use setters */,
+    ///         MessageItem::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_message_items<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4242,6 +5539,14 @@ impl VirusScanFilterResult {
     }
 
     /// Sets the value of [match_state][crate::model::VirusScanFilterResult::match_state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_modelarmor_v1::model::VirusScanFilterResult;
+    /// use google_cloud_modelarmor_v1::model::FilterMatchState;
+    /// let x0 = VirusScanFilterResult::new().set_match_state(FilterMatchState::NoMatchFound);
+    /// let x1 = VirusScanFilterResult::new().set_match_state(FilterMatchState::MatchFound);
+    /// ```
     pub fn set_match_state<T: std::convert::Into<crate::model::FilterMatchState>>(
         mut self,
         v: T,
@@ -4251,6 +5556,15 @@ impl VirusScanFilterResult {
     }
 
     /// Sets the value of [scanned_content_type][crate::model::VirusScanFilterResult::scanned_content_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_modelarmor_v1::model::VirusScanFilterResult;
+    /// use google_cloud_modelarmor_v1::model::virus_scan_filter_result::ScannedContentType;
+    /// let x0 = VirusScanFilterResult::new().set_scanned_content_type(ScannedContentType::Unknown);
+    /// let x1 = VirusScanFilterResult::new().set_scanned_content_type(ScannedContentType::Plaintext);
+    /// let x2 = VirusScanFilterResult::new().set_scanned_content_type(ScannedContentType::Pdf);
+    /// ```
     pub fn set_scanned_content_type<
         T: std::convert::Into<crate::model::virus_scan_filter_result::ScannedContentType>,
     >(
@@ -4262,6 +5576,12 @@ impl VirusScanFilterResult {
     }
 
     /// Sets the value of [scanned_size][crate::model::VirusScanFilterResult::scanned_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_modelarmor_v1::model::VirusScanFilterResult;
+    /// let x = VirusScanFilterResult::new().set_scanned_size(42);
+    /// ```
     pub fn set_scanned_size<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<i64>,
@@ -4271,6 +5591,13 @@ impl VirusScanFilterResult {
     }
 
     /// Sets or clears the value of [scanned_size][crate::model::VirusScanFilterResult::scanned_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_modelarmor_v1::model::VirusScanFilterResult;
+    /// let x = VirusScanFilterResult::new().set_or_clear_scanned_size(Some(42));
+    /// let x = VirusScanFilterResult::new().set_or_clear_scanned_size(None::<i32>);
+    /// ```
     pub fn set_or_clear_scanned_size<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i64>,
@@ -4280,6 +5607,17 @@ impl VirusScanFilterResult {
     }
 
     /// Sets the value of [virus_details][crate::model::VirusScanFilterResult::virus_details].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_modelarmor_v1::model::VirusScanFilterResult;
+    /// use google_cloud_modelarmor_v1::model::VirusDetail;
+    /// let x = VirusScanFilterResult::new()
+    ///     .set_virus_details([
+    ///         VirusDetail::default()/* use setters */,
+    ///         VirusDetail::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_virus_details<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4465,12 +5803,24 @@ impl VirusDetail {
     }
 
     /// Sets the value of [vendor][crate::model::VirusDetail::vendor].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_modelarmor_v1::model::VirusDetail;
+    /// let x = VirusDetail::new().set_vendor("example");
+    /// ```
     pub fn set_vendor<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.vendor = v.into();
         self
     }
 
     /// Sets the value of [names][crate::model::VirusDetail::names].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_modelarmor_v1::model::VirusDetail;
+    /// let x = VirusDetail::new().set_names(["a", "b", "c"]);
+    /// ```
     pub fn set_names<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4482,6 +5832,15 @@ impl VirusDetail {
     }
 
     /// Sets the value of [threat_type][crate::model::VirusDetail::threat_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_modelarmor_v1::model::VirusDetail;
+    /// use google_cloud_modelarmor_v1::model::virus_detail::ThreatType;
+    /// let x0 = VirusDetail::new().set_threat_type(ThreatType::Unknown);
+    /// let x1 = VirusDetail::new().set_threat_type(ThreatType::VirusOrWorm);
+    /// let x2 = VirusDetail::new().set_threat_type(ThreatType::MaliciousProgram);
+    /// ```
     pub fn set_threat_type<T: std::convert::Into<crate::model::virus_detail::ThreatType>>(
         mut self,
         v: T,
@@ -4686,6 +6045,14 @@ impl CsamFilterResult {
     }
 
     /// Sets the value of [execution_state][crate::model::CsamFilterResult::execution_state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_modelarmor_v1::model::CsamFilterResult;
+    /// use google_cloud_modelarmor_v1::model::FilterExecutionState;
+    /// let x0 = CsamFilterResult::new().set_execution_state(FilterExecutionState::ExecutionSuccess);
+    /// let x1 = CsamFilterResult::new().set_execution_state(FilterExecutionState::ExecutionSkipped);
+    /// ```
     pub fn set_execution_state<T: std::convert::Into<crate::model::FilterExecutionState>>(
         mut self,
         v: T,
@@ -4695,6 +6062,17 @@ impl CsamFilterResult {
     }
 
     /// Sets the value of [message_items][crate::model::CsamFilterResult::message_items].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_modelarmor_v1::model::CsamFilterResult;
+    /// use google_cloud_modelarmor_v1::model::MessageItem;
+    /// let x = CsamFilterResult::new()
+    ///     .set_message_items([
+    ///         MessageItem::default()/* use setters */,
+    ///         MessageItem::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_message_items<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4706,6 +6084,14 @@ impl CsamFilterResult {
     }
 
     /// Sets the value of [match_state][crate::model::CsamFilterResult::match_state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_modelarmor_v1::model::CsamFilterResult;
+    /// use google_cloud_modelarmor_v1::model::FilterMatchState;
+    /// let x0 = CsamFilterResult::new().set_match_state(FilterMatchState::NoMatchFound);
+    /// let x1 = CsamFilterResult::new().set_match_state(FilterMatchState::MatchFound);
+    /// ```
     pub fn set_match_state<T: std::convert::Into<crate::model::FilterMatchState>>(
         mut self,
         v: T,
@@ -4740,6 +6126,15 @@ impl MessageItem {
     }
 
     /// Sets the value of [message_type][crate::model::MessageItem::message_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_modelarmor_v1::model::MessageItem;
+    /// use google_cloud_modelarmor_v1::model::message_item::MessageType;
+    /// let x0 = MessageItem::new().set_message_type(MessageType::Info);
+    /// let x1 = MessageItem::new().set_message_type(MessageType::Warning);
+    /// let x2 = MessageItem::new().set_message_type(MessageType::Error);
+    /// ```
     pub fn set_message_type<T: std::convert::Into<crate::model::message_item::MessageType>>(
         mut self,
         v: T,
@@ -4749,6 +6144,12 @@ impl MessageItem {
     }
 
     /// Sets the value of [message][crate::model::MessageItem::message].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_modelarmor_v1::model::MessageItem;
+    /// let x = MessageItem::new().set_message("example");
+    /// ```
     pub fn set_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.message = v.into();
         self
@@ -4927,6 +6328,12 @@ impl RangeInfo {
     }
 
     /// Sets the value of [start][crate::model::RangeInfo::start].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_modelarmor_v1::model::RangeInfo;
+    /// let x = RangeInfo::new().set_start(42);
+    /// ```
     pub fn set_start<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<i64>,
@@ -4936,6 +6343,13 @@ impl RangeInfo {
     }
 
     /// Sets or clears the value of [start][crate::model::RangeInfo::start].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_modelarmor_v1::model::RangeInfo;
+    /// let x = RangeInfo::new().set_or_clear_start(Some(42));
+    /// let x = RangeInfo::new().set_or_clear_start(None::<i32>);
+    /// ```
     pub fn set_or_clear_start<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i64>,
@@ -4945,6 +6359,12 @@ impl RangeInfo {
     }
 
     /// Sets the value of [end][crate::model::RangeInfo::end].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_modelarmor_v1::model::RangeInfo;
+    /// let x = RangeInfo::new().set_end(42);
+    /// ```
     pub fn set_end<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<i64>,
@@ -4954,6 +6374,13 @@ impl RangeInfo {
     }
 
     /// Sets or clears the value of [end][crate::model::RangeInfo::end].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_modelarmor_v1::model::RangeInfo;
+    /// let x = RangeInfo::new().set_or_clear_end(Some(42));
+    /// let x = RangeInfo::new().set_or_clear_end(None::<i32>);
+    /// ```
     pub fn set_or_clear_end<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i64>,

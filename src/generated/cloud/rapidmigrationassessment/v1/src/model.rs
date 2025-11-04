@@ -53,6 +53,12 @@ impl GuestOsScan {
     }
 
     /// Sets the value of [core_source][crate::model::GuestOsScan::core_source].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rapidmigrationassessment_v1::model::GuestOsScan;
+    /// let x = GuestOsScan::new().set_core_source("example");
+    /// ```
     pub fn set_core_source<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.core_source = v.into();
         self
@@ -81,6 +87,12 @@ impl VSphereScan {
     }
 
     /// Sets the value of [core_source][crate::model::VSphereScan::core_source].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rapidmigrationassessment_v1::model::VSphereScan;
+    /// let x = VSphereScan::new().set_core_source("example");
+    /// ```
     pub fn set_core_source<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.core_source = v.into();
         self
@@ -152,12 +164,25 @@ impl Collector {
     }
 
     /// Sets the value of [name][crate::model::Collector::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rapidmigrationassessment_v1::model::Collector;
+    /// let x = Collector::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::Collector::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rapidmigrationassessment_v1::model::Collector;
+    /// use wkt::Timestamp;
+    /// let x = Collector::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -167,6 +192,14 @@ impl Collector {
     }
 
     /// Sets or clears the value of [create_time][crate::model::Collector::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rapidmigrationassessment_v1::model::Collector;
+    /// use wkt::Timestamp;
+    /// let x = Collector::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Collector::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -176,6 +209,13 @@ impl Collector {
     }
 
     /// Sets the value of [update_time][crate::model::Collector::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rapidmigrationassessment_v1::model::Collector;
+    /// use wkt::Timestamp;
+    /// let x = Collector::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -185,6 +225,14 @@ impl Collector {
     }
 
     /// Sets or clears the value of [update_time][crate::model::Collector::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rapidmigrationassessment_v1::model::Collector;
+    /// use wkt::Timestamp;
+    /// let x = Collector::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Collector::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -194,6 +242,15 @@ impl Collector {
     }
 
     /// Sets the value of [labels][crate::model::Collector::labels].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rapidmigrationassessment_v1::model::Collector;
+    /// let x = Collector::new().set_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -206,36 +263,75 @@ impl Collector {
     }
 
     /// Sets the value of [display_name][crate::model::Collector::display_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rapidmigrationassessment_v1::model::Collector;
+    /// let x = Collector::new().set_display_name("example");
+    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
     }
 
     /// Sets the value of [description][crate::model::Collector::description].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rapidmigrationassessment_v1::model::Collector;
+    /// let x = Collector::new().set_description("example");
+    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [service_account][crate::model::Collector::service_account].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rapidmigrationassessment_v1::model::Collector;
+    /// let x = Collector::new().set_service_account("example");
+    /// ```
     pub fn set_service_account<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.service_account = v.into();
         self
     }
 
     /// Sets the value of [bucket][crate::model::Collector::bucket].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rapidmigrationassessment_v1::model::Collector;
+    /// let x = Collector::new().set_bucket("example");
+    /// ```
     pub fn set_bucket<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.bucket = v.into();
         self
     }
 
     /// Sets the value of [expected_asset_count][crate::model::Collector::expected_asset_count].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rapidmigrationassessment_v1::model::Collector;
+    /// let x = Collector::new().set_expected_asset_count(42);
+    /// ```
     pub fn set_expected_asset_count<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.expected_asset_count = v.into();
         self
     }
 
     /// Sets the value of [state][crate::model::Collector::state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rapidmigrationassessment_v1::model::Collector;
+    /// use google_cloud_rapidmigrationassessment_v1::model::collector::State;
+    /// let x0 = Collector::new().set_state(State::Initializing);
+    /// let x1 = Collector::new().set_state(State::ReadyToUse);
+    /// let x2 = Collector::new().set_state(State::Registered);
+    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::collector::State>>(
         mut self,
         v: T,
@@ -245,12 +341,25 @@ impl Collector {
     }
 
     /// Sets the value of [client_version][crate::model::Collector::client_version].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rapidmigrationassessment_v1::model::Collector;
+    /// let x = Collector::new().set_client_version("example");
+    /// ```
     pub fn set_client_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.client_version = v.into();
         self
     }
 
     /// Sets the value of [guest_os_scan][crate::model::Collector::guest_os_scan].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rapidmigrationassessment_v1::model::Collector;
+    /// use google_cloud_rapidmigrationassessment_v1::model::GuestOsScan;
+    /// let x = Collector::new().set_guest_os_scan(GuestOsScan::default()/* use setters */);
+    /// ```
     pub fn set_guest_os_scan<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::GuestOsScan>,
@@ -260,6 +369,14 @@ impl Collector {
     }
 
     /// Sets or clears the value of [guest_os_scan][crate::model::Collector::guest_os_scan].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rapidmigrationassessment_v1::model::Collector;
+    /// use google_cloud_rapidmigrationassessment_v1::model::GuestOsScan;
+    /// let x = Collector::new().set_or_clear_guest_os_scan(Some(GuestOsScan::default()/* use setters */));
+    /// let x = Collector::new().set_or_clear_guest_os_scan(None::<GuestOsScan>);
+    /// ```
     pub fn set_or_clear_guest_os_scan<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::GuestOsScan>,
@@ -269,6 +386,13 @@ impl Collector {
     }
 
     /// Sets the value of [vsphere_scan][crate::model::Collector::vsphere_scan].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rapidmigrationassessment_v1::model::Collector;
+    /// use google_cloud_rapidmigrationassessment_v1::model::VSphereScan;
+    /// let x = Collector::new().set_vsphere_scan(VSphereScan::default()/* use setters */);
+    /// ```
     pub fn set_vsphere_scan<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::VSphereScan>,
@@ -278,6 +402,14 @@ impl Collector {
     }
 
     /// Sets or clears the value of [vsphere_scan][crate::model::Collector::vsphere_scan].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rapidmigrationassessment_v1::model::Collector;
+    /// use google_cloud_rapidmigrationassessment_v1::model::VSphereScan;
+    /// let x = Collector::new().set_or_clear_vsphere_scan(Some(VSphereScan::default()/* use setters */));
+    /// let x = Collector::new().set_or_clear_vsphere_scan(None::<VSphereScan>);
+    /// ```
     pub fn set_or_clear_vsphere_scan<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::VSphereScan>,
@@ -287,12 +419,24 @@ impl Collector {
     }
 
     /// Sets the value of [collection_days][crate::model::Collector::collection_days].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rapidmigrationassessment_v1::model::Collector;
+    /// let x = Collector::new().set_collection_days(42);
+    /// ```
     pub fn set_collection_days<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.collection_days = v.into();
         self
     }
 
     /// Sets the value of [eula_uri][crate::model::Collector::eula_uri].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rapidmigrationassessment_v1::model::Collector;
+    /// let x = Collector::new().set_eula_uri("example");
+    /// ```
     pub fn set_eula_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.eula_uri = v.into();
         self
@@ -520,12 +664,25 @@ impl Annotation {
     }
 
     /// Sets the value of [name][crate::model::Annotation::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rapidmigrationassessment_v1::model::Annotation;
+    /// let x = Annotation::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::Annotation::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rapidmigrationassessment_v1::model::Annotation;
+    /// use wkt::Timestamp;
+    /// let x = Annotation::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -535,6 +692,14 @@ impl Annotation {
     }
 
     /// Sets or clears the value of [create_time][crate::model::Annotation::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rapidmigrationassessment_v1::model::Annotation;
+    /// use wkt::Timestamp;
+    /// let x = Annotation::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Annotation::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -544,6 +709,13 @@ impl Annotation {
     }
 
     /// Sets the value of [update_time][crate::model::Annotation::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rapidmigrationassessment_v1::model::Annotation;
+    /// use wkt::Timestamp;
+    /// let x = Annotation::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -553,6 +725,14 @@ impl Annotation {
     }
 
     /// Sets or clears the value of [update_time][crate::model::Annotation::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rapidmigrationassessment_v1::model::Annotation;
+    /// use wkt::Timestamp;
+    /// let x = Annotation::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Annotation::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -562,6 +742,15 @@ impl Annotation {
     }
 
     /// Sets the value of [labels][crate::model::Annotation::labels].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rapidmigrationassessment_v1::model::Annotation;
+    /// let x = Annotation::new().set_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -574,6 +763,14 @@ impl Annotation {
     }
 
     /// Sets the value of [r#type][crate::model::Annotation::type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rapidmigrationassessment_v1::model::Annotation;
+    /// use google_cloud_rapidmigrationassessment_v1::model::annotation::Type;
+    /// let x0 = Annotation::new().set_type(Type::LegacyExportConsent);
+    /// let x1 = Annotation::new().set_type(Type::Qwiklab);
+    /// ```
     pub fn set_type<T: std::convert::Into<crate::model::annotation::Type>>(mut self, v: T) -> Self {
         self.r#type = v.into();
         self
@@ -748,12 +945,25 @@ impl CreateAnnotationRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateAnnotationRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rapidmigrationassessment_v1::model::CreateAnnotationRequest;
+    /// let x = CreateAnnotationRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [annotation][crate::model::CreateAnnotationRequest::annotation].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rapidmigrationassessment_v1::model::CreateAnnotationRequest;
+    /// use google_cloud_rapidmigrationassessment_v1::model::Annotation;
+    /// let x = CreateAnnotationRequest::new().set_annotation(Annotation::default()/* use setters */);
+    /// ```
     pub fn set_annotation<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Annotation>,
@@ -763,6 +973,14 @@ impl CreateAnnotationRequest {
     }
 
     /// Sets or clears the value of [annotation][crate::model::CreateAnnotationRequest::annotation].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rapidmigrationassessment_v1::model::CreateAnnotationRequest;
+    /// use google_cloud_rapidmigrationassessment_v1::model::Annotation;
+    /// let x = CreateAnnotationRequest::new().set_or_clear_annotation(Some(Annotation::default()/* use setters */));
+    /// let x = CreateAnnotationRequest::new().set_or_clear_annotation(None::<Annotation>);
+    /// ```
     pub fn set_or_clear_annotation<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Annotation>,
@@ -772,6 +990,12 @@ impl CreateAnnotationRequest {
     }
 
     /// Sets the value of [request_id][crate::model::CreateAnnotationRequest::request_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rapidmigrationassessment_v1::model::CreateAnnotationRequest;
+    /// let x = CreateAnnotationRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -800,6 +1024,12 @@ impl GetAnnotationRequest {
     }
 
     /// Sets the value of [name][crate::model::GetAnnotationRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rapidmigrationassessment_v1::model::GetAnnotationRequest;
+    /// let x = GetAnnotationRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -837,18 +1067,37 @@ impl CreateCollectorRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateCollectorRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rapidmigrationassessment_v1::model::CreateCollectorRequest;
+    /// let x = CreateCollectorRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [collector_id][crate::model::CreateCollectorRequest::collector_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rapidmigrationassessment_v1::model::CreateCollectorRequest;
+    /// let x = CreateCollectorRequest::new().set_collector_id("example");
+    /// ```
     pub fn set_collector_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.collector_id = v.into();
         self
     }
 
     /// Sets the value of [collector][crate::model::CreateCollectorRequest::collector].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rapidmigrationassessment_v1::model::CreateCollectorRequest;
+    /// use google_cloud_rapidmigrationassessment_v1::model::Collector;
+    /// let x = CreateCollectorRequest::new().set_collector(Collector::default()/* use setters */);
+    /// ```
     pub fn set_collector<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Collector>,
@@ -858,6 +1107,14 @@ impl CreateCollectorRequest {
     }
 
     /// Sets or clears the value of [collector][crate::model::CreateCollectorRequest::collector].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rapidmigrationassessment_v1::model::CreateCollectorRequest;
+    /// use google_cloud_rapidmigrationassessment_v1::model::Collector;
+    /// let x = CreateCollectorRequest::new().set_or_clear_collector(Some(Collector::default()/* use setters */));
+    /// let x = CreateCollectorRequest::new().set_or_clear_collector(None::<Collector>);
+    /// ```
     pub fn set_or_clear_collector<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Collector>,
@@ -867,6 +1124,12 @@ impl CreateCollectorRequest {
     }
 
     /// Sets the value of [request_id][crate::model::CreateCollectorRequest::request_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rapidmigrationassessment_v1::model::CreateCollectorRequest;
+    /// let x = CreateCollectorRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -908,30 +1171,60 @@ impl ListCollectorsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListCollectorsRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rapidmigrationassessment_v1::model::ListCollectorsRequest;
+    /// let x = ListCollectorsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListCollectorsRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rapidmigrationassessment_v1::model::ListCollectorsRequest;
+    /// let x = ListCollectorsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListCollectorsRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rapidmigrationassessment_v1::model::ListCollectorsRequest;
+    /// let x = ListCollectorsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListCollectorsRequest::filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rapidmigrationassessment_v1::model::ListCollectorsRequest;
+    /// let x = ListCollectorsRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListCollectorsRequest::order_by].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rapidmigrationassessment_v1::model::ListCollectorsRequest;
+    /// let x = ListCollectorsRequest::new().set_order_by("example");
+    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
@@ -966,6 +1259,17 @@ impl ListCollectorsResponse {
     }
 
     /// Sets the value of [collectors][crate::model::ListCollectorsResponse::collectors].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rapidmigrationassessment_v1::model::ListCollectorsResponse;
+    /// use google_cloud_rapidmigrationassessment_v1::model::Collector;
+    /// let x = ListCollectorsResponse::new()
+    ///     .set_collectors([
+    ///         Collector::default()/* use setters */,
+    ///         Collector::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_collectors<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -977,12 +1281,24 @@ impl ListCollectorsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListCollectorsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rapidmigrationassessment_v1::model::ListCollectorsResponse;
+    /// let x = ListCollectorsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListCollectorsResponse::unreachable].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rapidmigrationassessment_v1::model::ListCollectorsResponse;
+    /// let x = ListCollectorsResponse::new().set_unreachable(["a", "b", "c"]);
+    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1030,6 +1346,12 @@ impl GetCollectorRequest {
     }
 
     /// Sets the value of [name][crate::model::GetCollectorRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rapidmigrationassessment_v1::model::GetCollectorRequest;
+    /// let x = GetCollectorRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -1073,12 +1395,24 @@ impl DeleteCollectorRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteCollectorRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rapidmigrationassessment_v1::model::DeleteCollectorRequest;
+    /// let x = DeleteCollectorRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [request_id][crate::model::DeleteCollectorRequest::request_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rapidmigrationassessment_v1::model::DeleteCollectorRequest;
+    /// let x = DeleteCollectorRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -1129,6 +1463,13 @@ impl UpdateCollectorRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateCollectorRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rapidmigrationassessment_v1::model::UpdateCollectorRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateCollectorRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -1138,6 +1479,14 @@ impl UpdateCollectorRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateCollectorRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rapidmigrationassessment_v1::model::UpdateCollectorRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateCollectorRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateCollectorRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -1147,6 +1496,13 @@ impl UpdateCollectorRequest {
     }
 
     /// Sets the value of [collector][crate::model::UpdateCollectorRequest::collector].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rapidmigrationassessment_v1::model::UpdateCollectorRequest;
+    /// use google_cloud_rapidmigrationassessment_v1::model::Collector;
+    /// let x = UpdateCollectorRequest::new().set_collector(Collector::default()/* use setters */);
+    /// ```
     pub fn set_collector<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Collector>,
@@ -1156,6 +1512,14 @@ impl UpdateCollectorRequest {
     }
 
     /// Sets or clears the value of [collector][crate::model::UpdateCollectorRequest::collector].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rapidmigrationassessment_v1::model::UpdateCollectorRequest;
+    /// use google_cloud_rapidmigrationassessment_v1::model::Collector;
+    /// let x = UpdateCollectorRequest::new().set_or_clear_collector(Some(Collector::default()/* use setters */));
+    /// let x = UpdateCollectorRequest::new().set_or_clear_collector(None::<Collector>);
+    /// ```
     pub fn set_or_clear_collector<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Collector>,
@@ -1165,6 +1529,12 @@ impl UpdateCollectorRequest {
     }
 
     /// Sets the value of [request_id][crate::model::UpdateCollectorRequest::request_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rapidmigrationassessment_v1::model::UpdateCollectorRequest;
+    /// let x = UpdateCollectorRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -1208,12 +1578,24 @@ impl ResumeCollectorRequest {
     }
 
     /// Sets the value of [name][crate::model::ResumeCollectorRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rapidmigrationassessment_v1::model::ResumeCollectorRequest;
+    /// let x = ResumeCollectorRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [request_id][crate::model::ResumeCollectorRequest::request_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rapidmigrationassessment_v1::model::ResumeCollectorRequest;
+    /// let x = ResumeCollectorRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -1257,12 +1639,24 @@ impl RegisterCollectorRequest {
     }
 
     /// Sets the value of [name][crate::model::RegisterCollectorRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rapidmigrationassessment_v1::model::RegisterCollectorRequest;
+    /// let x = RegisterCollectorRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [request_id][crate::model::RegisterCollectorRequest::request_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rapidmigrationassessment_v1::model::RegisterCollectorRequest;
+    /// let x = RegisterCollectorRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -1306,12 +1700,24 @@ impl PauseCollectorRequest {
     }
 
     /// Sets the value of [name][crate::model::PauseCollectorRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rapidmigrationassessment_v1::model::PauseCollectorRequest;
+    /// let x = PauseCollectorRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [request_id][crate::model::PauseCollectorRequest::request_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rapidmigrationassessment_v1::model::PauseCollectorRequest;
+    /// let x = PauseCollectorRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -1364,6 +1770,13 @@ impl OperationMetadata {
     }
 
     /// Sets the value of [create_time][crate::model::OperationMetadata::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rapidmigrationassessment_v1::model::OperationMetadata;
+    /// use wkt::Timestamp;
+    /// let x = OperationMetadata::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1373,6 +1786,14 @@ impl OperationMetadata {
     }
 
     /// Sets or clears the value of [create_time][crate::model::OperationMetadata::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rapidmigrationassessment_v1::model::OperationMetadata;
+    /// use wkt::Timestamp;
+    /// let x = OperationMetadata::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = OperationMetadata::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1382,6 +1803,13 @@ impl OperationMetadata {
     }
 
     /// Sets the value of [end_time][crate::model::OperationMetadata::end_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rapidmigrationassessment_v1::model::OperationMetadata;
+    /// use wkt::Timestamp;
+    /// let x = OperationMetadata::new().set_end_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1391,6 +1819,14 @@ impl OperationMetadata {
     }
 
     /// Sets or clears the value of [end_time][crate::model::OperationMetadata::end_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rapidmigrationassessment_v1::model::OperationMetadata;
+    /// use wkt::Timestamp;
+    /// let x = OperationMetadata::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
+    /// let x = OperationMetadata::new().set_or_clear_end_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1400,30 +1836,60 @@ impl OperationMetadata {
     }
 
     /// Sets the value of [target][crate::model::OperationMetadata::target].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rapidmigrationassessment_v1::model::OperationMetadata;
+    /// let x = OperationMetadata::new().set_target("example");
+    /// ```
     pub fn set_target<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.target = v.into();
         self
     }
 
     /// Sets the value of [verb][crate::model::OperationMetadata::verb].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rapidmigrationassessment_v1::model::OperationMetadata;
+    /// let x = OperationMetadata::new().set_verb("example");
+    /// ```
     pub fn set_verb<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.verb = v.into();
         self
     }
 
     /// Sets the value of [status_message][crate::model::OperationMetadata::status_message].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rapidmigrationassessment_v1::model::OperationMetadata;
+    /// let x = OperationMetadata::new().set_status_message("example");
+    /// ```
     pub fn set_status_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.status_message = v.into();
         self
     }
 
     /// Sets the value of [requested_cancellation][crate::model::OperationMetadata::requested_cancellation].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rapidmigrationassessment_v1::model::OperationMetadata;
+    /// let x = OperationMetadata::new().set_requested_cancellation(true);
+    /// ```
     pub fn set_requested_cancellation<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.requested_cancellation = v.into();
         self
     }
 
     /// Sets the value of [api_version][crate::model::OperationMetadata::api_version].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rapidmigrationassessment_v1::model::OperationMetadata;
+    /// let x = OperationMetadata::new().set_api_version("example");
+    /// ```
     pub fn set_api_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.api_version = v.into();
         self

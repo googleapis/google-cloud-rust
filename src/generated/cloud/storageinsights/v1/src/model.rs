@@ -71,30 +71,60 @@ impl ListReportConfigsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListReportConfigsRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storageinsights_v1::model::ListReportConfigsRequest;
+    /// let x = ListReportConfigsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListReportConfigsRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storageinsights_v1::model::ListReportConfigsRequest;
+    /// let x = ListReportConfigsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListReportConfigsRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storageinsights_v1::model::ListReportConfigsRequest;
+    /// let x = ListReportConfigsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListReportConfigsRequest::filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storageinsights_v1::model::ListReportConfigsRequest;
+    /// let x = ListReportConfigsRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListReportConfigsRequest::order_by].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storageinsights_v1::model::ListReportConfigsRequest;
+    /// let x = ListReportConfigsRequest::new().set_order_by("example");
+    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
@@ -129,6 +159,17 @@ impl ListReportConfigsResponse {
     }
 
     /// Sets the value of [report_configs][crate::model::ListReportConfigsResponse::report_configs].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storageinsights_v1::model::ListReportConfigsResponse;
+    /// use google_cloud_storageinsights_v1::model::ReportConfig;
+    /// let x = ListReportConfigsResponse::new()
+    ///     .set_report_configs([
+    ///         ReportConfig::default()/* use setters */,
+    ///         ReportConfig::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_report_configs<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -140,12 +181,24 @@ impl ListReportConfigsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListReportConfigsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storageinsights_v1::model::ListReportConfigsResponse;
+    /// let x = ListReportConfigsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListReportConfigsResponse::unreachable].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storageinsights_v1::model::ListReportConfigsResponse;
+    /// let x = ListReportConfigsResponse::new().set_unreachable(["a", "b", "c"]);
+    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -193,6 +246,12 @@ impl GetReportConfigRequest {
     }
 
     /// Sets the value of [name][crate::model::GetReportConfigRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storageinsights_v1::model::GetReportConfigRequest;
+    /// let x = GetReportConfigRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -239,12 +298,25 @@ impl CreateReportConfigRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateReportConfigRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storageinsights_v1::model::CreateReportConfigRequest;
+    /// let x = CreateReportConfigRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [report_config][crate::model::CreateReportConfigRequest::report_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storageinsights_v1::model::CreateReportConfigRequest;
+    /// use google_cloud_storageinsights_v1::model::ReportConfig;
+    /// let x = CreateReportConfigRequest::new().set_report_config(ReportConfig::default()/* use setters */);
+    /// ```
     pub fn set_report_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ReportConfig>,
@@ -254,6 +326,14 @@ impl CreateReportConfigRequest {
     }
 
     /// Sets or clears the value of [report_config][crate::model::CreateReportConfigRequest::report_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storageinsights_v1::model::CreateReportConfigRequest;
+    /// use google_cloud_storageinsights_v1::model::ReportConfig;
+    /// let x = CreateReportConfigRequest::new().set_or_clear_report_config(Some(ReportConfig::default()/* use setters */));
+    /// let x = CreateReportConfigRequest::new().set_or_clear_report_config(None::<ReportConfig>);
+    /// ```
     pub fn set_or_clear_report_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ReportConfig>,
@@ -263,6 +343,12 @@ impl CreateReportConfigRequest {
     }
 
     /// Sets the value of [request_id][crate::model::CreateReportConfigRequest::request_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storageinsights_v1::model::CreateReportConfigRequest;
+    /// let x = CreateReportConfigRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -313,6 +399,13 @@ impl UpdateReportConfigRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateReportConfigRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storageinsights_v1::model::UpdateReportConfigRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateReportConfigRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -322,6 +415,14 @@ impl UpdateReportConfigRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateReportConfigRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storageinsights_v1::model::UpdateReportConfigRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateReportConfigRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateReportConfigRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -331,6 +432,13 @@ impl UpdateReportConfigRequest {
     }
 
     /// Sets the value of [report_config][crate::model::UpdateReportConfigRequest::report_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storageinsights_v1::model::UpdateReportConfigRequest;
+    /// use google_cloud_storageinsights_v1::model::ReportConfig;
+    /// let x = UpdateReportConfigRequest::new().set_report_config(ReportConfig::default()/* use setters */);
+    /// ```
     pub fn set_report_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ReportConfig>,
@@ -340,6 +448,14 @@ impl UpdateReportConfigRequest {
     }
 
     /// Sets or clears the value of [report_config][crate::model::UpdateReportConfigRequest::report_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storageinsights_v1::model::UpdateReportConfigRequest;
+    /// use google_cloud_storageinsights_v1::model::ReportConfig;
+    /// let x = UpdateReportConfigRequest::new().set_or_clear_report_config(Some(ReportConfig::default()/* use setters */));
+    /// let x = UpdateReportConfigRequest::new().set_or_clear_report_config(None::<ReportConfig>);
+    /// ```
     pub fn set_or_clear_report_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ReportConfig>,
@@ -349,6 +465,12 @@ impl UpdateReportConfigRequest {
     }
 
     /// Sets the value of [request_id][crate::model::UpdateReportConfigRequest::request_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storageinsights_v1::model::UpdateReportConfigRequest;
+    /// let x = UpdateReportConfigRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -395,18 +517,36 @@ impl DeleteReportConfigRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteReportConfigRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storageinsights_v1::model::DeleteReportConfigRequest;
+    /// let x = DeleteReportConfigRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [force][crate::model::DeleteReportConfigRequest::force].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storageinsights_v1::model::DeleteReportConfigRequest;
+    /// let x = DeleteReportConfigRequest::new().set_force(true);
+    /// ```
     pub fn set_force<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.force = v.into();
         self
     }
 
     /// Sets the value of [request_id][crate::model::DeleteReportConfigRequest::request_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storageinsights_v1::model::DeleteReportConfigRequest;
+    /// let x = DeleteReportConfigRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -467,12 +607,25 @@ impl ReportDetail {
     }
 
     /// Sets the value of [name][crate::model::ReportDetail::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storageinsights_v1::model::ReportDetail;
+    /// let x = ReportDetail::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [snapshot_time][crate::model::ReportDetail::snapshot_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storageinsights_v1::model::ReportDetail;
+    /// use wkt::Timestamp;
+    /// let x = ReportDetail::new().set_snapshot_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_snapshot_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -482,6 +635,14 @@ impl ReportDetail {
     }
 
     /// Sets or clears the value of [snapshot_time][crate::model::ReportDetail::snapshot_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storageinsights_v1::model::ReportDetail;
+    /// use wkt::Timestamp;
+    /// let x = ReportDetail::new().set_or_clear_snapshot_time(Some(Timestamp::default()/* use setters */));
+    /// let x = ReportDetail::new().set_or_clear_snapshot_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_snapshot_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -491,6 +652,12 @@ impl ReportDetail {
     }
 
     /// Sets the value of [report_path_prefix][crate::model::ReportDetail::report_path_prefix].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storageinsights_v1::model::ReportDetail;
+    /// let x = ReportDetail::new().set_report_path_prefix("example");
+    /// ```
     pub fn set_report_path_prefix<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -500,12 +667,25 @@ impl ReportDetail {
     }
 
     /// Sets the value of [shards_count][crate::model::ReportDetail::shards_count].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storageinsights_v1::model::ReportDetail;
+    /// let x = ReportDetail::new().set_shards_count(42);
+    /// ```
     pub fn set_shards_count<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.shards_count = v.into();
         self
     }
 
     /// Sets the value of [status][crate::model::ReportDetail::status].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storageinsights_v1::model::ReportDetail;
+    /// use rpc::model::Status;
+    /// let x = ReportDetail::new().set_status(Status::default()/* use setters */);
+    /// ```
     pub fn set_status<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<rpc::model::Status>,
@@ -515,6 +695,14 @@ impl ReportDetail {
     }
 
     /// Sets or clears the value of [status][crate::model::ReportDetail::status].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storageinsights_v1::model::ReportDetail;
+    /// use rpc::model::Status;
+    /// let x = ReportDetail::new().set_or_clear_status(Some(Status::default()/* use setters */));
+    /// let x = ReportDetail::new().set_or_clear_status(None::<Status>);
+    /// ```
     pub fn set_or_clear_status<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<rpc::model::Status>,
@@ -524,6 +712,15 @@ impl ReportDetail {
     }
 
     /// Sets the value of [labels][crate::model::ReportDetail::labels].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storageinsights_v1::model::ReportDetail;
+    /// let x = ReportDetail::new().set_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -536,6 +733,13 @@ impl ReportDetail {
     }
 
     /// Sets the value of [target_datetime][crate::model::ReportDetail::target_datetime].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storageinsights_v1::model::ReportDetail;
+    /// use gtype::model::DateTime;
+    /// let x = ReportDetail::new().set_target_datetime(DateTime::default()/* use setters */);
+    /// ```
     pub fn set_target_datetime<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<gtype::model::DateTime>,
@@ -545,6 +749,14 @@ impl ReportDetail {
     }
 
     /// Sets or clears the value of [target_datetime][crate::model::ReportDetail::target_datetime].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storageinsights_v1::model::ReportDetail;
+    /// use gtype::model::DateTime;
+    /// let x = ReportDetail::new().set_or_clear_target_datetime(Some(DateTime::default()/* use setters */));
+    /// let x = ReportDetail::new().set_or_clear_target_datetime(None::<DateTime>);
+    /// ```
     pub fn set_or_clear_target_datetime<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<gtype::model::DateTime>,
@@ -554,6 +766,13 @@ impl ReportDetail {
     }
 
     /// Sets the value of [report_metrics][crate::model::ReportDetail::report_metrics].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storageinsights_v1::model::ReportDetail;
+    /// use google_cloud_storageinsights_v1::model::report_detail::Metrics;
+    /// let x = ReportDetail::new().set_report_metrics(Metrics::default()/* use setters */);
+    /// ```
     pub fn set_report_metrics<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::report_detail::Metrics>,
@@ -563,6 +782,14 @@ impl ReportDetail {
     }
 
     /// Sets or clears the value of [report_metrics][crate::model::ReportDetail::report_metrics].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storageinsights_v1::model::ReportDetail;
+    /// use google_cloud_storageinsights_v1::model::report_detail::Metrics;
+    /// let x = ReportDetail::new().set_or_clear_report_metrics(Some(Metrics::default()/* use setters */));
+    /// let x = ReportDetail::new().set_or_clear_report_metrics(None::<Metrics>);
+    /// ```
     pub fn set_or_clear_report_metrics<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::report_detail::Metrics>,
@@ -599,6 +826,12 @@ pub mod report_detail {
         }
 
         /// Sets the value of [processed_records_count][crate::model::report_detail::Metrics::processed_records_count].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_storageinsights_v1::model::report_detail::Metrics;
+        /// let x = Metrics::new().set_processed_records_count(42);
+        /// ```
         pub fn set_processed_records_count<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
             self.processed_records_count = v.into();
             self
@@ -641,30 +874,60 @@ impl ListReportDetailsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListReportDetailsRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storageinsights_v1::model::ListReportDetailsRequest;
+    /// let x = ListReportDetailsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListReportDetailsRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storageinsights_v1::model::ListReportDetailsRequest;
+    /// let x = ListReportDetailsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListReportDetailsRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storageinsights_v1::model::ListReportDetailsRequest;
+    /// let x = ListReportDetailsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListReportDetailsRequest::filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storageinsights_v1::model::ListReportDetailsRequest;
+    /// let x = ListReportDetailsRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListReportDetailsRequest::order_by].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storageinsights_v1::model::ListReportDetailsRequest;
+    /// let x = ListReportDetailsRequest::new().set_order_by("example");
+    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
@@ -699,6 +962,17 @@ impl ListReportDetailsResponse {
     }
 
     /// Sets the value of [report_details][crate::model::ListReportDetailsResponse::report_details].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storageinsights_v1::model::ListReportDetailsResponse;
+    /// use google_cloud_storageinsights_v1::model::ReportDetail;
+    /// let x = ListReportDetailsResponse::new()
+    ///     .set_report_details([
+    ///         ReportDetail::default()/* use setters */,
+    ///         ReportDetail::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_report_details<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -710,12 +984,24 @@ impl ListReportDetailsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListReportDetailsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storageinsights_v1::model::ListReportDetailsResponse;
+    /// let x = ListReportDetailsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListReportDetailsResponse::unreachable].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storageinsights_v1::model::ListReportDetailsResponse;
+    /// let x = ListReportDetailsResponse::new().set_unreachable(["a", "b", "c"]);
+    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -763,6 +1049,12 @@ impl GetReportDetailRequest {
     }
 
     /// Sets the value of [name][crate::model::GetReportDetailRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storageinsights_v1::model::GetReportDetailRequest;
+    /// let x = GetReportDetailRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -815,6 +1107,13 @@ impl OperationMetadata {
     }
 
     /// Sets the value of [create_time][crate::model::OperationMetadata::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storageinsights_v1::model::OperationMetadata;
+    /// use wkt::Timestamp;
+    /// let x = OperationMetadata::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -824,6 +1123,14 @@ impl OperationMetadata {
     }
 
     /// Sets or clears the value of [create_time][crate::model::OperationMetadata::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storageinsights_v1::model::OperationMetadata;
+    /// use wkt::Timestamp;
+    /// let x = OperationMetadata::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = OperationMetadata::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -833,6 +1140,13 @@ impl OperationMetadata {
     }
 
     /// Sets the value of [end_time][crate::model::OperationMetadata::end_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storageinsights_v1::model::OperationMetadata;
+    /// use wkt::Timestamp;
+    /// let x = OperationMetadata::new().set_end_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -842,6 +1156,14 @@ impl OperationMetadata {
     }
 
     /// Sets or clears the value of [end_time][crate::model::OperationMetadata::end_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storageinsights_v1::model::OperationMetadata;
+    /// use wkt::Timestamp;
+    /// let x = OperationMetadata::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
+    /// let x = OperationMetadata::new().set_or_clear_end_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -851,30 +1173,60 @@ impl OperationMetadata {
     }
 
     /// Sets the value of [target][crate::model::OperationMetadata::target].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storageinsights_v1::model::OperationMetadata;
+    /// let x = OperationMetadata::new().set_target("example");
+    /// ```
     pub fn set_target<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.target = v.into();
         self
     }
 
     /// Sets the value of [verb][crate::model::OperationMetadata::verb].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storageinsights_v1::model::OperationMetadata;
+    /// let x = OperationMetadata::new().set_verb("example");
+    /// ```
     pub fn set_verb<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.verb = v.into();
         self
     }
 
     /// Sets the value of [status_message][crate::model::OperationMetadata::status_message].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storageinsights_v1::model::OperationMetadata;
+    /// let x = OperationMetadata::new().set_status_message("example");
+    /// ```
     pub fn set_status_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.status_message = v.into();
         self
     }
 
     /// Sets the value of [requested_cancellation][crate::model::OperationMetadata::requested_cancellation].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storageinsights_v1::model::OperationMetadata;
+    /// let x = OperationMetadata::new().set_requested_cancellation(true);
+    /// ```
     pub fn set_requested_cancellation<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.requested_cancellation = v.into();
         self
     }
 
     /// Sets the value of [api_version][crate::model::OperationMetadata::api_version].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storageinsights_v1::model::OperationMetadata;
+    /// let x = OperationMetadata::new().set_api_version("example");
+    /// ```
     pub fn set_api_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.api_version = v.into();
         self
@@ -913,6 +1265,14 @@ impl FrequencyOptions {
     }
 
     /// Sets the value of [frequency][crate::model::FrequencyOptions::frequency].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storageinsights_v1::model::FrequencyOptions;
+    /// use google_cloud_storageinsights_v1::model::frequency_options::Frequency;
+    /// let x0 = FrequencyOptions::new().set_frequency(Frequency::Daily);
+    /// let x1 = FrequencyOptions::new().set_frequency(Frequency::Weekly);
+    /// ```
     pub fn set_frequency<T: std::convert::Into<crate::model::frequency_options::Frequency>>(
         mut self,
         v: T,
@@ -922,6 +1282,13 @@ impl FrequencyOptions {
     }
 
     /// Sets the value of [start_date][crate::model::FrequencyOptions::start_date].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storageinsights_v1::model::FrequencyOptions;
+    /// use gtype::model::Date;
+    /// let x = FrequencyOptions::new().set_start_date(Date::default()/* use setters */);
+    /// ```
     pub fn set_start_date<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<gtype::model::Date>,
@@ -931,6 +1298,14 @@ impl FrequencyOptions {
     }
 
     /// Sets or clears the value of [start_date][crate::model::FrequencyOptions::start_date].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storageinsights_v1::model::FrequencyOptions;
+    /// use gtype::model::Date;
+    /// let x = FrequencyOptions::new().set_or_clear_start_date(Some(Date::default()/* use setters */));
+    /// let x = FrequencyOptions::new().set_or_clear_start_date(None::<Date>);
+    /// ```
     pub fn set_or_clear_start_date<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<gtype::model::Date>,
@@ -940,6 +1315,13 @@ impl FrequencyOptions {
     }
 
     /// Sets the value of [end_date][crate::model::FrequencyOptions::end_date].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storageinsights_v1::model::FrequencyOptions;
+    /// use gtype::model::Date;
+    /// let x = FrequencyOptions::new().set_end_date(Date::default()/* use setters */);
+    /// ```
     pub fn set_end_date<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<gtype::model::Date>,
@@ -949,6 +1331,14 @@ impl FrequencyOptions {
     }
 
     /// Sets or clears the value of [end_date][crate::model::FrequencyOptions::end_date].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storageinsights_v1::model::FrequencyOptions;
+    /// use gtype::model::Date;
+    /// let x = FrequencyOptions::new().set_or_clear_end_date(Some(Date::default()/* use setters */));
+    /// let x = FrequencyOptions::new().set_or_clear_end_date(None::<Date>);
+    /// ```
     pub fn set_or_clear_end_date<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<gtype::model::Date>,
@@ -1124,6 +1514,12 @@ impl CSVOptions {
     }
 
     /// Sets the value of [record_separator][crate::model::CSVOptions::record_separator].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storageinsights_v1::model::CSVOptions;
+    /// let x = CSVOptions::new().set_record_separator("example");
+    /// ```
     pub fn set_record_separator<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -1133,12 +1529,24 @@ impl CSVOptions {
     }
 
     /// Sets the value of [delimiter][crate::model::CSVOptions::delimiter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storageinsights_v1::model::CSVOptions;
+    /// let x = CSVOptions::new().set_delimiter("example");
+    /// ```
     pub fn set_delimiter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.delimiter = v.into();
         self
     }
 
     /// Sets the value of [header_required][crate::model::CSVOptions::header_required].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storageinsights_v1::model::CSVOptions;
+    /// let x = CSVOptions::new().set_header_required(true);
+    /// ```
     pub fn set_header_required<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.header_required = v.into();
         self
@@ -1187,6 +1595,12 @@ impl CloudStorageFilters {
     }
 
     /// Sets the value of [bucket][crate::model::CloudStorageFilters::bucket].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storageinsights_v1::model::CloudStorageFilters;
+    /// let x = CloudStorageFilters::new().set_bucket("example");
+    /// ```
     pub fn set_bucket<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.bucket = v.into();
         self
@@ -1220,12 +1634,24 @@ impl CloudStorageDestinationOptions {
     }
 
     /// Sets the value of [bucket][crate::model::CloudStorageDestinationOptions::bucket].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storageinsights_v1::model::CloudStorageDestinationOptions;
+    /// let x = CloudStorageDestinationOptions::new().set_bucket("example");
+    /// ```
     pub fn set_bucket<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.bucket = v.into();
         self
     }
 
     /// Sets the value of [destination_path][crate::model::CloudStorageDestinationOptions::destination_path].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storageinsights_v1::model::CloudStorageDestinationOptions;
+    /// let x = CloudStorageDestinationOptions::new().set_destination_path("example");
+    /// ```
     pub fn set_destination_path<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -1265,6 +1691,12 @@ impl ObjectMetadataReportOptions {
     }
 
     /// Sets the value of [metadata_fields][crate::model::ObjectMetadataReportOptions::metadata_fields].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storageinsights_v1::model::ObjectMetadataReportOptions;
+    /// let x = ObjectMetadataReportOptions::new().set_metadata_fields(["a", "b", "c"]);
+    /// ```
     pub fn set_metadata_fields<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1279,6 +1711,14 @@ impl ObjectMetadataReportOptions {
     ///
     /// Note that all the setters affecting `filter` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storageinsights_v1::model::ObjectMetadataReportOptions;
+    /// use google_cloud_storageinsights_v1::model::object_metadata_report_options;
+    /// use google_cloud_storageinsights_v1::model::CloudStorageFilters;
+    /// let x = ObjectMetadataReportOptions::new().set_filter(Some(object_metadata_report_options::Filter::StorageFilters(CloudStorageFilters::default().into())));
+    /// ```
     pub fn set_filter<
         T: std::convert::Into<
                 std::option::Option<crate::model::object_metadata_report_options::Filter>,
@@ -1311,6 +1751,14 @@ impl ObjectMetadataReportOptions {
     ///
     /// Note that all the setters affecting `filter` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storageinsights_v1::model::ObjectMetadataReportOptions;
+    /// use google_cloud_storageinsights_v1::model::CloudStorageFilters;
+    /// let x = ObjectMetadataReportOptions::new().set_storage_filters(CloudStorageFilters::default()/* use setters */);
+    /// assert!(x.storage_filters().is_some());
+    /// ```
     pub fn set_storage_filters<
         T: std::convert::Into<std::boxed::Box<crate::model::CloudStorageFilters>>,
     >(
@@ -1327,6 +1775,14 @@ impl ObjectMetadataReportOptions {
     ///
     /// Note that all the setters affecting `destination_options` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storageinsights_v1::model::ObjectMetadataReportOptions;
+    /// use google_cloud_storageinsights_v1::model::object_metadata_report_options;
+    /// use google_cloud_storageinsights_v1::model::CloudStorageDestinationOptions;
+    /// let x = ObjectMetadataReportOptions::new().set_destination_options(Some(object_metadata_report_options::DestinationOptions::StorageDestinationOptions(CloudStorageDestinationOptions::default().into())));
+    /// ```
     pub fn set_destination_options<
         T: std::convert::Into<
                 std::option::Option<
@@ -1359,6 +1815,14 @@ impl ObjectMetadataReportOptions {
     ///
     /// Note that all the setters affecting `destination_options` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storageinsights_v1::model::ObjectMetadataReportOptions;
+    /// use google_cloud_storageinsights_v1::model::CloudStorageDestinationOptions;
+    /// let x = ObjectMetadataReportOptions::new().set_storage_destination_options(CloudStorageDestinationOptions::default()/* use setters */);
+    /// assert!(x.storage_destination_options().is_some());
+    /// ```
     pub fn set_storage_destination_options<
         T: std::convert::Into<std::boxed::Box<crate::model::CloudStorageDestinationOptions>>,
     >(
@@ -1446,12 +1910,25 @@ impl ReportConfig {
     }
 
     /// Sets the value of [name][crate::model::ReportConfig::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storageinsights_v1::model::ReportConfig;
+    /// let x = ReportConfig::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::ReportConfig::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storageinsights_v1::model::ReportConfig;
+    /// use wkt::Timestamp;
+    /// let x = ReportConfig::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1461,6 +1938,14 @@ impl ReportConfig {
     }
 
     /// Sets or clears the value of [create_time][crate::model::ReportConfig::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storageinsights_v1::model::ReportConfig;
+    /// use wkt::Timestamp;
+    /// let x = ReportConfig::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = ReportConfig::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1470,6 +1955,13 @@ impl ReportConfig {
     }
 
     /// Sets the value of [update_time][crate::model::ReportConfig::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storageinsights_v1::model::ReportConfig;
+    /// use wkt::Timestamp;
+    /// let x = ReportConfig::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1479,6 +1971,14 @@ impl ReportConfig {
     }
 
     /// Sets or clears the value of [update_time][crate::model::ReportConfig::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storageinsights_v1::model::ReportConfig;
+    /// use wkt::Timestamp;
+    /// let x = ReportConfig::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = ReportConfig::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1488,6 +1988,13 @@ impl ReportConfig {
     }
 
     /// Sets the value of [frequency_options][crate::model::ReportConfig::frequency_options].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storageinsights_v1::model::ReportConfig;
+    /// use google_cloud_storageinsights_v1::model::FrequencyOptions;
+    /// let x = ReportConfig::new().set_frequency_options(FrequencyOptions::default()/* use setters */);
+    /// ```
     pub fn set_frequency_options<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::FrequencyOptions>,
@@ -1497,6 +2004,14 @@ impl ReportConfig {
     }
 
     /// Sets or clears the value of [frequency_options][crate::model::ReportConfig::frequency_options].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storageinsights_v1::model::ReportConfig;
+    /// use google_cloud_storageinsights_v1::model::FrequencyOptions;
+    /// let x = ReportConfig::new().set_or_clear_frequency_options(Some(FrequencyOptions::default()/* use setters */));
+    /// let x = ReportConfig::new().set_or_clear_frequency_options(None::<FrequencyOptions>);
+    /// ```
     pub fn set_or_clear_frequency_options<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::FrequencyOptions>,
@@ -1506,6 +2021,15 @@ impl ReportConfig {
     }
 
     /// Sets the value of [labels][crate::model::ReportConfig::labels].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storageinsights_v1::model::ReportConfig;
+    /// let x = ReportConfig::new().set_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -1518,6 +2042,12 @@ impl ReportConfig {
     }
 
     /// Sets the value of [display_name][crate::model::ReportConfig::display_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storageinsights_v1::model::ReportConfig;
+    /// let x = ReportConfig::new().set_display_name("example");
+    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
@@ -1527,6 +2057,14 @@ impl ReportConfig {
     ///
     /// Note that all the setters affecting `report_format` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storageinsights_v1::model::ReportConfig;
+    /// use google_cloud_storageinsights_v1::model::report_config;
+    /// use google_cloud_storageinsights_v1::model::CSVOptions;
+    /// let x = ReportConfig::new().set_report_format(Some(report_config::ReportFormat::CsvOptions(CSVOptions::default().into())));
+    /// ```
     pub fn set_report_format<
         T: std::convert::Into<std::option::Option<crate::model::report_config::ReportFormat>>,
     >(
@@ -1555,6 +2093,15 @@ impl ReportConfig {
     ///
     /// Note that all the setters affecting `report_format` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storageinsights_v1::model::ReportConfig;
+    /// use google_cloud_storageinsights_v1::model::CSVOptions;
+    /// let x = ReportConfig::new().set_csv_options(CSVOptions::default()/* use setters */);
+    /// assert!(x.csv_options().is_some());
+    /// assert!(x.parquet_options().is_none());
+    /// ```
     pub fn set_csv_options<T: std::convert::Into<std::boxed::Box<crate::model::CSVOptions>>>(
         mut self,
         v: T,
@@ -1585,6 +2132,15 @@ impl ReportConfig {
     ///
     /// Note that all the setters affecting `report_format` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storageinsights_v1::model::ReportConfig;
+    /// use google_cloud_storageinsights_v1::model::ParquetOptions;
+    /// let x = ReportConfig::new().set_parquet_options(ParquetOptions::default()/* use setters */);
+    /// assert!(x.parquet_options().is_some());
+    /// assert!(x.csv_options().is_none());
+    /// ```
     pub fn set_parquet_options<
         T: std::convert::Into<std::boxed::Box<crate::model::ParquetOptions>>,
     >(
@@ -1601,6 +2157,14 @@ impl ReportConfig {
     ///
     /// Note that all the setters affecting `report_kind` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storageinsights_v1::model::ReportConfig;
+    /// use google_cloud_storageinsights_v1::model::report_config;
+    /// use google_cloud_storageinsights_v1::model::ObjectMetadataReportOptions;
+    /// let x = ReportConfig::new().set_report_kind(Some(report_config::ReportKind::ObjectMetadataReportOptions(ObjectMetadataReportOptions::default().into())));
+    /// ```
     pub fn set_report_kind<
         T: std::convert::Into<std::option::Option<crate::model::report_config::ReportKind>>,
     >(
@@ -1631,6 +2195,14 @@ impl ReportConfig {
     ///
     /// Note that all the setters affecting `report_kind` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storageinsights_v1::model::ReportConfig;
+    /// use google_cloud_storageinsights_v1::model::ObjectMetadataReportOptions;
+    /// let x = ReportConfig::new().set_object_metadata_report_options(ObjectMetadataReportOptions::default()/* use setters */);
+    /// assert!(x.object_metadata_report_options().is_some());
+    /// ```
     pub fn set_object_metadata_report_options<
         T: std::convert::Into<std::boxed::Box<crate::model::ObjectMetadataReportOptions>>,
     >(
@@ -1694,12 +2266,26 @@ impl Identity {
     }
 
     /// Sets the value of [name][crate::model::Identity::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storageinsights_v1::model::Identity;
+    /// let x = Identity::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [r#type][crate::model::Identity::type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storageinsights_v1::model::Identity;
+    /// use google_cloud_storageinsights_v1::model::identity::IdentityType;
+    /// let x0 = Identity::new().set_type(IdentityType::PerConfig);
+    /// let x1 = Identity::new().set_type(IdentityType::PerProject);
+    /// ```
     pub fn set_type<T: std::convert::Into<crate::model::identity::IdentityType>>(
         mut self,
         v: T,
@@ -1932,12 +2518,25 @@ impl DatasetConfig {
     }
 
     /// Sets the value of [name][crate::model::DatasetConfig::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storageinsights_v1::model::DatasetConfig;
+    /// let x = DatasetConfig::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::DatasetConfig::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storageinsights_v1::model::DatasetConfig;
+    /// use wkt::Timestamp;
+    /// let x = DatasetConfig::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1947,6 +2546,14 @@ impl DatasetConfig {
     }
 
     /// Sets or clears the value of [create_time][crate::model::DatasetConfig::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storageinsights_v1::model::DatasetConfig;
+    /// use wkt::Timestamp;
+    /// let x = DatasetConfig::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = DatasetConfig::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1956,6 +2563,13 @@ impl DatasetConfig {
     }
 
     /// Sets the value of [update_time][crate::model::DatasetConfig::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storageinsights_v1::model::DatasetConfig;
+    /// use wkt::Timestamp;
+    /// let x = DatasetConfig::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1965,6 +2579,14 @@ impl DatasetConfig {
     }
 
     /// Sets or clears the value of [update_time][crate::model::DatasetConfig::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storageinsights_v1::model::DatasetConfig;
+    /// use wkt::Timestamp;
+    /// let x = DatasetConfig::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = DatasetConfig::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1974,6 +2596,15 @@ impl DatasetConfig {
     }
 
     /// Sets the value of [labels][crate::model::DatasetConfig::labels].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storageinsights_v1::model::DatasetConfig;
+    /// let x = DatasetConfig::new().set_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -1986,24 +2617,48 @@ impl DatasetConfig {
     }
 
     /// Sets the value of [uid][crate::model::DatasetConfig::uid].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storageinsights_v1::model::DatasetConfig;
+    /// let x = DatasetConfig::new().set_uid("example");
+    /// ```
     pub fn set_uid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.uid = v.into();
         self
     }
 
     /// Sets the value of [organization_number][crate::model::DatasetConfig::organization_number].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storageinsights_v1::model::DatasetConfig;
+    /// let x = DatasetConfig::new().set_organization_number(42);
+    /// ```
     pub fn set_organization_number<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.organization_number = v.into();
         self
     }
 
     /// Sets the value of [include_newly_created_buckets][crate::model::DatasetConfig::include_newly_created_buckets].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storageinsights_v1::model::DatasetConfig;
+    /// let x = DatasetConfig::new().set_include_newly_created_buckets(true);
+    /// ```
     pub fn set_include_newly_created_buckets<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.include_newly_created_buckets = v.into();
         self
     }
 
     /// Sets the value of [skip_verification_and_ingest][crate::model::DatasetConfig::skip_verification_and_ingest].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storageinsights_v1::model::DatasetConfig;
+    /// let x = DatasetConfig::new().set_skip_verification_and_ingest(true);
+    /// ```
     #[deprecated]
     pub fn set_skip_verification_and_ingest<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.skip_verification_and_ingest = v.into();
@@ -2011,12 +2666,25 @@ impl DatasetConfig {
     }
 
     /// Sets the value of [retention_period_days][crate::model::DatasetConfig::retention_period_days].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storageinsights_v1::model::DatasetConfig;
+    /// let x = DatasetConfig::new().set_retention_period_days(42);
+    /// ```
     pub fn set_retention_period_days<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.retention_period_days = v.into();
         self
     }
 
     /// Sets the value of [link][crate::model::DatasetConfig::link].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storageinsights_v1::model::DatasetConfig;
+    /// use google_cloud_storageinsights_v1::model::dataset_config::Link;
+    /// let x = DatasetConfig::new().set_link(Link::default()/* use setters */);
+    /// ```
     pub fn set_link<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::dataset_config::Link>,
@@ -2026,6 +2694,14 @@ impl DatasetConfig {
     }
 
     /// Sets or clears the value of [link][crate::model::DatasetConfig::link].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storageinsights_v1::model::DatasetConfig;
+    /// use google_cloud_storageinsights_v1::model::dataset_config::Link;
+    /// let x = DatasetConfig::new().set_or_clear_link(Some(Link::default()/* use setters */));
+    /// let x = DatasetConfig::new().set_or_clear_link(None::<Link>);
+    /// ```
     pub fn set_or_clear_link<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::dataset_config::Link>,
@@ -2035,6 +2711,13 @@ impl DatasetConfig {
     }
 
     /// Sets the value of [identity][crate::model::DatasetConfig::identity].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storageinsights_v1::model::DatasetConfig;
+    /// use google_cloud_storageinsights_v1::model::Identity;
+    /// let x = DatasetConfig::new().set_identity(Identity::default()/* use setters */);
+    /// ```
     pub fn set_identity<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Identity>,
@@ -2044,6 +2727,14 @@ impl DatasetConfig {
     }
 
     /// Sets or clears the value of [identity][crate::model::DatasetConfig::identity].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storageinsights_v1::model::DatasetConfig;
+    /// use google_cloud_storageinsights_v1::model::Identity;
+    /// let x = DatasetConfig::new().set_or_clear_identity(Some(Identity::default()/* use setters */));
+    /// let x = DatasetConfig::new().set_or_clear_identity(None::<Identity>);
+    /// ```
     pub fn set_or_clear_identity<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Identity>,
@@ -2053,6 +2744,13 @@ impl DatasetConfig {
     }
 
     /// Sets the value of [status][crate::model::DatasetConfig::status].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storageinsights_v1::model::DatasetConfig;
+    /// use rpc::model::Status;
+    /// let x = DatasetConfig::new().set_status(Status::default()/* use setters */);
+    /// ```
     pub fn set_status<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<rpc::model::Status>,
@@ -2062,6 +2760,14 @@ impl DatasetConfig {
     }
 
     /// Sets or clears the value of [status][crate::model::DatasetConfig::status].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storageinsights_v1::model::DatasetConfig;
+    /// use rpc::model::Status;
+    /// let x = DatasetConfig::new().set_or_clear_status(Some(Status::default()/* use setters */));
+    /// let x = DatasetConfig::new().set_or_clear_status(None::<Status>);
+    /// ```
     pub fn set_or_clear_status<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<rpc::model::Status>,
@@ -2071,6 +2777,15 @@ impl DatasetConfig {
     }
 
     /// Sets the value of [dataset_config_state][crate::model::DatasetConfig::dataset_config_state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storageinsights_v1::model::DatasetConfig;
+    /// use google_cloud_storageinsights_v1::model::dataset_config::ConfigState;
+    /// let x0 = DatasetConfig::new().set_dataset_config_state(ConfigState::Active);
+    /// let x1 = DatasetConfig::new().set_dataset_config_state(ConfigState::VerificationInProgress);
+    /// let x2 = DatasetConfig::new().set_dataset_config_state(ConfigState::Created);
+    /// ```
     pub fn set_dataset_config_state<
         T: std::convert::Into<crate::model::dataset_config::ConfigState>,
     >(
@@ -2082,6 +2797,12 @@ impl DatasetConfig {
     }
 
     /// Sets the value of [description][crate::model::DatasetConfig::description].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storageinsights_v1::model::DatasetConfig;
+    /// let x = DatasetConfig::new().set_description("example");
+    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
@@ -2091,6 +2812,13 @@ impl DatasetConfig {
     ///
     /// Note that all the setters affecting `source_options` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storageinsights_v1::model::DatasetConfig;
+    /// use google_cloud_storageinsights_v1::model::dataset_config;
+    /// let x = DatasetConfig::new().set_source_options(Some(dataset_config::SourceOptions::OrganizationScope(true)));
+    /// ```
     pub fn set_source_options<
         T: std::convert::Into<std::option::Option<crate::model::dataset_config::SourceOptions>>,
     >(
@@ -2121,6 +2849,17 @@ impl DatasetConfig {
     ///
     /// Note that all the setters affecting `source_options` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storageinsights_v1::model::DatasetConfig;
+    /// use google_cloud_storageinsights_v1::model::dataset_config::SourceProjects;
+    /// let x = DatasetConfig::new().set_source_projects(SourceProjects::default()/* use setters */);
+    /// assert!(x.source_projects().is_some());
+    /// assert!(x.source_folders().is_none());
+    /// assert!(x.organization_scope().is_none());
+    /// assert!(x.cloud_storage_object_path().is_none());
+    /// ```
     pub fn set_source_projects<
         T: std::convert::Into<std::boxed::Box<crate::model::dataset_config::SourceProjects>>,
     >(
@@ -2153,6 +2892,17 @@ impl DatasetConfig {
     ///
     /// Note that all the setters affecting `source_options` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storageinsights_v1::model::DatasetConfig;
+    /// use google_cloud_storageinsights_v1::model::dataset_config::SourceFolders;
+    /// let x = DatasetConfig::new().set_source_folders(SourceFolders::default()/* use setters */);
+    /// assert!(x.source_folders().is_some());
+    /// assert!(x.source_projects().is_none());
+    /// assert!(x.organization_scope().is_none());
+    /// assert!(x.cloud_storage_object_path().is_none());
+    /// ```
     pub fn set_source_folders<
         T: std::convert::Into<std::boxed::Box<crate::model::dataset_config::SourceFolders>>,
     >(
@@ -2183,6 +2933,16 @@ impl DatasetConfig {
     ///
     /// Note that all the setters affecting `source_options` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storageinsights_v1::model::DatasetConfig;
+    /// let x = DatasetConfig::new().set_organization_scope(true);
+    /// assert!(x.organization_scope().is_some());
+    /// assert!(x.source_projects().is_none());
+    /// assert!(x.source_folders().is_none());
+    /// assert!(x.cloud_storage_object_path().is_none());
+    /// ```
     pub fn set_organization_scope<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.source_options = std::option::Option::Some(
             crate::model::dataset_config::SourceOptions::OrganizationScope(v.into()),
@@ -2208,6 +2968,16 @@ impl DatasetConfig {
     ///
     /// Note that all the setters affecting `source_options` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storageinsights_v1::model::DatasetConfig;
+    /// let x = DatasetConfig::new().set_cloud_storage_object_path("example");
+    /// assert!(x.cloud_storage_object_path().is_some());
+    /// assert!(x.source_projects().is_none());
+    /// assert!(x.source_folders().is_none());
+    /// assert!(x.organization_scope().is_none());
+    /// ```
     pub fn set_cloud_storage_object_path<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -2222,6 +2992,14 @@ impl DatasetConfig {
     ///
     /// Note that all the setters affecting `cloud_storage_locations` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storageinsights_v1::model::DatasetConfig;
+    /// use google_cloud_storageinsights_v1::model::dataset_config;
+    /// use google_cloud_storageinsights_v1::model::dataset_config::CloudStorageLocations;
+    /// let x = DatasetConfig::new().set_cloud_storage_locations(Some(dataset_config::CloudStorageLocationsOneOf::IncludeCloudStorageLocations(CloudStorageLocations::default().into())));
+    /// ```
     pub fn set_cloud_storage_locations<
         T: std::convert::Into<
                 std::option::Option<crate::model::dataset_config::CloudStorageLocationsOneOf>,
@@ -2253,6 +3031,15 @@ impl DatasetConfig {
     ///
     /// Note that all the setters affecting `cloud_storage_locations` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storageinsights_v1::model::DatasetConfig;
+    /// use google_cloud_storageinsights_v1::model::dataset_config::CloudStorageLocations;
+    /// let x = DatasetConfig::new().set_include_cloud_storage_locations(CloudStorageLocations::default()/* use setters */);
+    /// assert!(x.include_cloud_storage_locations().is_some());
+    /// assert!(x.exclude_cloud_storage_locations().is_none());
+    /// ```
     pub fn set_include_cloud_storage_locations<
         T: std::convert::Into<std::boxed::Box<crate::model::dataset_config::CloudStorageLocations>>,
     >(
@@ -2286,6 +3073,15 @@ impl DatasetConfig {
     ///
     /// Note that all the setters affecting `cloud_storage_locations` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storageinsights_v1::model::DatasetConfig;
+    /// use google_cloud_storageinsights_v1::model::dataset_config::CloudStorageLocations;
+    /// let x = DatasetConfig::new().set_exclude_cloud_storage_locations(CloudStorageLocations::default()/* use setters */);
+    /// assert!(x.exclude_cloud_storage_locations().is_some());
+    /// assert!(x.include_cloud_storage_locations().is_none());
+    /// ```
     pub fn set_exclude_cloud_storage_locations<
         T: std::convert::Into<std::boxed::Box<crate::model::dataset_config::CloudStorageLocations>>,
     >(
@@ -2304,6 +3100,14 @@ impl DatasetConfig {
     ///
     /// Note that all the setters affecting `cloud_storage_buckets` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storageinsights_v1::model::DatasetConfig;
+    /// use google_cloud_storageinsights_v1::model::dataset_config;
+    /// use google_cloud_storageinsights_v1::model::dataset_config::CloudStorageBuckets;
+    /// let x = DatasetConfig::new().set_cloud_storage_buckets(Some(dataset_config::CloudStorageBucketsOneOf::IncludeCloudStorageBuckets(CloudStorageBuckets::default().into())));
+    /// ```
     pub fn set_cloud_storage_buckets<
         T: std::convert::Into<
                 std::option::Option<crate::model::dataset_config::CloudStorageBucketsOneOf>,
@@ -2337,6 +3141,15 @@ impl DatasetConfig {
     ///
     /// Note that all the setters affecting `cloud_storage_buckets` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storageinsights_v1::model::DatasetConfig;
+    /// use google_cloud_storageinsights_v1::model::dataset_config::CloudStorageBuckets;
+    /// let x = DatasetConfig::new().set_include_cloud_storage_buckets(CloudStorageBuckets::default()/* use setters */);
+    /// assert!(x.include_cloud_storage_buckets().is_some());
+    /// assert!(x.exclude_cloud_storage_buckets().is_none());
+    /// ```
     pub fn set_include_cloud_storage_buckets<
         T: std::convert::Into<std::boxed::Box<crate::model::dataset_config::CloudStorageBuckets>>,
     >(
@@ -2372,6 +3185,15 @@ impl DatasetConfig {
     ///
     /// Note that all the setters affecting `cloud_storage_buckets` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storageinsights_v1::model::DatasetConfig;
+    /// use google_cloud_storageinsights_v1::model::dataset_config::CloudStorageBuckets;
+    /// let x = DatasetConfig::new().set_exclude_cloud_storage_buckets(CloudStorageBuckets::default()/* use setters */);
+    /// assert!(x.exclude_cloud_storage_buckets().is_some());
+    /// assert!(x.include_cloud_storage_buckets().is_none());
+    /// ```
     pub fn set_exclude_cloud_storage_buckets<
         T: std::convert::Into<std::boxed::Box<crate::model::dataset_config::CloudStorageBuckets>>,
     >(
@@ -2413,6 +3235,12 @@ pub mod dataset_config {
         }
 
         /// Sets the value of [project_numbers][crate::model::dataset_config::SourceProjects::project_numbers].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_storageinsights_v1::model::dataset_config::SourceProjects;
+        /// let x = SourceProjects::new().set_project_numbers([1, 2, 3]);
+        /// ```
         pub fn set_project_numbers<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -2446,6 +3274,12 @@ pub mod dataset_config {
         }
 
         /// Sets the value of [folder_numbers][crate::model::dataset_config::SourceFolders::folder_numbers].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_storageinsights_v1::model::dataset_config::SourceFolders;
+        /// let x = SourceFolders::new().set_folder_numbers([1, 2, 3]);
+        /// ```
         pub fn set_folder_numbers<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -2478,6 +3312,12 @@ pub mod dataset_config {
         }
 
         /// Sets the value of [locations][crate::model::dataset_config::CloudStorageLocations::locations].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_storageinsights_v1::model::dataset_config::CloudStorageLocations;
+        /// let x = CloudStorageLocations::new().set_locations(["a", "b", "c"]);
+        /// ```
         pub fn set_locations<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -2511,6 +3351,17 @@ pub mod dataset_config {
         }
 
         /// Sets the value of [cloud_storage_buckets][crate::model::dataset_config::CloudStorageBuckets::cloud_storage_buckets].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_storageinsights_v1::model::dataset_config::CloudStorageBuckets;
+        /// use google_cloud_storageinsights_v1::model::dataset_config::cloud_storage_buckets::CloudStorageBucket;
+        /// let x = CloudStorageBuckets::new()
+        ///     .set_cloud_storage_buckets([
+        ///         CloudStorageBucket::default()/* use setters */,
+        ///         CloudStorageBucket::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
         pub fn set_cloud_storage_buckets<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -2554,6 +3405,13 @@ pub mod dataset_config {
             ///
             /// Note that all the setters affecting `cloud_storage_bucket` are mutually
             /// exclusive.
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_storageinsights_v1::model::dataset_config::cloud_storage_buckets::CloudStorageBucket;
+            /// use google_cloud_storageinsights_v1::model::dataset_config::cloud_storage_buckets::cloud_storage_bucket;
+            /// let x = CloudStorageBucket::new().set_cloud_storage_bucket(Some(dataset_config::cloud_storage_buckets::cloud_storage_bucket::CloudStorageBucket::BucketName("example".to_string())));
+            /// ```
             pub fn set_cloud_storage_bucket<T: std::convert::Into<std::option::Option<crate::model::dataset_config::cloud_storage_buckets::cloud_storage_bucket::CloudStorageBucket>>>(mut self, v: T) -> Self
             {
                 self.cloud_storage_bucket = v.into();
@@ -2576,6 +3434,14 @@ pub mod dataset_config {
             ///
             /// Note that all the setters affecting `cloud_storage_bucket` are
             /// mutually exclusive.
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_storageinsights_v1::model::dataset_config::cloud_storage_buckets::CloudStorageBucket;
+            /// let x = CloudStorageBucket::new().set_bucket_name("example");
+            /// assert!(x.bucket_name().is_some());
+            /// assert!(x.bucket_prefix_regex().is_none());
+            /// ```
             pub fn set_bucket_name<T: std::convert::Into<std::string::String>>(
                 mut self,
                 v: T,
@@ -2604,6 +3470,14 @@ pub mod dataset_config {
             ///
             /// Note that all the setters affecting `cloud_storage_bucket` are
             /// mutually exclusive.
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_storageinsights_v1::model::dataset_config::cloud_storage_buckets::CloudStorageBucket;
+            /// let x = CloudStorageBucket::new().set_bucket_prefix_regex("example");
+            /// assert!(x.bucket_prefix_regex().is_some());
+            /// assert!(x.bucket_name().is_none());
+            /// ```
             pub fn set_bucket_prefix_regex<T: std::convert::Into<std::string::String>>(
                 mut self,
                 v: T,
@@ -2659,12 +3533,24 @@ pub mod dataset_config {
         }
 
         /// Sets the value of [dataset][crate::model::dataset_config::Link::dataset].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_storageinsights_v1::model::dataset_config::Link;
+        /// let x = Link::new().set_dataset("example");
+        /// ```
         pub fn set_dataset<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.dataset = v.into();
             self
         }
 
         /// Sets the value of [linked][crate::model::dataset_config::Link::linked].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_storageinsights_v1::model::dataset_config::Link;
+        /// let x = Link::new().set_linked(true);
+        /// ```
         pub fn set_linked<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.linked = v.into();
             self
@@ -2717,18 +3603,36 @@ pub mod dataset_config {
         }
 
         /// Sets the value of [validated_count][crate::model::dataset_config::BucketErrors::validated_count].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_storageinsights_v1::model::dataset_config::BucketErrors;
+        /// let x = BucketErrors::new().set_validated_count(42);
+        /// ```
         pub fn set_validated_count<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
             self.validated_count = v.into();
             self
         }
 
         /// Sets the value of [permission_denied_count][crate::model::dataset_config::BucketErrors::permission_denied_count].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_storageinsights_v1::model::dataset_config::BucketErrors;
+        /// let x = BucketErrors::new().set_permission_denied_count(42);
+        /// ```
         pub fn set_permission_denied_count<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
             self.permission_denied_count = v.into();
             self
         }
 
         /// Sets the value of [permission_denied_bucket_ids][crate::model::dataset_config::BucketErrors::permission_denied_bucket_ids].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_storageinsights_v1::model::dataset_config::BucketErrors;
+        /// let x = BucketErrors::new().set_permission_denied_bucket_ids(["a", "b", "c"]);
+        /// ```
         pub fn set_permission_denied_bucket_ids<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -2740,6 +3644,12 @@ pub mod dataset_config {
         }
 
         /// Sets the value of [non_management_hub_entitled_count][crate::model::dataset_config::BucketErrors::non_management_hub_entitled_count].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_storageinsights_v1::model::dataset_config::BucketErrors;
+        /// let x = BucketErrors::new().set_non_management_hub_entitled_count(42);
+        /// ```
         #[deprecated]
         pub fn set_non_management_hub_entitled_count<T: std::convert::Into<i64>>(
             mut self,
@@ -2750,12 +3660,24 @@ pub mod dataset_config {
         }
 
         /// Sets the value of [internal_error_count][crate::model::dataset_config::BucketErrors::internal_error_count].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_storageinsights_v1::model::dataset_config::BucketErrors;
+        /// let x = BucketErrors::new().set_internal_error_count(42);
+        /// ```
         pub fn set_internal_error_count<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
             self.internal_error_count = v.into();
             self
         }
 
         /// Sets the value of [non_storage_intelligence_entitled_count][crate::model::dataset_config::BucketErrors::non_storage_intelligence_entitled_count].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_storageinsights_v1::model::dataset_config::BucketErrors;
+        /// let x = BucketErrors::new().set_non_storage_intelligence_entitled_count(42);
+        /// ```
         pub fn set_non_storage_intelligence_entitled_count<T: std::convert::Into<i64>>(
             mut self,
             v: T,
@@ -2765,6 +3687,12 @@ pub mod dataset_config {
         }
 
         /// Sets the value of [non_storage_intelligence_entitled_bucket_ids][crate::model::dataset_config::BucketErrors::non_storage_intelligence_entitled_bucket_ids].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_storageinsights_v1::model::dataset_config::BucketErrors;
+        /// let x = BucketErrors::new().set_non_storage_intelligence_entitled_bucket_ids(["a", "b", "c"]);
+        /// ```
         pub fn set_non_storage_intelligence_entitled_bucket_ids<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -2835,6 +3763,12 @@ pub mod dataset_config {
         }
 
         /// Sets the value of [validated_count][crate::model::dataset_config::ProjectErrors::validated_count].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_storageinsights_v1::model::dataset_config::ProjectErrors;
+        /// let x = ProjectErrors::new().set_validated_count(42);
+        /// ```
         pub fn set_validated_count<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<i64>,
@@ -2844,6 +3778,13 @@ pub mod dataset_config {
         }
 
         /// Sets or clears the value of [validated_count][crate::model::dataset_config::ProjectErrors::validated_count].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_storageinsights_v1::model::dataset_config::ProjectErrors;
+        /// let x = ProjectErrors::new().set_or_clear_validated_count(Some(42));
+        /// let x = ProjectErrors::new().set_or_clear_validated_count(None::<i32>);
+        /// ```
         pub fn set_or_clear_validated_count<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<i64>,
@@ -2853,6 +3794,12 @@ pub mod dataset_config {
         }
 
         /// Sets the value of [outside_org_error_count][crate::model::dataset_config::ProjectErrors::outside_org_error_count].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_storageinsights_v1::model::dataset_config::ProjectErrors;
+        /// let x = ProjectErrors::new().set_outside_org_error_count(42);
+        /// ```
         pub fn set_outside_org_error_count<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<i64>,
@@ -2862,6 +3809,13 @@ pub mod dataset_config {
         }
 
         /// Sets or clears the value of [outside_org_error_count][crate::model::dataset_config::ProjectErrors::outside_org_error_count].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_storageinsights_v1::model::dataset_config::ProjectErrors;
+        /// let x = ProjectErrors::new().set_or_clear_outside_org_error_count(Some(42));
+        /// let x = ProjectErrors::new().set_or_clear_outside_org_error_count(None::<i32>);
+        /// ```
         pub fn set_or_clear_outside_org_error_count<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<i64>,
@@ -2871,6 +3825,12 @@ pub mod dataset_config {
         }
 
         /// Sets the value of [outside_org_project_numbers][crate::model::dataset_config::ProjectErrors::outside_org_project_numbers].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_storageinsights_v1::model::dataset_config::ProjectErrors;
+        /// let x = ProjectErrors::new().set_outside_org_project_numbers([1, 2, 3]);
+        /// ```
         pub fn set_outside_org_project_numbers<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -2882,6 +3842,12 @@ pub mod dataset_config {
         }
 
         /// Sets the value of [non_management_hub_entitled_error_count][crate::model::dataset_config::ProjectErrors::non_management_hub_entitled_error_count].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_storageinsights_v1::model::dataset_config::ProjectErrors;
+        /// let x = ProjectErrors::new().set_non_management_hub_entitled_error_count(42);
+        /// ```
         #[deprecated]
         pub fn set_non_management_hub_entitled_error_count<T>(mut self, v: T) -> Self
         where
@@ -2892,6 +3858,13 @@ pub mod dataset_config {
         }
 
         /// Sets or clears the value of [non_management_hub_entitled_error_count][crate::model::dataset_config::ProjectErrors::non_management_hub_entitled_error_count].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_storageinsights_v1::model::dataset_config::ProjectErrors;
+        /// let x = ProjectErrors::new().set_or_clear_non_management_hub_entitled_error_count(Some(42));
+        /// let x = ProjectErrors::new().set_or_clear_non_management_hub_entitled_error_count(None::<i32>);
+        /// ```
         #[deprecated]
         pub fn set_or_clear_non_management_hub_entitled_error_count<T>(
             mut self,
@@ -2905,6 +3878,12 @@ pub mod dataset_config {
         }
 
         /// Sets the value of [non_management_hub_entitled_project_numbers][crate::model::dataset_config::ProjectErrors::non_management_hub_entitled_project_numbers].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_storageinsights_v1::model::dataset_config::ProjectErrors;
+        /// let x = ProjectErrors::new().set_non_management_hub_entitled_project_numbers([1, 2, 3]);
+        /// ```
         #[deprecated]
         pub fn set_non_management_hub_entitled_project_numbers<T, V>(mut self, v: T) -> Self
         where
@@ -2918,6 +3897,12 @@ pub mod dataset_config {
         }
 
         /// Sets the value of [non_storage_intelligence_entitled_error_count][crate::model::dataset_config::ProjectErrors::non_storage_intelligence_entitled_error_count].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_storageinsights_v1::model::dataset_config::ProjectErrors;
+        /// let x = ProjectErrors::new().set_non_storage_intelligence_entitled_error_count(42);
+        /// ```
         pub fn set_non_storage_intelligence_entitled_error_count<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<i64>,
@@ -2928,6 +3913,13 @@ pub mod dataset_config {
         }
 
         /// Sets or clears the value of [non_storage_intelligence_entitled_error_count][crate::model::dataset_config::ProjectErrors::non_storage_intelligence_entitled_error_count].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_storageinsights_v1::model::dataset_config::ProjectErrors;
+        /// let x = ProjectErrors::new().set_or_clear_non_storage_intelligence_entitled_error_count(Some(42));
+        /// let x = ProjectErrors::new().set_or_clear_non_storage_intelligence_entitled_error_count(None::<i32>);
+        /// ```
         pub fn set_or_clear_non_storage_intelligence_entitled_error_count<T>(
             mut self,
             v: std::option::Option<T>,
@@ -2940,6 +3932,12 @@ pub mod dataset_config {
         }
 
         /// Sets the value of [non_storage_intelligence_entitled_project_numbers][crate::model::dataset_config::ProjectErrors::non_storage_intelligence_entitled_project_numbers].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_storageinsights_v1::model::dataset_config::ProjectErrors;
+        /// let x = ProjectErrors::new().set_non_storage_intelligence_entitled_project_numbers([1, 2, 3]);
+        /// ```
         pub fn set_non_storage_intelligence_entitled_project_numbers<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -2952,6 +3950,12 @@ pub mod dataset_config {
         }
 
         /// Sets the value of [internal_error_count][crate::model::dataset_config::ProjectErrors::internal_error_count].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_storageinsights_v1::model::dataset_config::ProjectErrors;
+        /// let x = ProjectErrors::new().set_internal_error_count(42);
+        /// ```
         pub fn set_internal_error_count<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<i64>,
@@ -2961,6 +3965,13 @@ pub mod dataset_config {
         }
 
         /// Sets or clears the value of [internal_error_count][crate::model::dataset_config::ProjectErrors::internal_error_count].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_storageinsights_v1::model::dataset_config::ProjectErrors;
+        /// let x = ProjectErrors::new().set_or_clear_internal_error_count(Some(42));
+        /// let x = ProjectErrors::new().set_or_clear_internal_error_count(None::<i32>);
+        /// ```
         pub fn set_or_clear_internal_error_count<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<i64>,
@@ -2973,6 +3984,13 @@ pub mod dataset_config {
         ///
         /// Note that all the setters affecting `destination_project_check_result` are mutually
         /// exclusive.
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_storageinsights_v1::model::dataset_config::ProjectErrors;
+        /// use google_cloud_storageinsights_v1::model::dataset_config::project_errors;
+        /// let x = ProjectErrors::new().set_destination_project_check_result(Some(dataset_config::project_errors::DestinationProjectCheckResult::DestinationProjectOrgError(true)));
+        /// ```
         pub fn set_destination_project_check_result<
             T: std::convert::Into<
                     std::option::Option<
@@ -3003,6 +4021,14 @@ pub mod dataset_config {
         ///
         /// Note that all the setters affecting `destination_project_check_result` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_storageinsights_v1::model::dataset_config::ProjectErrors;
+        /// let x = ProjectErrors::new().set_destination_project_org_error(true);
+        /// assert!(x.destination_project_org_error().is_some());
+        /// assert!(x.destination_project_check_has_internal_error().is_none());
+        /// ```
         pub fn set_destination_project_org_error<T: std::convert::Into<bool>>(
             mut self,
             v: T,
@@ -3031,6 +4057,14 @@ pub mod dataset_config {
         ///
         /// Note that all the setters affecting `destination_project_check_result` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_storageinsights_v1::model::dataset_config::ProjectErrors;
+        /// let x = ProjectErrors::new().set_destination_project_check_has_internal_error(true);
+        /// assert!(x.destination_project_check_has_internal_error().is_some());
+        /// assert!(x.destination_project_org_error().is_none());
+        /// ```
         pub fn set_destination_project_check_has_internal_error<T: std::convert::Into<bool>>(
             mut self,
             v: T,
@@ -3090,6 +4124,13 @@ pub mod dataset_config {
         }
 
         /// Sets the value of [bucket_errors][crate::model::dataset_config::ValidationErrorsBeforeIngestion::bucket_errors].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_storageinsights_v1::model::dataset_config::ValidationErrorsBeforeIngestion;
+        /// use google_cloud_storageinsights_v1::model::dataset_config::BucketErrors;
+        /// let x = ValidationErrorsBeforeIngestion::new().set_bucket_errors(BucketErrors::default()/* use setters */);
+        /// ```
         pub fn set_bucket_errors<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::dataset_config::BucketErrors>,
@@ -3099,6 +4140,14 @@ pub mod dataset_config {
         }
 
         /// Sets or clears the value of [bucket_errors][crate::model::dataset_config::ValidationErrorsBeforeIngestion::bucket_errors].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_storageinsights_v1::model::dataset_config::ValidationErrorsBeforeIngestion;
+        /// use google_cloud_storageinsights_v1::model::dataset_config::BucketErrors;
+        /// let x = ValidationErrorsBeforeIngestion::new().set_or_clear_bucket_errors(Some(BucketErrors::default()/* use setters */));
+        /// let x = ValidationErrorsBeforeIngestion::new().set_or_clear_bucket_errors(None::<BucketErrors>);
+        /// ```
         pub fn set_or_clear_bucket_errors<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::dataset_config::BucketErrors>,
@@ -3108,6 +4157,13 @@ pub mod dataset_config {
         }
 
         /// Sets the value of [project_errors][crate::model::dataset_config::ValidationErrorsBeforeIngestion::project_errors].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_storageinsights_v1::model::dataset_config::ValidationErrorsBeforeIngestion;
+        /// use google_cloud_storageinsights_v1::model::dataset_config::ProjectErrors;
+        /// let x = ValidationErrorsBeforeIngestion::new().set_project_errors(ProjectErrors::default()/* use setters */);
+        /// ```
         pub fn set_project_errors<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::dataset_config::ProjectErrors>,
@@ -3117,6 +4173,14 @@ pub mod dataset_config {
         }
 
         /// Sets or clears the value of [project_errors][crate::model::dataset_config::ValidationErrorsBeforeIngestion::project_errors].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_storageinsights_v1::model::dataset_config::ValidationErrorsBeforeIngestion;
+        /// use google_cloud_storageinsights_v1::model::dataset_config::ProjectErrors;
+        /// let x = ValidationErrorsBeforeIngestion::new().set_or_clear_project_errors(Some(ProjectErrors::default()/* use setters */));
+        /// let x = ValidationErrorsBeforeIngestion::new().set_or_clear_project_errors(None::<ProjectErrors>);
+        /// ```
         pub fn set_or_clear_project_errors<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::dataset_config::ProjectErrors>,
@@ -3364,30 +4428,60 @@ impl ListDatasetConfigsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListDatasetConfigsRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storageinsights_v1::model::ListDatasetConfigsRequest;
+    /// let x = ListDatasetConfigsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListDatasetConfigsRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storageinsights_v1::model::ListDatasetConfigsRequest;
+    /// let x = ListDatasetConfigsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListDatasetConfigsRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storageinsights_v1::model::ListDatasetConfigsRequest;
+    /// let x = ListDatasetConfigsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListDatasetConfigsRequest::filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storageinsights_v1::model::ListDatasetConfigsRequest;
+    /// let x = ListDatasetConfigsRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListDatasetConfigsRequest::order_by].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storageinsights_v1::model::ListDatasetConfigsRequest;
+    /// let x = ListDatasetConfigsRequest::new().set_order_by("example");
+    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
@@ -3425,6 +4519,17 @@ impl ListDatasetConfigsResponse {
     }
 
     /// Sets the value of [dataset_configs][crate::model::ListDatasetConfigsResponse::dataset_configs].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storageinsights_v1::model::ListDatasetConfigsResponse;
+    /// use google_cloud_storageinsights_v1::model::DatasetConfig;
+    /// let x = ListDatasetConfigsResponse::new()
+    ///     .set_dataset_configs([
+    ///         DatasetConfig::default()/* use setters */,
+    ///         DatasetConfig::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_dataset_configs<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3436,12 +4541,24 @@ impl ListDatasetConfigsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListDatasetConfigsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storageinsights_v1::model::ListDatasetConfigsResponse;
+    /// let x = ListDatasetConfigsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListDatasetConfigsResponse::unreachable].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storageinsights_v1::model::ListDatasetConfigsResponse;
+    /// let x = ListDatasetConfigsResponse::new().set_unreachable(["a", "b", "c"]);
+    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3492,6 +4609,12 @@ impl GetDatasetConfigRequest {
     }
 
     /// Sets the value of [name][crate::model::GetDatasetConfigRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storageinsights_v1::model::GetDatasetConfigRequest;
+    /// let x = GetDatasetConfigRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -3545,12 +4668,24 @@ impl CreateDatasetConfigRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateDatasetConfigRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storageinsights_v1::model::CreateDatasetConfigRequest;
+    /// let x = CreateDatasetConfigRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [dataset_config_id][crate::model::CreateDatasetConfigRequest::dataset_config_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storageinsights_v1::model::CreateDatasetConfigRequest;
+    /// let x = CreateDatasetConfigRequest::new().set_dataset_config_id("example");
+    /// ```
     pub fn set_dataset_config_id<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -3560,6 +4695,13 @@ impl CreateDatasetConfigRequest {
     }
 
     /// Sets the value of [dataset_config][crate::model::CreateDatasetConfigRequest::dataset_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storageinsights_v1::model::CreateDatasetConfigRequest;
+    /// use google_cloud_storageinsights_v1::model::DatasetConfig;
+    /// let x = CreateDatasetConfigRequest::new().set_dataset_config(DatasetConfig::default()/* use setters */);
+    /// ```
     pub fn set_dataset_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::DatasetConfig>,
@@ -3569,6 +4711,14 @@ impl CreateDatasetConfigRequest {
     }
 
     /// Sets or clears the value of [dataset_config][crate::model::CreateDatasetConfigRequest::dataset_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storageinsights_v1::model::CreateDatasetConfigRequest;
+    /// use google_cloud_storageinsights_v1::model::DatasetConfig;
+    /// let x = CreateDatasetConfigRequest::new().set_or_clear_dataset_config(Some(DatasetConfig::default()/* use setters */));
+    /// let x = CreateDatasetConfigRequest::new().set_or_clear_dataset_config(None::<DatasetConfig>);
+    /// ```
     pub fn set_or_clear_dataset_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DatasetConfig>,
@@ -3578,6 +4728,12 @@ impl CreateDatasetConfigRequest {
     }
 
     /// Sets the value of [request_id][crate::model::CreateDatasetConfigRequest::request_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storageinsights_v1::model::CreateDatasetConfigRequest;
+    /// let x = CreateDatasetConfigRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -3629,6 +4785,13 @@ impl UpdateDatasetConfigRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateDatasetConfigRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storageinsights_v1::model::UpdateDatasetConfigRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateDatasetConfigRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -3638,6 +4801,14 @@ impl UpdateDatasetConfigRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateDatasetConfigRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storageinsights_v1::model::UpdateDatasetConfigRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateDatasetConfigRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateDatasetConfigRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -3647,6 +4818,13 @@ impl UpdateDatasetConfigRequest {
     }
 
     /// Sets the value of [dataset_config][crate::model::UpdateDatasetConfigRequest::dataset_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storageinsights_v1::model::UpdateDatasetConfigRequest;
+    /// use google_cloud_storageinsights_v1::model::DatasetConfig;
+    /// let x = UpdateDatasetConfigRequest::new().set_dataset_config(DatasetConfig::default()/* use setters */);
+    /// ```
     pub fn set_dataset_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::DatasetConfig>,
@@ -3656,6 +4834,14 @@ impl UpdateDatasetConfigRequest {
     }
 
     /// Sets or clears the value of [dataset_config][crate::model::UpdateDatasetConfigRequest::dataset_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storageinsights_v1::model::UpdateDatasetConfigRequest;
+    /// use google_cloud_storageinsights_v1::model::DatasetConfig;
+    /// let x = UpdateDatasetConfigRequest::new().set_or_clear_dataset_config(Some(DatasetConfig::default()/* use setters */));
+    /// let x = UpdateDatasetConfigRequest::new().set_or_clear_dataset_config(None::<DatasetConfig>);
+    /// ```
     pub fn set_or_clear_dataset_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DatasetConfig>,
@@ -3665,6 +4851,12 @@ impl UpdateDatasetConfigRequest {
     }
 
     /// Sets the value of [request_id][crate::model::UpdateDatasetConfigRequest::request_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storageinsights_v1::model::UpdateDatasetConfigRequest;
+    /// let x = UpdateDatasetConfigRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -3709,12 +4901,24 @@ impl DeleteDatasetConfigRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteDatasetConfigRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storageinsights_v1::model::DeleteDatasetConfigRequest;
+    /// let x = DeleteDatasetConfigRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [request_id][crate::model::DeleteDatasetConfigRequest::request_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storageinsights_v1::model::DeleteDatasetConfigRequest;
+    /// let x = DeleteDatasetConfigRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -3746,6 +4950,12 @@ impl LinkDatasetRequest {
     }
 
     /// Sets the value of [name][crate::model::LinkDatasetRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storageinsights_v1::model::LinkDatasetRequest;
+    /// let x = LinkDatasetRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -3799,6 +5009,12 @@ impl UnlinkDatasetRequest {
     }
 
     /// Sets the value of [name][crate::model::UnlinkDatasetRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storageinsights_v1::model::UnlinkDatasetRequest;
+    /// let x = UnlinkDatasetRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -3832,12 +5048,24 @@ impl LocationMetadata {
     }
 
     /// Sets the value of [report_config_available][crate::model::LocationMetadata::report_config_available].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storageinsights_v1::model::LocationMetadata;
+    /// let x = LocationMetadata::new().set_report_config_available(true);
+    /// ```
     pub fn set_report_config_available<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.report_config_available = v.into();
         self
     }
 
     /// Sets the value of [dataset_config_available][crate::model::LocationMetadata::dataset_config_available].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storageinsights_v1::model::LocationMetadata;
+    /// let x = LocationMetadata::new().set_dataset_config_available(true);
+    /// ```
     pub fn set_dataset_config_available<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.dataset_config_available = v.into();
         self

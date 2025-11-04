@@ -56,12 +56,25 @@ impl CreateDataPolicyRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateDataPolicyRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery_datapolicies_v1::model::CreateDataPolicyRequest;
+    /// let x = CreateDataPolicyRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [data_policy][crate::model::CreateDataPolicyRequest::data_policy].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery_datapolicies_v1::model::CreateDataPolicyRequest;
+    /// use google_cloud_bigquery_datapolicies_v1::model::DataPolicy;
+    /// let x = CreateDataPolicyRequest::new().set_data_policy(DataPolicy::default()/* use setters */);
+    /// ```
     pub fn set_data_policy<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::DataPolicy>,
@@ -71,6 +84,14 @@ impl CreateDataPolicyRequest {
     }
 
     /// Sets or clears the value of [data_policy][crate::model::CreateDataPolicyRequest::data_policy].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery_datapolicies_v1::model::CreateDataPolicyRequest;
+    /// use google_cloud_bigquery_datapolicies_v1::model::DataPolicy;
+    /// let x = CreateDataPolicyRequest::new().set_or_clear_data_policy(Some(DataPolicy::default()/* use setters */));
+    /// let x = CreateDataPolicyRequest::new().set_or_clear_data_policy(None::<DataPolicy>);
+    /// ```
     pub fn set_or_clear_data_policy<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DataPolicy>,
@@ -113,6 +134,13 @@ impl UpdateDataPolicyRequest {
     }
 
     /// Sets the value of [data_policy][crate::model::UpdateDataPolicyRequest::data_policy].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery_datapolicies_v1::model::UpdateDataPolicyRequest;
+    /// use google_cloud_bigquery_datapolicies_v1::model::DataPolicy;
+    /// let x = UpdateDataPolicyRequest::new().set_data_policy(DataPolicy::default()/* use setters */);
+    /// ```
     pub fn set_data_policy<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::DataPolicy>,
@@ -122,6 +150,14 @@ impl UpdateDataPolicyRequest {
     }
 
     /// Sets or clears the value of [data_policy][crate::model::UpdateDataPolicyRequest::data_policy].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery_datapolicies_v1::model::UpdateDataPolicyRequest;
+    /// use google_cloud_bigquery_datapolicies_v1::model::DataPolicy;
+    /// let x = UpdateDataPolicyRequest::new().set_or_clear_data_policy(Some(DataPolicy::default()/* use setters */));
+    /// let x = UpdateDataPolicyRequest::new().set_or_clear_data_policy(None::<DataPolicy>);
+    /// ```
     pub fn set_or_clear_data_policy<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DataPolicy>,
@@ -131,6 +167,13 @@ impl UpdateDataPolicyRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateDataPolicyRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery_datapolicies_v1::model::UpdateDataPolicyRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateDataPolicyRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -140,6 +183,14 @@ impl UpdateDataPolicyRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateDataPolicyRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery_datapolicies_v1::model::UpdateDataPolicyRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateDataPolicyRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateDataPolicyRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -175,12 +226,24 @@ impl RenameDataPolicyRequest {
     }
 
     /// Sets the value of [name][crate::model::RenameDataPolicyRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery_datapolicies_v1::model::RenameDataPolicyRequest;
+    /// let x = RenameDataPolicyRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [new_data_policy_id][crate::model::RenameDataPolicyRequest::new_data_policy_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery_datapolicies_v1::model::RenameDataPolicyRequest;
+    /// let x = RenameDataPolicyRequest::new().set_new_data_policy_id("example");
+    /// ```
     pub fn set_new_data_policy_id<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -213,6 +276,12 @@ impl DeleteDataPolicyRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteDataPolicyRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery_datapolicies_v1::model::DeleteDataPolicyRequest;
+    /// let x = DeleteDataPolicyRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -242,6 +311,12 @@ impl GetDataPolicyRequest {
     }
 
     /// Sets the value of [name][crate::model::GetDataPolicyRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery_datapolicies_v1::model::GetDataPolicyRequest;
+    /// let x = GetDataPolicyRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -290,24 +365,48 @@ impl ListDataPoliciesRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListDataPoliciesRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery_datapolicies_v1::model::ListDataPoliciesRequest;
+    /// let x = ListDataPoliciesRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListDataPoliciesRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery_datapolicies_v1::model::ListDataPoliciesRequest;
+    /// let x = ListDataPoliciesRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListDataPoliciesRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery_datapolicies_v1::model::ListDataPoliciesRequest;
+    /// let x = ListDataPoliciesRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListDataPoliciesRequest::filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery_datapolicies_v1::model::ListDataPoliciesRequest;
+    /// let x = ListDataPoliciesRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
@@ -340,6 +439,17 @@ impl ListDataPoliciesResponse {
     }
 
     /// Sets the value of [data_policies][crate::model::ListDataPoliciesResponse::data_policies].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery_datapolicies_v1::model::ListDataPoliciesResponse;
+    /// use google_cloud_bigquery_datapolicies_v1::model::DataPolicy;
+    /// let x = ListDataPoliciesResponse::new()
+    ///     .set_data_policies([
+    ///         DataPolicy::default()/* use setters */,
+    ///         DataPolicy::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_data_policies<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -351,6 +461,12 @@ impl ListDataPoliciesResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListDataPoliciesResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery_datapolicies_v1::model::ListDataPoliciesResponse;
+    /// let x = ListDataPoliciesResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -408,12 +524,26 @@ impl DataPolicy {
     }
 
     /// Sets the value of [name][crate::model::DataPolicy::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery_datapolicies_v1::model::DataPolicy;
+    /// let x = DataPolicy::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [data_policy_type][crate::model::DataPolicy::data_policy_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery_datapolicies_v1::model::DataPolicy;
+    /// use google_cloud_bigquery_datapolicies_v1::model::data_policy::DataPolicyType;
+    /// let x0 = DataPolicy::new().set_data_policy_type(DataPolicyType::ColumnLevelSecurityPolicy);
+    /// let x1 = DataPolicy::new().set_data_policy_type(DataPolicyType::DataMaskingPolicy);
+    /// ```
     pub fn set_data_policy_type<
         T: std::convert::Into<crate::model::data_policy::DataPolicyType>,
     >(
@@ -425,6 +555,12 @@ impl DataPolicy {
     }
 
     /// Sets the value of [data_policy_id][crate::model::DataPolicy::data_policy_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery_datapolicies_v1::model::DataPolicy;
+    /// let x = DataPolicy::new().set_data_policy_id("example");
+    /// ```
     pub fn set_data_policy_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.data_policy_id = v.into();
         self
@@ -434,6 +570,13 @@ impl DataPolicy {
     ///
     /// Note that all the setters affecting `matching_label` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery_datapolicies_v1::model::DataPolicy;
+    /// use google_cloud_bigquery_datapolicies_v1::model::data_policy;
+    /// let x = DataPolicy::new().set_matching_label(Some(data_policy::MatchingLabel::PolicyTag("example".to_string())));
+    /// ```
     pub fn set_matching_label<
         T: std::convert::Into<std::option::Option<crate::model::data_policy::MatchingLabel>>,
     >(
@@ -460,6 +603,13 @@ impl DataPolicy {
     ///
     /// Note that all the setters affecting `matching_label` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery_datapolicies_v1::model::DataPolicy;
+    /// let x = DataPolicy::new().set_policy_tag("example");
+    /// assert!(x.policy_tag().is_some());
+    /// ```
     pub fn set_policy_tag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.matching_label = std::option::Option::Some(
             crate::model::data_policy::MatchingLabel::PolicyTag(v.into()),
@@ -471,6 +621,14 @@ impl DataPolicy {
     ///
     /// Note that all the setters affecting `policy` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery_datapolicies_v1::model::DataPolicy;
+    /// use google_cloud_bigquery_datapolicies_v1::model::data_policy;
+    /// use google_cloud_bigquery_datapolicies_v1::model::DataMaskingPolicy;
+    /// let x = DataPolicy::new().set_policy(Some(data_policy::Policy::DataMaskingPolicy(DataMaskingPolicy::default().into())));
+    /// ```
     pub fn set_policy<
         T: std::convert::Into<std::option::Option<crate::model::data_policy::Policy>>,
     >(
@@ -499,6 +657,14 @@ impl DataPolicy {
     ///
     /// Note that all the setters affecting `policy` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery_datapolicies_v1::model::DataPolicy;
+    /// use google_cloud_bigquery_datapolicies_v1::model::DataMaskingPolicy;
+    /// let x = DataPolicy::new().set_data_masking_policy(DataMaskingPolicy::default()/* use setters */);
+    /// assert!(x.data_masking_policy().is_some());
+    /// ```
     pub fn set_data_masking_policy<
         T: std::convert::Into<std::boxed::Box<crate::model::DataMaskingPolicy>>,
     >(
@@ -696,6 +862,16 @@ impl DataMaskingPolicy {
     ///
     /// Note that all the setters affecting `masking_expression` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery_datapolicies_v1::model::DataMaskingPolicy;
+    /// use google_cloud_bigquery_datapolicies_v1::model::data_masking_policy;
+    /// use google_cloud_bigquery_datapolicies_v1::model::data_masking_policy::PredefinedExpression;
+    /// let x0 = DataMaskingPolicy::new().set_masking_expression(Some(data_masking_policy::MaskingExpression::PredefinedExpression(PredefinedExpression::Sha256)));
+    /// let x1 = DataMaskingPolicy::new().set_masking_expression(Some(data_masking_policy::MaskingExpression::PredefinedExpression(PredefinedExpression::AlwaysNull)));
+    /// let x2 = DataMaskingPolicy::new().set_masking_expression(Some(data_masking_policy::MaskingExpression::PredefinedExpression(PredefinedExpression::DefaultMaskingValue)));
+    /// ```
     pub fn set_masking_expression<
         T: std::convert::Into<
                 std::option::Option<crate::model::data_masking_policy::MaskingExpression>,
@@ -728,6 +904,17 @@ impl DataMaskingPolicy {
     ///
     /// Note that all the setters affecting `masking_expression` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery_datapolicies_v1::model::DataMaskingPolicy;
+    /// use google_cloud_bigquery_datapolicies_v1::model::data_masking_policy::PredefinedExpression;
+    /// let x0 = DataMaskingPolicy::new().set_predefined_expression(PredefinedExpression::Sha256);
+    /// let x1 = DataMaskingPolicy::new().set_predefined_expression(PredefinedExpression::AlwaysNull);
+    /// let x2 = DataMaskingPolicy::new().set_predefined_expression(PredefinedExpression::DefaultMaskingValue);
+    /// assert!(x.predefined_expression().is_some());
+    /// assert!(x.routine().is_none());
+    /// ```
     pub fn set_predefined_expression<
         T: std::convert::Into<crate::model::data_masking_policy::PredefinedExpression>,
     >(
@@ -758,6 +945,14 @@ impl DataMaskingPolicy {
     ///
     /// Note that all the setters affecting `masking_expression` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery_datapolicies_v1::model::DataMaskingPolicy;
+    /// let x = DataMaskingPolicy::new().set_routine("example");
+    /// assert!(x.routine().is_some());
+    /// assert!(x.predefined_expression().is_none());
+    /// ```
     pub fn set_routine<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.masking_expression = std::option::Option::Some(
             crate::model::data_masking_policy::MaskingExpression::Routine(v.into()),

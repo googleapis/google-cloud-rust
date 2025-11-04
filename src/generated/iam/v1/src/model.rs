@@ -65,12 +65,25 @@ impl SetIamPolicyRequest {
     }
 
     /// Sets the value of [resource][crate::model::SetIamPolicyRequest::resource].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_v1::model::SetIamPolicyRequest;
+    /// let x = SetIamPolicyRequest::new().set_resource("example");
+    /// ```
     pub fn set_resource<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.resource = v.into();
         self
     }
 
     /// Sets the value of [policy][crate::model::SetIamPolicyRequest::policy].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_v1::model::SetIamPolicyRequest;
+    /// use google_cloud_iam_v1::model::Policy;
+    /// let x = SetIamPolicyRequest::new().set_policy(Policy::default()/* use setters */);
+    /// ```
     pub fn set_policy<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Policy>,
@@ -80,6 +93,14 @@ impl SetIamPolicyRequest {
     }
 
     /// Sets or clears the value of [policy][crate::model::SetIamPolicyRequest::policy].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_v1::model::SetIamPolicyRequest;
+    /// use google_cloud_iam_v1::model::Policy;
+    /// let x = SetIamPolicyRequest::new().set_or_clear_policy(Some(Policy::default()/* use setters */));
+    /// let x = SetIamPolicyRequest::new().set_or_clear_policy(None::<Policy>);
+    /// ```
     pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Policy>,
@@ -89,6 +110,13 @@ impl SetIamPolicyRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::SetIamPolicyRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_v1::model::SetIamPolicyRequest;
+    /// use wkt::FieldMask;
+    /// let x = SetIamPolicyRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -98,6 +126,14 @@ impl SetIamPolicyRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::SetIamPolicyRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_v1::model::SetIamPolicyRequest;
+    /// use wkt::FieldMask;
+    /// let x = SetIamPolicyRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = SetIamPolicyRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -134,12 +170,25 @@ impl GetIamPolicyRequest {
     }
 
     /// Sets the value of [resource][crate::model::GetIamPolicyRequest::resource].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_v1::model::GetIamPolicyRequest;
+    /// let x = GetIamPolicyRequest::new().set_resource("example");
+    /// ```
     pub fn set_resource<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.resource = v.into();
         self
     }
 
     /// Sets the value of [options][crate::model::GetIamPolicyRequest::options].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_v1::model::GetIamPolicyRequest;
+    /// use google_cloud_iam_v1::model::GetPolicyOptions;
+    /// let x = GetIamPolicyRequest::new().set_options(GetPolicyOptions::default()/* use setters */);
+    /// ```
     pub fn set_options<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::GetPolicyOptions>,
@@ -149,6 +198,14 @@ impl GetIamPolicyRequest {
     }
 
     /// Sets or clears the value of [options][crate::model::GetIamPolicyRequest::options].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_v1::model::GetIamPolicyRequest;
+    /// use google_cloud_iam_v1::model::GetPolicyOptions;
+    /// let x = GetIamPolicyRequest::new().set_or_clear_options(Some(GetPolicyOptions::default()/* use setters */));
+    /// let x = GetIamPolicyRequest::new().set_or_clear_options(None::<GetPolicyOptions>);
+    /// ```
     pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::GetPolicyOptions>,
@@ -187,12 +244,24 @@ impl TestIamPermissionsRequest {
     }
 
     /// Sets the value of [resource][crate::model::TestIamPermissionsRequest::resource].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_v1::model::TestIamPermissionsRequest;
+    /// let x = TestIamPermissionsRequest::new().set_resource("example");
+    /// ```
     pub fn set_resource<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.resource = v.into();
         self
     }
 
     /// Sets the value of [permissions][crate::model::TestIamPermissionsRequest::permissions].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_v1::model::TestIamPermissionsRequest;
+    /// let x = TestIamPermissionsRequest::new().set_permissions(["a", "b", "c"]);
+    /// ```
     pub fn set_permissions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -227,6 +296,12 @@ impl TestIamPermissionsResponse {
     }
 
     /// Sets the value of [permissions][crate::model::TestIamPermissionsResponse::permissions].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_v1::model::TestIamPermissionsResponse;
+    /// let x = TestIamPermissionsResponse::new().set_permissions(["a", "b", "c"]);
+    /// ```
     pub fn set_permissions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -277,6 +352,12 @@ impl GetPolicyOptions {
     }
 
     /// Sets the value of [requested_policy_version][crate::model::GetPolicyOptions::requested_policy_version].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_v1::model::GetPolicyOptions;
+    /// let x = GetPolicyOptions::new().set_requested_policy_version(42);
+    /// ```
     pub fn set_requested_policy_version<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.requested_policy_version = v.into();
         self
@@ -429,12 +510,29 @@ impl Policy {
     }
 
     /// Sets the value of [version][crate::model::Policy::version].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_v1::model::Policy;
+    /// let x = Policy::new().set_version(42);
+    /// ```
     pub fn set_version<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.version = v.into();
         self
     }
 
     /// Sets the value of [bindings][crate::model::Policy::bindings].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_v1::model::Policy;
+    /// use google_cloud_iam_v1::model::Binding;
+    /// let x = Policy::new()
+    ///     .set_bindings([
+    ///         Binding::default()/* use setters */,
+    ///         Binding::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_bindings<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -446,6 +544,17 @@ impl Policy {
     }
 
     /// Sets the value of [audit_configs][crate::model::Policy::audit_configs].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_v1::model::Policy;
+    /// use google_cloud_iam_v1::model::AuditConfig;
+    /// let x = Policy::new()
+    ///     .set_audit_configs([
+    ///         AuditConfig::default()/* use setters */,
+    ///         AuditConfig::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_audit_configs<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -457,6 +566,12 @@ impl Policy {
     }
 
     /// Sets the value of [etag][crate::model::Policy::etag].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_v1::model::Policy;
+    /// let x = Policy::new().set_etag(bytes::Bytes::from_static(b"example"));
+    /// ```
     pub fn set_etag<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
@@ -543,12 +658,24 @@ impl Binding {
     }
 
     /// Sets the value of [role][crate::model::Binding::role].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_v1::model::Binding;
+    /// let x = Binding::new().set_role("example");
+    /// ```
     pub fn set_role<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.role = v.into();
         self
     }
 
     /// Sets the value of [members][crate::model::Binding::members].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_v1::model::Binding;
+    /// let x = Binding::new().set_members(["a", "b", "c"]);
+    /// ```
     pub fn set_members<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -560,6 +687,13 @@ impl Binding {
     }
 
     /// Sets the value of [condition][crate::model::Binding::condition].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_v1::model::Binding;
+    /// use gtype::model::Expr;
+    /// let x = Binding::new().set_condition(Expr::default()/* use setters */);
+    /// ```
     pub fn set_condition<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<gtype::model::Expr>,
@@ -569,6 +703,14 @@ impl Binding {
     }
 
     /// Sets or clears the value of [condition][crate::model::Binding::condition].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_v1::model::Binding;
+    /// use gtype::model::Expr;
+    /// let x = Binding::new().set_or_clear_condition(Some(Expr::default()/* use setters */));
+    /// let x = Binding::new().set_or_clear_condition(None::<Expr>);
+    /// ```
     pub fn set_or_clear_condition<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<gtype::model::Expr>,
@@ -657,12 +799,29 @@ impl AuditConfig {
     }
 
     /// Sets the value of [service][crate::model::AuditConfig::service].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_v1::model::AuditConfig;
+    /// let x = AuditConfig::new().set_service("example");
+    /// ```
     pub fn set_service<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.service = v.into();
         self
     }
 
     /// Sets the value of [audit_log_configs][crate::model::AuditConfig::audit_log_configs].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_v1::model::AuditConfig;
+    /// use google_cloud_iam_v1::model::AuditLogConfig;
+    /// let x = AuditConfig::new()
+    ///     .set_audit_log_configs([
+    ///         AuditLogConfig::default()/* use setters */,
+    ///         AuditLogConfig::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_audit_log_configs<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -724,6 +883,15 @@ impl AuditLogConfig {
     }
 
     /// Sets the value of [log_type][crate::model::AuditLogConfig::log_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_v1::model::AuditLogConfig;
+    /// use google_cloud_iam_v1::model::audit_log_config::LogType;
+    /// let x0 = AuditLogConfig::new().set_log_type(LogType::AdminRead);
+    /// let x1 = AuditLogConfig::new().set_log_type(LogType::DataWrite);
+    /// let x2 = AuditLogConfig::new().set_log_type(LogType::DataRead);
+    /// ```
     pub fn set_log_type<T: std::convert::Into<crate::model::audit_log_config::LogType>>(
         mut self,
         v: T,
@@ -733,6 +901,12 @@ impl AuditLogConfig {
     }
 
     /// Sets the value of [exempted_members][crate::model::AuditLogConfig::exempted_members].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_v1::model::AuditLogConfig;
+    /// let x = AuditLogConfig::new().set_exempted_members(["a", "b", "c"]);
+    /// ```
     pub fn set_exempted_members<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -915,6 +1089,17 @@ impl PolicyDelta {
     }
 
     /// Sets the value of [binding_deltas][crate::model::PolicyDelta::binding_deltas].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_v1::model::PolicyDelta;
+    /// use google_cloud_iam_v1::model::BindingDelta;
+    /// let x = PolicyDelta::new()
+    ///     .set_binding_deltas([
+    ///         BindingDelta::default()/* use setters */,
+    ///         BindingDelta::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_binding_deltas<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -926,6 +1111,17 @@ impl PolicyDelta {
     }
 
     /// Sets the value of [audit_config_deltas][crate::model::PolicyDelta::audit_config_deltas].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_v1::model::PolicyDelta;
+    /// use google_cloud_iam_v1::model::AuditConfigDelta;
+    /// let x = PolicyDelta::new()
+    ///     .set_audit_config_deltas([
+    ///         AuditConfigDelta::default()/* use setters */,
+    ///         AuditConfigDelta::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_audit_config_deltas<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -974,6 +1170,14 @@ impl BindingDelta {
     }
 
     /// Sets the value of [action][crate::model::BindingDelta::action].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_v1::model::BindingDelta;
+    /// use google_cloud_iam_v1::model::binding_delta::Action;
+    /// let x0 = BindingDelta::new().set_action(Action::Add);
+    /// let x1 = BindingDelta::new().set_action(Action::Remove);
+    /// ```
     pub fn set_action<T: std::convert::Into<crate::model::binding_delta::Action>>(
         mut self,
         v: T,
@@ -983,18 +1187,37 @@ impl BindingDelta {
     }
 
     /// Sets the value of [role][crate::model::BindingDelta::role].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_v1::model::BindingDelta;
+    /// let x = BindingDelta::new().set_role("example");
+    /// ```
     pub fn set_role<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.role = v.into();
         self
     }
 
     /// Sets the value of [member][crate::model::BindingDelta::member].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_v1::model::BindingDelta;
+    /// let x = BindingDelta::new().set_member("example");
+    /// ```
     pub fn set_member<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.member = v.into();
         self
     }
 
     /// Sets the value of [condition][crate::model::BindingDelta::condition].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_v1::model::BindingDelta;
+    /// use gtype::model::Expr;
+    /// let x = BindingDelta::new().set_condition(Expr::default()/* use setters */);
+    /// ```
     pub fn set_condition<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<gtype::model::Expr>,
@@ -1004,6 +1227,14 @@ impl BindingDelta {
     }
 
     /// Sets or clears the value of [condition][crate::model::BindingDelta::condition].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_v1::model::BindingDelta;
+    /// use gtype::model::Expr;
+    /// let x = BindingDelta::new().set_or_clear_condition(Some(Expr::default()/* use setters */));
+    /// let x = BindingDelta::new().set_or_clear_condition(None::<Expr>);
+    /// ```
     pub fn set_or_clear_condition<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<gtype::model::Expr>,
@@ -1191,6 +1422,14 @@ impl AuditConfigDelta {
     }
 
     /// Sets the value of [action][crate::model::AuditConfigDelta::action].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_v1::model::AuditConfigDelta;
+    /// use google_cloud_iam_v1::model::audit_config_delta::Action;
+    /// let x0 = AuditConfigDelta::new().set_action(Action::Add);
+    /// let x1 = AuditConfigDelta::new().set_action(Action::Remove);
+    /// ```
     pub fn set_action<T: std::convert::Into<crate::model::audit_config_delta::Action>>(
         mut self,
         v: T,
@@ -1200,18 +1439,36 @@ impl AuditConfigDelta {
     }
 
     /// Sets the value of [service][crate::model::AuditConfigDelta::service].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_v1::model::AuditConfigDelta;
+    /// let x = AuditConfigDelta::new().set_service("example");
+    /// ```
     pub fn set_service<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.service = v.into();
         self
     }
 
     /// Sets the value of [exempted_member][crate::model::AuditConfigDelta::exempted_member].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_v1::model::AuditConfigDelta;
+    /// let x = AuditConfigDelta::new().set_exempted_member("example");
+    /// ```
     pub fn set_exempted_member<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.exempted_member = v.into();
         self
     }
 
     /// Sets the value of [log_type][crate::model::AuditConfigDelta::log_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_v1::model::AuditConfigDelta;
+    /// let x = AuditConfigDelta::new().set_log_type("example");
+    /// ```
     pub fn set_log_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.log_type = v.into();
         self
@@ -1394,6 +1651,12 @@ impl ResourcePolicyMember {
     }
 
     /// Sets the value of [iam_policy_name_principal][crate::model::ResourcePolicyMember::iam_policy_name_principal].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_v1::model::ResourcePolicyMember;
+    /// let x = ResourcePolicyMember::new().set_iam_policy_name_principal("example");
+    /// ```
     pub fn set_iam_policy_name_principal<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -1403,6 +1666,12 @@ impl ResourcePolicyMember {
     }
 
     /// Sets the value of [iam_policy_uid_principal][crate::model::ResourcePolicyMember::iam_policy_uid_principal].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_v1::model::ResourcePolicyMember;
+    /// let x = ResourcePolicyMember::new().set_iam_policy_uid_principal("example");
+    /// ```
     pub fn set_iam_policy_uid_principal<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,

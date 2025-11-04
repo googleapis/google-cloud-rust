@@ -66,18 +66,36 @@ impl ListAccessPoliciesRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListAccessPoliciesRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_identity_accesscontextmanager_v1::model::ListAccessPoliciesRequest;
+    /// let x = ListAccessPoliciesRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListAccessPoliciesRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_identity_accesscontextmanager_v1::model::ListAccessPoliciesRequest;
+    /// let x = ListAccessPoliciesRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListAccessPoliciesRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_identity_accesscontextmanager_v1::model::ListAccessPoliciesRequest;
+    /// let x = ListAccessPoliciesRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -110,6 +128,17 @@ impl ListAccessPoliciesResponse {
     }
 
     /// Sets the value of [access_policies][crate::model::ListAccessPoliciesResponse::access_policies].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_identity_accesscontextmanager_v1::model::ListAccessPoliciesResponse;
+    /// use google_cloud_identity_accesscontextmanager_v1::model::AccessPolicy;
+    /// let x = ListAccessPoliciesResponse::new()
+    ///     .set_access_policies([
+    ///         AccessPolicy::default()/* use setters */,
+    ///         AccessPolicy::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_access_policies<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -121,6 +150,12 @@ impl ListAccessPoliciesResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListAccessPoliciesResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_identity_accesscontextmanager_v1::model::ListAccessPoliciesResponse;
+    /// let x = ListAccessPoliciesResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -165,6 +200,12 @@ impl GetAccessPolicyRequest {
     }
 
     /// Sets the value of [name][crate::model::GetAccessPolicyRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_identity_accesscontextmanager_v1::model::GetAccessPolicyRequest;
+    /// let x = GetAccessPolicyRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -196,6 +237,13 @@ impl UpdateAccessPolicyRequest {
     }
 
     /// Sets the value of [policy][crate::model::UpdateAccessPolicyRequest::policy].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_identity_accesscontextmanager_v1::model::UpdateAccessPolicyRequest;
+    /// use google_cloud_identity_accesscontextmanager_v1::model::AccessPolicy;
+    /// let x = UpdateAccessPolicyRequest::new().set_policy(AccessPolicy::default()/* use setters */);
+    /// ```
     pub fn set_policy<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::AccessPolicy>,
@@ -205,6 +253,14 @@ impl UpdateAccessPolicyRequest {
     }
 
     /// Sets or clears the value of [policy][crate::model::UpdateAccessPolicyRequest::policy].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_identity_accesscontextmanager_v1::model::UpdateAccessPolicyRequest;
+    /// use google_cloud_identity_accesscontextmanager_v1::model::AccessPolicy;
+    /// let x = UpdateAccessPolicyRequest::new().set_or_clear_policy(Some(AccessPolicy::default()/* use setters */));
+    /// let x = UpdateAccessPolicyRequest::new().set_or_clear_policy(None::<AccessPolicy>);
+    /// ```
     pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AccessPolicy>,
@@ -214,6 +270,13 @@ impl UpdateAccessPolicyRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateAccessPolicyRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_identity_accesscontextmanager_v1::model::UpdateAccessPolicyRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateAccessPolicyRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -223,6 +286,14 @@ impl UpdateAccessPolicyRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateAccessPolicyRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_identity_accesscontextmanager_v1::model::UpdateAccessPolicyRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateAccessPolicyRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateAccessPolicyRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -256,6 +327,12 @@ impl DeleteAccessPolicyRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteAccessPolicyRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_identity_accesscontextmanager_v1::model::DeleteAccessPolicyRequest;
+    /// let x = DeleteAccessPolicyRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -303,24 +380,50 @@ impl ListAccessLevelsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListAccessLevelsRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_identity_accesscontextmanager_v1::model::ListAccessLevelsRequest;
+    /// let x = ListAccessLevelsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListAccessLevelsRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_identity_accesscontextmanager_v1::model::ListAccessLevelsRequest;
+    /// let x = ListAccessLevelsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListAccessLevelsRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_identity_accesscontextmanager_v1::model::ListAccessLevelsRequest;
+    /// let x = ListAccessLevelsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [access_level_format][crate::model::ListAccessLevelsRequest::access_level_format].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_identity_accesscontextmanager_v1::model::ListAccessLevelsRequest;
+    /// use google_cloud_identity_accesscontextmanager_v1::model::LevelFormat;
+    /// let x0 = ListAccessLevelsRequest::new().set_access_level_format(LevelFormat::AsDefined);
+    /// let x1 = ListAccessLevelsRequest::new().set_access_level_format(LevelFormat::Cel);
+    /// ```
     pub fn set_access_level_format<T: std::convert::Into<crate::model::LevelFormat>>(
         mut self,
         v: T,
@@ -357,6 +460,17 @@ impl ListAccessLevelsResponse {
     }
 
     /// Sets the value of [access_levels][crate::model::ListAccessLevelsResponse::access_levels].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_identity_accesscontextmanager_v1::model::ListAccessLevelsResponse;
+    /// use google_cloud_identity_accesscontextmanager_v1::model::AccessLevel;
+    /// let x = ListAccessLevelsResponse::new()
+    ///     .set_access_levels([
+    ///         AccessLevel::default()/* use setters */,
+    ///         AccessLevel::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_access_levels<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -368,6 +482,12 @@ impl ListAccessLevelsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListAccessLevelsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_identity_accesscontextmanager_v1::model::ListAccessLevelsResponse;
+    /// let x = ListAccessLevelsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -424,12 +544,26 @@ impl GetAccessLevelRequest {
     }
 
     /// Sets the value of [name][crate::model::GetAccessLevelRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_identity_accesscontextmanager_v1::model::GetAccessLevelRequest;
+    /// let x = GetAccessLevelRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [access_level_format][crate::model::GetAccessLevelRequest::access_level_format].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_identity_accesscontextmanager_v1::model::GetAccessLevelRequest;
+    /// use google_cloud_identity_accesscontextmanager_v1::model::LevelFormat;
+    /// let x0 = GetAccessLevelRequest::new().set_access_level_format(LevelFormat::AsDefined);
+    /// let x1 = GetAccessLevelRequest::new().set_access_level_format(LevelFormat::Cel);
+    /// ```
     pub fn set_access_level_format<T: std::convert::Into<crate::model::LevelFormat>>(
         mut self,
         v: T,
@@ -471,12 +605,25 @@ impl CreateAccessLevelRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateAccessLevelRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_identity_accesscontextmanager_v1::model::CreateAccessLevelRequest;
+    /// let x = CreateAccessLevelRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [access_level][crate::model::CreateAccessLevelRequest::access_level].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_identity_accesscontextmanager_v1::model::CreateAccessLevelRequest;
+    /// use google_cloud_identity_accesscontextmanager_v1::model::AccessLevel;
+    /// let x = CreateAccessLevelRequest::new().set_access_level(AccessLevel::default()/* use setters */);
+    /// ```
     pub fn set_access_level<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::AccessLevel>,
@@ -486,6 +633,14 @@ impl CreateAccessLevelRequest {
     }
 
     /// Sets or clears the value of [access_level][crate::model::CreateAccessLevelRequest::access_level].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_identity_accesscontextmanager_v1::model::CreateAccessLevelRequest;
+    /// use google_cloud_identity_accesscontextmanager_v1::model::AccessLevel;
+    /// let x = CreateAccessLevelRequest::new().set_or_clear_access_level(Some(AccessLevel::default()/* use setters */));
+    /// let x = CreateAccessLevelRequest::new().set_or_clear_access_level(None::<AccessLevel>);
+    /// ```
     pub fn set_or_clear_access_level<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AccessLevel>,
@@ -524,6 +679,13 @@ impl UpdateAccessLevelRequest {
     }
 
     /// Sets the value of [access_level][crate::model::UpdateAccessLevelRequest::access_level].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_identity_accesscontextmanager_v1::model::UpdateAccessLevelRequest;
+    /// use google_cloud_identity_accesscontextmanager_v1::model::AccessLevel;
+    /// let x = UpdateAccessLevelRequest::new().set_access_level(AccessLevel::default()/* use setters */);
+    /// ```
     pub fn set_access_level<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::AccessLevel>,
@@ -533,6 +695,14 @@ impl UpdateAccessLevelRequest {
     }
 
     /// Sets or clears the value of [access_level][crate::model::UpdateAccessLevelRequest::access_level].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_identity_accesscontextmanager_v1::model::UpdateAccessLevelRequest;
+    /// use google_cloud_identity_accesscontextmanager_v1::model::AccessLevel;
+    /// let x = UpdateAccessLevelRequest::new().set_or_clear_access_level(Some(AccessLevel::default()/* use setters */));
+    /// let x = UpdateAccessLevelRequest::new().set_or_clear_access_level(None::<AccessLevel>);
+    /// ```
     pub fn set_or_clear_access_level<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AccessLevel>,
@@ -542,6 +712,13 @@ impl UpdateAccessLevelRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateAccessLevelRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_identity_accesscontextmanager_v1::model::UpdateAccessLevelRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateAccessLevelRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -551,6 +728,14 @@ impl UpdateAccessLevelRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateAccessLevelRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_identity_accesscontextmanager_v1::model::UpdateAccessLevelRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateAccessLevelRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateAccessLevelRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -586,6 +771,12 @@ impl DeleteAccessLevelRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteAccessLevelRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_identity_accesscontextmanager_v1::model::DeleteAccessLevelRequest;
+    /// let x = DeleteAccessLevelRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -636,12 +827,29 @@ impl ReplaceAccessLevelsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ReplaceAccessLevelsRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_identity_accesscontextmanager_v1::model::ReplaceAccessLevelsRequest;
+    /// let x = ReplaceAccessLevelsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [access_levels][crate::model::ReplaceAccessLevelsRequest::access_levels].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_identity_accesscontextmanager_v1::model::ReplaceAccessLevelsRequest;
+    /// use google_cloud_identity_accesscontextmanager_v1::model::AccessLevel;
+    /// let x = ReplaceAccessLevelsRequest::new()
+    ///     .set_access_levels([
+    ///         AccessLevel::default()/* use setters */,
+    ///         AccessLevel::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_access_levels<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -653,6 +861,12 @@ impl ReplaceAccessLevelsRequest {
     }
 
     /// Sets the value of [etag][crate::model::ReplaceAccessLevelsRequest::etag].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_identity_accesscontextmanager_v1::model::ReplaceAccessLevelsRequest;
+    /// let x = ReplaceAccessLevelsRequest::new().set_etag("example");
+    /// ```
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
@@ -683,6 +897,17 @@ impl ReplaceAccessLevelsResponse {
     }
 
     /// Sets the value of [access_levels][crate::model::ReplaceAccessLevelsResponse::access_levels].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_identity_accesscontextmanager_v1::model::ReplaceAccessLevelsResponse;
+    /// use google_cloud_identity_accesscontextmanager_v1::model::AccessLevel;
+    /// let x = ReplaceAccessLevelsResponse::new()
+    ///     .set_access_levels([
+    ///         AccessLevel::default()/* use setters */,
+    ///         AccessLevel::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_access_levels<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -730,18 +955,36 @@ impl ListServicePerimetersRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListServicePerimetersRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_identity_accesscontextmanager_v1::model::ListServicePerimetersRequest;
+    /// let x = ListServicePerimetersRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListServicePerimetersRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_identity_accesscontextmanager_v1::model::ListServicePerimetersRequest;
+    /// let x = ListServicePerimetersRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListServicePerimetersRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_identity_accesscontextmanager_v1::model::ListServicePerimetersRequest;
+    /// let x = ListServicePerimetersRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -775,6 +1018,17 @@ impl ListServicePerimetersResponse {
     }
 
     /// Sets the value of [service_perimeters][crate::model::ListServicePerimetersResponse::service_perimeters].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_identity_accesscontextmanager_v1::model::ListServicePerimetersResponse;
+    /// use google_cloud_identity_accesscontextmanager_v1::model::ServicePerimeter;
+    /// let x = ListServicePerimetersResponse::new()
+    ///     .set_service_perimeters([
+    ///         ServicePerimeter::default()/* use setters */,
+    ///         ServicePerimeter::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_service_perimeters<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -786,6 +1040,12 @@ impl ListServicePerimetersResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListServicePerimetersResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_identity_accesscontextmanager_v1::model::ListServicePerimetersResponse;
+    /// let x = ListServicePerimetersResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -832,6 +1092,12 @@ impl GetServicePerimeterRequest {
     }
 
     /// Sets the value of [name][crate::model::GetServicePerimeterRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_identity_accesscontextmanager_v1::model::GetServicePerimeterRequest;
+    /// let x = GetServicePerimeterRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -870,12 +1136,25 @@ impl CreateServicePerimeterRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateServicePerimeterRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_identity_accesscontextmanager_v1::model::CreateServicePerimeterRequest;
+    /// let x = CreateServicePerimeterRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [service_perimeter][crate::model::CreateServicePerimeterRequest::service_perimeter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_identity_accesscontextmanager_v1::model::CreateServicePerimeterRequest;
+    /// use google_cloud_identity_accesscontextmanager_v1::model::ServicePerimeter;
+    /// let x = CreateServicePerimeterRequest::new().set_service_perimeter(ServicePerimeter::default()/* use setters */);
+    /// ```
     pub fn set_service_perimeter<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ServicePerimeter>,
@@ -885,6 +1164,14 @@ impl CreateServicePerimeterRequest {
     }
 
     /// Sets or clears the value of [service_perimeter][crate::model::CreateServicePerimeterRequest::service_perimeter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_identity_accesscontextmanager_v1::model::CreateServicePerimeterRequest;
+    /// use google_cloud_identity_accesscontextmanager_v1::model::ServicePerimeter;
+    /// let x = CreateServicePerimeterRequest::new().set_or_clear_service_perimeter(Some(ServicePerimeter::default()/* use setters */));
+    /// let x = CreateServicePerimeterRequest::new().set_or_clear_service_perimeter(None::<ServicePerimeter>);
+    /// ```
     pub fn set_or_clear_service_perimeter<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ServicePerimeter>,
@@ -920,6 +1207,13 @@ impl UpdateServicePerimeterRequest {
     }
 
     /// Sets the value of [service_perimeter][crate::model::UpdateServicePerimeterRequest::service_perimeter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_identity_accesscontextmanager_v1::model::UpdateServicePerimeterRequest;
+    /// use google_cloud_identity_accesscontextmanager_v1::model::ServicePerimeter;
+    /// let x = UpdateServicePerimeterRequest::new().set_service_perimeter(ServicePerimeter::default()/* use setters */);
+    /// ```
     pub fn set_service_perimeter<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ServicePerimeter>,
@@ -929,6 +1223,14 @@ impl UpdateServicePerimeterRequest {
     }
 
     /// Sets or clears the value of [service_perimeter][crate::model::UpdateServicePerimeterRequest::service_perimeter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_identity_accesscontextmanager_v1::model::UpdateServicePerimeterRequest;
+    /// use google_cloud_identity_accesscontextmanager_v1::model::ServicePerimeter;
+    /// let x = UpdateServicePerimeterRequest::new().set_or_clear_service_perimeter(Some(ServicePerimeter::default()/* use setters */));
+    /// let x = UpdateServicePerimeterRequest::new().set_or_clear_service_perimeter(None::<ServicePerimeter>);
+    /// ```
     pub fn set_or_clear_service_perimeter<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ServicePerimeter>,
@@ -938,6 +1240,13 @@ impl UpdateServicePerimeterRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateServicePerimeterRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_identity_accesscontextmanager_v1::model::UpdateServicePerimeterRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateServicePerimeterRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -947,6 +1256,14 @@ impl UpdateServicePerimeterRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateServicePerimeterRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_identity_accesscontextmanager_v1::model::UpdateServicePerimeterRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateServicePerimeterRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateServicePerimeterRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -982,6 +1299,12 @@ impl DeleteServicePerimeterRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteServicePerimeterRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_identity_accesscontextmanager_v1::model::DeleteServicePerimeterRequest;
+    /// let x = DeleteServicePerimeterRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -1032,12 +1355,29 @@ impl ReplaceServicePerimetersRequest {
     }
 
     /// Sets the value of [parent][crate::model::ReplaceServicePerimetersRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_identity_accesscontextmanager_v1::model::ReplaceServicePerimetersRequest;
+    /// let x = ReplaceServicePerimetersRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [service_perimeters][crate::model::ReplaceServicePerimetersRequest::service_perimeters].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_identity_accesscontextmanager_v1::model::ReplaceServicePerimetersRequest;
+    /// use google_cloud_identity_accesscontextmanager_v1::model::ServicePerimeter;
+    /// let x = ReplaceServicePerimetersRequest::new()
+    ///     .set_service_perimeters([
+    ///         ServicePerimeter::default()/* use setters */,
+    ///         ServicePerimeter::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_service_perimeters<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1049,6 +1389,12 @@ impl ReplaceServicePerimetersRequest {
     }
 
     /// Sets the value of [etag][crate::model::ReplaceServicePerimetersRequest::etag].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_identity_accesscontextmanager_v1::model::ReplaceServicePerimetersRequest;
+    /// let x = ReplaceServicePerimetersRequest::new().set_etag("example");
+    /// ```
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
@@ -1079,6 +1425,17 @@ impl ReplaceServicePerimetersResponse {
     }
 
     /// Sets the value of [service_perimeters][crate::model::ReplaceServicePerimetersResponse::service_perimeters].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_identity_accesscontextmanager_v1::model::ReplaceServicePerimetersResponse;
+    /// use google_cloud_identity_accesscontextmanager_v1::model::ServicePerimeter;
+    /// let x = ReplaceServicePerimetersResponse::new()
+    ///     .set_service_perimeters([
+    ///         ServicePerimeter::default()/* use setters */,
+    ///         ServicePerimeter::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_service_perimeters<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1131,12 +1488,24 @@ impl CommitServicePerimetersRequest {
     }
 
     /// Sets the value of [parent][crate::model::CommitServicePerimetersRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_identity_accesscontextmanager_v1::model::CommitServicePerimetersRequest;
+    /// let x = CommitServicePerimetersRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [etag][crate::model::CommitServicePerimetersRequest::etag].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_identity_accesscontextmanager_v1::model::CommitServicePerimetersRequest;
+    /// let x = CommitServicePerimetersRequest::new().set_etag("example");
+    /// ```
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
@@ -1169,6 +1538,17 @@ impl CommitServicePerimetersResponse {
     }
 
     /// Sets the value of [service_perimeters][crate::model::CommitServicePerimetersResponse::service_perimeters].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_identity_accesscontextmanager_v1::model::CommitServicePerimetersResponse;
+    /// use google_cloud_identity_accesscontextmanager_v1::model::ServicePerimeter;
+    /// let x = CommitServicePerimetersResponse::new()
+    ///     .set_service_perimeters([
+    ///         ServicePerimeter::default()/* use setters */,
+    ///         ServicePerimeter::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_service_perimeters<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1213,18 +1593,36 @@ impl ListGcpUserAccessBindingsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListGcpUserAccessBindingsRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_identity_accesscontextmanager_v1::model::ListGcpUserAccessBindingsRequest;
+    /// let x = ListGcpUserAccessBindingsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListGcpUserAccessBindingsRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_identity_accesscontextmanager_v1::model::ListGcpUserAccessBindingsRequest;
+    /// let x = ListGcpUserAccessBindingsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListGcpUserAccessBindingsRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_identity_accesscontextmanager_v1::model::ListGcpUserAccessBindingsRequest;
+    /// let x = ListGcpUserAccessBindingsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -1258,6 +1656,17 @@ impl ListGcpUserAccessBindingsResponse {
     }
 
     /// Sets the value of [gcp_user_access_bindings][crate::model::ListGcpUserAccessBindingsResponse::gcp_user_access_bindings].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_identity_accesscontextmanager_v1::model::ListGcpUserAccessBindingsResponse;
+    /// use google_cloud_identity_accesscontextmanager_v1::model::GcpUserAccessBinding;
+    /// let x = ListGcpUserAccessBindingsResponse::new()
+    ///     .set_gcp_user_access_bindings([
+    ///         GcpUserAccessBinding::default()/* use setters */,
+    ///         GcpUserAccessBinding::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_gcp_user_access_bindings<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1269,6 +1678,12 @@ impl ListGcpUserAccessBindingsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListGcpUserAccessBindingsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_identity_accesscontextmanager_v1::model::ListGcpUserAccessBindingsResponse;
+    /// let x = ListGcpUserAccessBindingsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -1312,6 +1727,12 @@ impl GetGcpUserAccessBindingRequest {
     }
 
     /// Sets the value of [name][crate::model::GetGcpUserAccessBindingRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_identity_accesscontextmanager_v1::model::GetGcpUserAccessBindingRequest;
+    /// let x = GetGcpUserAccessBindingRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -1345,12 +1766,25 @@ impl CreateGcpUserAccessBindingRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateGcpUserAccessBindingRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_identity_accesscontextmanager_v1::model::CreateGcpUserAccessBindingRequest;
+    /// let x = CreateGcpUserAccessBindingRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [gcp_user_access_binding][crate::model::CreateGcpUserAccessBindingRequest::gcp_user_access_binding].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_identity_accesscontextmanager_v1::model::CreateGcpUserAccessBindingRequest;
+    /// use google_cloud_identity_accesscontextmanager_v1::model::GcpUserAccessBinding;
+    /// let x = CreateGcpUserAccessBindingRequest::new().set_gcp_user_access_binding(GcpUserAccessBinding::default()/* use setters */);
+    /// ```
     pub fn set_gcp_user_access_binding<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::GcpUserAccessBinding>,
@@ -1360,6 +1794,14 @@ impl CreateGcpUserAccessBindingRequest {
     }
 
     /// Sets or clears the value of [gcp_user_access_binding][crate::model::CreateGcpUserAccessBindingRequest::gcp_user_access_binding].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_identity_accesscontextmanager_v1::model::CreateGcpUserAccessBindingRequest;
+    /// use google_cloud_identity_accesscontextmanager_v1::model::GcpUserAccessBinding;
+    /// let x = CreateGcpUserAccessBindingRequest::new().set_or_clear_gcp_user_access_binding(Some(GcpUserAccessBinding::default()/* use setters */));
+    /// let x = CreateGcpUserAccessBindingRequest::new().set_or_clear_gcp_user_access_binding(None::<GcpUserAccessBinding>);
+    /// ```
     pub fn set_or_clear_gcp_user_access_binding<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::GcpUserAccessBinding>,
@@ -1401,6 +1843,13 @@ impl UpdateGcpUserAccessBindingRequest {
     }
 
     /// Sets the value of [gcp_user_access_binding][crate::model::UpdateGcpUserAccessBindingRequest::gcp_user_access_binding].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_identity_accesscontextmanager_v1::model::UpdateGcpUserAccessBindingRequest;
+    /// use google_cloud_identity_accesscontextmanager_v1::model::GcpUserAccessBinding;
+    /// let x = UpdateGcpUserAccessBindingRequest::new().set_gcp_user_access_binding(GcpUserAccessBinding::default()/* use setters */);
+    /// ```
     pub fn set_gcp_user_access_binding<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::GcpUserAccessBinding>,
@@ -1410,6 +1859,14 @@ impl UpdateGcpUserAccessBindingRequest {
     }
 
     /// Sets or clears the value of [gcp_user_access_binding][crate::model::UpdateGcpUserAccessBindingRequest::gcp_user_access_binding].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_identity_accesscontextmanager_v1::model::UpdateGcpUserAccessBindingRequest;
+    /// use google_cloud_identity_accesscontextmanager_v1::model::GcpUserAccessBinding;
+    /// let x = UpdateGcpUserAccessBindingRequest::new().set_or_clear_gcp_user_access_binding(Some(GcpUserAccessBinding::default()/* use setters */));
+    /// let x = UpdateGcpUserAccessBindingRequest::new().set_or_clear_gcp_user_access_binding(None::<GcpUserAccessBinding>);
+    /// ```
     pub fn set_or_clear_gcp_user_access_binding<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::GcpUserAccessBinding>,
@@ -1419,6 +1876,13 @@ impl UpdateGcpUserAccessBindingRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateGcpUserAccessBindingRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_identity_accesscontextmanager_v1::model::UpdateGcpUserAccessBindingRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateGcpUserAccessBindingRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -1428,6 +1892,14 @@ impl UpdateGcpUserAccessBindingRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateGcpUserAccessBindingRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_identity_accesscontextmanager_v1::model::UpdateGcpUserAccessBindingRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateGcpUserAccessBindingRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateGcpUserAccessBindingRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -1460,6 +1932,12 @@ impl DeleteGcpUserAccessBindingRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteGcpUserAccessBindingRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_identity_accesscontextmanager_v1::model::DeleteGcpUserAccessBindingRequest;
+    /// let x = DeleteGcpUserAccessBindingRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -1548,24 +2026,49 @@ impl AccessLevel {
     }
 
     /// Sets the value of [name][crate::model::AccessLevel::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_identity_accesscontextmanager_v1::model::AccessLevel;
+    /// let x = AccessLevel::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [title][crate::model::AccessLevel::title].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_identity_accesscontextmanager_v1::model::AccessLevel;
+    /// let x = AccessLevel::new().set_title("example");
+    /// ```
     pub fn set_title<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.title = v.into();
         self
     }
 
     /// Sets the value of [description][crate::model::AccessLevel::description].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_identity_accesscontextmanager_v1::model::AccessLevel;
+    /// let x = AccessLevel::new().set_description("example");
+    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::AccessLevel::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_identity_accesscontextmanager_v1::model::AccessLevel;
+    /// use wkt::Timestamp;
+    /// let x = AccessLevel::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1575,6 +2078,14 @@ impl AccessLevel {
     }
 
     /// Sets or clears the value of [create_time][crate::model::AccessLevel::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_identity_accesscontextmanager_v1::model::AccessLevel;
+    /// use wkt::Timestamp;
+    /// let x = AccessLevel::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = AccessLevel::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1584,6 +2095,13 @@ impl AccessLevel {
     }
 
     /// Sets the value of [update_time][crate::model::AccessLevel::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_identity_accesscontextmanager_v1::model::AccessLevel;
+    /// use wkt::Timestamp;
+    /// let x = AccessLevel::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1593,6 +2111,14 @@ impl AccessLevel {
     }
 
     /// Sets or clears the value of [update_time][crate::model::AccessLevel::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_identity_accesscontextmanager_v1::model::AccessLevel;
+    /// use wkt::Timestamp;
+    /// let x = AccessLevel::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = AccessLevel::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1605,6 +2131,14 @@ impl AccessLevel {
     ///
     /// Note that all the setters affecting `level` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_identity_accesscontextmanager_v1::model::AccessLevel;
+    /// use google_cloud_identity_accesscontextmanager_v1::model::access_level;
+    /// use google_cloud_identity_accesscontextmanager_v1::model::BasicLevel;
+    /// let x = AccessLevel::new().set_level(Some(access_level::Level::Basic(BasicLevel::default().into())));
+    /// ```
     pub fn set_level<
         T: std::convert::Into<std::option::Option<crate::model::access_level::Level>>,
     >(
@@ -1631,6 +2165,15 @@ impl AccessLevel {
     ///
     /// Note that all the setters affecting `level` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_identity_accesscontextmanager_v1::model::AccessLevel;
+    /// use google_cloud_identity_accesscontextmanager_v1::model::BasicLevel;
+    /// let x = AccessLevel::new().set_basic(BasicLevel::default()/* use setters */);
+    /// assert!(x.basic().is_some());
+    /// assert!(x.custom().is_none());
+    /// ```
     pub fn set_basic<T: std::convert::Into<std::boxed::Box<crate::model::BasicLevel>>>(
         mut self,
         v: T,
@@ -1655,6 +2198,15 @@ impl AccessLevel {
     ///
     /// Note that all the setters affecting `level` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_identity_accesscontextmanager_v1::model::AccessLevel;
+    /// use google_cloud_identity_accesscontextmanager_v1::model::CustomLevel;
+    /// let x = AccessLevel::new().set_custom(CustomLevel::default()/* use setters */);
+    /// assert!(x.custom().is_some());
+    /// assert!(x.basic().is_none());
+    /// ```
     pub fn set_custom<T: std::convert::Into<std::boxed::Box<crate::model::CustomLevel>>>(
         mut self,
         v: T,
@@ -1709,6 +2261,17 @@ impl BasicLevel {
     }
 
     /// Sets the value of [conditions][crate::model::BasicLevel::conditions].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_identity_accesscontextmanager_v1::model::BasicLevel;
+    /// use google_cloud_identity_accesscontextmanager_v1::model::Condition;
+    /// let x = BasicLevel::new()
+    ///     .set_conditions([
+    ///         Condition::default()/* use setters */,
+    ///         Condition::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_conditions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1720,6 +2283,13 @@ impl BasicLevel {
     }
 
     /// Sets the value of [combining_function][crate::model::BasicLevel::combining_function].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_identity_accesscontextmanager_v1::model::BasicLevel;
+    /// use google_cloud_identity_accesscontextmanager_v1::model::basic_level::ConditionCombiningFunction;
+    /// let x0 = BasicLevel::new().set_combining_function(ConditionCombiningFunction::Or);
+    /// ```
     pub fn set_combining_function<
         T: std::convert::Into<crate::model::basic_level::ConditionCombiningFunction>,
     >(
@@ -1923,6 +2493,12 @@ impl Condition {
     }
 
     /// Sets the value of [ip_subnetworks][crate::model::Condition::ip_subnetworks].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_identity_accesscontextmanager_v1::model::Condition;
+    /// let x = Condition::new().set_ip_subnetworks(["a", "b", "c"]);
+    /// ```
     pub fn set_ip_subnetworks<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1934,6 +2510,13 @@ impl Condition {
     }
 
     /// Sets the value of [device_policy][crate::model::Condition::device_policy].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_identity_accesscontextmanager_v1::model::Condition;
+    /// use google_cloud_identity_accesscontextmanager_v1::model::DevicePolicy;
+    /// let x = Condition::new().set_device_policy(DevicePolicy::default()/* use setters */);
+    /// ```
     pub fn set_device_policy<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::DevicePolicy>,
@@ -1943,6 +2526,14 @@ impl Condition {
     }
 
     /// Sets or clears the value of [device_policy][crate::model::Condition::device_policy].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_identity_accesscontextmanager_v1::model::Condition;
+    /// use google_cloud_identity_accesscontextmanager_v1::model::DevicePolicy;
+    /// let x = Condition::new().set_or_clear_device_policy(Some(DevicePolicy::default()/* use setters */));
+    /// let x = Condition::new().set_or_clear_device_policy(None::<DevicePolicy>);
+    /// ```
     pub fn set_or_clear_device_policy<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DevicePolicy>,
@@ -1952,6 +2543,12 @@ impl Condition {
     }
 
     /// Sets the value of [required_access_levels][crate::model::Condition::required_access_levels].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_identity_accesscontextmanager_v1::model::Condition;
+    /// let x = Condition::new().set_required_access_levels(["a", "b", "c"]);
+    /// ```
     pub fn set_required_access_levels<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1963,12 +2560,24 @@ impl Condition {
     }
 
     /// Sets the value of [negate][crate::model::Condition::negate].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_identity_accesscontextmanager_v1::model::Condition;
+    /// let x = Condition::new().set_negate(true);
+    /// ```
     pub fn set_negate<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.negate = v.into();
         self
     }
 
     /// Sets the value of [members][crate::model::Condition::members].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_identity_accesscontextmanager_v1::model::Condition;
+    /// let x = Condition::new().set_members(["a", "b", "c"]);
+    /// ```
     pub fn set_members<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1980,6 +2589,12 @@ impl Condition {
     }
 
     /// Sets the value of [regions][crate::model::Condition::regions].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_identity_accesscontextmanager_v1::model::Condition;
+    /// let x = Condition::new().set_regions(["a", "b", "c"]);
+    /// ```
     pub fn set_regions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2015,6 +2630,13 @@ impl CustomLevel {
     }
 
     /// Sets the value of [expr][crate::model::CustomLevel::expr].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_identity_accesscontextmanager_v1::model::CustomLevel;
+    /// use gtype::model::Expr;
+    /// let x = CustomLevel::new().set_expr(Expr::default()/* use setters */);
+    /// ```
     pub fn set_expr<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<gtype::model::Expr>,
@@ -2024,6 +2646,14 @@ impl CustomLevel {
     }
 
     /// Sets or clears the value of [expr][crate::model::CustomLevel::expr].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_identity_accesscontextmanager_v1::model::CustomLevel;
+    /// use gtype::model::Expr;
+    /// let x = CustomLevel::new().set_or_clear_expr(Some(Expr::default()/* use setters */));
+    /// let x = CustomLevel::new().set_or_clear_expr(None::<Expr>);
+    /// ```
     pub fn set_or_clear_expr<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<gtype::model::Expr>,
@@ -2082,12 +2712,29 @@ impl DevicePolicy {
     }
 
     /// Sets the value of [require_screenlock][crate::model::DevicePolicy::require_screenlock].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_identity_accesscontextmanager_v1::model::DevicePolicy;
+    /// let x = DevicePolicy::new().set_require_screenlock(true);
+    /// ```
     pub fn set_require_screenlock<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.require_screenlock = v.into();
         self
     }
 
     /// Sets the value of [allowed_encryption_statuses][crate::model::DevicePolicy::allowed_encryption_statuses].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_identity_accesscontextmanager_v1::model::DevicePolicy;
+    /// use accesscontextmanager_type::model::DeviceEncryptionStatus;
+    /// let x = DevicePolicy::new().set_allowed_encryption_statuses([
+    ///     DeviceEncryptionStatus::EncryptionUnsupported,
+    ///     DeviceEncryptionStatus::Unencrypted,
+    ///     DeviceEncryptionStatus::Encrypted,
+    /// ]);
+    /// ```
     pub fn set_allowed_encryption_statuses<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2099,6 +2746,17 @@ impl DevicePolicy {
     }
 
     /// Sets the value of [os_constraints][crate::model::DevicePolicy::os_constraints].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_identity_accesscontextmanager_v1::model::DevicePolicy;
+    /// use google_cloud_identity_accesscontextmanager_v1::model::OsConstraint;
+    /// let x = DevicePolicy::new()
+    ///     .set_os_constraints([
+    ///         OsConstraint::default()/* use setters */,
+    ///         OsConstraint::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_os_constraints<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2110,6 +2768,17 @@ impl DevicePolicy {
     }
 
     /// Sets the value of [allowed_device_management_levels][crate::model::DevicePolicy::allowed_device_management_levels].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_identity_accesscontextmanager_v1::model::DevicePolicy;
+    /// use accesscontextmanager_type::model::DeviceManagementLevel;
+    /// let x = DevicePolicy::new().set_allowed_device_management_levels([
+    ///     DeviceManagementLevel::None,
+    ///     DeviceManagementLevel::Basic,
+    ///     DeviceManagementLevel::Complete,
+    /// ]);
+    /// ```
     pub fn set_allowed_device_management_levels<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2121,12 +2790,24 @@ impl DevicePolicy {
     }
 
     /// Sets the value of [require_admin_approval][crate::model::DevicePolicy::require_admin_approval].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_identity_accesscontextmanager_v1::model::DevicePolicy;
+    /// let x = DevicePolicy::new().set_require_admin_approval(true);
+    /// ```
     pub fn set_require_admin_approval<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.require_admin_approval = v.into();
         self
     }
 
     /// Sets the value of [require_corp_owned][crate::model::DevicePolicy::require_corp_owned].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_identity_accesscontextmanager_v1::model::DevicePolicy;
+    /// let x = DevicePolicy::new().set_require_corp_owned(true);
+    /// ```
     pub fn set_require_corp_owned<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.require_corp_owned = v.into();
         self
@@ -2166,6 +2847,15 @@ impl OsConstraint {
     }
 
     /// Sets the value of [os_type][crate::model::OsConstraint::os_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_identity_accesscontextmanager_v1::model::OsConstraint;
+    /// use accesscontextmanager_type::model::OsType;
+    /// let x0 = OsConstraint::new().set_os_type(OsType::DesktopMac);
+    /// let x1 = OsConstraint::new().set_os_type(OsType::DesktopWindows);
+    /// let x2 = OsConstraint::new().set_os_type(OsType::DesktopLinux);
+    /// ```
     pub fn set_os_type<T: std::convert::Into<accesscontextmanager_type::model::OsType>>(
         mut self,
         v: T,
@@ -2175,12 +2865,24 @@ impl OsConstraint {
     }
 
     /// Sets the value of [minimum_version][crate::model::OsConstraint::minimum_version].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_identity_accesscontextmanager_v1::model::OsConstraint;
+    /// let x = OsConstraint::new().set_minimum_version("example");
+    /// ```
     pub fn set_minimum_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.minimum_version = v.into();
         self
     }
 
     /// Sets the value of [require_verified_chrome_os][crate::model::OsConstraint::require_verified_chrome_os].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_identity_accesscontextmanager_v1::model::OsConstraint;
+    /// let x = OsConstraint::new().set_require_verified_chrome_os(true);
+    /// ```
     pub fn set_require_verified_chrome_os<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.require_verified_chrome_os = v.into();
         self
@@ -2251,24 +2953,48 @@ impl AccessPolicy {
     }
 
     /// Sets the value of [name][crate::model::AccessPolicy::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_identity_accesscontextmanager_v1::model::AccessPolicy;
+    /// let x = AccessPolicy::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [parent][crate::model::AccessPolicy::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_identity_accesscontextmanager_v1::model::AccessPolicy;
+    /// let x = AccessPolicy::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [title][crate::model::AccessPolicy::title].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_identity_accesscontextmanager_v1::model::AccessPolicy;
+    /// let x = AccessPolicy::new().set_title("example");
+    /// ```
     pub fn set_title<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.title = v.into();
         self
     }
 
     /// Sets the value of [scopes][crate::model::AccessPolicy::scopes].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_identity_accesscontextmanager_v1::model::AccessPolicy;
+    /// let x = AccessPolicy::new().set_scopes(["a", "b", "c"]);
+    /// ```
     pub fn set_scopes<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2280,6 +3006,13 @@ impl AccessPolicy {
     }
 
     /// Sets the value of [create_time][crate::model::AccessPolicy::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_identity_accesscontextmanager_v1::model::AccessPolicy;
+    /// use wkt::Timestamp;
+    /// let x = AccessPolicy::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2289,6 +3022,14 @@ impl AccessPolicy {
     }
 
     /// Sets or clears the value of [create_time][crate::model::AccessPolicy::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_identity_accesscontextmanager_v1::model::AccessPolicy;
+    /// use wkt::Timestamp;
+    /// let x = AccessPolicy::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = AccessPolicy::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2298,6 +3039,13 @@ impl AccessPolicy {
     }
 
     /// Sets the value of [update_time][crate::model::AccessPolicy::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_identity_accesscontextmanager_v1::model::AccessPolicy;
+    /// use wkt::Timestamp;
+    /// let x = AccessPolicy::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2307,6 +3055,14 @@ impl AccessPolicy {
     }
 
     /// Sets or clears the value of [update_time][crate::model::AccessPolicy::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_identity_accesscontextmanager_v1::model::AccessPolicy;
+    /// use wkt::Timestamp;
+    /// let x = AccessPolicy::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = AccessPolicy::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2316,6 +3072,12 @@ impl AccessPolicy {
     }
 
     /// Sets the value of [etag][crate::model::AccessPolicy::etag].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_identity_accesscontextmanager_v1::model::AccessPolicy;
+    /// let x = AccessPolicy::new().set_etag("example");
+    /// ```
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
@@ -2364,18 +3126,36 @@ impl GcpUserAccessBinding {
     }
 
     /// Sets the value of [name][crate::model::GcpUserAccessBinding::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_identity_accesscontextmanager_v1::model::GcpUserAccessBinding;
+    /// let x = GcpUserAccessBinding::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [group_key][crate::model::GcpUserAccessBinding::group_key].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_identity_accesscontextmanager_v1::model::GcpUserAccessBinding;
+    /// let x = GcpUserAccessBinding::new().set_group_key("example");
+    /// ```
     pub fn set_group_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.group_key = v.into();
         self
     }
 
     /// Sets the value of [access_levels][crate::model::GcpUserAccessBinding::access_levels].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_identity_accesscontextmanager_v1::model::GcpUserAccessBinding;
+    /// let x = GcpUserAccessBinding::new().set_access_levels(["a", "b", "c"]);
+    /// ```
     pub fn set_access_levels<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2465,24 +3245,49 @@ impl ServicePerimeter {
     }
 
     /// Sets the value of [name][crate::model::ServicePerimeter::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_identity_accesscontextmanager_v1::model::ServicePerimeter;
+    /// let x = ServicePerimeter::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [title][crate::model::ServicePerimeter::title].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_identity_accesscontextmanager_v1::model::ServicePerimeter;
+    /// let x = ServicePerimeter::new().set_title("example");
+    /// ```
     pub fn set_title<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.title = v.into();
         self
     }
 
     /// Sets the value of [description][crate::model::ServicePerimeter::description].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_identity_accesscontextmanager_v1::model::ServicePerimeter;
+    /// let x = ServicePerimeter::new().set_description("example");
+    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::ServicePerimeter::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_identity_accesscontextmanager_v1::model::ServicePerimeter;
+    /// use wkt::Timestamp;
+    /// let x = ServicePerimeter::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2492,6 +3297,14 @@ impl ServicePerimeter {
     }
 
     /// Sets or clears the value of [create_time][crate::model::ServicePerimeter::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_identity_accesscontextmanager_v1::model::ServicePerimeter;
+    /// use wkt::Timestamp;
+    /// let x = ServicePerimeter::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = ServicePerimeter::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2501,6 +3314,13 @@ impl ServicePerimeter {
     }
 
     /// Sets the value of [update_time][crate::model::ServicePerimeter::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_identity_accesscontextmanager_v1::model::ServicePerimeter;
+    /// use wkt::Timestamp;
+    /// let x = ServicePerimeter::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2510,6 +3330,14 @@ impl ServicePerimeter {
     }
 
     /// Sets or clears the value of [update_time][crate::model::ServicePerimeter::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_identity_accesscontextmanager_v1::model::ServicePerimeter;
+    /// use wkt::Timestamp;
+    /// let x = ServicePerimeter::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = ServicePerimeter::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2519,6 +3347,13 @@ impl ServicePerimeter {
     }
 
     /// Sets the value of [perimeter_type][crate::model::ServicePerimeter::perimeter_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_identity_accesscontextmanager_v1::model::ServicePerimeter;
+    /// use google_cloud_identity_accesscontextmanager_v1::model::service_perimeter::PerimeterType;
+    /// let x0 = ServicePerimeter::new().set_perimeter_type(PerimeterType::Bridge);
+    /// ```
     pub fn set_perimeter_type<
         T: std::convert::Into<crate::model::service_perimeter::PerimeterType>,
     >(
@@ -2530,6 +3365,13 @@ impl ServicePerimeter {
     }
 
     /// Sets the value of [status][crate::model::ServicePerimeter::status].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_identity_accesscontextmanager_v1::model::ServicePerimeter;
+    /// use google_cloud_identity_accesscontextmanager_v1::model::ServicePerimeterConfig;
+    /// let x = ServicePerimeter::new().set_status(ServicePerimeterConfig::default()/* use setters */);
+    /// ```
     pub fn set_status<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ServicePerimeterConfig>,
@@ -2539,6 +3381,14 @@ impl ServicePerimeter {
     }
 
     /// Sets or clears the value of [status][crate::model::ServicePerimeter::status].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_identity_accesscontextmanager_v1::model::ServicePerimeter;
+    /// use google_cloud_identity_accesscontextmanager_v1::model::ServicePerimeterConfig;
+    /// let x = ServicePerimeter::new().set_or_clear_status(Some(ServicePerimeterConfig::default()/* use setters */));
+    /// let x = ServicePerimeter::new().set_or_clear_status(None::<ServicePerimeterConfig>);
+    /// ```
     pub fn set_or_clear_status<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ServicePerimeterConfig>,
@@ -2548,6 +3398,13 @@ impl ServicePerimeter {
     }
 
     /// Sets the value of [spec][crate::model::ServicePerimeter::spec].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_identity_accesscontextmanager_v1::model::ServicePerimeter;
+    /// use google_cloud_identity_accesscontextmanager_v1::model::ServicePerimeterConfig;
+    /// let x = ServicePerimeter::new().set_spec(ServicePerimeterConfig::default()/* use setters */);
+    /// ```
     pub fn set_spec<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ServicePerimeterConfig>,
@@ -2557,6 +3414,14 @@ impl ServicePerimeter {
     }
 
     /// Sets or clears the value of [spec][crate::model::ServicePerimeter::spec].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_identity_accesscontextmanager_v1::model::ServicePerimeter;
+    /// use google_cloud_identity_accesscontextmanager_v1::model::ServicePerimeterConfig;
+    /// let x = ServicePerimeter::new().set_or_clear_spec(Some(ServicePerimeterConfig::default()/* use setters */));
+    /// let x = ServicePerimeter::new().set_or_clear_spec(None::<ServicePerimeterConfig>);
+    /// ```
     pub fn set_or_clear_spec<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ServicePerimeterConfig>,
@@ -2566,6 +3431,12 @@ impl ServicePerimeter {
     }
 
     /// Sets the value of [use_explicit_dry_run_spec][crate::model::ServicePerimeter::use_explicit_dry_run_spec].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_identity_accesscontextmanager_v1::model::ServicePerimeter;
+    /// let x = ServicePerimeter::new().set_use_explicit_dry_run_spec(true);
+    /// ```
     pub fn set_use_explicit_dry_run_spec<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.use_explicit_dry_run_spec = v.into();
         self
@@ -2781,6 +3652,12 @@ impl ServicePerimeterConfig {
     }
 
     /// Sets the value of [resources][crate::model::ServicePerimeterConfig::resources].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_identity_accesscontextmanager_v1::model::ServicePerimeterConfig;
+    /// let x = ServicePerimeterConfig::new().set_resources(["a", "b", "c"]);
+    /// ```
     pub fn set_resources<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2792,6 +3669,12 @@ impl ServicePerimeterConfig {
     }
 
     /// Sets the value of [access_levels][crate::model::ServicePerimeterConfig::access_levels].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_identity_accesscontextmanager_v1::model::ServicePerimeterConfig;
+    /// let x = ServicePerimeterConfig::new().set_access_levels(["a", "b", "c"]);
+    /// ```
     pub fn set_access_levels<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2803,6 +3686,12 @@ impl ServicePerimeterConfig {
     }
 
     /// Sets the value of [restricted_services][crate::model::ServicePerimeterConfig::restricted_services].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_identity_accesscontextmanager_v1::model::ServicePerimeterConfig;
+    /// let x = ServicePerimeterConfig::new().set_restricted_services(["a", "b", "c"]);
+    /// ```
     pub fn set_restricted_services<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2814,6 +3703,13 @@ impl ServicePerimeterConfig {
     }
 
     /// Sets the value of [vpc_accessible_services][crate::model::ServicePerimeterConfig::vpc_accessible_services].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_identity_accesscontextmanager_v1::model::ServicePerimeterConfig;
+    /// use google_cloud_identity_accesscontextmanager_v1::model::service_perimeter_config::VpcAccessibleServices;
+    /// let x = ServicePerimeterConfig::new().set_vpc_accessible_services(VpcAccessibleServices::default()/* use setters */);
+    /// ```
     pub fn set_vpc_accessible_services<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::service_perimeter_config::VpcAccessibleServices>,
@@ -2823,6 +3719,14 @@ impl ServicePerimeterConfig {
     }
 
     /// Sets or clears the value of [vpc_accessible_services][crate::model::ServicePerimeterConfig::vpc_accessible_services].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_identity_accesscontextmanager_v1::model::ServicePerimeterConfig;
+    /// use google_cloud_identity_accesscontextmanager_v1::model::service_perimeter_config::VpcAccessibleServices;
+    /// let x = ServicePerimeterConfig::new().set_or_clear_vpc_accessible_services(Some(VpcAccessibleServices::default()/* use setters */));
+    /// let x = ServicePerimeterConfig::new().set_or_clear_vpc_accessible_services(None::<VpcAccessibleServices>);
+    /// ```
     pub fn set_or_clear_vpc_accessible_services<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::service_perimeter_config::VpcAccessibleServices>,
@@ -2832,6 +3736,17 @@ impl ServicePerimeterConfig {
     }
 
     /// Sets the value of [ingress_policies][crate::model::ServicePerimeterConfig::ingress_policies].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_identity_accesscontextmanager_v1::model::ServicePerimeterConfig;
+    /// use google_cloud_identity_accesscontextmanager_v1::model::service_perimeter_config::IngressPolicy;
+    /// let x = ServicePerimeterConfig::new()
+    ///     .set_ingress_policies([
+    ///         IngressPolicy::default()/* use setters */,
+    ///         IngressPolicy::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_ingress_policies<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2843,6 +3758,17 @@ impl ServicePerimeterConfig {
     }
 
     /// Sets the value of [egress_policies][crate::model::ServicePerimeterConfig::egress_policies].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_identity_accesscontextmanager_v1::model::ServicePerimeterConfig;
+    /// use google_cloud_identity_accesscontextmanager_v1::model::service_perimeter_config::EgressPolicy;
+    /// let x = ServicePerimeterConfig::new()
+    ///     .set_egress_policies([
+    ///         EgressPolicy::default()/* use setters */,
+    ///         EgressPolicy::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_egress_policies<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2889,12 +3815,24 @@ pub mod service_perimeter_config {
         }
 
         /// Sets the value of [enable_restriction][crate::model::service_perimeter_config::VpcAccessibleServices::enable_restriction].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_identity_accesscontextmanager_v1::model::service_perimeter_config::VpcAccessibleServices;
+        /// let x = VpcAccessibleServices::new().set_enable_restriction(true);
+        /// ```
         pub fn set_enable_restriction<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.enable_restriction = v.into();
             self
         }
 
         /// Sets the value of [allowed_services][crate::model::service_perimeter_config::VpcAccessibleServices::allowed_services].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_identity_accesscontextmanager_v1::model::service_perimeter_config::VpcAccessibleServices;
+        /// let x = VpcAccessibleServices::new().set_allowed_services(["a", "b", "c"]);
+        /// ```
         pub fn set_allowed_services<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -2933,6 +3871,13 @@ pub mod service_perimeter_config {
         ///
         /// Note that all the setters affecting `kind` are mutually
         /// exclusive.
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_identity_accesscontextmanager_v1::model::service_perimeter_config::MethodSelector;
+        /// use google_cloud_identity_accesscontextmanager_v1::model::service_perimeter_config::method_selector;
+        /// let x = MethodSelector::new().set_kind(Some(service_perimeter_config::method_selector::Kind::Method("example".to_string())));
+        /// ```
         pub fn set_kind<
             T: std::convert::Into<
                     std::option::Option<
@@ -2965,6 +3910,14 @@ pub mod service_perimeter_config {
         ///
         /// Note that all the setters affecting `kind` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_identity_accesscontextmanager_v1::model::service_perimeter_config::MethodSelector;
+        /// let x = MethodSelector::new().set_method("example");
+        /// assert!(x.method().is_some());
+        /// assert!(x.permission().is_none());
+        /// ```
         pub fn set_method<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.kind = std::option::Option::Some(
                 crate::model::service_perimeter_config::method_selector::Kind::Method(v.into()),
@@ -2990,6 +3943,14 @@ pub mod service_perimeter_config {
         ///
         /// Note that all the setters affecting `kind` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_identity_accesscontextmanager_v1::model::service_perimeter_config::MethodSelector;
+        /// let x = MethodSelector::new().set_permission("example");
+        /// assert!(x.permission().is_some());
+        /// assert!(x.method().is_none());
+        /// ```
         pub fn set_permission<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.kind = std::option::Option::Some(
                 crate::model::service_perimeter_config::method_selector::Kind::Permission(v.into()),
@@ -3056,6 +4017,12 @@ pub mod service_perimeter_config {
         }
 
         /// Sets the value of [service_name][crate::model::service_perimeter_config::ApiOperation::service_name].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_identity_accesscontextmanager_v1::model::service_perimeter_config::ApiOperation;
+        /// let x = ApiOperation::new().set_service_name("example");
+        /// ```
         pub fn set_service_name<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -3065,6 +4032,17 @@ pub mod service_perimeter_config {
         }
 
         /// Sets the value of [method_selectors][crate::model::service_perimeter_config::ApiOperation::method_selectors].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_identity_accesscontextmanager_v1::model::service_perimeter_config::ApiOperation;
+        /// use google_cloud_identity_accesscontextmanager_v1::model::service_perimeter_config::MethodSelector;
+        /// let x = ApiOperation::new()
+        ///     .set_method_selectors([
+        ///         MethodSelector::default()/* use setters */,
+        ///         MethodSelector::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
         pub fn set_method_selectors<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -3106,6 +4084,13 @@ pub mod service_perimeter_config {
         ///
         /// Note that all the setters affecting `source` are mutually
         /// exclusive.
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_identity_accesscontextmanager_v1::model::service_perimeter_config::IngressSource;
+        /// use google_cloud_identity_accesscontextmanager_v1::model::service_perimeter_config::ingress_source;
+        /// let x = IngressSource::new().set_source(Some(service_perimeter_config::ingress_source::Source::AccessLevel("example".to_string())));
+        /// ```
         pub fn set_source<
             T: std::convert::Into<
                     std::option::Option<
@@ -3138,6 +4123,14 @@ pub mod service_perimeter_config {
         ///
         /// Note that all the setters affecting `source` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_identity_accesscontextmanager_v1::model::service_perimeter_config::IngressSource;
+        /// let x = IngressSource::new().set_access_level("example");
+        /// assert!(x.access_level().is_some());
+        /// assert!(x.resource().is_none());
+        /// ```
         pub fn set_access_level<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -3168,6 +4161,14 @@ pub mod service_perimeter_config {
         ///
         /// Note that all the setters affecting `source` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_identity_accesscontextmanager_v1::model::service_perimeter_config::IngressSource;
+        /// let x = IngressSource::new().set_resource("example");
+        /// assert!(x.resource().is_some());
+        /// assert!(x.access_level().is_none());
+        /// ```
         pub fn set_resource<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.source = std::option::Option::Some(
                 crate::model::service_perimeter_config::ingress_source::Source::Resource(v.into()),
@@ -3255,6 +4256,17 @@ pub mod service_perimeter_config {
         }
 
         /// Sets the value of [sources][crate::model::service_perimeter_config::IngressFrom::sources].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_identity_accesscontextmanager_v1::model::service_perimeter_config::IngressFrom;
+        /// use google_cloud_identity_accesscontextmanager_v1::model::service_perimeter_config::IngressSource;
+        /// let x = IngressFrom::new()
+        ///     .set_sources([
+        ///         IngressSource::default()/* use setters */,
+        ///         IngressSource::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
         pub fn set_sources<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -3266,6 +4278,12 @@ pub mod service_perimeter_config {
         }
 
         /// Sets the value of [identities][crate::model::service_perimeter_config::IngressFrom::identities].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_identity_accesscontextmanager_v1::model::service_perimeter_config::IngressFrom;
+        /// let x = IngressFrom::new().set_identities(["a", "b", "c"]);
+        /// ```
         pub fn set_identities<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -3277,6 +4295,15 @@ pub mod service_perimeter_config {
         }
 
         /// Sets the value of [identity_type][crate::model::service_perimeter_config::IngressFrom::identity_type].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_identity_accesscontextmanager_v1::model::service_perimeter_config::IngressFrom;
+        /// use google_cloud_identity_accesscontextmanager_v1::model::service_perimeter_config::IdentityType;
+        /// let x0 = IngressFrom::new().set_identity_type(IdentityType::AnyIdentity);
+        /// let x1 = IngressFrom::new().set_identity_type(IdentityType::AnyUserAccount);
+        /// let x2 = IngressFrom::new().set_identity_type(IdentityType::AnyServiceAccount);
+        /// ```
         pub fn set_identity_type<
             T: std::convert::Into<crate::model::service_perimeter_config::IdentityType>,
         >(
@@ -3333,6 +4360,17 @@ pub mod service_perimeter_config {
         }
 
         /// Sets the value of [operations][crate::model::service_perimeter_config::IngressTo::operations].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_identity_accesscontextmanager_v1::model::service_perimeter_config::IngressTo;
+        /// use google_cloud_identity_accesscontextmanager_v1::model::service_perimeter_config::ApiOperation;
+        /// let x = IngressTo::new()
+        ///     .set_operations([
+        ///         ApiOperation::default()/* use setters */,
+        ///         ApiOperation::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
         pub fn set_operations<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -3344,6 +4382,12 @@ pub mod service_perimeter_config {
         }
 
         /// Sets the value of [resources][crate::model::service_perimeter_config::IngressTo::resources].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_identity_accesscontextmanager_v1::model::service_perimeter_config::IngressTo;
+        /// let x = IngressTo::new().set_resources(["a", "b", "c"]);
+        /// ```
         pub fn set_resources<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -3406,6 +4450,13 @@ pub mod service_perimeter_config {
         }
 
         /// Sets the value of [ingress_from][crate::model::service_perimeter_config::IngressPolicy::ingress_from].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_identity_accesscontextmanager_v1::model::service_perimeter_config::IngressPolicy;
+        /// use google_cloud_identity_accesscontextmanager_v1::model::service_perimeter_config::IngressFrom;
+        /// let x = IngressPolicy::new().set_ingress_from(IngressFrom::default()/* use setters */);
+        /// ```
         pub fn set_ingress_from<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::service_perimeter_config::IngressFrom>,
@@ -3415,6 +4466,14 @@ pub mod service_perimeter_config {
         }
 
         /// Sets or clears the value of [ingress_from][crate::model::service_perimeter_config::IngressPolicy::ingress_from].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_identity_accesscontextmanager_v1::model::service_perimeter_config::IngressPolicy;
+        /// use google_cloud_identity_accesscontextmanager_v1::model::service_perimeter_config::IngressFrom;
+        /// let x = IngressPolicy::new().set_or_clear_ingress_from(Some(IngressFrom::default()/* use setters */));
+        /// let x = IngressPolicy::new().set_or_clear_ingress_from(None::<IngressFrom>);
+        /// ```
         pub fn set_or_clear_ingress_from<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::service_perimeter_config::IngressFrom>,
@@ -3424,6 +4483,13 @@ pub mod service_perimeter_config {
         }
 
         /// Sets the value of [ingress_to][crate::model::service_perimeter_config::IngressPolicy::ingress_to].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_identity_accesscontextmanager_v1::model::service_perimeter_config::IngressPolicy;
+        /// use google_cloud_identity_accesscontextmanager_v1::model::service_perimeter_config::IngressTo;
+        /// let x = IngressPolicy::new().set_ingress_to(IngressTo::default()/* use setters */);
+        /// ```
         pub fn set_ingress_to<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::service_perimeter_config::IngressTo>,
@@ -3433,6 +4499,14 @@ pub mod service_perimeter_config {
         }
 
         /// Sets or clears the value of [ingress_to][crate::model::service_perimeter_config::IngressPolicy::ingress_to].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_identity_accesscontextmanager_v1::model::service_perimeter_config::IngressPolicy;
+        /// use google_cloud_identity_accesscontextmanager_v1::model::service_perimeter_config::IngressTo;
+        /// let x = IngressPolicy::new().set_or_clear_ingress_to(Some(IngressTo::default()/* use setters */));
+        /// let x = IngressPolicy::new().set_or_clear_ingress_to(None::<IngressTo>);
+        /// ```
         pub fn set_or_clear_ingress_to<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::service_perimeter_config::IngressTo>,
@@ -3481,6 +4555,12 @@ pub mod service_perimeter_config {
         }
 
         /// Sets the value of [identities][crate::model::service_perimeter_config::EgressFrom::identities].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_identity_accesscontextmanager_v1::model::service_perimeter_config::EgressFrom;
+        /// let x = EgressFrom::new().set_identities(["a", "b", "c"]);
+        /// ```
         pub fn set_identities<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -3492,6 +4572,15 @@ pub mod service_perimeter_config {
         }
 
         /// Sets the value of [identity_type][crate::model::service_perimeter_config::EgressFrom::identity_type].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_identity_accesscontextmanager_v1::model::service_perimeter_config::EgressFrom;
+        /// use google_cloud_identity_accesscontextmanager_v1::model::service_perimeter_config::IdentityType;
+        /// let x0 = EgressFrom::new().set_identity_type(IdentityType::AnyIdentity);
+        /// let x1 = EgressFrom::new().set_identity_type(IdentityType::AnyUserAccount);
+        /// let x2 = EgressFrom::new().set_identity_type(IdentityType::AnyServiceAccount);
+        /// ```
         pub fn set_identity_type<
             T: std::convert::Into<crate::model::service_perimeter_config::IdentityType>,
         >(
@@ -3562,6 +4651,12 @@ pub mod service_perimeter_config {
         }
 
         /// Sets the value of [resources][crate::model::service_perimeter_config::EgressTo::resources].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_identity_accesscontextmanager_v1::model::service_perimeter_config::EgressTo;
+        /// let x = EgressTo::new().set_resources(["a", "b", "c"]);
+        /// ```
         pub fn set_resources<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -3573,6 +4668,17 @@ pub mod service_perimeter_config {
         }
 
         /// Sets the value of [operations][crate::model::service_perimeter_config::EgressTo::operations].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_identity_accesscontextmanager_v1::model::service_perimeter_config::EgressTo;
+        /// use google_cloud_identity_accesscontextmanager_v1::model::service_perimeter_config::ApiOperation;
+        /// let x = EgressTo::new()
+        ///     .set_operations([
+        ///         ApiOperation::default()/* use setters */,
+        ///         ApiOperation::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
         pub fn set_operations<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -3584,6 +4690,12 @@ pub mod service_perimeter_config {
         }
 
         /// Sets the value of [external_resources][crate::model::service_perimeter_config::EgressTo::external_resources].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_identity_accesscontextmanager_v1::model::service_perimeter_config::EgressTo;
+        /// let x = EgressTo::new().set_external_resources(["a", "b", "c"]);
+        /// ```
         pub fn set_external_resources<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -3653,6 +4765,13 @@ pub mod service_perimeter_config {
         }
 
         /// Sets the value of [egress_from][crate::model::service_perimeter_config::EgressPolicy::egress_from].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_identity_accesscontextmanager_v1::model::service_perimeter_config::EgressPolicy;
+        /// use google_cloud_identity_accesscontextmanager_v1::model::service_perimeter_config::EgressFrom;
+        /// let x = EgressPolicy::new().set_egress_from(EgressFrom::default()/* use setters */);
+        /// ```
         pub fn set_egress_from<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::service_perimeter_config::EgressFrom>,
@@ -3662,6 +4781,14 @@ pub mod service_perimeter_config {
         }
 
         /// Sets or clears the value of [egress_from][crate::model::service_perimeter_config::EgressPolicy::egress_from].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_identity_accesscontextmanager_v1::model::service_perimeter_config::EgressPolicy;
+        /// use google_cloud_identity_accesscontextmanager_v1::model::service_perimeter_config::EgressFrom;
+        /// let x = EgressPolicy::new().set_or_clear_egress_from(Some(EgressFrom::default()/* use setters */));
+        /// let x = EgressPolicy::new().set_or_clear_egress_from(None::<EgressFrom>);
+        /// ```
         pub fn set_or_clear_egress_from<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::service_perimeter_config::EgressFrom>,
@@ -3671,6 +4798,13 @@ pub mod service_perimeter_config {
         }
 
         /// Sets the value of [egress_to][crate::model::service_perimeter_config::EgressPolicy::egress_to].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_identity_accesscontextmanager_v1::model::service_perimeter_config::EgressPolicy;
+        /// use google_cloud_identity_accesscontextmanager_v1::model::service_perimeter_config::EgressTo;
+        /// let x = EgressPolicy::new().set_egress_to(EgressTo::default()/* use setters */);
+        /// ```
         pub fn set_egress_to<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::service_perimeter_config::EgressTo>,
@@ -3680,6 +4814,14 @@ pub mod service_perimeter_config {
         }
 
         /// Sets or clears the value of [egress_to][crate::model::service_perimeter_config::EgressPolicy::egress_to].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_identity_accesscontextmanager_v1::model::service_perimeter_config::EgressPolicy;
+        /// use google_cloud_identity_accesscontextmanager_v1::model::service_perimeter_config::EgressTo;
+        /// let x = EgressPolicy::new().set_or_clear_egress_to(Some(EgressTo::default()/* use setters */));
+        /// let x = EgressPolicy::new().set_or_clear_egress_to(None::<EgressTo>);
+        /// ```
         pub fn set_or_clear_egress_to<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::service_perimeter_config::EgressTo>,

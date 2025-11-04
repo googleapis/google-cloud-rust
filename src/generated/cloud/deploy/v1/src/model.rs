@@ -66,24 +66,51 @@ impl AutomationEvent {
     }
 
     /// Sets the value of [message][crate::model::AutomationEvent::message].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::AutomationEvent;
+    /// let x = AutomationEvent::new().set_message("example");
+    /// ```
     pub fn set_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.message = v.into();
         self
     }
 
     /// Sets the value of [automation][crate::model::AutomationEvent::automation].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::AutomationEvent;
+    /// let x = AutomationEvent::new().set_automation("example");
+    /// ```
     pub fn set_automation<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.automation = v.into();
         self
     }
 
     /// Sets the value of [pipeline_uid][crate::model::AutomationEvent::pipeline_uid].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::AutomationEvent;
+    /// let x = AutomationEvent::new().set_pipeline_uid("example");
+    /// ```
     pub fn set_pipeline_uid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.pipeline_uid = v.into();
         self
     }
 
     /// Sets the value of [r#type][crate::model::AutomationEvent::type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::AutomationEvent;
+    /// use google_cloud_deploy_v1::model::Type;
+    /// let x0 = AutomationEvent::new().set_type(Type::PubsubNotificationFailure);
+    /// let x1 = AutomationEvent::new().set_type(Type::ResourceStateChange);
+    /// let x2 = AutomationEvent::new().set_type(Type::ProcessAborted);
+    /// ```
     pub fn set_type<T: std::convert::Into<crate::model::Type>>(mut self, v: T) -> Self {
         self.r#type = v.into();
         self
@@ -132,36 +159,72 @@ impl AutomationRunEvent {
     }
 
     /// Sets the value of [message][crate::model::AutomationRunEvent::message].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::AutomationRunEvent;
+    /// let x = AutomationRunEvent::new().set_message("example");
+    /// ```
     pub fn set_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.message = v.into();
         self
     }
 
     /// Sets the value of [automation_run][crate::model::AutomationRunEvent::automation_run].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::AutomationRunEvent;
+    /// let x = AutomationRunEvent::new().set_automation_run("example");
+    /// ```
     pub fn set_automation_run<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.automation_run = v.into();
         self
     }
 
     /// Sets the value of [pipeline_uid][crate::model::AutomationRunEvent::pipeline_uid].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::AutomationRunEvent;
+    /// let x = AutomationRunEvent::new().set_pipeline_uid("example");
+    /// ```
     pub fn set_pipeline_uid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.pipeline_uid = v.into();
         self
     }
 
     /// Sets the value of [automation_id][crate::model::AutomationRunEvent::automation_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::AutomationRunEvent;
+    /// let x = AutomationRunEvent::new().set_automation_id("example");
+    /// ```
     pub fn set_automation_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.automation_id = v.into();
         self
     }
 
     /// Sets the value of [rule_id][crate::model::AutomationRunEvent::rule_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::AutomationRunEvent;
+    /// let x = AutomationRunEvent::new().set_rule_id("example");
+    /// ```
     pub fn set_rule_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.rule_id = v.into();
         self
     }
 
     /// Sets the value of [destination_target_id][crate::model::AutomationRunEvent::destination_target_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::AutomationRunEvent;
+    /// let x = AutomationRunEvent::new().set_destination_target_id("example");
+    /// ```
     pub fn set_destination_target_id<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -171,6 +234,15 @@ impl AutomationRunEvent {
     }
 
     /// Sets the value of [r#type][crate::model::AutomationRunEvent::type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::AutomationRunEvent;
+    /// use google_cloud_deploy_v1::model::Type;
+    /// let x0 = AutomationRunEvent::new().set_type(Type::PubsubNotificationFailure);
+    /// let x1 = AutomationRunEvent::new().set_type(Type::ResourceStateChange);
+    /// let x2 = AutomationRunEvent::new().set_type(Type::ProcessAborted);
+    /// ```
     pub fn set_type<T: std::convert::Into<crate::model::Type>>(mut self, v: T) -> Self {
         self.r#type = v.into();
         self
@@ -250,24 +322,51 @@ impl DeliveryPipeline {
     }
 
     /// Sets the value of [name][crate::model::DeliveryPipeline::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::DeliveryPipeline;
+    /// let x = DeliveryPipeline::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [uid][crate::model::DeliveryPipeline::uid].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::DeliveryPipeline;
+    /// let x = DeliveryPipeline::new().set_uid("example");
+    /// ```
     pub fn set_uid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.uid = v.into();
         self
     }
 
     /// Sets the value of [description][crate::model::DeliveryPipeline::description].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::DeliveryPipeline;
+    /// let x = DeliveryPipeline::new().set_description("example");
+    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [annotations][crate::model::DeliveryPipeline::annotations].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::DeliveryPipeline;
+    /// let x = DeliveryPipeline::new().set_annotations([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_annotations<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -280,6 +379,15 @@ impl DeliveryPipeline {
     }
 
     /// Sets the value of [labels][crate::model::DeliveryPipeline::labels].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::DeliveryPipeline;
+    /// let x = DeliveryPipeline::new().set_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -292,6 +400,13 @@ impl DeliveryPipeline {
     }
 
     /// Sets the value of [create_time][crate::model::DeliveryPipeline::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::DeliveryPipeline;
+    /// use wkt::Timestamp;
+    /// let x = DeliveryPipeline::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -301,6 +416,14 @@ impl DeliveryPipeline {
     }
 
     /// Sets or clears the value of [create_time][crate::model::DeliveryPipeline::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::DeliveryPipeline;
+    /// use wkt::Timestamp;
+    /// let x = DeliveryPipeline::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = DeliveryPipeline::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -310,6 +433,13 @@ impl DeliveryPipeline {
     }
 
     /// Sets the value of [update_time][crate::model::DeliveryPipeline::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::DeliveryPipeline;
+    /// use wkt::Timestamp;
+    /// let x = DeliveryPipeline::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -319,6 +449,14 @@ impl DeliveryPipeline {
     }
 
     /// Sets or clears the value of [update_time][crate::model::DeliveryPipeline::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::DeliveryPipeline;
+    /// use wkt::Timestamp;
+    /// let x = DeliveryPipeline::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = DeliveryPipeline::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -328,6 +466,13 @@ impl DeliveryPipeline {
     }
 
     /// Sets the value of [condition][crate::model::DeliveryPipeline::condition].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::DeliveryPipeline;
+    /// use google_cloud_deploy_v1::model::PipelineCondition;
+    /// let x = DeliveryPipeline::new().set_condition(PipelineCondition::default()/* use setters */);
+    /// ```
     pub fn set_condition<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::PipelineCondition>,
@@ -337,6 +482,14 @@ impl DeliveryPipeline {
     }
 
     /// Sets or clears the value of [condition][crate::model::DeliveryPipeline::condition].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::DeliveryPipeline;
+    /// use google_cloud_deploy_v1::model::PipelineCondition;
+    /// let x = DeliveryPipeline::new().set_or_clear_condition(Some(PipelineCondition::default()/* use setters */));
+    /// let x = DeliveryPipeline::new().set_or_clear_condition(None::<PipelineCondition>);
+    /// ```
     pub fn set_or_clear_condition<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::PipelineCondition>,
@@ -346,12 +499,24 @@ impl DeliveryPipeline {
     }
 
     /// Sets the value of [etag][crate::model::DeliveryPipeline::etag].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::DeliveryPipeline;
+    /// let x = DeliveryPipeline::new().set_etag("example");
+    /// ```
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
     }
 
     /// Sets the value of [suspended][crate::model::DeliveryPipeline::suspended].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::DeliveryPipeline;
+    /// let x = DeliveryPipeline::new().set_suspended(true);
+    /// ```
     pub fn set_suspended<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.suspended = v.into();
         self
@@ -361,6 +526,14 @@ impl DeliveryPipeline {
     ///
     /// Note that all the setters affecting `pipeline` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::DeliveryPipeline;
+    /// use google_cloud_deploy_v1::model::delivery_pipeline;
+    /// use google_cloud_deploy_v1::model::SerialPipeline;
+    /// let x = DeliveryPipeline::new().set_pipeline(Some(delivery_pipeline::Pipeline::SerialPipeline(SerialPipeline::default().into())));
+    /// ```
     pub fn set_pipeline<
         T: std::convert::Into<std::option::Option<crate::model::delivery_pipeline::Pipeline>>,
     >(
@@ -391,6 +564,14 @@ impl DeliveryPipeline {
     ///
     /// Note that all the setters affecting `pipeline` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::DeliveryPipeline;
+    /// use google_cloud_deploy_v1::model::SerialPipeline;
+    /// let x = DeliveryPipeline::new().set_serial_pipeline(SerialPipeline::default()/* use setters */);
+    /// assert!(x.serial_pipeline().is_some());
+    /// ```
     pub fn set_serial_pipeline<
         T: std::convert::Into<std::boxed::Box<crate::model::SerialPipeline>>,
     >(
@@ -442,6 +623,17 @@ impl SerialPipeline {
     }
 
     /// Sets the value of [stages][crate::model::SerialPipeline::stages].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::SerialPipeline;
+    /// use google_cloud_deploy_v1::model::Stage;
+    /// let x = SerialPipeline::new()
+    ///     .set_stages([
+    ///         Stage::default()/* use setters */,
+    ///         Stage::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_stages<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -490,12 +682,24 @@ impl Stage {
     }
 
     /// Sets the value of [target_id][crate::model::Stage::target_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::Stage;
+    /// let x = Stage::new().set_target_id("example");
+    /// ```
     pub fn set_target_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.target_id = v.into();
         self
     }
 
     /// Sets the value of [profiles][crate::model::Stage::profiles].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::Stage;
+    /// let x = Stage::new().set_profiles(["a", "b", "c"]);
+    /// ```
     pub fn set_profiles<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -507,6 +711,13 @@ impl Stage {
     }
 
     /// Sets the value of [strategy][crate::model::Stage::strategy].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::Stage;
+    /// use google_cloud_deploy_v1::model::Strategy;
+    /// let x = Stage::new().set_strategy(Strategy::default()/* use setters */);
+    /// ```
     pub fn set_strategy<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Strategy>,
@@ -516,6 +727,14 @@ impl Stage {
     }
 
     /// Sets or clears the value of [strategy][crate::model::Stage::strategy].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::Stage;
+    /// use google_cloud_deploy_v1::model::Strategy;
+    /// let x = Stage::new().set_or_clear_strategy(Some(Strategy::default()/* use setters */));
+    /// let x = Stage::new().set_or_clear_strategy(None::<Strategy>);
+    /// ```
     pub fn set_or_clear_strategy<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Strategy>,
@@ -525,6 +744,17 @@ impl Stage {
     }
 
     /// Sets the value of [deploy_parameters][crate::model::Stage::deploy_parameters].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::Stage;
+    /// use google_cloud_deploy_v1::model::DeployParameters;
+    /// let x = Stage::new()
+    ///     .set_deploy_parameters([
+    ///         DeployParameters::default()/* use setters */,
+    ///         DeployParameters::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_deploy_parameters<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -563,6 +793,15 @@ impl DeployParameters {
     }
 
     /// Sets the value of [values][crate::model::DeployParameters::values].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::DeployParameters;
+    /// let x = DeployParameters::new().set_values([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_values<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -575,6 +814,15 @@ impl DeployParameters {
     }
 
     /// Sets the value of [match_target_labels][crate::model::DeployParameters::match_target_labels].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::DeployParameters;
+    /// let x = DeployParameters::new().set_match_target_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_match_target_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -612,6 +860,14 @@ impl Strategy {
     ///
     /// Note that all the setters affecting `deployment_strategy` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::Strategy;
+    /// use google_cloud_deploy_v1::model::strategy;
+    /// use google_cloud_deploy_v1::model::Standard;
+    /// let x = Strategy::new().set_deployment_strategy(Some(strategy::DeploymentStrategy::Standard(Standard::default().into())));
+    /// ```
     pub fn set_deployment_strategy<
         T: std::convert::Into<std::option::Option<crate::model::strategy::DeploymentStrategy>>,
     >(
@@ -638,6 +894,15 @@ impl Strategy {
     ///
     /// Note that all the setters affecting `deployment_strategy` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::Strategy;
+    /// use google_cloud_deploy_v1::model::Standard;
+    /// let x = Strategy::new().set_standard(Standard::default()/* use setters */);
+    /// assert!(x.standard().is_some());
+    /// assert!(x.canary().is_none());
+    /// ```
     pub fn set_standard<T: std::convert::Into<std::boxed::Box<crate::model::Standard>>>(
         mut self,
         v: T,
@@ -664,6 +929,15 @@ impl Strategy {
     ///
     /// Note that all the setters affecting `deployment_strategy` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::Strategy;
+    /// use google_cloud_deploy_v1::model::Canary;
+    /// let x = Strategy::new().set_canary(Canary::default()/* use setters */);
+    /// assert!(x.canary().is_some());
+    /// assert!(x.standard().is_none());
+    /// ```
     pub fn set_canary<T: std::convert::Into<std::boxed::Box<crate::model::Canary>>>(
         mut self,
         v: T,
@@ -715,6 +989,12 @@ impl Predeploy {
     }
 
     /// Sets the value of [actions][crate::model::Predeploy::actions].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::Predeploy;
+    /// let x = Predeploy::new().set_actions(["a", "b", "c"]);
+    /// ```
     pub fn set_actions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -749,6 +1029,12 @@ impl Postdeploy {
     }
 
     /// Sets the value of [actions][crate::model::Postdeploy::actions].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::Postdeploy;
+    /// let x = Postdeploy::new().set_actions(["a", "b", "c"]);
+    /// ```
     pub fn set_actions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -790,12 +1076,25 @@ impl Standard {
     }
 
     /// Sets the value of [verify][crate::model::Standard::verify].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::Standard;
+    /// let x = Standard::new().set_verify(true);
+    /// ```
     pub fn set_verify<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.verify = v.into();
         self
     }
 
     /// Sets the value of [predeploy][crate::model::Standard::predeploy].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::Standard;
+    /// use google_cloud_deploy_v1::model::Predeploy;
+    /// let x = Standard::new().set_predeploy(Predeploy::default()/* use setters */);
+    /// ```
     pub fn set_predeploy<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Predeploy>,
@@ -805,6 +1104,14 @@ impl Standard {
     }
 
     /// Sets or clears the value of [predeploy][crate::model::Standard::predeploy].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::Standard;
+    /// use google_cloud_deploy_v1::model::Predeploy;
+    /// let x = Standard::new().set_or_clear_predeploy(Some(Predeploy::default()/* use setters */));
+    /// let x = Standard::new().set_or_clear_predeploy(None::<Predeploy>);
+    /// ```
     pub fn set_or_clear_predeploy<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Predeploy>,
@@ -814,6 +1121,13 @@ impl Standard {
     }
 
     /// Sets the value of [postdeploy][crate::model::Standard::postdeploy].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::Standard;
+    /// use google_cloud_deploy_v1::model::Postdeploy;
+    /// let x = Standard::new().set_postdeploy(Postdeploy::default()/* use setters */);
+    /// ```
     pub fn set_postdeploy<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Postdeploy>,
@@ -823,6 +1137,14 @@ impl Standard {
     }
 
     /// Sets or clears the value of [postdeploy][crate::model::Standard::postdeploy].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::Standard;
+    /// use google_cloud_deploy_v1::model::Postdeploy;
+    /// let x = Standard::new().set_or_clear_postdeploy(Some(Postdeploy::default()/* use setters */));
+    /// let x = Standard::new().set_or_clear_postdeploy(None::<Postdeploy>);
+    /// ```
     pub fn set_or_clear_postdeploy<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Postdeploy>,
@@ -859,6 +1181,13 @@ impl Canary {
     }
 
     /// Sets the value of [runtime_config][crate::model::Canary::runtime_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::Canary;
+    /// use google_cloud_deploy_v1::model::RuntimeConfig;
+    /// let x = Canary::new().set_runtime_config(RuntimeConfig::default()/* use setters */);
+    /// ```
     pub fn set_runtime_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::RuntimeConfig>,
@@ -868,6 +1197,14 @@ impl Canary {
     }
 
     /// Sets or clears the value of [runtime_config][crate::model::Canary::runtime_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::Canary;
+    /// use google_cloud_deploy_v1::model::RuntimeConfig;
+    /// let x = Canary::new().set_or_clear_runtime_config(Some(RuntimeConfig::default()/* use setters */));
+    /// let x = Canary::new().set_or_clear_runtime_config(None::<RuntimeConfig>);
+    /// ```
     pub fn set_or_clear_runtime_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::RuntimeConfig>,
@@ -880,6 +1217,14 @@ impl Canary {
     ///
     /// Note that all the setters affecting `mode` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::Canary;
+    /// use google_cloud_deploy_v1::model::canary;
+    /// use google_cloud_deploy_v1::model::CanaryDeployment;
+    /// let x = Canary::new().set_mode(Some(canary::Mode::CanaryDeployment(CanaryDeployment::default().into())));
+    /// ```
     pub fn set_mode<T: std::convert::Into<std::option::Option<crate::model::canary::Mode>>>(
         mut self,
         v: T,
@@ -906,6 +1251,15 @@ impl Canary {
     ///
     /// Note that all the setters affecting `mode` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::Canary;
+    /// use google_cloud_deploy_v1::model::CanaryDeployment;
+    /// let x = Canary::new().set_canary_deployment(CanaryDeployment::default()/* use setters */);
+    /// assert!(x.canary_deployment().is_some());
+    /// assert!(x.custom_canary_deployment().is_none());
+    /// ```
     pub fn set_canary_deployment<
         T: std::convert::Into<std::boxed::Box<crate::model::CanaryDeployment>>,
     >(
@@ -935,6 +1289,15 @@ impl Canary {
     ///
     /// Note that all the setters affecting `mode` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::Canary;
+    /// use google_cloud_deploy_v1::model::CustomCanaryDeployment;
+    /// let x = Canary::new().set_custom_canary_deployment(CustomCanaryDeployment::default()/* use setters */);
+    /// assert!(x.custom_canary_deployment().is_some());
+    /// assert!(x.canary_deployment().is_none());
+    /// ```
     pub fn set_custom_canary_deployment<
         T: std::convert::Into<std::boxed::Box<crate::model::CustomCanaryDeployment>>,
     >(
@@ -1003,6 +1366,12 @@ impl CanaryDeployment {
     }
 
     /// Sets the value of [percentages][crate::model::CanaryDeployment::percentages].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::CanaryDeployment;
+    /// let x = CanaryDeployment::new().set_percentages([1, 2, 3]);
+    /// ```
     pub fn set_percentages<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1014,12 +1383,25 @@ impl CanaryDeployment {
     }
 
     /// Sets the value of [verify][crate::model::CanaryDeployment::verify].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::CanaryDeployment;
+    /// let x = CanaryDeployment::new().set_verify(true);
+    /// ```
     pub fn set_verify<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.verify = v.into();
         self
     }
 
     /// Sets the value of [predeploy][crate::model::CanaryDeployment::predeploy].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::CanaryDeployment;
+    /// use google_cloud_deploy_v1::model::Predeploy;
+    /// let x = CanaryDeployment::new().set_predeploy(Predeploy::default()/* use setters */);
+    /// ```
     pub fn set_predeploy<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Predeploy>,
@@ -1029,6 +1411,14 @@ impl CanaryDeployment {
     }
 
     /// Sets or clears the value of [predeploy][crate::model::CanaryDeployment::predeploy].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::CanaryDeployment;
+    /// use google_cloud_deploy_v1::model::Predeploy;
+    /// let x = CanaryDeployment::new().set_or_clear_predeploy(Some(Predeploy::default()/* use setters */));
+    /// let x = CanaryDeployment::new().set_or_clear_predeploy(None::<Predeploy>);
+    /// ```
     pub fn set_or_clear_predeploy<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Predeploy>,
@@ -1038,6 +1428,13 @@ impl CanaryDeployment {
     }
 
     /// Sets the value of [postdeploy][crate::model::CanaryDeployment::postdeploy].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::CanaryDeployment;
+    /// use google_cloud_deploy_v1::model::Postdeploy;
+    /// let x = CanaryDeployment::new().set_postdeploy(Postdeploy::default()/* use setters */);
+    /// ```
     pub fn set_postdeploy<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Postdeploy>,
@@ -1047,6 +1444,14 @@ impl CanaryDeployment {
     }
 
     /// Sets or clears the value of [postdeploy][crate::model::CanaryDeployment::postdeploy].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::CanaryDeployment;
+    /// use google_cloud_deploy_v1::model::Postdeploy;
+    /// let x = CanaryDeployment::new().set_or_clear_postdeploy(Some(Postdeploy::default()/* use setters */));
+    /// let x = CanaryDeployment::new().set_or_clear_postdeploy(None::<Postdeploy>);
+    /// ```
     pub fn set_or_clear_postdeploy<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Postdeploy>,
@@ -1080,6 +1485,17 @@ impl CustomCanaryDeployment {
     }
 
     /// Sets the value of [phase_configs][crate::model::CustomCanaryDeployment::phase_configs].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::CustomCanaryDeployment;
+    /// use google_cloud_deploy_v1::model::custom_canary_deployment::PhaseConfig;
+    /// let x = CustomCanaryDeployment::new()
+    ///     .set_phase_configs([
+    ///         PhaseConfig::default()/* use setters */,
+    ///         PhaseConfig::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_phase_configs<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1143,18 +1559,36 @@ pub mod custom_canary_deployment {
         }
 
         /// Sets the value of [phase_id][crate::model::custom_canary_deployment::PhaseConfig::phase_id].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_deploy_v1::model::custom_canary_deployment::PhaseConfig;
+        /// let x = PhaseConfig::new().set_phase_id("example");
+        /// ```
         pub fn set_phase_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.phase_id = v.into();
             self
         }
 
         /// Sets the value of [percentage][crate::model::custom_canary_deployment::PhaseConfig::percentage].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_deploy_v1::model::custom_canary_deployment::PhaseConfig;
+        /// let x = PhaseConfig::new().set_percentage(42);
+        /// ```
         pub fn set_percentage<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.percentage = v.into();
             self
         }
 
         /// Sets the value of [profiles][crate::model::custom_canary_deployment::PhaseConfig::profiles].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_deploy_v1::model::custom_canary_deployment::PhaseConfig;
+        /// let x = PhaseConfig::new().set_profiles(["a", "b", "c"]);
+        /// ```
         pub fn set_profiles<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -1166,12 +1600,25 @@ pub mod custom_canary_deployment {
         }
 
         /// Sets the value of [verify][crate::model::custom_canary_deployment::PhaseConfig::verify].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_deploy_v1::model::custom_canary_deployment::PhaseConfig;
+        /// let x = PhaseConfig::new().set_verify(true);
+        /// ```
         pub fn set_verify<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.verify = v.into();
             self
         }
 
         /// Sets the value of [predeploy][crate::model::custom_canary_deployment::PhaseConfig::predeploy].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_deploy_v1::model::custom_canary_deployment::PhaseConfig;
+        /// use google_cloud_deploy_v1::model::Predeploy;
+        /// let x = PhaseConfig::new().set_predeploy(Predeploy::default()/* use setters */);
+        /// ```
         pub fn set_predeploy<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::Predeploy>,
@@ -1181,6 +1628,14 @@ pub mod custom_canary_deployment {
         }
 
         /// Sets or clears the value of [predeploy][crate::model::custom_canary_deployment::PhaseConfig::predeploy].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_deploy_v1::model::custom_canary_deployment::PhaseConfig;
+        /// use google_cloud_deploy_v1::model::Predeploy;
+        /// let x = PhaseConfig::new().set_or_clear_predeploy(Some(Predeploy::default()/* use setters */));
+        /// let x = PhaseConfig::new().set_or_clear_predeploy(None::<Predeploy>);
+        /// ```
         pub fn set_or_clear_predeploy<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Predeploy>,
@@ -1190,6 +1645,13 @@ pub mod custom_canary_deployment {
         }
 
         /// Sets the value of [postdeploy][crate::model::custom_canary_deployment::PhaseConfig::postdeploy].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_deploy_v1::model::custom_canary_deployment::PhaseConfig;
+        /// use google_cloud_deploy_v1::model::Postdeploy;
+        /// let x = PhaseConfig::new().set_postdeploy(Postdeploy::default()/* use setters */);
+        /// ```
         pub fn set_postdeploy<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::Postdeploy>,
@@ -1199,6 +1661,14 @@ pub mod custom_canary_deployment {
         }
 
         /// Sets or clears the value of [postdeploy][crate::model::custom_canary_deployment::PhaseConfig::postdeploy].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_deploy_v1::model::custom_canary_deployment::PhaseConfig;
+        /// use google_cloud_deploy_v1::model::Postdeploy;
+        /// let x = PhaseConfig::new().set_or_clear_postdeploy(Some(Postdeploy::default()/* use setters */));
+        /// let x = PhaseConfig::new().set_or_clear_postdeploy(None::<Postdeploy>);
+        /// ```
         pub fn set_or_clear_postdeploy<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Postdeploy>,
@@ -1234,6 +1704,14 @@ impl KubernetesConfig {
     ///
     /// Note that all the setters affecting `service_definition` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::KubernetesConfig;
+    /// use google_cloud_deploy_v1::model::kubernetes_config;
+    /// use google_cloud_deploy_v1::model::kubernetes_config::GatewayServiceMesh;
+    /// let x = KubernetesConfig::new().set_service_definition(Some(kubernetes_config::ServiceDefinition::GatewayServiceMesh(GatewayServiceMesh::default().into())));
+    /// ```
     pub fn set_service_definition<
         T: std::convert::Into<std::option::Option<crate::model::kubernetes_config::ServiceDefinition>>,
     >(
@@ -1265,6 +1743,15 @@ impl KubernetesConfig {
     ///
     /// Note that all the setters affecting `service_definition` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::KubernetesConfig;
+    /// use google_cloud_deploy_v1::model::kubernetes_config::GatewayServiceMesh;
+    /// let x = KubernetesConfig::new().set_gateway_service_mesh(GatewayServiceMesh::default()/* use setters */);
+    /// assert!(x.gateway_service_mesh().is_some());
+    /// assert!(x.service_networking().is_none());
+    /// ```
     pub fn set_gateway_service_mesh<
         T: std::convert::Into<std::boxed::Box<crate::model::kubernetes_config::GatewayServiceMesh>>,
     >(
@@ -1298,6 +1785,15 @@ impl KubernetesConfig {
     ///
     /// Note that all the setters affecting `service_definition` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::KubernetesConfig;
+    /// use google_cloud_deploy_v1::model::kubernetes_config::ServiceNetworking;
+    /// let x = KubernetesConfig::new().set_service_networking(ServiceNetworking::default()/* use setters */);
+    /// assert!(x.service_networking().is_some());
+    /// assert!(x.gateway_service_mesh().is_none());
+    /// ```
     pub fn set_service_networking<
         T: std::convert::Into<std::boxed::Box<crate::model::kubernetes_config::ServiceNetworking>>,
     >(
@@ -1369,24 +1865,49 @@ pub mod kubernetes_config {
         }
 
         /// Sets the value of [http_route][crate::model::kubernetes_config::GatewayServiceMesh::http_route].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_deploy_v1::model::kubernetes_config::GatewayServiceMesh;
+        /// let x = GatewayServiceMesh::new().set_http_route("example");
+        /// ```
         pub fn set_http_route<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.http_route = v.into();
             self
         }
 
         /// Sets the value of [service][crate::model::kubernetes_config::GatewayServiceMesh::service].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_deploy_v1::model::kubernetes_config::GatewayServiceMesh;
+        /// let x = GatewayServiceMesh::new().set_service("example");
+        /// ```
         pub fn set_service<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.service = v.into();
             self
         }
 
         /// Sets the value of [deployment][crate::model::kubernetes_config::GatewayServiceMesh::deployment].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_deploy_v1::model::kubernetes_config::GatewayServiceMesh;
+        /// let x = GatewayServiceMesh::new().set_deployment("example");
+        /// ```
         pub fn set_deployment<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.deployment = v.into();
             self
         }
 
         /// Sets the value of [route_update_wait_time][crate::model::kubernetes_config::GatewayServiceMesh::route_update_wait_time].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_deploy_v1::model::kubernetes_config::GatewayServiceMesh;
+        /// use wkt::Duration;
+        /// let x = GatewayServiceMesh::new().set_route_update_wait_time(Duration::default()/* use setters */);
+        /// ```
         pub fn set_route_update_wait_time<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
@@ -1396,6 +1917,14 @@ pub mod kubernetes_config {
         }
 
         /// Sets or clears the value of [route_update_wait_time][crate::model::kubernetes_config::GatewayServiceMesh::route_update_wait_time].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_deploy_v1::model::kubernetes_config::GatewayServiceMesh;
+        /// use wkt::Duration;
+        /// let x = GatewayServiceMesh::new().set_or_clear_route_update_wait_time(Some(Duration::default()/* use setters */));
+        /// let x = GatewayServiceMesh::new().set_or_clear_route_update_wait_time(None::<Duration>);
+        /// ```
         pub fn set_or_clear_route_update_wait_time<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
@@ -1405,6 +1934,13 @@ pub mod kubernetes_config {
         }
 
         /// Sets the value of [stable_cutback_duration][crate::model::kubernetes_config::GatewayServiceMesh::stable_cutback_duration].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_deploy_v1::model::kubernetes_config::GatewayServiceMesh;
+        /// use wkt::Duration;
+        /// let x = GatewayServiceMesh::new().set_stable_cutback_duration(Duration::default()/* use setters */);
+        /// ```
         pub fn set_stable_cutback_duration<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
@@ -1414,6 +1950,14 @@ pub mod kubernetes_config {
         }
 
         /// Sets or clears the value of [stable_cutback_duration][crate::model::kubernetes_config::GatewayServiceMesh::stable_cutback_duration].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_deploy_v1::model::kubernetes_config::GatewayServiceMesh;
+        /// use wkt::Duration;
+        /// let x = GatewayServiceMesh::new().set_or_clear_stable_cutback_duration(Some(Duration::default()/* use setters */));
+        /// let x = GatewayServiceMesh::new().set_or_clear_stable_cutback_duration(None::<Duration>);
+        /// ```
         pub fn set_or_clear_stable_cutback_duration<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
@@ -1423,6 +1967,12 @@ pub mod kubernetes_config {
         }
 
         /// Sets the value of [pod_selector_label][crate::model::kubernetes_config::GatewayServiceMesh::pod_selector_label].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_deploy_v1::model::kubernetes_config::GatewayServiceMesh;
+        /// let x = GatewayServiceMesh::new().set_pod_selector_label("example");
+        /// ```
         pub fn set_pod_selector_label<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -1432,6 +1982,13 @@ pub mod kubernetes_config {
         }
 
         /// Sets the value of [route_destinations][crate::model::kubernetes_config::GatewayServiceMesh::route_destinations].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_deploy_v1::model::kubernetes_config::GatewayServiceMesh;
+        /// use google_cloud_deploy_v1::model::kubernetes_config::gateway_service_mesh::RouteDestinations;
+        /// let x = GatewayServiceMesh::new().set_route_destinations(RouteDestinations::default()/* use setters */);
+        /// ```
         pub fn set_route_destinations<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<
@@ -1443,6 +2000,14 @@ pub mod kubernetes_config {
         }
 
         /// Sets or clears the value of [route_destinations][crate::model::kubernetes_config::GatewayServiceMesh::route_destinations].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_deploy_v1::model::kubernetes_config::GatewayServiceMesh;
+        /// use google_cloud_deploy_v1::model::kubernetes_config::gateway_service_mesh::RouteDestinations;
+        /// let x = GatewayServiceMesh::new().set_or_clear_route_destinations(Some(RouteDestinations::default()/* use setters */));
+        /// let x = GatewayServiceMesh::new().set_or_clear_route_destinations(None::<RouteDestinations>);
+        /// ```
         pub fn set_or_clear_route_destinations<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<
@@ -1491,6 +2056,12 @@ pub mod kubernetes_config {
             }
 
             /// Sets the value of [destination_ids][crate::model::kubernetes_config::gateway_service_mesh::RouteDestinations::destination_ids].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_deploy_v1::model::kubernetes_config::gateway_service_mesh::RouteDestinations;
+            /// let x = RouteDestinations::new().set_destination_ids(["a", "b", "c"]);
+            /// ```
             pub fn set_destination_ids<T, V>(mut self, v: T) -> Self
             where
                 T: std::iter::IntoIterator<Item = V>,
@@ -1502,6 +2073,12 @@ pub mod kubernetes_config {
             }
 
             /// Sets the value of [propagate_service][crate::model::kubernetes_config::gateway_service_mesh::RouteDestinations::propagate_service].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_deploy_v1::model::kubernetes_config::gateway_service_mesh::RouteDestinations;
+            /// let x = RouteDestinations::new().set_propagate_service(true);
+            /// ```
             pub fn set_propagate_service<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
                 self.propagate_service = v.into();
                 self
@@ -1545,18 +2122,36 @@ pub mod kubernetes_config {
         }
 
         /// Sets the value of [service][crate::model::kubernetes_config::ServiceNetworking::service].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_deploy_v1::model::kubernetes_config::ServiceNetworking;
+        /// let x = ServiceNetworking::new().set_service("example");
+        /// ```
         pub fn set_service<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.service = v.into();
             self
         }
 
         /// Sets the value of [deployment][crate::model::kubernetes_config::ServiceNetworking::deployment].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_deploy_v1::model::kubernetes_config::ServiceNetworking;
+        /// let x = ServiceNetworking::new().set_deployment("example");
+        /// ```
         pub fn set_deployment<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.deployment = v.into();
             self
         }
 
         /// Sets the value of [disable_pod_overprovisioning][crate::model::kubernetes_config::ServiceNetworking::disable_pod_overprovisioning].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_deploy_v1::model::kubernetes_config::ServiceNetworking;
+        /// let x = ServiceNetworking::new().set_disable_pod_overprovisioning(true);
+        /// ```
         pub fn set_disable_pod_overprovisioning<T: std::convert::Into<bool>>(
             mut self,
             v: T,
@@ -1566,6 +2161,12 @@ pub mod kubernetes_config {
         }
 
         /// Sets the value of [pod_selector_label][crate::model::kubernetes_config::ServiceNetworking::pod_selector_label].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_deploy_v1::model::kubernetes_config::ServiceNetworking;
+        /// let x = ServiceNetworking::new().set_pod_selector_label("example");
+        /// ```
         pub fn set_pod_selector_label<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -1623,12 +2224,24 @@ impl CloudRunConfig {
     }
 
     /// Sets the value of [automatic_traffic_control][crate::model::CloudRunConfig::automatic_traffic_control].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::CloudRunConfig;
+    /// let x = CloudRunConfig::new().set_automatic_traffic_control(true);
+    /// ```
     pub fn set_automatic_traffic_control<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.automatic_traffic_control = v.into();
         self
     }
 
     /// Sets the value of [canary_revision_tags][crate::model::CloudRunConfig::canary_revision_tags].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::CloudRunConfig;
+    /// let x = CloudRunConfig::new().set_canary_revision_tags(["a", "b", "c"]);
+    /// ```
     pub fn set_canary_revision_tags<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1640,6 +2253,12 @@ impl CloudRunConfig {
     }
 
     /// Sets the value of [prior_revision_tags][crate::model::CloudRunConfig::prior_revision_tags].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::CloudRunConfig;
+    /// let x = CloudRunConfig::new().set_prior_revision_tags(["a", "b", "c"]);
+    /// ```
     pub fn set_prior_revision_tags<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1651,6 +2270,12 @@ impl CloudRunConfig {
     }
 
     /// Sets the value of [stable_revision_tags][crate::model::CloudRunConfig::stable_revision_tags].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::CloudRunConfig;
+    /// let x = CloudRunConfig::new().set_stable_revision_tags(["a", "b", "c"]);
+    /// ```
     pub fn set_stable_revision_tags<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1688,6 +2313,14 @@ impl RuntimeConfig {
     ///
     /// Note that all the setters affecting `runtime_config` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::RuntimeConfig;
+    /// use google_cloud_deploy_v1::model::runtime_config;
+    /// use google_cloud_deploy_v1::model::KubernetesConfig;
+    /// let x = RuntimeConfig::new().set_runtime_config(Some(runtime_config::RuntimeConfig::Kubernetes(KubernetesConfig::default().into())));
+    /// ```
     pub fn set_runtime_config<
         T: std::convert::Into<std::option::Option<crate::model::runtime_config::RuntimeConfig>>,
     >(
@@ -1718,6 +2351,15 @@ impl RuntimeConfig {
     ///
     /// Note that all the setters affecting `runtime_config` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::RuntimeConfig;
+    /// use google_cloud_deploy_v1::model::KubernetesConfig;
+    /// let x = RuntimeConfig::new().set_kubernetes(KubernetesConfig::default()/* use setters */);
+    /// assert!(x.kubernetes().is_some());
+    /// assert!(x.cloud_run().is_none());
+    /// ```
     pub fn set_kubernetes<
         T: std::convert::Into<std::boxed::Box<crate::model::KubernetesConfig>>,
     >(
@@ -1748,6 +2390,15 @@ impl RuntimeConfig {
     ///
     /// Note that all the setters affecting `runtime_config` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::RuntimeConfig;
+    /// use google_cloud_deploy_v1::model::CloudRunConfig;
+    /// let x = RuntimeConfig::new().set_cloud_run(CloudRunConfig::default()/* use setters */);
+    /// assert!(x.cloud_run().is_some());
+    /// assert!(x.kubernetes().is_none());
+    /// ```
     pub fn set_cloud_run<T: std::convert::Into<std::boxed::Box<crate::model::CloudRunConfig>>>(
         mut self,
         v: T,
@@ -1804,12 +2455,25 @@ impl PipelineReadyCondition {
     }
 
     /// Sets the value of [status][crate::model::PipelineReadyCondition::status].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::PipelineReadyCondition;
+    /// let x = PipelineReadyCondition::new().set_status(true);
+    /// ```
     pub fn set_status<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.status = v.into();
         self
     }
 
     /// Sets the value of [update_time][crate::model::PipelineReadyCondition::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::PipelineReadyCondition;
+    /// use wkt::Timestamp;
+    /// let x = PipelineReadyCondition::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1819,6 +2483,14 @@ impl PipelineReadyCondition {
     }
 
     /// Sets or clears the value of [update_time][crate::model::PipelineReadyCondition::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::PipelineReadyCondition;
+    /// use wkt::Timestamp;
+    /// let x = PipelineReadyCondition::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = PipelineReadyCondition::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1858,12 +2530,24 @@ impl TargetsPresentCondition {
     }
 
     /// Sets the value of [status][crate::model::TargetsPresentCondition::status].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::TargetsPresentCondition;
+    /// let x = TargetsPresentCondition::new().set_status(true);
+    /// ```
     pub fn set_status<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.status = v.into();
         self
     }
 
     /// Sets the value of [missing_targets][crate::model::TargetsPresentCondition::missing_targets].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::TargetsPresentCondition;
+    /// let x = TargetsPresentCondition::new().set_missing_targets(["a", "b", "c"]);
+    /// ```
     pub fn set_missing_targets<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1875,6 +2559,13 @@ impl TargetsPresentCondition {
     }
 
     /// Sets the value of [update_time][crate::model::TargetsPresentCondition::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::TargetsPresentCondition;
+    /// use wkt::Timestamp;
+    /// let x = TargetsPresentCondition::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1884,6 +2575,14 @@ impl TargetsPresentCondition {
     }
 
     /// Sets or clears the value of [update_time][crate::model::TargetsPresentCondition::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::TargetsPresentCondition;
+    /// use wkt::Timestamp;
+    /// let x = TargetsPresentCondition::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = TargetsPresentCondition::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1921,12 +2620,24 @@ impl TargetsTypeCondition {
     }
 
     /// Sets the value of [status][crate::model::TargetsTypeCondition::status].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::TargetsTypeCondition;
+    /// let x = TargetsTypeCondition::new().set_status(true);
+    /// ```
     pub fn set_status<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.status = v.into();
         self
     }
 
     /// Sets the value of [error_details][crate::model::TargetsTypeCondition::error_details].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::TargetsTypeCondition;
+    /// let x = TargetsTypeCondition::new().set_error_details("example");
+    /// ```
     pub fn set_error_details<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.error_details = v.into();
         self
@@ -1962,6 +2673,13 @@ impl PipelineCondition {
     }
 
     /// Sets the value of [pipeline_ready_condition][crate::model::PipelineCondition::pipeline_ready_condition].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::PipelineCondition;
+    /// use google_cloud_deploy_v1::model::PipelineReadyCondition;
+    /// let x = PipelineCondition::new().set_pipeline_ready_condition(PipelineReadyCondition::default()/* use setters */);
+    /// ```
     pub fn set_pipeline_ready_condition<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::PipelineReadyCondition>,
@@ -1971,6 +2689,14 @@ impl PipelineCondition {
     }
 
     /// Sets or clears the value of [pipeline_ready_condition][crate::model::PipelineCondition::pipeline_ready_condition].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::PipelineCondition;
+    /// use google_cloud_deploy_v1::model::PipelineReadyCondition;
+    /// let x = PipelineCondition::new().set_or_clear_pipeline_ready_condition(Some(PipelineReadyCondition::default()/* use setters */));
+    /// let x = PipelineCondition::new().set_or_clear_pipeline_ready_condition(None::<PipelineReadyCondition>);
+    /// ```
     pub fn set_or_clear_pipeline_ready_condition<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::PipelineReadyCondition>,
@@ -1980,6 +2706,13 @@ impl PipelineCondition {
     }
 
     /// Sets the value of [targets_present_condition][crate::model::PipelineCondition::targets_present_condition].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::PipelineCondition;
+    /// use google_cloud_deploy_v1::model::TargetsPresentCondition;
+    /// let x = PipelineCondition::new().set_targets_present_condition(TargetsPresentCondition::default()/* use setters */);
+    /// ```
     pub fn set_targets_present_condition<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::TargetsPresentCondition>,
@@ -1989,6 +2722,14 @@ impl PipelineCondition {
     }
 
     /// Sets or clears the value of [targets_present_condition][crate::model::PipelineCondition::targets_present_condition].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::PipelineCondition;
+    /// use google_cloud_deploy_v1::model::TargetsPresentCondition;
+    /// let x = PipelineCondition::new().set_or_clear_targets_present_condition(Some(TargetsPresentCondition::default()/* use setters */));
+    /// let x = PipelineCondition::new().set_or_clear_targets_present_condition(None::<TargetsPresentCondition>);
+    /// ```
     pub fn set_or_clear_targets_present_condition<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::TargetsPresentCondition>,
@@ -1998,6 +2739,13 @@ impl PipelineCondition {
     }
 
     /// Sets the value of [targets_type_condition][crate::model::PipelineCondition::targets_type_condition].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::PipelineCondition;
+    /// use google_cloud_deploy_v1::model::TargetsTypeCondition;
+    /// let x = PipelineCondition::new().set_targets_type_condition(TargetsTypeCondition::default()/* use setters */);
+    /// ```
     pub fn set_targets_type_condition<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::TargetsTypeCondition>,
@@ -2007,6 +2755,14 @@ impl PipelineCondition {
     }
 
     /// Sets or clears the value of [targets_type_condition][crate::model::PipelineCondition::targets_type_condition].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::PipelineCondition;
+    /// use google_cloud_deploy_v1::model::TargetsTypeCondition;
+    /// let x = PipelineCondition::new().set_or_clear_targets_type_condition(Some(TargetsTypeCondition::default()/* use setters */));
+    /// let x = PipelineCondition::new().set_or_clear_targets_type_condition(None::<TargetsTypeCondition>);
+    /// ```
     pub fn set_or_clear_targets_type_condition<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::TargetsTypeCondition>,
@@ -2059,30 +2815,60 @@ impl ListDeliveryPipelinesRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListDeliveryPipelinesRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::ListDeliveryPipelinesRequest;
+    /// let x = ListDeliveryPipelinesRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListDeliveryPipelinesRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::ListDeliveryPipelinesRequest;
+    /// let x = ListDeliveryPipelinesRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListDeliveryPipelinesRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::ListDeliveryPipelinesRequest;
+    /// let x = ListDeliveryPipelinesRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListDeliveryPipelinesRequest::filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::ListDeliveryPipelinesRequest;
+    /// let x = ListDeliveryPipelinesRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListDeliveryPipelinesRequest::order_by].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::ListDeliveryPipelinesRequest;
+    /// let x = ListDeliveryPipelinesRequest::new().set_order_by("example");
+    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
@@ -2118,6 +2904,17 @@ impl ListDeliveryPipelinesResponse {
     }
 
     /// Sets the value of [delivery_pipelines][crate::model::ListDeliveryPipelinesResponse::delivery_pipelines].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::ListDeliveryPipelinesResponse;
+    /// use google_cloud_deploy_v1::model::DeliveryPipeline;
+    /// let x = ListDeliveryPipelinesResponse::new()
+    ///     .set_delivery_pipelines([
+    ///         DeliveryPipeline::default()/* use setters */,
+    ///         DeliveryPipeline::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_delivery_pipelines<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2129,12 +2926,24 @@ impl ListDeliveryPipelinesResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListDeliveryPipelinesResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::ListDeliveryPipelinesResponse;
+    /// let x = ListDeliveryPipelinesResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListDeliveryPipelinesResponse::unreachable].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::ListDeliveryPipelinesResponse;
+    /// let x = ListDeliveryPipelinesResponse::new().set_unreachable(["a", "b", "c"]);
+    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2183,6 +2992,12 @@ impl GetDeliveryPipelineRequest {
     }
 
     /// Sets the value of [name][crate::model::GetDeliveryPipelineRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::GetDeliveryPipelineRequest;
+    /// let x = GetDeliveryPipelineRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -2237,12 +3052,24 @@ impl CreateDeliveryPipelineRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateDeliveryPipelineRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::CreateDeliveryPipelineRequest;
+    /// let x = CreateDeliveryPipelineRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [delivery_pipeline_id][crate::model::CreateDeliveryPipelineRequest::delivery_pipeline_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::CreateDeliveryPipelineRequest;
+    /// let x = CreateDeliveryPipelineRequest::new().set_delivery_pipeline_id("example");
+    /// ```
     pub fn set_delivery_pipeline_id<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -2252,6 +3079,13 @@ impl CreateDeliveryPipelineRequest {
     }
 
     /// Sets the value of [delivery_pipeline][crate::model::CreateDeliveryPipelineRequest::delivery_pipeline].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::CreateDeliveryPipelineRequest;
+    /// use google_cloud_deploy_v1::model::DeliveryPipeline;
+    /// let x = CreateDeliveryPipelineRequest::new().set_delivery_pipeline(DeliveryPipeline::default()/* use setters */);
+    /// ```
     pub fn set_delivery_pipeline<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::DeliveryPipeline>,
@@ -2261,6 +3095,14 @@ impl CreateDeliveryPipelineRequest {
     }
 
     /// Sets or clears the value of [delivery_pipeline][crate::model::CreateDeliveryPipelineRequest::delivery_pipeline].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::CreateDeliveryPipelineRequest;
+    /// use google_cloud_deploy_v1::model::DeliveryPipeline;
+    /// let x = CreateDeliveryPipelineRequest::new().set_or_clear_delivery_pipeline(Some(DeliveryPipeline::default()/* use setters */));
+    /// let x = CreateDeliveryPipelineRequest::new().set_or_clear_delivery_pipeline(None::<DeliveryPipeline>);
+    /// ```
     pub fn set_or_clear_delivery_pipeline<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DeliveryPipeline>,
@@ -2270,12 +3112,24 @@ impl CreateDeliveryPipelineRequest {
     }
 
     /// Sets the value of [request_id][crate::model::CreateDeliveryPipelineRequest::request_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::CreateDeliveryPipelineRequest;
+    /// let x = CreateDeliveryPipelineRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
     }
 
     /// Sets the value of [validate_only][crate::model::CreateDeliveryPipelineRequest::validate_only].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::CreateDeliveryPipelineRequest;
+    /// let x = CreateDeliveryPipelineRequest::new().set_validate_only(true);
+    /// ```
     pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.validate_only = v.into();
         self
@@ -2334,6 +3188,13 @@ impl UpdateDeliveryPipelineRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateDeliveryPipelineRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::UpdateDeliveryPipelineRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateDeliveryPipelineRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -2343,6 +3204,14 @@ impl UpdateDeliveryPipelineRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateDeliveryPipelineRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::UpdateDeliveryPipelineRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateDeliveryPipelineRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateDeliveryPipelineRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -2352,6 +3221,13 @@ impl UpdateDeliveryPipelineRequest {
     }
 
     /// Sets the value of [delivery_pipeline][crate::model::UpdateDeliveryPipelineRequest::delivery_pipeline].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::UpdateDeliveryPipelineRequest;
+    /// use google_cloud_deploy_v1::model::DeliveryPipeline;
+    /// let x = UpdateDeliveryPipelineRequest::new().set_delivery_pipeline(DeliveryPipeline::default()/* use setters */);
+    /// ```
     pub fn set_delivery_pipeline<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::DeliveryPipeline>,
@@ -2361,6 +3237,14 @@ impl UpdateDeliveryPipelineRequest {
     }
 
     /// Sets or clears the value of [delivery_pipeline][crate::model::UpdateDeliveryPipelineRequest::delivery_pipeline].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::UpdateDeliveryPipelineRequest;
+    /// use google_cloud_deploy_v1::model::DeliveryPipeline;
+    /// let x = UpdateDeliveryPipelineRequest::new().set_or_clear_delivery_pipeline(Some(DeliveryPipeline::default()/* use setters */));
+    /// let x = UpdateDeliveryPipelineRequest::new().set_or_clear_delivery_pipeline(None::<DeliveryPipeline>);
+    /// ```
     pub fn set_or_clear_delivery_pipeline<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DeliveryPipeline>,
@@ -2370,18 +3254,36 @@ impl UpdateDeliveryPipelineRequest {
     }
 
     /// Sets the value of [request_id][crate::model::UpdateDeliveryPipelineRequest::request_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::UpdateDeliveryPipelineRequest;
+    /// let x = UpdateDeliveryPipelineRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
     }
 
     /// Sets the value of [allow_missing][crate::model::UpdateDeliveryPipelineRequest::allow_missing].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::UpdateDeliveryPipelineRequest;
+    /// let x = UpdateDeliveryPipelineRequest::new().set_allow_missing(true);
+    /// ```
     pub fn set_allow_missing<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.allow_missing = v.into();
         self
     }
 
     /// Sets the value of [validate_only][crate::model::UpdateDeliveryPipelineRequest::validate_only].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::UpdateDeliveryPipelineRequest;
+    /// let x = UpdateDeliveryPipelineRequest::new().set_validate_only(true);
+    /// ```
     pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.validate_only = v.into();
         self
@@ -2444,36 +3346,72 @@ impl DeleteDeliveryPipelineRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteDeliveryPipelineRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::DeleteDeliveryPipelineRequest;
+    /// let x = DeleteDeliveryPipelineRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [request_id][crate::model::DeleteDeliveryPipelineRequest::request_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::DeleteDeliveryPipelineRequest;
+    /// let x = DeleteDeliveryPipelineRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
     }
 
     /// Sets the value of [allow_missing][crate::model::DeleteDeliveryPipelineRequest::allow_missing].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::DeleteDeliveryPipelineRequest;
+    /// let x = DeleteDeliveryPipelineRequest::new().set_allow_missing(true);
+    /// ```
     pub fn set_allow_missing<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.allow_missing = v.into();
         self
     }
 
     /// Sets the value of [validate_only][crate::model::DeleteDeliveryPipelineRequest::validate_only].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::DeleteDeliveryPipelineRequest;
+    /// let x = DeleteDeliveryPipelineRequest::new().set_validate_only(true);
+    /// ```
     pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.validate_only = v.into();
         self
     }
 
     /// Sets the value of [force][crate::model::DeleteDeliveryPipelineRequest::force].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::DeleteDeliveryPipelineRequest;
+    /// let x = DeleteDeliveryPipelineRequest::new().set_force(true);
+    /// ```
     pub fn set_force<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.force = v.into();
         self
     }
 
     /// Sets the value of [etag][crate::model::DeleteDeliveryPipelineRequest::etag].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::DeleteDeliveryPipelineRequest;
+    /// let x = DeleteDeliveryPipelineRequest::new().set_etag("example");
+    /// ```
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
@@ -2506,6 +3444,13 @@ impl RollbackTargetConfig {
     }
 
     /// Sets the value of [rollout][crate::model::RollbackTargetConfig::rollout].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::RollbackTargetConfig;
+    /// use google_cloud_deploy_v1::model::Rollout;
+    /// let x = RollbackTargetConfig::new().set_rollout(Rollout::default()/* use setters */);
+    /// ```
     pub fn set_rollout<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Rollout>,
@@ -2515,6 +3460,14 @@ impl RollbackTargetConfig {
     }
 
     /// Sets or clears the value of [rollout][crate::model::RollbackTargetConfig::rollout].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::RollbackTargetConfig;
+    /// use google_cloud_deploy_v1::model::Rollout;
+    /// let x = RollbackTargetConfig::new().set_or_clear_rollout(Some(Rollout::default()/* use setters */));
+    /// let x = RollbackTargetConfig::new().set_or_clear_rollout(None::<Rollout>);
+    /// ```
     pub fn set_or_clear_rollout<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Rollout>,
@@ -2524,6 +3477,12 @@ impl RollbackTargetConfig {
     }
 
     /// Sets the value of [starting_phase_id][crate::model::RollbackTargetConfig::starting_phase_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::RollbackTargetConfig;
+    /// let x = RollbackTargetConfig::new().set_starting_phase_id("example");
+    /// ```
     pub fn set_starting_phase_id<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -2583,30 +3542,60 @@ impl RollbackTargetRequest {
     }
 
     /// Sets the value of [name][crate::model::RollbackTargetRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::RollbackTargetRequest;
+    /// let x = RollbackTargetRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [target_id][crate::model::RollbackTargetRequest::target_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::RollbackTargetRequest;
+    /// let x = RollbackTargetRequest::new().set_target_id("example");
+    /// ```
     pub fn set_target_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.target_id = v.into();
         self
     }
 
     /// Sets the value of [rollout_id][crate::model::RollbackTargetRequest::rollout_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::RollbackTargetRequest;
+    /// let x = RollbackTargetRequest::new().set_rollout_id("example");
+    /// ```
     pub fn set_rollout_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.rollout_id = v.into();
         self
     }
 
     /// Sets the value of [release_id][crate::model::RollbackTargetRequest::release_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::RollbackTargetRequest;
+    /// let x = RollbackTargetRequest::new().set_release_id("example");
+    /// ```
     pub fn set_release_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.release_id = v.into();
         self
     }
 
     /// Sets the value of [rollout_to_roll_back][crate::model::RollbackTargetRequest::rollout_to_roll_back].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::RollbackTargetRequest;
+    /// let x = RollbackTargetRequest::new().set_rollout_to_roll_back("example");
+    /// ```
     pub fn set_rollout_to_roll_back<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -2616,6 +3605,13 @@ impl RollbackTargetRequest {
     }
 
     /// Sets the value of [rollback_config][crate::model::RollbackTargetRequest::rollback_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::RollbackTargetRequest;
+    /// use google_cloud_deploy_v1::model::RollbackTargetConfig;
+    /// let x = RollbackTargetRequest::new().set_rollback_config(RollbackTargetConfig::default()/* use setters */);
+    /// ```
     pub fn set_rollback_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::RollbackTargetConfig>,
@@ -2625,6 +3621,14 @@ impl RollbackTargetRequest {
     }
 
     /// Sets or clears the value of [rollback_config][crate::model::RollbackTargetRequest::rollback_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::RollbackTargetRequest;
+    /// use google_cloud_deploy_v1::model::RollbackTargetConfig;
+    /// let x = RollbackTargetRequest::new().set_or_clear_rollback_config(Some(RollbackTargetConfig::default()/* use setters */));
+    /// let x = RollbackTargetRequest::new().set_or_clear_rollback_config(None::<RollbackTargetConfig>);
+    /// ```
     pub fn set_or_clear_rollback_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::RollbackTargetConfig>,
@@ -2634,12 +3638,24 @@ impl RollbackTargetRequest {
     }
 
     /// Sets the value of [validate_only][crate::model::RollbackTargetRequest::validate_only].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::RollbackTargetRequest;
+    /// let x = RollbackTargetRequest::new().set_validate_only(true);
+    /// ```
     pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.validate_only = v.into();
         self
     }
 
     /// Sets the value of [override_deploy_policy][crate::model::RollbackTargetRequest::override_deploy_policy].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::RollbackTargetRequest;
+    /// let x = RollbackTargetRequest::new().set_override_deploy_policy(["a", "b", "c"]);
+    /// ```
     pub fn set_override_deploy_policy<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2673,6 +3689,13 @@ impl RollbackTargetResponse {
     }
 
     /// Sets the value of [rollback_config][crate::model::RollbackTargetResponse::rollback_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::RollbackTargetResponse;
+    /// use google_cloud_deploy_v1::model::RollbackTargetConfig;
+    /// let x = RollbackTargetResponse::new().set_rollback_config(RollbackTargetConfig::default()/* use setters */);
+    /// ```
     pub fn set_rollback_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::RollbackTargetConfig>,
@@ -2682,6 +3705,14 @@ impl RollbackTargetResponse {
     }
 
     /// Sets or clears the value of [rollback_config][crate::model::RollbackTargetResponse::rollback_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::RollbackTargetResponse;
+    /// use google_cloud_deploy_v1::model::RollbackTargetConfig;
+    /// let x = RollbackTargetResponse::new().set_or_clear_rollback_config(Some(RollbackTargetConfig::default()/* use setters */));
+    /// let x = RollbackTargetResponse::new().set_or_clear_rollback_config(None::<RollbackTargetConfig>);
+    /// ```
     pub fn set_or_clear_rollback_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::RollbackTargetConfig>,
@@ -2787,30 +3818,63 @@ impl Target {
     }
 
     /// Sets the value of [name][crate::model::Target::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::Target;
+    /// let x = Target::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [target_id][crate::model::Target::target_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::Target;
+    /// let x = Target::new().set_target_id("example");
+    /// ```
     pub fn set_target_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.target_id = v.into();
         self
     }
 
     /// Sets the value of [uid][crate::model::Target::uid].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::Target;
+    /// let x = Target::new().set_uid("example");
+    /// ```
     pub fn set_uid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.uid = v.into();
         self
     }
 
     /// Sets the value of [description][crate::model::Target::description].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::Target;
+    /// let x = Target::new().set_description("example");
+    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [annotations][crate::model::Target::annotations].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::Target;
+    /// let x = Target::new().set_annotations([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_annotations<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -2823,6 +3887,15 @@ impl Target {
     }
 
     /// Sets the value of [labels][crate::model::Target::labels].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::Target;
+    /// let x = Target::new().set_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -2835,12 +3908,25 @@ impl Target {
     }
 
     /// Sets the value of [require_approval][crate::model::Target::require_approval].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::Target;
+    /// let x = Target::new().set_require_approval(true);
+    /// ```
     pub fn set_require_approval<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.require_approval = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::Target::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::Target;
+    /// use wkt::Timestamp;
+    /// let x = Target::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2850,6 +3936,14 @@ impl Target {
     }
 
     /// Sets or clears the value of [create_time][crate::model::Target::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::Target;
+    /// use wkt::Timestamp;
+    /// let x = Target::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Target::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2859,6 +3953,13 @@ impl Target {
     }
 
     /// Sets the value of [update_time][crate::model::Target::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::Target;
+    /// use wkt::Timestamp;
+    /// let x = Target::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2868,6 +3969,14 @@ impl Target {
     }
 
     /// Sets or clears the value of [update_time][crate::model::Target::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::Target;
+    /// use wkt::Timestamp;
+    /// let x = Target::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Target::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2877,6 +3986,16 @@ impl Target {
     }
 
     /// Sets the value of [associated_entities][crate::model::Target::associated_entities].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::Target;
+    /// use google_cloud_deploy_v1::model::AssociatedEntities;
+    /// let x = Target::new().set_associated_entities([
+    ///     ("key0", AssociatedEntities::default()/* use setters */),
+    ///     ("key1", AssociatedEntities::default()/* use (different) setters */),
+    /// ]);
+    /// ```
     pub fn set_associated_entities<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -2889,12 +4008,29 @@ impl Target {
     }
 
     /// Sets the value of [etag][crate::model::Target::etag].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::Target;
+    /// let x = Target::new().set_etag("example");
+    /// ```
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
     }
 
     /// Sets the value of [execution_configs][crate::model::Target::execution_configs].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::Target;
+    /// use google_cloud_deploy_v1::model::ExecutionConfig;
+    /// let x = Target::new()
+    ///     .set_execution_configs([
+    ///         ExecutionConfig::default()/* use setters */,
+    ///         ExecutionConfig::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_execution_configs<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2906,6 +4042,15 @@ impl Target {
     }
 
     /// Sets the value of [deploy_parameters][crate::model::Target::deploy_parameters].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::Target;
+    /// let x = Target::new().set_deploy_parameters([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_deploy_parameters<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -2921,6 +4066,14 @@ impl Target {
     ///
     /// Note that all the setters affecting `deployment_target` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::Target;
+    /// use google_cloud_deploy_v1::model::target;
+    /// use google_cloud_deploy_v1::model::GkeCluster;
+    /// let x = Target::new().set_deployment_target(Some(target::DeploymentTarget::Gke(GkeCluster::default().into())));
+    /// ```
     pub fn set_deployment_target<
         T: std::convert::Into<std::option::Option<crate::model::target::DeploymentTarget>>,
     >(
@@ -2947,6 +4100,18 @@ impl Target {
     ///
     /// Note that all the setters affecting `deployment_target` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::Target;
+    /// use google_cloud_deploy_v1::model::GkeCluster;
+    /// let x = Target::new().set_gke(GkeCluster::default()/* use setters */);
+    /// assert!(x.gke().is_some());
+    /// assert!(x.anthos_cluster().is_none());
+    /// assert!(x.run().is_none());
+    /// assert!(x.multi_target().is_none());
+    /// assert!(x.custom_target().is_none());
+    /// ```
     pub fn set_gke<T: std::convert::Into<std::boxed::Box<crate::model::GkeCluster>>>(
         mut self,
         v: T,
@@ -2976,6 +4141,18 @@ impl Target {
     ///
     /// Note that all the setters affecting `deployment_target` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::Target;
+    /// use google_cloud_deploy_v1::model::AnthosCluster;
+    /// let x = Target::new().set_anthos_cluster(AnthosCluster::default()/* use setters */);
+    /// assert!(x.anthos_cluster().is_some());
+    /// assert!(x.gke().is_none());
+    /// assert!(x.run().is_none());
+    /// assert!(x.multi_target().is_none());
+    /// assert!(x.custom_target().is_none());
+    /// ```
     pub fn set_anthos_cluster<
         T: std::convert::Into<std::boxed::Box<crate::model::AnthosCluster>>,
     >(
@@ -3004,6 +4181,18 @@ impl Target {
     ///
     /// Note that all the setters affecting `deployment_target` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::Target;
+    /// use google_cloud_deploy_v1::model::CloudRunLocation;
+    /// let x = Target::new().set_run(CloudRunLocation::default()/* use setters */);
+    /// assert!(x.run().is_some());
+    /// assert!(x.gke().is_none());
+    /// assert!(x.anthos_cluster().is_none());
+    /// assert!(x.multi_target().is_none());
+    /// assert!(x.custom_target().is_none());
+    /// ```
     pub fn set_run<T: std::convert::Into<std::boxed::Box<crate::model::CloudRunLocation>>>(
         mut self,
         v: T,
@@ -3029,6 +4218,18 @@ impl Target {
     ///
     /// Note that all the setters affecting `deployment_target` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::Target;
+    /// use google_cloud_deploy_v1::model::MultiTarget;
+    /// let x = Target::new().set_multi_target(MultiTarget::default()/* use setters */);
+    /// assert!(x.multi_target().is_some());
+    /// assert!(x.gke().is_none());
+    /// assert!(x.anthos_cluster().is_none());
+    /// assert!(x.run().is_none());
+    /// assert!(x.custom_target().is_none());
+    /// ```
     pub fn set_multi_target<T: std::convert::Into<std::boxed::Box<crate::model::MultiTarget>>>(
         mut self,
         v: T,
@@ -3057,6 +4258,18 @@ impl Target {
     ///
     /// Note that all the setters affecting `deployment_target` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::Target;
+    /// use google_cloud_deploy_v1::model::CustomTarget;
+    /// let x = Target::new().set_custom_target(CustomTarget::default()/* use setters */);
+    /// assert!(x.custom_target().is_some());
+    /// assert!(x.gke().is_none());
+    /// assert!(x.anthos_cluster().is_none());
+    /// assert!(x.run().is_none());
+    /// assert!(x.multi_target().is_none());
+    /// ```
     pub fn set_custom_target<T: std::convert::Into<std::boxed::Box<crate::model::CustomTarget>>>(
         mut self,
         v: T,
@@ -3143,6 +4356,17 @@ impl ExecutionConfig {
     }
 
     /// Sets the value of [usages][crate::model::ExecutionConfig::usages].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::ExecutionConfig;
+    /// use google_cloud_deploy_v1::model::execution_config::ExecutionEnvironmentUsage;
+    /// let x = ExecutionConfig::new().set_usages([
+    ///     ExecutionEnvironmentUsage::Render,
+    ///     ExecutionEnvironmentUsage::Deploy,
+    ///     ExecutionEnvironmentUsage::Verify,
+    /// ]);
+    /// ```
     pub fn set_usages<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3154,18 +4378,36 @@ impl ExecutionConfig {
     }
 
     /// Sets the value of [worker_pool][crate::model::ExecutionConfig::worker_pool].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::ExecutionConfig;
+    /// let x = ExecutionConfig::new().set_worker_pool("example");
+    /// ```
     pub fn set_worker_pool<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.worker_pool = v.into();
         self
     }
 
     /// Sets the value of [service_account][crate::model::ExecutionConfig::service_account].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::ExecutionConfig;
+    /// let x = ExecutionConfig::new().set_service_account("example");
+    /// ```
     pub fn set_service_account<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.service_account = v.into();
         self
     }
 
     /// Sets the value of [artifact_storage][crate::model::ExecutionConfig::artifact_storage].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::ExecutionConfig;
+    /// let x = ExecutionConfig::new().set_artifact_storage("example");
+    /// ```
     pub fn set_artifact_storage<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -3175,6 +4417,13 @@ impl ExecutionConfig {
     }
 
     /// Sets the value of [execution_timeout][crate::model::ExecutionConfig::execution_timeout].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::ExecutionConfig;
+    /// use wkt::Duration;
+    /// let x = ExecutionConfig::new().set_execution_timeout(Duration::default()/* use setters */);
+    /// ```
     pub fn set_execution_timeout<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -3184,6 +4433,14 @@ impl ExecutionConfig {
     }
 
     /// Sets or clears the value of [execution_timeout][crate::model::ExecutionConfig::execution_timeout].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::ExecutionConfig;
+    /// use wkt::Duration;
+    /// let x = ExecutionConfig::new().set_or_clear_execution_timeout(Some(Duration::default()/* use setters */));
+    /// let x = ExecutionConfig::new().set_or_clear_execution_timeout(None::<Duration>);
+    /// ```
     pub fn set_or_clear_execution_timeout<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -3193,6 +4450,12 @@ impl ExecutionConfig {
     }
 
     /// Sets the value of [verbose][crate::model::ExecutionConfig::verbose].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::ExecutionConfig;
+    /// let x = ExecutionConfig::new().set_verbose(true);
+    /// ```
     pub fn set_verbose<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.verbose = v.into();
         self
@@ -3202,6 +4465,14 @@ impl ExecutionConfig {
     ///
     /// Note that all the setters affecting `execution_environment` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::ExecutionConfig;
+    /// use google_cloud_deploy_v1::model::execution_config;
+    /// use google_cloud_deploy_v1::model::DefaultPool;
+    /// let x = ExecutionConfig::new().set_execution_environment(Some(execution_config::ExecutionEnvironment::DefaultPool(DefaultPool::default().into())));
+    /// ```
     pub fn set_execution_environment<
         T: std::convert::Into<
                 std::option::Option<crate::model::execution_config::ExecutionEnvironment>,
@@ -3232,6 +4503,15 @@ impl ExecutionConfig {
     ///
     /// Note that all the setters affecting `execution_environment` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::ExecutionConfig;
+    /// use google_cloud_deploy_v1::model::DefaultPool;
+    /// let x = ExecutionConfig::new().set_default_pool(DefaultPool::default()/* use setters */);
+    /// assert!(x.default_pool().is_some());
+    /// assert!(x.private_pool().is_none());
+    /// ```
     pub fn set_default_pool<T: std::convert::Into<std::boxed::Box<crate::model::DefaultPool>>>(
         mut self,
         v: T,
@@ -3260,6 +4540,15 @@ impl ExecutionConfig {
     ///
     /// Note that all the setters affecting `execution_environment` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::ExecutionConfig;
+    /// use google_cloud_deploy_v1::model::PrivatePool;
+    /// let x = ExecutionConfig::new().set_private_pool(PrivatePool::default()/* use setters */);
+    /// assert!(x.private_pool().is_some());
+    /// assert!(x.default_pool().is_none());
+    /// ```
     pub fn set_private_pool<T: std::convert::Into<std::boxed::Box<crate::model::PrivatePool>>>(
         mut self,
         v: T,
@@ -3474,12 +4763,24 @@ impl DefaultPool {
     }
 
     /// Sets the value of [service_account][crate::model::DefaultPool::service_account].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::DefaultPool;
+    /// let x = DefaultPool::new().set_service_account("example");
+    /// ```
     pub fn set_service_account<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.service_account = v.into();
         self
     }
 
     /// Sets the value of [artifact_storage][crate::model::DefaultPool::artifact_storage].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::DefaultPool;
+    /// let x = DefaultPool::new().set_artifact_storage("example");
+    /// ```
     pub fn set_artifact_storage<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -3523,18 +4824,36 @@ impl PrivatePool {
     }
 
     /// Sets the value of [worker_pool][crate::model::PrivatePool::worker_pool].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::PrivatePool;
+    /// let x = PrivatePool::new().set_worker_pool("example");
+    /// ```
     pub fn set_worker_pool<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.worker_pool = v.into();
         self
     }
 
     /// Sets the value of [service_account][crate::model::PrivatePool::service_account].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::PrivatePool;
+    /// let x = PrivatePool::new().set_service_account("example");
+    /// ```
     pub fn set_service_account<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.service_account = v.into();
         self
     }
 
     /// Sets the value of [artifact_storage][crate::model::PrivatePool::artifact_storage].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::PrivatePool;
+    /// let x = PrivatePool::new().set_artifact_storage("example");
+    /// ```
     pub fn set_artifact_storage<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -3587,24 +4906,48 @@ impl GkeCluster {
     }
 
     /// Sets the value of [cluster][crate::model::GkeCluster::cluster].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::GkeCluster;
+    /// let x = GkeCluster::new().set_cluster("example");
+    /// ```
     pub fn set_cluster<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.cluster = v.into();
         self
     }
 
     /// Sets the value of [internal_ip][crate::model::GkeCluster::internal_ip].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::GkeCluster;
+    /// let x = GkeCluster::new().set_internal_ip(true);
+    /// ```
     pub fn set_internal_ip<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.internal_ip = v.into();
         self
     }
 
     /// Sets the value of [proxy_url][crate::model::GkeCluster::proxy_url].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::GkeCluster;
+    /// let x = GkeCluster::new().set_proxy_url("example");
+    /// ```
     pub fn set_proxy_url<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.proxy_url = v.into();
         self
     }
 
     /// Sets the value of [dns_endpoint][crate::model::GkeCluster::dns_endpoint].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::GkeCluster;
+    /// let x = GkeCluster::new().set_dns_endpoint(true);
+    /// ```
     pub fn set_dns_endpoint<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.dns_endpoint = v.into();
         self
@@ -3635,6 +4978,12 @@ impl AnthosCluster {
     }
 
     /// Sets the value of [membership][crate::model::AnthosCluster::membership].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::AnthosCluster;
+    /// let x = AnthosCluster::new().set_membership("example");
+    /// ```
     pub fn set_membership<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.membership = v.into();
         self
@@ -3664,6 +5013,12 @@ impl CloudRunLocation {
     }
 
     /// Sets the value of [location][crate::model::CloudRunLocation::location].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::CloudRunLocation;
+    /// let x = CloudRunLocation::new().set_location("example");
+    /// ```
     pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.location = v.into();
         self
@@ -3692,6 +5047,12 @@ impl MultiTarget {
     }
 
     /// Sets the value of [target_ids][crate::model::MultiTarget::target_ids].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::MultiTarget;
+    /// let x = MultiTarget::new().set_target_ids(["a", "b", "c"]);
+    /// ```
     pub fn set_target_ids<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3726,6 +5087,12 @@ impl CustomTarget {
     }
 
     /// Sets the value of [custom_target_type][crate::model::CustomTarget::custom_target_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::CustomTarget;
+    /// let x = CustomTarget::new().set_custom_target_type("example");
+    /// ```
     pub fn set_custom_target_type<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -3760,6 +5127,17 @@ impl AssociatedEntities {
     }
 
     /// Sets the value of [gke_clusters][crate::model::AssociatedEntities::gke_clusters].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::AssociatedEntities;
+    /// use google_cloud_deploy_v1::model::GkeCluster;
+    /// let x = AssociatedEntities::new()
+    ///     .set_gke_clusters([
+    ///         GkeCluster::default()/* use setters */,
+    ///         GkeCluster::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_gke_clusters<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3771,6 +5149,17 @@ impl AssociatedEntities {
     }
 
     /// Sets the value of [anthos_clusters][crate::model::AssociatedEntities::anthos_clusters].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::AssociatedEntities;
+    /// use google_cloud_deploy_v1::model::AnthosCluster;
+    /// let x = AssociatedEntities::new()
+    ///     .set_anthos_clusters([
+    ///         AnthosCluster::default()/* use setters */,
+    ///         AnthosCluster::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_anthos_clusters<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3826,30 +5215,60 @@ impl ListTargetsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListTargetsRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::ListTargetsRequest;
+    /// let x = ListTargetsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListTargetsRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::ListTargetsRequest;
+    /// let x = ListTargetsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListTargetsRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::ListTargetsRequest;
+    /// let x = ListTargetsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListTargetsRequest::filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::ListTargetsRequest;
+    /// let x = ListTargetsRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListTargetsRequest::order_by].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::ListTargetsRequest;
+    /// let x = ListTargetsRequest::new().set_order_by("example");
+    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
@@ -3885,6 +5304,17 @@ impl ListTargetsResponse {
     }
 
     /// Sets the value of [targets][crate::model::ListTargetsResponse::targets].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::ListTargetsResponse;
+    /// use google_cloud_deploy_v1::model::Target;
+    /// let x = ListTargetsResponse::new()
+    ///     .set_targets([
+    ///         Target::default()/* use setters */,
+    ///         Target::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_targets<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3896,12 +5326,24 @@ impl ListTargetsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListTargetsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::ListTargetsResponse;
+    /// let x = ListTargetsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListTargetsResponse::unreachable].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::ListTargetsResponse;
+    /// let x = ListTargetsResponse::new().set_unreachable(["a", "b", "c"]);
+    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3950,6 +5392,12 @@ impl GetTargetRequest {
     }
 
     /// Sets the value of [name][crate::model::GetTargetRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::GetTargetRequest;
+    /// let x = GetTargetRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -4005,18 +5453,37 @@ impl CreateTargetRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateTargetRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::CreateTargetRequest;
+    /// let x = CreateTargetRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [target_id][crate::model::CreateTargetRequest::target_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::CreateTargetRequest;
+    /// let x = CreateTargetRequest::new().set_target_id("example");
+    /// ```
     pub fn set_target_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.target_id = v.into();
         self
     }
 
     /// Sets the value of [target][crate::model::CreateTargetRequest::target].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::CreateTargetRequest;
+    /// use google_cloud_deploy_v1::model::Target;
+    /// let x = CreateTargetRequest::new().set_target(Target::default()/* use setters */);
+    /// ```
     pub fn set_target<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Target>,
@@ -4026,6 +5493,14 @@ impl CreateTargetRequest {
     }
 
     /// Sets or clears the value of [target][crate::model::CreateTargetRequest::target].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::CreateTargetRequest;
+    /// use google_cloud_deploy_v1::model::Target;
+    /// let x = CreateTargetRequest::new().set_or_clear_target(Some(Target::default()/* use setters */));
+    /// let x = CreateTargetRequest::new().set_or_clear_target(None::<Target>);
+    /// ```
     pub fn set_or_clear_target<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Target>,
@@ -4035,12 +5510,24 @@ impl CreateTargetRequest {
     }
 
     /// Sets the value of [request_id][crate::model::CreateTargetRequest::request_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::CreateTargetRequest;
+    /// let x = CreateTargetRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
     }
 
     /// Sets the value of [validate_only][crate::model::CreateTargetRequest::validate_only].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::CreateTargetRequest;
+    /// let x = CreateTargetRequest::new().set_validate_only(true);
+    /// ```
     pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.validate_only = v.into();
         self
@@ -4099,6 +5586,13 @@ impl UpdateTargetRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateTargetRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::UpdateTargetRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateTargetRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -4108,6 +5602,14 @@ impl UpdateTargetRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateTargetRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::UpdateTargetRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateTargetRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateTargetRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -4117,6 +5619,13 @@ impl UpdateTargetRequest {
     }
 
     /// Sets the value of [target][crate::model::UpdateTargetRequest::target].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::UpdateTargetRequest;
+    /// use google_cloud_deploy_v1::model::Target;
+    /// let x = UpdateTargetRequest::new().set_target(Target::default()/* use setters */);
+    /// ```
     pub fn set_target<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Target>,
@@ -4126,6 +5635,14 @@ impl UpdateTargetRequest {
     }
 
     /// Sets or clears the value of [target][crate::model::UpdateTargetRequest::target].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::UpdateTargetRequest;
+    /// use google_cloud_deploy_v1::model::Target;
+    /// let x = UpdateTargetRequest::new().set_or_clear_target(Some(Target::default()/* use setters */));
+    /// let x = UpdateTargetRequest::new().set_or_clear_target(None::<Target>);
+    /// ```
     pub fn set_or_clear_target<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Target>,
@@ -4135,18 +5652,36 @@ impl UpdateTargetRequest {
     }
 
     /// Sets the value of [request_id][crate::model::UpdateTargetRequest::request_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::UpdateTargetRequest;
+    /// let x = UpdateTargetRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
     }
 
     /// Sets the value of [allow_missing][crate::model::UpdateTargetRequest::allow_missing].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::UpdateTargetRequest;
+    /// let x = UpdateTargetRequest::new().set_allow_missing(true);
+    /// ```
     pub fn set_allow_missing<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.allow_missing = v.into();
         self
     }
 
     /// Sets the value of [validate_only][crate::model::UpdateTargetRequest::validate_only].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::UpdateTargetRequest;
+    /// let x = UpdateTargetRequest::new().set_validate_only(true);
+    /// ```
     pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.validate_only = v.into();
         self
@@ -4204,30 +5739,60 @@ impl DeleteTargetRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteTargetRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::DeleteTargetRequest;
+    /// let x = DeleteTargetRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [request_id][crate::model::DeleteTargetRequest::request_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::DeleteTargetRequest;
+    /// let x = DeleteTargetRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
     }
 
     /// Sets the value of [allow_missing][crate::model::DeleteTargetRequest::allow_missing].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::DeleteTargetRequest;
+    /// let x = DeleteTargetRequest::new().set_allow_missing(true);
+    /// ```
     pub fn set_allow_missing<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.allow_missing = v.into();
         self
     }
 
     /// Sets the value of [validate_only][crate::model::DeleteTargetRequest::validate_only].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::DeleteTargetRequest;
+    /// let x = DeleteTargetRequest::new().set_validate_only(true);
+    /// ```
     pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.validate_only = v.into();
         self
     }
 
     /// Sets the value of [etag][crate::model::DeleteTargetRequest::etag].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::DeleteTargetRequest;
+    /// let x = DeleteTargetRequest::new().set_etag("example");
+    /// ```
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
@@ -4306,12 +5871,24 @@ impl CustomTargetType {
     }
 
     /// Sets the value of [name][crate::model::CustomTargetType::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::CustomTargetType;
+    /// let x = CustomTargetType::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [custom_target_type_id][crate::model::CustomTargetType::custom_target_type_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::CustomTargetType;
+    /// let x = CustomTargetType::new().set_custom_target_type_id("example");
+    /// ```
     pub fn set_custom_target_type_id<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -4321,18 +5898,39 @@ impl CustomTargetType {
     }
 
     /// Sets the value of [uid][crate::model::CustomTargetType::uid].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::CustomTargetType;
+    /// let x = CustomTargetType::new().set_uid("example");
+    /// ```
     pub fn set_uid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.uid = v.into();
         self
     }
 
     /// Sets the value of [description][crate::model::CustomTargetType::description].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::CustomTargetType;
+    /// let x = CustomTargetType::new().set_description("example");
+    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [annotations][crate::model::CustomTargetType::annotations].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::CustomTargetType;
+    /// let x = CustomTargetType::new().set_annotations([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_annotations<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -4345,6 +5943,15 @@ impl CustomTargetType {
     }
 
     /// Sets the value of [labels][crate::model::CustomTargetType::labels].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::CustomTargetType;
+    /// let x = CustomTargetType::new().set_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -4357,6 +5964,13 @@ impl CustomTargetType {
     }
 
     /// Sets the value of [create_time][crate::model::CustomTargetType::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::CustomTargetType;
+    /// use wkt::Timestamp;
+    /// let x = CustomTargetType::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4366,6 +5980,14 @@ impl CustomTargetType {
     }
 
     /// Sets or clears the value of [create_time][crate::model::CustomTargetType::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::CustomTargetType;
+    /// use wkt::Timestamp;
+    /// let x = CustomTargetType::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = CustomTargetType::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4375,6 +5997,13 @@ impl CustomTargetType {
     }
 
     /// Sets the value of [update_time][crate::model::CustomTargetType::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::CustomTargetType;
+    /// use wkt::Timestamp;
+    /// let x = CustomTargetType::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4384,6 +6013,14 @@ impl CustomTargetType {
     }
 
     /// Sets or clears the value of [update_time][crate::model::CustomTargetType::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::CustomTargetType;
+    /// use wkt::Timestamp;
+    /// let x = CustomTargetType::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = CustomTargetType::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4393,6 +6030,12 @@ impl CustomTargetType {
     }
 
     /// Sets the value of [etag][crate::model::CustomTargetType::etag].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::CustomTargetType;
+    /// let x = CustomTargetType::new().set_etag("example");
+    /// ```
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
@@ -4402,6 +6045,14 @@ impl CustomTargetType {
     ///
     /// Note that all the setters affecting `definition` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::CustomTargetType;
+    /// use google_cloud_deploy_v1::model::custom_target_type;
+    /// use google_cloud_deploy_v1::model::CustomTargetSkaffoldActions;
+    /// let x = CustomTargetType::new().set_definition(Some(custom_target_type::Definition::CustomActions(CustomTargetSkaffoldActions::default().into())));
+    /// ```
     pub fn set_definition<
         T: std::convert::Into<std::option::Option<crate::model::custom_target_type::Definition>>,
     >(
@@ -4432,6 +6083,14 @@ impl CustomTargetType {
     ///
     /// Note that all the setters affecting `definition` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::CustomTargetType;
+    /// use google_cloud_deploy_v1::model::CustomTargetSkaffoldActions;
+    /// let x = CustomTargetType::new().set_custom_actions(CustomTargetSkaffoldActions::default()/* use setters */);
+    /// assert!(x.custom_actions().is_some());
+    /// ```
     pub fn set_custom_actions<
         T: std::convert::Into<std::boxed::Box<crate::model::CustomTargetSkaffoldActions>>,
     >(
@@ -4492,18 +6151,41 @@ impl CustomTargetSkaffoldActions {
     }
 
     /// Sets the value of [render_action][crate::model::CustomTargetSkaffoldActions::render_action].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::CustomTargetSkaffoldActions;
+    /// let x = CustomTargetSkaffoldActions::new().set_render_action("example");
+    /// ```
     pub fn set_render_action<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.render_action = v.into();
         self
     }
 
     /// Sets the value of [deploy_action][crate::model::CustomTargetSkaffoldActions::deploy_action].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::CustomTargetSkaffoldActions;
+    /// let x = CustomTargetSkaffoldActions::new().set_deploy_action("example");
+    /// ```
     pub fn set_deploy_action<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.deploy_action = v.into();
         self
     }
 
     /// Sets the value of [include_skaffold_modules][crate::model::CustomTargetSkaffoldActions::include_skaffold_modules].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::CustomTargetSkaffoldActions;
+    /// use google_cloud_deploy_v1::model::SkaffoldModules;
+    /// let x = CustomTargetSkaffoldActions::new()
+    ///     .set_include_skaffold_modules([
+    ///         SkaffoldModules::default()/* use setters */,
+    ///         SkaffoldModules::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_include_skaffold_modules<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4540,6 +6222,12 @@ impl SkaffoldModules {
     }
 
     /// Sets the value of [configs][crate::model::SkaffoldModules::configs].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::SkaffoldModules;
+    /// let x = SkaffoldModules::new().set_configs(["a", "b", "c"]);
+    /// ```
     pub fn set_configs<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4554,6 +6242,14 @@ impl SkaffoldModules {
     ///
     /// Note that all the setters affecting `source` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::SkaffoldModules;
+    /// use google_cloud_deploy_v1::model::skaffold_modules;
+    /// use google_cloud_deploy_v1::model::skaffold_modules::SkaffoldGitSource;
+    /// let x = SkaffoldModules::new().set_source(Some(skaffold_modules::Source::Git(SkaffoldGitSource::default().into())));
+    /// ```
     pub fn set_source<
         T: std::convert::Into<std::option::Option<crate::model::skaffold_modules::Source>>,
     >(
@@ -4583,6 +6279,16 @@ impl SkaffoldModules {
     ///
     /// Note that all the setters affecting `source` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::SkaffoldModules;
+    /// use google_cloud_deploy_v1::model::skaffold_modules::SkaffoldGitSource;
+    /// let x = SkaffoldModules::new().set_git(SkaffoldGitSource::default()/* use setters */);
+    /// assert!(x.git().is_some());
+    /// assert!(x.google_cloud_storage().is_none());
+    /// assert!(x.google_cloud_build_repo().is_none());
+    /// ```
     pub fn set_git<
         T: std::convert::Into<std::boxed::Box<crate::model::skaffold_modules::SkaffoldGitSource>>,
     >(
@@ -4615,6 +6321,16 @@ impl SkaffoldModules {
     ///
     /// Note that all the setters affecting `source` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::SkaffoldModules;
+    /// use google_cloud_deploy_v1::model::skaffold_modules::SkaffoldGCSSource;
+    /// let x = SkaffoldModules::new().set_google_cloud_storage(SkaffoldGCSSource::default()/* use setters */);
+    /// assert!(x.google_cloud_storage().is_some());
+    /// assert!(x.git().is_none());
+    /// assert!(x.google_cloud_build_repo().is_none());
+    /// ```
     pub fn set_google_cloud_storage<
         T: std::convert::Into<std::boxed::Box<crate::model::skaffold_modules::SkaffoldGCSSource>>,
     >(
@@ -4648,6 +6364,16 @@ impl SkaffoldModules {
     ///
     /// Note that all the setters affecting `source` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::SkaffoldModules;
+    /// use google_cloud_deploy_v1::model::skaffold_modules::SkaffoldGCBRepoSource;
+    /// let x = SkaffoldModules::new().set_google_cloud_build_repo(SkaffoldGCBRepoSource::default()/* use setters */);
+    /// assert!(x.google_cloud_build_repo().is_some());
+    /// assert!(x.git().is_none());
+    /// assert!(x.google_cloud_storage().is_none());
+    /// ```
     pub fn set_google_cloud_build_repo<
         T: std::convert::Into<std::boxed::Box<crate::model::skaffold_modules::SkaffoldGCBRepoSource>>,
     >(
@@ -4694,18 +6420,36 @@ pub mod skaffold_modules {
         }
 
         /// Sets the value of [repo][crate::model::skaffold_modules::SkaffoldGitSource::repo].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_deploy_v1::model::skaffold_modules::SkaffoldGitSource;
+        /// let x = SkaffoldGitSource::new().set_repo("example");
+        /// ```
         pub fn set_repo<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.repo = v.into();
             self
         }
 
         /// Sets the value of [path][crate::model::skaffold_modules::SkaffoldGitSource::path].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_deploy_v1::model::skaffold_modules::SkaffoldGitSource;
+        /// let x = SkaffoldGitSource::new().set_path("example");
+        /// ```
         pub fn set_path<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.path = v.into();
             self
         }
 
         /// Sets the value of [r#ref][crate::model::skaffold_modules::SkaffoldGitSource::ref].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_deploy_v1::model::skaffold_modules::SkaffoldGitSource;
+        /// let x = SkaffoldGitSource::new().set_ref("example");
+        /// ```
         pub fn set_ref<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.r#ref = v.into();
             self
@@ -4739,12 +6483,24 @@ pub mod skaffold_modules {
         }
 
         /// Sets the value of [source][crate::model::skaffold_modules::SkaffoldGCSSource::source].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_deploy_v1::model::skaffold_modules::SkaffoldGCSSource;
+        /// let x = SkaffoldGCSSource::new().set_source("example");
+        /// ```
         pub fn set_source<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.source = v.into();
             self
         }
 
         /// Sets the value of [path][crate::model::skaffold_modules::SkaffoldGCSSource::path].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_deploy_v1::model::skaffold_modules::SkaffoldGCSSource;
+        /// let x = SkaffoldGCSSource::new().set_path("example");
+        /// ```
         pub fn set_path<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.path = v.into();
             self
@@ -4782,18 +6538,36 @@ pub mod skaffold_modules {
         }
 
         /// Sets the value of [repository][crate::model::skaffold_modules::SkaffoldGCBRepoSource::repository].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_deploy_v1::model::skaffold_modules::SkaffoldGCBRepoSource;
+        /// let x = SkaffoldGCBRepoSource::new().set_repository("example");
+        /// ```
         pub fn set_repository<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.repository = v.into();
             self
         }
 
         /// Sets the value of [path][crate::model::skaffold_modules::SkaffoldGCBRepoSource::path].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_deploy_v1::model::skaffold_modules::SkaffoldGCBRepoSource;
+        /// let x = SkaffoldGCBRepoSource::new().set_path("example");
+        /// ```
         pub fn set_path<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.path = v.into();
             self
         }
 
         /// Sets the value of [r#ref][crate::model::skaffold_modules::SkaffoldGCBRepoSource::ref].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_deploy_v1::model::skaffold_modules::SkaffoldGCBRepoSource;
+        /// let x = SkaffoldGCBRepoSource::new().set_ref("example");
+        /// ```
         pub fn set_ref<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.r#ref = v.into();
             self
@@ -4860,30 +6634,60 @@ impl ListCustomTargetTypesRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListCustomTargetTypesRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::ListCustomTargetTypesRequest;
+    /// let x = ListCustomTargetTypesRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListCustomTargetTypesRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::ListCustomTargetTypesRequest;
+    /// let x = ListCustomTargetTypesRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListCustomTargetTypesRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::ListCustomTargetTypesRequest;
+    /// let x = ListCustomTargetTypesRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListCustomTargetTypesRequest::filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::ListCustomTargetTypesRequest;
+    /// let x = ListCustomTargetTypesRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListCustomTargetTypesRequest::order_by].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::ListCustomTargetTypesRequest;
+    /// let x = ListCustomTargetTypesRequest::new().set_order_by("example");
+    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
@@ -4919,6 +6723,17 @@ impl ListCustomTargetTypesResponse {
     }
 
     /// Sets the value of [custom_target_types][crate::model::ListCustomTargetTypesResponse::custom_target_types].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::ListCustomTargetTypesResponse;
+    /// use google_cloud_deploy_v1::model::CustomTargetType;
+    /// let x = ListCustomTargetTypesResponse::new()
+    ///     .set_custom_target_types([
+    ///         CustomTargetType::default()/* use setters */,
+    ///         CustomTargetType::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_custom_target_types<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4930,12 +6745,24 @@ impl ListCustomTargetTypesResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListCustomTargetTypesResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::ListCustomTargetTypesResponse;
+    /// let x = ListCustomTargetTypesResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListCustomTargetTypesResponse::unreachable].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::ListCustomTargetTypesResponse;
+    /// let x = ListCustomTargetTypesResponse::new().set_unreachable(["a", "b", "c"]);
+    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4984,6 +6811,12 @@ impl GetCustomTargetTypeRequest {
     }
 
     /// Sets the value of [name][crate::model::GetCustomTargetTypeRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::GetCustomTargetTypeRequest;
+    /// let x = GetCustomTargetTypeRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -5038,12 +6871,24 @@ impl CreateCustomTargetTypeRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateCustomTargetTypeRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::CreateCustomTargetTypeRequest;
+    /// let x = CreateCustomTargetTypeRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [custom_target_type_id][crate::model::CreateCustomTargetTypeRequest::custom_target_type_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::CreateCustomTargetTypeRequest;
+    /// let x = CreateCustomTargetTypeRequest::new().set_custom_target_type_id("example");
+    /// ```
     pub fn set_custom_target_type_id<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -5053,6 +6898,13 @@ impl CreateCustomTargetTypeRequest {
     }
 
     /// Sets the value of [custom_target_type][crate::model::CreateCustomTargetTypeRequest::custom_target_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::CreateCustomTargetTypeRequest;
+    /// use google_cloud_deploy_v1::model::CustomTargetType;
+    /// let x = CreateCustomTargetTypeRequest::new().set_custom_target_type(CustomTargetType::default()/* use setters */);
+    /// ```
     pub fn set_custom_target_type<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::CustomTargetType>,
@@ -5062,6 +6914,14 @@ impl CreateCustomTargetTypeRequest {
     }
 
     /// Sets or clears the value of [custom_target_type][crate::model::CreateCustomTargetTypeRequest::custom_target_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::CreateCustomTargetTypeRequest;
+    /// use google_cloud_deploy_v1::model::CustomTargetType;
+    /// let x = CreateCustomTargetTypeRequest::new().set_or_clear_custom_target_type(Some(CustomTargetType::default()/* use setters */));
+    /// let x = CreateCustomTargetTypeRequest::new().set_or_clear_custom_target_type(None::<CustomTargetType>);
+    /// ```
     pub fn set_or_clear_custom_target_type<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CustomTargetType>,
@@ -5071,12 +6931,24 @@ impl CreateCustomTargetTypeRequest {
     }
 
     /// Sets the value of [request_id][crate::model::CreateCustomTargetTypeRequest::request_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::CreateCustomTargetTypeRequest;
+    /// let x = CreateCustomTargetTypeRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
     }
 
     /// Sets the value of [validate_only][crate::model::CreateCustomTargetTypeRequest::validate_only].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::CreateCustomTargetTypeRequest;
+    /// let x = CreateCustomTargetTypeRequest::new().set_validate_only(true);
+    /// ```
     pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.validate_only = v.into();
         self
@@ -5135,6 +7007,13 @@ impl UpdateCustomTargetTypeRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateCustomTargetTypeRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::UpdateCustomTargetTypeRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateCustomTargetTypeRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -5144,6 +7023,14 @@ impl UpdateCustomTargetTypeRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateCustomTargetTypeRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::UpdateCustomTargetTypeRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateCustomTargetTypeRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateCustomTargetTypeRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -5153,6 +7040,13 @@ impl UpdateCustomTargetTypeRequest {
     }
 
     /// Sets the value of [custom_target_type][crate::model::UpdateCustomTargetTypeRequest::custom_target_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::UpdateCustomTargetTypeRequest;
+    /// use google_cloud_deploy_v1::model::CustomTargetType;
+    /// let x = UpdateCustomTargetTypeRequest::new().set_custom_target_type(CustomTargetType::default()/* use setters */);
+    /// ```
     pub fn set_custom_target_type<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::CustomTargetType>,
@@ -5162,6 +7056,14 @@ impl UpdateCustomTargetTypeRequest {
     }
 
     /// Sets or clears the value of [custom_target_type][crate::model::UpdateCustomTargetTypeRequest::custom_target_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::UpdateCustomTargetTypeRequest;
+    /// use google_cloud_deploy_v1::model::CustomTargetType;
+    /// let x = UpdateCustomTargetTypeRequest::new().set_or_clear_custom_target_type(Some(CustomTargetType::default()/* use setters */));
+    /// let x = UpdateCustomTargetTypeRequest::new().set_or_clear_custom_target_type(None::<CustomTargetType>);
+    /// ```
     pub fn set_or_clear_custom_target_type<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CustomTargetType>,
@@ -5171,18 +7073,36 @@ impl UpdateCustomTargetTypeRequest {
     }
 
     /// Sets the value of [request_id][crate::model::UpdateCustomTargetTypeRequest::request_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::UpdateCustomTargetTypeRequest;
+    /// let x = UpdateCustomTargetTypeRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
     }
 
     /// Sets the value of [allow_missing][crate::model::UpdateCustomTargetTypeRequest::allow_missing].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::UpdateCustomTargetTypeRequest;
+    /// let x = UpdateCustomTargetTypeRequest::new().set_allow_missing(true);
+    /// ```
     pub fn set_allow_missing<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.allow_missing = v.into();
         self
     }
 
     /// Sets the value of [validate_only][crate::model::UpdateCustomTargetTypeRequest::validate_only].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::UpdateCustomTargetTypeRequest;
+    /// let x = UpdateCustomTargetTypeRequest::new().set_validate_only(true);
+    /// ```
     pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.validate_only = v.into();
         self
@@ -5240,30 +7160,60 @@ impl DeleteCustomTargetTypeRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteCustomTargetTypeRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::DeleteCustomTargetTypeRequest;
+    /// let x = DeleteCustomTargetTypeRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [request_id][crate::model::DeleteCustomTargetTypeRequest::request_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::DeleteCustomTargetTypeRequest;
+    /// let x = DeleteCustomTargetTypeRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
     }
 
     /// Sets the value of [allow_missing][crate::model::DeleteCustomTargetTypeRequest::allow_missing].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::DeleteCustomTargetTypeRequest;
+    /// let x = DeleteCustomTargetTypeRequest::new().set_allow_missing(true);
+    /// ```
     pub fn set_allow_missing<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.allow_missing = v.into();
         self
     }
 
     /// Sets the value of [validate_only][crate::model::DeleteCustomTargetTypeRequest::validate_only].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::DeleteCustomTargetTypeRequest;
+    /// let x = DeleteCustomTargetTypeRequest::new().set_validate_only(true);
+    /// ```
     pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.validate_only = v.into();
         self
     }
 
     /// Sets the value of [etag][crate::model::DeleteCustomTargetTypeRequest::etag].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::DeleteCustomTargetTypeRequest;
+    /// let x = DeleteCustomTargetTypeRequest::new().set_etag("example");
+    /// ```
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
@@ -5360,24 +7310,51 @@ impl DeployPolicy {
     }
 
     /// Sets the value of [name][crate::model::DeployPolicy::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::DeployPolicy;
+    /// let x = DeployPolicy::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [uid][crate::model::DeployPolicy::uid].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::DeployPolicy;
+    /// let x = DeployPolicy::new().set_uid("example");
+    /// ```
     pub fn set_uid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.uid = v.into();
         self
     }
 
     /// Sets the value of [description][crate::model::DeployPolicy::description].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::DeployPolicy;
+    /// let x = DeployPolicy::new().set_description("example");
+    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [annotations][crate::model::DeployPolicy::annotations].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::DeployPolicy;
+    /// let x = DeployPolicy::new().set_annotations([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_annotations<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -5390,6 +7367,15 @@ impl DeployPolicy {
     }
 
     /// Sets the value of [labels][crate::model::DeployPolicy::labels].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::DeployPolicy;
+    /// let x = DeployPolicy::new().set_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -5402,6 +7388,13 @@ impl DeployPolicy {
     }
 
     /// Sets the value of [create_time][crate::model::DeployPolicy::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::DeployPolicy;
+    /// use wkt::Timestamp;
+    /// let x = DeployPolicy::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -5411,6 +7404,14 @@ impl DeployPolicy {
     }
 
     /// Sets or clears the value of [create_time][crate::model::DeployPolicy::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::DeployPolicy;
+    /// use wkt::Timestamp;
+    /// let x = DeployPolicy::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = DeployPolicy::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -5420,6 +7421,13 @@ impl DeployPolicy {
     }
 
     /// Sets the value of [update_time][crate::model::DeployPolicy::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::DeployPolicy;
+    /// use wkt::Timestamp;
+    /// let x = DeployPolicy::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -5429,6 +7437,14 @@ impl DeployPolicy {
     }
 
     /// Sets or clears the value of [update_time][crate::model::DeployPolicy::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::DeployPolicy;
+    /// use wkt::Timestamp;
+    /// let x = DeployPolicy::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = DeployPolicy::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -5438,12 +7454,29 @@ impl DeployPolicy {
     }
 
     /// Sets the value of [suspended][crate::model::DeployPolicy::suspended].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::DeployPolicy;
+    /// let x = DeployPolicy::new().set_suspended(true);
+    /// ```
     pub fn set_suspended<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.suspended = v.into();
         self
     }
 
     /// Sets the value of [selectors][crate::model::DeployPolicy::selectors].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::DeployPolicy;
+    /// use google_cloud_deploy_v1::model::DeployPolicyResourceSelector;
+    /// let x = DeployPolicy::new()
+    ///     .set_selectors([
+    ///         DeployPolicyResourceSelector::default()/* use setters */,
+    ///         DeployPolicyResourceSelector::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_selectors<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -5455,6 +7488,17 @@ impl DeployPolicy {
     }
 
     /// Sets the value of [rules][crate::model::DeployPolicy::rules].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::DeployPolicy;
+    /// use google_cloud_deploy_v1::model::PolicyRule;
+    /// let x = DeployPolicy::new()
+    ///     .set_rules([
+    ///         PolicyRule::default()/* use setters */,
+    ///         PolicyRule::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_rules<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -5466,6 +7510,12 @@ impl DeployPolicy {
     }
 
     /// Sets the value of [etag][crate::model::DeployPolicy::etag].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::DeployPolicy;
+    /// let x = DeployPolicy::new().set_etag("example");
+    /// ```
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
@@ -5641,6 +7691,13 @@ impl DeployPolicyResourceSelector {
     }
 
     /// Sets the value of [delivery_pipeline][crate::model::DeployPolicyResourceSelector::delivery_pipeline].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::DeployPolicyResourceSelector;
+    /// use google_cloud_deploy_v1::model::DeliveryPipelineAttribute;
+    /// let x = DeployPolicyResourceSelector::new().set_delivery_pipeline(DeliveryPipelineAttribute::default()/* use setters */);
+    /// ```
     pub fn set_delivery_pipeline<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::DeliveryPipelineAttribute>,
@@ -5650,6 +7707,14 @@ impl DeployPolicyResourceSelector {
     }
 
     /// Sets or clears the value of [delivery_pipeline][crate::model::DeployPolicyResourceSelector::delivery_pipeline].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::DeployPolicyResourceSelector;
+    /// use google_cloud_deploy_v1::model::DeliveryPipelineAttribute;
+    /// let x = DeployPolicyResourceSelector::new().set_or_clear_delivery_pipeline(Some(DeliveryPipelineAttribute::default()/* use setters */));
+    /// let x = DeployPolicyResourceSelector::new().set_or_clear_delivery_pipeline(None::<DeliveryPipelineAttribute>);
+    /// ```
     pub fn set_or_clear_delivery_pipeline<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DeliveryPipelineAttribute>,
@@ -5659,6 +7724,13 @@ impl DeployPolicyResourceSelector {
     }
 
     /// Sets the value of [target][crate::model::DeployPolicyResourceSelector::target].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::DeployPolicyResourceSelector;
+    /// use google_cloud_deploy_v1::model::TargetAttribute;
+    /// let x = DeployPolicyResourceSelector::new().set_target(TargetAttribute::default()/* use setters */);
+    /// ```
     pub fn set_target<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::TargetAttribute>,
@@ -5668,6 +7740,14 @@ impl DeployPolicyResourceSelector {
     }
 
     /// Sets or clears the value of [target][crate::model::DeployPolicyResourceSelector::target].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::DeployPolicyResourceSelector;
+    /// use google_cloud_deploy_v1::model::TargetAttribute;
+    /// let x = DeployPolicyResourceSelector::new().set_or_clear_target(Some(TargetAttribute::default()/* use setters */));
+    /// let x = DeployPolicyResourceSelector::new().set_or_clear_target(None::<TargetAttribute>);
+    /// ```
     pub fn set_or_clear_target<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::TargetAttribute>,
@@ -5706,12 +7786,27 @@ impl DeliveryPipelineAttribute {
     }
 
     /// Sets the value of [id][crate::model::DeliveryPipelineAttribute::id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::DeliveryPipelineAttribute;
+    /// let x = DeliveryPipelineAttribute::new().set_id("example");
+    /// ```
     pub fn set_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.id = v.into();
         self
     }
 
     /// Sets the value of [labels][crate::model::DeliveryPipelineAttribute::labels].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::DeliveryPipelineAttribute;
+    /// let x = DeliveryPipelineAttribute::new().set_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -5754,12 +7849,27 @@ impl TargetAttribute {
     }
 
     /// Sets the value of [id][crate::model::TargetAttribute::id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::TargetAttribute;
+    /// let x = TargetAttribute::new().set_id("example");
+    /// ```
     pub fn set_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.id = v.into();
         self
     }
 
     /// Sets the value of [labels][crate::model::TargetAttribute::labels].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::TargetAttribute;
+    /// let x = TargetAttribute::new().set_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -5796,6 +7906,14 @@ impl PolicyRule {
     ///
     /// Note that all the setters affecting `rule` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::PolicyRule;
+    /// use google_cloud_deploy_v1::model::policy_rule;
+    /// use google_cloud_deploy_v1::model::RolloutRestriction;
+    /// let x = PolicyRule::new().set_rule(Some(policy_rule::Rule::RolloutRestriction(RolloutRestriction::default().into())));
+    /// ```
     pub fn set_rule<T: std::convert::Into<std::option::Option<crate::model::policy_rule::Rule>>>(
         mut self,
         v: T,
@@ -5822,6 +7940,14 @@ impl PolicyRule {
     ///
     /// Note that all the setters affecting `rule` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::PolicyRule;
+    /// use google_cloud_deploy_v1::model::RolloutRestriction;
+    /// let x = PolicyRule::new().set_rollout_restriction(RolloutRestriction::default()/* use setters */);
+    /// assert!(x.rollout_restriction().is_some());
+    /// ```
     pub fn set_rollout_restriction<
         T: std::convert::Into<std::boxed::Box<crate::model::RolloutRestriction>>,
     >(
@@ -5882,12 +8008,28 @@ impl RolloutRestriction {
     }
 
     /// Sets the value of [id][crate::model::RolloutRestriction::id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::RolloutRestriction;
+    /// let x = RolloutRestriction::new().set_id("example");
+    /// ```
     pub fn set_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.id = v.into();
         self
     }
 
     /// Sets the value of [invokers][crate::model::RolloutRestriction::invokers].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::RolloutRestriction;
+    /// use google_cloud_deploy_v1::model::deploy_policy::Invoker;
+    /// let x = RolloutRestriction::new().set_invokers([
+    ///     Invoker::User,
+    ///     Invoker::DeployAutomation,
+    /// ]);
+    /// ```
     pub fn set_invokers<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -5899,6 +8041,17 @@ impl RolloutRestriction {
     }
 
     /// Sets the value of [actions][crate::model::RolloutRestriction::actions].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::RolloutRestriction;
+    /// use google_cloud_deploy_v1::model::rollout_restriction::RolloutActions;
+    /// let x = RolloutRestriction::new().set_actions([
+    ///     RolloutActions::Advance,
+    ///     RolloutActions::Approve,
+    ///     RolloutActions::Cancel,
+    /// ]);
+    /// ```
     pub fn set_actions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -5910,6 +8063,13 @@ impl RolloutRestriction {
     }
 
     /// Sets the value of [time_windows][crate::model::RolloutRestriction::time_windows].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::RolloutRestriction;
+    /// use google_cloud_deploy_v1::model::TimeWindows;
+    /// let x = RolloutRestriction::new().set_time_windows(TimeWindows::default()/* use setters */);
+    /// ```
     pub fn set_time_windows<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::TimeWindows>,
@@ -5919,6 +8079,14 @@ impl RolloutRestriction {
     }
 
     /// Sets or clears the value of [time_windows][crate::model::RolloutRestriction::time_windows].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::RolloutRestriction;
+    /// use google_cloud_deploy_v1::model::TimeWindows;
+    /// let x = RolloutRestriction::new().set_or_clear_time_windows(Some(TimeWindows::default()/* use setters */));
+    /// let x = RolloutRestriction::new().set_or_clear_time_windows(None::<TimeWindows>);
+    /// ```
     pub fn set_or_clear_time_windows<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::TimeWindows>,
@@ -6139,12 +8307,29 @@ impl TimeWindows {
     }
 
     /// Sets the value of [time_zone][crate::model::TimeWindows::time_zone].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::TimeWindows;
+    /// let x = TimeWindows::new().set_time_zone("example");
+    /// ```
     pub fn set_time_zone<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.time_zone = v.into();
         self
     }
 
     /// Sets the value of [one_time_windows][crate::model::TimeWindows::one_time_windows].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::TimeWindows;
+    /// use google_cloud_deploy_v1::model::OneTimeWindow;
+    /// let x = TimeWindows::new()
+    ///     .set_one_time_windows([
+    ///         OneTimeWindow::default()/* use setters */,
+    ///         OneTimeWindow::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_one_time_windows<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -6156,6 +8341,17 @@ impl TimeWindows {
     }
 
     /// Sets the value of [weekly_windows][crate::model::TimeWindows::weekly_windows].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::TimeWindows;
+    /// use google_cloud_deploy_v1::model::WeeklyWindow;
+    /// let x = TimeWindows::new()
+    ///     .set_weekly_windows([
+    ///         WeeklyWindow::default()/* use setters */,
+    ///         WeeklyWindow::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_weekly_windows<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -6199,6 +8395,13 @@ impl OneTimeWindow {
     }
 
     /// Sets the value of [start_date][crate::model::OneTimeWindow::start_date].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::OneTimeWindow;
+    /// use gtype::model::Date;
+    /// let x = OneTimeWindow::new().set_start_date(Date::default()/* use setters */);
+    /// ```
     pub fn set_start_date<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<gtype::model::Date>,
@@ -6208,6 +8411,14 @@ impl OneTimeWindow {
     }
 
     /// Sets or clears the value of [start_date][crate::model::OneTimeWindow::start_date].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::OneTimeWindow;
+    /// use gtype::model::Date;
+    /// let x = OneTimeWindow::new().set_or_clear_start_date(Some(Date::default()/* use setters */));
+    /// let x = OneTimeWindow::new().set_or_clear_start_date(None::<Date>);
+    /// ```
     pub fn set_or_clear_start_date<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<gtype::model::Date>,
@@ -6217,6 +8428,13 @@ impl OneTimeWindow {
     }
 
     /// Sets the value of [start_time][crate::model::OneTimeWindow::start_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::OneTimeWindow;
+    /// use gtype::model::TimeOfDay;
+    /// let x = OneTimeWindow::new().set_start_time(TimeOfDay::default()/* use setters */);
+    /// ```
     pub fn set_start_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<gtype::model::TimeOfDay>,
@@ -6226,6 +8444,14 @@ impl OneTimeWindow {
     }
 
     /// Sets or clears the value of [start_time][crate::model::OneTimeWindow::start_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::OneTimeWindow;
+    /// use gtype::model::TimeOfDay;
+    /// let x = OneTimeWindow::new().set_or_clear_start_time(Some(TimeOfDay::default()/* use setters */));
+    /// let x = OneTimeWindow::new().set_or_clear_start_time(None::<TimeOfDay>);
+    /// ```
     pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<gtype::model::TimeOfDay>,
@@ -6235,6 +8461,13 @@ impl OneTimeWindow {
     }
 
     /// Sets the value of [end_date][crate::model::OneTimeWindow::end_date].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::OneTimeWindow;
+    /// use gtype::model::Date;
+    /// let x = OneTimeWindow::new().set_end_date(Date::default()/* use setters */);
+    /// ```
     pub fn set_end_date<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<gtype::model::Date>,
@@ -6244,6 +8477,14 @@ impl OneTimeWindow {
     }
 
     /// Sets or clears the value of [end_date][crate::model::OneTimeWindow::end_date].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::OneTimeWindow;
+    /// use gtype::model::Date;
+    /// let x = OneTimeWindow::new().set_or_clear_end_date(Some(Date::default()/* use setters */));
+    /// let x = OneTimeWindow::new().set_or_clear_end_date(None::<Date>);
+    /// ```
     pub fn set_or_clear_end_date<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<gtype::model::Date>,
@@ -6253,6 +8494,13 @@ impl OneTimeWindow {
     }
 
     /// Sets the value of [end_time][crate::model::OneTimeWindow::end_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::OneTimeWindow;
+    /// use gtype::model::TimeOfDay;
+    /// let x = OneTimeWindow::new().set_end_time(TimeOfDay::default()/* use setters */);
+    /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<gtype::model::TimeOfDay>,
@@ -6262,6 +8510,14 @@ impl OneTimeWindow {
     }
 
     /// Sets or clears the value of [end_time][crate::model::OneTimeWindow::end_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::OneTimeWindow;
+    /// use gtype::model::TimeOfDay;
+    /// let x = OneTimeWindow::new().set_or_clear_end_time(Some(TimeOfDay::default()/* use setters */));
+    /// let x = OneTimeWindow::new().set_or_clear_end_time(None::<TimeOfDay>);
+    /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<gtype::model::TimeOfDay>,
@@ -6305,6 +8561,17 @@ impl WeeklyWindow {
     }
 
     /// Sets the value of [days_of_week][crate::model::WeeklyWindow::days_of_week].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::WeeklyWindow;
+    /// use gtype::model::DayOfWeek;
+    /// let x = WeeklyWindow::new().set_days_of_week([
+    ///     DayOfWeek::Monday,
+    ///     DayOfWeek::Tuesday,
+    ///     DayOfWeek::Wednesday,
+    /// ]);
+    /// ```
     pub fn set_days_of_week<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -6316,6 +8583,13 @@ impl WeeklyWindow {
     }
 
     /// Sets the value of [start_time][crate::model::WeeklyWindow::start_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::WeeklyWindow;
+    /// use gtype::model::TimeOfDay;
+    /// let x = WeeklyWindow::new().set_start_time(TimeOfDay::default()/* use setters */);
+    /// ```
     pub fn set_start_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<gtype::model::TimeOfDay>,
@@ -6325,6 +8599,14 @@ impl WeeklyWindow {
     }
 
     /// Sets or clears the value of [start_time][crate::model::WeeklyWindow::start_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::WeeklyWindow;
+    /// use gtype::model::TimeOfDay;
+    /// let x = WeeklyWindow::new().set_or_clear_start_time(Some(TimeOfDay::default()/* use setters */));
+    /// let x = WeeklyWindow::new().set_or_clear_start_time(None::<TimeOfDay>);
+    /// ```
     pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<gtype::model::TimeOfDay>,
@@ -6334,6 +8616,13 @@ impl WeeklyWindow {
     }
 
     /// Sets the value of [end_time][crate::model::WeeklyWindow::end_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::WeeklyWindow;
+    /// use gtype::model::TimeOfDay;
+    /// let x = WeeklyWindow::new().set_end_time(TimeOfDay::default()/* use setters */);
+    /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<gtype::model::TimeOfDay>,
@@ -6343,6 +8632,14 @@ impl WeeklyWindow {
     }
 
     /// Sets or clears the value of [end_time][crate::model::WeeklyWindow::end_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::WeeklyWindow;
+    /// use gtype::model::TimeOfDay;
+    /// let x = WeeklyWindow::new().set_or_clear_end_time(Some(TimeOfDay::default()/* use setters */));
+    /// let x = WeeklyWindow::new().set_or_clear_end_time(None::<TimeOfDay>);
+    /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<gtype::model::TimeOfDay>,
@@ -6376,6 +8673,17 @@ impl PolicyViolation {
     }
 
     /// Sets the value of [policy_violation_details][crate::model::PolicyViolation::policy_violation_details].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::PolicyViolation;
+    /// use google_cloud_deploy_v1::model::PolicyViolationDetails;
+    /// let x = PolicyViolation::new()
+    ///     .set_policy_violation_details([
+    ///         PolicyViolationDetails::default()/* use setters */,
+    ///         PolicyViolationDetails::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_policy_violation_details<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -6418,18 +8726,36 @@ impl PolicyViolationDetails {
     }
 
     /// Sets the value of [policy][crate::model::PolicyViolationDetails::policy].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::PolicyViolationDetails;
+    /// let x = PolicyViolationDetails::new().set_policy("example");
+    /// ```
     pub fn set_policy<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.policy = v.into();
         self
     }
 
     /// Sets the value of [rule_id][crate::model::PolicyViolationDetails::rule_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::PolicyViolationDetails;
+    /// let x = PolicyViolationDetails::new().set_rule_id("example");
+    /// ```
     pub fn set_rule_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.rule_id = v.into();
         self
     }
 
     /// Sets the value of [failure_message][crate::model::PolicyViolationDetails::failure_message].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::PolicyViolationDetails;
+    /// let x = PolicyViolationDetails::new().set_failure_message("example");
+    /// ```
     pub fn set_failure_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.failure_message = v.into();
         self
@@ -6552,24 +8878,51 @@ impl Release {
     }
 
     /// Sets the value of [name][crate::model::Release::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::Release;
+    /// let x = Release::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [uid][crate::model::Release::uid].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::Release;
+    /// let x = Release::new().set_uid("example");
+    /// ```
     pub fn set_uid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.uid = v.into();
         self
     }
 
     /// Sets the value of [description][crate::model::Release::description].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::Release;
+    /// let x = Release::new().set_description("example");
+    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [annotations][crate::model::Release::annotations].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::Release;
+    /// let x = Release::new().set_annotations([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_annotations<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -6582,6 +8935,15 @@ impl Release {
     }
 
     /// Sets the value of [labels][crate::model::Release::labels].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::Release;
+    /// let x = Release::new().set_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -6594,12 +8956,25 @@ impl Release {
     }
 
     /// Sets the value of [abandoned][crate::model::Release::abandoned].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::Release;
+    /// let x = Release::new().set_abandoned(true);
+    /// ```
     pub fn set_abandoned<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.abandoned = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::Release::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::Release;
+    /// use wkt::Timestamp;
+    /// let x = Release::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -6609,6 +8984,14 @@ impl Release {
     }
 
     /// Sets or clears the value of [create_time][crate::model::Release::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::Release;
+    /// use wkt::Timestamp;
+    /// let x = Release::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Release::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -6618,6 +9001,13 @@ impl Release {
     }
 
     /// Sets the value of [render_start_time][crate::model::Release::render_start_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::Release;
+    /// use wkt::Timestamp;
+    /// let x = Release::new().set_render_start_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_render_start_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -6627,6 +9017,14 @@ impl Release {
     }
 
     /// Sets or clears the value of [render_start_time][crate::model::Release::render_start_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::Release;
+    /// use wkt::Timestamp;
+    /// let x = Release::new().set_or_clear_render_start_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Release::new().set_or_clear_render_start_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_render_start_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -6636,6 +9034,13 @@ impl Release {
     }
 
     /// Sets the value of [render_end_time][crate::model::Release::render_end_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::Release;
+    /// use wkt::Timestamp;
+    /// let x = Release::new().set_render_end_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_render_end_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -6645,6 +9050,14 @@ impl Release {
     }
 
     /// Sets or clears the value of [render_end_time][crate::model::Release::render_end_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::Release;
+    /// use wkt::Timestamp;
+    /// let x = Release::new().set_or_clear_render_end_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Release::new().set_or_clear_render_end_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_render_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -6654,6 +9067,12 @@ impl Release {
     }
 
     /// Sets the value of [skaffold_config_uri][crate::model::Release::skaffold_config_uri].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::Release;
+    /// let x = Release::new().set_skaffold_config_uri("example");
+    /// ```
     pub fn set_skaffold_config_uri<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -6663,6 +9082,12 @@ impl Release {
     }
 
     /// Sets the value of [skaffold_config_path][crate::model::Release::skaffold_config_path].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::Release;
+    /// let x = Release::new().set_skaffold_config_path("example");
+    /// ```
     pub fn set_skaffold_config_path<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -6672,6 +9097,17 @@ impl Release {
     }
 
     /// Sets the value of [build_artifacts][crate::model::Release::build_artifacts].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::Release;
+    /// use google_cloud_deploy_v1::model::BuildArtifact;
+    /// let x = Release::new()
+    ///     .set_build_artifacts([
+    ///         BuildArtifact::default()/* use setters */,
+    ///         BuildArtifact::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_build_artifacts<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -6683,6 +9119,13 @@ impl Release {
     }
 
     /// Sets the value of [delivery_pipeline_snapshot][crate::model::Release::delivery_pipeline_snapshot].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::Release;
+    /// use google_cloud_deploy_v1::model::DeliveryPipeline;
+    /// let x = Release::new().set_delivery_pipeline_snapshot(DeliveryPipeline::default()/* use setters */);
+    /// ```
     pub fn set_delivery_pipeline_snapshot<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::DeliveryPipeline>,
@@ -6692,6 +9135,14 @@ impl Release {
     }
 
     /// Sets or clears the value of [delivery_pipeline_snapshot][crate::model::Release::delivery_pipeline_snapshot].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::Release;
+    /// use google_cloud_deploy_v1::model::DeliveryPipeline;
+    /// let x = Release::new().set_or_clear_delivery_pipeline_snapshot(Some(DeliveryPipeline::default()/* use setters */));
+    /// let x = Release::new().set_or_clear_delivery_pipeline_snapshot(None::<DeliveryPipeline>);
+    /// ```
     pub fn set_or_clear_delivery_pipeline_snapshot<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DeliveryPipeline>,
@@ -6701,6 +9152,17 @@ impl Release {
     }
 
     /// Sets the value of [target_snapshots][crate::model::Release::target_snapshots].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::Release;
+    /// use google_cloud_deploy_v1::model::Target;
+    /// let x = Release::new()
+    ///     .set_target_snapshots([
+    ///         Target::default()/* use setters */,
+    ///         Target::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_target_snapshots<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -6712,6 +9174,17 @@ impl Release {
     }
 
     /// Sets the value of [custom_target_type_snapshots][crate::model::Release::custom_target_type_snapshots].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::Release;
+    /// use google_cloud_deploy_v1::model::CustomTargetType;
+    /// let x = Release::new()
+    ///     .set_custom_target_type_snapshots([
+    ///         CustomTargetType::default()/* use setters */,
+    ///         CustomTargetType::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_custom_target_type_snapshots<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -6723,6 +9196,15 @@ impl Release {
     }
 
     /// Sets the value of [render_state][crate::model::Release::render_state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::Release;
+    /// use google_cloud_deploy_v1::model::release::RenderState;
+    /// let x0 = Release::new().set_render_state(RenderState::Succeeded);
+    /// let x1 = Release::new().set_render_state(RenderState::Failed);
+    /// let x2 = Release::new().set_render_state(RenderState::InProgress);
+    /// ```
     pub fn set_render_state<T: std::convert::Into<crate::model::release::RenderState>>(
         mut self,
         v: T,
@@ -6732,12 +9214,24 @@ impl Release {
     }
 
     /// Sets the value of [etag][crate::model::Release::etag].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::Release;
+    /// let x = Release::new().set_etag("example");
+    /// ```
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
     }
 
     /// Sets the value of [skaffold_version][crate::model::Release::skaffold_version].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::Release;
+    /// let x = Release::new().set_skaffold_version("example");
+    /// ```
     pub fn set_skaffold_version<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -6747,6 +9241,16 @@ impl Release {
     }
 
     /// Sets the value of [target_artifacts][crate::model::Release::target_artifacts].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::Release;
+    /// use google_cloud_deploy_v1::model::TargetArtifact;
+    /// let x = Release::new().set_target_artifacts([
+    ///     ("key0", TargetArtifact::default()/* use setters */),
+    ///     ("key1", TargetArtifact::default()/* use (different) setters */),
+    /// ]);
+    /// ```
     pub fn set_target_artifacts<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -6759,6 +9263,16 @@ impl Release {
     }
 
     /// Sets the value of [target_renders][crate::model::Release::target_renders].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::Release;
+    /// use google_cloud_deploy_v1::model::release::TargetRender;
+    /// let x = Release::new().set_target_renders([
+    ///     ("key0", TargetRender::default()/* use setters */),
+    ///     ("key1", TargetRender::default()/* use (different) setters */),
+    /// ]);
+    /// ```
     pub fn set_target_renders<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -6771,6 +9285,13 @@ impl Release {
     }
 
     /// Sets the value of [condition][crate::model::Release::condition].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::Release;
+    /// use google_cloud_deploy_v1::model::release::ReleaseCondition;
+    /// let x = Release::new().set_condition(ReleaseCondition::default()/* use setters */);
+    /// ```
     pub fn set_condition<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::release::ReleaseCondition>,
@@ -6780,6 +9301,14 @@ impl Release {
     }
 
     /// Sets or clears the value of [condition][crate::model::Release::condition].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::Release;
+    /// use google_cloud_deploy_v1::model::release::ReleaseCondition;
+    /// let x = Release::new().set_or_clear_condition(Some(ReleaseCondition::default()/* use setters */));
+    /// let x = Release::new().set_or_clear_condition(None::<ReleaseCondition>);
+    /// ```
     pub fn set_or_clear_condition<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::release::ReleaseCondition>,
@@ -6789,6 +9318,15 @@ impl Release {
     }
 
     /// Sets the value of [deploy_parameters][crate::model::Release::deploy_parameters].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::Release;
+    /// let x = Release::new().set_deploy_parameters([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_deploy_parameters<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -6844,6 +9382,12 @@ pub mod release {
         }
 
         /// Sets the value of [rendering_build][crate::model::release::TargetRender::rendering_build].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_deploy_v1::model::release::TargetRender;
+        /// let x = TargetRender::new().set_rendering_build("example");
+        /// ```
         pub fn set_rendering_build<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -6853,6 +9397,15 @@ pub mod release {
         }
 
         /// Sets the value of [rendering_state][crate::model::release::TargetRender::rendering_state].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_deploy_v1::model::release::TargetRender;
+        /// use google_cloud_deploy_v1::model::release::target_render::TargetRenderState;
+        /// let x0 = TargetRender::new().set_rendering_state(TargetRenderState::Succeeded);
+        /// let x1 = TargetRender::new().set_rendering_state(TargetRenderState::Failed);
+        /// let x2 = TargetRender::new().set_rendering_state(TargetRenderState::InProgress);
+        /// ```
         pub fn set_rendering_state<
             T: std::convert::Into<crate::model::release::target_render::TargetRenderState>,
         >(
@@ -6864,6 +9417,13 @@ pub mod release {
         }
 
         /// Sets the value of [metadata][crate::model::release::TargetRender::metadata].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_deploy_v1::model::release::TargetRender;
+        /// use google_cloud_deploy_v1::model::RenderMetadata;
+        /// let x = TargetRender::new().set_metadata(RenderMetadata::default()/* use setters */);
+        /// ```
         pub fn set_metadata<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::RenderMetadata>,
@@ -6873,6 +9433,14 @@ pub mod release {
         }
 
         /// Sets or clears the value of [metadata][crate::model::release::TargetRender::metadata].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_deploy_v1::model::release::TargetRender;
+        /// use google_cloud_deploy_v1::model::RenderMetadata;
+        /// let x = TargetRender::new().set_or_clear_metadata(Some(RenderMetadata::default()/* use setters */));
+        /// let x = TargetRender::new().set_or_clear_metadata(None::<RenderMetadata>);
+        /// ```
         pub fn set_or_clear_metadata<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::RenderMetadata>,
@@ -6882,6 +9450,15 @@ pub mod release {
         }
 
         /// Sets the value of [failure_cause][crate::model::release::TargetRender::failure_cause].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_deploy_v1::model::release::TargetRender;
+        /// use google_cloud_deploy_v1::model::release::target_render::FailureCause;
+        /// let x0 = TargetRender::new().set_failure_cause(FailureCause::CloudBuildUnavailable);
+        /// let x1 = TargetRender::new().set_failure_cause(FailureCause::ExecutionFailed);
+        /// let x2 = TargetRender::new().set_failure_cause(FailureCause::CloudBuildRequestFailed);
+        /// ```
         pub fn set_failure_cause<
             T: std::convert::Into<crate::model::release::target_render::FailureCause>,
         >(
@@ -6893,6 +9470,12 @@ pub mod release {
         }
 
         /// Sets the value of [failure_message][crate::model::release::TargetRender::failure_message].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_deploy_v1::model::release::TargetRender;
+        /// let x = TargetRender::new().set_failure_message("example");
+        /// ```
         pub fn set_failure_message<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -7270,6 +9853,12 @@ pub mod release {
         }
 
         /// Sets the value of [status][crate::model::release::ReleaseReadyCondition::status].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_deploy_v1::model::release::ReleaseReadyCondition;
+        /// let x = ReleaseReadyCondition::new().set_status(true);
+        /// ```
         pub fn set_status<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.status = v.into();
             self
@@ -7310,12 +9899,27 @@ pub mod release {
         }
 
         /// Sets the value of [status][crate::model::release::SkaffoldSupportedCondition::status].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_deploy_v1::model::release::SkaffoldSupportedCondition;
+        /// let x = SkaffoldSupportedCondition::new().set_status(true);
+        /// ```
         pub fn set_status<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.status = v.into();
             self
         }
 
         /// Sets the value of [skaffold_support_state][crate::model::release::SkaffoldSupportedCondition::skaffold_support_state].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_deploy_v1::model::release::SkaffoldSupportedCondition;
+        /// use google_cloud_deploy_v1::model::SkaffoldSupportState;
+        /// let x0 = SkaffoldSupportedCondition::new().set_skaffold_support_state(SkaffoldSupportState::Supported);
+        /// let x1 = SkaffoldSupportedCondition::new().set_skaffold_support_state(SkaffoldSupportState::MaintenanceMode);
+        /// let x2 = SkaffoldSupportedCondition::new().set_skaffold_support_state(SkaffoldSupportState::Unsupported);
+        /// ```
         pub fn set_skaffold_support_state<
             T: std::convert::Into<crate::model::SkaffoldSupportState>,
         >(
@@ -7327,6 +9931,13 @@ pub mod release {
         }
 
         /// Sets the value of [maintenance_mode_time][crate::model::release::SkaffoldSupportedCondition::maintenance_mode_time].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_deploy_v1::model::release::SkaffoldSupportedCondition;
+        /// use wkt::Timestamp;
+        /// let x = SkaffoldSupportedCondition::new().set_maintenance_mode_time(Timestamp::default()/* use setters */);
+        /// ```
         pub fn set_maintenance_mode_time<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -7336,6 +9947,14 @@ pub mod release {
         }
 
         /// Sets or clears the value of [maintenance_mode_time][crate::model::release::SkaffoldSupportedCondition::maintenance_mode_time].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_deploy_v1::model::release::SkaffoldSupportedCondition;
+        /// use wkt::Timestamp;
+        /// let x = SkaffoldSupportedCondition::new().set_or_clear_maintenance_mode_time(Some(Timestamp::default()/* use setters */));
+        /// let x = SkaffoldSupportedCondition::new().set_or_clear_maintenance_mode_time(None::<Timestamp>);
+        /// ```
         pub fn set_or_clear_maintenance_mode_time<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -7345,6 +9964,13 @@ pub mod release {
         }
 
         /// Sets the value of [support_expiration_time][crate::model::release::SkaffoldSupportedCondition::support_expiration_time].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_deploy_v1::model::release::SkaffoldSupportedCondition;
+        /// use wkt::Timestamp;
+        /// let x = SkaffoldSupportedCondition::new().set_support_expiration_time(Timestamp::default()/* use setters */);
+        /// ```
         pub fn set_support_expiration_time<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -7354,6 +9980,14 @@ pub mod release {
         }
 
         /// Sets or clears the value of [support_expiration_time][crate::model::release::SkaffoldSupportedCondition::support_expiration_time].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_deploy_v1::model::release::SkaffoldSupportedCondition;
+        /// use wkt::Timestamp;
+        /// let x = SkaffoldSupportedCondition::new().set_or_clear_support_expiration_time(Some(Timestamp::default()/* use setters */));
+        /// let x = SkaffoldSupportedCondition::new().set_or_clear_support_expiration_time(None::<Timestamp>);
+        /// ```
         pub fn set_or_clear_support_expiration_time<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -7391,6 +10025,13 @@ pub mod release {
         }
 
         /// Sets the value of [release_ready_condition][crate::model::release::ReleaseCondition::release_ready_condition].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_deploy_v1::model::release::ReleaseCondition;
+        /// use google_cloud_deploy_v1::model::release::ReleaseReadyCondition;
+        /// let x = ReleaseCondition::new().set_release_ready_condition(ReleaseReadyCondition::default()/* use setters */);
+        /// ```
         pub fn set_release_ready_condition<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::release::ReleaseReadyCondition>,
@@ -7400,6 +10041,14 @@ pub mod release {
         }
 
         /// Sets or clears the value of [release_ready_condition][crate::model::release::ReleaseCondition::release_ready_condition].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_deploy_v1::model::release::ReleaseCondition;
+        /// use google_cloud_deploy_v1::model::release::ReleaseReadyCondition;
+        /// let x = ReleaseCondition::new().set_or_clear_release_ready_condition(Some(ReleaseReadyCondition::default()/* use setters */));
+        /// let x = ReleaseCondition::new().set_or_clear_release_ready_condition(None::<ReleaseReadyCondition>);
+        /// ```
         pub fn set_or_clear_release_ready_condition<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::release::ReleaseReadyCondition>,
@@ -7409,6 +10058,13 @@ pub mod release {
         }
 
         /// Sets the value of [skaffold_supported_condition][crate::model::release::ReleaseCondition::skaffold_supported_condition].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_deploy_v1::model::release::ReleaseCondition;
+        /// use google_cloud_deploy_v1::model::release::SkaffoldSupportedCondition;
+        /// let x = ReleaseCondition::new().set_skaffold_supported_condition(SkaffoldSupportedCondition::default()/* use setters */);
+        /// ```
         pub fn set_skaffold_supported_condition<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::release::SkaffoldSupportedCondition>,
@@ -7418,6 +10074,14 @@ pub mod release {
         }
 
         /// Sets or clears the value of [skaffold_supported_condition][crate::model::release::ReleaseCondition::skaffold_supported_condition].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_deploy_v1::model::release::ReleaseCondition;
+        /// use google_cloud_deploy_v1::model::release::SkaffoldSupportedCondition;
+        /// let x = ReleaseCondition::new().set_or_clear_skaffold_supported_condition(Some(SkaffoldSupportedCondition::default()/* use setters */));
+        /// let x = ReleaseCondition::new().set_or_clear_skaffold_supported_condition(None::<SkaffoldSupportedCondition>);
+        /// ```
         pub fn set_or_clear_skaffold_supported_condition<T>(
             mut self,
             v: std::option::Option<T>,
@@ -7618,12 +10282,24 @@ impl CreateDeployPolicyRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateDeployPolicyRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::CreateDeployPolicyRequest;
+    /// let x = CreateDeployPolicyRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [deploy_policy_id][crate::model::CreateDeployPolicyRequest::deploy_policy_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::CreateDeployPolicyRequest;
+    /// let x = CreateDeployPolicyRequest::new().set_deploy_policy_id("example");
+    /// ```
     pub fn set_deploy_policy_id<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -7633,6 +10309,13 @@ impl CreateDeployPolicyRequest {
     }
 
     /// Sets the value of [deploy_policy][crate::model::CreateDeployPolicyRequest::deploy_policy].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::CreateDeployPolicyRequest;
+    /// use google_cloud_deploy_v1::model::DeployPolicy;
+    /// let x = CreateDeployPolicyRequest::new().set_deploy_policy(DeployPolicy::default()/* use setters */);
+    /// ```
     pub fn set_deploy_policy<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::DeployPolicy>,
@@ -7642,6 +10325,14 @@ impl CreateDeployPolicyRequest {
     }
 
     /// Sets or clears the value of [deploy_policy][crate::model::CreateDeployPolicyRequest::deploy_policy].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::CreateDeployPolicyRequest;
+    /// use google_cloud_deploy_v1::model::DeployPolicy;
+    /// let x = CreateDeployPolicyRequest::new().set_or_clear_deploy_policy(Some(DeployPolicy::default()/* use setters */));
+    /// let x = CreateDeployPolicyRequest::new().set_or_clear_deploy_policy(None::<DeployPolicy>);
+    /// ```
     pub fn set_or_clear_deploy_policy<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DeployPolicy>,
@@ -7651,12 +10342,24 @@ impl CreateDeployPolicyRequest {
     }
 
     /// Sets the value of [request_id][crate::model::CreateDeployPolicyRequest::request_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::CreateDeployPolicyRequest;
+    /// let x = CreateDeployPolicyRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
     }
 
     /// Sets the value of [validate_only][crate::model::CreateDeployPolicyRequest::validate_only].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::CreateDeployPolicyRequest;
+    /// let x = CreateDeployPolicyRequest::new().set_validate_only(true);
+    /// ```
     pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.validate_only = v.into();
         self
@@ -7715,6 +10418,13 @@ impl UpdateDeployPolicyRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateDeployPolicyRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::UpdateDeployPolicyRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateDeployPolicyRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -7724,6 +10434,14 @@ impl UpdateDeployPolicyRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateDeployPolicyRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::UpdateDeployPolicyRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateDeployPolicyRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateDeployPolicyRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -7733,6 +10451,13 @@ impl UpdateDeployPolicyRequest {
     }
 
     /// Sets the value of [deploy_policy][crate::model::UpdateDeployPolicyRequest::deploy_policy].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::UpdateDeployPolicyRequest;
+    /// use google_cloud_deploy_v1::model::DeployPolicy;
+    /// let x = UpdateDeployPolicyRequest::new().set_deploy_policy(DeployPolicy::default()/* use setters */);
+    /// ```
     pub fn set_deploy_policy<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::DeployPolicy>,
@@ -7742,6 +10467,14 @@ impl UpdateDeployPolicyRequest {
     }
 
     /// Sets or clears the value of [deploy_policy][crate::model::UpdateDeployPolicyRequest::deploy_policy].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::UpdateDeployPolicyRequest;
+    /// use google_cloud_deploy_v1::model::DeployPolicy;
+    /// let x = UpdateDeployPolicyRequest::new().set_or_clear_deploy_policy(Some(DeployPolicy::default()/* use setters */));
+    /// let x = UpdateDeployPolicyRequest::new().set_or_clear_deploy_policy(None::<DeployPolicy>);
+    /// ```
     pub fn set_or_clear_deploy_policy<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DeployPolicy>,
@@ -7751,18 +10484,36 @@ impl UpdateDeployPolicyRequest {
     }
 
     /// Sets the value of [request_id][crate::model::UpdateDeployPolicyRequest::request_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::UpdateDeployPolicyRequest;
+    /// let x = UpdateDeployPolicyRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
     }
 
     /// Sets the value of [allow_missing][crate::model::UpdateDeployPolicyRequest::allow_missing].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::UpdateDeployPolicyRequest;
+    /// let x = UpdateDeployPolicyRequest::new().set_allow_missing(true);
+    /// ```
     pub fn set_allow_missing<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.allow_missing = v.into();
         self
     }
 
     /// Sets the value of [validate_only][crate::model::UpdateDeployPolicyRequest::validate_only].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::UpdateDeployPolicyRequest;
+    /// let x = UpdateDeployPolicyRequest::new().set_validate_only(true);
+    /// ```
     pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.validate_only = v.into();
         self
@@ -7820,30 +10571,60 @@ impl DeleteDeployPolicyRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteDeployPolicyRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::DeleteDeployPolicyRequest;
+    /// let x = DeleteDeployPolicyRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [request_id][crate::model::DeleteDeployPolicyRequest::request_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::DeleteDeployPolicyRequest;
+    /// let x = DeleteDeployPolicyRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
     }
 
     /// Sets the value of [allow_missing][crate::model::DeleteDeployPolicyRequest::allow_missing].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::DeleteDeployPolicyRequest;
+    /// let x = DeleteDeployPolicyRequest::new().set_allow_missing(true);
+    /// ```
     pub fn set_allow_missing<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.allow_missing = v.into();
         self
     }
 
     /// Sets the value of [validate_only][crate::model::DeleteDeployPolicyRequest::validate_only].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::DeleteDeployPolicyRequest;
+    /// let x = DeleteDeployPolicyRequest::new().set_validate_only(true);
+    /// ```
     pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.validate_only = v.into();
         self
     }
 
     /// Sets the value of [etag][crate::model::DeleteDeployPolicyRequest::etag].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::DeleteDeployPolicyRequest;
+    /// let x = DeleteDeployPolicyRequest::new().set_etag("example");
+    /// ```
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
@@ -7893,30 +10674,60 @@ impl ListDeployPoliciesRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListDeployPoliciesRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::ListDeployPoliciesRequest;
+    /// let x = ListDeployPoliciesRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListDeployPoliciesRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::ListDeployPoliciesRequest;
+    /// let x = ListDeployPoliciesRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListDeployPoliciesRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::ListDeployPoliciesRequest;
+    /// let x = ListDeployPoliciesRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListDeployPoliciesRequest::filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::ListDeployPoliciesRequest;
+    /// let x = ListDeployPoliciesRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListDeployPoliciesRequest::order_by].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::ListDeployPoliciesRequest;
+    /// let x = ListDeployPoliciesRequest::new().set_order_by("example");
+    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
@@ -7952,6 +10763,17 @@ impl ListDeployPoliciesResponse {
     }
 
     /// Sets the value of [deploy_policies][crate::model::ListDeployPoliciesResponse::deploy_policies].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::ListDeployPoliciesResponse;
+    /// use google_cloud_deploy_v1::model::DeployPolicy;
+    /// let x = ListDeployPoliciesResponse::new()
+    ///     .set_deploy_policies([
+    ///         DeployPolicy::default()/* use setters */,
+    ///         DeployPolicy::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_deploy_policies<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -7963,12 +10785,24 @@ impl ListDeployPoliciesResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListDeployPoliciesResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::ListDeployPoliciesResponse;
+    /// let x = ListDeployPoliciesResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListDeployPoliciesResponse::unreachable].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::ListDeployPoliciesResponse;
+    /// let x = ListDeployPoliciesResponse::new().set_unreachable(["a", "b", "c"]);
+    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -8017,6 +10851,12 @@ impl GetDeployPolicyRequest {
     }
 
     /// Sets the value of [name][crate::model::GetDeployPolicyRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::GetDeployPolicyRequest;
+    /// let x = GetDeployPolicyRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -8050,12 +10890,24 @@ impl BuildArtifact {
     }
 
     /// Sets the value of [image][crate::model::BuildArtifact::image].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::BuildArtifact;
+    /// let x = BuildArtifact::new().set_image("example");
+    /// ```
     pub fn set_image<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.image = v.into();
         self
     }
 
     /// Sets the value of [tag][crate::model::BuildArtifact::tag].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::BuildArtifact;
+    /// let x = BuildArtifact::new().set_tag("example");
+    /// ```
     pub fn set_tag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.tag = v.into();
         self
@@ -8097,6 +10949,12 @@ impl TargetArtifact {
     }
 
     /// Sets the value of [skaffold_config_path][crate::model::TargetArtifact::skaffold_config_path].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::TargetArtifact;
+    /// let x = TargetArtifact::new().set_skaffold_config_path("example");
+    /// ```
     pub fn set_skaffold_config_path<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -8106,12 +10964,28 @@ impl TargetArtifact {
     }
 
     /// Sets the value of [manifest_path][crate::model::TargetArtifact::manifest_path].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::TargetArtifact;
+    /// let x = TargetArtifact::new().set_manifest_path("example");
+    /// ```
     pub fn set_manifest_path<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.manifest_path = v.into();
         self
     }
 
     /// Sets the value of [phase_artifacts][crate::model::TargetArtifact::phase_artifacts].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::TargetArtifact;
+    /// use google_cloud_deploy_v1::model::target_artifact::PhaseArtifact;
+    /// let x = TargetArtifact::new().set_phase_artifacts([
+    ///     ("key0", PhaseArtifact::default()/* use setters */),
+    ///     ("key1", PhaseArtifact::default()/* use (different) setters */),
+    /// ]);
+    /// ```
     pub fn set_phase_artifacts<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -8127,6 +11001,13 @@ impl TargetArtifact {
     ///
     /// Note that all the setters affecting `uri` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::TargetArtifact;
+    /// use google_cloud_deploy_v1::model::target_artifact;
+    /// let x = TargetArtifact::new().set_uri(Some(target_artifact::Uri::ArtifactUri("example".to_string())));
+    /// ```
     pub fn set_uri<
         T: std::convert::Into<std::option::Option<crate::model::target_artifact::Uri>>,
     >(
@@ -8153,6 +11034,13 @@ impl TargetArtifact {
     ///
     /// Note that all the setters affecting `uri` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::TargetArtifact;
+    /// let x = TargetArtifact::new().set_artifact_uri("example");
+    /// assert!(x.artifact_uri().is_some());
+    /// ```
     pub fn set_artifact_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.uri =
             std::option::Option::Some(crate::model::target_artifact::Uri::ArtifactUri(v.into()));
@@ -8195,6 +11083,12 @@ pub mod target_artifact {
         }
 
         /// Sets the value of [skaffold_config_path][crate::model::target_artifact::PhaseArtifact::skaffold_config_path].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_deploy_v1::model::target_artifact::PhaseArtifact;
+        /// let x = PhaseArtifact::new().set_skaffold_config_path("example");
+        /// ```
         pub fn set_skaffold_config_path<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -8204,6 +11098,12 @@ pub mod target_artifact {
         }
 
         /// Sets the value of [manifest_path][crate::model::target_artifact::PhaseArtifact::manifest_path].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_deploy_v1::model::target_artifact::PhaseArtifact;
+        /// let x = PhaseArtifact::new().set_manifest_path("example");
+        /// ```
         pub fn set_manifest_path<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -8213,6 +11113,12 @@ pub mod target_artifact {
         }
 
         /// Sets the value of [job_manifests_path][crate::model::target_artifact::PhaseArtifact::job_manifests_path].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_deploy_v1::model::target_artifact::PhaseArtifact;
+        /// let x = PhaseArtifact::new().set_job_manifests_path("example");
+        /// ```
         pub fn set_job_manifests_path<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -8259,12 +11165,24 @@ impl DeployArtifact {
     }
 
     /// Sets the value of [artifact_uri][crate::model::DeployArtifact::artifact_uri].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::DeployArtifact;
+    /// let x = DeployArtifact::new().set_artifact_uri("example");
+    /// ```
     pub fn set_artifact_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.artifact_uri = v.into();
         self
     }
 
     /// Sets the value of [manifest_paths][crate::model::DeployArtifact::manifest_paths].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::DeployArtifact;
+    /// let x = DeployArtifact::new().set_manifest_paths(["a", "b", "c"]);
+    /// ```
     pub fn set_manifest_paths<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -8300,6 +11218,12 @@ impl CloudRunRenderMetadata {
     }
 
     /// Sets the value of [service][crate::model::CloudRunRenderMetadata::service].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::CloudRunRenderMetadata;
+    /// let x = CloudRunRenderMetadata::new().set_service("example");
+    /// ```
     pub fn set_service<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.service = v.into();
         self
@@ -8331,6 +11255,13 @@ impl RenderMetadata {
     }
 
     /// Sets the value of [cloud_run][crate::model::RenderMetadata::cloud_run].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::RenderMetadata;
+    /// use google_cloud_deploy_v1::model::CloudRunRenderMetadata;
+    /// let x = RenderMetadata::new().set_cloud_run(CloudRunRenderMetadata::default()/* use setters */);
+    /// ```
     pub fn set_cloud_run<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::CloudRunRenderMetadata>,
@@ -8340,6 +11271,14 @@ impl RenderMetadata {
     }
 
     /// Sets or clears the value of [cloud_run][crate::model::RenderMetadata::cloud_run].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::RenderMetadata;
+    /// use google_cloud_deploy_v1::model::CloudRunRenderMetadata;
+    /// let x = RenderMetadata::new().set_or_clear_cloud_run(Some(CloudRunRenderMetadata::default()/* use setters */));
+    /// let x = RenderMetadata::new().set_or_clear_cloud_run(None::<CloudRunRenderMetadata>);
+    /// ```
     pub fn set_or_clear_cloud_run<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CloudRunRenderMetadata>,
@@ -8349,6 +11288,13 @@ impl RenderMetadata {
     }
 
     /// Sets the value of [custom][crate::model::RenderMetadata::custom].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::RenderMetadata;
+    /// use google_cloud_deploy_v1::model::CustomMetadata;
+    /// let x = RenderMetadata::new().set_custom(CustomMetadata::default()/* use setters */);
+    /// ```
     pub fn set_custom<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::CustomMetadata>,
@@ -8358,6 +11304,14 @@ impl RenderMetadata {
     }
 
     /// Sets or clears the value of [custom][crate::model::RenderMetadata::custom].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::RenderMetadata;
+    /// use google_cloud_deploy_v1::model::CustomMetadata;
+    /// let x = RenderMetadata::new().set_or_clear_custom(Some(CustomMetadata::default()/* use setters */));
+    /// let x = RenderMetadata::new().set_or_clear_custom(None::<CustomMetadata>);
+    /// ```
     pub fn set_or_clear_custom<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CustomMetadata>,
@@ -8411,30 +11365,60 @@ impl ListReleasesRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListReleasesRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::ListReleasesRequest;
+    /// let x = ListReleasesRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListReleasesRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::ListReleasesRequest;
+    /// let x = ListReleasesRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListReleasesRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::ListReleasesRequest;
+    /// let x = ListReleasesRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListReleasesRequest::filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::ListReleasesRequest;
+    /// let x = ListReleasesRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListReleasesRequest::order_by].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::ListReleasesRequest;
+    /// let x = ListReleasesRequest::new().set_order_by("example");
+    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
@@ -8470,6 +11454,17 @@ impl ListReleasesResponse {
     }
 
     /// Sets the value of [releases][crate::model::ListReleasesResponse::releases].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::ListReleasesResponse;
+    /// use google_cloud_deploy_v1::model::Release;
+    /// let x = ListReleasesResponse::new()
+    ///     .set_releases([
+    ///         Release::default()/* use setters */,
+    ///         Release::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_releases<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -8481,12 +11476,24 @@ impl ListReleasesResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListReleasesResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::ListReleasesResponse;
+    /// let x = ListReleasesResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListReleasesResponse::unreachable].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::ListReleasesResponse;
+    /// let x = ListReleasesResponse::new().set_unreachable(["a", "b", "c"]);
+    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -8535,6 +11542,12 @@ impl GetReleaseRequest {
     }
 
     /// Sets the value of [name][crate::model::GetReleaseRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::GetReleaseRequest;
+    /// let x = GetReleaseRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -8594,18 +11607,37 @@ impl CreateReleaseRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateReleaseRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::CreateReleaseRequest;
+    /// let x = CreateReleaseRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [release_id][crate::model::CreateReleaseRequest::release_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::CreateReleaseRequest;
+    /// let x = CreateReleaseRequest::new().set_release_id("example");
+    /// ```
     pub fn set_release_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.release_id = v.into();
         self
     }
 
     /// Sets the value of [release][crate::model::CreateReleaseRequest::release].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::CreateReleaseRequest;
+    /// use google_cloud_deploy_v1::model::Release;
+    /// let x = CreateReleaseRequest::new().set_release(Release::default()/* use setters */);
+    /// ```
     pub fn set_release<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Release>,
@@ -8615,6 +11647,14 @@ impl CreateReleaseRequest {
     }
 
     /// Sets or clears the value of [release][crate::model::CreateReleaseRequest::release].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::CreateReleaseRequest;
+    /// use google_cloud_deploy_v1::model::Release;
+    /// let x = CreateReleaseRequest::new().set_or_clear_release(Some(Release::default()/* use setters */));
+    /// let x = CreateReleaseRequest::new().set_or_clear_release(None::<Release>);
+    /// ```
     pub fn set_or_clear_release<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Release>,
@@ -8624,18 +11664,36 @@ impl CreateReleaseRequest {
     }
 
     /// Sets the value of [request_id][crate::model::CreateReleaseRequest::request_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::CreateReleaseRequest;
+    /// let x = CreateReleaseRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
     }
 
     /// Sets the value of [validate_only][crate::model::CreateReleaseRequest::validate_only].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::CreateReleaseRequest;
+    /// let x = CreateReleaseRequest::new().set_validate_only(true);
+    /// ```
     pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.validate_only = v.into();
         self
     }
 
     /// Sets the value of [override_deploy_policy][crate::model::CreateReleaseRequest::override_deploy_policy].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::CreateReleaseRequest;
+    /// let x = CreateReleaseRequest::new().set_override_deploy_policy(["a", "b", "c"]);
+    /// ```
     pub fn set_override_deploy_policy<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -8761,24 +11819,51 @@ impl Rollout {
     }
 
     /// Sets the value of [name][crate::model::Rollout::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::Rollout;
+    /// let x = Rollout::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [uid][crate::model::Rollout::uid].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::Rollout;
+    /// let x = Rollout::new().set_uid("example");
+    /// ```
     pub fn set_uid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.uid = v.into();
         self
     }
 
     /// Sets the value of [description][crate::model::Rollout::description].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::Rollout;
+    /// let x = Rollout::new().set_description("example");
+    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [annotations][crate::model::Rollout::annotations].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::Rollout;
+    /// let x = Rollout::new().set_annotations([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_annotations<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -8791,6 +11876,15 @@ impl Rollout {
     }
 
     /// Sets the value of [labels][crate::model::Rollout::labels].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::Rollout;
+    /// let x = Rollout::new().set_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -8803,6 +11897,13 @@ impl Rollout {
     }
 
     /// Sets the value of [create_time][crate::model::Rollout::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::Rollout;
+    /// use wkt::Timestamp;
+    /// let x = Rollout::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -8812,6 +11913,14 @@ impl Rollout {
     }
 
     /// Sets or clears the value of [create_time][crate::model::Rollout::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::Rollout;
+    /// use wkt::Timestamp;
+    /// let x = Rollout::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Rollout::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -8821,6 +11930,13 @@ impl Rollout {
     }
 
     /// Sets the value of [approve_time][crate::model::Rollout::approve_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::Rollout;
+    /// use wkt::Timestamp;
+    /// let x = Rollout::new().set_approve_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_approve_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -8830,6 +11946,14 @@ impl Rollout {
     }
 
     /// Sets or clears the value of [approve_time][crate::model::Rollout::approve_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::Rollout;
+    /// use wkt::Timestamp;
+    /// let x = Rollout::new().set_or_clear_approve_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Rollout::new().set_or_clear_approve_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_approve_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -8839,6 +11963,13 @@ impl Rollout {
     }
 
     /// Sets the value of [enqueue_time][crate::model::Rollout::enqueue_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::Rollout;
+    /// use wkt::Timestamp;
+    /// let x = Rollout::new().set_enqueue_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_enqueue_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -8848,6 +11979,14 @@ impl Rollout {
     }
 
     /// Sets or clears the value of [enqueue_time][crate::model::Rollout::enqueue_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::Rollout;
+    /// use wkt::Timestamp;
+    /// let x = Rollout::new().set_or_clear_enqueue_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Rollout::new().set_or_clear_enqueue_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_enqueue_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -8857,6 +11996,13 @@ impl Rollout {
     }
 
     /// Sets the value of [deploy_start_time][crate::model::Rollout::deploy_start_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::Rollout;
+    /// use wkt::Timestamp;
+    /// let x = Rollout::new().set_deploy_start_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_deploy_start_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -8866,6 +12012,14 @@ impl Rollout {
     }
 
     /// Sets or clears the value of [deploy_start_time][crate::model::Rollout::deploy_start_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::Rollout;
+    /// use wkt::Timestamp;
+    /// let x = Rollout::new().set_or_clear_deploy_start_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Rollout::new().set_or_clear_deploy_start_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_deploy_start_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -8875,6 +12029,13 @@ impl Rollout {
     }
 
     /// Sets the value of [deploy_end_time][crate::model::Rollout::deploy_end_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::Rollout;
+    /// use wkt::Timestamp;
+    /// let x = Rollout::new().set_deploy_end_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_deploy_end_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -8884,6 +12045,14 @@ impl Rollout {
     }
 
     /// Sets or clears the value of [deploy_end_time][crate::model::Rollout::deploy_end_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::Rollout;
+    /// use wkt::Timestamp;
+    /// let x = Rollout::new().set_or_clear_deploy_end_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Rollout::new().set_or_clear_deploy_end_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_deploy_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -8893,12 +12062,27 @@ impl Rollout {
     }
 
     /// Sets the value of [target_id][crate::model::Rollout::target_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::Rollout;
+    /// let x = Rollout::new().set_target_id("example");
+    /// ```
     pub fn set_target_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.target_id = v.into();
         self
     }
 
     /// Sets the value of [approval_state][crate::model::Rollout::approval_state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::Rollout;
+    /// use google_cloud_deploy_v1::model::rollout::ApprovalState;
+    /// let x0 = Rollout::new().set_approval_state(ApprovalState::NeedsApproval);
+    /// let x1 = Rollout::new().set_approval_state(ApprovalState::DoesNotNeedApproval);
+    /// let x2 = Rollout::new().set_approval_state(ApprovalState::Approved);
+    /// ```
     pub fn set_approval_state<T: std::convert::Into<crate::model::rollout::ApprovalState>>(
         mut self,
         v: T,
@@ -8908,30 +12092,66 @@ impl Rollout {
     }
 
     /// Sets the value of [state][crate::model::Rollout::state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::Rollout;
+    /// use google_cloud_deploy_v1::model::rollout::State;
+    /// let x0 = Rollout::new().set_state(State::Succeeded);
+    /// let x1 = Rollout::new().set_state(State::Failed);
+    /// let x2 = Rollout::new().set_state(State::InProgress);
+    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::rollout::State>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
     }
 
     /// Sets the value of [failure_reason][crate::model::Rollout::failure_reason].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::Rollout;
+    /// let x = Rollout::new().set_failure_reason("example");
+    /// ```
     pub fn set_failure_reason<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.failure_reason = v.into();
         self
     }
 
     /// Sets the value of [deploying_build][crate::model::Rollout::deploying_build].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::Rollout;
+    /// let x = Rollout::new().set_deploying_build("example");
+    /// ```
     pub fn set_deploying_build<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.deploying_build = v.into();
         self
     }
 
     /// Sets the value of [etag][crate::model::Rollout::etag].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::Rollout;
+    /// let x = Rollout::new().set_etag("example");
+    /// ```
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
     }
 
     /// Sets the value of [deploy_failure_cause][crate::model::Rollout::deploy_failure_cause].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::Rollout;
+    /// use google_cloud_deploy_v1::model::rollout::FailureCause;
+    /// let x0 = Rollout::new().set_deploy_failure_cause(FailureCause::CloudBuildUnavailable);
+    /// let x1 = Rollout::new().set_deploy_failure_cause(FailureCause::ExecutionFailed);
+    /// let x2 = Rollout::new().set_deploy_failure_cause(FailureCause::DeadlineExceeded);
+    /// ```
     pub fn set_deploy_failure_cause<T: std::convert::Into<crate::model::rollout::FailureCause>>(
         mut self,
         v: T,
@@ -8941,6 +12161,17 @@ impl Rollout {
     }
 
     /// Sets the value of [phases][crate::model::Rollout::phases].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::Rollout;
+    /// use google_cloud_deploy_v1::model::Phase;
+    /// let x = Rollout::new()
+    ///     .set_phases([
+    ///         Phase::default()/* use setters */,
+    ///         Phase::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_phases<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -8952,6 +12183,13 @@ impl Rollout {
     }
 
     /// Sets the value of [metadata][crate::model::Rollout::metadata].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::Rollout;
+    /// use google_cloud_deploy_v1::model::Metadata;
+    /// let x = Rollout::new().set_metadata(Metadata::default()/* use setters */);
+    /// ```
     pub fn set_metadata<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Metadata>,
@@ -8961,6 +12199,14 @@ impl Rollout {
     }
 
     /// Sets or clears the value of [metadata][crate::model::Rollout::metadata].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::Rollout;
+    /// use google_cloud_deploy_v1::model::Metadata;
+    /// let x = Rollout::new().set_or_clear_metadata(Some(Metadata::default()/* use setters */));
+    /// let x = Rollout::new().set_or_clear_metadata(None::<Metadata>);
+    /// ```
     pub fn set_or_clear_metadata<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Metadata>,
@@ -8970,6 +12216,12 @@ impl Rollout {
     }
 
     /// Sets the value of [controller_rollout][crate::model::Rollout::controller_rollout].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::Rollout;
+    /// let x = Rollout::new().set_controller_rollout("example");
+    /// ```
     pub fn set_controller_rollout<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -8979,6 +12231,12 @@ impl Rollout {
     }
 
     /// Sets the value of [rollback_of_rollout][crate::model::Rollout::rollback_of_rollout].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::Rollout;
+    /// let x = Rollout::new().set_rollback_of_rollout("example");
+    /// ```
     pub fn set_rollback_of_rollout<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -8988,6 +12246,12 @@ impl Rollout {
     }
 
     /// Sets the value of [rolled_back_by_rollouts][crate::model::Rollout::rolled_back_by_rollouts].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::Rollout;
+    /// let x = Rollout::new().set_rolled_back_by_rollouts(["a", "b", "c"]);
+    /// ```
     pub fn set_rolled_back_by_rollouts<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -8999,6 +12263,12 @@ impl Rollout {
     }
 
     /// Sets the value of [active_repair_automation_run][crate::model::Rollout::active_repair_automation_run].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::Rollout;
+    /// let x = Rollout::new().set_active_repair_automation_run("example");
+    /// ```
     pub fn set_active_repair_automation_run<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -9563,6 +12833,13 @@ impl Metadata {
     }
 
     /// Sets the value of [cloud_run][crate::model::Metadata::cloud_run].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::Metadata;
+    /// use google_cloud_deploy_v1::model::CloudRunMetadata;
+    /// let x = Metadata::new().set_cloud_run(CloudRunMetadata::default()/* use setters */);
+    /// ```
     pub fn set_cloud_run<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::CloudRunMetadata>,
@@ -9572,6 +12849,14 @@ impl Metadata {
     }
 
     /// Sets or clears the value of [cloud_run][crate::model::Metadata::cloud_run].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::Metadata;
+    /// use google_cloud_deploy_v1::model::CloudRunMetadata;
+    /// let x = Metadata::new().set_or_clear_cloud_run(Some(CloudRunMetadata::default()/* use setters */));
+    /// let x = Metadata::new().set_or_clear_cloud_run(None::<CloudRunMetadata>);
+    /// ```
     pub fn set_or_clear_cloud_run<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CloudRunMetadata>,
@@ -9581,6 +12866,13 @@ impl Metadata {
     }
 
     /// Sets the value of [automation][crate::model::Metadata::automation].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::Metadata;
+    /// use google_cloud_deploy_v1::model::AutomationRolloutMetadata;
+    /// let x = Metadata::new().set_automation(AutomationRolloutMetadata::default()/* use setters */);
+    /// ```
     pub fn set_automation<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::AutomationRolloutMetadata>,
@@ -9590,6 +12882,14 @@ impl Metadata {
     }
 
     /// Sets or clears the value of [automation][crate::model::Metadata::automation].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::Metadata;
+    /// use google_cloud_deploy_v1::model::AutomationRolloutMetadata;
+    /// let x = Metadata::new().set_or_clear_automation(Some(AutomationRolloutMetadata::default()/* use setters */));
+    /// let x = Metadata::new().set_or_clear_automation(None::<AutomationRolloutMetadata>);
+    /// ```
     pub fn set_or_clear_automation<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AutomationRolloutMetadata>,
@@ -9599,6 +12899,13 @@ impl Metadata {
     }
 
     /// Sets the value of [custom][crate::model::Metadata::custom].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::Metadata;
+    /// use google_cloud_deploy_v1::model::CustomMetadata;
+    /// let x = Metadata::new().set_custom(CustomMetadata::default()/* use setters */);
+    /// ```
     pub fn set_custom<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::CustomMetadata>,
@@ -9608,6 +12915,14 @@ impl Metadata {
     }
 
     /// Sets or clears the value of [custom][crate::model::Metadata::custom].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::Metadata;
+    /// use google_cloud_deploy_v1::model::CustomMetadata;
+    /// let x = Metadata::new().set_or_clear_custom(Some(CustomMetadata::default()/* use setters */));
+    /// let x = Metadata::new().set_or_clear_custom(None::<CustomMetadata>);
+    /// ```
     pub fn set_or_clear_custom<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CustomMetadata>,
@@ -9647,6 +12962,13 @@ impl DeployJobRunMetadata {
     }
 
     /// Sets the value of [cloud_run][crate::model::DeployJobRunMetadata::cloud_run].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::DeployJobRunMetadata;
+    /// use google_cloud_deploy_v1::model::CloudRunMetadata;
+    /// let x = DeployJobRunMetadata::new().set_cloud_run(CloudRunMetadata::default()/* use setters */);
+    /// ```
     pub fn set_cloud_run<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::CloudRunMetadata>,
@@ -9656,6 +12978,14 @@ impl DeployJobRunMetadata {
     }
 
     /// Sets or clears the value of [cloud_run][crate::model::DeployJobRunMetadata::cloud_run].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::DeployJobRunMetadata;
+    /// use google_cloud_deploy_v1::model::CloudRunMetadata;
+    /// let x = DeployJobRunMetadata::new().set_or_clear_cloud_run(Some(CloudRunMetadata::default()/* use setters */));
+    /// let x = DeployJobRunMetadata::new().set_or_clear_cloud_run(None::<CloudRunMetadata>);
+    /// ```
     pub fn set_or_clear_cloud_run<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CloudRunMetadata>,
@@ -9665,6 +12995,13 @@ impl DeployJobRunMetadata {
     }
 
     /// Sets the value of [custom_target][crate::model::DeployJobRunMetadata::custom_target].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::DeployJobRunMetadata;
+    /// use google_cloud_deploy_v1::model::CustomTargetDeployMetadata;
+    /// let x = DeployJobRunMetadata::new().set_custom_target(CustomTargetDeployMetadata::default()/* use setters */);
+    /// ```
     pub fn set_custom_target<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::CustomTargetDeployMetadata>,
@@ -9674,6 +13011,14 @@ impl DeployJobRunMetadata {
     }
 
     /// Sets or clears the value of [custom_target][crate::model::DeployJobRunMetadata::custom_target].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::DeployJobRunMetadata;
+    /// use google_cloud_deploy_v1::model::CustomTargetDeployMetadata;
+    /// let x = DeployJobRunMetadata::new().set_or_clear_custom_target(Some(CustomTargetDeployMetadata::default()/* use setters */));
+    /// let x = DeployJobRunMetadata::new().set_or_clear_custom_target(None::<CustomTargetDeployMetadata>);
+    /// ```
     pub fn set_or_clear_custom_target<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CustomTargetDeployMetadata>,
@@ -9683,6 +13028,13 @@ impl DeployJobRunMetadata {
     }
 
     /// Sets the value of [custom][crate::model::DeployJobRunMetadata::custom].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::DeployJobRunMetadata;
+    /// use google_cloud_deploy_v1::model::CustomMetadata;
+    /// let x = DeployJobRunMetadata::new().set_custom(CustomMetadata::default()/* use setters */);
+    /// ```
     pub fn set_custom<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::CustomMetadata>,
@@ -9692,6 +13044,14 @@ impl DeployJobRunMetadata {
     }
 
     /// Sets or clears the value of [custom][crate::model::DeployJobRunMetadata::custom].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::DeployJobRunMetadata;
+    /// use google_cloud_deploy_v1::model::CustomMetadata;
+    /// let x = DeployJobRunMetadata::new().set_or_clear_custom(Some(CustomMetadata::default()/* use setters */));
+    /// let x = DeployJobRunMetadata::new().set_or_clear_custom(None::<CustomMetadata>);
+    /// ```
     pub fn set_or_clear_custom<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CustomMetadata>,
@@ -9737,12 +13097,24 @@ impl CloudRunMetadata {
     }
 
     /// Sets the value of [service][crate::model::CloudRunMetadata::service].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::CloudRunMetadata;
+    /// let x = CloudRunMetadata::new().set_service("example");
+    /// ```
     pub fn set_service<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.service = v.into();
         self
     }
 
     /// Sets the value of [service_urls][crate::model::CloudRunMetadata::service_urls].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::CloudRunMetadata;
+    /// let x = CloudRunMetadata::new().set_service_urls(["a", "b", "c"]);
+    /// ```
     pub fn set_service_urls<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -9754,12 +13126,24 @@ impl CloudRunMetadata {
     }
 
     /// Sets the value of [revision][crate::model::CloudRunMetadata::revision].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::CloudRunMetadata;
+    /// let x = CloudRunMetadata::new().set_revision("example");
+    /// ```
     pub fn set_revision<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.revision = v.into();
         self
     }
 
     /// Sets the value of [job][crate::model::CloudRunMetadata::job].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::CloudRunMetadata;
+    /// let x = CloudRunMetadata::new().set_job("example");
+    /// ```
     pub fn set_job<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.job = v.into();
         self
@@ -9790,6 +13174,12 @@ impl CustomTargetDeployMetadata {
     }
 
     /// Sets the value of [skip_message][crate::model::CustomTargetDeployMetadata::skip_message].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::CustomTargetDeployMetadata;
+    /// let x = CustomTargetDeployMetadata::new().set_skip_message("example");
+    /// ```
     pub fn set_skip_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.skip_message = v.into();
         self
@@ -9828,6 +13218,12 @@ impl AutomationRolloutMetadata {
     }
 
     /// Sets the value of [promote_automation_run][crate::model::AutomationRolloutMetadata::promote_automation_run].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::AutomationRolloutMetadata;
+    /// let x = AutomationRolloutMetadata::new().set_promote_automation_run("example");
+    /// ```
     pub fn set_promote_automation_run<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -9837,6 +13233,12 @@ impl AutomationRolloutMetadata {
     }
 
     /// Sets the value of [advance_automation_runs][crate::model::AutomationRolloutMetadata::advance_automation_runs].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::AutomationRolloutMetadata;
+    /// let x = AutomationRolloutMetadata::new().set_advance_automation_runs(["a", "b", "c"]);
+    /// ```
     pub fn set_advance_automation_runs<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -9848,6 +13250,12 @@ impl AutomationRolloutMetadata {
     }
 
     /// Sets the value of [repair_automation_runs][crate::model::AutomationRolloutMetadata::repair_automation_runs].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::AutomationRolloutMetadata;
+    /// let x = AutomationRolloutMetadata::new().set_repair_automation_runs(["a", "b", "c"]);
+    /// ```
     pub fn set_repair_automation_runs<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -9881,6 +13289,15 @@ impl CustomMetadata {
     }
 
     /// Sets the value of [values][crate::model::CustomMetadata::values].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::CustomMetadata;
+    /// let x = CustomMetadata::new().set_values([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_values<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -9926,18 +13343,39 @@ impl Phase {
     }
 
     /// Sets the value of [id][crate::model::Phase::id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::Phase;
+    /// let x = Phase::new().set_id("example");
+    /// ```
     pub fn set_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.id = v.into();
         self
     }
 
     /// Sets the value of [state][crate::model::Phase::state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::Phase;
+    /// use google_cloud_deploy_v1::model::phase::State;
+    /// let x0 = Phase::new().set_state(State::Pending);
+    /// let x1 = Phase::new().set_state(State::InProgress);
+    /// let x2 = Phase::new().set_state(State::Succeeded);
+    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::phase::State>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
     }
 
     /// Sets the value of [skip_message][crate::model::Phase::skip_message].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::Phase;
+    /// let x = Phase::new().set_skip_message("example");
+    /// ```
     pub fn set_skip_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.skip_message = v.into();
         self
@@ -9947,6 +13385,14 @@ impl Phase {
     ///
     /// Note that all the setters affecting `jobs` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::Phase;
+    /// use google_cloud_deploy_v1::model::phase;
+    /// use google_cloud_deploy_v1::model::DeploymentJobs;
+    /// let x = Phase::new().set_jobs(Some(phase::Jobs::DeploymentJobs(DeploymentJobs::default().into())));
+    /// ```
     pub fn set_jobs<T: std::convert::Into<std::option::Option<crate::model::phase::Jobs>>>(
         mut self,
         v: T,
@@ -9973,6 +13419,15 @@ impl Phase {
     ///
     /// Note that all the setters affecting `jobs` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::Phase;
+    /// use google_cloud_deploy_v1::model::DeploymentJobs;
+    /// let x = Phase::new().set_deployment_jobs(DeploymentJobs::default()/* use setters */);
+    /// assert!(x.deployment_jobs().is_some());
+    /// assert!(x.child_rollout_jobs().is_none());
+    /// ```
     pub fn set_deployment_jobs<
         T: std::convert::Into<std::boxed::Box<crate::model::DeploymentJobs>>,
     >(
@@ -10001,6 +13456,15 @@ impl Phase {
     ///
     /// Note that all the setters affecting `jobs` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::Phase;
+    /// use google_cloud_deploy_v1::model::ChildRolloutJobs;
+    /// let x = Phase::new().set_child_rollout_jobs(ChildRolloutJobs::default()/* use setters */);
+    /// assert!(x.child_rollout_jobs().is_some());
+    /// assert!(x.deployment_jobs().is_none());
+    /// ```
     pub fn set_child_rollout_jobs<
         T: std::convert::Into<std::boxed::Box<crate::model::ChildRolloutJobs>>,
     >(
@@ -10220,6 +13684,13 @@ impl DeploymentJobs {
     }
 
     /// Sets the value of [predeploy_job][crate::model::DeploymentJobs::predeploy_job].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::DeploymentJobs;
+    /// use google_cloud_deploy_v1::model::Job;
+    /// let x = DeploymentJobs::new().set_predeploy_job(Job::default()/* use setters */);
+    /// ```
     pub fn set_predeploy_job<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Job>,
@@ -10229,6 +13700,14 @@ impl DeploymentJobs {
     }
 
     /// Sets or clears the value of [predeploy_job][crate::model::DeploymentJobs::predeploy_job].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::DeploymentJobs;
+    /// use google_cloud_deploy_v1::model::Job;
+    /// let x = DeploymentJobs::new().set_or_clear_predeploy_job(Some(Job::default()/* use setters */));
+    /// let x = DeploymentJobs::new().set_or_clear_predeploy_job(None::<Job>);
+    /// ```
     pub fn set_or_clear_predeploy_job<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Job>,
@@ -10238,6 +13717,13 @@ impl DeploymentJobs {
     }
 
     /// Sets the value of [deploy_job][crate::model::DeploymentJobs::deploy_job].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::DeploymentJobs;
+    /// use google_cloud_deploy_v1::model::Job;
+    /// let x = DeploymentJobs::new().set_deploy_job(Job::default()/* use setters */);
+    /// ```
     pub fn set_deploy_job<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Job>,
@@ -10247,6 +13733,14 @@ impl DeploymentJobs {
     }
 
     /// Sets or clears the value of [deploy_job][crate::model::DeploymentJobs::deploy_job].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::DeploymentJobs;
+    /// use google_cloud_deploy_v1::model::Job;
+    /// let x = DeploymentJobs::new().set_or_clear_deploy_job(Some(Job::default()/* use setters */));
+    /// let x = DeploymentJobs::new().set_or_clear_deploy_job(None::<Job>);
+    /// ```
     pub fn set_or_clear_deploy_job<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Job>,
@@ -10256,6 +13750,13 @@ impl DeploymentJobs {
     }
 
     /// Sets the value of [verify_job][crate::model::DeploymentJobs::verify_job].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::DeploymentJobs;
+    /// use google_cloud_deploy_v1::model::Job;
+    /// let x = DeploymentJobs::new().set_verify_job(Job::default()/* use setters */);
+    /// ```
     pub fn set_verify_job<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Job>,
@@ -10265,6 +13766,14 @@ impl DeploymentJobs {
     }
 
     /// Sets or clears the value of [verify_job][crate::model::DeploymentJobs::verify_job].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::DeploymentJobs;
+    /// use google_cloud_deploy_v1::model::Job;
+    /// let x = DeploymentJobs::new().set_or_clear_verify_job(Some(Job::default()/* use setters */));
+    /// let x = DeploymentJobs::new().set_or_clear_verify_job(None::<Job>);
+    /// ```
     pub fn set_or_clear_verify_job<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Job>,
@@ -10274,6 +13783,13 @@ impl DeploymentJobs {
     }
 
     /// Sets the value of [postdeploy_job][crate::model::DeploymentJobs::postdeploy_job].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::DeploymentJobs;
+    /// use google_cloud_deploy_v1::model::Job;
+    /// let x = DeploymentJobs::new().set_postdeploy_job(Job::default()/* use setters */);
+    /// ```
     pub fn set_postdeploy_job<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Job>,
@@ -10283,6 +13799,14 @@ impl DeploymentJobs {
     }
 
     /// Sets or clears the value of [postdeploy_job][crate::model::DeploymentJobs::postdeploy_job].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::DeploymentJobs;
+    /// use google_cloud_deploy_v1::model::Job;
+    /// let x = DeploymentJobs::new().set_or_clear_postdeploy_job(Some(Job::default()/* use setters */));
+    /// let x = DeploymentJobs::new().set_or_clear_postdeploy_job(None::<Job>);
+    /// ```
     pub fn set_or_clear_postdeploy_job<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Job>,
@@ -10317,6 +13841,17 @@ impl ChildRolloutJobs {
     }
 
     /// Sets the value of [create_rollout_jobs][crate::model::ChildRolloutJobs::create_rollout_jobs].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::ChildRolloutJobs;
+    /// use google_cloud_deploy_v1::model::Job;
+    /// let x = ChildRolloutJobs::new()
+    ///     .set_create_rollout_jobs([
+    ///         Job::default()/* use setters */,
+    ///         Job::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_create_rollout_jobs<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -10328,6 +13863,17 @@ impl ChildRolloutJobs {
     }
 
     /// Sets the value of [advance_rollout_jobs][crate::model::ChildRolloutJobs::advance_rollout_jobs].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::ChildRolloutJobs;
+    /// use google_cloud_deploy_v1::model::Job;
+    /// let x = ChildRolloutJobs::new()
+    ///     .set_advance_rollout_jobs([
+    ///         Job::default()/* use setters */,
+    ///         Job::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_advance_rollout_jobs<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -10375,24 +13921,51 @@ impl Job {
     }
 
     /// Sets the value of [id][crate::model::Job::id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::Job;
+    /// let x = Job::new().set_id("example");
+    /// ```
     pub fn set_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.id = v.into();
         self
     }
 
     /// Sets the value of [state][crate::model::Job::state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::Job;
+    /// use google_cloud_deploy_v1::model::job::State;
+    /// let x0 = Job::new().set_state(State::Pending);
+    /// let x1 = Job::new().set_state(State::Disabled);
+    /// let x2 = Job::new().set_state(State::InProgress);
+    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::job::State>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
     }
 
     /// Sets the value of [skip_message][crate::model::Job::skip_message].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::Job;
+    /// let x = Job::new().set_skip_message("example");
+    /// ```
     pub fn set_skip_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.skip_message = v.into();
         self
     }
 
     /// Sets the value of [job_run][crate::model::Job::job_run].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::Job;
+    /// let x = Job::new().set_job_run("example");
+    /// ```
     pub fn set_job_run<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.job_run = v.into();
         self
@@ -10402,6 +13975,14 @@ impl Job {
     ///
     /// Note that all the setters affecting `job_type` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::Job;
+    /// use google_cloud_deploy_v1::model::job;
+    /// use google_cloud_deploy_v1::model::DeployJob;
+    /// let x = Job::new().set_job_type(Some(job::JobType::DeployJob(DeployJob::default().into())));
+    /// ```
     pub fn set_job_type<T: std::convert::Into<std::option::Option<crate::model::job::JobType>>>(
         mut self,
         v: T,
@@ -10426,6 +14007,19 @@ impl Job {
     ///
     /// Note that all the setters affecting `job_type` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::Job;
+    /// use google_cloud_deploy_v1::model::DeployJob;
+    /// let x = Job::new().set_deploy_job(DeployJob::default()/* use setters */);
+    /// assert!(x.deploy_job().is_some());
+    /// assert!(x.verify_job().is_none());
+    /// assert!(x.predeploy_job().is_none());
+    /// assert!(x.postdeploy_job().is_none());
+    /// assert!(x.create_child_rollout_job().is_none());
+    /// assert!(x.advance_child_rollout_job().is_none());
+    /// ```
     pub fn set_deploy_job<T: std::convert::Into<std::boxed::Box<crate::model::DeployJob>>>(
         mut self,
         v: T,
@@ -10450,6 +14044,19 @@ impl Job {
     ///
     /// Note that all the setters affecting `job_type` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::Job;
+    /// use google_cloud_deploy_v1::model::VerifyJob;
+    /// let x = Job::new().set_verify_job(VerifyJob::default()/* use setters */);
+    /// assert!(x.verify_job().is_some());
+    /// assert!(x.deploy_job().is_none());
+    /// assert!(x.predeploy_job().is_none());
+    /// assert!(x.postdeploy_job().is_none());
+    /// assert!(x.create_child_rollout_job().is_none());
+    /// assert!(x.advance_child_rollout_job().is_none());
+    /// ```
     pub fn set_verify_job<T: std::convert::Into<std::boxed::Box<crate::model::VerifyJob>>>(
         mut self,
         v: T,
@@ -10476,6 +14083,19 @@ impl Job {
     ///
     /// Note that all the setters affecting `job_type` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::Job;
+    /// use google_cloud_deploy_v1::model::PredeployJob;
+    /// let x = Job::new().set_predeploy_job(PredeployJob::default()/* use setters */);
+    /// assert!(x.predeploy_job().is_some());
+    /// assert!(x.deploy_job().is_none());
+    /// assert!(x.verify_job().is_none());
+    /// assert!(x.postdeploy_job().is_none());
+    /// assert!(x.create_child_rollout_job().is_none());
+    /// assert!(x.advance_child_rollout_job().is_none());
+    /// ```
     pub fn set_predeploy_job<T: std::convert::Into<std::boxed::Box<crate::model::PredeployJob>>>(
         mut self,
         v: T,
@@ -10503,6 +14123,19 @@ impl Job {
     ///
     /// Note that all the setters affecting `job_type` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::Job;
+    /// use google_cloud_deploy_v1::model::PostdeployJob;
+    /// let x = Job::new().set_postdeploy_job(PostdeployJob::default()/* use setters */);
+    /// assert!(x.postdeploy_job().is_some());
+    /// assert!(x.deploy_job().is_none());
+    /// assert!(x.verify_job().is_none());
+    /// assert!(x.predeploy_job().is_none());
+    /// assert!(x.create_child_rollout_job().is_none());
+    /// assert!(x.advance_child_rollout_job().is_none());
+    /// ```
     pub fn set_postdeploy_job<
         T: std::convert::Into<std::boxed::Box<crate::model::PostdeployJob>>,
     >(
@@ -10532,6 +14165,19 @@ impl Job {
     ///
     /// Note that all the setters affecting `job_type` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::Job;
+    /// use google_cloud_deploy_v1::model::CreateChildRolloutJob;
+    /// let x = Job::new().set_create_child_rollout_job(CreateChildRolloutJob::default()/* use setters */);
+    /// assert!(x.create_child_rollout_job().is_some());
+    /// assert!(x.deploy_job().is_none());
+    /// assert!(x.verify_job().is_none());
+    /// assert!(x.predeploy_job().is_none());
+    /// assert!(x.postdeploy_job().is_none());
+    /// assert!(x.advance_child_rollout_job().is_none());
+    /// ```
     pub fn set_create_child_rollout_job<
         T: std::convert::Into<std::boxed::Box<crate::model::CreateChildRolloutJob>>,
     >(
@@ -10561,6 +14207,19 @@ impl Job {
     ///
     /// Note that all the setters affecting `job_type` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::Job;
+    /// use google_cloud_deploy_v1::model::AdvanceChildRolloutJob;
+    /// let x = Job::new().set_advance_child_rollout_job(AdvanceChildRolloutJob::default()/* use setters */);
+    /// assert!(x.advance_child_rollout_job().is_some());
+    /// assert!(x.deploy_job().is_none());
+    /// assert!(x.verify_job().is_none());
+    /// assert!(x.predeploy_job().is_none());
+    /// assert!(x.postdeploy_job().is_none());
+    /// assert!(x.create_child_rollout_job().is_none());
+    /// ```
     pub fn set_advance_child_rollout_job<
         T: std::convert::Into<std::boxed::Box<crate::model::AdvanceChildRolloutJob>>,
     >(
@@ -10831,6 +14490,12 @@ impl PredeployJob {
     }
 
     /// Sets the value of [actions][crate::model::PredeployJob::actions].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::PredeployJob;
+    /// let x = PredeployJob::new().set_actions(["a", "b", "c"]);
+    /// ```
     pub fn set_actions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -10864,6 +14529,12 @@ impl PostdeployJob {
     }
 
     /// Sets the value of [actions][crate::model::PostdeployJob::actions].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::PostdeployJob;
+    /// let x = PostdeployJob::new().set_actions(["a", "b", "c"]);
+    /// ```
     pub fn set_actions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -10956,30 +14627,60 @@ impl ListRolloutsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListRolloutsRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::ListRolloutsRequest;
+    /// let x = ListRolloutsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListRolloutsRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::ListRolloutsRequest;
+    /// let x = ListRolloutsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListRolloutsRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::ListRolloutsRequest;
+    /// let x = ListRolloutsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListRolloutsRequest::filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::ListRolloutsRequest;
+    /// let x = ListRolloutsRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListRolloutsRequest::order_by].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::ListRolloutsRequest;
+    /// let x = ListRolloutsRequest::new().set_order_by("example");
+    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
@@ -11015,6 +14716,17 @@ impl ListRolloutsResponse {
     }
 
     /// Sets the value of [rollouts][crate::model::ListRolloutsResponse::rollouts].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::ListRolloutsResponse;
+    /// use google_cloud_deploy_v1::model::Rollout;
+    /// let x = ListRolloutsResponse::new()
+    ///     .set_rollouts([
+    ///         Rollout::default()/* use setters */,
+    ///         Rollout::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_rollouts<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -11026,12 +14738,24 @@ impl ListRolloutsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListRolloutsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::ListRolloutsResponse;
+    /// let x = ListRolloutsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListRolloutsResponse::unreachable].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::ListRolloutsResponse;
+    /// let x = ListRolloutsResponse::new().set_unreachable(["a", "b", "c"]);
+    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -11080,6 +14804,12 @@ impl GetRolloutRequest {
     }
 
     /// Sets the value of [name][crate::model::GetRolloutRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::GetRolloutRequest;
+    /// let x = GetRolloutRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -11143,18 +14873,37 @@ impl CreateRolloutRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateRolloutRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::CreateRolloutRequest;
+    /// let x = CreateRolloutRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [rollout_id][crate::model::CreateRolloutRequest::rollout_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::CreateRolloutRequest;
+    /// let x = CreateRolloutRequest::new().set_rollout_id("example");
+    /// ```
     pub fn set_rollout_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.rollout_id = v.into();
         self
     }
 
     /// Sets the value of [rollout][crate::model::CreateRolloutRequest::rollout].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::CreateRolloutRequest;
+    /// use google_cloud_deploy_v1::model::Rollout;
+    /// let x = CreateRolloutRequest::new().set_rollout(Rollout::default()/* use setters */);
+    /// ```
     pub fn set_rollout<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Rollout>,
@@ -11164,6 +14913,14 @@ impl CreateRolloutRequest {
     }
 
     /// Sets or clears the value of [rollout][crate::model::CreateRolloutRequest::rollout].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::CreateRolloutRequest;
+    /// use google_cloud_deploy_v1::model::Rollout;
+    /// let x = CreateRolloutRequest::new().set_or_clear_rollout(Some(Rollout::default()/* use setters */));
+    /// let x = CreateRolloutRequest::new().set_or_clear_rollout(None::<Rollout>);
+    /// ```
     pub fn set_or_clear_rollout<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Rollout>,
@@ -11173,18 +14930,36 @@ impl CreateRolloutRequest {
     }
 
     /// Sets the value of [request_id][crate::model::CreateRolloutRequest::request_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::CreateRolloutRequest;
+    /// let x = CreateRolloutRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
     }
 
     /// Sets the value of [validate_only][crate::model::CreateRolloutRequest::validate_only].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::CreateRolloutRequest;
+    /// let x = CreateRolloutRequest::new().set_validate_only(true);
+    /// ```
     pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.validate_only = v.into();
         self
     }
 
     /// Sets the value of [override_deploy_policy][crate::model::CreateRolloutRequest::override_deploy_policy].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::CreateRolloutRequest;
+    /// let x = CreateRolloutRequest::new().set_override_deploy_policy(["a", "b", "c"]);
+    /// ```
     pub fn set_override_deploy_policy<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -11196,6 +14971,12 @@ impl CreateRolloutRequest {
     }
 
     /// Sets the value of [starting_phase_id][crate::model::CreateRolloutRequest::starting_phase_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::CreateRolloutRequest;
+    /// let x = CreateRolloutRequest::new().set_starting_phase_id("example");
+    /// ```
     pub fn set_starting_phase_id<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -11253,6 +15034,13 @@ impl OperationMetadata {
     }
 
     /// Sets the value of [create_time][crate::model::OperationMetadata::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::OperationMetadata;
+    /// use wkt::Timestamp;
+    /// let x = OperationMetadata::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -11262,6 +15050,14 @@ impl OperationMetadata {
     }
 
     /// Sets or clears the value of [create_time][crate::model::OperationMetadata::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::OperationMetadata;
+    /// use wkt::Timestamp;
+    /// let x = OperationMetadata::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = OperationMetadata::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -11271,6 +15067,13 @@ impl OperationMetadata {
     }
 
     /// Sets the value of [end_time][crate::model::OperationMetadata::end_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::OperationMetadata;
+    /// use wkt::Timestamp;
+    /// let x = OperationMetadata::new().set_end_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -11280,6 +15083,14 @@ impl OperationMetadata {
     }
 
     /// Sets or clears the value of [end_time][crate::model::OperationMetadata::end_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::OperationMetadata;
+    /// use wkt::Timestamp;
+    /// let x = OperationMetadata::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
+    /// let x = OperationMetadata::new().set_or_clear_end_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -11289,30 +15100,60 @@ impl OperationMetadata {
     }
 
     /// Sets the value of [target][crate::model::OperationMetadata::target].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::OperationMetadata;
+    /// let x = OperationMetadata::new().set_target("example");
+    /// ```
     pub fn set_target<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.target = v.into();
         self
     }
 
     /// Sets the value of [verb][crate::model::OperationMetadata::verb].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::OperationMetadata;
+    /// let x = OperationMetadata::new().set_verb("example");
+    /// ```
     pub fn set_verb<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.verb = v.into();
         self
     }
 
     /// Sets the value of [status_message][crate::model::OperationMetadata::status_message].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::OperationMetadata;
+    /// let x = OperationMetadata::new().set_status_message("example");
+    /// ```
     pub fn set_status_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.status_message = v.into();
         self
     }
 
     /// Sets the value of [requested_cancellation][crate::model::OperationMetadata::requested_cancellation].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::OperationMetadata;
+    /// let x = OperationMetadata::new().set_requested_cancellation(true);
+    /// ```
     pub fn set_requested_cancellation<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.requested_cancellation = v.into();
         self
     }
 
     /// Sets the value of [api_version][crate::model::OperationMetadata::api_version].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::OperationMetadata;
+    /// let x = OperationMetadata::new().set_api_version("example");
+    /// ```
     pub fn set_api_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.api_version = v.into();
         self
@@ -11349,18 +15190,36 @@ impl ApproveRolloutRequest {
     }
 
     /// Sets the value of [name][crate::model::ApproveRolloutRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::ApproveRolloutRequest;
+    /// let x = ApproveRolloutRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [approved][crate::model::ApproveRolloutRequest::approved].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::ApproveRolloutRequest;
+    /// let x = ApproveRolloutRequest::new().set_approved(true);
+    /// ```
     pub fn set_approved<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.approved = v.into();
         self
     }
 
     /// Sets the value of [override_deploy_policy][crate::model::ApproveRolloutRequest::override_deploy_policy].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::ApproveRolloutRequest;
+    /// let x = ApproveRolloutRequest::new().set_override_deploy_policy(["a", "b", "c"]);
+    /// ```
     pub fn set_override_deploy_policy<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -11421,18 +15280,36 @@ impl AdvanceRolloutRequest {
     }
 
     /// Sets the value of [name][crate::model::AdvanceRolloutRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::AdvanceRolloutRequest;
+    /// let x = AdvanceRolloutRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [phase_id][crate::model::AdvanceRolloutRequest::phase_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::AdvanceRolloutRequest;
+    /// let x = AdvanceRolloutRequest::new().set_phase_id("example");
+    /// ```
     pub fn set_phase_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.phase_id = v.into();
         self
     }
 
     /// Sets the value of [override_deploy_policy][crate::model::AdvanceRolloutRequest::override_deploy_policy].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::AdvanceRolloutRequest;
+    /// let x = AdvanceRolloutRequest::new().set_override_deploy_policy(["a", "b", "c"]);
+    /// ```
     pub fn set_override_deploy_policy<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -11490,12 +15367,24 @@ impl CancelRolloutRequest {
     }
 
     /// Sets the value of [name][crate::model::CancelRolloutRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::CancelRolloutRequest;
+    /// let x = CancelRolloutRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [override_deploy_policy][crate::model::CancelRolloutRequest::override_deploy_policy].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::CancelRolloutRequest;
+    /// let x = CancelRolloutRequest::new().set_override_deploy_policy(["a", "b", "c"]);
+    /// ```
     pub fn set_override_deploy_policy<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -11559,24 +15448,48 @@ impl IgnoreJobRequest {
     }
 
     /// Sets the value of [rollout][crate::model::IgnoreJobRequest::rollout].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::IgnoreJobRequest;
+    /// let x = IgnoreJobRequest::new().set_rollout("example");
+    /// ```
     pub fn set_rollout<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.rollout = v.into();
         self
     }
 
     /// Sets the value of [phase_id][crate::model::IgnoreJobRequest::phase_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::IgnoreJobRequest;
+    /// let x = IgnoreJobRequest::new().set_phase_id("example");
+    /// ```
     pub fn set_phase_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.phase_id = v.into();
         self
     }
 
     /// Sets the value of [job_id][crate::model::IgnoreJobRequest::job_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::IgnoreJobRequest;
+    /// let x = IgnoreJobRequest::new().set_job_id("example");
+    /// ```
     pub fn set_job_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.job_id = v.into();
         self
     }
 
     /// Sets the value of [override_deploy_policy][crate::model::IgnoreJobRequest::override_deploy_policy].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::IgnoreJobRequest;
+    /// let x = IgnoreJobRequest::new().set_override_deploy_policy(["a", "b", "c"]);
+    /// ```
     pub fn set_override_deploy_policy<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -11640,24 +15553,48 @@ impl RetryJobRequest {
     }
 
     /// Sets the value of [rollout][crate::model::RetryJobRequest::rollout].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::RetryJobRequest;
+    /// let x = RetryJobRequest::new().set_rollout("example");
+    /// ```
     pub fn set_rollout<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.rollout = v.into();
         self
     }
 
     /// Sets the value of [phase_id][crate::model::RetryJobRequest::phase_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::RetryJobRequest;
+    /// let x = RetryJobRequest::new().set_phase_id("example");
+    /// ```
     pub fn set_phase_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.phase_id = v.into();
         self
     }
 
     /// Sets the value of [job_id][crate::model::RetryJobRequest::job_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::RetryJobRequest;
+    /// let x = RetryJobRequest::new().set_job_id("example");
+    /// ```
     pub fn set_job_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.job_id = v.into();
         self
     }
 
     /// Sets the value of [override_deploy_policy][crate::model::RetryJobRequest::override_deploy_policy].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::RetryJobRequest;
+    /// let x = RetryJobRequest::new().set_override_deploy_policy(["a", "b", "c"]);
+    /// ```
     pub fn set_override_deploy_policy<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -11711,6 +15648,12 @@ impl AbandonReleaseRequest {
     }
 
     /// Sets the value of [name][crate::model::AbandonReleaseRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::AbandonReleaseRequest;
+    /// let x = AbandonReleaseRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -11790,30 +15733,61 @@ impl JobRun {
     }
 
     /// Sets the value of [name][crate::model::JobRun::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::JobRun;
+    /// let x = JobRun::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [uid][crate::model::JobRun::uid].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::JobRun;
+    /// let x = JobRun::new().set_uid("example");
+    /// ```
     pub fn set_uid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.uid = v.into();
         self
     }
 
     /// Sets the value of [phase_id][crate::model::JobRun::phase_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::JobRun;
+    /// let x = JobRun::new().set_phase_id("example");
+    /// ```
     pub fn set_phase_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.phase_id = v.into();
         self
     }
 
     /// Sets the value of [job_id][crate::model::JobRun::job_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::JobRun;
+    /// let x = JobRun::new().set_job_id("example");
+    /// ```
     pub fn set_job_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.job_id = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::JobRun::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::JobRun;
+    /// use wkt::Timestamp;
+    /// let x = JobRun::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -11823,6 +15797,14 @@ impl JobRun {
     }
 
     /// Sets or clears the value of [create_time][crate::model::JobRun::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::JobRun;
+    /// use wkt::Timestamp;
+    /// let x = JobRun::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = JobRun::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -11832,6 +15814,13 @@ impl JobRun {
     }
 
     /// Sets the value of [start_time][crate::model::JobRun::start_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::JobRun;
+    /// use wkt::Timestamp;
+    /// let x = JobRun::new().set_start_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_start_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -11841,6 +15830,14 @@ impl JobRun {
     }
 
     /// Sets or clears the value of [start_time][crate::model::JobRun::start_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::JobRun;
+    /// use wkt::Timestamp;
+    /// let x = JobRun::new().set_or_clear_start_time(Some(Timestamp::default()/* use setters */));
+    /// let x = JobRun::new().set_or_clear_start_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -11850,6 +15847,13 @@ impl JobRun {
     }
 
     /// Sets the value of [end_time][crate::model::JobRun::end_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::JobRun;
+    /// use wkt::Timestamp;
+    /// let x = JobRun::new().set_end_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -11859,6 +15863,14 @@ impl JobRun {
     }
 
     /// Sets or clears the value of [end_time][crate::model::JobRun::end_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::JobRun;
+    /// use wkt::Timestamp;
+    /// let x = JobRun::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
+    /// let x = JobRun::new().set_or_clear_end_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -11868,12 +15880,27 @@ impl JobRun {
     }
 
     /// Sets the value of [state][crate::model::JobRun::state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::JobRun;
+    /// use google_cloud_deploy_v1::model::job_run::State;
+    /// let x0 = JobRun::new().set_state(State::InProgress);
+    /// let x1 = JobRun::new().set_state(State::Succeeded);
+    /// let x2 = JobRun::new().set_state(State::Failed);
+    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::job_run::State>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
     }
 
     /// Sets the value of [etag][crate::model::JobRun::etag].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::JobRun;
+    /// let x = JobRun::new().set_etag("example");
+    /// ```
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
@@ -11883,6 +15910,14 @@ impl JobRun {
     ///
     /// Note that all the setters affecting `job_run` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::JobRun;
+    /// use google_cloud_deploy_v1::model::job_run;
+    /// use google_cloud_deploy_v1::model::DeployJobRun;
+    /// let x = JobRun::new().set_job_run(Some(job_run::JobRun::DeployJobRun(DeployJobRun::default().into())));
+    /// ```
     pub fn set_job_run<
         T: std::convert::Into<std::option::Option<crate::model::job_run::JobRun>>,
     >(
@@ -11911,6 +15946,19 @@ impl JobRun {
     ///
     /// Note that all the setters affecting `job_run` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::JobRun;
+    /// use google_cloud_deploy_v1::model::DeployJobRun;
+    /// let x = JobRun::new().set_deploy_job_run(DeployJobRun::default()/* use setters */);
+    /// assert!(x.deploy_job_run().is_some());
+    /// assert!(x.verify_job_run().is_none());
+    /// assert!(x.predeploy_job_run().is_none());
+    /// assert!(x.postdeploy_job_run().is_none());
+    /// assert!(x.create_child_rollout_job_run().is_none());
+    /// assert!(x.advance_child_rollout_job_run().is_none());
+    /// ```
     pub fn set_deploy_job_run<
         T: std::convert::Into<std::boxed::Box<crate::model::DeployJobRun>>,
     >(
@@ -11940,6 +15988,19 @@ impl JobRun {
     ///
     /// Note that all the setters affecting `job_run` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::JobRun;
+    /// use google_cloud_deploy_v1::model::VerifyJobRun;
+    /// let x = JobRun::new().set_verify_job_run(VerifyJobRun::default()/* use setters */);
+    /// assert!(x.verify_job_run().is_some());
+    /// assert!(x.deploy_job_run().is_none());
+    /// assert!(x.predeploy_job_run().is_none());
+    /// assert!(x.postdeploy_job_run().is_none());
+    /// assert!(x.create_child_rollout_job_run().is_none());
+    /// assert!(x.advance_child_rollout_job_run().is_none());
+    /// ```
     pub fn set_verify_job_run<
         T: std::convert::Into<std::boxed::Box<crate::model::VerifyJobRun>>,
     >(
@@ -11969,6 +16030,19 @@ impl JobRun {
     ///
     /// Note that all the setters affecting `job_run` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::JobRun;
+    /// use google_cloud_deploy_v1::model::PredeployJobRun;
+    /// let x = JobRun::new().set_predeploy_job_run(PredeployJobRun::default()/* use setters */);
+    /// assert!(x.predeploy_job_run().is_some());
+    /// assert!(x.deploy_job_run().is_none());
+    /// assert!(x.verify_job_run().is_none());
+    /// assert!(x.postdeploy_job_run().is_none());
+    /// assert!(x.create_child_rollout_job_run().is_none());
+    /// assert!(x.advance_child_rollout_job_run().is_none());
+    /// ```
     pub fn set_predeploy_job_run<
         T: std::convert::Into<std::boxed::Box<crate::model::PredeployJobRun>>,
     >(
@@ -11998,6 +16072,19 @@ impl JobRun {
     ///
     /// Note that all the setters affecting `job_run` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::JobRun;
+    /// use google_cloud_deploy_v1::model::PostdeployJobRun;
+    /// let x = JobRun::new().set_postdeploy_job_run(PostdeployJobRun::default()/* use setters */);
+    /// assert!(x.postdeploy_job_run().is_some());
+    /// assert!(x.deploy_job_run().is_none());
+    /// assert!(x.verify_job_run().is_none());
+    /// assert!(x.predeploy_job_run().is_none());
+    /// assert!(x.create_child_rollout_job_run().is_none());
+    /// assert!(x.advance_child_rollout_job_run().is_none());
+    /// ```
     pub fn set_postdeploy_job_run<
         T: std::convert::Into<std::boxed::Box<crate::model::PostdeployJobRun>>,
     >(
@@ -12029,6 +16116,19 @@ impl JobRun {
     ///
     /// Note that all the setters affecting `job_run` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::JobRun;
+    /// use google_cloud_deploy_v1::model::CreateChildRolloutJobRun;
+    /// let x = JobRun::new().set_create_child_rollout_job_run(CreateChildRolloutJobRun::default()/* use setters */);
+    /// assert!(x.create_child_rollout_job_run().is_some());
+    /// assert!(x.deploy_job_run().is_none());
+    /// assert!(x.verify_job_run().is_none());
+    /// assert!(x.predeploy_job_run().is_none());
+    /// assert!(x.postdeploy_job_run().is_none());
+    /// assert!(x.advance_child_rollout_job_run().is_none());
+    /// ```
     pub fn set_create_child_rollout_job_run<
         T: std::convert::Into<std::boxed::Box<crate::model::CreateChildRolloutJobRun>>,
     >(
@@ -12061,6 +16161,19 @@ impl JobRun {
     ///
     /// Note that all the setters affecting `job_run` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::JobRun;
+    /// use google_cloud_deploy_v1::model::AdvanceChildRolloutJobRun;
+    /// let x = JobRun::new().set_advance_child_rollout_job_run(AdvanceChildRolloutJobRun::default()/* use setters */);
+    /// assert!(x.advance_child_rollout_job_run().is_some());
+    /// assert!(x.deploy_job_run().is_none());
+    /// assert!(x.verify_job_run().is_none());
+    /// assert!(x.predeploy_job_run().is_none());
+    /// assert!(x.postdeploy_job_run().is_none());
+    /// assert!(x.create_child_rollout_job_run().is_none());
+    /// ```
     pub fn set_advance_child_rollout_job_run<
         T: std::convert::Into<std::boxed::Box<crate::model::AdvanceChildRolloutJobRun>>,
     >(
@@ -12288,12 +16401,27 @@ impl DeployJobRun {
     }
 
     /// Sets the value of [build][crate::model::DeployJobRun::build].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::DeployJobRun;
+    /// let x = DeployJobRun::new().set_build("example");
+    /// ```
     pub fn set_build<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.build = v.into();
         self
     }
 
     /// Sets the value of [failure_cause][crate::model::DeployJobRun::failure_cause].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::DeployJobRun;
+    /// use google_cloud_deploy_v1::model::deploy_job_run::FailureCause;
+    /// let x0 = DeployJobRun::new().set_failure_cause(FailureCause::CloudBuildUnavailable);
+    /// let x1 = DeployJobRun::new().set_failure_cause(FailureCause::ExecutionFailed);
+    /// let x2 = DeployJobRun::new().set_failure_cause(FailureCause::DeadlineExceeded);
+    /// ```
     pub fn set_failure_cause<T: std::convert::Into<crate::model::deploy_job_run::FailureCause>>(
         mut self,
         v: T,
@@ -12303,12 +16431,25 @@ impl DeployJobRun {
     }
 
     /// Sets the value of [failure_message][crate::model::DeployJobRun::failure_message].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::DeployJobRun;
+    /// let x = DeployJobRun::new().set_failure_message("example");
+    /// ```
     pub fn set_failure_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.failure_message = v.into();
         self
     }
 
     /// Sets the value of [metadata][crate::model::DeployJobRun::metadata].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::DeployJobRun;
+    /// use google_cloud_deploy_v1::model::DeployJobRunMetadata;
+    /// let x = DeployJobRun::new().set_metadata(DeployJobRunMetadata::default()/* use setters */);
+    /// ```
     pub fn set_metadata<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::DeployJobRunMetadata>,
@@ -12318,6 +16459,14 @@ impl DeployJobRun {
     }
 
     /// Sets or clears the value of [metadata][crate::model::DeployJobRun::metadata].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::DeployJobRun;
+    /// use google_cloud_deploy_v1::model::DeployJobRunMetadata;
+    /// let x = DeployJobRun::new().set_or_clear_metadata(Some(DeployJobRunMetadata::default()/* use setters */));
+    /// let x = DeployJobRun::new().set_or_clear_metadata(None::<DeployJobRunMetadata>);
+    /// ```
     pub fn set_or_clear_metadata<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DeployJobRunMetadata>,
@@ -12327,6 +16476,13 @@ impl DeployJobRun {
     }
 
     /// Sets the value of [artifact][crate::model::DeployJobRun::artifact].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::DeployJobRun;
+    /// use google_cloud_deploy_v1::model::DeployArtifact;
+    /// let x = DeployJobRun::new().set_artifact(DeployArtifact::default()/* use setters */);
+    /// ```
     pub fn set_artifact<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::DeployArtifact>,
@@ -12336,6 +16492,14 @@ impl DeployJobRun {
     }
 
     /// Sets or clears the value of [artifact][crate::model::DeployJobRun::artifact].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::DeployJobRun;
+    /// use google_cloud_deploy_v1::model::DeployArtifact;
+    /// let x = DeployJobRun::new().set_or_clear_artifact(Some(DeployArtifact::default()/* use setters */));
+    /// let x = DeployJobRun::new().set_or_clear_artifact(None::<DeployArtifact>);
+    /// ```
     pub fn set_or_clear_artifact<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DeployArtifact>,
@@ -12561,24 +16725,51 @@ impl VerifyJobRun {
     }
 
     /// Sets the value of [build][crate::model::VerifyJobRun::build].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::VerifyJobRun;
+    /// let x = VerifyJobRun::new().set_build("example");
+    /// ```
     pub fn set_build<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.build = v.into();
         self
     }
 
     /// Sets the value of [artifact_uri][crate::model::VerifyJobRun::artifact_uri].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::VerifyJobRun;
+    /// let x = VerifyJobRun::new().set_artifact_uri("example");
+    /// ```
     pub fn set_artifact_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.artifact_uri = v.into();
         self
     }
 
     /// Sets the value of [event_log_path][crate::model::VerifyJobRun::event_log_path].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::VerifyJobRun;
+    /// let x = VerifyJobRun::new().set_event_log_path("example");
+    /// ```
     pub fn set_event_log_path<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.event_log_path = v.into();
         self
     }
 
     /// Sets the value of [failure_cause][crate::model::VerifyJobRun::failure_cause].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::VerifyJobRun;
+    /// use google_cloud_deploy_v1::model::verify_job_run::FailureCause;
+    /// let x0 = VerifyJobRun::new().set_failure_cause(FailureCause::CloudBuildUnavailable);
+    /// let x1 = VerifyJobRun::new().set_failure_cause(FailureCause::ExecutionFailed);
+    /// let x2 = VerifyJobRun::new().set_failure_cause(FailureCause::DeadlineExceeded);
+    /// ```
     pub fn set_failure_cause<T: std::convert::Into<crate::model::verify_job_run::FailureCause>>(
         mut self,
         v: T,
@@ -12588,6 +16779,12 @@ impl VerifyJobRun {
     }
 
     /// Sets the value of [failure_message][crate::model::VerifyJobRun::failure_message].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::VerifyJobRun;
+    /// let x = VerifyJobRun::new().set_failure_message("example");
+    /// ```
     pub fn set_failure_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.failure_message = v.into();
         self
@@ -12793,12 +16990,27 @@ impl PredeployJobRun {
     }
 
     /// Sets the value of [build][crate::model::PredeployJobRun::build].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::PredeployJobRun;
+    /// let x = PredeployJobRun::new().set_build("example");
+    /// ```
     pub fn set_build<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.build = v.into();
         self
     }
 
     /// Sets the value of [failure_cause][crate::model::PredeployJobRun::failure_cause].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::PredeployJobRun;
+    /// use google_cloud_deploy_v1::model::predeploy_job_run::FailureCause;
+    /// let x0 = PredeployJobRun::new().set_failure_cause(FailureCause::CloudBuildUnavailable);
+    /// let x1 = PredeployJobRun::new().set_failure_cause(FailureCause::ExecutionFailed);
+    /// let x2 = PredeployJobRun::new().set_failure_cause(FailureCause::DeadlineExceeded);
+    /// ```
     pub fn set_failure_cause<
         T: std::convert::Into<crate::model::predeploy_job_run::FailureCause>,
     >(
@@ -12810,6 +17022,12 @@ impl PredeployJobRun {
     }
 
     /// Sets the value of [failure_message][crate::model::PredeployJobRun::failure_message].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::PredeployJobRun;
+    /// let x = PredeployJobRun::new().set_failure_message("example");
+    /// ```
     pub fn set_failure_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.failure_message = v.into();
         self
@@ -13006,12 +17224,27 @@ impl PostdeployJobRun {
     }
 
     /// Sets the value of [build][crate::model::PostdeployJobRun::build].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::PostdeployJobRun;
+    /// let x = PostdeployJobRun::new().set_build("example");
+    /// ```
     pub fn set_build<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.build = v.into();
         self
     }
 
     /// Sets the value of [failure_cause][crate::model::PostdeployJobRun::failure_cause].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::PostdeployJobRun;
+    /// use google_cloud_deploy_v1::model::postdeploy_job_run::FailureCause;
+    /// let x0 = PostdeployJobRun::new().set_failure_cause(FailureCause::CloudBuildUnavailable);
+    /// let x1 = PostdeployJobRun::new().set_failure_cause(FailureCause::ExecutionFailed);
+    /// let x2 = PostdeployJobRun::new().set_failure_cause(FailureCause::DeadlineExceeded);
+    /// ```
     pub fn set_failure_cause<
         T: std::convert::Into<crate::model::postdeploy_job_run::FailureCause>,
     >(
@@ -13023,6 +17256,12 @@ impl PostdeployJobRun {
     }
 
     /// Sets the value of [failure_message][crate::model::PostdeployJobRun::failure_message].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::PostdeployJobRun;
+    /// let x = PostdeployJobRun::new().set_failure_message("example");
+    /// ```
     pub fn set_failure_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.failure_message = v.into();
         self
@@ -13214,12 +17453,24 @@ impl CreateChildRolloutJobRun {
     }
 
     /// Sets the value of [rollout][crate::model::CreateChildRolloutJobRun::rollout].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::CreateChildRolloutJobRun;
+    /// let x = CreateChildRolloutJobRun::new().set_rollout("example");
+    /// ```
     pub fn set_rollout<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.rollout = v.into();
         self
     }
 
     /// Sets the value of [rollout_phase_id][crate::model::CreateChildRolloutJobRun::rollout_phase_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::CreateChildRolloutJobRun;
+    /// let x = CreateChildRolloutJobRun::new().set_rollout_phase_id("example");
+    /// ```
     pub fn set_rollout_phase_id<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -13256,12 +17507,24 @@ impl AdvanceChildRolloutJobRun {
     }
 
     /// Sets the value of [rollout][crate::model::AdvanceChildRolloutJobRun::rollout].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::AdvanceChildRolloutJobRun;
+    /// let x = AdvanceChildRolloutJobRun::new().set_rollout("example");
+    /// ```
     pub fn set_rollout<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.rollout = v.into();
         self
     }
 
     /// Sets the value of [rollout_phase_id][crate::model::AdvanceChildRolloutJobRun::rollout_phase_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::AdvanceChildRolloutJobRun;
+    /// let x = AdvanceChildRolloutJobRun::new().set_rollout_phase_id("example");
+    /// ```
     pub fn set_rollout_phase_id<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -13314,30 +17577,60 @@ impl ListJobRunsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListJobRunsRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::ListJobRunsRequest;
+    /// let x = ListJobRunsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListJobRunsRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::ListJobRunsRequest;
+    /// let x = ListJobRunsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListJobRunsRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::ListJobRunsRequest;
+    /// let x = ListJobRunsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListJobRunsRequest::filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::ListJobRunsRequest;
+    /// let x = ListJobRunsRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListJobRunsRequest::order_by].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::ListJobRunsRequest;
+    /// let x = ListJobRunsRequest::new().set_order_by("example");
+    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
@@ -13373,6 +17666,17 @@ impl ListJobRunsResponse {
     }
 
     /// Sets the value of [job_runs][crate::model::ListJobRunsResponse::job_runs].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::ListJobRunsResponse;
+    /// use google_cloud_deploy_v1::model::JobRun;
+    /// let x = ListJobRunsResponse::new()
+    ///     .set_job_runs([
+    ///         JobRun::default()/* use setters */,
+    ///         JobRun::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_job_runs<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -13384,12 +17688,24 @@ impl ListJobRunsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListJobRunsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::ListJobRunsResponse;
+    /// let x = ListJobRunsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListJobRunsResponse::unreachable].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::ListJobRunsResponse;
+    /// let x = ListJobRunsResponse::new().set_unreachable(["a", "b", "c"]);
+    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -13438,6 +17754,12 @@ impl GetJobRunRequest {
     }
 
     /// Sets the value of [name][crate::model::GetJobRunRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::GetJobRunRequest;
+    /// let x = GetJobRunRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -13471,12 +17793,24 @@ impl TerminateJobRunRequest {
     }
 
     /// Sets the value of [name][crate::model::TerminateJobRunRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::TerminateJobRunRequest;
+    /// let x = TerminateJobRunRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [override_deploy_policy][crate::model::TerminateJobRunRequest::override_deploy_policy].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::TerminateJobRunRequest;
+    /// let x = TerminateJobRunRequest::new().set_override_deploy_policy(["a", "b", "c"]);
+    /// ```
     pub fn set_override_deploy_policy<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -13536,12 +17870,29 @@ impl Config {
     }
 
     /// Sets the value of [name][crate::model::Config::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::Config;
+    /// let x = Config::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [supported_versions][crate::model::Config::supported_versions].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::Config;
+    /// use google_cloud_deploy_v1::model::SkaffoldVersion;
+    /// let x = Config::new()
+    ///     .set_supported_versions([
+    ///         SkaffoldVersion::default()/* use setters */,
+    ///         SkaffoldVersion::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_supported_versions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -13553,6 +17904,12 @@ impl Config {
     }
 
     /// Sets the value of [default_skaffold_version][crate::model::Config::default_skaffold_version].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::Config;
+    /// let x = Config::new().set_default_skaffold_version("example");
+    /// ```
     pub fn set_default_skaffold_version<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -13593,12 +17950,25 @@ impl SkaffoldVersion {
     }
 
     /// Sets the value of [version][crate::model::SkaffoldVersion::version].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::SkaffoldVersion;
+    /// let x = SkaffoldVersion::new().set_version("example");
+    /// ```
     pub fn set_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.version = v.into();
         self
     }
 
     /// Sets the value of [maintenance_mode_time][crate::model::SkaffoldVersion::maintenance_mode_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::SkaffoldVersion;
+    /// use wkt::Timestamp;
+    /// let x = SkaffoldVersion::new().set_maintenance_mode_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_maintenance_mode_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -13608,6 +17978,14 @@ impl SkaffoldVersion {
     }
 
     /// Sets or clears the value of [maintenance_mode_time][crate::model::SkaffoldVersion::maintenance_mode_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::SkaffoldVersion;
+    /// use wkt::Timestamp;
+    /// let x = SkaffoldVersion::new().set_or_clear_maintenance_mode_time(Some(Timestamp::default()/* use setters */));
+    /// let x = SkaffoldVersion::new().set_or_clear_maintenance_mode_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_maintenance_mode_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -13617,6 +17995,13 @@ impl SkaffoldVersion {
     }
 
     /// Sets the value of [support_expiration_time][crate::model::SkaffoldVersion::support_expiration_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::SkaffoldVersion;
+    /// use wkt::Timestamp;
+    /// let x = SkaffoldVersion::new().set_support_expiration_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_support_expiration_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -13626,6 +18011,14 @@ impl SkaffoldVersion {
     }
 
     /// Sets or clears the value of [support_expiration_time][crate::model::SkaffoldVersion::support_expiration_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::SkaffoldVersion;
+    /// use wkt::Timestamp;
+    /// let x = SkaffoldVersion::new().set_or_clear_support_expiration_time(Some(Timestamp::default()/* use setters */));
+    /// let x = SkaffoldVersion::new().set_or_clear_support_expiration_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_support_expiration_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -13635,6 +18028,13 @@ impl SkaffoldVersion {
     }
 
     /// Sets the value of [support_end_date][crate::model::SkaffoldVersion::support_end_date].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::SkaffoldVersion;
+    /// use gtype::model::Date;
+    /// let x = SkaffoldVersion::new().set_support_end_date(Date::default()/* use setters */);
+    /// ```
     pub fn set_support_end_date<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<gtype::model::Date>,
@@ -13644,6 +18044,14 @@ impl SkaffoldVersion {
     }
 
     /// Sets or clears the value of [support_end_date][crate::model::SkaffoldVersion::support_end_date].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::SkaffoldVersion;
+    /// use gtype::model::Date;
+    /// let x = SkaffoldVersion::new().set_or_clear_support_end_date(Some(Date::default()/* use setters */));
+    /// let x = SkaffoldVersion::new().set_or_clear_support_end_date(None::<Date>);
+    /// ```
     pub fn set_or_clear_support_end_date<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<gtype::model::Date>,
@@ -13675,6 +18083,12 @@ impl GetConfigRequest {
     }
 
     /// Sets the value of [name][crate::model::GetConfigRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::GetConfigRequest;
+    /// let x = GetConfigRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -13776,24 +18190,49 @@ impl Automation {
     }
 
     /// Sets the value of [name][crate::model::Automation::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::Automation;
+    /// let x = Automation::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [uid][crate::model::Automation::uid].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::Automation;
+    /// let x = Automation::new().set_uid("example");
+    /// ```
     pub fn set_uid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.uid = v.into();
         self
     }
 
     /// Sets the value of [description][crate::model::Automation::description].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::Automation;
+    /// let x = Automation::new().set_description("example");
+    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::Automation::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::Automation;
+    /// use wkt::Timestamp;
+    /// let x = Automation::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -13803,6 +18242,14 @@ impl Automation {
     }
 
     /// Sets or clears the value of [create_time][crate::model::Automation::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::Automation;
+    /// use wkt::Timestamp;
+    /// let x = Automation::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Automation::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -13812,6 +18259,13 @@ impl Automation {
     }
 
     /// Sets the value of [update_time][crate::model::Automation::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::Automation;
+    /// use wkt::Timestamp;
+    /// let x = Automation::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -13821,6 +18275,14 @@ impl Automation {
     }
 
     /// Sets or clears the value of [update_time][crate::model::Automation::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::Automation;
+    /// use wkt::Timestamp;
+    /// let x = Automation::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Automation::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -13830,6 +18292,15 @@ impl Automation {
     }
 
     /// Sets the value of [annotations][crate::model::Automation::annotations].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::Automation;
+    /// let x = Automation::new().set_annotations([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_annotations<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -13842,6 +18313,15 @@ impl Automation {
     }
 
     /// Sets the value of [labels][crate::model::Automation::labels].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::Automation;
+    /// let x = Automation::new().set_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -13854,24 +18334,49 @@ impl Automation {
     }
 
     /// Sets the value of [etag][crate::model::Automation::etag].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::Automation;
+    /// let x = Automation::new().set_etag("example");
+    /// ```
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
     }
 
     /// Sets the value of [suspended][crate::model::Automation::suspended].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::Automation;
+    /// let x = Automation::new().set_suspended(true);
+    /// ```
     pub fn set_suspended<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.suspended = v.into();
         self
     }
 
     /// Sets the value of [service_account][crate::model::Automation::service_account].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::Automation;
+    /// let x = Automation::new().set_service_account("example");
+    /// ```
     pub fn set_service_account<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.service_account = v.into();
         self
     }
 
     /// Sets the value of [selector][crate::model::Automation::selector].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::Automation;
+    /// use google_cloud_deploy_v1::model::AutomationResourceSelector;
+    /// let x = Automation::new().set_selector(AutomationResourceSelector::default()/* use setters */);
+    /// ```
     pub fn set_selector<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::AutomationResourceSelector>,
@@ -13881,6 +18386,14 @@ impl Automation {
     }
 
     /// Sets or clears the value of [selector][crate::model::Automation::selector].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::Automation;
+    /// use google_cloud_deploy_v1::model::AutomationResourceSelector;
+    /// let x = Automation::new().set_or_clear_selector(Some(AutomationResourceSelector::default()/* use setters */));
+    /// let x = Automation::new().set_or_clear_selector(None::<AutomationResourceSelector>);
+    /// ```
     pub fn set_or_clear_selector<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AutomationResourceSelector>,
@@ -13890,6 +18403,17 @@ impl Automation {
     }
 
     /// Sets the value of [rules][crate::model::Automation::rules].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::Automation;
+    /// use google_cloud_deploy_v1::model::AutomationRule;
+    /// let x = Automation::new()
+    ///     .set_rules([
+    ///         AutomationRule::default()/* use setters */,
+    ///         AutomationRule::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_rules<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -13924,6 +18448,17 @@ impl AutomationResourceSelector {
     }
 
     /// Sets the value of [targets][crate::model::AutomationResourceSelector::targets].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::AutomationResourceSelector;
+    /// use google_cloud_deploy_v1::model::TargetAttribute;
+    /// let x = AutomationResourceSelector::new()
+    ///     .set_targets([
+    ///         TargetAttribute::default()/* use setters */,
+    ///         TargetAttribute::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_targets<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -13960,6 +18495,14 @@ impl AutomationRule {
     ///
     /// Note that all the setters affecting `rule` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::AutomationRule;
+    /// use google_cloud_deploy_v1::model::automation_rule;
+    /// use google_cloud_deploy_v1::model::PromoteReleaseRule;
+    /// let x = AutomationRule::new().set_rule(Some(automation_rule::Rule::PromoteReleaseRule(PromoteReleaseRule::default().into())));
+    /// ```
     pub fn set_rule<
         T: std::convert::Into<std::option::Option<crate::model::automation_rule::Rule>>,
     >(
@@ -13990,6 +18533,17 @@ impl AutomationRule {
     ///
     /// Note that all the setters affecting `rule` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::AutomationRule;
+    /// use google_cloud_deploy_v1::model::PromoteReleaseRule;
+    /// let x = AutomationRule::new().set_promote_release_rule(PromoteReleaseRule::default()/* use setters */);
+    /// assert!(x.promote_release_rule().is_some());
+    /// assert!(x.advance_rollout_rule().is_none());
+    /// assert!(x.repair_rollout_rule().is_none());
+    /// assert!(x.timed_promote_release_rule().is_none());
+    /// ```
     pub fn set_promote_release_rule<
         T: std::convert::Into<std::boxed::Box<crate::model::PromoteReleaseRule>>,
     >(
@@ -14022,6 +18576,17 @@ impl AutomationRule {
     ///
     /// Note that all the setters affecting `rule` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::AutomationRule;
+    /// use google_cloud_deploy_v1::model::AdvanceRolloutRule;
+    /// let x = AutomationRule::new().set_advance_rollout_rule(AdvanceRolloutRule::default()/* use setters */);
+    /// assert!(x.advance_rollout_rule().is_some());
+    /// assert!(x.promote_release_rule().is_none());
+    /// assert!(x.repair_rollout_rule().is_none());
+    /// assert!(x.timed_promote_release_rule().is_none());
+    /// ```
     pub fn set_advance_rollout_rule<
         T: std::convert::Into<std::boxed::Box<crate::model::AdvanceRolloutRule>>,
     >(
@@ -14054,6 +18619,17 @@ impl AutomationRule {
     ///
     /// Note that all the setters affecting `rule` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::AutomationRule;
+    /// use google_cloud_deploy_v1::model::RepairRolloutRule;
+    /// let x = AutomationRule::new().set_repair_rollout_rule(RepairRolloutRule::default()/* use setters */);
+    /// assert!(x.repair_rollout_rule().is_some());
+    /// assert!(x.promote_release_rule().is_none());
+    /// assert!(x.advance_rollout_rule().is_none());
+    /// assert!(x.timed_promote_release_rule().is_none());
+    /// ```
     pub fn set_repair_rollout_rule<
         T: std::convert::Into<std::boxed::Box<crate::model::RepairRolloutRule>>,
     >(
@@ -14086,6 +18662,17 @@ impl AutomationRule {
     ///
     /// Note that all the setters affecting `rule` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::AutomationRule;
+    /// use google_cloud_deploy_v1::model::TimedPromoteReleaseRule;
+    /// let x = AutomationRule::new().set_timed_promote_release_rule(TimedPromoteReleaseRule::default()/* use setters */);
+    /// assert!(x.timed_promote_release_rule().is_some());
+    /// assert!(x.promote_release_rule().is_none());
+    /// assert!(x.advance_rollout_rule().is_none());
+    /// assert!(x.repair_rollout_rule().is_none());
+    /// ```
     pub fn set_timed_promote_release_rule<
         T: std::convert::Into<std::boxed::Box<crate::model::TimedPromoteReleaseRule>>,
     >(
@@ -14172,12 +18759,24 @@ impl TimedPromoteReleaseRule {
     }
 
     /// Sets the value of [id][crate::model::TimedPromoteReleaseRule::id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::TimedPromoteReleaseRule;
+    /// let x = TimedPromoteReleaseRule::new().set_id("example");
+    /// ```
     pub fn set_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.id = v.into();
         self
     }
 
     /// Sets the value of [destination_target_id][crate::model::TimedPromoteReleaseRule::destination_target_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::TimedPromoteReleaseRule;
+    /// let x = TimedPromoteReleaseRule::new().set_destination_target_id("example");
+    /// ```
     pub fn set_destination_target_id<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -14187,18 +18786,37 @@ impl TimedPromoteReleaseRule {
     }
 
     /// Sets the value of [schedule][crate::model::TimedPromoteReleaseRule::schedule].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::TimedPromoteReleaseRule;
+    /// let x = TimedPromoteReleaseRule::new().set_schedule("example");
+    /// ```
     pub fn set_schedule<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.schedule = v.into();
         self
     }
 
     /// Sets the value of [time_zone][crate::model::TimedPromoteReleaseRule::time_zone].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::TimedPromoteReleaseRule;
+    /// let x = TimedPromoteReleaseRule::new().set_time_zone("example");
+    /// ```
     pub fn set_time_zone<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.time_zone = v.into();
         self
     }
 
     /// Sets the value of [condition][crate::model::TimedPromoteReleaseRule::condition].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::TimedPromoteReleaseRule;
+    /// use google_cloud_deploy_v1::model::AutomationRuleCondition;
+    /// let x = TimedPromoteReleaseRule::new().set_condition(AutomationRuleCondition::default()/* use setters */);
+    /// ```
     pub fn set_condition<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::AutomationRuleCondition>,
@@ -14208,6 +18826,14 @@ impl TimedPromoteReleaseRule {
     }
 
     /// Sets or clears the value of [condition][crate::model::TimedPromoteReleaseRule::condition].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::TimedPromoteReleaseRule;
+    /// use google_cloud_deploy_v1::model::AutomationRuleCondition;
+    /// let x = TimedPromoteReleaseRule::new().set_or_clear_condition(Some(AutomationRuleCondition::default()/* use setters */));
+    /// let x = TimedPromoteReleaseRule::new().set_or_clear_condition(None::<AutomationRuleCondition>);
+    /// ```
     pub fn set_or_clear_condition<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AutomationRuleCondition>,
@@ -14217,6 +18843,12 @@ impl TimedPromoteReleaseRule {
     }
 
     /// Sets the value of [destination_phase][crate::model::TimedPromoteReleaseRule::destination_phase].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::TimedPromoteReleaseRule;
+    /// let x = TimedPromoteReleaseRule::new().set_destination_phase("example");
+    /// ```
     pub fn set_destination_phase<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -14270,12 +18902,25 @@ impl PromoteReleaseRule {
     }
 
     /// Sets the value of [id][crate::model::PromoteReleaseRule::id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::PromoteReleaseRule;
+    /// let x = PromoteReleaseRule::new().set_id("example");
+    /// ```
     pub fn set_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.id = v.into();
         self
     }
 
     /// Sets the value of [wait][crate::model::PromoteReleaseRule::wait].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::PromoteReleaseRule;
+    /// use wkt::Duration;
+    /// let x = PromoteReleaseRule::new().set_wait(Duration::default()/* use setters */);
+    /// ```
     pub fn set_wait<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -14285,6 +18930,14 @@ impl PromoteReleaseRule {
     }
 
     /// Sets or clears the value of [wait][crate::model::PromoteReleaseRule::wait].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::PromoteReleaseRule;
+    /// use wkt::Duration;
+    /// let x = PromoteReleaseRule::new().set_or_clear_wait(Some(Duration::default()/* use setters */));
+    /// let x = PromoteReleaseRule::new().set_or_clear_wait(None::<Duration>);
+    /// ```
     pub fn set_or_clear_wait<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -14294,6 +18947,12 @@ impl PromoteReleaseRule {
     }
 
     /// Sets the value of [destination_target_id][crate::model::PromoteReleaseRule::destination_target_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::PromoteReleaseRule;
+    /// let x = PromoteReleaseRule::new().set_destination_target_id("example");
+    /// ```
     pub fn set_destination_target_id<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -14303,6 +18962,13 @@ impl PromoteReleaseRule {
     }
 
     /// Sets the value of [condition][crate::model::PromoteReleaseRule::condition].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::PromoteReleaseRule;
+    /// use google_cloud_deploy_v1::model::AutomationRuleCondition;
+    /// let x = PromoteReleaseRule::new().set_condition(AutomationRuleCondition::default()/* use setters */);
+    /// ```
     pub fn set_condition<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::AutomationRuleCondition>,
@@ -14312,6 +18978,14 @@ impl PromoteReleaseRule {
     }
 
     /// Sets or clears the value of [condition][crate::model::PromoteReleaseRule::condition].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::PromoteReleaseRule;
+    /// use google_cloud_deploy_v1::model::AutomationRuleCondition;
+    /// let x = PromoteReleaseRule::new().set_or_clear_condition(Some(AutomationRuleCondition::default()/* use setters */));
+    /// let x = PromoteReleaseRule::new().set_or_clear_condition(None::<AutomationRuleCondition>);
+    /// ```
     pub fn set_or_clear_condition<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AutomationRuleCondition>,
@@ -14321,6 +18995,12 @@ impl PromoteReleaseRule {
     }
 
     /// Sets the value of [destination_phase][crate::model::PromoteReleaseRule::destination_phase].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::PromoteReleaseRule;
+    /// let x = PromoteReleaseRule::new().set_destination_phase("example");
+    /// ```
     pub fn set_destination_phase<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -14368,12 +19048,24 @@ impl AdvanceRolloutRule {
     }
 
     /// Sets the value of [id][crate::model::AdvanceRolloutRule::id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::AdvanceRolloutRule;
+    /// let x = AdvanceRolloutRule::new().set_id("example");
+    /// ```
     pub fn set_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.id = v.into();
         self
     }
 
     /// Sets the value of [source_phases][crate::model::AdvanceRolloutRule::source_phases].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::AdvanceRolloutRule;
+    /// let x = AdvanceRolloutRule::new().set_source_phases(["a", "b", "c"]);
+    /// ```
     pub fn set_source_phases<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -14385,6 +19077,13 @@ impl AdvanceRolloutRule {
     }
 
     /// Sets the value of [wait][crate::model::AdvanceRolloutRule::wait].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::AdvanceRolloutRule;
+    /// use wkt::Duration;
+    /// let x = AdvanceRolloutRule::new().set_wait(Duration::default()/* use setters */);
+    /// ```
     pub fn set_wait<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -14394,6 +19093,14 @@ impl AdvanceRolloutRule {
     }
 
     /// Sets or clears the value of [wait][crate::model::AdvanceRolloutRule::wait].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::AdvanceRolloutRule;
+    /// use wkt::Duration;
+    /// let x = AdvanceRolloutRule::new().set_or_clear_wait(Some(Duration::default()/* use setters */));
+    /// let x = AdvanceRolloutRule::new().set_or_clear_wait(None::<Duration>);
+    /// ```
     pub fn set_or_clear_wait<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -14403,6 +19110,13 @@ impl AdvanceRolloutRule {
     }
 
     /// Sets the value of [condition][crate::model::AdvanceRolloutRule::condition].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::AdvanceRolloutRule;
+    /// use google_cloud_deploy_v1::model::AutomationRuleCondition;
+    /// let x = AdvanceRolloutRule::new().set_condition(AutomationRuleCondition::default()/* use setters */);
+    /// ```
     pub fn set_condition<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::AutomationRuleCondition>,
@@ -14412,6 +19126,14 @@ impl AdvanceRolloutRule {
     }
 
     /// Sets or clears the value of [condition][crate::model::AdvanceRolloutRule::condition].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::AdvanceRolloutRule;
+    /// use google_cloud_deploy_v1::model::AutomationRuleCondition;
+    /// let x = AdvanceRolloutRule::new().set_or_clear_condition(Some(AutomationRuleCondition::default()/* use setters */));
+    /// let x = AdvanceRolloutRule::new().set_or_clear_condition(None::<AutomationRuleCondition>);
+    /// ```
     pub fn set_or_clear_condition<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AutomationRuleCondition>,
@@ -14469,12 +19191,24 @@ impl RepairRolloutRule {
     }
 
     /// Sets the value of [id][crate::model::RepairRolloutRule::id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::RepairRolloutRule;
+    /// let x = RepairRolloutRule::new().set_id("example");
+    /// ```
     pub fn set_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.id = v.into();
         self
     }
 
     /// Sets the value of [phases][crate::model::RepairRolloutRule::phases].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::RepairRolloutRule;
+    /// let x = RepairRolloutRule::new().set_phases(["a", "b", "c"]);
+    /// ```
     pub fn set_phases<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -14486,6 +19220,12 @@ impl RepairRolloutRule {
     }
 
     /// Sets the value of [jobs][crate::model::RepairRolloutRule::jobs].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::RepairRolloutRule;
+    /// let x = RepairRolloutRule::new().set_jobs(["a", "b", "c"]);
+    /// ```
     pub fn set_jobs<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -14497,6 +19237,13 @@ impl RepairRolloutRule {
     }
 
     /// Sets the value of [condition][crate::model::RepairRolloutRule::condition].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::RepairRolloutRule;
+    /// use google_cloud_deploy_v1::model::AutomationRuleCondition;
+    /// let x = RepairRolloutRule::new().set_condition(AutomationRuleCondition::default()/* use setters */);
+    /// ```
     pub fn set_condition<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::AutomationRuleCondition>,
@@ -14506,6 +19253,14 @@ impl RepairRolloutRule {
     }
 
     /// Sets or clears the value of [condition][crate::model::RepairRolloutRule::condition].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::RepairRolloutRule;
+    /// use google_cloud_deploy_v1::model::AutomationRuleCondition;
+    /// let x = RepairRolloutRule::new().set_or_clear_condition(Some(AutomationRuleCondition::default()/* use setters */));
+    /// let x = RepairRolloutRule::new().set_or_clear_condition(None::<AutomationRuleCondition>);
+    /// ```
     pub fn set_or_clear_condition<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AutomationRuleCondition>,
@@ -14515,6 +19270,17 @@ impl RepairRolloutRule {
     }
 
     /// Sets the value of [repair_phases][crate::model::RepairRolloutRule::repair_phases].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::RepairRolloutRule;
+    /// use google_cloud_deploy_v1::model::RepairPhaseConfig;
+    /// let x = RepairRolloutRule::new()
+    ///     .set_repair_phases([
+    ///         RepairPhaseConfig::default()/* use setters */,
+    ///         RepairPhaseConfig::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_repair_phases<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -14551,6 +19317,14 @@ impl RepairPhaseConfig {
     ///
     /// Note that all the setters affecting `repair_phase` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::RepairPhaseConfig;
+    /// use google_cloud_deploy_v1::model::repair_phase_config;
+    /// use google_cloud_deploy_v1::model::Retry;
+    /// let x = RepairPhaseConfig::new().set_repair_phase(Some(repair_phase_config::RepairPhase::Retry(Retry::default().into())));
+    /// ```
     pub fn set_repair_phase<
         T: std::convert::Into<std::option::Option<crate::model::repair_phase_config::RepairPhase>>,
     >(
@@ -14579,6 +19353,15 @@ impl RepairPhaseConfig {
     ///
     /// Note that all the setters affecting `repair_phase` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::RepairPhaseConfig;
+    /// use google_cloud_deploy_v1::model::Retry;
+    /// let x = RepairPhaseConfig::new().set_retry(Retry::default()/* use setters */);
+    /// assert!(x.retry().is_some());
+    /// assert!(x.rollback().is_none());
+    /// ```
     pub fn set_retry<T: std::convert::Into<std::boxed::Box<crate::model::Retry>>>(
         mut self,
         v: T,
@@ -14607,6 +19390,15 @@ impl RepairPhaseConfig {
     ///
     /// Note that all the setters affecting `repair_phase` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::RepairPhaseConfig;
+    /// use google_cloud_deploy_v1::model::Rollback;
+    /// let x = RepairPhaseConfig::new().set_rollback(Rollback::default()/* use setters */);
+    /// assert!(x.rollback().is_some());
+    /// assert!(x.retry().is_none());
+    /// ```
     pub fn set_rollback<T: std::convert::Into<std::boxed::Box<crate::model::Rollback>>>(
         mut self,
         v: T,
@@ -14665,12 +19457,25 @@ impl Retry {
     }
 
     /// Sets the value of [attempts][crate::model::Retry::attempts].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::Retry;
+    /// let x = Retry::new().set_attempts(42);
+    /// ```
     pub fn set_attempts<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.attempts = v.into();
         self
     }
 
     /// Sets the value of [wait][crate::model::Retry::wait].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::Retry;
+    /// use wkt::Duration;
+    /// let x = Retry::new().set_wait(Duration::default()/* use setters */);
+    /// ```
     pub fn set_wait<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -14680,6 +19485,14 @@ impl Retry {
     }
 
     /// Sets or clears the value of [wait][crate::model::Retry::wait].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::Retry;
+    /// use wkt::Duration;
+    /// let x = Retry::new().set_or_clear_wait(Some(Duration::default()/* use setters */));
+    /// let x = Retry::new().set_or_clear_wait(None::<Duration>);
+    /// ```
     pub fn set_or_clear_wait<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -14689,6 +19502,14 @@ impl Retry {
     }
 
     /// Sets the value of [backoff_mode][crate::model::Retry::backoff_mode].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::Retry;
+    /// use google_cloud_deploy_v1::model::BackoffMode;
+    /// let x0 = Retry::new().set_backoff_mode(BackoffMode::Linear);
+    /// let x1 = Retry::new().set_backoff_mode(BackoffMode::Exponential);
+    /// ```
     pub fn set_backoff_mode<T: std::convert::Into<crate::model::BackoffMode>>(
         mut self,
         v: T,
@@ -14725,6 +19546,12 @@ impl Rollback {
     }
 
     /// Sets the value of [destination_phase][crate::model::Rollback::destination_phase].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::Rollback;
+    /// let x = Rollback::new().set_destination_phase("example");
+    /// ```
     pub fn set_destination_phase<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -14734,6 +19561,12 @@ impl Rollback {
     }
 
     /// Sets the value of [disable_rollback_if_rollout_pending][crate::model::Rollback::disable_rollback_if_rollout_pending].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::Rollback;
+    /// let x = Rollback::new().set_disable_rollback_if_rollout_pending(true);
+    /// ```
     pub fn set_disable_rollback_if_rollout_pending<T: std::convert::Into<bool>>(
         mut self,
         v: T,
@@ -14770,6 +19603,13 @@ impl AutomationRuleCondition {
     }
 
     /// Sets the value of [targets_present_condition][crate::model::AutomationRuleCondition::targets_present_condition].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::AutomationRuleCondition;
+    /// use google_cloud_deploy_v1::model::TargetsPresentCondition;
+    /// let x = AutomationRuleCondition::new().set_targets_present_condition(TargetsPresentCondition::default()/* use setters */);
+    /// ```
     pub fn set_targets_present_condition<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::TargetsPresentCondition>,
@@ -14779,6 +19619,14 @@ impl AutomationRuleCondition {
     }
 
     /// Sets or clears the value of [targets_present_condition][crate::model::AutomationRuleCondition::targets_present_condition].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::AutomationRuleCondition;
+    /// use google_cloud_deploy_v1::model::TargetsPresentCondition;
+    /// let x = AutomationRuleCondition::new().set_or_clear_targets_present_condition(Some(TargetsPresentCondition::default()/* use setters */));
+    /// let x = AutomationRuleCondition::new().set_or_clear_targets_present_condition(None::<TargetsPresentCondition>);
+    /// ```
     pub fn set_or_clear_targets_present_condition<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::TargetsPresentCondition>,
@@ -14791,6 +19639,14 @@ impl AutomationRuleCondition {
     ///
     /// Note that all the setters affecting `rule_type_condition` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::AutomationRuleCondition;
+    /// use google_cloud_deploy_v1::model::automation_rule_condition;
+    /// use google_cloud_deploy_v1::model::TimedPromoteReleaseCondition;
+    /// let x = AutomationRuleCondition::new().set_rule_type_condition(Some(automation_rule_condition::RuleTypeCondition::TimedPromoteReleaseCondition(TimedPromoteReleaseCondition::default().into())));
+    /// ```
     pub fn set_rule_type_condition<
         T: std::convert::Into<
                 std::option::Option<crate::model::automation_rule_condition::RuleTypeCondition>,
@@ -14821,6 +19677,14 @@ impl AutomationRuleCondition {
     ///
     /// Note that all the setters affecting `rule_type_condition` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::AutomationRuleCondition;
+    /// use google_cloud_deploy_v1::model::TimedPromoteReleaseCondition;
+    /// let x = AutomationRuleCondition::new().set_timed_promote_release_condition(TimedPromoteReleaseCondition::default()/* use setters */);
+    /// assert!(x.timed_promote_release_condition().is_some());
+    /// ```
     pub fn set_timed_promote_release_condition<
         T: std::convert::Into<std::boxed::Box<crate::model::TimedPromoteReleaseCondition>>,
     >(
@@ -14877,6 +19741,13 @@ impl TimedPromoteReleaseCondition {
     }
 
     /// Sets the value of [next_promotion_time][crate::model::TimedPromoteReleaseCondition::next_promotion_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::TimedPromoteReleaseCondition;
+    /// use wkt::Timestamp;
+    /// let x = TimedPromoteReleaseCondition::new().set_next_promotion_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_next_promotion_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -14886,6 +19757,14 @@ impl TimedPromoteReleaseCondition {
     }
 
     /// Sets or clears the value of [next_promotion_time][crate::model::TimedPromoteReleaseCondition::next_promotion_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::TimedPromoteReleaseCondition;
+    /// use wkt::Timestamp;
+    /// let x = TimedPromoteReleaseCondition::new().set_or_clear_next_promotion_time(Some(Timestamp::default()/* use setters */));
+    /// let x = TimedPromoteReleaseCondition::new().set_or_clear_next_promotion_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_next_promotion_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -14895,6 +19774,17 @@ impl TimedPromoteReleaseCondition {
     }
 
     /// Sets the value of [targets_list][crate::model::TimedPromoteReleaseCondition::targets_list].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::TimedPromoteReleaseCondition;
+    /// use google_cloud_deploy_v1::model::timed_promote_release_condition::Targets;
+    /// let x = TimedPromoteReleaseCondition::new()
+    ///     .set_targets_list([
+    ///         Targets::default()/* use setters */,
+    ///         Targets::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_targets_list<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -14936,6 +19826,12 @@ pub mod timed_promote_release_condition {
         }
 
         /// Sets the value of [source_target_id][crate::model::timed_promote_release_condition::Targets::source_target_id].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_deploy_v1::model::timed_promote_release_condition::Targets;
+        /// let x = Targets::new().set_source_target_id("example");
+        /// ```
         pub fn set_source_target_id<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -14945,6 +19841,12 @@ pub mod timed_promote_release_condition {
         }
 
         /// Sets the value of [destination_target_id][crate::model::timed_promote_release_condition::Targets::destination_target_id].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_deploy_v1::model::timed_promote_release_condition::Targets;
+        /// let x = Targets::new().set_destination_target_id("example");
+        /// ```
         pub fn set_destination_target_id<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -15004,18 +19906,37 @@ impl CreateAutomationRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateAutomationRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::CreateAutomationRequest;
+    /// let x = CreateAutomationRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [automation_id][crate::model::CreateAutomationRequest::automation_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::CreateAutomationRequest;
+    /// let x = CreateAutomationRequest::new().set_automation_id("example");
+    /// ```
     pub fn set_automation_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.automation_id = v.into();
         self
     }
 
     /// Sets the value of [automation][crate::model::CreateAutomationRequest::automation].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::CreateAutomationRequest;
+    /// use google_cloud_deploy_v1::model::Automation;
+    /// let x = CreateAutomationRequest::new().set_automation(Automation::default()/* use setters */);
+    /// ```
     pub fn set_automation<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Automation>,
@@ -15025,6 +19946,14 @@ impl CreateAutomationRequest {
     }
 
     /// Sets or clears the value of [automation][crate::model::CreateAutomationRequest::automation].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::CreateAutomationRequest;
+    /// use google_cloud_deploy_v1::model::Automation;
+    /// let x = CreateAutomationRequest::new().set_or_clear_automation(Some(Automation::default()/* use setters */));
+    /// let x = CreateAutomationRequest::new().set_or_clear_automation(None::<Automation>);
+    /// ```
     pub fn set_or_clear_automation<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Automation>,
@@ -15034,12 +19963,24 @@ impl CreateAutomationRequest {
     }
 
     /// Sets the value of [request_id][crate::model::CreateAutomationRequest::request_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::CreateAutomationRequest;
+    /// let x = CreateAutomationRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
     }
 
     /// Sets the value of [validate_only][crate::model::CreateAutomationRequest::validate_only].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::CreateAutomationRequest;
+    /// let x = CreateAutomationRequest::new().set_validate_only(true);
+    /// ```
     pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.validate_only = v.into();
         self
@@ -15098,6 +20039,13 @@ impl UpdateAutomationRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateAutomationRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::UpdateAutomationRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateAutomationRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -15107,6 +20055,14 @@ impl UpdateAutomationRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateAutomationRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::UpdateAutomationRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateAutomationRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateAutomationRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -15116,6 +20072,13 @@ impl UpdateAutomationRequest {
     }
 
     /// Sets the value of [automation][crate::model::UpdateAutomationRequest::automation].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::UpdateAutomationRequest;
+    /// use google_cloud_deploy_v1::model::Automation;
+    /// let x = UpdateAutomationRequest::new().set_automation(Automation::default()/* use setters */);
+    /// ```
     pub fn set_automation<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Automation>,
@@ -15125,6 +20088,14 @@ impl UpdateAutomationRequest {
     }
 
     /// Sets or clears the value of [automation][crate::model::UpdateAutomationRequest::automation].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::UpdateAutomationRequest;
+    /// use google_cloud_deploy_v1::model::Automation;
+    /// let x = UpdateAutomationRequest::new().set_or_clear_automation(Some(Automation::default()/* use setters */));
+    /// let x = UpdateAutomationRequest::new().set_or_clear_automation(None::<Automation>);
+    /// ```
     pub fn set_or_clear_automation<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Automation>,
@@ -15134,18 +20105,36 @@ impl UpdateAutomationRequest {
     }
 
     /// Sets the value of [request_id][crate::model::UpdateAutomationRequest::request_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::UpdateAutomationRequest;
+    /// let x = UpdateAutomationRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
     }
 
     /// Sets the value of [allow_missing][crate::model::UpdateAutomationRequest::allow_missing].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::UpdateAutomationRequest;
+    /// let x = UpdateAutomationRequest::new().set_allow_missing(true);
+    /// ```
     pub fn set_allow_missing<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.allow_missing = v.into();
         self
     }
 
     /// Sets the value of [validate_only][crate::model::UpdateAutomationRequest::validate_only].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::UpdateAutomationRequest;
+    /// let x = UpdateAutomationRequest::new().set_validate_only(true);
+    /// ```
     pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.validate_only = v.into();
         self
@@ -15204,30 +20193,60 @@ impl DeleteAutomationRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteAutomationRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::DeleteAutomationRequest;
+    /// let x = DeleteAutomationRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [request_id][crate::model::DeleteAutomationRequest::request_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::DeleteAutomationRequest;
+    /// let x = DeleteAutomationRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
     }
 
     /// Sets the value of [allow_missing][crate::model::DeleteAutomationRequest::allow_missing].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::DeleteAutomationRequest;
+    /// let x = DeleteAutomationRequest::new().set_allow_missing(true);
+    /// ```
     pub fn set_allow_missing<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.allow_missing = v.into();
         self
     }
 
     /// Sets the value of [validate_only][crate::model::DeleteAutomationRequest::validate_only].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::DeleteAutomationRequest;
+    /// let x = DeleteAutomationRequest::new().set_validate_only(true);
+    /// ```
     pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.validate_only = v.into();
         self
     }
 
     /// Sets the value of [etag][crate::model::DeleteAutomationRequest::etag].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::DeleteAutomationRequest;
+    /// let x = DeleteAutomationRequest::new().set_etag("example");
+    /// ```
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
@@ -15278,30 +20297,60 @@ impl ListAutomationsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListAutomationsRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::ListAutomationsRequest;
+    /// let x = ListAutomationsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListAutomationsRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::ListAutomationsRequest;
+    /// let x = ListAutomationsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListAutomationsRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::ListAutomationsRequest;
+    /// let x = ListAutomationsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListAutomationsRequest::filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::ListAutomationsRequest;
+    /// let x = ListAutomationsRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListAutomationsRequest::order_by].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::ListAutomationsRequest;
+    /// let x = ListAutomationsRequest::new().set_order_by("example");
+    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
@@ -15337,6 +20386,17 @@ impl ListAutomationsResponse {
     }
 
     /// Sets the value of [automations][crate::model::ListAutomationsResponse::automations].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::ListAutomationsResponse;
+    /// use google_cloud_deploy_v1::model::Automation;
+    /// let x = ListAutomationsResponse::new()
+    ///     .set_automations([
+    ///         Automation::default()/* use setters */,
+    ///         Automation::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_automations<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -15348,12 +20408,24 @@ impl ListAutomationsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListAutomationsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::ListAutomationsResponse;
+    /// let x = ListAutomationsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListAutomationsResponse::unreachable].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::ListAutomationsResponse;
+    /// let x = ListAutomationsResponse::new().set_unreachable(["a", "b", "c"]);
+    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -15402,6 +20474,12 @@ impl GetAutomationRequest {
     }
 
     /// Sets the value of [name][crate::model::GetAutomationRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::GetAutomationRequest;
+    /// let x = GetAutomationRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -15487,12 +20565,25 @@ impl AutomationRun {
     }
 
     /// Sets the value of [name][crate::model::AutomationRun::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::AutomationRun;
+    /// let x = AutomationRun::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::AutomationRun::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::AutomationRun;
+    /// use wkt::Timestamp;
+    /// let x = AutomationRun::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -15502,6 +20593,14 @@ impl AutomationRun {
     }
 
     /// Sets or clears the value of [create_time][crate::model::AutomationRun::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::AutomationRun;
+    /// use wkt::Timestamp;
+    /// let x = AutomationRun::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = AutomationRun::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -15511,6 +20610,13 @@ impl AutomationRun {
     }
 
     /// Sets the value of [update_time][crate::model::AutomationRun::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::AutomationRun;
+    /// use wkt::Timestamp;
+    /// let x = AutomationRun::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -15520,6 +20626,14 @@ impl AutomationRun {
     }
 
     /// Sets or clears the value of [update_time][crate::model::AutomationRun::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::AutomationRun;
+    /// use wkt::Timestamp;
+    /// let x = AutomationRun::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = AutomationRun::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -15529,18 +20643,37 @@ impl AutomationRun {
     }
 
     /// Sets the value of [etag][crate::model::AutomationRun::etag].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::AutomationRun;
+    /// let x = AutomationRun::new().set_etag("example");
+    /// ```
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
     }
 
     /// Sets the value of [service_account][crate::model::AutomationRun::service_account].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::AutomationRun;
+    /// let x = AutomationRun::new().set_service_account("example");
+    /// ```
     pub fn set_service_account<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.service_account = v.into();
         self
     }
 
     /// Sets the value of [automation_snapshot][crate::model::AutomationRun::automation_snapshot].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::AutomationRun;
+    /// use google_cloud_deploy_v1::model::Automation;
+    /// let x = AutomationRun::new().set_automation_snapshot(Automation::default()/* use setters */);
+    /// ```
     pub fn set_automation_snapshot<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Automation>,
@@ -15550,6 +20683,14 @@ impl AutomationRun {
     }
 
     /// Sets or clears the value of [automation_snapshot][crate::model::AutomationRun::automation_snapshot].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::AutomationRun;
+    /// use google_cloud_deploy_v1::model::Automation;
+    /// let x = AutomationRun::new().set_or_clear_automation_snapshot(Some(Automation::default()/* use setters */));
+    /// let x = AutomationRun::new().set_or_clear_automation_snapshot(None::<Automation>);
+    /// ```
     pub fn set_or_clear_automation_snapshot<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Automation>,
@@ -15559,12 +20700,27 @@ impl AutomationRun {
     }
 
     /// Sets the value of [target_id][crate::model::AutomationRun::target_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::AutomationRun;
+    /// let x = AutomationRun::new().set_target_id("example");
+    /// ```
     pub fn set_target_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.target_id = v.into();
         self
     }
 
     /// Sets the value of [state][crate::model::AutomationRun::state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::AutomationRun;
+    /// use google_cloud_deploy_v1::model::automation_run::State;
+    /// let x0 = AutomationRun::new().set_state(State::Succeeded);
+    /// let x1 = AutomationRun::new().set_state(State::Cancelled);
+    /// let x2 = AutomationRun::new().set_state(State::Failed);
+    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::automation_run::State>>(
         mut self,
         v: T,
@@ -15574,6 +20730,12 @@ impl AutomationRun {
     }
 
     /// Sets the value of [state_description][crate::model::AutomationRun::state_description].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::AutomationRun;
+    /// let x = AutomationRun::new().set_state_description("example");
+    /// ```
     pub fn set_state_description<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -15583,6 +20745,13 @@ impl AutomationRun {
     }
 
     /// Sets the value of [policy_violation][crate::model::AutomationRun::policy_violation].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::AutomationRun;
+    /// use google_cloud_deploy_v1::model::PolicyViolation;
+    /// let x = AutomationRun::new().set_policy_violation(PolicyViolation::default()/* use setters */);
+    /// ```
     pub fn set_policy_violation<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::PolicyViolation>,
@@ -15592,6 +20761,14 @@ impl AutomationRun {
     }
 
     /// Sets or clears the value of [policy_violation][crate::model::AutomationRun::policy_violation].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::AutomationRun;
+    /// use google_cloud_deploy_v1::model::PolicyViolation;
+    /// let x = AutomationRun::new().set_or_clear_policy_violation(Some(PolicyViolation::default()/* use setters */));
+    /// let x = AutomationRun::new().set_or_clear_policy_violation(None::<PolicyViolation>);
+    /// ```
     pub fn set_or_clear_policy_violation<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::PolicyViolation>,
@@ -15601,6 +20778,13 @@ impl AutomationRun {
     }
 
     /// Sets the value of [expire_time][crate::model::AutomationRun::expire_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::AutomationRun;
+    /// use wkt::Timestamp;
+    /// let x = AutomationRun::new().set_expire_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_expire_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -15610,6 +20794,14 @@ impl AutomationRun {
     }
 
     /// Sets or clears the value of [expire_time][crate::model::AutomationRun::expire_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::AutomationRun;
+    /// use wkt::Timestamp;
+    /// let x = AutomationRun::new().set_or_clear_expire_time(Some(Timestamp::default()/* use setters */));
+    /// let x = AutomationRun::new().set_or_clear_expire_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_expire_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -15619,18 +20811,37 @@ impl AutomationRun {
     }
 
     /// Sets the value of [rule_id][crate::model::AutomationRun::rule_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::AutomationRun;
+    /// let x = AutomationRun::new().set_rule_id("example");
+    /// ```
     pub fn set_rule_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.rule_id = v.into();
         self
     }
 
     /// Sets the value of [automation_id][crate::model::AutomationRun::automation_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::AutomationRun;
+    /// let x = AutomationRun::new().set_automation_id("example");
+    /// ```
     pub fn set_automation_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.automation_id = v.into();
         self
     }
 
     /// Sets the value of [wait_until_time][crate::model::AutomationRun::wait_until_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::AutomationRun;
+    /// use wkt::Timestamp;
+    /// let x = AutomationRun::new().set_wait_until_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_wait_until_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -15640,6 +20851,14 @@ impl AutomationRun {
     }
 
     /// Sets or clears the value of [wait_until_time][crate::model::AutomationRun::wait_until_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::AutomationRun;
+    /// use wkt::Timestamp;
+    /// let x = AutomationRun::new().set_or_clear_wait_until_time(Some(Timestamp::default()/* use setters */));
+    /// let x = AutomationRun::new().set_or_clear_wait_until_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_wait_until_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -15652,6 +20871,14 @@ impl AutomationRun {
     ///
     /// Note that all the setters affecting `operation` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::AutomationRun;
+    /// use google_cloud_deploy_v1::model::automation_run;
+    /// use google_cloud_deploy_v1::model::PromoteReleaseOperation;
+    /// let x = AutomationRun::new().set_operation(Some(automation_run::Operation::PromoteReleaseOperation(PromoteReleaseOperation::default().into())));
+    /// ```
     pub fn set_operation<
         T: std::convert::Into<std::option::Option<crate::model::automation_run::Operation>>,
     >(
@@ -15682,6 +20909,17 @@ impl AutomationRun {
     ///
     /// Note that all the setters affecting `operation` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::AutomationRun;
+    /// use google_cloud_deploy_v1::model::PromoteReleaseOperation;
+    /// let x = AutomationRun::new().set_promote_release_operation(PromoteReleaseOperation::default()/* use setters */);
+    /// assert!(x.promote_release_operation().is_some());
+    /// assert!(x.advance_rollout_operation().is_none());
+    /// assert!(x.repair_rollout_operation().is_none());
+    /// assert!(x.timed_promote_release_operation().is_none());
+    /// ```
     pub fn set_promote_release_operation<
         T: std::convert::Into<std::boxed::Box<crate::model::PromoteReleaseOperation>>,
     >(
@@ -15714,6 +20952,17 @@ impl AutomationRun {
     ///
     /// Note that all the setters affecting `operation` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::AutomationRun;
+    /// use google_cloud_deploy_v1::model::AdvanceRolloutOperation;
+    /// let x = AutomationRun::new().set_advance_rollout_operation(AdvanceRolloutOperation::default()/* use setters */);
+    /// assert!(x.advance_rollout_operation().is_some());
+    /// assert!(x.promote_release_operation().is_none());
+    /// assert!(x.repair_rollout_operation().is_none());
+    /// assert!(x.timed_promote_release_operation().is_none());
+    /// ```
     pub fn set_advance_rollout_operation<
         T: std::convert::Into<std::boxed::Box<crate::model::AdvanceRolloutOperation>>,
     >(
@@ -15746,6 +20995,17 @@ impl AutomationRun {
     ///
     /// Note that all the setters affecting `operation` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::AutomationRun;
+    /// use google_cloud_deploy_v1::model::RepairRolloutOperation;
+    /// let x = AutomationRun::new().set_repair_rollout_operation(RepairRolloutOperation::default()/* use setters */);
+    /// assert!(x.repair_rollout_operation().is_some());
+    /// assert!(x.promote_release_operation().is_none());
+    /// assert!(x.advance_rollout_operation().is_none());
+    /// assert!(x.timed_promote_release_operation().is_none());
+    /// ```
     pub fn set_repair_rollout_operation<
         T: std::convert::Into<std::boxed::Box<crate::model::RepairRolloutOperation>>,
     >(
@@ -15778,6 +21038,17 @@ impl AutomationRun {
     ///
     /// Note that all the setters affecting `operation` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::AutomationRun;
+    /// use google_cloud_deploy_v1::model::TimedPromoteReleaseOperation;
+    /// let x = AutomationRun::new().set_timed_promote_release_operation(TimedPromoteReleaseOperation::default()/* use setters */);
+    /// assert!(x.timed_promote_release_operation().is_some());
+    /// assert!(x.promote_release_operation().is_none());
+    /// assert!(x.advance_rollout_operation().is_none());
+    /// assert!(x.repair_rollout_operation().is_none());
+    /// ```
     pub fn set_timed_promote_release_operation<
         T: std::convert::Into<std::boxed::Box<crate::model::TimedPromoteReleaseOperation>>,
     >(
@@ -16005,12 +21276,25 @@ impl PromoteReleaseOperation {
     }
 
     /// Sets the value of [target_id][crate::model::PromoteReleaseOperation::target_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::PromoteReleaseOperation;
+    /// let x = PromoteReleaseOperation::new().set_target_id("example");
+    /// ```
     pub fn set_target_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.target_id = v.into();
         self
     }
 
     /// Sets the value of [wait][crate::model::PromoteReleaseOperation::wait].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::PromoteReleaseOperation;
+    /// use wkt::Duration;
+    /// let x = PromoteReleaseOperation::new().set_wait(Duration::default()/* use setters */);
+    /// ```
     pub fn set_wait<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -16020,6 +21304,14 @@ impl PromoteReleaseOperation {
     }
 
     /// Sets or clears the value of [wait][crate::model::PromoteReleaseOperation::wait].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::PromoteReleaseOperation;
+    /// use wkt::Duration;
+    /// let x = PromoteReleaseOperation::new().set_or_clear_wait(Some(Duration::default()/* use setters */));
+    /// let x = PromoteReleaseOperation::new().set_or_clear_wait(None::<Duration>);
+    /// ```
     pub fn set_or_clear_wait<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -16029,12 +21321,24 @@ impl PromoteReleaseOperation {
     }
 
     /// Sets the value of [rollout][crate::model::PromoteReleaseOperation::rollout].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::PromoteReleaseOperation;
+    /// let x = PromoteReleaseOperation::new().set_rollout("example");
+    /// ```
     pub fn set_rollout<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.rollout = v.into();
         self
     }
 
     /// Sets the value of [phase][crate::model::PromoteReleaseOperation::phase].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::PromoteReleaseOperation;
+    /// let x = PromoteReleaseOperation::new().set_phase("example");
+    /// ```
     pub fn set_phase<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.phase = v.into();
         self
@@ -16072,12 +21376,25 @@ impl AdvanceRolloutOperation {
     }
 
     /// Sets the value of [source_phase][crate::model::AdvanceRolloutOperation::source_phase].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::AdvanceRolloutOperation;
+    /// let x = AdvanceRolloutOperation::new().set_source_phase("example");
+    /// ```
     pub fn set_source_phase<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.source_phase = v.into();
         self
     }
 
     /// Sets the value of [wait][crate::model::AdvanceRolloutOperation::wait].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::AdvanceRolloutOperation;
+    /// use wkt::Duration;
+    /// let x = AdvanceRolloutOperation::new().set_wait(Duration::default()/* use setters */);
+    /// ```
     pub fn set_wait<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -16087,6 +21404,14 @@ impl AdvanceRolloutOperation {
     }
 
     /// Sets or clears the value of [wait][crate::model::AdvanceRolloutOperation::wait].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::AdvanceRolloutOperation;
+    /// use wkt::Duration;
+    /// let x = AdvanceRolloutOperation::new().set_or_clear_wait(Some(Duration::default()/* use setters */));
+    /// let x = AdvanceRolloutOperation::new().set_or_clear_wait(None::<Duration>);
+    /// ```
     pub fn set_or_clear_wait<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -16096,12 +21421,24 @@ impl AdvanceRolloutOperation {
     }
 
     /// Sets the value of [rollout][crate::model::AdvanceRolloutOperation::rollout].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::AdvanceRolloutOperation;
+    /// let x = AdvanceRolloutOperation::new().set_rollout("example");
+    /// ```
     pub fn set_rollout<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.rollout = v.into();
         self
     }
 
     /// Sets the value of [destination_phase][crate::model::AdvanceRolloutOperation::destination_phase].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::AdvanceRolloutOperation;
+    /// let x = AdvanceRolloutOperation::new().set_destination_phase("example");
+    /// ```
     pub fn set_destination_phase<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -16147,18 +21484,41 @@ impl RepairRolloutOperation {
     }
 
     /// Sets the value of [rollout][crate::model::RepairRolloutOperation::rollout].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::RepairRolloutOperation;
+    /// let x = RepairRolloutOperation::new().set_rollout("example");
+    /// ```
     pub fn set_rollout<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.rollout = v.into();
         self
     }
 
     /// Sets the value of [current_repair_phase_index][crate::model::RepairRolloutOperation::current_repair_phase_index].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::RepairRolloutOperation;
+    /// let x = RepairRolloutOperation::new().set_current_repair_phase_index(42);
+    /// ```
     pub fn set_current_repair_phase_index<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.current_repair_phase_index = v.into();
         self
     }
 
     /// Sets the value of [repair_phases][crate::model::RepairRolloutOperation::repair_phases].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::RepairRolloutOperation;
+    /// use google_cloud_deploy_v1::model::RepairPhase;
+    /// let x = RepairRolloutOperation::new()
+    ///     .set_repair_phases([
+    ///         RepairPhase::default()/* use setters */,
+    ///         RepairPhase::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_repair_phases<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -16170,12 +21530,24 @@ impl RepairRolloutOperation {
     }
 
     /// Sets the value of [phase_id][crate::model::RepairRolloutOperation::phase_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::RepairRolloutOperation;
+    /// let x = RepairRolloutOperation::new().set_phase_id("example");
+    /// ```
     pub fn set_phase_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.phase_id = v.into();
         self
     }
 
     /// Sets the value of [job_id][crate::model::RepairRolloutOperation::job_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::RepairRolloutOperation;
+    /// let x = RepairRolloutOperation::new().set_job_id("example");
+    /// ```
     pub fn set_job_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.job_id = v.into();
         self
@@ -16212,18 +21584,36 @@ impl TimedPromoteReleaseOperation {
     }
 
     /// Sets the value of [target_id][crate::model::TimedPromoteReleaseOperation::target_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::TimedPromoteReleaseOperation;
+    /// let x = TimedPromoteReleaseOperation::new().set_target_id("example");
+    /// ```
     pub fn set_target_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.target_id = v.into();
         self
     }
 
     /// Sets the value of [release][crate::model::TimedPromoteReleaseOperation::release].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::TimedPromoteReleaseOperation;
+    /// let x = TimedPromoteReleaseOperation::new().set_release("example");
+    /// ```
     pub fn set_release<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.release = v.into();
         self
     }
 
     /// Sets the value of [phase][crate::model::TimedPromoteReleaseOperation::phase].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::TimedPromoteReleaseOperation;
+    /// let x = TimedPromoteReleaseOperation::new().set_phase("example");
+    /// ```
     pub fn set_phase<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.phase = v.into();
         self
@@ -16256,6 +21646,14 @@ impl RepairPhase {
     ///
     /// Note that all the setters affecting `repair_phase` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::RepairPhase;
+    /// use google_cloud_deploy_v1::model::repair_phase;
+    /// use google_cloud_deploy_v1::model::RetryPhase;
+    /// let x = RepairPhase::new().set_repair_phase(Some(repair_phase::RepairPhase::Retry(RetryPhase::default().into())));
+    /// ```
     pub fn set_repair_phase<
         T: std::convert::Into<std::option::Option<crate::model::repair_phase::RepairPhase>>,
     >(
@@ -16282,6 +21680,15 @@ impl RepairPhase {
     ///
     /// Note that all the setters affecting `repair_phase` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::RepairPhase;
+    /// use google_cloud_deploy_v1::model::RetryPhase;
+    /// let x = RepairPhase::new().set_retry(RetryPhase::default()/* use setters */);
+    /// assert!(x.retry().is_some());
+    /// assert!(x.rollback().is_none());
+    /// ```
     pub fn set_retry<T: std::convert::Into<std::boxed::Box<crate::model::RetryPhase>>>(
         mut self,
         v: T,
@@ -16307,6 +21714,15 @@ impl RepairPhase {
     ///
     /// Note that all the setters affecting `repair_phase` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::RepairPhase;
+    /// use google_cloud_deploy_v1::model::RollbackAttempt;
+    /// let x = RepairPhase::new().set_rollback(RollbackAttempt::default()/* use setters */);
+    /// assert!(x.rollback().is_some());
+    /// assert!(x.retry().is_none());
+    /// ```
     pub fn set_rollback<T: std::convert::Into<std::boxed::Box<crate::model::RollbackAttempt>>>(
         mut self,
         v: T,
@@ -16363,12 +21779,26 @@ impl RetryPhase {
     }
 
     /// Sets the value of [total_attempts][crate::model::RetryPhase::total_attempts].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::RetryPhase;
+    /// let x = RetryPhase::new().set_total_attempts(42);
+    /// ```
     pub fn set_total_attempts<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.total_attempts = v.into();
         self
     }
 
     /// Sets the value of [backoff_mode][crate::model::RetryPhase::backoff_mode].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::RetryPhase;
+    /// use google_cloud_deploy_v1::model::BackoffMode;
+    /// let x0 = RetryPhase::new().set_backoff_mode(BackoffMode::Linear);
+    /// let x1 = RetryPhase::new().set_backoff_mode(BackoffMode::Exponential);
+    /// ```
     pub fn set_backoff_mode<T: std::convert::Into<crate::model::BackoffMode>>(
         mut self,
         v: T,
@@ -16378,6 +21808,17 @@ impl RetryPhase {
     }
 
     /// Sets the value of [attempts][crate::model::RetryPhase::attempts].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::RetryPhase;
+    /// use google_cloud_deploy_v1::model::RetryAttempt;
+    /// let x = RetryPhase::new()
+    ///     .set_attempts([
+    ///         RetryAttempt::default()/* use setters */,
+    ///         RetryAttempt::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_attempts<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -16420,12 +21861,25 @@ impl RetryAttempt {
     }
 
     /// Sets the value of [attempt][crate::model::RetryAttempt::attempt].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::RetryAttempt;
+    /// let x = RetryAttempt::new().set_attempt(42);
+    /// ```
     pub fn set_attempt<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.attempt = v.into();
         self
     }
 
     /// Sets the value of [wait][crate::model::RetryAttempt::wait].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::RetryAttempt;
+    /// use wkt::Duration;
+    /// let x = RetryAttempt::new().set_wait(Duration::default()/* use setters */);
+    /// ```
     pub fn set_wait<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -16435,6 +21889,14 @@ impl RetryAttempt {
     }
 
     /// Sets or clears the value of [wait][crate::model::RetryAttempt::wait].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::RetryAttempt;
+    /// use wkt::Duration;
+    /// let x = RetryAttempt::new().set_or_clear_wait(Some(Duration::default()/* use setters */));
+    /// let x = RetryAttempt::new().set_or_clear_wait(None::<Duration>);
+    /// ```
     pub fn set_or_clear_wait<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -16444,12 +21906,27 @@ impl RetryAttempt {
     }
 
     /// Sets the value of [state][crate::model::RetryAttempt::state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::RetryAttempt;
+    /// use google_cloud_deploy_v1::model::RepairState;
+    /// let x0 = RetryAttempt::new().set_state(RepairState::Succeeded);
+    /// let x1 = RetryAttempt::new().set_state(RepairState::Cancelled);
+    /// let x2 = RetryAttempt::new().set_state(RepairState::Failed);
+    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::RepairState>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
     }
 
     /// Sets the value of [state_desc][crate::model::RetryAttempt::state_desc].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::RetryAttempt;
+    /// let x = RetryAttempt::new().set_state_desc("example");
+    /// ```
     pub fn set_state_desc<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.state_desc = v.into();
         self
@@ -16490,6 +21967,12 @@ impl RollbackAttempt {
     }
 
     /// Sets the value of [destination_phase][crate::model::RollbackAttempt::destination_phase].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::RollbackAttempt;
+    /// let x = RollbackAttempt::new().set_destination_phase("example");
+    /// ```
     pub fn set_destination_phase<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -16499,24 +21982,51 @@ impl RollbackAttempt {
     }
 
     /// Sets the value of [rollout_id][crate::model::RollbackAttempt::rollout_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::RollbackAttempt;
+    /// let x = RollbackAttempt::new().set_rollout_id("example");
+    /// ```
     pub fn set_rollout_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.rollout_id = v.into();
         self
     }
 
     /// Sets the value of [state][crate::model::RollbackAttempt::state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::RollbackAttempt;
+    /// use google_cloud_deploy_v1::model::RepairState;
+    /// let x0 = RollbackAttempt::new().set_state(RepairState::Succeeded);
+    /// let x1 = RollbackAttempt::new().set_state(RepairState::Cancelled);
+    /// let x2 = RollbackAttempt::new().set_state(RepairState::Failed);
+    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::RepairState>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
     }
 
     /// Sets the value of [state_desc][crate::model::RollbackAttempt::state_desc].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::RollbackAttempt;
+    /// let x = RollbackAttempt::new().set_state_desc("example");
+    /// ```
     pub fn set_state_desc<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.state_desc = v.into();
         self
     }
 
     /// Sets the value of [disable_rollback_if_rollout_pending][crate::model::RollbackAttempt::disable_rollback_if_rollout_pending].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::RollbackAttempt;
+    /// let x = RollbackAttempt::new().set_disable_rollback_if_rollout_pending(true);
+    /// ```
     pub fn set_disable_rollback_if_rollout_pending<T: std::convert::Into<bool>>(
         mut self,
         v: T,
@@ -16570,30 +22080,60 @@ impl ListAutomationRunsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListAutomationRunsRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::ListAutomationRunsRequest;
+    /// let x = ListAutomationRunsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListAutomationRunsRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::ListAutomationRunsRequest;
+    /// let x = ListAutomationRunsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListAutomationRunsRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::ListAutomationRunsRequest;
+    /// let x = ListAutomationRunsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListAutomationRunsRequest::filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::ListAutomationRunsRequest;
+    /// let x = ListAutomationRunsRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListAutomationRunsRequest::order_by].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::ListAutomationRunsRequest;
+    /// let x = ListAutomationRunsRequest::new().set_order_by("example");
+    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
@@ -16629,6 +22169,17 @@ impl ListAutomationRunsResponse {
     }
 
     /// Sets the value of [automation_runs][crate::model::ListAutomationRunsResponse::automation_runs].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::ListAutomationRunsResponse;
+    /// use google_cloud_deploy_v1::model::AutomationRun;
+    /// let x = ListAutomationRunsResponse::new()
+    ///     .set_automation_runs([
+    ///         AutomationRun::default()/* use setters */,
+    ///         AutomationRun::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_automation_runs<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -16640,12 +22191,24 @@ impl ListAutomationRunsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListAutomationRunsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::ListAutomationRunsResponse;
+    /// let x = ListAutomationRunsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListAutomationRunsResponse::unreachable].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::ListAutomationRunsResponse;
+    /// let x = ListAutomationRunsResponse::new().set_unreachable(["a", "b", "c"]);
+    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -16694,6 +22257,12 @@ impl GetAutomationRunRequest {
     }
 
     /// Sets the value of [name][crate::model::GetAutomationRunRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::GetAutomationRunRequest;
+    /// let x = GetAutomationRunRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -16723,6 +22292,12 @@ impl CancelAutomationRunRequest {
     }
 
     /// Sets the value of [name][crate::model::CancelAutomationRunRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::CancelAutomationRunRequest;
+    /// let x = CancelAutomationRunRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -16781,12 +22356,24 @@ impl CustomTargetTypeNotificationEvent {
     }
 
     /// Sets the value of [message][crate::model::CustomTargetTypeNotificationEvent::message].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::CustomTargetTypeNotificationEvent;
+    /// let x = CustomTargetTypeNotificationEvent::new().set_message("example");
+    /// ```
     pub fn set_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.message = v.into();
         self
     }
 
     /// Sets the value of [custom_target_type_uid][crate::model::CustomTargetTypeNotificationEvent::custom_target_type_uid].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::CustomTargetTypeNotificationEvent;
+    /// let x = CustomTargetTypeNotificationEvent::new().set_custom_target_type_uid("example");
+    /// ```
     pub fn set_custom_target_type_uid<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -16796,6 +22383,12 @@ impl CustomTargetTypeNotificationEvent {
     }
 
     /// Sets the value of [custom_target_type][crate::model::CustomTargetTypeNotificationEvent::custom_target_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::CustomTargetTypeNotificationEvent;
+    /// let x = CustomTargetTypeNotificationEvent::new().set_custom_target_type("example");
+    /// ```
     pub fn set_custom_target_type<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -16805,6 +22398,15 @@ impl CustomTargetTypeNotificationEvent {
     }
 
     /// Sets the value of [r#type][crate::model::CustomTargetTypeNotificationEvent::type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::CustomTargetTypeNotificationEvent;
+    /// use google_cloud_deploy_v1::model::Type;
+    /// let x0 = CustomTargetTypeNotificationEvent::new().set_type(Type::PubsubNotificationFailure);
+    /// let x1 = CustomTargetTypeNotificationEvent::new().set_type(Type::ResourceStateChange);
+    /// let x2 = CustomTargetTypeNotificationEvent::new().set_type(Type::ProcessAborted);
+    /// ```
     pub fn set_type<T: std::convert::Into<crate::model::Type>>(mut self, v: T) -> Self {
         self.r#type = v.into();
         self
@@ -16844,18 +22446,36 @@ impl DeliveryPipelineNotificationEvent {
     }
 
     /// Sets the value of [message][crate::model::DeliveryPipelineNotificationEvent::message].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::DeliveryPipelineNotificationEvent;
+    /// let x = DeliveryPipelineNotificationEvent::new().set_message("example");
+    /// ```
     pub fn set_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.message = v.into();
         self
     }
 
     /// Sets the value of [pipeline_uid][crate::model::DeliveryPipelineNotificationEvent::pipeline_uid].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::DeliveryPipelineNotificationEvent;
+    /// let x = DeliveryPipelineNotificationEvent::new().set_pipeline_uid("example");
+    /// ```
     pub fn set_pipeline_uid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.pipeline_uid = v.into();
         self
     }
 
     /// Sets the value of [delivery_pipeline][crate::model::DeliveryPipelineNotificationEvent::delivery_pipeline].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::DeliveryPipelineNotificationEvent;
+    /// let x = DeliveryPipelineNotificationEvent::new().set_delivery_pipeline("example");
+    /// ```
     pub fn set_delivery_pipeline<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -16865,6 +22485,15 @@ impl DeliveryPipelineNotificationEvent {
     }
 
     /// Sets the value of [r#type][crate::model::DeliveryPipelineNotificationEvent::type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::DeliveryPipelineNotificationEvent;
+    /// use google_cloud_deploy_v1::model::Type;
+    /// let x0 = DeliveryPipelineNotificationEvent::new().set_type(Type::PubsubNotificationFailure);
+    /// let x1 = DeliveryPipelineNotificationEvent::new().set_type(Type::ResourceStateChange);
+    /// let x2 = DeliveryPipelineNotificationEvent::new().set_type(Type::ProcessAborted);
+    /// ```
     pub fn set_type<T: std::convert::Into<crate::model::Type>>(mut self, v: T) -> Self {
         self.r#type = v.into();
         self
@@ -16938,30 +22567,60 @@ impl DeployPolicyEvaluationEvent {
     }
 
     /// Sets the value of [message][crate::model::DeployPolicyEvaluationEvent::message].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::DeployPolicyEvaluationEvent;
+    /// let x = DeployPolicyEvaluationEvent::new().set_message("example");
+    /// ```
     pub fn set_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.message = v.into();
         self
     }
 
     /// Sets the value of [rule_type][crate::model::DeployPolicyEvaluationEvent::rule_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::DeployPolicyEvaluationEvent;
+    /// let x = DeployPolicyEvaluationEvent::new().set_rule_type("example");
+    /// ```
     pub fn set_rule_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.rule_type = v.into();
         self
     }
 
     /// Sets the value of [rule][crate::model::DeployPolicyEvaluationEvent::rule].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::DeployPolicyEvaluationEvent;
+    /// let x = DeployPolicyEvaluationEvent::new().set_rule("example");
+    /// ```
     pub fn set_rule<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.rule = v.into();
         self
     }
 
     /// Sets the value of [pipeline_uid][crate::model::DeployPolicyEvaluationEvent::pipeline_uid].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::DeployPolicyEvaluationEvent;
+    /// let x = DeployPolicyEvaluationEvent::new().set_pipeline_uid("example");
+    /// ```
     pub fn set_pipeline_uid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.pipeline_uid = v.into();
         self
     }
 
     /// Sets the value of [delivery_pipeline][crate::model::DeployPolicyEvaluationEvent::delivery_pipeline].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::DeployPolicyEvaluationEvent;
+    /// let x = DeployPolicyEvaluationEvent::new().set_delivery_pipeline("example");
+    /// ```
     pub fn set_delivery_pipeline<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -16971,18 +22630,38 @@ impl DeployPolicyEvaluationEvent {
     }
 
     /// Sets the value of [target_uid][crate::model::DeployPolicyEvaluationEvent::target_uid].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::DeployPolicyEvaluationEvent;
+    /// let x = DeployPolicyEvaluationEvent::new().set_target_uid("example");
+    /// ```
     pub fn set_target_uid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.target_uid = v.into();
         self
     }
 
     /// Sets the value of [target][crate::model::DeployPolicyEvaluationEvent::target].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::DeployPolicyEvaluationEvent;
+    /// let x = DeployPolicyEvaluationEvent::new().set_target("example");
+    /// ```
     pub fn set_target<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.target = v.into();
         self
     }
 
     /// Sets the value of [invoker][crate::model::DeployPolicyEvaluationEvent::invoker].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::DeployPolicyEvaluationEvent;
+    /// use google_cloud_deploy_v1::model::deploy_policy::Invoker;
+    /// let x0 = DeployPolicyEvaluationEvent::new().set_invoker(Invoker::User);
+    /// let x1 = DeployPolicyEvaluationEvent::new().set_invoker(Invoker::DeployAutomation);
+    /// ```
     pub fn set_invoker<T: std::convert::Into<crate::model::deploy_policy::Invoker>>(
         mut self,
         v: T,
@@ -16992,12 +22671,24 @@ impl DeployPolicyEvaluationEvent {
     }
 
     /// Sets the value of [deploy_policy][crate::model::DeployPolicyEvaluationEvent::deploy_policy].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::DeployPolicyEvaluationEvent;
+    /// let x = DeployPolicyEvaluationEvent::new().set_deploy_policy("example");
+    /// ```
     pub fn set_deploy_policy<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.deploy_policy = v.into();
         self
     }
 
     /// Sets the value of [deploy_policy_uid][crate::model::DeployPolicyEvaluationEvent::deploy_policy_uid].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::DeployPolicyEvaluationEvent;
+    /// let x = DeployPolicyEvaluationEvent::new().set_deploy_policy_uid("example");
+    /// ```
     pub fn set_deploy_policy_uid<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -17007,12 +22698,26 @@ impl DeployPolicyEvaluationEvent {
     }
 
     /// Sets the value of [allowed][crate::model::DeployPolicyEvaluationEvent::allowed].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::DeployPolicyEvaluationEvent;
+    /// let x = DeployPolicyEvaluationEvent::new().set_allowed(true);
+    /// ```
     pub fn set_allowed<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.allowed = v.into();
         self
     }
 
     /// Sets the value of [verdict][crate::model::DeployPolicyEvaluationEvent::verdict].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::DeployPolicyEvaluationEvent;
+    /// use google_cloud_deploy_v1::model::deploy_policy_evaluation_event::PolicyVerdict;
+    /// let x0 = DeployPolicyEvaluationEvent::new().set_verdict(PolicyVerdict::AllowedByPolicy);
+    /// let x1 = DeployPolicyEvaluationEvent::new().set_verdict(PolicyVerdict::DeniedByPolicy);
+    /// ```
     pub fn set_verdict<
         T: std::convert::Into<crate::model::deploy_policy_evaluation_event::PolicyVerdict>,
     >(
@@ -17024,6 +22729,16 @@ impl DeployPolicyEvaluationEvent {
     }
 
     /// Sets the value of [overrides][crate::model::DeployPolicyEvaluationEvent::overrides].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::DeployPolicyEvaluationEvent;
+    /// use google_cloud_deploy_v1::model::deploy_policy_evaluation_event::PolicyVerdictOverride;
+    /// let x = DeployPolicyEvaluationEvent::new().set_overrides([
+    ///     PolicyVerdictOverride::PolicyOverridden,
+    ///     PolicyVerdictOverride::PolicySuspended,
+    /// ]);
+    /// ```
     pub fn set_overrides<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -17344,18 +23059,36 @@ impl DeployPolicyNotificationEvent {
     }
 
     /// Sets the value of [message][crate::model::DeployPolicyNotificationEvent::message].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::DeployPolicyNotificationEvent;
+    /// let x = DeployPolicyNotificationEvent::new().set_message("example");
+    /// ```
     pub fn set_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.message = v.into();
         self
     }
 
     /// Sets the value of [deploy_policy][crate::model::DeployPolicyNotificationEvent::deploy_policy].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::DeployPolicyNotificationEvent;
+    /// let x = DeployPolicyNotificationEvent::new().set_deploy_policy("example");
+    /// ```
     pub fn set_deploy_policy<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.deploy_policy = v.into();
         self
     }
 
     /// Sets the value of [deploy_policy_uid][crate::model::DeployPolicyNotificationEvent::deploy_policy_uid].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::DeployPolicyNotificationEvent;
+    /// let x = DeployPolicyNotificationEvent::new().set_deploy_policy_uid("example");
+    /// ```
     pub fn set_deploy_policy_uid<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -17365,6 +23098,15 @@ impl DeployPolicyNotificationEvent {
     }
 
     /// Sets the value of [r#type][crate::model::DeployPolicyNotificationEvent::type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::DeployPolicyNotificationEvent;
+    /// use google_cloud_deploy_v1::model::Type;
+    /// let x0 = DeployPolicyNotificationEvent::new().set_type(Type::PubsubNotificationFailure);
+    /// let x1 = DeployPolicyNotificationEvent::new().set_type(Type::ResourceStateChange);
+    /// let x2 = DeployPolicyNotificationEvent::new().set_type(Type::ProcessAborted);
+    /// ```
     pub fn set_type<T: std::convert::Into<crate::model::Type>>(mut self, v: T) -> Self {
         self.r#type = v.into();
         self
@@ -17419,54 +23161,111 @@ impl JobRunNotificationEvent {
     }
 
     /// Sets the value of [message][crate::model::JobRunNotificationEvent::message].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::JobRunNotificationEvent;
+    /// let x = JobRunNotificationEvent::new().set_message("example");
+    /// ```
     pub fn set_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.message = v.into();
         self
     }
 
     /// Sets the value of [job_run][crate::model::JobRunNotificationEvent::job_run].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::JobRunNotificationEvent;
+    /// let x = JobRunNotificationEvent::new().set_job_run("example");
+    /// ```
     pub fn set_job_run<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.job_run = v.into();
         self
     }
 
     /// Sets the value of [pipeline_uid][crate::model::JobRunNotificationEvent::pipeline_uid].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::JobRunNotificationEvent;
+    /// let x = JobRunNotificationEvent::new().set_pipeline_uid("example");
+    /// ```
     pub fn set_pipeline_uid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.pipeline_uid = v.into();
         self
     }
 
     /// Sets the value of [release_uid][crate::model::JobRunNotificationEvent::release_uid].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::JobRunNotificationEvent;
+    /// let x = JobRunNotificationEvent::new().set_release_uid("example");
+    /// ```
     pub fn set_release_uid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.release_uid = v.into();
         self
     }
 
     /// Sets the value of [release][crate::model::JobRunNotificationEvent::release].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::JobRunNotificationEvent;
+    /// let x = JobRunNotificationEvent::new().set_release("example");
+    /// ```
     pub fn set_release<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.release = v.into();
         self
     }
 
     /// Sets the value of [rollout_uid][crate::model::JobRunNotificationEvent::rollout_uid].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::JobRunNotificationEvent;
+    /// let x = JobRunNotificationEvent::new().set_rollout_uid("example");
+    /// ```
     pub fn set_rollout_uid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.rollout_uid = v.into();
         self
     }
 
     /// Sets the value of [rollout][crate::model::JobRunNotificationEvent::rollout].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::JobRunNotificationEvent;
+    /// let x = JobRunNotificationEvent::new().set_rollout("example");
+    /// ```
     pub fn set_rollout<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.rollout = v.into();
         self
     }
 
     /// Sets the value of [target_id][crate::model::JobRunNotificationEvent::target_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::JobRunNotificationEvent;
+    /// let x = JobRunNotificationEvent::new().set_target_id("example");
+    /// ```
     pub fn set_target_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.target_id = v.into();
         self
     }
 
     /// Sets the value of [r#type][crate::model::JobRunNotificationEvent::type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::JobRunNotificationEvent;
+    /// use google_cloud_deploy_v1::model::Type;
+    /// let x0 = JobRunNotificationEvent::new().set_type(Type::PubsubNotificationFailure);
+    /// let x1 = JobRunNotificationEvent::new().set_type(Type::ResourceStateChange);
+    /// let x2 = JobRunNotificationEvent::new().set_type(Type::ProcessAborted);
+    /// ```
     pub fn set_type<T: std::convert::Into<crate::model::Type>>(mut self, v: T) -> Self {
         self.r#type = v.into();
         self
@@ -17509,30 +23308,63 @@ impl ReleaseNotificationEvent {
     }
 
     /// Sets the value of [message][crate::model::ReleaseNotificationEvent::message].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::ReleaseNotificationEvent;
+    /// let x = ReleaseNotificationEvent::new().set_message("example");
+    /// ```
     pub fn set_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.message = v.into();
         self
     }
 
     /// Sets the value of [pipeline_uid][crate::model::ReleaseNotificationEvent::pipeline_uid].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::ReleaseNotificationEvent;
+    /// let x = ReleaseNotificationEvent::new().set_pipeline_uid("example");
+    /// ```
     pub fn set_pipeline_uid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.pipeline_uid = v.into();
         self
     }
 
     /// Sets the value of [release_uid][crate::model::ReleaseNotificationEvent::release_uid].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::ReleaseNotificationEvent;
+    /// let x = ReleaseNotificationEvent::new().set_release_uid("example");
+    /// ```
     pub fn set_release_uid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.release_uid = v.into();
         self
     }
 
     /// Sets the value of [release][crate::model::ReleaseNotificationEvent::release].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::ReleaseNotificationEvent;
+    /// let x = ReleaseNotificationEvent::new().set_release("example");
+    /// ```
     pub fn set_release<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.release = v.into();
         self
     }
 
     /// Sets the value of [r#type][crate::model::ReleaseNotificationEvent::type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::ReleaseNotificationEvent;
+    /// use google_cloud_deploy_v1::model::Type;
+    /// let x0 = ReleaseNotificationEvent::new().set_type(Type::PubsubNotificationFailure);
+    /// let x1 = ReleaseNotificationEvent::new().set_type(Type::ResourceStateChange);
+    /// let x2 = ReleaseNotificationEvent::new().set_type(Type::ProcessAborted);
+    /// ```
     pub fn set_type<T: std::convert::Into<crate::model::Type>>(mut self, v: T) -> Self {
         self.r#type = v.into();
         self
@@ -17577,30 +23409,66 @@ impl ReleaseRenderEvent {
     }
 
     /// Sets the value of [message][crate::model::ReleaseRenderEvent::message].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::ReleaseRenderEvent;
+    /// let x = ReleaseRenderEvent::new().set_message("example");
+    /// ```
     pub fn set_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.message = v.into();
         self
     }
 
     /// Sets the value of [pipeline_uid][crate::model::ReleaseRenderEvent::pipeline_uid].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::ReleaseRenderEvent;
+    /// let x = ReleaseRenderEvent::new().set_pipeline_uid("example");
+    /// ```
     pub fn set_pipeline_uid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.pipeline_uid = v.into();
         self
     }
 
     /// Sets the value of [release][crate::model::ReleaseRenderEvent::release].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::ReleaseRenderEvent;
+    /// let x = ReleaseRenderEvent::new().set_release("example");
+    /// ```
     pub fn set_release<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.release = v.into();
         self
     }
 
     /// Sets the value of [r#type][crate::model::ReleaseRenderEvent::type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::ReleaseRenderEvent;
+    /// use google_cloud_deploy_v1::model::Type;
+    /// let x0 = ReleaseRenderEvent::new().set_type(Type::PubsubNotificationFailure);
+    /// let x1 = ReleaseRenderEvent::new().set_type(Type::ResourceStateChange);
+    /// let x2 = ReleaseRenderEvent::new().set_type(Type::ProcessAborted);
+    /// ```
     pub fn set_type<T: std::convert::Into<crate::model::Type>>(mut self, v: T) -> Self {
         self.r#type = v.into();
         self
     }
 
     /// Sets the value of [release_render_state][crate::model::ReleaseRenderEvent::release_render_state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::ReleaseRenderEvent;
+    /// use google_cloud_deploy_v1::model::release::RenderState;
+    /// let x0 = ReleaseRenderEvent::new().set_release_render_state(RenderState::Succeeded);
+    /// let x1 = ReleaseRenderEvent::new().set_release_render_state(RenderState::Failed);
+    /// let x2 = ReleaseRenderEvent::new().set_release_render_state(RenderState::InProgress);
+    /// ```
     pub fn set_release_render_state<T: std::convert::Into<crate::model::release::RenderState>>(
         mut self,
         v: T,
@@ -17655,48 +23523,99 @@ impl RolloutNotificationEvent {
     }
 
     /// Sets the value of [message][crate::model::RolloutNotificationEvent::message].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::RolloutNotificationEvent;
+    /// let x = RolloutNotificationEvent::new().set_message("example");
+    /// ```
     pub fn set_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.message = v.into();
         self
     }
 
     /// Sets the value of [pipeline_uid][crate::model::RolloutNotificationEvent::pipeline_uid].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::RolloutNotificationEvent;
+    /// let x = RolloutNotificationEvent::new().set_pipeline_uid("example");
+    /// ```
     pub fn set_pipeline_uid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.pipeline_uid = v.into();
         self
     }
 
     /// Sets the value of [release_uid][crate::model::RolloutNotificationEvent::release_uid].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::RolloutNotificationEvent;
+    /// let x = RolloutNotificationEvent::new().set_release_uid("example");
+    /// ```
     pub fn set_release_uid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.release_uid = v.into();
         self
     }
 
     /// Sets the value of [release][crate::model::RolloutNotificationEvent::release].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::RolloutNotificationEvent;
+    /// let x = RolloutNotificationEvent::new().set_release("example");
+    /// ```
     pub fn set_release<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.release = v.into();
         self
     }
 
     /// Sets the value of [rollout_uid][crate::model::RolloutNotificationEvent::rollout_uid].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::RolloutNotificationEvent;
+    /// let x = RolloutNotificationEvent::new().set_rollout_uid("example");
+    /// ```
     pub fn set_rollout_uid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.rollout_uid = v.into();
         self
     }
 
     /// Sets the value of [rollout][crate::model::RolloutNotificationEvent::rollout].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::RolloutNotificationEvent;
+    /// let x = RolloutNotificationEvent::new().set_rollout("example");
+    /// ```
     pub fn set_rollout<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.rollout = v.into();
         self
     }
 
     /// Sets the value of [target_id][crate::model::RolloutNotificationEvent::target_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::RolloutNotificationEvent;
+    /// let x = RolloutNotificationEvent::new().set_target_id("example");
+    /// ```
     pub fn set_target_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.target_id = v.into();
         self
     }
 
     /// Sets the value of [r#type][crate::model::RolloutNotificationEvent::type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::RolloutNotificationEvent;
+    /// use google_cloud_deploy_v1::model::Type;
+    /// let x0 = RolloutNotificationEvent::new().set_type(Type::PubsubNotificationFailure);
+    /// let x1 = RolloutNotificationEvent::new().set_type(Type::ResourceStateChange);
+    /// let x2 = RolloutNotificationEvent::new().set_type(Type::ProcessAborted);
+    /// ```
     pub fn set_type<T: std::convert::Into<crate::model::Type>>(mut self, v: T) -> Self {
         self.r#type = v.into();
         self
@@ -17749,48 +23668,102 @@ impl RolloutUpdateEvent {
     }
 
     /// Sets the value of [message][crate::model::RolloutUpdateEvent::message].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::RolloutUpdateEvent;
+    /// let x = RolloutUpdateEvent::new().set_message("example");
+    /// ```
     pub fn set_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.message = v.into();
         self
     }
 
     /// Sets the value of [pipeline_uid][crate::model::RolloutUpdateEvent::pipeline_uid].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::RolloutUpdateEvent;
+    /// let x = RolloutUpdateEvent::new().set_pipeline_uid("example");
+    /// ```
     pub fn set_pipeline_uid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.pipeline_uid = v.into();
         self
     }
 
     /// Sets the value of [release_uid][crate::model::RolloutUpdateEvent::release_uid].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::RolloutUpdateEvent;
+    /// let x = RolloutUpdateEvent::new().set_release_uid("example");
+    /// ```
     pub fn set_release_uid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.release_uid = v.into();
         self
     }
 
     /// Sets the value of [release][crate::model::RolloutUpdateEvent::release].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::RolloutUpdateEvent;
+    /// let x = RolloutUpdateEvent::new().set_release("example");
+    /// ```
     pub fn set_release<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.release = v.into();
         self
     }
 
     /// Sets the value of [rollout][crate::model::RolloutUpdateEvent::rollout].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::RolloutUpdateEvent;
+    /// let x = RolloutUpdateEvent::new().set_rollout("example");
+    /// ```
     pub fn set_rollout<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.rollout = v.into();
         self
     }
 
     /// Sets the value of [target_id][crate::model::RolloutUpdateEvent::target_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::RolloutUpdateEvent;
+    /// let x = RolloutUpdateEvent::new().set_target_id("example");
+    /// ```
     pub fn set_target_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.target_id = v.into();
         self
     }
 
     /// Sets the value of [r#type][crate::model::RolloutUpdateEvent::type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::RolloutUpdateEvent;
+    /// use google_cloud_deploy_v1::model::Type;
+    /// let x0 = RolloutUpdateEvent::new().set_type(Type::PubsubNotificationFailure);
+    /// let x1 = RolloutUpdateEvent::new().set_type(Type::ResourceStateChange);
+    /// let x2 = RolloutUpdateEvent::new().set_type(Type::ProcessAborted);
+    /// ```
     pub fn set_type<T: std::convert::Into<crate::model::Type>>(mut self, v: T) -> Self {
         self.r#type = v.into();
         self
     }
 
     /// Sets the value of [rollout_update_type][crate::model::RolloutUpdateEvent::rollout_update_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::RolloutUpdateEvent;
+    /// use google_cloud_deploy_v1::model::rollout_update_event::RolloutUpdateType;
+    /// let x0 = RolloutUpdateEvent::new().set_rollout_update_type(RolloutUpdateType::Pending);
+    /// let x1 = RolloutUpdateEvent::new().set_rollout_update_type(RolloutUpdateType::PendingRelease);
+    /// let x2 = RolloutUpdateEvent::new().set_rollout_update_type(RolloutUpdateType::InProgress);
+    /// ```
     pub fn set_rollout_update_type<
         T: std::convert::Into<crate::model::rollout_update_event::RolloutUpdateType>,
     >(
@@ -18047,18 +24020,39 @@ impl TargetNotificationEvent {
     }
 
     /// Sets the value of [message][crate::model::TargetNotificationEvent::message].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::TargetNotificationEvent;
+    /// let x = TargetNotificationEvent::new().set_message("example");
+    /// ```
     pub fn set_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.message = v.into();
         self
     }
 
     /// Sets the value of [target][crate::model::TargetNotificationEvent::target].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::TargetNotificationEvent;
+    /// let x = TargetNotificationEvent::new().set_target("example");
+    /// ```
     pub fn set_target<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.target = v.into();
         self
     }
 
     /// Sets the value of [r#type][crate::model::TargetNotificationEvent::type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_deploy_v1::model::TargetNotificationEvent;
+    /// use google_cloud_deploy_v1::model::Type;
+    /// let x0 = TargetNotificationEvent::new().set_type(Type::PubsubNotificationFailure);
+    /// let x1 = TargetNotificationEvent::new().set_type(Type::ResourceStateChange);
+    /// let x2 = TargetNotificationEvent::new().set_type(Type::ProcessAborted);
+    /// ```
     pub fn set_type<T: std::convert::Into<crate::model::Type>>(mut self, v: T) -> Self {
         self.r#type = v.into();
         self

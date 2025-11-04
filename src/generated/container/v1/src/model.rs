@@ -123,6 +123,15 @@ impl LinuxNodeConfig {
     }
 
     /// Sets the value of [sysctls][crate::model::LinuxNodeConfig::sysctls].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::LinuxNodeConfig;
+    /// let x = LinuxNodeConfig::new().set_sysctls([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_sysctls<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -135,6 +144,14 @@ impl LinuxNodeConfig {
     }
 
     /// Sets the value of [cgroup_mode][crate::model::LinuxNodeConfig::cgroup_mode].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::LinuxNodeConfig;
+    /// use google_cloud_container_v1::model::linux_node_config::CgroupMode;
+    /// let x0 = LinuxNodeConfig::new().set_cgroup_mode(CgroupMode::V1);
+    /// let x1 = LinuxNodeConfig::new().set_cgroup_mode(CgroupMode::V2);
+    /// ```
     pub fn set_cgroup_mode<T: std::convert::Into<crate::model::linux_node_config::CgroupMode>>(
         mut self,
         v: T,
@@ -144,6 +161,13 @@ impl LinuxNodeConfig {
     }
 
     /// Sets the value of [hugepages][crate::model::LinuxNodeConfig::hugepages].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::LinuxNodeConfig;
+    /// use google_cloud_container_v1::model::linux_node_config::HugepagesConfig;
+    /// let x = LinuxNodeConfig::new().set_hugepages(HugepagesConfig::default()/* use setters */);
+    /// ```
     pub fn set_hugepages<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::linux_node_config::HugepagesConfig>,
@@ -153,6 +177,14 @@ impl LinuxNodeConfig {
     }
 
     /// Sets or clears the value of [hugepages][crate::model::LinuxNodeConfig::hugepages].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::LinuxNodeConfig;
+    /// use google_cloud_container_v1::model::linux_node_config::HugepagesConfig;
+    /// let x = LinuxNodeConfig::new().set_or_clear_hugepages(Some(HugepagesConfig::default()/* use setters */));
+    /// let x = LinuxNodeConfig::new().set_or_clear_hugepages(None::<HugepagesConfig>);
+    /// ```
     pub fn set_or_clear_hugepages<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::linux_node_config::HugepagesConfig>,
@@ -162,6 +194,15 @@ impl LinuxNodeConfig {
     }
 
     /// Sets the value of [transparent_hugepage_enabled][crate::model::LinuxNodeConfig::transparent_hugepage_enabled].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::LinuxNodeConfig;
+    /// use google_cloud_container_v1::model::linux_node_config::TransparentHugepageEnabled;
+    /// let x0 = LinuxNodeConfig::new().set_transparent_hugepage_enabled(TransparentHugepageEnabled::Always);
+    /// let x1 = LinuxNodeConfig::new().set_transparent_hugepage_enabled(TransparentHugepageEnabled::Madvise);
+    /// let x2 = LinuxNodeConfig::new().set_transparent_hugepage_enabled(TransparentHugepageEnabled::Never);
+    /// ```
     pub fn set_transparent_hugepage_enabled<
         T: std::convert::Into<crate::model::linux_node_config::TransparentHugepageEnabled>,
     >(
@@ -173,6 +214,15 @@ impl LinuxNodeConfig {
     }
 
     /// Sets the value of [transparent_hugepage_defrag][crate::model::LinuxNodeConfig::transparent_hugepage_defrag].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::LinuxNodeConfig;
+    /// use google_cloud_container_v1::model::linux_node_config::TransparentHugepageDefrag;
+    /// let x0 = LinuxNodeConfig::new().set_transparent_hugepage_defrag(TransparentHugepageDefrag::Always);
+    /// let x1 = LinuxNodeConfig::new().set_transparent_hugepage_defrag(TransparentHugepageDefrag::Defer);
+    /// let x2 = LinuxNodeConfig::new().set_transparent_hugepage_defrag(TransparentHugepageDefrag::DeferWithMadvise);
+    /// ```
     pub fn set_transparent_hugepage_defrag<
         T: std::convert::Into<crate::model::linux_node_config::TransparentHugepageDefrag>,
     >(
@@ -184,6 +234,13 @@ impl LinuxNodeConfig {
     }
 
     /// Sets the value of [node_kernel_module_loading][crate::model::LinuxNodeConfig::node_kernel_module_loading].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::LinuxNodeConfig;
+    /// use google_cloud_container_v1::model::linux_node_config::NodeKernelModuleLoading;
+    /// let x = LinuxNodeConfig::new().set_node_kernel_module_loading(NodeKernelModuleLoading::default()/* use setters */);
+    /// ```
     pub fn set_node_kernel_module_loading<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::linux_node_config::NodeKernelModuleLoading>,
@@ -193,6 +250,14 @@ impl LinuxNodeConfig {
     }
 
     /// Sets or clears the value of [node_kernel_module_loading][crate::model::LinuxNodeConfig::node_kernel_module_loading].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::LinuxNodeConfig;
+    /// use google_cloud_container_v1::model::linux_node_config::NodeKernelModuleLoading;
+    /// let x = LinuxNodeConfig::new().set_or_clear_node_kernel_module_loading(Some(NodeKernelModuleLoading::default()/* use setters */));
+    /// let x = LinuxNodeConfig::new().set_or_clear_node_kernel_module_loading(None::<NodeKernelModuleLoading>);
+    /// ```
     pub fn set_or_clear_node_kernel_module_loading<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::linux_node_config::NodeKernelModuleLoading>,
@@ -232,6 +297,12 @@ pub mod linux_node_config {
         }
 
         /// Sets the value of [hugepage_size2m][crate::model::linux_node_config::HugepagesConfig::hugepage_size2m].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_container_v1::model::linux_node_config::HugepagesConfig;
+        /// let x = HugepagesConfig::new().set_hugepage_size2m(42);
+        /// ```
         pub fn set_hugepage_size2m<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<i32>,
@@ -241,6 +312,13 @@ pub mod linux_node_config {
         }
 
         /// Sets or clears the value of [hugepage_size2m][crate::model::linux_node_config::HugepagesConfig::hugepage_size2m].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_container_v1::model::linux_node_config::HugepagesConfig;
+        /// let x = HugepagesConfig::new().set_or_clear_hugepage_size2m(Some(42));
+        /// let x = HugepagesConfig::new().set_or_clear_hugepage_size2m(None::<i32>);
+        /// ```
         pub fn set_or_clear_hugepage_size2m<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<i32>,
@@ -250,6 +328,12 @@ pub mod linux_node_config {
         }
 
         /// Sets the value of [hugepage_size1g][crate::model::linux_node_config::HugepagesConfig::hugepage_size1g].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_container_v1::model::linux_node_config::HugepagesConfig;
+        /// let x = HugepagesConfig::new().set_hugepage_size1g(42);
+        /// ```
         pub fn set_hugepage_size1g<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<i32>,
@@ -259,6 +343,13 @@ pub mod linux_node_config {
         }
 
         /// Sets or clears the value of [hugepage_size1g][crate::model::linux_node_config::HugepagesConfig::hugepage_size1g].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_container_v1::model::linux_node_config::HugepagesConfig;
+        /// let x = HugepagesConfig::new().set_or_clear_hugepage_size1g(Some(42));
+        /// let x = HugepagesConfig::new().set_or_clear_hugepage_size1g(None::<i32>);
+        /// ```
         pub fn set_or_clear_hugepage_size1g<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<i32>,
@@ -290,6 +381,14 @@ pub mod linux_node_config {
         }
 
         /// Sets the value of [policy][crate::model::linux_node_config::NodeKernelModuleLoading::policy].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_container_v1::model::linux_node_config::NodeKernelModuleLoading;
+        /// use google_cloud_container_v1::model::linux_node_config::node_kernel_module_loading::Policy;
+        /// let x0 = NodeKernelModuleLoading::new().set_policy(Policy::EnforceSignedModules);
+        /// let x1 = NodeKernelModuleLoading::new().set_policy(Policy::DoNotEnforceSignedModules);
+        /// ```
         pub fn set_policy<
             T: std::convert::Into<crate::model::linux_node_config::node_kernel_module_loading::Policy>,
         >(
@@ -933,6 +1032,14 @@ impl WindowsNodeConfig {
     }
 
     /// Sets the value of [os_version][crate::model::WindowsNodeConfig::os_version].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::WindowsNodeConfig;
+    /// use google_cloud_container_v1::model::windows_node_config::OSVersion;
+    /// let x0 = WindowsNodeConfig::new().set_os_version(OSVersion::Ltsc2019);
+    /// let x1 = WindowsNodeConfig::new().set_os_version(OSVersion::Ltsc2022);
+    /// ```
     pub fn set_os_version<T: std::convert::Into<crate::model::windows_node_config::OSVersion>>(
         mut self,
         v: T,
@@ -1274,6 +1381,12 @@ impl NodeKubeletConfig {
     }
 
     /// Sets the value of [cpu_manager_policy][crate::model::NodeKubeletConfig::cpu_manager_policy].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NodeKubeletConfig;
+    /// let x = NodeKubeletConfig::new().set_cpu_manager_policy("example");
+    /// ```
     pub fn set_cpu_manager_policy<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -1283,6 +1396,13 @@ impl NodeKubeletConfig {
     }
 
     /// Sets the value of [topology_manager][crate::model::NodeKubeletConfig::topology_manager].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NodeKubeletConfig;
+    /// use google_cloud_container_v1::model::TopologyManager;
+    /// let x = NodeKubeletConfig::new().set_topology_manager(TopologyManager::default()/* use setters */);
+    /// ```
     pub fn set_topology_manager<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::TopologyManager>,
@@ -1292,6 +1412,14 @@ impl NodeKubeletConfig {
     }
 
     /// Sets or clears the value of [topology_manager][crate::model::NodeKubeletConfig::topology_manager].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NodeKubeletConfig;
+    /// use google_cloud_container_v1::model::TopologyManager;
+    /// let x = NodeKubeletConfig::new().set_or_clear_topology_manager(Some(TopologyManager::default()/* use setters */));
+    /// let x = NodeKubeletConfig::new().set_or_clear_topology_manager(None::<TopologyManager>);
+    /// ```
     pub fn set_or_clear_topology_manager<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::TopologyManager>,
@@ -1301,6 +1429,13 @@ impl NodeKubeletConfig {
     }
 
     /// Sets the value of [memory_manager][crate::model::NodeKubeletConfig::memory_manager].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NodeKubeletConfig;
+    /// use google_cloud_container_v1::model::MemoryManager;
+    /// let x = NodeKubeletConfig::new().set_memory_manager(MemoryManager::default()/* use setters */);
+    /// ```
     pub fn set_memory_manager<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::MemoryManager>,
@@ -1310,6 +1445,14 @@ impl NodeKubeletConfig {
     }
 
     /// Sets or clears the value of [memory_manager][crate::model::NodeKubeletConfig::memory_manager].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NodeKubeletConfig;
+    /// use google_cloud_container_v1::model::MemoryManager;
+    /// let x = NodeKubeletConfig::new().set_or_clear_memory_manager(Some(MemoryManager::default()/* use setters */));
+    /// let x = NodeKubeletConfig::new().set_or_clear_memory_manager(None::<MemoryManager>);
+    /// ```
     pub fn set_or_clear_memory_manager<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::MemoryManager>,
@@ -1319,6 +1462,13 @@ impl NodeKubeletConfig {
     }
 
     /// Sets the value of [cpu_cfs_quota][crate::model::NodeKubeletConfig::cpu_cfs_quota].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NodeKubeletConfig;
+    /// use wkt::BoolValue;
+    /// let x = NodeKubeletConfig::new().set_cpu_cfs_quota(BoolValue::default()/* use setters */);
+    /// ```
     pub fn set_cpu_cfs_quota<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::BoolValue>,
@@ -1328,6 +1478,14 @@ impl NodeKubeletConfig {
     }
 
     /// Sets or clears the value of [cpu_cfs_quota][crate::model::NodeKubeletConfig::cpu_cfs_quota].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NodeKubeletConfig;
+    /// use wkt::BoolValue;
+    /// let x = NodeKubeletConfig::new().set_or_clear_cpu_cfs_quota(Some(BoolValue::default()/* use setters */));
+    /// let x = NodeKubeletConfig::new().set_or_clear_cpu_cfs_quota(None::<BoolValue>);
+    /// ```
     pub fn set_or_clear_cpu_cfs_quota<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::BoolValue>,
@@ -1337,6 +1495,12 @@ impl NodeKubeletConfig {
     }
 
     /// Sets the value of [cpu_cfs_quota_period][crate::model::NodeKubeletConfig::cpu_cfs_quota_period].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NodeKubeletConfig;
+    /// let x = NodeKubeletConfig::new().set_cpu_cfs_quota_period("example");
+    /// ```
     pub fn set_cpu_cfs_quota_period<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -1346,12 +1510,24 @@ impl NodeKubeletConfig {
     }
 
     /// Sets the value of [pod_pids_limit][crate::model::NodeKubeletConfig::pod_pids_limit].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NodeKubeletConfig;
+    /// let x = NodeKubeletConfig::new().set_pod_pids_limit(42);
+    /// ```
     pub fn set_pod_pids_limit<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.pod_pids_limit = v.into();
         self
     }
 
     /// Sets the value of [insecure_kubelet_readonly_port_enabled][crate::model::NodeKubeletConfig::insecure_kubelet_readonly_port_enabled].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NodeKubeletConfig;
+    /// let x = NodeKubeletConfig::new().set_insecure_kubelet_readonly_port_enabled(true);
+    /// ```
     pub fn set_insecure_kubelet_readonly_port_enabled<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<bool>,
@@ -1361,6 +1537,13 @@ impl NodeKubeletConfig {
     }
 
     /// Sets or clears the value of [insecure_kubelet_readonly_port_enabled][crate::model::NodeKubeletConfig::insecure_kubelet_readonly_port_enabled].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NodeKubeletConfig;
+    /// let x = NodeKubeletConfig::new().set_or_clear_insecure_kubelet_readonly_port_enabled(Some(false));
+    /// let x = NodeKubeletConfig::new().set_or_clear_insecure_kubelet_readonly_port_enabled(None::<bool>);
+    /// ```
     pub fn set_or_clear_insecure_kubelet_readonly_port_enabled<T>(
         mut self,
         v: std::option::Option<T>,
@@ -1373,18 +1556,36 @@ impl NodeKubeletConfig {
     }
 
     /// Sets the value of [image_gc_low_threshold_percent][crate::model::NodeKubeletConfig::image_gc_low_threshold_percent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NodeKubeletConfig;
+    /// let x = NodeKubeletConfig::new().set_image_gc_low_threshold_percent(42);
+    /// ```
     pub fn set_image_gc_low_threshold_percent<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.image_gc_low_threshold_percent = v.into();
         self
     }
 
     /// Sets the value of [image_gc_high_threshold_percent][crate::model::NodeKubeletConfig::image_gc_high_threshold_percent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NodeKubeletConfig;
+    /// let x = NodeKubeletConfig::new().set_image_gc_high_threshold_percent(42);
+    /// ```
     pub fn set_image_gc_high_threshold_percent<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.image_gc_high_threshold_percent = v.into();
         self
     }
 
     /// Sets the value of [image_minimum_gc_age][crate::model::NodeKubeletConfig::image_minimum_gc_age].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NodeKubeletConfig;
+    /// let x = NodeKubeletConfig::new().set_image_minimum_gc_age("example");
+    /// ```
     pub fn set_image_minimum_gc_age<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -1394,6 +1595,12 @@ impl NodeKubeletConfig {
     }
 
     /// Sets the value of [image_maximum_gc_age][crate::model::NodeKubeletConfig::image_maximum_gc_age].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NodeKubeletConfig;
+    /// let x = NodeKubeletConfig::new().set_image_maximum_gc_age("example");
+    /// ```
     pub fn set_image_maximum_gc_age<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -1403,6 +1610,12 @@ impl NodeKubeletConfig {
     }
 
     /// Sets the value of [container_log_max_size][crate::model::NodeKubeletConfig::container_log_max_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NodeKubeletConfig;
+    /// let x = NodeKubeletConfig::new().set_container_log_max_size("example");
+    /// ```
     pub fn set_container_log_max_size<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -1412,12 +1625,24 @@ impl NodeKubeletConfig {
     }
 
     /// Sets the value of [container_log_max_files][crate::model::NodeKubeletConfig::container_log_max_files].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NodeKubeletConfig;
+    /// let x = NodeKubeletConfig::new().set_container_log_max_files(42);
+    /// ```
     pub fn set_container_log_max_files<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.container_log_max_files = v.into();
         self
     }
 
     /// Sets the value of [allowed_unsafe_sysctls][crate::model::NodeKubeletConfig::allowed_unsafe_sysctls].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NodeKubeletConfig;
+    /// let x = NodeKubeletConfig::new().set_allowed_unsafe_sysctls(["a", "b", "c"]);
+    /// ```
     pub fn set_allowed_unsafe_sysctls<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1429,6 +1654,13 @@ impl NodeKubeletConfig {
     }
 
     /// Sets the value of [eviction_soft][crate::model::NodeKubeletConfig::eviction_soft].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NodeKubeletConfig;
+    /// use google_cloud_container_v1::model::EvictionSignals;
+    /// let x = NodeKubeletConfig::new().set_eviction_soft(EvictionSignals::default()/* use setters */);
+    /// ```
     pub fn set_eviction_soft<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::EvictionSignals>,
@@ -1438,6 +1670,14 @@ impl NodeKubeletConfig {
     }
 
     /// Sets or clears the value of [eviction_soft][crate::model::NodeKubeletConfig::eviction_soft].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NodeKubeletConfig;
+    /// use google_cloud_container_v1::model::EvictionSignals;
+    /// let x = NodeKubeletConfig::new().set_or_clear_eviction_soft(Some(EvictionSignals::default()/* use setters */));
+    /// let x = NodeKubeletConfig::new().set_or_clear_eviction_soft(None::<EvictionSignals>);
+    /// ```
     pub fn set_or_clear_eviction_soft<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::EvictionSignals>,
@@ -1447,6 +1687,13 @@ impl NodeKubeletConfig {
     }
 
     /// Sets the value of [eviction_soft_grace_period][crate::model::NodeKubeletConfig::eviction_soft_grace_period].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NodeKubeletConfig;
+    /// use google_cloud_container_v1::model::EvictionGracePeriod;
+    /// let x = NodeKubeletConfig::new().set_eviction_soft_grace_period(EvictionGracePeriod::default()/* use setters */);
+    /// ```
     pub fn set_eviction_soft_grace_period<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::EvictionGracePeriod>,
@@ -1456,6 +1703,14 @@ impl NodeKubeletConfig {
     }
 
     /// Sets or clears the value of [eviction_soft_grace_period][crate::model::NodeKubeletConfig::eviction_soft_grace_period].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NodeKubeletConfig;
+    /// use google_cloud_container_v1::model::EvictionGracePeriod;
+    /// let x = NodeKubeletConfig::new().set_or_clear_eviction_soft_grace_period(Some(EvictionGracePeriod::default()/* use setters */));
+    /// let x = NodeKubeletConfig::new().set_or_clear_eviction_soft_grace_period(None::<EvictionGracePeriod>);
+    /// ```
     pub fn set_or_clear_eviction_soft_grace_period<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::EvictionGracePeriod>,
@@ -1465,6 +1720,13 @@ impl NodeKubeletConfig {
     }
 
     /// Sets the value of [eviction_minimum_reclaim][crate::model::NodeKubeletConfig::eviction_minimum_reclaim].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NodeKubeletConfig;
+    /// use google_cloud_container_v1::model::EvictionMinimumReclaim;
+    /// let x = NodeKubeletConfig::new().set_eviction_minimum_reclaim(EvictionMinimumReclaim::default()/* use setters */);
+    /// ```
     pub fn set_eviction_minimum_reclaim<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::EvictionMinimumReclaim>,
@@ -1474,6 +1736,14 @@ impl NodeKubeletConfig {
     }
 
     /// Sets or clears the value of [eviction_minimum_reclaim][crate::model::NodeKubeletConfig::eviction_minimum_reclaim].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NodeKubeletConfig;
+    /// use google_cloud_container_v1::model::EvictionMinimumReclaim;
+    /// let x = NodeKubeletConfig::new().set_or_clear_eviction_minimum_reclaim(Some(EvictionMinimumReclaim::default()/* use setters */));
+    /// let x = NodeKubeletConfig::new().set_or_clear_eviction_minimum_reclaim(None::<EvictionMinimumReclaim>);
+    /// ```
     pub fn set_or_clear_eviction_minimum_reclaim<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::EvictionMinimumReclaim>,
@@ -1483,6 +1753,12 @@ impl NodeKubeletConfig {
     }
 
     /// Sets the value of [eviction_max_pod_grace_period_seconds][crate::model::NodeKubeletConfig::eviction_max_pod_grace_period_seconds].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NodeKubeletConfig;
+    /// let x = NodeKubeletConfig::new().set_eviction_max_pod_grace_period_seconds(42);
+    /// ```
     pub fn set_eviction_max_pod_grace_period_seconds<T: std::convert::Into<i32>>(
         mut self,
         v: T,
@@ -1492,12 +1768,24 @@ impl NodeKubeletConfig {
     }
 
     /// Sets the value of [max_parallel_image_pulls][crate::model::NodeKubeletConfig::max_parallel_image_pulls].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NodeKubeletConfig;
+    /// let x = NodeKubeletConfig::new().set_max_parallel_image_pulls(42);
+    /// ```
     pub fn set_max_parallel_image_pulls<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.max_parallel_image_pulls = v.into();
         self
     }
 
     /// Sets the value of [single_process_oom_kill][crate::model::NodeKubeletConfig::single_process_oom_kill].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NodeKubeletConfig;
+    /// let x = NodeKubeletConfig::new().set_single_process_oom_kill(true);
+    /// ```
     pub fn set_single_process_oom_kill<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<bool>,
@@ -1507,6 +1795,13 @@ impl NodeKubeletConfig {
     }
 
     /// Sets or clears the value of [single_process_oom_kill][crate::model::NodeKubeletConfig::single_process_oom_kill].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NodeKubeletConfig;
+    /// let x = NodeKubeletConfig::new().set_or_clear_single_process_oom_kill(Some(false));
+    /// let x = NodeKubeletConfig::new().set_or_clear_single_process_oom_kill(None::<bool>);
+    /// ```
     pub fn set_or_clear_single_process_oom_kill<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<bool>,
@@ -1569,12 +1864,24 @@ impl TopologyManager {
     }
 
     /// Sets the value of [policy][crate::model::TopologyManager::policy].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::TopologyManager;
+    /// let x = TopologyManager::new().set_policy("example");
+    /// ```
     pub fn set_policy<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.policy = v.into();
         self
     }
 
     /// Sets the value of [scope][crate::model::TopologyManager::scope].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::TopologyManager;
+    /// let x = TopologyManager::new().set_scope("example");
+    /// ```
     pub fn set_scope<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.scope = v.into();
         self
@@ -1613,6 +1920,12 @@ impl MemoryManager {
     }
 
     /// Sets the value of [policy][crate::model::MemoryManager::policy].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::MemoryManager;
+    /// let x = MemoryManager::new().set_policy("example");
+    /// ```
     pub fn set_policy<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.policy = v.into();
         self
@@ -1690,6 +2003,12 @@ impl EvictionSignals {
     }
 
     /// Sets the value of [memory_available][crate::model::EvictionSignals::memory_available].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::EvictionSignals;
+    /// let x = EvictionSignals::new().set_memory_available("example");
+    /// ```
     pub fn set_memory_available<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -1699,6 +2018,12 @@ impl EvictionSignals {
     }
 
     /// Sets the value of [nodefs_available][crate::model::EvictionSignals::nodefs_available].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::EvictionSignals;
+    /// let x = EvictionSignals::new().set_nodefs_available("example");
+    /// ```
     pub fn set_nodefs_available<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -1708,6 +2033,12 @@ impl EvictionSignals {
     }
 
     /// Sets the value of [nodefs_inodes_free][crate::model::EvictionSignals::nodefs_inodes_free].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::EvictionSignals;
+    /// let x = EvictionSignals::new().set_nodefs_inodes_free("example");
+    /// ```
     pub fn set_nodefs_inodes_free<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -1717,6 +2048,12 @@ impl EvictionSignals {
     }
 
     /// Sets the value of [imagefs_available][crate::model::EvictionSignals::imagefs_available].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::EvictionSignals;
+    /// let x = EvictionSignals::new().set_imagefs_available("example");
+    /// ```
     pub fn set_imagefs_available<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -1726,6 +2063,12 @@ impl EvictionSignals {
     }
 
     /// Sets the value of [imagefs_inodes_free][crate::model::EvictionSignals::imagefs_inodes_free].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::EvictionSignals;
+    /// let x = EvictionSignals::new().set_imagefs_inodes_free("example");
+    /// ```
     pub fn set_imagefs_inodes_free<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -1735,6 +2078,12 @@ impl EvictionSignals {
     }
 
     /// Sets the value of [pid_available][crate::model::EvictionSignals::pid_available].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::EvictionSignals;
+    /// let x = EvictionSignals::new().set_pid_available("example");
+    /// ```
     pub fn set_pid_available<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.pid_available = v.into();
         self
@@ -1790,6 +2139,12 @@ impl EvictionGracePeriod {
     }
 
     /// Sets the value of [memory_available][crate::model::EvictionGracePeriod::memory_available].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::EvictionGracePeriod;
+    /// let x = EvictionGracePeriod::new().set_memory_available("example");
+    /// ```
     pub fn set_memory_available<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -1799,6 +2154,12 @@ impl EvictionGracePeriod {
     }
 
     /// Sets the value of [nodefs_available][crate::model::EvictionGracePeriod::nodefs_available].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::EvictionGracePeriod;
+    /// let x = EvictionGracePeriod::new().set_nodefs_available("example");
+    /// ```
     pub fn set_nodefs_available<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -1808,6 +2169,12 @@ impl EvictionGracePeriod {
     }
 
     /// Sets the value of [nodefs_inodes_free][crate::model::EvictionGracePeriod::nodefs_inodes_free].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::EvictionGracePeriod;
+    /// let x = EvictionGracePeriod::new().set_nodefs_inodes_free("example");
+    /// ```
     pub fn set_nodefs_inodes_free<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -1817,6 +2184,12 @@ impl EvictionGracePeriod {
     }
 
     /// Sets the value of [imagefs_available][crate::model::EvictionGracePeriod::imagefs_available].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::EvictionGracePeriod;
+    /// let x = EvictionGracePeriod::new().set_imagefs_available("example");
+    /// ```
     pub fn set_imagefs_available<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -1826,6 +2199,12 @@ impl EvictionGracePeriod {
     }
 
     /// Sets the value of [imagefs_inodes_free][crate::model::EvictionGracePeriod::imagefs_inodes_free].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::EvictionGracePeriod;
+    /// let x = EvictionGracePeriod::new().set_imagefs_inodes_free("example");
+    /// ```
     pub fn set_imagefs_inodes_free<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -1835,6 +2214,12 @@ impl EvictionGracePeriod {
     }
 
     /// Sets the value of [pid_available][crate::model::EvictionGracePeriod::pid_available].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::EvictionGracePeriod;
+    /// let x = EvictionGracePeriod::new().set_pid_available("example");
+    /// ```
     pub fn set_pid_available<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.pid_available = v.into();
         self
@@ -1894,6 +2279,12 @@ impl EvictionMinimumReclaim {
     }
 
     /// Sets the value of [memory_available][crate::model::EvictionMinimumReclaim::memory_available].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::EvictionMinimumReclaim;
+    /// let x = EvictionMinimumReclaim::new().set_memory_available("example");
+    /// ```
     pub fn set_memory_available<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -1903,6 +2294,12 @@ impl EvictionMinimumReclaim {
     }
 
     /// Sets the value of [nodefs_available][crate::model::EvictionMinimumReclaim::nodefs_available].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::EvictionMinimumReclaim;
+    /// let x = EvictionMinimumReclaim::new().set_nodefs_available("example");
+    /// ```
     pub fn set_nodefs_available<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -1912,6 +2309,12 @@ impl EvictionMinimumReclaim {
     }
 
     /// Sets the value of [nodefs_inodes_free][crate::model::EvictionMinimumReclaim::nodefs_inodes_free].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::EvictionMinimumReclaim;
+    /// let x = EvictionMinimumReclaim::new().set_nodefs_inodes_free("example");
+    /// ```
     pub fn set_nodefs_inodes_free<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -1921,6 +2324,12 @@ impl EvictionMinimumReclaim {
     }
 
     /// Sets the value of [imagefs_available][crate::model::EvictionMinimumReclaim::imagefs_available].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::EvictionMinimumReclaim;
+    /// let x = EvictionMinimumReclaim::new().set_imagefs_available("example");
+    /// ```
     pub fn set_imagefs_available<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -1930,6 +2339,12 @@ impl EvictionMinimumReclaim {
     }
 
     /// Sets the value of [imagefs_inodes_free][crate::model::EvictionMinimumReclaim::imagefs_inodes_free].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::EvictionMinimumReclaim;
+    /// let x = EvictionMinimumReclaim::new().set_imagefs_inodes_free("example");
+    /// ```
     pub fn set_imagefs_inodes_free<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -1939,6 +2354,12 @@ impl EvictionMinimumReclaim {
     }
 
     /// Sets the value of [pid_available][crate::model::EvictionMinimumReclaim::pid_available].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::EvictionMinimumReclaim;
+    /// let x = EvictionMinimumReclaim::new().set_pid_available("example");
+    /// ```
     pub fn set_pid_available<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.pid_available = v.into();
         self
@@ -2216,18 +2637,36 @@ impl NodeConfig {
     }
 
     /// Sets the value of [machine_type][crate::model::NodeConfig::machine_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NodeConfig;
+    /// let x = NodeConfig::new().set_machine_type("example");
+    /// ```
     pub fn set_machine_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.machine_type = v.into();
         self
     }
 
     /// Sets the value of [disk_size_gb][crate::model::NodeConfig::disk_size_gb].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NodeConfig;
+    /// let x = NodeConfig::new().set_disk_size_gb(42);
+    /// ```
     pub fn set_disk_size_gb<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.disk_size_gb = v.into();
         self
     }
 
     /// Sets the value of [oauth_scopes][crate::model::NodeConfig::oauth_scopes].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NodeConfig;
+    /// let x = NodeConfig::new().set_oauth_scopes(["a", "b", "c"]);
+    /// ```
     pub fn set_oauth_scopes<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2239,12 +2678,27 @@ impl NodeConfig {
     }
 
     /// Sets the value of [service_account][crate::model::NodeConfig::service_account].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NodeConfig;
+    /// let x = NodeConfig::new().set_service_account("example");
+    /// ```
     pub fn set_service_account<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.service_account = v.into();
         self
     }
 
     /// Sets the value of [metadata][crate::model::NodeConfig::metadata].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NodeConfig;
+    /// let x = NodeConfig::new().set_metadata([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_metadata<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -2257,12 +2711,27 @@ impl NodeConfig {
     }
 
     /// Sets the value of [image_type][crate::model::NodeConfig::image_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NodeConfig;
+    /// let x = NodeConfig::new().set_image_type("example");
+    /// ```
     pub fn set_image_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.image_type = v.into();
         self
     }
 
     /// Sets the value of [labels][crate::model::NodeConfig::labels].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NodeConfig;
+    /// let x = NodeConfig::new().set_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -2275,12 +2744,24 @@ impl NodeConfig {
     }
 
     /// Sets the value of [local_ssd_count][crate::model::NodeConfig::local_ssd_count].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NodeConfig;
+    /// let x = NodeConfig::new().set_local_ssd_count(42);
+    /// ```
     pub fn set_local_ssd_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.local_ssd_count = v.into();
         self
     }
 
     /// Sets the value of [tags][crate::model::NodeConfig::tags].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NodeConfig;
+    /// let x = NodeConfig::new().set_tags(["a", "b", "c"]);
+    /// ```
     pub fn set_tags<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2292,12 +2773,29 @@ impl NodeConfig {
     }
 
     /// Sets the value of [preemptible][crate::model::NodeConfig::preemptible].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NodeConfig;
+    /// let x = NodeConfig::new().set_preemptible(true);
+    /// ```
     pub fn set_preemptible<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.preemptible = v.into();
         self
     }
 
     /// Sets the value of [accelerators][crate::model::NodeConfig::accelerators].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NodeConfig;
+    /// use google_cloud_container_v1::model::AcceleratorConfig;
+    /// let x = NodeConfig::new()
+    ///     .set_accelerators([
+    ///         AcceleratorConfig::default()/* use setters */,
+    ///         AcceleratorConfig::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_accelerators<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2309,12 +2807,24 @@ impl NodeConfig {
     }
 
     /// Sets the value of [disk_type][crate::model::NodeConfig::disk_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NodeConfig;
+    /// let x = NodeConfig::new().set_disk_type("example");
+    /// ```
     pub fn set_disk_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.disk_type = v.into();
         self
     }
 
     /// Sets the value of [min_cpu_platform][crate::model::NodeConfig::min_cpu_platform].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NodeConfig;
+    /// let x = NodeConfig::new().set_min_cpu_platform("example");
+    /// ```
     pub fn set_min_cpu_platform<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -2324,6 +2834,13 @@ impl NodeConfig {
     }
 
     /// Sets the value of [workload_metadata_config][crate::model::NodeConfig::workload_metadata_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NodeConfig;
+    /// use google_cloud_container_v1::model::WorkloadMetadataConfig;
+    /// let x = NodeConfig::new().set_workload_metadata_config(WorkloadMetadataConfig::default()/* use setters */);
+    /// ```
     pub fn set_workload_metadata_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::WorkloadMetadataConfig>,
@@ -2333,6 +2850,14 @@ impl NodeConfig {
     }
 
     /// Sets or clears the value of [workload_metadata_config][crate::model::NodeConfig::workload_metadata_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NodeConfig;
+    /// use google_cloud_container_v1::model::WorkloadMetadataConfig;
+    /// let x = NodeConfig::new().set_or_clear_workload_metadata_config(Some(WorkloadMetadataConfig::default()/* use setters */));
+    /// let x = NodeConfig::new().set_or_clear_workload_metadata_config(None::<WorkloadMetadataConfig>);
+    /// ```
     pub fn set_or_clear_workload_metadata_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::WorkloadMetadataConfig>,
@@ -2342,6 +2867,17 @@ impl NodeConfig {
     }
 
     /// Sets the value of [taints][crate::model::NodeConfig::taints].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NodeConfig;
+    /// use google_cloud_container_v1::model::NodeTaint;
+    /// let x = NodeConfig::new()
+    ///     .set_taints([
+    ///         NodeTaint::default()/* use setters */,
+    ///         NodeTaint::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_taints<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2353,6 +2889,13 @@ impl NodeConfig {
     }
 
     /// Sets the value of [sandbox_config][crate::model::NodeConfig::sandbox_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NodeConfig;
+    /// use google_cloud_container_v1::model::SandboxConfig;
+    /// let x = NodeConfig::new().set_sandbox_config(SandboxConfig::default()/* use setters */);
+    /// ```
     pub fn set_sandbox_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::SandboxConfig>,
@@ -2362,6 +2905,14 @@ impl NodeConfig {
     }
 
     /// Sets or clears the value of [sandbox_config][crate::model::NodeConfig::sandbox_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NodeConfig;
+    /// use google_cloud_container_v1::model::SandboxConfig;
+    /// let x = NodeConfig::new().set_or_clear_sandbox_config(Some(SandboxConfig::default()/* use setters */));
+    /// let x = NodeConfig::new().set_or_clear_sandbox_config(None::<SandboxConfig>);
+    /// ```
     pub fn set_or_clear_sandbox_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::SandboxConfig>,
@@ -2371,12 +2922,25 @@ impl NodeConfig {
     }
 
     /// Sets the value of [node_group][crate::model::NodeConfig::node_group].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NodeConfig;
+    /// let x = NodeConfig::new().set_node_group("example");
+    /// ```
     pub fn set_node_group<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.node_group = v.into();
         self
     }
 
     /// Sets the value of [reservation_affinity][crate::model::NodeConfig::reservation_affinity].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NodeConfig;
+    /// use google_cloud_container_v1::model::ReservationAffinity;
+    /// let x = NodeConfig::new().set_reservation_affinity(ReservationAffinity::default()/* use setters */);
+    /// ```
     pub fn set_reservation_affinity<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ReservationAffinity>,
@@ -2386,6 +2950,14 @@ impl NodeConfig {
     }
 
     /// Sets or clears the value of [reservation_affinity][crate::model::NodeConfig::reservation_affinity].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NodeConfig;
+    /// use google_cloud_container_v1::model::ReservationAffinity;
+    /// let x = NodeConfig::new().set_or_clear_reservation_affinity(Some(ReservationAffinity::default()/* use setters */));
+    /// let x = NodeConfig::new().set_or_clear_reservation_affinity(None::<ReservationAffinity>);
+    /// ```
     pub fn set_or_clear_reservation_affinity<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ReservationAffinity>,
@@ -2395,6 +2967,13 @@ impl NodeConfig {
     }
 
     /// Sets the value of [shielded_instance_config][crate::model::NodeConfig::shielded_instance_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NodeConfig;
+    /// use google_cloud_container_v1::model::ShieldedInstanceConfig;
+    /// let x = NodeConfig::new().set_shielded_instance_config(ShieldedInstanceConfig::default()/* use setters */);
+    /// ```
     pub fn set_shielded_instance_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ShieldedInstanceConfig>,
@@ -2404,6 +2983,14 @@ impl NodeConfig {
     }
 
     /// Sets or clears the value of [shielded_instance_config][crate::model::NodeConfig::shielded_instance_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NodeConfig;
+    /// use google_cloud_container_v1::model::ShieldedInstanceConfig;
+    /// let x = NodeConfig::new().set_or_clear_shielded_instance_config(Some(ShieldedInstanceConfig::default()/* use setters */));
+    /// let x = NodeConfig::new().set_or_clear_shielded_instance_config(None::<ShieldedInstanceConfig>);
+    /// ```
     pub fn set_or_clear_shielded_instance_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ShieldedInstanceConfig>,
@@ -2413,6 +3000,13 @@ impl NodeConfig {
     }
 
     /// Sets the value of [linux_node_config][crate::model::NodeConfig::linux_node_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NodeConfig;
+    /// use google_cloud_container_v1::model::LinuxNodeConfig;
+    /// let x = NodeConfig::new().set_linux_node_config(LinuxNodeConfig::default()/* use setters */);
+    /// ```
     pub fn set_linux_node_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::LinuxNodeConfig>,
@@ -2422,6 +3016,14 @@ impl NodeConfig {
     }
 
     /// Sets or clears the value of [linux_node_config][crate::model::NodeConfig::linux_node_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NodeConfig;
+    /// use google_cloud_container_v1::model::LinuxNodeConfig;
+    /// let x = NodeConfig::new().set_or_clear_linux_node_config(Some(LinuxNodeConfig::default()/* use setters */));
+    /// let x = NodeConfig::new().set_or_clear_linux_node_config(None::<LinuxNodeConfig>);
+    /// ```
     pub fn set_or_clear_linux_node_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::LinuxNodeConfig>,
@@ -2431,6 +3033,13 @@ impl NodeConfig {
     }
 
     /// Sets the value of [kubelet_config][crate::model::NodeConfig::kubelet_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NodeConfig;
+    /// use google_cloud_container_v1::model::NodeKubeletConfig;
+    /// let x = NodeConfig::new().set_kubelet_config(NodeKubeletConfig::default()/* use setters */);
+    /// ```
     pub fn set_kubelet_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::NodeKubeletConfig>,
@@ -2440,6 +3049,14 @@ impl NodeConfig {
     }
 
     /// Sets or clears the value of [kubelet_config][crate::model::NodeConfig::kubelet_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NodeConfig;
+    /// use google_cloud_container_v1::model::NodeKubeletConfig;
+    /// let x = NodeConfig::new().set_or_clear_kubelet_config(Some(NodeKubeletConfig::default()/* use setters */));
+    /// let x = NodeConfig::new().set_or_clear_kubelet_config(None::<NodeKubeletConfig>);
+    /// ```
     pub fn set_or_clear_kubelet_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::NodeKubeletConfig>,
@@ -2449,6 +3066,12 @@ impl NodeConfig {
     }
 
     /// Sets the value of [boot_disk_kms_key][crate::model::NodeConfig::boot_disk_kms_key].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NodeConfig;
+    /// let x = NodeConfig::new().set_boot_disk_kms_key("example");
+    /// ```
     pub fn set_boot_disk_kms_key<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -2458,6 +3081,13 @@ impl NodeConfig {
     }
 
     /// Sets the value of [gcfs_config][crate::model::NodeConfig::gcfs_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NodeConfig;
+    /// use google_cloud_container_v1::model::GcfsConfig;
+    /// let x = NodeConfig::new().set_gcfs_config(GcfsConfig::default()/* use setters */);
+    /// ```
     pub fn set_gcfs_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::GcfsConfig>,
@@ -2467,6 +3097,14 @@ impl NodeConfig {
     }
 
     /// Sets or clears the value of [gcfs_config][crate::model::NodeConfig::gcfs_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NodeConfig;
+    /// use google_cloud_container_v1::model::GcfsConfig;
+    /// let x = NodeConfig::new().set_or_clear_gcfs_config(Some(GcfsConfig::default()/* use setters */));
+    /// let x = NodeConfig::new().set_or_clear_gcfs_config(None::<GcfsConfig>);
+    /// ```
     pub fn set_or_clear_gcfs_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::GcfsConfig>,
@@ -2476,6 +3114,13 @@ impl NodeConfig {
     }
 
     /// Sets the value of [advanced_machine_features][crate::model::NodeConfig::advanced_machine_features].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NodeConfig;
+    /// use google_cloud_container_v1::model::AdvancedMachineFeatures;
+    /// let x = NodeConfig::new().set_advanced_machine_features(AdvancedMachineFeatures::default()/* use setters */);
+    /// ```
     pub fn set_advanced_machine_features<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::AdvancedMachineFeatures>,
@@ -2485,6 +3130,14 @@ impl NodeConfig {
     }
 
     /// Sets or clears the value of [advanced_machine_features][crate::model::NodeConfig::advanced_machine_features].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NodeConfig;
+    /// use google_cloud_container_v1::model::AdvancedMachineFeatures;
+    /// let x = NodeConfig::new().set_or_clear_advanced_machine_features(Some(AdvancedMachineFeatures::default()/* use setters */));
+    /// let x = NodeConfig::new().set_or_clear_advanced_machine_features(None::<AdvancedMachineFeatures>);
+    /// ```
     pub fn set_or_clear_advanced_machine_features<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AdvancedMachineFeatures>,
@@ -2494,6 +3147,13 @@ impl NodeConfig {
     }
 
     /// Sets the value of [gvnic][crate::model::NodeConfig::gvnic].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NodeConfig;
+    /// use google_cloud_container_v1::model::VirtualNIC;
+    /// let x = NodeConfig::new().set_gvnic(VirtualNIC::default()/* use setters */);
+    /// ```
     pub fn set_gvnic<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::VirtualNIC>,
@@ -2503,6 +3163,14 @@ impl NodeConfig {
     }
 
     /// Sets or clears the value of [gvnic][crate::model::NodeConfig::gvnic].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NodeConfig;
+    /// use google_cloud_container_v1::model::VirtualNIC;
+    /// let x = NodeConfig::new().set_or_clear_gvnic(Some(VirtualNIC::default()/* use setters */));
+    /// let x = NodeConfig::new().set_or_clear_gvnic(None::<VirtualNIC>);
+    /// ```
     pub fn set_or_clear_gvnic<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::VirtualNIC>,
@@ -2512,12 +3180,25 @@ impl NodeConfig {
     }
 
     /// Sets the value of [spot][crate::model::NodeConfig::spot].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NodeConfig;
+    /// let x = NodeConfig::new().set_spot(true);
+    /// ```
     pub fn set_spot<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.spot = v.into();
         self
     }
 
     /// Sets the value of [confidential_nodes][crate::model::NodeConfig::confidential_nodes].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NodeConfig;
+    /// use google_cloud_container_v1::model::ConfidentialNodes;
+    /// let x = NodeConfig::new().set_confidential_nodes(ConfidentialNodes::default()/* use setters */);
+    /// ```
     pub fn set_confidential_nodes<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ConfidentialNodes>,
@@ -2527,6 +3208,14 @@ impl NodeConfig {
     }
 
     /// Sets or clears the value of [confidential_nodes][crate::model::NodeConfig::confidential_nodes].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NodeConfig;
+    /// use google_cloud_container_v1::model::ConfidentialNodes;
+    /// let x = NodeConfig::new().set_or_clear_confidential_nodes(Some(ConfidentialNodes::default()/* use setters */));
+    /// let x = NodeConfig::new().set_or_clear_confidential_nodes(None::<ConfidentialNodes>);
+    /// ```
     pub fn set_or_clear_confidential_nodes<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ConfidentialNodes>,
@@ -2536,6 +3225,13 @@ impl NodeConfig {
     }
 
     /// Sets the value of [fast_socket][crate::model::NodeConfig::fast_socket].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NodeConfig;
+    /// use google_cloud_container_v1::model::FastSocket;
+    /// let x = NodeConfig::new().set_fast_socket(FastSocket::default()/* use setters */);
+    /// ```
     pub fn set_fast_socket<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::FastSocket>,
@@ -2545,6 +3241,14 @@ impl NodeConfig {
     }
 
     /// Sets or clears the value of [fast_socket][crate::model::NodeConfig::fast_socket].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NodeConfig;
+    /// use google_cloud_container_v1::model::FastSocket;
+    /// let x = NodeConfig::new().set_or_clear_fast_socket(Some(FastSocket::default()/* use setters */));
+    /// let x = NodeConfig::new().set_or_clear_fast_socket(None::<FastSocket>);
+    /// ```
     pub fn set_or_clear_fast_socket<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::FastSocket>,
@@ -2554,6 +3258,15 @@ impl NodeConfig {
     }
 
     /// Sets the value of [resource_labels][crate::model::NodeConfig::resource_labels].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NodeConfig;
+    /// let x = NodeConfig::new().set_resource_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_resource_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -2566,6 +3279,13 @@ impl NodeConfig {
     }
 
     /// Sets the value of [logging_config][crate::model::NodeConfig::logging_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NodeConfig;
+    /// use google_cloud_container_v1::model::NodePoolLoggingConfig;
+    /// let x = NodeConfig::new().set_logging_config(NodePoolLoggingConfig::default()/* use setters */);
+    /// ```
     pub fn set_logging_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::NodePoolLoggingConfig>,
@@ -2575,6 +3295,14 @@ impl NodeConfig {
     }
 
     /// Sets or clears the value of [logging_config][crate::model::NodeConfig::logging_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NodeConfig;
+    /// use google_cloud_container_v1::model::NodePoolLoggingConfig;
+    /// let x = NodeConfig::new().set_or_clear_logging_config(Some(NodePoolLoggingConfig::default()/* use setters */));
+    /// let x = NodeConfig::new().set_or_clear_logging_config(None::<NodePoolLoggingConfig>);
+    /// ```
     pub fn set_or_clear_logging_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::NodePoolLoggingConfig>,
@@ -2584,6 +3312,13 @@ impl NodeConfig {
     }
 
     /// Sets the value of [windows_node_config][crate::model::NodeConfig::windows_node_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NodeConfig;
+    /// use google_cloud_container_v1::model::WindowsNodeConfig;
+    /// let x = NodeConfig::new().set_windows_node_config(WindowsNodeConfig::default()/* use setters */);
+    /// ```
     pub fn set_windows_node_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::WindowsNodeConfig>,
@@ -2593,6 +3328,14 @@ impl NodeConfig {
     }
 
     /// Sets or clears the value of [windows_node_config][crate::model::NodeConfig::windows_node_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NodeConfig;
+    /// use google_cloud_container_v1::model::WindowsNodeConfig;
+    /// let x = NodeConfig::new().set_or_clear_windows_node_config(Some(WindowsNodeConfig::default()/* use setters */));
+    /// let x = NodeConfig::new().set_or_clear_windows_node_config(None::<WindowsNodeConfig>);
+    /// ```
     pub fn set_or_clear_windows_node_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::WindowsNodeConfig>,
@@ -2602,6 +3345,13 @@ impl NodeConfig {
     }
 
     /// Sets the value of [local_nvme_ssd_block_config][crate::model::NodeConfig::local_nvme_ssd_block_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NodeConfig;
+    /// use google_cloud_container_v1::model::LocalNvmeSsdBlockConfig;
+    /// let x = NodeConfig::new().set_local_nvme_ssd_block_config(LocalNvmeSsdBlockConfig::default()/* use setters */);
+    /// ```
     pub fn set_local_nvme_ssd_block_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::LocalNvmeSsdBlockConfig>,
@@ -2611,6 +3361,14 @@ impl NodeConfig {
     }
 
     /// Sets or clears the value of [local_nvme_ssd_block_config][crate::model::NodeConfig::local_nvme_ssd_block_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NodeConfig;
+    /// use google_cloud_container_v1::model::LocalNvmeSsdBlockConfig;
+    /// let x = NodeConfig::new().set_or_clear_local_nvme_ssd_block_config(Some(LocalNvmeSsdBlockConfig::default()/* use setters */));
+    /// let x = NodeConfig::new().set_or_clear_local_nvme_ssd_block_config(None::<LocalNvmeSsdBlockConfig>);
+    /// ```
     pub fn set_or_clear_local_nvme_ssd_block_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::LocalNvmeSsdBlockConfig>,
@@ -2620,6 +3378,13 @@ impl NodeConfig {
     }
 
     /// Sets the value of [ephemeral_storage_local_ssd_config][crate::model::NodeConfig::ephemeral_storage_local_ssd_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NodeConfig;
+    /// use google_cloud_container_v1::model::EphemeralStorageLocalSsdConfig;
+    /// let x = NodeConfig::new().set_ephemeral_storage_local_ssd_config(EphemeralStorageLocalSsdConfig::default()/* use setters */);
+    /// ```
     pub fn set_ephemeral_storage_local_ssd_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::EphemeralStorageLocalSsdConfig>,
@@ -2629,6 +3394,14 @@ impl NodeConfig {
     }
 
     /// Sets or clears the value of [ephemeral_storage_local_ssd_config][crate::model::NodeConfig::ephemeral_storage_local_ssd_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NodeConfig;
+    /// use google_cloud_container_v1::model::EphemeralStorageLocalSsdConfig;
+    /// let x = NodeConfig::new().set_or_clear_ephemeral_storage_local_ssd_config(Some(EphemeralStorageLocalSsdConfig::default()/* use setters */));
+    /// let x = NodeConfig::new().set_or_clear_ephemeral_storage_local_ssd_config(None::<EphemeralStorageLocalSsdConfig>);
+    /// ```
     pub fn set_or_clear_ephemeral_storage_local_ssd_config<T>(
         mut self,
         v: std::option::Option<T>,
@@ -2641,6 +3414,13 @@ impl NodeConfig {
     }
 
     /// Sets the value of [sole_tenant_config][crate::model::NodeConfig::sole_tenant_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NodeConfig;
+    /// use google_cloud_container_v1::model::SoleTenantConfig;
+    /// let x = NodeConfig::new().set_sole_tenant_config(SoleTenantConfig::default()/* use setters */);
+    /// ```
     pub fn set_sole_tenant_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::SoleTenantConfig>,
@@ -2650,6 +3430,14 @@ impl NodeConfig {
     }
 
     /// Sets or clears the value of [sole_tenant_config][crate::model::NodeConfig::sole_tenant_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NodeConfig;
+    /// use google_cloud_container_v1::model::SoleTenantConfig;
+    /// let x = NodeConfig::new().set_or_clear_sole_tenant_config(Some(SoleTenantConfig::default()/* use setters */));
+    /// let x = NodeConfig::new().set_or_clear_sole_tenant_config(None::<SoleTenantConfig>);
+    /// ```
     pub fn set_or_clear_sole_tenant_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::SoleTenantConfig>,
@@ -2659,6 +3447,13 @@ impl NodeConfig {
     }
 
     /// Sets the value of [containerd_config][crate::model::NodeConfig::containerd_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NodeConfig;
+    /// use google_cloud_container_v1::model::ContainerdConfig;
+    /// let x = NodeConfig::new().set_containerd_config(ContainerdConfig::default()/* use setters */);
+    /// ```
     pub fn set_containerd_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ContainerdConfig>,
@@ -2668,6 +3463,14 @@ impl NodeConfig {
     }
 
     /// Sets or clears the value of [containerd_config][crate::model::NodeConfig::containerd_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NodeConfig;
+    /// use google_cloud_container_v1::model::ContainerdConfig;
+    /// let x = NodeConfig::new().set_or_clear_containerd_config(Some(ContainerdConfig::default()/* use setters */));
+    /// let x = NodeConfig::new().set_or_clear_containerd_config(None::<ContainerdConfig>);
+    /// ```
     pub fn set_or_clear_containerd_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ContainerdConfig>,
@@ -2677,6 +3480,13 @@ impl NodeConfig {
     }
 
     /// Sets the value of [resource_manager_tags][crate::model::NodeConfig::resource_manager_tags].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NodeConfig;
+    /// use google_cloud_container_v1::model::ResourceManagerTags;
+    /// let x = NodeConfig::new().set_resource_manager_tags(ResourceManagerTags::default()/* use setters */);
+    /// ```
     pub fn set_resource_manager_tags<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ResourceManagerTags>,
@@ -2686,6 +3496,14 @@ impl NodeConfig {
     }
 
     /// Sets or clears the value of [resource_manager_tags][crate::model::NodeConfig::resource_manager_tags].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NodeConfig;
+    /// use google_cloud_container_v1::model::ResourceManagerTags;
+    /// let x = NodeConfig::new().set_or_clear_resource_manager_tags(Some(ResourceManagerTags::default()/* use setters */));
+    /// let x = NodeConfig::new().set_or_clear_resource_manager_tags(None::<ResourceManagerTags>);
+    /// ```
     pub fn set_or_clear_resource_manager_tags<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ResourceManagerTags>,
@@ -2695,12 +3513,29 @@ impl NodeConfig {
     }
 
     /// Sets the value of [enable_confidential_storage][crate::model::NodeConfig::enable_confidential_storage].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NodeConfig;
+    /// let x = NodeConfig::new().set_enable_confidential_storage(true);
+    /// ```
     pub fn set_enable_confidential_storage<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.enable_confidential_storage = v.into();
         self
     }
 
     /// Sets the value of [secondary_boot_disks][crate::model::NodeConfig::secondary_boot_disks].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NodeConfig;
+    /// use google_cloud_container_v1::model::SecondaryBootDisk;
+    /// let x = NodeConfig::new()
+    ///     .set_secondary_boot_disks([
+    ///         SecondaryBootDisk::default()/* use setters */,
+    ///         SecondaryBootDisk::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_secondary_boot_disks<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2712,6 +3547,12 @@ impl NodeConfig {
     }
 
     /// Sets the value of [storage_pools][crate::model::NodeConfig::storage_pools].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NodeConfig;
+    /// let x = NodeConfig::new().set_storage_pools(["a", "b", "c"]);
+    /// ```
     pub fn set_storage_pools<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2723,6 +3564,13 @@ impl NodeConfig {
     }
 
     /// Sets the value of [secondary_boot_disk_update_strategy][crate::model::NodeConfig::secondary_boot_disk_update_strategy].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NodeConfig;
+    /// use google_cloud_container_v1::model::SecondaryBootDiskUpdateStrategy;
+    /// let x = NodeConfig::new().set_secondary_boot_disk_update_strategy(SecondaryBootDiskUpdateStrategy::default()/* use setters */);
+    /// ```
     pub fn set_secondary_boot_disk_update_strategy<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::SecondaryBootDiskUpdateStrategy>,
@@ -2732,6 +3580,14 @@ impl NodeConfig {
     }
 
     /// Sets or clears the value of [secondary_boot_disk_update_strategy][crate::model::NodeConfig::secondary_boot_disk_update_strategy].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NodeConfig;
+    /// use google_cloud_container_v1::model::SecondaryBootDiskUpdateStrategy;
+    /// let x = NodeConfig::new().set_or_clear_secondary_boot_disk_update_strategy(Some(SecondaryBootDiskUpdateStrategy::default()/* use setters */));
+    /// let x = NodeConfig::new().set_or_clear_secondary_boot_disk_update_strategy(None::<SecondaryBootDiskUpdateStrategy>);
+    /// ```
     pub fn set_or_clear_secondary_boot_disk_update_strategy<T>(
         mut self,
         v: std::option::Option<T>,
@@ -2744,6 +3600,13 @@ impl NodeConfig {
     }
 
     /// Sets the value of [max_run_duration][crate::model::NodeConfig::max_run_duration].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NodeConfig;
+    /// use wkt::Duration;
+    /// let x = NodeConfig::new().set_max_run_duration(Duration::default()/* use setters */);
+    /// ```
     pub fn set_max_run_duration<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -2753,6 +3616,14 @@ impl NodeConfig {
     }
 
     /// Sets or clears the value of [max_run_duration][crate::model::NodeConfig::max_run_duration].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NodeConfig;
+    /// use wkt::Duration;
+    /// let x = NodeConfig::new().set_or_clear_max_run_duration(Some(Duration::default()/* use setters */));
+    /// let x = NodeConfig::new().set_or_clear_max_run_duration(None::<Duration>);
+    /// ```
     pub fn set_or_clear_max_run_duration<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -2762,6 +3633,14 @@ impl NodeConfig {
     }
 
     /// Sets the value of [local_ssd_encryption_mode][crate::model::NodeConfig::local_ssd_encryption_mode].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NodeConfig;
+    /// use google_cloud_container_v1::model::node_config::LocalSsdEncryptionMode;
+    /// let x0 = NodeConfig::new().set_local_ssd_encryption_mode(LocalSsdEncryptionMode::StandardEncryption);
+    /// let x1 = NodeConfig::new().set_local_ssd_encryption_mode(LocalSsdEncryptionMode::EphemeralKeyEncryption);
+    /// ```
     pub fn set_local_ssd_encryption_mode<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::node_config::LocalSsdEncryptionMode>,
@@ -2771,6 +3650,15 @@ impl NodeConfig {
     }
 
     /// Sets or clears the value of [local_ssd_encryption_mode][crate::model::NodeConfig::local_ssd_encryption_mode].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NodeConfig;
+    /// use google_cloud_container_v1::model::node_config::LocalSsdEncryptionMode;
+    /// let x0 = NodeConfig::new().set_or_clear_local_ssd_encryption_mode(Some(LocalSsdEncryptionMode::StandardEncryption));
+    /// let x1 = NodeConfig::new().set_or_clear_local_ssd_encryption_mode(Some(LocalSsdEncryptionMode::EphemeralKeyEncryption));
+    /// let x_none = NodeConfig::new().set_or_clear_local_ssd_encryption_mode(None::<LocalSsdEncryptionMode>);
+    /// ```
     pub fn set_or_clear_local_ssd_encryption_mode<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::node_config::LocalSsdEncryptionMode>,
@@ -2780,6 +3668,14 @@ impl NodeConfig {
     }
 
     /// Sets the value of [effective_cgroup_mode][crate::model::NodeConfig::effective_cgroup_mode].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NodeConfig;
+    /// use google_cloud_container_v1::model::node_config::EffectiveCgroupMode;
+    /// let x0 = NodeConfig::new().set_effective_cgroup_mode(EffectiveCgroupMode::V1);
+    /// let x1 = NodeConfig::new().set_effective_cgroup_mode(EffectiveCgroupMode::V2);
+    /// ```
     pub fn set_effective_cgroup_mode<
         T: std::convert::Into<crate::model::node_config::EffectiveCgroupMode>,
     >(
@@ -2791,6 +3687,12 @@ impl NodeConfig {
     }
 
     /// Sets the value of [flex_start][crate::model::NodeConfig::flex_start].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NodeConfig;
+    /// let x = NodeConfig::new().set_flex_start(true);
+    /// ```
     pub fn set_flex_start<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<bool>,
@@ -2800,6 +3702,13 @@ impl NodeConfig {
     }
 
     /// Sets or clears the value of [flex_start][crate::model::NodeConfig::flex_start].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NodeConfig;
+    /// let x = NodeConfig::new().set_or_clear_flex_start(Some(false));
+    /// let x = NodeConfig::new().set_or_clear_flex_start(None::<bool>);
+    /// ```
     pub fn set_or_clear_flex_start<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<bool>,
@@ -2809,6 +3718,13 @@ impl NodeConfig {
     }
 
     /// Sets the value of [boot_disk][crate::model::NodeConfig::boot_disk].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NodeConfig;
+    /// use google_cloud_container_v1::model::BootDisk;
+    /// let x = NodeConfig::new().set_boot_disk(BootDisk::default()/* use setters */);
+    /// ```
     pub fn set_boot_disk<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::BootDisk>,
@@ -2818,6 +3734,14 @@ impl NodeConfig {
     }
 
     /// Sets or clears the value of [boot_disk][crate::model::NodeConfig::boot_disk].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NodeConfig;
+    /// use google_cloud_container_v1::model::BootDisk;
+    /// let x = NodeConfig::new().set_or_clear_boot_disk(Some(BootDisk::default()/* use setters */));
+    /// let x = NodeConfig::new().set_or_clear_boot_disk(None::<BootDisk>);
+    /// ```
     pub fn set_or_clear_boot_disk<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::BootDisk>,
@@ -3144,6 +4068,12 @@ impl AdvancedMachineFeatures {
     }
 
     /// Sets the value of [threads_per_core][crate::model::AdvancedMachineFeatures::threads_per_core].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::AdvancedMachineFeatures;
+    /// let x = AdvancedMachineFeatures::new().set_threads_per_core(42);
+    /// ```
     pub fn set_threads_per_core<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<i64>,
@@ -3153,6 +4083,13 @@ impl AdvancedMachineFeatures {
     }
 
     /// Sets or clears the value of [threads_per_core][crate::model::AdvancedMachineFeatures::threads_per_core].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::AdvancedMachineFeatures;
+    /// let x = AdvancedMachineFeatures::new().set_or_clear_threads_per_core(Some(42));
+    /// let x = AdvancedMachineFeatures::new().set_or_clear_threads_per_core(None::<i32>);
+    /// ```
     pub fn set_or_clear_threads_per_core<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i64>,
@@ -3162,6 +4099,12 @@ impl AdvancedMachineFeatures {
     }
 
     /// Sets the value of [enable_nested_virtualization][crate::model::AdvancedMachineFeatures::enable_nested_virtualization].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::AdvancedMachineFeatures;
+    /// let x = AdvancedMachineFeatures::new().set_enable_nested_virtualization(true);
+    /// ```
     pub fn set_enable_nested_virtualization<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<bool>,
@@ -3171,6 +4114,13 @@ impl AdvancedMachineFeatures {
     }
 
     /// Sets or clears the value of [enable_nested_virtualization][crate::model::AdvancedMachineFeatures::enable_nested_virtualization].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::AdvancedMachineFeatures;
+    /// let x = AdvancedMachineFeatures::new().set_or_clear_enable_nested_virtualization(Some(false));
+    /// let x = AdvancedMachineFeatures::new().set_or_clear_enable_nested_virtualization(None::<bool>);
+    /// ```
     pub fn set_or_clear_enable_nested_virtualization<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<bool>,
@@ -3180,6 +4130,15 @@ impl AdvancedMachineFeatures {
     }
 
     /// Sets the value of [performance_monitoring_unit][crate::model::AdvancedMachineFeatures::performance_monitoring_unit].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::AdvancedMachineFeatures;
+    /// use google_cloud_container_v1::model::advanced_machine_features::PerformanceMonitoringUnit;
+    /// let x0 = AdvancedMachineFeatures::new().set_performance_monitoring_unit(PerformanceMonitoringUnit::Architectural);
+    /// let x1 = AdvancedMachineFeatures::new().set_performance_monitoring_unit(PerformanceMonitoringUnit::Standard);
+    /// let x2 = AdvancedMachineFeatures::new().set_performance_monitoring_unit(PerformanceMonitoringUnit::Enhanced);
+    /// ```
     pub fn set_performance_monitoring_unit<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::advanced_machine_features::PerformanceMonitoringUnit>,
@@ -3189,6 +4148,16 @@ impl AdvancedMachineFeatures {
     }
 
     /// Sets or clears the value of [performance_monitoring_unit][crate::model::AdvancedMachineFeatures::performance_monitoring_unit].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::AdvancedMachineFeatures;
+    /// use google_cloud_container_v1::model::advanced_machine_features::PerformanceMonitoringUnit;
+    /// let x0 = AdvancedMachineFeatures::new().set_or_clear_performance_monitoring_unit(Some(PerformanceMonitoringUnit::Architectural));
+    /// let x1 = AdvancedMachineFeatures::new().set_or_clear_performance_monitoring_unit(Some(PerformanceMonitoringUnit::Standard));
+    /// let x2 = AdvancedMachineFeatures::new().set_or_clear_performance_monitoring_unit(Some(PerformanceMonitoringUnit::Enhanced));
+    /// let x_none = AdvancedMachineFeatures::new().set_or_clear_performance_monitoring_unit(None::<PerformanceMonitoringUnit>);
+    /// ```
     pub fn set_or_clear_performance_monitoring_unit<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::advanced_machine_features::PerformanceMonitoringUnit>,
@@ -3456,18 +4425,36 @@ impl NodeNetworkConfig {
     }
 
     /// Sets the value of [create_pod_range][crate::model::NodeNetworkConfig::create_pod_range].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NodeNetworkConfig;
+    /// let x = NodeNetworkConfig::new().set_create_pod_range(true);
+    /// ```
     pub fn set_create_pod_range<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.create_pod_range = v.into();
         self
     }
 
     /// Sets the value of [pod_range][crate::model::NodeNetworkConfig::pod_range].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NodeNetworkConfig;
+    /// let x = NodeNetworkConfig::new().set_pod_range("example");
+    /// ```
     pub fn set_pod_range<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.pod_range = v.into();
         self
     }
 
     /// Sets the value of [pod_ipv4_cidr_block][crate::model::NodeNetworkConfig::pod_ipv4_cidr_block].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NodeNetworkConfig;
+    /// let x = NodeNetworkConfig::new().set_pod_ipv4_cidr_block("example");
+    /// ```
     pub fn set_pod_ipv4_cidr_block<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -3477,6 +4464,12 @@ impl NodeNetworkConfig {
     }
 
     /// Sets the value of [enable_private_nodes][crate::model::NodeNetworkConfig::enable_private_nodes].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NodeNetworkConfig;
+    /// let x = NodeNetworkConfig::new().set_enable_private_nodes(true);
+    /// ```
     pub fn set_enable_private_nodes<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<bool>,
@@ -3486,6 +4479,13 @@ impl NodeNetworkConfig {
     }
 
     /// Sets or clears the value of [enable_private_nodes][crate::model::NodeNetworkConfig::enable_private_nodes].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NodeNetworkConfig;
+    /// let x = NodeNetworkConfig::new().set_or_clear_enable_private_nodes(Some(false));
+    /// let x = NodeNetworkConfig::new().set_or_clear_enable_private_nodes(None::<bool>);
+    /// ```
     pub fn set_or_clear_enable_private_nodes<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<bool>,
@@ -3495,6 +4495,13 @@ impl NodeNetworkConfig {
     }
 
     /// Sets the value of [network_performance_config][crate::model::NodeNetworkConfig::network_performance_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NodeNetworkConfig;
+    /// use google_cloud_container_v1::model::node_network_config::NetworkPerformanceConfig;
+    /// let x = NodeNetworkConfig::new().set_network_performance_config(NetworkPerformanceConfig::default()/* use setters */);
+    /// ```
     pub fn set_network_performance_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::node_network_config::NetworkPerformanceConfig>,
@@ -3504,6 +4511,14 @@ impl NodeNetworkConfig {
     }
 
     /// Sets or clears the value of [network_performance_config][crate::model::NodeNetworkConfig::network_performance_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NodeNetworkConfig;
+    /// use google_cloud_container_v1::model::node_network_config::NetworkPerformanceConfig;
+    /// let x = NodeNetworkConfig::new().set_or_clear_network_performance_config(Some(NetworkPerformanceConfig::default()/* use setters */));
+    /// let x = NodeNetworkConfig::new().set_or_clear_network_performance_config(None::<NetworkPerformanceConfig>);
+    /// ```
     pub fn set_or_clear_network_performance_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::node_network_config::NetworkPerformanceConfig>,
@@ -3513,6 +4528,13 @@ impl NodeNetworkConfig {
     }
 
     /// Sets the value of [pod_cidr_overprovision_config][crate::model::NodeNetworkConfig::pod_cidr_overprovision_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NodeNetworkConfig;
+    /// use google_cloud_container_v1::model::PodCIDROverprovisionConfig;
+    /// let x = NodeNetworkConfig::new().set_pod_cidr_overprovision_config(PodCIDROverprovisionConfig::default()/* use setters */);
+    /// ```
     pub fn set_pod_cidr_overprovision_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::PodCIDROverprovisionConfig>,
@@ -3522,6 +4544,14 @@ impl NodeNetworkConfig {
     }
 
     /// Sets or clears the value of [pod_cidr_overprovision_config][crate::model::NodeNetworkConfig::pod_cidr_overprovision_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NodeNetworkConfig;
+    /// use google_cloud_container_v1::model::PodCIDROverprovisionConfig;
+    /// let x = NodeNetworkConfig::new().set_or_clear_pod_cidr_overprovision_config(Some(PodCIDROverprovisionConfig::default()/* use setters */));
+    /// let x = NodeNetworkConfig::new().set_or_clear_pod_cidr_overprovision_config(None::<PodCIDROverprovisionConfig>);
+    /// ```
     pub fn set_or_clear_pod_cidr_overprovision_config<T>(
         mut self,
         v: std::option::Option<T>,
@@ -3534,6 +4564,17 @@ impl NodeNetworkConfig {
     }
 
     /// Sets the value of [additional_node_network_configs][crate::model::NodeNetworkConfig::additional_node_network_configs].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NodeNetworkConfig;
+    /// use google_cloud_container_v1::model::AdditionalNodeNetworkConfig;
+    /// let x = NodeNetworkConfig::new()
+    ///     .set_additional_node_network_configs([
+    ///         AdditionalNodeNetworkConfig::default()/* use setters */,
+    ///         AdditionalNodeNetworkConfig::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_additional_node_network_configs<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3545,6 +4586,17 @@ impl NodeNetworkConfig {
     }
 
     /// Sets the value of [additional_pod_network_configs][crate::model::NodeNetworkConfig::additional_pod_network_configs].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NodeNetworkConfig;
+    /// use google_cloud_container_v1::model::AdditionalPodNetworkConfig;
+    /// let x = NodeNetworkConfig::new()
+    ///     .set_additional_pod_network_configs([
+    ///         AdditionalPodNetworkConfig::default()/* use setters */,
+    ///         AdditionalPodNetworkConfig::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_additional_pod_network_configs<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3556,18 +4608,37 @@ impl NodeNetworkConfig {
     }
 
     /// Sets the value of [pod_ipv4_range_utilization][crate::model::NodeNetworkConfig::pod_ipv4_range_utilization].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NodeNetworkConfig;
+    /// let x = NodeNetworkConfig::new().set_pod_ipv4_range_utilization(42.0);
+    /// ```
     pub fn set_pod_ipv4_range_utilization<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
         self.pod_ipv4_range_utilization = v.into();
         self
     }
 
     /// Sets the value of [subnetwork][crate::model::NodeNetworkConfig::subnetwork].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NodeNetworkConfig;
+    /// let x = NodeNetworkConfig::new().set_subnetwork("example");
+    /// ```
     pub fn set_subnetwork<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.subnetwork = v.into();
         self
     }
 
     /// Sets the value of [network_tier_config][crate::model::NodeNetworkConfig::network_tier_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NodeNetworkConfig;
+    /// use google_cloud_container_v1::model::NetworkTierConfig;
+    /// let x = NodeNetworkConfig::new().set_network_tier_config(NetworkTierConfig::default()/* use setters */);
+    /// ```
     pub fn set_network_tier_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::NetworkTierConfig>,
@@ -3577,6 +4648,14 @@ impl NodeNetworkConfig {
     }
 
     /// Sets or clears the value of [network_tier_config][crate::model::NodeNetworkConfig::network_tier_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NodeNetworkConfig;
+    /// use google_cloud_container_v1::model::NetworkTierConfig;
+    /// let x = NodeNetworkConfig::new().set_or_clear_network_tier_config(Some(NetworkTierConfig::default()/* use setters */));
+    /// let x = NodeNetworkConfig::new().set_or_clear_network_tier_config(None::<NetworkTierConfig>);
+    /// ```
     pub fn set_or_clear_network_tier_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::NetworkTierConfig>,
@@ -3615,6 +4694,13 @@ pub mod node_network_config {
         }
 
         /// Sets the value of [total_egress_bandwidth_tier][crate::model::node_network_config::NetworkPerformanceConfig::total_egress_bandwidth_tier].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_container_v1::model::node_network_config::NetworkPerformanceConfig;
+        /// use google_cloud_container_v1::model::node_network_config::network_performance_config::Tier;
+        /// let x0 = NetworkPerformanceConfig::new().set_total_egress_bandwidth_tier(Tier::Tier1);
+        /// ```
         pub fn set_total_egress_bandwidth_tier<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<
@@ -3626,6 +4712,14 @@ pub mod node_network_config {
         }
 
         /// Sets or clears the value of [total_egress_bandwidth_tier][crate::model::node_network_config::NetworkPerformanceConfig::total_egress_bandwidth_tier].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_container_v1::model::node_network_config::NetworkPerformanceConfig;
+        /// use google_cloud_container_v1::model::node_network_config::network_performance_config::Tier;
+        /// let x0 = NetworkPerformanceConfig::new().set_or_clear_total_egress_bandwidth_tier(Some(Tier::Tier1));
+        /// let x_none = NetworkPerformanceConfig::new().set_or_clear_total_egress_bandwidth_tier(None::<Tier>);
+        /// ```
         pub fn set_or_clear_total_egress_bandwidth_tier<T>(
             mut self,
             v: std::option::Option<T>,
@@ -3801,12 +4895,24 @@ impl AdditionalNodeNetworkConfig {
     }
 
     /// Sets the value of [network][crate::model::AdditionalNodeNetworkConfig::network].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::AdditionalNodeNetworkConfig;
+    /// let x = AdditionalNodeNetworkConfig::new().set_network("example");
+    /// ```
     pub fn set_network<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.network = v.into();
         self
     }
 
     /// Sets the value of [subnetwork][crate::model::AdditionalNodeNetworkConfig::subnetwork].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::AdditionalNodeNetworkConfig;
+    /// let x = AdditionalNodeNetworkConfig::new().set_subnetwork("example");
+    /// ```
     pub fn set_subnetwork<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.subnetwork = v.into();
         self
@@ -3843,12 +4949,24 @@ impl AdditionalPodNetworkConfig {
     }
 
     /// Sets the value of [subnetwork][crate::model::AdditionalPodNetworkConfig::subnetwork].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::AdditionalPodNetworkConfig;
+    /// let x = AdditionalPodNetworkConfig::new().set_subnetwork("example");
+    /// ```
     pub fn set_subnetwork<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.subnetwork = v.into();
         self
     }
 
     /// Sets the value of [secondary_pod_range][crate::model::AdditionalPodNetworkConfig::secondary_pod_range].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::AdditionalPodNetworkConfig;
+    /// let x = AdditionalPodNetworkConfig::new().set_secondary_pod_range("example");
+    /// ```
     pub fn set_secondary_pod_range<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -3858,6 +4976,13 @@ impl AdditionalPodNetworkConfig {
     }
 
     /// Sets the value of [max_pods_per_node][crate::model::AdditionalPodNetworkConfig::max_pods_per_node].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::AdditionalPodNetworkConfig;
+    /// use google_cloud_container_v1::model::MaxPodsConstraint;
+    /// let x = AdditionalPodNetworkConfig::new().set_max_pods_per_node(MaxPodsConstraint::default()/* use setters */);
+    /// ```
     pub fn set_max_pods_per_node<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::MaxPodsConstraint>,
@@ -3867,6 +4992,14 @@ impl AdditionalPodNetworkConfig {
     }
 
     /// Sets or clears the value of [max_pods_per_node][crate::model::AdditionalPodNetworkConfig::max_pods_per_node].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::AdditionalPodNetworkConfig;
+    /// use google_cloud_container_v1::model::MaxPodsConstraint;
+    /// let x = AdditionalPodNetworkConfig::new().set_or_clear_max_pods_per_node(Some(MaxPodsConstraint::default()/* use setters */));
+    /// let x = AdditionalPodNetworkConfig::new().set_or_clear_max_pods_per_node(None::<MaxPodsConstraint>);
+    /// ```
     pub fn set_or_clear_max_pods_per_node<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::MaxPodsConstraint>,
@@ -3910,12 +5043,24 @@ impl ShieldedInstanceConfig {
     }
 
     /// Sets the value of [enable_secure_boot][crate::model::ShieldedInstanceConfig::enable_secure_boot].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::ShieldedInstanceConfig;
+    /// let x = ShieldedInstanceConfig::new().set_enable_secure_boot(true);
+    /// ```
     pub fn set_enable_secure_boot<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.enable_secure_boot = v.into();
         self
     }
 
     /// Sets the value of [enable_integrity_monitoring][crate::model::ShieldedInstanceConfig::enable_integrity_monitoring].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::ShieldedInstanceConfig;
+    /// let x = ShieldedInstanceConfig::new().set_enable_integrity_monitoring(true);
+    /// ```
     pub fn set_enable_integrity_monitoring<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.enable_integrity_monitoring = v.into();
         self
@@ -3944,6 +5089,13 @@ impl SandboxConfig {
     }
 
     /// Sets the value of [r#type][crate::model::SandboxConfig::type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::SandboxConfig;
+    /// use google_cloud_container_v1::model::sandbox_config::Type;
+    /// let x0 = SandboxConfig::new().set_type(Type::Gvisor);
+    /// ```
     pub fn set_type<T: std::convert::Into<crate::model::sandbox_config::Type>>(
         mut self,
         v: T,
@@ -4107,6 +5259,12 @@ impl GcfsConfig {
     }
 
     /// Sets the value of [enabled][crate::model::GcfsConfig::enabled].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::GcfsConfig;
+    /// let x = GcfsConfig::new().set_enabled(true);
+    /// ```
     pub fn set_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.enabled = v.into();
         self
@@ -4146,6 +5304,15 @@ impl ReservationAffinity {
     }
 
     /// Sets the value of [consume_reservation_type][crate::model::ReservationAffinity::consume_reservation_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::ReservationAffinity;
+    /// use google_cloud_container_v1::model::reservation_affinity::Type;
+    /// let x0 = ReservationAffinity::new().set_consume_reservation_type(Type::NoReservation);
+    /// let x1 = ReservationAffinity::new().set_consume_reservation_type(Type::AnyReservation);
+    /// let x2 = ReservationAffinity::new().set_consume_reservation_type(Type::SpecificReservation);
+    /// ```
     pub fn set_consume_reservation_type<
         T: std::convert::Into<crate::model::reservation_affinity::Type>,
     >(
@@ -4157,12 +5324,24 @@ impl ReservationAffinity {
     }
 
     /// Sets the value of [key][crate::model::ReservationAffinity::key].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::ReservationAffinity;
+    /// let x = ReservationAffinity::new().set_key("example");
+    /// ```
     pub fn set_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.key = v.into();
         self
     }
 
     /// Sets the value of [values][crate::model::ReservationAffinity::values].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::ReservationAffinity;
+    /// let x = ReservationAffinity::new().set_values(["a", "b", "c"]);
+    /// ```
     pub fn set_values<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4348,6 +5527,17 @@ impl SoleTenantConfig {
     }
 
     /// Sets the value of [node_affinities][crate::model::SoleTenantConfig::node_affinities].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::SoleTenantConfig;
+    /// use google_cloud_container_v1::model::sole_tenant_config::NodeAffinity;
+    /// let x = SoleTenantConfig::new()
+    ///     .set_node_affinities([
+    ///         NodeAffinity::default()/* use setters */,
+    ///         NodeAffinity::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_node_affinities<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4359,6 +5549,12 @@ impl SoleTenantConfig {
     }
 
     /// Sets the value of [min_node_cpus][crate::model::SoleTenantConfig::min_node_cpus].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::SoleTenantConfig;
+    /// let x = SoleTenantConfig::new().set_min_node_cpus(42);
+    /// ```
     pub fn set_min_node_cpus<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<i32>,
@@ -4368,6 +5564,13 @@ impl SoleTenantConfig {
     }
 
     /// Sets or clears the value of [min_node_cpus][crate::model::SoleTenantConfig::min_node_cpus].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::SoleTenantConfig;
+    /// let x = SoleTenantConfig::new().set_or_clear_min_node_cpus(Some(42));
+    /// let x = SoleTenantConfig::new().set_or_clear_min_node_cpus(None::<i32>);
+    /// ```
     pub fn set_or_clear_min_node_cpus<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i32>,
@@ -4412,12 +5615,26 @@ pub mod sole_tenant_config {
         }
 
         /// Sets the value of [key][crate::model::sole_tenant_config::NodeAffinity::key].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_container_v1::model::sole_tenant_config::NodeAffinity;
+        /// let x = NodeAffinity::new().set_key("example");
+        /// ```
         pub fn set_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.key = v.into();
             self
         }
 
         /// Sets the value of [operator][crate::model::sole_tenant_config::NodeAffinity::operator].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_container_v1::model::sole_tenant_config::NodeAffinity;
+        /// use google_cloud_container_v1::model::sole_tenant_config::node_affinity::Operator;
+        /// let x0 = NodeAffinity::new().set_operator(Operator::In);
+        /// let x1 = NodeAffinity::new().set_operator(Operator::NotIn);
+        /// ```
         pub fn set_operator<
             T: std::convert::Into<crate::model::sole_tenant_config::node_affinity::Operator>,
         >(
@@ -4429,6 +5646,12 @@ pub mod sole_tenant_config {
         }
 
         /// Sets the value of [values][crate::model::sole_tenant_config::NodeAffinity::values].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_container_v1::model::sole_tenant_config::NodeAffinity;
+        /// let x = NodeAffinity::new().set_values(["a", "b", "c"]);
+        /// ```
         pub fn set_values<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -4611,6 +5834,13 @@ impl ContainerdConfig {
     }
 
     /// Sets the value of [private_registry_access_config][crate::model::ContainerdConfig::private_registry_access_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::ContainerdConfig;
+    /// use google_cloud_container_v1::model::containerd_config::PrivateRegistryAccessConfig;
+    /// let x = ContainerdConfig::new().set_private_registry_access_config(PrivateRegistryAccessConfig::default()/* use setters */);
+    /// ```
     pub fn set_private_registry_access_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::containerd_config::PrivateRegistryAccessConfig>,
@@ -4620,6 +5850,14 @@ impl ContainerdConfig {
     }
 
     /// Sets or clears the value of [private_registry_access_config][crate::model::ContainerdConfig::private_registry_access_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::ContainerdConfig;
+    /// use google_cloud_container_v1::model::containerd_config::PrivateRegistryAccessConfig;
+    /// let x = ContainerdConfig::new().set_or_clear_private_registry_access_config(Some(PrivateRegistryAccessConfig::default()/* use setters */));
+    /// let x = ContainerdConfig::new().set_or_clear_private_registry_access_config(None::<PrivateRegistryAccessConfig>);
+    /// ```
     pub fn set_or_clear_private_registry_access_config<T>(
         mut self,
         v: std::option::Option<T>,
@@ -4632,6 +5870,13 @@ impl ContainerdConfig {
     }
 
     /// Sets the value of [writable_cgroups][crate::model::ContainerdConfig::writable_cgroups].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::ContainerdConfig;
+    /// use google_cloud_container_v1::model::containerd_config::WritableCgroups;
+    /// let x = ContainerdConfig::new().set_writable_cgroups(WritableCgroups::default()/* use setters */);
+    /// ```
     pub fn set_writable_cgroups<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::containerd_config::WritableCgroups>,
@@ -4641,6 +5886,14 @@ impl ContainerdConfig {
     }
 
     /// Sets or clears the value of [writable_cgroups][crate::model::ContainerdConfig::writable_cgroups].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::ContainerdConfig;
+    /// use google_cloud_container_v1::model::containerd_config::WritableCgroups;
+    /// let x = ContainerdConfig::new().set_or_clear_writable_cgroups(Some(WritableCgroups::default()/* use setters */));
+    /// let x = ContainerdConfig::new().set_or_clear_writable_cgroups(None::<WritableCgroups>);
+    /// ```
     pub fn set_or_clear_writable_cgroups<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::containerd_config::WritableCgroups>,
@@ -4682,12 +5935,29 @@ pub mod containerd_config {
         }
 
         /// Sets the value of [enabled][crate::model::containerd_config::PrivateRegistryAccessConfig::enabled].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_container_v1::model::containerd_config::PrivateRegistryAccessConfig;
+        /// let x = PrivateRegistryAccessConfig::new().set_enabled(true);
+        /// ```
         pub fn set_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.enabled = v.into();
             self
         }
 
         /// Sets the value of [certificate_authority_domain_config][crate::model::containerd_config::PrivateRegistryAccessConfig::certificate_authority_domain_config].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_container_v1::model::containerd_config::PrivateRegistryAccessConfig;
+        /// use google_cloud_container_v1::model::containerd_config::private_registry_access_config::CertificateAuthorityDomainConfig;
+        /// let x = PrivateRegistryAccessConfig::new()
+        ///     .set_certificate_authority_domain_config([
+        ///         CertificateAuthorityDomainConfig::default()/* use setters */,
+        ///         CertificateAuthorityDomainConfig::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
         pub fn set_certificate_authority_domain_config<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -4739,6 +6009,12 @@ pub mod containerd_config {
             }
 
             /// Sets the value of [fqdns][crate::model::containerd_config::private_registry_access_config::CertificateAuthorityDomainConfig::fqdns].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_container_v1::model::containerd_config::private_registry_access_config::CertificateAuthorityDomainConfig;
+            /// let x = CertificateAuthorityDomainConfig::new().set_fqdns(["a", "b", "c"]);
+            /// ```
             pub fn set_fqdns<T, V>(mut self, v: T) -> Self
             where
                 T: std::iter::IntoIterator<Item = V>,
@@ -4753,6 +6029,14 @@ pub mod containerd_config {
             ///
             /// Note that all the setters affecting `certificate_config` are mutually
             /// exclusive.
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_container_v1::model::containerd_config::private_registry_access_config::CertificateAuthorityDomainConfig;
+            /// use google_cloud_container_v1::model::containerd_config::private_registry_access_config::certificate_authority_domain_config;
+            /// use google_cloud_container_v1::model::containerd_config::private_registry_access_config::certificate_authority_domain_config::GCPSecretManagerCertificateConfig;
+            /// let x = CertificateAuthorityDomainConfig::new().set_certificate_config(Some(containerd_config::private_registry_access_config::certificate_authority_domain_config::CertificateConfig::GcpSecretManagerCertificateConfig(GCPSecretManagerCertificateConfig::default().into())));
+            /// ```
             pub fn set_certificate_config<T: std::convert::Into<std::option::Option<crate::model::containerd_config::private_registry_access_config::certificate_authority_domain_config::CertificateConfig>>>(mut self, v: T) -> Self
             {
                 self.certificate_config = v.into();
@@ -4775,6 +6059,14 @@ pub mod containerd_config {
             ///
             /// Note that all the setters affecting `certificate_config` are
             /// mutually exclusive.
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_container_v1::model::containerd_config::private_registry_access_config::CertificateAuthorityDomainConfig;
+            /// use google_cloud_container_v1::model::containerd_config::private_registry_access_config::certificate_authority_domain_config::GCPSecretManagerCertificateConfig;
+            /// let x = CertificateAuthorityDomainConfig::new().set_gcp_secret_manager_certificate_config(GCPSecretManagerCertificateConfig::default()/* use setters */);
+            /// assert!(x.gcp_secret_manager_certificate_config().is_some());
+            /// ```
             pub fn set_gcp_secret_manager_certificate_config<T: std::convert::Into<std::boxed::Box<crate::model::containerd_config::private_registry_access_config::certificate_authority_domain_config::GCPSecretManagerCertificateConfig>>>(mut self, v: T) -> Self{
                 self.certificate_config = std::option::Option::Some(
                     crate::model::containerd_config::private_registry_access_config::certificate_authority_domain_config::CertificateConfig::GcpSecretManagerCertificateConfig(
@@ -4815,6 +6107,12 @@ pub mod containerd_config {
                 }
 
                 /// Sets the value of [secret_uri][crate::model::containerd_config::private_registry_access_config::certificate_authority_domain_config::GCPSecretManagerCertificateConfig::secret_uri].
+                ///
+                /// # Example
+                /// ```
+                /// # use google_cloud_container_v1::model::containerd_config::private_registry_access_config::certificate_authority_domain_config::GCPSecretManagerCertificateConfig;
+                /// let x = GCPSecretManagerCertificateConfig::new().set_secret_uri("example");
+                /// ```
                 pub fn set_secret_uri<T: std::convert::Into<std::string::String>>(
                     mut self,
                     v: T,
@@ -4858,6 +6156,12 @@ pub mod containerd_config {
         }
 
         /// Sets the value of [enabled][crate::model::containerd_config::WritableCgroups::enabled].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_container_v1::model::containerd_config::WritableCgroups;
+        /// let x = WritableCgroups::new().set_enabled(true);
+        /// ```
         pub fn set_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.enabled = v.into();
             self
@@ -4898,18 +6202,39 @@ impl NodeTaint {
     }
 
     /// Sets the value of [key][crate::model::NodeTaint::key].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NodeTaint;
+    /// let x = NodeTaint::new().set_key("example");
+    /// ```
     pub fn set_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.key = v.into();
         self
     }
 
     /// Sets the value of [value][crate::model::NodeTaint::value].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NodeTaint;
+    /// let x = NodeTaint::new().set_value("example");
+    /// ```
     pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.value = v.into();
         self
     }
 
     /// Sets the value of [effect][crate::model::NodeTaint::effect].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NodeTaint;
+    /// use google_cloud_container_v1::model::node_taint::Effect;
+    /// let x0 = NodeTaint::new().set_effect(Effect::NoSchedule);
+    /// let x1 = NodeTaint::new().set_effect(Effect::PreferNoSchedule);
+    /// let x2 = NodeTaint::new().set_effect(Effect::NoExecute);
+    /// ```
     pub fn set_effect<T: std::convert::Into<crate::model::node_taint::Effect>>(
         mut self,
         v: T,
@@ -5087,6 +6412,17 @@ impl NodeTaints {
     }
 
     /// Sets the value of [taints][crate::model::NodeTaints::taints].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NodeTaints;
+    /// use google_cloud_container_v1::model::NodeTaint;
+    /// let x = NodeTaints::new()
+    ///     .set_taints([
+    ///         NodeTaint::default()/* use setters */,
+    ///         NodeTaint::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_taints<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -5121,6 +6457,15 @@ impl NodeLabels {
     }
 
     /// Sets the value of [labels][crate::model::NodeLabels::labels].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NodeLabels;
+    /// let x = NodeLabels::new().set_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -5156,6 +6501,15 @@ impl ResourceLabels {
     }
 
     /// Sets the value of [labels][crate::model::ResourceLabels::labels].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::ResourceLabels;
+    /// let x = ResourceLabels::new().set_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -5191,6 +6545,12 @@ impl NetworkTags {
     }
 
     /// Sets the value of [tags][crate::model::NetworkTags::tags].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NetworkTags;
+    /// let x = NetworkTags::new().set_tags(["a", "b", "c"]);
+    /// ```
     pub fn set_tags<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -5264,6 +6624,12 @@ impl MasterAuth {
     }
 
     /// Sets the value of [username][crate::model::MasterAuth::username].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::MasterAuth;
+    /// let x = MasterAuth::new().set_username("example");
+    /// ```
     #[deprecated]
     pub fn set_username<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.username = v.into();
@@ -5271,6 +6637,12 @@ impl MasterAuth {
     }
 
     /// Sets the value of [password][crate::model::MasterAuth::password].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::MasterAuth;
+    /// let x = MasterAuth::new().set_password("example");
+    /// ```
     #[deprecated]
     pub fn set_password<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.password = v.into();
@@ -5278,6 +6650,13 @@ impl MasterAuth {
     }
 
     /// Sets the value of [client_certificate_config][crate::model::MasterAuth::client_certificate_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::MasterAuth;
+    /// use google_cloud_container_v1::model::ClientCertificateConfig;
+    /// let x = MasterAuth::new().set_client_certificate_config(ClientCertificateConfig::default()/* use setters */);
+    /// ```
     pub fn set_client_certificate_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ClientCertificateConfig>,
@@ -5287,6 +6666,14 @@ impl MasterAuth {
     }
 
     /// Sets or clears the value of [client_certificate_config][crate::model::MasterAuth::client_certificate_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::MasterAuth;
+    /// use google_cloud_container_v1::model::ClientCertificateConfig;
+    /// let x = MasterAuth::new().set_or_clear_client_certificate_config(Some(ClientCertificateConfig::default()/* use setters */));
+    /// let x = MasterAuth::new().set_or_clear_client_certificate_config(None::<ClientCertificateConfig>);
+    /// ```
     pub fn set_or_clear_client_certificate_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ClientCertificateConfig>,
@@ -5296,6 +6683,12 @@ impl MasterAuth {
     }
 
     /// Sets the value of [cluster_ca_certificate][crate::model::MasterAuth::cluster_ca_certificate].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::MasterAuth;
+    /// let x = MasterAuth::new().set_cluster_ca_certificate("example");
+    /// ```
     pub fn set_cluster_ca_certificate<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -5305,6 +6698,12 @@ impl MasterAuth {
     }
 
     /// Sets the value of [client_certificate][crate::model::MasterAuth::client_certificate].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::MasterAuth;
+    /// let x = MasterAuth::new().set_client_certificate("example");
+    /// ```
     pub fn set_client_certificate<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -5314,6 +6713,12 @@ impl MasterAuth {
     }
 
     /// Sets the value of [client_key][crate::model::MasterAuth::client_key].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::MasterAuth;
+    /// let x = MasterAuth::new().set_client_key("example");
+    /// ```
     pub fn set_client_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.client_key = v.into();
         self
@@ -5342,6 +6747,12 @@ impl ClientCertificateConfig {
     }
 
     /// Sets the value of [issue_client_certificate][crate::model::ClientCertificateConfig::issue_client_certificate].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::ClientCertificateConfig;
+    /// let x = ClientCertificateConfig::new().set_issue_client_certificate(true);
+    /// ```
     pub fn set_issue_client_certificate<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.issue_client_certificate = v.into();
         self
@@ -5433,6 +6844,13 @@ impl AddonsConfig {
     }
 
     /// Sets the value of [http_load_balancing][crate::model::AddonsConfig::http_load_balancing].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::AddonsConfig;
+    /// use google_cloud_container_v1::model::HttpLoadBalancing;
+    /// let x = AddonsConfig::new().set_http_load_balancing(HttpLoadBalancing::default()/* use setters */);
+    /// ```
     pub fn set_http_load_balancing<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::HttpLoadBalancing>,
@@ -5442,6 +6860,14 @@ impl AddonsConfig {
     }
 
     /// Sets or clears the value of [http_load_balancing][crate::model::AddonsConfig::http_load_balancing].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::AddonsConfig;
+    /// use google_cloud_container_v1::model::HttpLoadBalancing;
+    /// let x = AddonsConfig::new().set_or_clear_http_load_balancing(Some(HttpLoadBalancing::default()/* use setters */));
+    /// let x = AddonsConfig::new().set_or_clear_http_load_balancing(None::<HttpLoadBalancing>);
+    /// ```
     pub fn set_or_clear_http_load_balancing<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::HttpLoadBalancing>,
@@ -5451,6 +6877,13 @@ impl AddonsConfig {
     }
 
     /// Sets the value of [horizontal_pod_autoscaling][crate::model::AddonsConfig::horizontal_pod_autoscaling].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::AddonsConfig;
+    /// use google_cloud_container_v1::model::HorizontalPodAutoscaling;
+    /// let x = AddonsConfig::new().set_horizontal_pod_autoscaling(HorizontalPodAutoscaling::default()/* use setters */);
+    /// ```
     pub fn set_horizontal_pod_autoscaling<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::HorizontalPodAutoscaling>,
@@ -5460,6 +6893,14 @@ impl AddonsConfig {
     }
 
     /// Sets or clears the value of [horizontal_pod_autoscaling][crate::model::AddonsConfig::horizontal_pod_autoscaling].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::AddonsConfig;
+    /// use google_cloud_container_v1::model::HorizontalPodAutoscaling;
+    /// let x = AddonsConfig::new().set_or_clear_horizontal_pod_autoscaling(Some(HorizontalPodAutoscaling::default()/* use setters */));
+    /// let x = AddonsConfig::new().set_or_clear_horizontal_pod_autoscaling(None::<HorizontalPodAutoscaling>);
+    /// ```
     pub fn set_or_clear_horizontal_pod_autoscaling<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::HorizontalPodAutoscaling>,
@@ -5469,6 +6910,13 @@ impl AddonsConfig {
     }
 
     /// Sets the value of [kubernetes_dashboard][crate::model::AddonsConfig::kubernetes_dashboard].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::AddonsConfig;
+    /// use google_cloud_container_v1::model::KubernetesDashboard;
+    /// let x = AddonsConfig::new().set_kubernetes_dashboard(KubernetesDashboard::default()/* use setters */);
+    /// ```
     #[deprecated]
     pub fn set_kubernetes_dashboard<T>(mut self, v: T) -> Self
     where
@@ -5479,6 +6927,14 @@ impl AddonsConfig {
     }
 
     /// Sets or clears the value of [kubernetes_dashboard][crate::model::AddonsConfig::kubernetes_dashboard].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::AddonsConfig;
+    /// use google_cloud_container_v1::model::KubernetesDashboard;
+    /// let x = AddonsConfig::new().set_or_clear_kubernetes_dashboard(Some(KubernetesDashboard::default()/* use setters */));
+    /// let x = AddonsConfig::new().set_or_clear_kubernetes_dashboard(None::<KubernetesDashboard>);
+    /// ```
     #[deprecated]
     pub fn set_or_clear_kubernetes_dashboard<T>(mut self, v: std::option::Option<T>) -> Self
     where
@@ -5489,6 +6945,13 @@ impl AddonsConfig {
     }
 
     /// Sets the value of [network_policy_config][crate::model::AddonsConfig::network_policy_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::AddonsConfig;
+    /// use google_cloud_container_v1::model::NetworkPolicyConfig;
+    /// let x = AddonsConfig::new().set_network_policy_config(NetworkPolicyConfig::default()/* use setters */);
+    /// ```
     pub fn set_network_policy_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::NetworkPolicyConfig>,
@@ -5498,6 +6961,14 @@ impl AddonsConfig {
     }
 
     /// Sets or clears the value of [network_policy_config][crate::model::AddonsConfig::network_policy_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::AddonsConfig;
+    /// use google_cloud_container_v1::model::NetworkPolicyConfig;
+    /// let x = AddonsConfig::new().set_or_clear_network_policy_config(Some(NetworkPolicyConfig::default()/* use setters */));
+    /// let x = AddonsConfig::new().set_or_clear_network_policy_config(None::<NetworkPolicyConfig>);
+    /// ```
     pub fn set_or_clear_network_policy_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::NetworkPolicyConfig>,
@@ -5507,6 +6978,13 @@ impl AddonsConfig {
     }
 
     /// Sets the value of [cloud_run_config][crate::model::AddonsConfig::cloud_run_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::AddonsConfig;
+    /// use google_cloud_container_v1::model::CloudRunConfig;
+    /// let x = AddonsConfig::new().set_cloud_run_config(CloudRunConfig::default()/* use setters */);
+    /// ```
     pub fn set_cloud_run_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::CloudRunConfig>,
@@ -5516,6 +6994,14 @@ impl AddonsConfig {
     }
 
     /// Sets or clears the value of [cloud_run_config][crate::model::AddonsConfig::cloud_run_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::AddonsConfig;
+    /// use google_cloud_container_v1::model::CloudRunConfig;
+    /// let x = AddonsConfig::new().set_or_clear_cloud_run_config(Some(CloudRunConfig::default()/* use setters */));
+    /// let x = AddonsConfig::new().set_or_clear_cloud_run_config(None::<CloudRunConfig>);
+    /// ```
     pub fn set_or_clear_cloud_run_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CloudRunConfig>,
@@ -5525,6 +7011,13 @@ impl AddonsConfig {
     }
 
     /// Sets the value of [dns_cache_config][crate::model::AddonsConfig::dns_cache_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::AddonsConfig;
+    /// use google_cloud_container_v1::model::DnsCacheConfig;
+    /// let x = AddonsConfig::new().set_dns_cache_config(DnsCacheConfig::default()/* use setters */);
+    /// ```
     pub fn set_dns_cache_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::DnsCacheConfig>,
@@ -5534,6 +7027,14 @@ impl AddonsConfig {
     }
 
     /// Sets or clears the value of [dns_cache_config][crate::model::AddonsConfig::dns_cache_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::AddonsConfig;
+    /// use google_cloud_container_v1::model::DnsCacheConfig;
+    /// let x = AddonsConfig::new().set_or_clear_dns_cache_config(Some(DnsCacheConfig::default()/* use setters */));
+    /// let x = AddonsConfig::new().set_or_clear_dns_cache_config(None::<DnsCacheConfig>);
+    /// ```
     pub fn set_or_clear_dns_cache_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DnsCacheConfig>,
@@ -5543,6 +7044,13 @@ impl AddonsConfig {
     }
 
     /// Sets the value of [config_connector_config][crate::model::AddonsConfig::config_connector_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::AddonsConfig;
+    /// use google_cloud_container_v1::model::ConfigConnectorConfig;
+    /// let x = AddonsConfig::new().set_config_connector_config(ConfigConnectorConfig::default()/* use setters */);
+    /// ```
     pub fn set_config_connector_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ConfigConnectorConfig>,
@@ -5552,6 +7060,14 @@ impl AddonsConfig {
     }
 
     /// Sets or clears the value of [config_connector_config][crate::model::AddonsConfig::config_connector_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::AddonsConfig;
+    /// use google_cloud_container_v1::model::ConfigConnectorConfig;
+    /// let x = AddonsConfig::new().set_or_clear_config_connector_config(Some(ConfigConnectorConfig::default()/* use setters */));
+    /// let x = AddonsConfig::new().set_or_clear_config_connector_config(None::<ConfigConnectorConfig>);
+    /// ```
     pub fn set_or_clear_config_connector_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ConfigConnectorConfig>,
@@ -5561,6 +7077,13 @@ impl AddonsConfig {
     }
 
     /// Sets the value of [gce_persistent_disk_csi_driver_config][crate::model::AddonsConfig::gce_persistent_disk_csi_driver_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::AddonsConfig;
+    /// use google_cloud_container_v1::model::GcePersistentDiskCsiDriverConfig;
+    /// let x = AddonsConfig::new().set_gce_persistent_disk_csi_driver_config(GcePersistentDiskCsiDriverConfig::default()/* use setters */);
+    /// ```
     pub fn set_gce_persistent_disk_csi_driver_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::GcePersistentDiskCsiDriverConfig>,
@@ -5570,6 +7093,14 @@ impl AddonsConfig {
     }
 
     /// Sets or clears the value of [gce_persistent_disk_csi_driver_config][crate::model::AddonsConfig::gce_persistent_disk_csi_driver_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::AddonsConfig;
+    /// use google_cloud_container_v1::model::GcePersistentDiskCsiDriverConfig;
+    /// let x = AddonsConfig::new().set_or_clear_gce_persistent_disk_csi_driver_config(Some(GcePersistentDiskCsiDriverConfig::default()/* use setters */));
+    /// let x = AddonsConfig::new().set_or_clear_gce_persistent_disk_csi_driver_config(None::<GcePersistentDiskCsiDriverConfig>);
+    /// ```
     pub fn set_or_clear_gce_persistent_disk_csi_driver_config<T>(
         mut self,
         v: std::option::Option<T>,
@@ -5582,6 +7113,13 @@ impl AddonsConfig {
     }
 
     /// Sets the value of [gcp_filestore_csi_driver_config][crate::model::AddonsConfig::gcp_filestore_csi_driver_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::AddonsConfig;
+    /// use google_cloud_container_v1::model::GcpFilestoreCsiDriverConfig;
+    /// let x = AddonsConfig::new().set_gcp_filestore_csi_driver_config(GcpFilestoreCsiDriverConfig::default()/* use setters */);
+    /// ```
     pub fn set_gcp_filestore_csi_driver_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::GcpFilestoreCsiDriverConfig>,
@@ -5591,6 +7129,14 @@ impl AddonsConfig {
     }
 
     /// Sets or clears the value of [gcp_filestore_csi_driver_config][crate::model::AddonsConfig::gcp_filestore_csi_driver_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::AddonsConfig;
+    /// use google_cloud_container_v1::model::GcpFilestoreCsiDriverConfig;
+    /// let x = AddonsConfig::new().set_or_clear_gcp_filestore_csi_driver_config(Some(GcpFilestoreCsiDriverConfig::default()/* use setters */));
+    /// let x = AddonsConfig::new().set_or_clear_gcp_filestore_csi_driver_config(None::<GcpFilestoreCsiDriverConfig>);
+    /// ```
     pub fn set_or_clear_gcp_filestore_csi_driver_config<T>(
         mut self,
         v: std::option::Option<T>,
@@ -5603,6 +7149,13 @@ impl AddonsConfig {
     }
 
     /// Sets the value of [gke_backup_agent_config][crate::model::AddonsConfig::gke_backup_agent_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::AddonsConfig;
+    /// use google_cloud_container_v1::model::GkeBackupAgentConfig;
+    /// let x = AddonsConfig::new().set_gke_backup_agent_config(GkeBackupAgentConfig::default()/* use setters */);
+    /// ```
     pub fn set_gke_backup_agent_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::GkeBackupAgentConfig>,
@@ -5612,6 +7165,14 @@ impl AddonsConfig {
     }
 
     /// Sets or clears the value of [gke_backup_agent_config][crate::model::AddonsConfig::gke_backup_agent_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::AddonsConfig;
+    /// use google_cloud_container_v1::model::GkeBackupAgentConfig;
+    /// let x = AddonsConfig::new().set_or_clear_gke_backup_agent_config(Some(GkeBackupAgentConfig::default()/* use setters */));
+    /// let x = AddonsConfig::new().set_or_clear_gke_backup_agent_config(None::<GkeBackupAgentConfig>);
+    /// ```
     pub fn set_or_clear_gke_backup_agent_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::GkeBackupAgentConfig>,
@@ -5621,6 +7182,13 @@ impl AddonsConfig {
     }
 
     /// Sets the value of [gcs_fuse_csi_driver_config][crate::model::AddonsConfig::gcs_fuse_csi_driver_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::AddonsConfig;
+    /// use google_cloud_container_v1::model::GcsFuseCsiDriverConfig;
+    /// let x = AddonsConfig::new().set_gcs_fuse_csi_driver_config(GcsFuseCsiDriverConfig::default()/* use setters */);
+    /// ```
     pub fn set_gcs_fuse_csi_driver_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::GcsFuseCsiDriverConfig>,
@@ -5630,6 +7198,14 @@ impl AddonsConfig {
     }
 
     /// Sets or clears the value of [gcs_fuse_csi_driver_config][crate::model::AddonsConfig::gcs_fuse_csi_driver_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::AddonsConfig;
+    /// use google_cloud_container_v1::model::GcsFuseCsiDriverConfig;
+    /// let x = AddonsConfig::new().set_or_clear_gcs_fuse_csi_driver_config(Some(GcsFuseCsiDriverConfig::default()/* use setters */));
+    /// let x = AddonsConfig::new().set_or_clear_gcs_fuse_csi_driver_config(None::<GcsFuseCsiDriverConfig>);
+    /// ```
     pub fn set_or_clear_gcs_fuse_csi_driver_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::GcsFuseCsiDriverConfig>,
@@ -5639,6 +7215,13 @@ impl AddonsConfig {
     }
 
     /// Sets the value of [stateful_ha_config][crate::model::AddonsConfig::stateful_ha_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::AddonsConfig;
+    /// use google_cloud_container_v1::model::StatefulHAConfig;
+    /// let x = AddonsConfig::new().set_stateful_ha_config(StatefulHAConfig::default()/* use setters */);
+    /// ```
     pub fn set_stateful_ha_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::StatefulHAConfig>,
@@ -5648,6 +7231,14 @@ impl AddonsConfig {
     }
 
     /// Sets or clears the value of [stateful_ha_config][crate::model::AddonsConfig::stateful_ha_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::AddonsConfig;
+    /// use google_cloud_container_v1::model::StatefulHAConfig;
+    /// let x = AddonsConfig::new().set_or_clear_stateful_ha_config(Some(StatefulHAConfig::default()/* use setters */));
+    /// let x = AddonsConfig::new().set_or_clear_stateful_ha_config(None::<StatefulHAConfig>);
+    /// ```
     pub fn set_or_clear_stateful_ha_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::StatefulHAConfig>,
@@ -5657,6 +7248,13 @@ impl AddonsConfig {
     }
 
     /// Sets the value of [parallelstore_csi_driver_config][crate::model::AddonsConfig::parallelstore_csi_driver_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::AddonsConfig;
+    /// use google_cloud_container_v1::model::ParallelstoreCsiDriverConfig;
+    /// let x = AddonsConfig::new().set_parallelstore_csi_driver_config(ParallelstoreCsiDriverConfig::default()/* use setters */);
+    /// ```
     pub fn set_parallelstore_csi_driver_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ParallelstoreCsiDriverConfig>,
@@ -5666,6 +7264,14 @@ impl AddonsConfig {
     }
 
     /// Sets or clears the value of [parallelstore_csi_driver_config][crate::model::AddonsConfig::parallelstore_csi_driver_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::AddonsConfig;
+    /// use google_cloud_container_v1::model::ParallelstoreCsiDriverConfig;
+    /// let x = AddonsConfig::new().set_or_clear_parallelstore_csi_driver_config(Some(ParallelstoreCsiDriverConfig::default()/* use setters */));
+    /// let x = AddonsConfig::new().set_or_clear_parallelstore_csi_driver_config(None::<ParallelstoreCsiDriverConfig>);
+    /// ```
     pub fn set_or_clear_parallelstore_csi_driver_config<T>(
         mut self,
         v: std::option::Option<T>,
@@ -5678,6 +7284,13 @@ impl AddonsConfig {
     }
 
     /// Sets the value of [ray_operator_config][crate::model::AddonsConfig::ray_operator_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::AddonsConfig;
+    /// use google_cloud_container_v1::model::RayOperatorConfig;
+    /// let x = AddonsConfig::new().set_ray_operator_config(RayOperatorConfig::default()/* use setters */);
+    /// ```
     pub fn set_ray_operator_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::RayOperatorConfig>,
@@ -5687,6 +7300,14 @@ impl AddonsConfig {
     }
 
     /// Sets or clears the value of [ray_operator_config][crate::model::AddonsConfig::ray_operator_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::AddonsConfig;
+    /// use google_cloud_container_v1::model::RayOperatorConfig;
+    /// let x = AddonsConfig::new().set_or_clear_ray_operator_config(Some(RayOperatorConfig::default()/* use setters */));
+    /// let x = AddonsConfig::new().set_or_clear_ray_operator_config(None::<RayOperatorConfig>);
+    /// ```
     pub fn set_or_clear_ray_operator_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::RayOperatorConfig>,
@@ -5696,6 +7317,13 @@ impl AddonsConfig {
     }
 
     /// Sets the value of [high_scale_checkpointing_config][crate::model::AddonsConfig::high_scale_checkpointing_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::AddonsConfig;
+    /// use google_cloud_container_v1::model::HighScaleCheckpointingConfig;
+    /// let x = AddonsConfig::new().set_high_scale_checkpointing_config(HighScaleCheckpointingConfig::default()/* use setters */);
+    /// ```
     pub fn set_high_scale_checkpointing_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::HighScaleCheckpointingConfig>,
@@ -5705,6 +7333,14 @@ impl AddonsConfig {
     }
 
     /// Sets or clears the value of [high_scale_checkpointing_config][crate::model::AddonsConfig::high_scale_checkpointing_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::AddonsConfig;
+    /// use google_cloud_container_v1::model::HighScaleCheckpointingConfig;
+    /// let x = AddonsConfig::new().set_or_clear_high_scale_checkpointing_config(Some(HighScaleCheckpointingConfig::default()/* use setters */));
+    /// let x = AddonsConfig::new().set_or_clear_high_scale_checkpointing_config(None::<HighScaleCheckpointingConfig>);
+    /// ```
     pub fn set_or_clear_high_scale_checkpointing_config<T>(
         mut self,
         v: std::option::Option<T>,
@@ -5717,6 +7353,13 @@ impl AddonsConfig {
     }
 
     /// Sets the value of [lustre_csi_driver_config][crate::model::AddonsConfig::lustre_csi_driver_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::AddonsConfig;
+    /// use google_cloud_container_v1::model::LustreCsiDriverConfig;
+    /// let x = AddonsConfig::new().set_lustre_csi_driver_config(LustreCsiDriverConfig::default()/* use setters */);
+    /// ```
     pub fn set_lustre_csi_driver_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::LustreCsiDriverConfig>,
@@ -5726,6 +7369,14 @@ impl AddonsConfig {
     }
 
     /// Sets or clears the value of [lustre_csi_driver_config][crate::model::AddonsConfig::lustre_csi_driver_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::AddonsConfig;
+    /// use google_cloud_container_v1::model::LustreCsiDriverConfig;
+    /// let x = AddonsConfig::new().set_or_clear_lustre_csi_driver_config(Some(LustreCsiDriverConfig::default()/* use setters */));
+    /// let x = AddonsConfig::new().set_or_clear_lustre_csi_driver_config(None::<LustreCsiDriverConfig>);
+    /// ```
     pub fn set_or_clear_lustre_csi_driver_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::LustreCsiDriverConfig>,
@@ -5760,6 +7411,12 @@ impl HttpLoadBalancing {
     }
 
     /// Sets the value of [disabled][crate::model::HttpLoadBalancing::disabled].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::HttpLoadBalancing;
+    /// let x = HttpLoadBalancing::new().set_disabled(true);
+    /// ```
     pub fn set_disabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.disabled = v.into();
         self
@@ -5792,6 +7449,12 @@ impl HorizontalPodAutoscaling {
     }
 
     /// Sets the value of [disabled][crate::model::HorizontalPodAutoscaling::disabled].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::HorizontalPodAutoscaling;
+    /// let x = HorizontalPodAutoscaling::new().set_disabled(true);
+    /// ```
     pub fn set_disabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.disabled = v.into();
         self
@@ -5820,6 +7483,12 @@ impl KubernetesDashboard {
     }
 
     /// Sets the value of [disabled][crate::model::KubernetesDashboard::disabled].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::KubernetesDashboard;
+    /// let x = KubernetesDashboard::new().set_disabled(true);
+    /// ```
     pub fn set_disabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.disabled = v.into();
         self
@@ -5850,6 +7519,12 @@ impl NetworkPolicyConfig {
     }
 
     /// Sets the value of [disabled][crate::model::NetworkPolicyConfig::disabled].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NetworkPolicyConfig;
+    /// let x = NetworkPolicyConfig::new().set_disabled(true);
+    /// ```
     pub fn set_disabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.disabled = v.into();
         self
@@ -5878,6 +7553,12 @@ impl DnsCacheConfig {
     }
 
     /// Sets the value of [enabled][crate::model::DnsCacheConfig::enabled].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::DnsCacheConfig;
+    /// let x = DnsCacheConfig::new().set_enabled(true);
+    /// ```
     pub fn set_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.enabled = v.into();
         self
@@ -5906,6 +7587,12 @@ impl PrivateClusterMasterGlobalAccessConfig {
     }
 
     /// Sets the value of [enabled][crate::model::PrivateClusterMasterGlobalAccessConfig::enabled].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::PrivateClusterMasterGlobalAccessConfig;
+    /// let x = PrivateClusterMasterGlobalAccessConfig::new().set_enabled(true);
+    /// ```
     pub fn set_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.enabled = v.into();
         self
@@ -6003,6 +7690,12 @@ impl PrivateClusterConfig {
     }
 
     /// Sets the value of [enable_private_nodes][crate::model::PrivateClusterConfig::enable_private_nodes].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::PrivateClusterConfig;
+    /// let x = PrivateClusterConfig::new().set_enable_private_nodes(true);
+    /// ```
     #[deprecated]
     pub fn set_enable_private_nodes<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.enable_private_nodes = v.into();
@@ -6010,6 +7703,12 @@ impl PrivateClusterConfig {
     }
 
     /// Sets the value of [enable_private_endpoint][crate::model::PrivateClusterConfig::enable_private_endpoint].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::PrivateClusterConfig;
+    /// let x = PrivateClusterConfig::new().set_enable_private_endpoint(true);
+    /// ```
     #[deprecated]
     pub fn set_enable_private_endpoint<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.enable_private_endpoint = v.into();
@@ -6017,6 +7716,12 @@ impl PrivateClusterConfig {
     }
 
     /// Sets the value of [master_ipv4_cidr_block][crate::model::PrivateClusterConfig::master_ipv4_cidr_block].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::PrivateClusterConfig;
+    /// let x = PrivateClusterConfig::new().set_master_ipv4_cidr_block("example");
+    /// ```
     pub fn set_master_ipv4_cidr_block<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -6026,6 +7731,12 @@ impl PrivateClusterConfig {
     }
 
     /// Sets the value of [private_endpoint][crate::model::PrivateClusterConfig::private_endpoint].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::PrivateClusterConfig;
+    /// let x = PrivateClusterConfig::new().set_private_endpoint("example");
+    /// ```
     #[deprecated]
     pub fn set_private_endpoint<T: std::convert::Into<std::string::String>>(
         mut self,
@@ -6036,6 +7747,12 @@ impl PrivateClusterConfig {
     }
 
     /// Sets the value of [public_endpoint][crate::model::PrivateClusterConfig::public_endpoint].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::PrivateClusterConfig;
+    /// let x = PrivateClusterConfig::new().set_public_endpoint("example");
+    /// ```
     #[deprecated]
     pub fn set_public_endpoint<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.public_endpoint = v.into();
@@ -6043,12 +7760,25 @@ impl PrivateClusterConfig {
     }
 
     /// Sets the value of [peering_name][crate::model::PrivateClusterConfig::peering_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::PrivateClusterConfig;
+    /// let x = PrivateClusterConfig::new().set_peering_name("example");
+    /// ```
     pub fn set_peering_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.peering_name = v.into();
         self
     }
 
     /// Sets the value of [master_global_access_config][crate::model::PrivateClusterConfig::master_global_access_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::PrivateClusterConfig;
+    /// use google_cloud_container_v1::model::PrivateClusterMasterGlobalAccessConfig;
+    /// let x = PrivateClusterConfig::new().set_master_global_access_config(PrivateClusterMasterGlobalAccessConfig::default()/* use setters */);
+    /// ```
     #[deprecated]
     pub fn set_master_global_access_config<T>(mut self, v: T) -> Self
     where
@@ -6059,6 +7789,14 @@ impl PrivateClusterConfig {
     }
 
     /// Sets or clears the value of [master_global_access_config][crate::model::PrivateClusterConfig::master_global_access_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::PrivateClusterConfig;
+    /// use google_cloud_container_v1::model::PrivateClusterMasterGlobalAccessConfig;
+    /// let x = PrivateClusterConfig::new().set_or_clear_master_global_access_config(Some(PrivateClusterMasterGlobalAccessConfig::default()/* use setters */));
+    /// let x = PrivateClusterConfig::new().set_or_clear_master_global_access_config(None::<PrivateClusterMasterGlobalAccessConfig>);
+    /// ```
     #[deprecated]
     pub fn set_or_clear_master_global_access_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
@@ -6069,6 +7807,12 @@ impl PrivateClusterConfig {
     }
 
     /// Sets the value of [private_endpoint_subnetwork][crate::model::PrivateClusterConfig::private_endpoint_subnetwork].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::PrivateClusterConfig;
+    /// let x = PrivateClusterConfig::new().set_private_endpoint_subnetwork("example");
+    /// ```
     #[deprecated]
     pub fn set_private_endpoint_subnetwork<T: std::convert::Into<std::string::String>>(
         mut self,
@@ -6106,12 +7850,24 @@ impl AuthenticatorGroupsConfig {
     }
 
     /// Sets the value of [enabled][crate::model::AuthenticatorGroupsConfig::enabled].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::AuthenticatorGroupsConfig;
+    /// let x = AuthenticatorGroupsConfig::new().set_enabled(true);
+    /// ```
     pub fn set_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.enabled = v.into();
         self
     }
 
     /// Sets the value of [security_group][crate::model::AuthenticatorGroupsConfig::security_group].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::AuthenticatorGroupsConfig;
+    /// let x = AuthenticatorGroupsConfig::new().set_security_group("example");
+    /// ```
     pub fn set_security_group<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.security_group = v.into();
         self
@@ -6143,12 +7899,26 @@ impl CloudRunConfig {
     }
 
     /// Sets the value of [disabled][crate::model::CloudRunConfig::disabled].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::CloudRunConfig;
+    /// let x = CloudRunConfig::new().set_disabled(true);
+    /// ```
     pub fn set_disabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.disabled = v.into();
         self
     }
 
     /// Sets the value of [load_balancer_type][crate::model::CloudRunConfig::load_balancer_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::CloudRunConfig;
+    /// use google_cloud_container_v1::model::cloud_run_config::LoadBalancerType;
+    /// let x0 = CloudRunConfig::new().set_load_balancer_type(LoadBalancerType::External);
+    /// let x1 = CloudRunConfig::new().set_load_balancer_type(LoadBalancerType::Internal);
+    /// ```
     pub fn set_load_balancer_type<
         T: std::convert::Into<crate::model::cloud_run_config::LoadBalancerType>,
     >(
@@ -6320,6 +8090,12 @@ impl ConfigConnectorConfig {
     }
 
     /// Sets the value of [enabled][crate::model::ConfigConnectorConfig::enabled].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::ConfigConnectorConfig;
+    /// let x = ConfigConnectorConfig::new().set_enabled(true);
+    /// ```
     pub fn set_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.enabled = v.into();
         self
@@ -6348,6 +8124,12 @@ impl GcePersistentDiskCsiDriverConfig {
     }
 
     /// Sets the value of [enabled][crate::model::GcePersistentDiskCsiDriverConfig::enabled].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::GcePersistentDiskCsiDriverConfig;
+    /// let x = GcePersistentDiskCsiDriverConfig::new().set_enabled(true);
+    /// ```
     pub fn set_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.enabled = v.into();
         self
@@ -6376,6 +8158,12 @@ impl GcpFilestoreCsiDriverConfig {
     }
 
     /// Sets the value of [enabled][crate::model::GcpFilestoreCsiDriverConfig::enabled].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::GcpFilestoreCsiDriverConfig;
+    /// let x = GcpFilestoreCsiDriverConfig::new().set_enabled(true);
+    /// ```
     pub fn set_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.enabled = v.into();
         self
@@ -6404,6 +8192,12 @@ impl GcsFuseCsiDriverConfig {
     }
 
     /// Sets the value of [enabled][crate::model::GcsFuseCsiDriverConfig::enabled].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::GcsFuseCsiDriverConfig;
+    /// let x = GcsFuseCsiDriverConfig::new().set_enabled(true);
+    /// ```
     pub fn set_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.enabled = v.into();
         self
@@ -6433,6 +8227,12 @@ impl ParallelstoreCsiDriverConfig {
     }
 
     /// Sets the value of [enabled][crate::model::ParallelstoreCsiDriverConfig::enabled].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::ParallelstoreCsiDriverConfig;
+    /// let x = ParallelstoreCsiDriverConfig::new().set_enabled(true);
+    /// ```
     pub fn set_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.enabled = v.into();
         self
@@ -6462,6 +8262,12 @@ impl HighScaleCheckpointingConfig {
     }
 
     /// Sets the value of [enabled][crate::model::HighScaleCheckpointingConfig::enabled].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::HighScaleCheckpointingConfig;
+    /// let x = HighScaleCheckpointingConfig::new().set_enabled(true);
+    /// ```
     pub fn set_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.enabled = v.into();
         self
@@ -6505,12 +8311,24 @@ impl LustreCsiDriverConfig {
     }
 
     /// Sets the value of [enabled][crate::model::LustreCsiDriverConfig::enabled].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::LustreCsiDriverConfig;
+    /// let x = LustreCsiDriverConfig::new().set_enabled(true);
+    /// ```
     pub fn set_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.enabled = v.into();
         self
     }
 
     /// Sets the value of [enable_legacy_lustre_port][crate::model::LustreCsiDriverConfig::enable_legacy_lustre_port].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::LustreCsiDriverConfig;
+    /// let x = LustreCsiDriverConfig::new().set_enable_legacy_lustre_port(true);
+    /// ```
     #[deprecated]
     pub fn set_enable_legacy_lustre_port<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.enable_legacy_lustre_port = v.into();
@@ -6547,12 +8365,25 @@ impl RayOperatorConfig {
     }
 
     /// Sets the value of [enabled][crate::model::RayOperatorConfig::enabled].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::RayOperatorConfig;
+    /// let x = RayOperatorConfig::new().set_enabled(true);
+    /// ```
     pub fn set_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.enabled = v.into();
         self
     }
 
     /// Sets the value of [ray_cluster_logging_config][crate::model::RayOperatorConfig::ray_cluster_logging_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::RayOperatorConfig;
+    /// use google_cloud_container_v1::model::RayClusterLoggingConfig;
+    /// let x = RayOperatorConfig::new().set_ray_cluster_logging_config(RayClusterLoggingConfig::default()/* use setters */);
+    /// ```
     pub fn set_ray_cluster_logging_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::RayClusterLoggingConfig>,
@@ -6562,6 +8393,14 @@ impl RayOperatorConfig {
     }
 
     /// Sets or clears the value of [ray_cluster_logging_config][crate::model::RayOperatorConfig::ray_cluster_logging_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::RayOperatorConfig;
+    /// use google_cloud_container_v1::model::RayClusterLoggingConfig;
+    /// let x = RayOperatorConfig::new().set_or_clear_ray_cluster_logging_config(Some(RayClusterLoggingConfig::default()/* use setters */));
+    /// let x = RayOperatorConfig::new().set_or_clear_ray_cluster_logging_config(None::<RayClusterLoggingConfig>);
+    /// ```
     pub fn set_or_clear_ray_cluster_logging_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::RayClusterLoggingConfig>,
@@ -6571,6 +8410,13 @@ impl RayOperatorConfig {
     }
 
     /// Sets the value of [ray_cluster_monitoring_config][crate::model::RayOperatorConfig::ray_cluster_monitoring_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::RayOperatorConfig;
+    /// use google_cloud_container_v1::model::RayClusterMonitoringConfig;
+    /// let x = RayOperatorConfig::new().set_ray_cluster_monitoring_config(RayClusterMonitoringConfig::default()/* use setters */);
+    /// ```
     pub fn set_ray_cluster_monitoring_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::RayClusterMonitoringConfig>,
@@ -6580,6 +8426,14 @@ impl RayOperatorConfig {
     }
 
     /// Sets or clears the value of [ray_cluster_monitoring_config][crate::model::RayOperatorConfig::ray_cluster_monitoring_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::RayOperatorConfig;
+    /// use google_cloud_container_v1::model::RayClusterMonitoringConfig;
+    /// let x = RayOperatorConfig::new().set_or_clear_ray_cluster_monitoring_config(Some(RayClusterMonitoringConfig::default()/* use setters */));
+    /// let x = RayOperatorConfig::new().set_or_clear_ray_cluster_monitoring_config(None::<RayClusterMonitoringConfig>);
+    /// ```
     pub fn set_or_clear_ray_cluster_monitoring_config<T>(
         mut self,
         v: std::option::Option<T>,
@@ -6614,6 +8468,12 @@ impl GkeBackupAgentConfig {
     }
 
     /// Sets the value of [enabled][crate::model::GkeBackupAgentConfig::enabled].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::GkeBackupAgentConfig;
+    /// let x = GkeBackupAgentConfig::new().set_enabled(true);
+    /// ```
     pub fn set_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.enabled = v.into();
         self
@@ -6642,6 +8502,12 @@ impl StatefulHAConfig {
     }
 
     /// Sets the value of [enabled][crate::model::StatefulHAConfig::enabled].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::StatefulHAConfig;
+    /// let x = StatefulHAConfig::new().set_enabled(true);
+    /// ```
     pub fn set_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.enabled = v.into();
         self
@@ -6683,12 +8549,29 @@ impl MasterAuthorizedNetworksConfig {
     }
 
     /// Sets the value of [enabled][crate::model::MasterAuthorizedNetworksConfig::enabled].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::MasterAuthorizedNetworksConfig;
+    /// let x = MasterAuthorizedNetworksConfig::new().set_enabled(true);
+    /// ```
     pub fn set_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.enabled = v.into();
         self
     }
 
     /// Sets the value of [cidr_blocks][crate::model::MasterAuthorizedNetworksConfig::cidr_blocks].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::MasterAuthorizedNetworksConfig;
+    /// use google_cloud_container_v1::model::master_authorized_networks_config::CidrBlock;
+    /// let x = MasterAuthorizedNetworksConfig::new()
+    ///     .set_cidr_blocks([
+    ///         CidrBlock::default()/* use setters */,
+    ///         CidrBlock::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_cidr_blocks<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -6700,6 +8583,12 @@ impl MasterAuthorizedNetworksConfig {
     }
 
     /// Sets the value of [gcp_public_cidrs_access_enabled][crate::model::MasterAuthorizedNetworksConfig::gcp_public_cidrs_access_enabled].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::MasterAuthorizedNetworksConfig;
+    /// let x = MasterAuthorizedNetworksConfig::new().set_gcp_public_cidrs_access_enabled(true);
+    /// ```
     pub fn set_gcp_public_cidrs_access_enabled<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<bool>,
@@ -6709,6 +8598,13 @@ impl MasterAuthorizedNetworksConfig {
     }
 
     /// Sets or clears the value of [gcp_public_cidrs_access_enabled][crate::model::MasterAuthorizedNetworksConfig::gcp_public_cidrs_access_enabled].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::MasterAuthorizedNetworksConfig;
+    /// let x = MasterAuthorizedNetworksConfig::new().set_or_clear_gcp_public_cidrs_access_enabled(Some(false));
+    /// let x = MasterAuthorizedNetworksConfig::new().set_or_clear_gcp_public_cidrs_access_enabled(None::<bool>);
+    /// ```
     pub fn set_or_clear_gcp_public_cidrs_access_enabled<T>(
         mut self,
         v: std::option::Option<T>,
@@ -6721,6 +8617,12 @@ impl MasterAuthorizedNetworksConfig {
     }
 
     /// Sets the value of [private_endpoint_enforcement_enabled][crate::model::MasterAuthorizedNetworksConfig::private_endpoint_enforcement_enabled].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::MasterAuthorizedNetworksConfig;
+    /// let x = MasterAuthorizedNetworksConfig::new().set_private_endpoint_enforcement_enabled(true);
+    /// ```
     pub fn set_private_endpoint_enforcement_enabled<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<bool>,
@@ -6730,6 +8632,13 @@ impl MasterAuthorizedNetworksConfig {
     }
 
     /// Sets or clears the value of [private_endpoint_enforcement_enabled][crate::model::MasterAuthorizedNetworksConfig::private_endpoint_enforcement_enabled].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::MasterAuthorizedNetworksConfig;
+    /// let x = MasterAuthorizedNetworksConfig::new().set_or_clear_private_endpoint_enforcement_enabled(Some(false));
+    /// let x = MasterAuthorizedNetworksConfig::new().set_or_clear_private_endpoint_enforcement_enabled(None::<bool>);
+    /// ```
     pub fn set_or_clear_private_endpoint_enforcement_enabled<T>(
         mut self,
         v: std::option::Option<T>,
@@ -6772,6 +8681,12 @@ pub mod master_authorized_networks_config {
         }
 
         /// Sets the value of [display_name][crate::model::master_authorized_networks_config::CidrBlock::display_name].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_container_v1::model::master_authorized_networks_config::CidrBlock;
+        /// let x = CidrBlock::new().set_display_name("example");
+        /// ```
         pub fn set_display_name<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -6781,6 +8696,12 @@ pub mod master_authorized_networks_config {
         }
 
         /// Sets the value of [cidr_block][crate::model::master_authorized_networks_config::CidrBlock::cidr_block].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_container_v1::model::master_authorized_networks_config::CidrBlock;
+        /// let x = CidrBlock::new().set_cidr_block("example");
+        /// ```
         pub fn set_cidr_block<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.cidr_block = v.into();
             self
@@ -6814,6 +8735,12 @@ impl LegacyAbac {
     }
 
     /// Sets the value of [enabled][crate::model::LegacyAbac::enabled].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::LegacyAbac;
+    /// let x = LegacyAbac::new().set_enabled(true);
+    /// ```
     pub fn set_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.enabled = v.into();
         self
@@ -6846,6 +8773,13 @@ impl NetworkPolicy {
     }
 
     /// Sets the value of [provider][crate::model::NetworkPolicy::provider].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NetworkPolicy;
+    /// use google_cloud_container_v1::model::network_policy::Provider;
+    /// let x0 = NetworkPolicy::new().set_provider(Provider::Calico);
+    /// ```
     pub fn set_provider<T: std::convert::Into<crate::model::network_policy::Provider>>(
         mut self,
         v: T,
@@ -6855,6 +8789,12 @@ impl NetworkPolicy {
     }
 
     /// Sets the value of [enabled][crate::model::NetworkPolicy::enabled].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NetworkPolicy;
+    /// let x = NetworkPolicy::new().set_enabled(true);
+    /// ```
     pub fn set_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.enabled = v.into();
         self
@@ -7021,6 +8961,12 @@ impl BinaryAuthorization {
     }
 
     /// Sets the value of [enabled][crate::model::BinaryAuthorization::enabled].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::BinaryAuthorization;
+    /// let x = BinaryAuthorization::new().set_enabled(true);
+    /// ```
     #[deprecated]
     pub fn set_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.enabled = v.into();
@@ -7028,6 +8974,14 @@ impl BinaryAuthorization {
     }
 
     /// Sets the value of [evaluation_mode][crate::model::BinaryAuthorization::evaluation_mode].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::BinaryAuthorization;
+    /// use google_cloud_container_v1::model::binary_authorization::EvaluationMode;
+    /// let x0 = BinaryAuthorization::new().set_evaluation_mode(EvaluationMode::Disabled);
+    /// let x1 = BinaryAuthorization::new().set_evaluation_mode(EvaluationMode::ProjectSingletonPolicyEnforce);
+    /// ```
     pub fn set_evaluation_mode<
         T: std::convert::Into<crate::model::binary_authorization::EvaluationMode>,
     >(
@@ -7205,6 +9159,12 @@ impl PodCIDROverprovisionConfig {
     }
 
     /// Sets the value of [disable][crate::model::PodCIDROverprovisionConfig::disable].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::PodCIDROverprovisionConfig;
+    /// let x = PodCIDROverprovisionConfig::new().set_disable(true);
+    /// ```
     pub fn set_disable<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.disable = v.into();
         self
@@ -7406,24 +9366,48 @@ impl IPAllocationPolicy {
     }
 
     /// Sets the value of [use_ip_aliases][crate::model::IPAllocationPolicy::use_ip_aliases].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::IPAllocationPolicy;
+    /// let x = IPAllocationPolicy::new().set_use_ip_aliases(true);
+    /// ```
     pub fn set_use_ip_aliases<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.use_ip_aliases = v.into();
         self
     }
 
     /// Sets the value of [create_subnetwork][crate::model::IPAllocationPolicy::create_subnetwork].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::IPAllocationPolicy;
+    /// let x = IPAllocationPolicy::new().set_create_subnetwork(true);
+    /// ```
     pub fn set_create_subnetwork<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.create_subnetwork = v.into();
         self
     }
 
     /// Sets the value of [subnetwork_name][crate::model::IPAllocationPolicy::subnetwork_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::IPAllocationPolicy;
+    /// let x = IPAllocationPolicy::new().set_subnetwork_name("example");
+    /// ```
     pub fn set_subnetwork_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.subnetwork_name = v.into();
         self
     }
 
     /// Sets the value of [cluster_ipv4_cidr][crate::model::IPAllocationPolicy::cluster_ipv4_cidr].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::IPAllocationPolicy;
+    /// let x = IPAllocationPolicy::new().set_cluster_ipv4_cidr("example");
+    /// ```
     #[deprecated]
     pub fn set_cluster_ipv4_cidr<T: std::convert::Into<std::string::String>>(
         mut self,
@@ -7434,6 +9418,12 @@ impl IPAllocationPolicy {
     }
 
     /// Sets the value of [node_ipv4_cidr][crate::model::IPAllocationPolicy::node_ipv4_cidr].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::IPAllocationPolicy;
+    /// let x = IPAllocationPolicy::new().set_node_ipv4_cidr("example");
+    /// ```
     #[deprecated]
     pub fn set_node_ipv4_cidr<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.node_ipv4_cidr = v.into();
@@ -7441,6 +9431,12 @@ impl IPAllocationPolicy {
     }
 
     /// Sets the value of [services_ipv4_cidr][crate::model::IPAllocationPolicy::services_ipv4_cidr].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::IPAllocationPolicy;
+    /// let x = IPAllocationPolicy::new().set_services_ipv4_cidr("example");
+    /// ```
     #[deprecated]
     pub fn set_services_ipv4_cidr<T: std::convert::Into<std::string::String>>(
         mut self,
@@ -7451,6 +9447,12 @@ impl IPAllocationPolicy {
     }
 
     /// Sets the value of [cluster_secondary_range_name][crate::model::IPAllocationPolicy::cluster_secondary_range_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::IPAllocationPolicy;
+    /// let x = IPAllocationPolicy::new().set_cluster_secondary_range_name("example");
+    /// ```
     pub fn set_cluster_secondary_range_name<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -7460,6 +9462,12 @@ impl IPAllocationPolicy {
     }
 
     /// Sets the value of [services_secondary_range_name][crate::model::IPAllocationPolicy::services_secondary_range_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::IPAllocationPolicy;
+    /// let x = IPAllocationPolicy::new().set_services_secondary_range_name("example");
+    /// ```
     pub fn set_services_secondary_range_name<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -7469,6 +9477,12 @@ impl IPAllocationPolicy {
     }
 
     /// Sets the value of [cluster_ipv4_cidr_block][crate::model::IPAllocationPolicy::cluster_ipv4_cidr_block].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::IPAllocationPolicy;
+    /// let x = IPAllocationPolicy::new().set_cluster_ipv4_cidr_block("example");
+    /// ```
     pub fn set_cluster_ipv4_cidr_block<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -7478,6 +9492,12 @@ impl IPAllocationPolicy {
     }
 
     /// Sets the value of [node_ipv4_cidr_block][crate::model::IPAllocationPolicy::node_ipv4_cidr_block].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::IPAllocationPolicy;
+    /// let x = IPAllocationPolicy::new().set_node_ipv4_cidr_block("example");
+    /// ```
     pub fn set_node_ipv4_cidr_block<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -7487,6 +9507,12 @@ impl IPAllocationPolicy {
     }
 
     /// Sets the value of [services_ipv4_cidr_block][crate::model::IPAllocationPolicy::services_ipv4_cidr_block].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::IPAllocationPolicy;
+    /// let x = IPAllocationPolicy::new().set_services_ipv4_cidr_block("example");
+    /// ```
     pub fn set_services_ipv4_cidr_block<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -7496,6 +9522,12 @@ impl IPAllocationPolicy {
     }
 
     /// Sets the value of [tpu_ipv4_cidr_block][crate::model::IPAllocationPolicy::tpu_ipv4_cidr_block].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::IPAllocationPolicy;
+    /// let x = IPAllocationPolicy::new().set_tpu_ipv4_cidr_block("example");
+    /// ```
     #[deprecated]
     pub fn set_tpu_ipv4_cidr_block<T: std::convert::Into<std::string::String>>(
         mut self,
@@ -7506,18 +9538,40 @@ impl IPAllocationPolicy {
     }
 
     /// Sets the value of [use_routes][crate::model::IPAllocationPolicy::use_routes].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::IPAllocationPolicy;
+    /// let x = IPAllocationPolicy::new().set_use_routes(true);
+    /// ```
     pub fn set_use_routes<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.use_routes = v.into();
         self
     }
 
     /// Sets the value of [stack_type][crate::model::IPAllocationPolicy::stack_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::IPAllocationPolicy;
+    /// use google_cloud_container_v1::model::StackType;
+    /// let x0 = IPAllocationPolicy::new().set_stack_type(StackType::Ipv4);
+    /// let x1 = IPAllocationPolicy::new().set_stack_type(StackType::Ipv4Ipv6);
+    /// ```
     pub fn set_stack_type<T: std::convert::Into<crate::model::StackType>>(mut self, v: T) -> Self {
         self.stack_type = v.into();
         self
     }
 
     /// Sets the value of [ipv6_access_type][crate::model::IPAllocationPolicy::ipv6_access_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::IPAllocationPolicy;
+    /// use google_cloud_container_v1::model::IPv6AccessType;
+    /// let x0 = IPAllocationPolicy::new().set_ipv6_access_type(IPv6AccessType::Internal);
+    /// let x1 = IPAllocationPolicy::new().set_ipv6_access_type(IPv6AccessType::External);
+    /// ```
     pub fn set_ipv6_access_type<T: std::convert::Into<crate::model::IPv6AccessType>>(
         mut self,
         v: T,
@@ -7527,6 +9581,13 @@ impl IPAllocationPolicy {
     }
 
     /// Sets the value of [pod_cidr_overprovision_config][crate::model::IPAllocationPolicy::pod_cidr_overprovision_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::IPAllocationPolicy;
+    /// use google_cloud_container_v1::model::PodCIDROverprovisionConfig;
+    /// let x = IPAllocationPolicy::new().set_pod_cidr_overprovision_config(PodCIDROverprovisionConfig::default()/* use setters */);
+    /// ```
     pub fn set_pod_cidr_overprovision_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::PodCIDROverprovisionConfig>,
@@ -7536,6 +9597,14 @@ impl IPAllocationPolicy {
     }
 
     /// Sets or clears the value of [pod_cidr_overprovision_config][crate::model::IPAllocationPolicy::pod_cidr_overprovision_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::IPAllocationPolicy;
+    /// use google_cloud_container_v1::model::PodCIDROverprovisionConfig;
+    /// let x = IPAllocationPolicy::new().set_or_clear_pod_cidr_overprovision_config(Some(PodCIDROverprovisionConfig::default()/* use setters */));
+    /// let x = IPAllocationPolicy::new().set_or_clear_pod_cidr_overprovision_config(None::<PodCIDROverprovisionConfig>);
+    /// ```
     pub fn set_or_clear_pod_cidr_overprovision_config<T>(
         mut self,
         v: std::option::Option<T>,
@@ -7548,6 +9617,12 @@ impl IPAllocationPolicy {
     }
 
     /// Sets the value of [subnet_ipv6_cidr_block][crate::model::IPAllocationPolicy::subnet_ipv6_cidr_block].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::IPAllocationPolicy;
+    /// let x = IPAllocationPolicy::new().set_subnet_ipv6_cidr_block("example");
+    /// ```
     pub fn set_subnet_ipv6_cidr_block<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -7557,6 +9632,12 @@ impl IPAllocationPolicy {
     }
 
     /// Sets the value of [services_ipv6_cidr_block][crate::model::IPAllocationPolicy::services_ipv6_cidr_block].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::IPAllocationPolicy;
+    /// let x = IPAllocationPolicy::new().set_services_ipv6_cidr_block("example");
+    /// ```
     pub fn set_services_ipv6_cidr_block<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -7566,6 +9647,13 @@ impl IPAllocationPolicy {
     }
 
     /// Sets the value of [additional_pod_ranges_config][crate::model::IPAllocationPolicy::additional_pod_ranges_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::IPAllocationPolicy;
+    /// use google_cloud_container_v1::model::AdditionalPodRangesConfig;
+    /// let x = IPAllocationPolicy::new().set_additional_pod_ranges_config(AdditionalPodRangesConfig::default()/* use setters */);
+    /// ```
     pub fn set_additional_pod_ranges_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::AdditionalPodRangesConfig>,
@@ -7575,6 +9663,14 @@ impl IPAllocationPolicy {
     }
 
     /// Sets or clears the value of [additional_pod_ranges_config][crate::model::IPAllocationPolicy::additional_pod_ranges_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::IPAllocationPolicy;
+    /// use google_cloud_container_v1::model::AdditionalPodRangesConfig;
+    /// let x = IPAllocationPolicy::new().set_or_clear_additional_pod_ranges_config(Some(AdditionalPodRangesConfig::default()/* use setters */));
+    /// let x = IPAllocationPolicy::new().set_or_clear_additional_pod_ranges_config(None::<AdditionalPodRangesConfig>);
+    /// ```
     pub fn set_or_clear_additional_pod_ranges_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AdditionalPodRangesConfig>,
@@ -7584,6 +9680,12 @@ impl IPAllocationPolicy {
     }
 
     /// Sets the value of [default_pod_ipv4_range_utilization][crate::model::IPAllocationPolicy::default_pod_ipv4_range_utilization].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::IPAllocationPolicy;
+    /// let x = IPAllocationPolicy::new().set_default_pod_ipv4_range_utilization(42.0);
+    /// ```
     pub fn set_default_pod_ipv4_range_utilization<T: std::convert::Into<f64>>(
         mut self,
         v: T,
@@ -7593,6 +9695,17 @@ impl IPAllocationPolicy {
     }
 
     /// Sets the value of [additional_ip_ranges_configs][crate::model::IPAllocationPolicy::additional_ip_ranges_configs].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::IPAllocationPolicy;
+    /// use google_cloud_container_v1::model::AdditionalIPRangesConfig;
+    /// let x = IPAllocationPolicy::new()
+    ///     .set_additional_ip_ranges_configs([
+    ///         AdditionalIPRangesConfig::default()/* use setters */,
+    ///         AdditionalIPRangesConfig::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_additional_ip_ranges_configs<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -7604,6 +9717,13 @@ impl IPAllocationPolicy {
     }
 
     /// Sets the value of [auto_ipam_config][crate::model::IPAllocationPolicy::auto_ipam_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::IPAllocationPolicy;
+    /// use google_cloud_container_v1::model::AutoIpamConfig;
+    /// let x = IPAllocationPolicy::new().set_auto_ipam_config(AutoIpamConfig::default()/* use setters */);
+    /// ```
     pub fn set_auto_ipam_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::AutoIpamConfig>,
@@ -7613,6 +9733,14 @@ impl IPAllocationPolicy {
     }
 
     /// Sets or clears the value of [auto_ipam_config][crate::model::IPAllocationPolicy::auto_ipam_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::IPAllocationPolicy;
+    /// use google_cloud_container_v1::model::AutoIpamConfig;
+    /// let x = IPAllocationPolicy::new().set_or_clear_auto_ipam_config(Some(AutoIpamConfig::default()/* use setters */));
+    /// let x = IPAllocationPolicy::new().set_or_clear_auto_ipam_config(None::<AutoIpamConfig>);
+    /// ```
     pub fn set_or_clear_auto_ipam_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AutoIpamConfig>,
@@ -7622,6 +9750,13 @@ impl IPAllocationPolicy {
     }
 
     /// Sets the value of [network_tier_config][crate::model::IPAllocationPolicy::network_tier_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::IPAllocationPolicy;
+    /// use google_cloud_container_v1::model::NetworkTierConfig;
+    /// let x = IPAllocationPolicy::new().set_network_tier_config(NetworkTierConfig::default()/* use setters */);
+    /// ```
     pub fn set_network_tier_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::NetworkTierConfig>,
@@ -7631,6 +9766,14 @@ impl IPAllocationPolicy {
     }
 
     /// Sets or clears the value of [network_tier_config][crate::model::IPAllocationPolicy::network_tier_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::IPAllocationPolicy;
+    /// use google_cloud_container_v1::model::NetworkTierConfig;
+    /// let x = IPAllocationPolicy::new().set_or_clear_network_tier_config(Some(NetworkTierConfig::default()/* use setters */));
+    /// let x = IPAllocationPolicy::new().set_or_clear_network_tier_config(None::<NetworkTierConfig>);
+    /// ```
     pub fn set_or_clear_network_tier_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::NetworkTierConfig>,
@@ -8056,18 +10199,36 @@ impl Cluster {
     }
 
     /// Sets the value of [name][crate::model::Cluster::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::Cluster;
+    /// let x = Cluster::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [description][crate::model::Cluster::description].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::Cluster;
+    /// let x = Cluster::new().set_description("example");
+    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [initial_node_count][crate::model::Cluster::initial_node_count].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::Cluster;
+    /// let x = Cluster::new().set_initial_node_count(42);
+    /// ```
     #[deprecated]
     pub fn set_initial_node_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.initial_node_count = v.into();
@@ -8075,6 +10236,13 @@ impl Cluster {
     }
 
     /// Sets the value of [node_config][crate::model::Cluster::node_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::Cluster;
+    /// use google_cloud_container_v1::model::NodeConfig;
+    /// let x = Cluster::new().set_node_config(NodeConfig::default()/* use setters */);
+    /// ```
     #[deprecated]
     pub fn set_node_config<T>(mut self, v: T) -> Self
     where
@@ -8085,6 +10253,14 @@ impl Cluster {
     }
 
     /// Sets or clears the value of [node_config][crate::model::Cluster::node_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::Cluster;
+    /// use google_cloud_container_v1::model::NodeConfig;
+    /// let x = Cluster::new().set_or_clear_node_config(Some(NodeConfig::default()/* use setters */));
+    /// let x = Cluster::new().set_or_clear_node_config(None::<NodeConfig>);
+    /// ```
     #[deprecated]
     pub fn set_or_clear_node_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
@@ -8095,6 +10271,13 @@ impl Cluster {
     }
 
     /// Sets the value of [master_auth][crate::model::Cluster::master_auth].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::Cluster;
+    /// use google_cloud_container_v1::model::MasterAuth;
+    /// let x = Cluster::new().set_master_auth(MasterAuth::default()/* use setters */);
+    /// ```
     pub fn set_master_auth<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::MasterAuth>,
@@ -8104,6 +10287,14 @@ impl Cluster {
     }
 
     /// Sets or clears the value of [master_auth][crate::model::Cluster::master_auth].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::Cluster;
+    /// use google_cloud_container_v1::model::MasterAuth;
+    /// let x = Cluster::new().set_or_clear_master_auth(Some(MasterAuth::default()/* use setters */));
+    /// let x = Cluster::new().set_or_clear_master_auth(None::<MasterAuth>);
+    /// ```
     pub fn set_or_clear_master_auth<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::MasterAuth>,
@@ -8113,12 +10304,24 @@ impl Cluster {
     }
 
     /// Sets the value of [logging_service][crate::model::Cluster::logging_service].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::Cluster;
+    /// let x = Cluster::new().set_logging_service("example");
+    /// ```
     pub fn set_logging_service<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.logging_service = v.into();
         self
     }
 
     /// Sets the value of [monitoring_service][crate::model::Cluster::monitoring_service].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::Cluster;
+    /// let x = Cluster::new().set_monitoring_service("example");
+    /// ```
     pub fn set_monitoring_service<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -8128,12 +10331,24 @@ impl Cluster {
     }
 
     /// Sets the value of [network][crate::model::Cluster::network].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::Cluster;
+    /// let x = Cluster::new().set_network("example");
+    /// ```
     pub fn set_network<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.network = v.into();
         self
     }
 
     /// Sets the value of [cluster_ipv4_cidr][crate::model::Cluster::cluster_ipv4_cidr].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::Cluster;
+    /// let x = Cluster::new().set_cluster_ipv4_cidr("example");
+    /// ```
     pub fn set_cluster_ipv4_cidr<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -8143,6 +10358,13 @@ impl Cluster {
     }
 
     /// Sets the value of [addons_config][crate::model::Cluster::addons_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::Cluster;
+    /// use google_cloud_container_v1::model::AddonsConfig;
+    /// let x = Cluster::new().set_addons_config(AddonsConfig::default()/* use setters */);
+    /// ```
     pub fn set_addons_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::AddonsConfig>,
@@ -8152,6 +10374,14 @@ impl Cluster {
     }
 
     /// Sets or clears the value of [addons_config][crate::model::Cluster::addons_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::Cluster;
+    /// use google_cloud_container_v1::model::AddonsConfig;
+    /// let x = Cluster::new().set_or_clear_addons_config(Some(AddonsConfig::default()/* use setters */));
+    /// let x = Cluster::new().set_or_clear_addons_config(None::<AddonsConfig>);
+    /// ```
     pub fn set_or_clear_addons_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AddonsConfig>,
@@ -8161,12 +10391,29 @@ impl Cluster {
     }
 
     /// Sets the value of [subnetwork][crate::model::Cluster::subnetwork].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::Cluster;
+    /// let x = Cluster::new().set_subnetwork("example");
+    /// ```
     pub fn set_subnetwork<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.subnetwork = v.into();
         self
     }
 
     /// Sets the value of [node_pools][crate::model::Cluster::node_pools].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::Cluster;
+    /// use google_cloud_container_v1::model::NodePool;
+    /// let x = Cluster::new()
+    ///     .set_node_pools([
+    ///         NodePool::default()/* use setters */,
+    ///         NodePool::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_node_pools<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -8178,6 +10425,12 @@ impl Cluster {
     }
 
     /// Sets the value of [locations][crate::model::Cluster::locations].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::Cluster;
+    /// let x = Cluster::new().set_locations(["a", "b", "c"]);
+    /// ```
     pub fn set_locations<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -8189,12 +10442,24 @@ impl Cluster {
     }
 
     /// Sets the value of [enable_kubernetes_alpha][crate::model::Cluster::enable_kubernetes_alpha].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::Cluster;
+    /// let x = Cluster::new().set_enable_kubernetes_alpha(true);
+    /// ```
     pub fn set_enable_kubernetes_alpha<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.enable_kubernetes_alpha = v.into();
         self
     }
 
     /// Sets the value of [alpha_cluster_feature_gates][crate::model::Cluster::alpha_cluster_feature_gates].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::Cluster;
+    /// let x = Cluster::new().set_alpha_cluster_feature_gates(["a", "b", "c"]);
+    /// ```
     pub fn set_alpha_cluster_feature_gates<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -8206,6 +10471,15 @@ impl Cluster {
     }
 
     /// Sets the value of [resource_labels][crate::model::Cluster::resource_labels].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::Cluster;
+    /// let x = Cluster::new().set_resource_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_resource_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -8218,6 +10492,12 @@ impl Cluster {
     }
 
     /// Sets the value of [label_fingerprint][crate::model::Cluster::label_fingerprint].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::Cluster;
+    /// let x = Cluster::new().set_label_fingerprint("example");
+    /// ```
     pub fn set_label_fingerprint<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -8227,6 +10507,13 @@ impl Cluster {
     }
 
     /// Sets the value of [legacy_abac][crate::model::Cluster::legacy_abac].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::Cluster;
+    /// use google_cloud_container_v1::model::LegacyAbac;
+    /// let x = Cluster::new().set_legacy_abac(LegacyAbac::default()/* use setters */);
+    /// ```
     pub fn set_legacy_abac<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::LegacyAbac>,
@@ -8236,6 +10523,14 @@ impl Cluster {
     }
 
     /// Sets or clears the value of [legacy_abac][crate::model::Cluster::legacy_abac].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::Cluster;
+    /// use google_cloud_container_v1::model::LegacyAbac;
+    /// let x = Cluster::new().set_or_clear_legacy_abac(Some(LegacyAbac::default()/* use setters */));
+    /// let x = Cluster::new().set_or_clear_legacy_abac(None::<LegacyAbac>);
+    /// ```
     pub fn set_or_clear_legacy_abac<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::LegacyAbac>,
@@ -8245,6 +10540,13 @@ impl Cluster {
     }
 
     /// Sets the value of [network_policy][crate::model::Cluster::network_policy].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::Cluster;
+    /// use google_cloud_container_v1::model::NetworkPolicy;
+    /// let x = Cluster::new().set_network_policy(NetworkPolicy::default()/* use setters */);
+    /// ```
     pub fn set_network_policy<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::NetworkPolicy>,
@@ -8254,6 +10556,14 @@ impl Cluster {
     }
 
     /// Sets or clears the value of [network_policy][crate::model::Cluster::network_policy].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::Cluster;
+    /// use google_cloud_container_v1::model::NetworkPolicy;
+    /// let x = Cluster::new().set_or_clear_network_policy(Some(NetworkPolicy::default()/* use setters */));
+    /// let x = Cluster::new().set_or_clear_network_policy(None::<NetworkPolicy>);
+    /// ```
     pub fn set_or_clear_network_policy<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::NetworkPolicy>,
@@ -8263,6 +10573,13 @@ impl Cluster {
     }
 
     /// Sets the value of [ip_allocation_policy][crate::model::Cluster::ip_allocation_policy].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::Cluster;
+    /// use google_cloud_container_v1::model::IPAllocationPolicy;
+    /// let x = Cluster::new().set_ip_allocation_policy(IPAllocationPolicy::default()/* use setters */);
+    /// ```
     pub fn set_ip_allocation_policy<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::IPAllocationPolicy>,
@@ -8272,6 +10589,14 @@ impl Cluster {
     }
 
     /// Sets or clears the value of [ip_allocation_policy][crate::model::Cluster::ip_allocation_policy].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::Cluster;
+    /// use google_cloud_container_v1::model::IPAllocationPolicy;
+    /// let x = Cluster::new().set_or_clear_ip_allocation_policy(Some(IPAllocationPolicy::default()/* use setters */));
+    /// let x = Cluster::new().set_or_clear_ip_allocation_policy(None::<IPAllocationPolicy>);
+    /// ```
     pub fn set_or_clear_ip_allocation_policy<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::IPAllocationPolicy>,
@@ -8281,6 +10606,13 @@ impl Cluster {
     }
 
     /// Sets the value of [master_authorized_networks_config][crate::model::Cluster::master_authorized_networks_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::Cluster;
+    /// use google_cloud_container_v1::model::MasterAuthorizedNetworksConfig;
+    /// let x = Cluster::new().set_master_authorized_networks_config(MasterAuthorizedNetworksConfig::default()/* use setters */);
+    /// ```
     #[deprecated]
     pub fn set_master_authorized_networks_config<T>(mut self, v: T) -> Self
     where
@@ -8291,6 +10623,14 @@ impl Cluster {
     }
 
     /// Sets or clears the value of [master_authorized_networks_config][crate::model::Cluster::master_authorized_networks_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::Cluster;
+    /// use google_cloud_container_v1::model::MasterAuthorizedNetworksConfig;
+    /// let x = Cluster::new().set_or_clear_master_authorized_networks_config(Some(MasterAuthorizedNetworksConfig::default()/* use setters */));
+    /// let x = Cluster::new().set_or_clear_master_authorized_networks_config(None::<MasterAuthorizedNetworksConfig>);
+    /// ```
     #[deprecated]
     pub fn set_or_clear_master_authorized_networks_config<T>(
         mut self,
@@ -8304,6 +10644,13 @@ impl Cluster {
     }
 
     /// Sets the value of [maintenance_policy][crate::model::Cluster::maintenance_policy].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::Cluster;
+    /// use google_cloud_container_v1::model::MaintenancePolicy;
+    /// let x = Cluster::new().set_maintenance_policy(MaintenancePolicy::default()/* use setters */);
+    /// ```
     pub fn set_maintenance_policy<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::MaintenancePolicy>,
@@ -8313,6 +10660,14 @@ impl Cluster {
     }
 
     /// Sets or clears the value of [maintenance_policy][crate::model::Cluster::maintenance_policy].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::Cluster;
+    /// use google_cloud_container_v1::model::MaintenancePolicy;
+    /// let x = Cluster::new().set_or_clear_maintenance_policy(Some(MaintenancePolicy::default()/* use setters */));
+    /// let x = Cluster::new().set_or_clear_maintenance_policy(None::<MaintenancePolicy>);
+    /// ```
     pub fn set_or_clear_maintenance_policy<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::MaintenancePolicy>,
@@ -8322,6 +10677,13 @@ impl Cluster {
     }
 
     /// Sets the value of [binary_authorization][crate::model::Cluster::binary_authorization].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::Cluster;
+    /// use google_cloud_container_v1::model::BinaryAuthorization;
+    /// let x = Cluster::new().set_binary_authorization(BinaryAuthorization::default()/* use setters */);
+    /// ```
     pub fn set_binary_authorization<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::BinaryAuthorization>,
@@ -8331,6 +10693,14 @@ impl Cluster {
     }
 
     /// Sets or clears the value of [binary_authorization][crate::model::Cluster::binary_authorization].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::Cluster;
+    /// use google_cloud_container_v1::model::BinaryAuthorization;
+    /// let x = Cluster::new().set_or_clear_binary_authorization(Some(BinaryAuthorization::default()/* use setters */));
+    /// let x = Cluster::new().set_or_clear_binary_authorization(None::<BinaryAuthorization>);
+    /// ```
     pub fn set_or_clear_binary_authorization<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::BinaryAuthorization>,
@@ -8340,6 +10710,13 @@ impl Cluster {
     }
 
     /// Sets the value of [autoscaling][crate::model::Cluster::autoscaling].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::Cluster;
+    /// use google_cloud_container_v1::model::ClusterAutoscaling;
+    /// let x = Cluster::new().set_autoscaling(ClusterAutoscaling::default()/* use setters */);
+    /// ```
     pub fn set_autoscaling<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ClusterAutoscaling>,
@@ -8349,6 +10726,14 @@ impl Cluster {
     }
 
     /// Sets or clears the value of [autoscaling][crate::model::Cluster::autoscaling].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::Cluster;
+    /// use google_cloud_container_v1::model::ClusterAutoscaling;
+    /// let x = Cluster::new().set_or_clear_autoscaling(Some(ClusterAutoscaling::default()/* use setters */));
+    /// let x = Cluster::new().set_or_clear_autoscaling(None::<ClusterAutoscaling>);
+    /// ```
     pub fn set_or_clear_autoscaling<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ClusterAutoscaling>,
@@ -8358,6 +10743,13 @@ impl Cluster {
     }
 
     /// Sets the value of [network_config][crate::model::Cluster::network_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::Cluster;
+    /// use google_cloud_container_v1::model::NetworkConfig;
+    /// let x = Cluster::new().set_network_config(NetworkConfig::default()/* use setters */);
+    /// ```
     pub fn set_network_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::NetworkConfig>,
@@ -8367,6 +10759,14 @@ impl Cluster {
     }
 
     /// Sets or clears the value of [network_config][crate::model::Cluster::network_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::Cluster;
+    /// use google_cloud_container_v1::model::NetworkConfig;
+    /// let x = Cluster::new().set_or_clear_network_config(Some(NetworkConfig::default()/* use setters */));
+    /// let x = Cluster::new().set_or_clear_network_config(None::<NetworkConfig>);
+    /// ```
     pub fn set_or_clear_network_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::NetworkConfig>,
@@ -8376,6 +10776,13 @@ impl Cluster {
     }
 
     /// Sets the value of [default_max_pods_constraint][crate::model::Cluster::default_max_pods_constraint].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::Cluster;
+    /// use google_cloud_container_v1::model::MaxPodsConstraint;
+    /// let x = Cluster::new().set_default_max_pods_constraint(MaxPodsConstraint::default()/* use setters */);
+    /// ```
     pub fn set_default_max_pods_constraint<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::MaxPodsConstraint>,
@@ -8385,6 +10792,14 @@ impl Cluster {
     }
 
     /// Sets or clears the value of [default_max_pods_constraint][crate::model::Cluster::default_max_pods_constraint].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::Cluster;
+    /// use google_cloud_container_v1::model::MaxPodsConstraint;
+    /// let x = Cluster::new().set_or_clear_default_max_pods_constraint(Some(MaxPodsConstraint::default()/* use setters */));
+    /// let x = Cluster::new().set_or_clear_default_max_pods_constraint(None::<MaxPodsConstraint>);
+    /// ```
     pub fn set_or_clear_default_max_pods_constraint<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::MaxPodsConstraint>,
@@ -8394,6 +10809,13 @@ impl Cluster {
     }
 
     /// Sets the value of [resource_usage_export_config][crate::model::Cluster::resource_usage_export_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::Cluster;
+    /// use google_cloud_container_v1::model::ResourceUsageExportConfig;
+    /// let x = Cluster::new().set_resource_usage_export_config(ResourceUsageExportConfig::default()/* use setters */);
+    /// ```
     pub fn set_resource_usage_export_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ResourceUsageExportConfig>,
@@ -8403,6 +10825,14 @@ impl Cluster {
     }
 
     /// Sets or clears the value of [resource_usage_export_config][crate::model::Cluster::resource_usage_export_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::Cluster;
+    /// use google_cloud_container_v1::model::ResourceUsageExportConfig;
+    /// let x = Cluster::new().set_or_clear_resource_usage_export_config(Some(ResourceUsageExportConfig::default()/* use setters */));
+    /// let x = Cluster::new().set_or_clear_resource_usage_export_config(None::<ResourceUsageExportConfig>);
+    /// ```
     pub fn set_or_clear_resource_usage_export_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ResourceUsageExportConfig>,
@@ -8412,6 +10842,13 @@ impl Cluster {
     }
 
     /// Sets the value of [authenticator_groups_config][crate::model::Cluster::authenticator_groups_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::Cluster;
+    /// use google_cloud_container_v1::model::AuthenticatorGroupsConfig;
+    /// let x = Cluster::new().set_authenticator_groups_config(AuthenticatorGroupsConfig::default()/* use setters */);
+    /// ```
     pub fn set_authenticator_groups_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::AuthenticatorGroupsConfig>,
@@ -8421,6 +10858,14 @@ impl Cluster {
     }
 
     /// Sets or clears the value of [authenticator_groups_config][crate::model::Cluster::authenticator_groups_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::Cluster;
+    /// use google_cloud_container_v1::model::AuthenticatorGroupsConfig;
+    /// let x = Cluster::new().set_or_clear_authenticator_groups_config(Some(AuthenticatorGroupsConfig::default()/* use setters */));
+    /// let x = Cluster::new().set_or_clear_authenticator_groups_config(None::<AuthenticatorGroupsConfig>);
+    /// ```
     pub fn set_or_clear_authenticator_groups_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AuthenticatorGroupsConfig>,
@@ -8430,6 +10875,13 @@ impl Cluster {
     }
 
     /// Sets the value of [private_cluster_config][crate::model::Cluster::private_cluster_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::Cluster;
+    /// use google_cloud_container_v1::model::PrivateClusterConfig;
+    /// let x = Cluster::new().set_private_cluster_config(PrivateClusterConfig::default()/* use setters */);
+    /// ```
     pub fn set_private_cluster_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::PrivateClusterConfig>,
@@ -8439,6 +10891,14 @@ impl Cluster {
     }
 
     /// Sets or clears the value of [private_cluster_config][crate::model::Cluster::private_cluster_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::Cluster;
+    /// use google_cloud_container_v1::model::PrivateClusterConfig;
+    /// let x = Cluster::new().set_or_clear_private_cluster_config(Some(PrivateClusterConfig::default()/* use setters */));
+    /// let x = Cluster::new().set_or_clear_private_cluster_config(None::<PrivateClusterConfig>);
+    /// ```
     pub fn set_or_clear_private_cluster_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::PrivateClusterConfig>,
@@ -8448,6 +10908,13 @@ impl Cluster {
     }
 
     /// Sets the value of [database_encryption][crate::model::Cluster::database_encryption].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::Cluster;
+    /// use google_cloud_container_v1::model::DatabaseEncryption;
+    /// let x = Cluster::new().set_database_encryption(DatabaseEncryption::default()/* use setters */);
+    /// ```
     pub fn set_database_encryption<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::DatabaseEncryption>,
@@ -8457,6 +10924,14 @@ impl Cluster {
     }
 
     /// Sets or clears the value of [database_encryption][crate::model::Cluster::database_encryption].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::Cluster;
+    /// use google_cloud_container_v1::model::DatabaseEncryption;
+    /// let x = Cluster::new().set_or_clear_database_encryption(Some(DatabaseEncryption::default()/* use setters */));
+    /// let x = Cluster::new().set_or_clear_database_encryption(None::<DatabaseEncryption>);
+    /// ```
     pub fn set_or_clear_database_encryption<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DatabaseEncryption>,
@@ -8466,6 +10941,13 @@ impl Cluster {
     }
 
     /// Sets the value of [vertical_pod_autoscaling][crate::model::Cluster::vertical_pod_autoscaling].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::Cluster;
+    /// use google_cloud_container_v1::model::VerticalPodAutoscaling;
+    /// let x = Cluster::new().set_vertical_pod_autoscaling(VerticalPodAutoscaling::default()/* use setters */);
+    /// ```
     pub fn set_vertical_pod_autoscaling<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::VerticalPodAutoscaling>,
@@ -8475,6 +10957,14 @@ impl Cluster {
     }
 
     /// Sets or clears the value of [vertical_pod_autoscaling][crate::model::Cluster::vertical_pod_autoscaling].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::Cluster;
+    /// use google_cloud_container_v1::model::VerticalPodAutoscaling;
+    /// let x = Cluster::new().set_or_clear_vertical_pod_autoscaling(Some(VerticalPodAutoscaling::default()/* use setters */));
+    /// let x = Cluster::new().set_or_clear_vertical_pod_autoscaling(None::<VerticalPodAutoscaling>);
+    /// ```
     pub fn set_or_clear_vertical_pod_autoscaling<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::VerticalPodAutoscaling>,
@@ -8484,6 +10974,13 @@ impl Cluster {
     }
 
     /// Sets the value of [shielded_nodes][crate::model::Cluster::shielded_nodes].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::Cluster;
+    /// use google_cloud_container_v1::model::ShieldedNodes;
+    /// let x = Cluster::new().set_shielded_nodes(ShieldedNodes::default()/* use setters */);
+    /// ```
     pub fn set_shielded_nodes<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ShieldedNodes>,
@@ -8493,6 +10990,14 @@ impl Cluster {
     }
 
     /// Sets or clears the value of [shielded_nodes][crate::model::Cluster::shielded_nodes].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::Cluster;
+    /// use google_cloud_container_v1::model::ShieldedNodes;
+    /// let x = Cluster::new().set_or_clear_shielded_nodes(Some(ShieldedNodes::default()/* use setters */));
+    /// let x = Cluster::new().set_or_clear_shielded_nodes(None::<ShieldedNodes>);
+    /// ```
     pub fn set_or_clear_shielded_nodes<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ShieldedNodes>,
@@ -8502,6 +11007,13 @@ impl Cluster {
     }
 
     /// Sets the value of [release_channel][crate::model::Cluster::release_channel].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::Cluster;
+    /// use google_cloud_container_v1::model::ReleaseChannel;
+    /// let x = Cluster::new().set_release_channel(ReleaseChannel::default()/* use setters */);
+    /// ```
     pub fn set_release_channel<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ReleaseChannel>,
@@ -8511,6 +11023,14 @@ impl Cluster {
     }
 
     /// Sets or clears the value of [release_channel][crate::model::Cluster::release_channel].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::Cluster;
+    /// use google_cloud_container_v1::model::ReleaseChannel;
+    /// let x = Cluster::new().set_or_clear_release_channel(Some(ReleaseChannel::default()/* use setters */));
+    /// let x = Cluster::new().set_or_clear_release_channel(None::<ReleaseChannel>);
+    /// ```
     pub fn set_or_clear_release_channel<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ReleaseChannel>,
@@ -8520,6 +11040,13 @@ impl Cluster {
     }
 
     /// Sets the value of [workload_identity_config][crate::model::Cluster::workload_identity_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::Cluster;
+    /// use google_cloud_container_v1::model::WorkloadIdentityConfig;
+    /// let x = Cluster::new().set_workload_identity_config(WorkloadIdentityConfig::default()/* use setters */);
+    /// ```
     pub fn set_workload_identity_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::WorkloadIdentityConfig>,
@@ -8529,6 +11056,14 @@ impl Cluster {
     }
 
     /// Sets or clears the value of [workload_identity_config][crate::model::Cluster::workload_identity_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::Cluster;
+    /// use google_cloud_container_v1::model::WorkloadIdentityConfig;
+    /// let x = Cluster::new().set_or_clear_workload_identity_config(Some(WorkloadIdentityConfig::default()/* use setters */));
+    /// let x = Cluster::new().set_or_clear_workload_identity_config(None::<WorkloadIdentityConfig>);
+    /// ```
     pub fn set_or_clear_workload_identity_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::WorkloadIdentityConfig>,
@@ -8538,6 +11073,13 @@ impl Cluster {
     }
 
     /// Sets the value of [mesh_certificates][crate::model::Cluster::mesh_certificates].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::Cluster;
+    /// use google_cloud_container_v1::model::MeshCertificates;
+    /// let x = Cluster::new().set_mesh_certificates(MeshCertificates::default()/* use setters */);
+    /// ```
     pub fn set_mesh_certificates<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::MeshCertificates>,
@@ -8547,6 +11089,14 @@ impl Cluster {
     }
 
     /// Sets or clears the value of [mesh_certificates][crate::model::Cluster::mesh_certificates].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::Cluster;
+    /// use google_cloud_container_v1::model::MeshCertificates;
+    /// let x = Cluster::new().set_or_clear_mesh_certificates(Some(MeshCertificates::default()/* use setters */));
+    /// let x = Cluster::new().set_or_clear_mesh_certificates(None::<MeshCertificates>);
+    /// ```
     pub fn set_or_clear_mesh_certificates<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::MeshCertificates>,
@@ -8556,6 +11106,13 @@ impl Cluster {
     }
 
     /// Sets the value of [cost_management_config][crate::model::Cluster::cost_management_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::Cluster;
+    /// use google_cloud_container_v1::model::CostManagementConfig;
+    /// let x = Cluster::new().set_cost_management_config(CostManagementConfig::default()/* use setters */);
+    /// ```
     pub fn set_cost_management_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::CostManagementConfig>,
@@ -8565,6 +11122,14 @@ impl Cluster {
     }
 
     /// Sets or clears the value of [cost_management_config][crate::model::Cluster::cost_management_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::Cluster;
+    /// use google_cloud_container_v1::model::CostManagementConfig;
+    /// let x = Cluster::new().set_or_clear_cost_management_config(Some(CostManagementConfig::default()/* use setters */));
+    /// let x = Cluster::new().set_or_clear_cost_management_config(None::<CostManagementConfig>);
+    /// ```
     pub fn set_or_clear_cost_management_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CostManagementConfig>,
@@ -8574,6 +11139,13 @@ impl Cluster {
     }
 
     /// Sets the value of [notification_config][crate::model::Cluster::notification_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::Cluster;
+    /// use google_cloud_container_v1::model::NotificationConfig;
+    /// let x = Cluster::new().set_notification_config(NotificationConfig::default()/* use setters */);
+    /// ```
     pub fn set_notification_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::NotificationConfig>,
@@ -8583,6 +11155,14 @@ impl Cluster {
     }
 
     /// Sets or clears the value of [notification_config][crate::model::Cluster::notification_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::Cluster;
+    /// use google_cloud_container_v1::model::NotificationConfig;
+    /// let x = Cluster::new().set_or_clear_notification_config(Some(NotificationConfig::default()/* use setters */));
+    /// let x = Cluster::new().set_or_clear_notification_config(None::<NotificationConfig>);
+    /// ```
     pub fn set_or_clear_notification_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::NotificationConfig>,
@@ -8592,6 +11172,13 @@ impl Cluster {
     }
 
     /// Sets the value of [confidential_nodes][crate::model::Cluster::confidential_nodes].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::Cluster;
+    /// use google_cloud_container_v1::model::ConfidentialNodes;
+    /// let x = Cluster::new().set_confidential_nodes(ConfidentialNodes::default()/* use setters */);
+    /// ```
     pub fn set_confidential_nodes<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ConfidentialNodes>,
@@ -8601,6 +11188,14 @@ impl Cluster {
     }
 
     /// Sets or clears the value of [confidential_nodes][crate::model::Cluster::confidential_nodes].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::Cluster;
+    /// use google_cloud_container_v1::model::ConfidentialNodes;
+    /// let x = Cluster::new().set_or_clear_confidential_nodes(Some(ConfidentialNodes::default()/* use setters */));
+    /// let x = Cluster::new().set_or_clear_confidential_nodes(None::<ConfidentialNodes>);
+    /// ```
     pub fn set_or_clear_confidential_nodes<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ConfidentialNodes>,
@@ -8610,6 +11205,13 @@ impl Cluster {
     }
 
     /// Sets the value of [identity_service_config][crate::model::Cluster::identity_service_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::Cluster;
+    /// use google_cloud_container_v1::model::IdentityServiceConfig;
+    /// let x = Cluster::new().set_identity_service_config(IdentityServiceConfig::default()/* use setters */);
+    /// ```
     pub fn set_identity_service_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::IdentityServiceConfig>,
@@ -8619,6 +11221,14 @@ impl Cluster {
     }
 
     /// Sets or clears the value of [identity_service_config][crate::model::Cluster::identity_service_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::Cluster;
+    /// use google_cloud_container_v1::model::IdentityServiceConfig;
+    /// let x = Cluster::new().set_or_clear_identity_service_config(Some(IdentityServiceConfig::default()/* use setters */));
+    /// let x = Cluster::new().set_or_clear_identity_service_config(None::<IdentityServiceConfig>);
+    /// ```
     pub fn set_or_clear_identity_service_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::IdentityServiceConfig>,
@@ -8628,12 +11238,24 @@ impl Cluster {
     }
 
     /// Sets the value of [self_link][crate::model::Cluster::self_link].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::Cluster;
+    /// let x = Cluster::new().set_self_link("example");
+    /// ```
     pub fn set_self_link<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.self_link = v.into();
         self
     }
 
     /// Sets the value of [zone][crate::model::Cluster::zone].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::Cluster;
+    /// let x = Cluster::new().set_zone("example");
+    /// ```
     #[deprecated]
     pub fn set_zone<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.zone = v.into();
@@ -8641,12 +11263,24 @@ impl Cluster {
     }
 
     /// Sets the value of [endpoint][crate::model::Cluster::endpoint].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::Cluster;
+    /// let x = Cluster::new().set_endpoint("example");
+    /// ```
     pub fn set_endpoint<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.endpoint = v.into();
         self
     }
 
     /// Sets the value of [initial_cluster_version][crate::model::Cluster::initial_cluster_version].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::Cluster;
+    /// let x = Cluster::new().set_initial_cluster_version("example");
+    /// ```
     pub fn set_initial_cluster_version<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -8656,6 +11290,12 @@ impl Cluster {
     }
 
     /// Sets the value of [current_master_version][crate::model::Cluster::current_master_version].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::Cluster;
+    /// let x = Cluster::new().set_current_master_version("example");
+    /// ```
     pub fn set_current_master_version<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -8665,6 +11305,12 @@ impl Cluster {
     }
 
     /// Sets the value of [current_node_version][crate::model::Cluster::current_node_version].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::Cluster;
+    /// let x = Cluster::new().set_current_node_version("example");
+    /// ```
     #[deprecated]
     pub fn set_current_node_version<T: std::convert::Into<std::string::String>>(
         mut self,
@@ -8675,12 +11321,27 @@ impl Cluster {
     }
 
     /// Sets the value of [create_time][crate::model::Cluster::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::Cluster;
+    /// let x = Cluster::new().set_create_time("example");
+    /// ```
     pub fn set_create_time<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.create_time = v.into();
         self
     }
 
     /// Sets the value of [status][crate::model::Cluster::status].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::Cluster;
+    /// use google_cloud_container_v1::model::cluster::Status;
+    /// let x0 = Cluster::new().set_status(Status::Provisioning);
+    /// let x1 = Cluster::new().set_status(Status::Running);
+    /// let x2 = Cluster::new().set_status(Status::Reconciling);
+    /// ```
     pub fn set_status<T: std::convert::Into<crate::model::cluster::Status>>(
         mut self,
         v: T,
@@ -8690,6 +11351,12 @@ impl Cluster {
     }
 
     /// Sets the value of [status_message][crate::model::Cluster::status_message].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::Cluster;
+    /// let x = Cluster::new().set_status_message("example");
+    /// ```
     #[deprecated]
     pub fn set_status_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.status_message = v.into();
@@ -8697,12 +11364,24 @@ impl Cluster {
     }
 
     /// Sets the value of [node_ipv4_cidr_size][crate::model::Cluster::node_ipv4_cidr_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::Cluster;
+    /// let x = Cluster::new().set_node_ipv4_cidr_size(42);
+    /// ```
     pub fn set_node_ipv4_cidr_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.node_ipv4_cidr_size = v.into();
         self
     }
 
     /// Sets the value of [services_ipv4_cidr][crate::model::Cluster::services_ipv4_cidr].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::Cluster;
+    /// let x = Cluster::new().set_services_ipv4_cidr("example");
+    /// ```
     pub fn set_services_ipv4_cidr<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -8712,6 +11391,12 @@ impl Cluster {
     }
 
     /// Sets the value of [instance_group_urls][crate::model::Cluster::instance_group_urls].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::Cluster;
+    /// let x = Cluster::new().set_instance_group_urls(["a", "b", "c"]);
+    /// ```
     #[deprecated]
     pub fn set_instance_group_urls<T, V>(mut self, v: T) -> Self
     where
@@ -8724,6 +11409,12 @@ impl Cluster {
     }
 
     /// Sets the value of [current_node_count][crate::model::Cluster::current_node_count].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::Cluster;
+    /// let x = Cluster::new().set_current_node_count(42);
+    /// ```
     #[deprecated]
     pub fn set_current_node_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.current_node_count = v.into();
@@ -8731,18 +11422,36 @@ impl Cluster {
     }
 
     /// Sets the value of [expire_time][crate::model::Cluster::expire_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::Cluster;
+    /// let x = Cluster::new().set_expire_time("example");
+    /// ```
     pub fn set_expire_time<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.expire_time = v.into();
         self
     }
 
     /// Sets the value of [location][crate::model::Cluster::location].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::Cluster;
+    /// let x = Cluster::new().set_location("example");
+    /// ```
     pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.location = v.into();
         self
     }
 
     /// Sets the value of [enable_tpu][crate::model::Cluster::enable_tpu].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::Cluster;
+    /// let x = Cluster::new().set_enable_tpu(true);
+    /// ```
     #[deprecated]
     pub fn set_enable_tpu<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.enable_tpu = v.into();
@@ -8750,6 +11459,12 @@ impl Cluster {
     }
 
     /// Sets the value of [tpu_ipv4_cidr_block][crate::model::Cluster::tpu_ipv4_cidr_block].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::Cluster;
+    /// let x = Cluster::new().set_tpu_ipv4_cidr_block("example");
+    /// ```
     #[deprecated]
     pub fn set_tpu_ipv4_cidr_block<T: std::convert::Into<std::string::String>>(
         mut self,
@@ -8760,6 +11475,17 @@ impl Cluster {
     }
 
     /// Sets the value of [conditions][crate::model::Cluster::conditions].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::Cluster;
+    /// use google_cloud_container_v1::model::StatusCondition;
+    /// let x = Cluster::new()
+    ///     .set_conditions([
+    ///         StatusCondition::default()/* use setters */,
+    ///         StatusCondition::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_conditions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -8771,6 +11497,13 @@ impl Cluster {
     }
 
     /// Sets the value of [autopilot][crate::model::Cluster::autopilot].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::Cluster;
+    /// use google_cloud_container_v1::model::Autopilot;
+    /// let x = Cluster::new().set_autopilot(Autopilot::default()/* use setters */);
+    /// ```
     pub fn set_autopilot<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Autopilot>,
@@ -8780,6 +11513,14 @@ impl Cluster {
     }
 
     /// Sets or clears the value of [autopilot][crate::model::Cluster::autopilot].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::Cluster;
+    /// use google_cloud_container_v1::model::Autopilot;
+    /// let x = Cluster::new().set_or_clear_autopilot(Some(Autopilot::default()/* use setters */));
+    /// let x = Cluster::new().set_or_clear_autopilot(None::<Autopilot>);
+    /// ```
     pub fn set_or_clear_autopilot<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Autopilot>,
@@ -8789,12 +11530,25 @@ impl Cluster {
     }
 
     /// Sets the value of [id][crate::model::Cluster::id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::Cluster;
+    /// let x = Cluster::new().set_id("example");
+    /// ```
     pub fn set_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.id = v.into();
         self
     }
 
     /// Sets the value of [node_pool_defaults][crate::model::Cluster::node_pool_defaults].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::Cluster;
+    /// use google_cloud_container_v1::model::NodePoolDefaults;
+    /// let x = Cluster::new().set_node_pool_defaults(NodePoolDefaults::default()/* use setters */);
+    /// ```
     pub fn set_node_pool_defaults<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::NodePoolDefaults>,
@@ -8804,6 +11558,14 @@ impl Cluster {
     }
 
     /// Sets or clears the value of [node_pool_defaults][crate::model::Cluster::node_pool_defaults].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::Cluster;
+    /// use google_cloud_container_v1::model::NodePoolDefaults;
+    /// let x = Cluster::new().set_or_clear_node_pool_defaults(Some(NodePoolDefaults::default()/* use setters */));
+    /// let x = Cluster::new().set_or_clear_node_pool_defaults(None::<NodePoolDefaults>);
+    /// ```
     pub fn set_or_clear_node_pool_defaults<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::NodePoolDefaults>,
@@ -8813,6 +11575,13 @@ impl Cluster {
     }
 
     /// Sets the value of [logging_config][crate::model::Cluster::logging_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::Cluster;
+    /// use google_cloud_container_v1::model::LoggingConfig;
+    /// let x = Cluster::new().set_logging_config(LoggingConfig::default()/* use setters */);
+    /// ```
     pub fn set_logging_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::LoggingConfig>,
@@ -8822,6 +11591,14 @@ impl Cluster {
     }
 
     /// Sets or clears the value of [logging_config][crate::model::Cluster::logging_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::Cluster;
+    /// use google_cloud_container_v1::model::LoggingConfig;
+    /// let x = Cluster::new().set_or_clear_logging_config(Some(LoggingConfig::default()/* use setters */));
+    /// let x = Cluster::new().set_or_clear_logging_config(None::<LoggingConfig>);
+    /// ```
     pub fn set_or_clear_logging_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::LoggingConfig>,
@@ -8831,6 +11608,13 @@ impl Cluster {
     }
 
     /// Sets the value of [monitoring_config][crate::model::Cluster::monitoring_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::Cluster;
+    /// use google_cloud_container_v1::model::MonitoringConfig;
+    /// let x = Cluster::new().set_monitoring_config(MonitoringConfig::default()/* use setters */);
+    /// ```
     pub fn set_monitoring_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::MonitoringConfig>,
@@ -8840,6 +11624,14 @@ impl Cluster {
     }
 
     /// Sets or clears the value of [monitoring_config][crate::model::Cluster::monitoring_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::Cluster;
+    /// use google_cloud_container_v1::model::MonitoringConfig;
+    /// let x = Cluster::new().set_or_clear_monitoring_config(Some(MonitoringConfig::default()/* use setters */));
+    /// let x = Cluster::new().set_or_clear_monitoring_config(None::<MonitoringConfig>);
+    /// ```
     pub fn set_or_clear_monitoring_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::MonitoringConfig>,
@@ -8849,6 +11641,13 @@ impl Cluster {
     }
 
     /// Sets the value of [node_pool_auto_config][crate::model::Cluster::node_pool_auto_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::Cluster;
+    /// use google_cloud_container_v1::model::NodePoolAutoConfig;
+    /// let x = Cluster::new().set_node_pool_auto_config(NodePoolAutoConfig::default()/* use setters */);
+    /// ```
     pub fn set_node_pool_auto_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::NodePoolAutoConfig>,
@@ -8858,6 +11657,14 @@ impl Cluster {
     }
 
     /// Sets or clears the value of [node_pool_auto_config][crate::model::Cluster::node_pool_auto_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::Cluster;
+    /// use google_cloud_container_v1::model::NodePoolAutoConfig;
+    /// let x = Cluster::new().set_or_clear_node_pool_auto_config(Some(NodePoolAutoConfig::default()/* use setters */));
+    /// let x = Cluster::new().set_or_clear_node_pool_auto_config(None::<NodePoolAutoConfig>);
+    /// ```
     pub fn set_or_clear_node_pool_auto_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::NodePoolAutoConfig>,
@@ -8867,6 +11674,13 @@ impl Cluster {
     }
 
     /// Sets the value of [pod_autoscaling][crate::model::Cluster::pod_autoscaling].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::Cluster;
+    /// use google_cloud_container_v1::model::PodAutoscaling;
+    /// let x = Cluster::new().set_pod_autoscaling(PodAutoscaling::default()/* use setters */);
+    /// ```
     pub fn set_pod_autoscaling<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::PodAutoscaling>,
@@ -8876,6 +11690,14 @@ impl Cluster {
     }
 
     /// Sets or clears the value of [pod_autoscaling][crate::model::Cluster::pod_autoscaling].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::Cluster;
+    /// use google_cloud_container_v1::model::PodAutoscaling;
+    /// let x = Cluster::new().set_or_clear_pod_autoscaling(Some(PodAutoscaling::default()/* use setters */));
+    /// let x = Cluster::new().set_or_clear_pod_autoscaling(None::<PodAutoscaling>);
+    /// ```
     pub fn set_or_clear_pod_autoscaling<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::PodAutoscaling>,
@@ -8885,12 +11707,25 @@ impl Cluster {
     }
 
     /// Sets the value of [etag][crate::model::Cluster::etag].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::Cluster;
+    /// let x = Cluster::new().set_etag("example");
+    /// ```
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
     }
 
     /// Sets the value of [fleet][crate::model::Cluster::fleet].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::Cluster;
+    /// use google_cloud_container_v1::model::Fleet;
+    /// let x = Cluster::new().set_fleet(Fleet::default()/* use setters */);
+    /// ```
     pub fn set_fleet<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Fleet>,
@@ -8900,6 +11735,14 @@ impl Cluster {
     }
 
     /// Sets or clears the value of [fleet][crate::model::Cluster::fleet].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::Cluster;
+    /// use google_cloud_container_v1::model::Fleet;
+    /// let x = Cluster::new().set_or_clear_fleet(Some(Fleet::default()/* use setters */));
+    /// let x = Cluster::new().set_or_clear_fleet(None::<Fleet>);
+    /// ```
     pub fn set_or_clear_fleet<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Fleet>,
@@ -8909,6 +11752,13 @@ impl Cluster {
     }
 
     /// Sets the value of [security_posture_config][crate::model::Cluster::security_posture_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::Cluster;
+    /// use google_cloud_container_v1::model::SecurityPostureConfig;
+    /// let x = Cluster::new().set_security_posture_config(SecurityPostureConfig::default()/* use setters */);
+    /// ```
     pub fn set_security_posture_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::SecurityPostureConfig>,
@@ -8918,6 +11768,14 @@ impl Cluster {
     }
 
     /// Sets or clears the value of [security_posture_config][crate::model::Cluster::security_posture_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::Cluster;
+    /// use google_cloud_container_v1::model::SecurityPostureConfig;
+    /// let x = Cluster::new().set_or_clear_security_posture_config(Some(SecurityPostureConfig::default()/* use setters */));
+    /// let x = Cluster::new().set_or_clear_security_posture_config(None::<SecurityPostureConfig>);
+    /// ```
     pub fn set_or_clear_security_posture_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::SecurityPostureConfig>,
@@ -8927,6 +11785,13 @@ impl Cluster {
     }
 
     /// Sets the value of [control_plane_endpoints_config][crate::model::Cluster::control_plane_endpoints_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::Cluster;
+    /// use google_cloud_container_v1::model::ControlPlaneEndpointsConfig;
+    /// let x = Cluster::new().set_control_plane_endpoints_config(ControlPlaneEndpointsConfig::default()/* use setters */);
+    /// ```
     pub fn set_control_plane_endpoints_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ControlPlaneEndpointsConfig>,
@@ -8936,6 +11801,14 @@ impl Cluster {
     }
 
     /// Sets or clears the value of [control_plane_endpoints_config][crate::model::Cluster::control_plane_endpoints_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::Cluster;
+    /// use google_cloud_container_v1::model::ControlPlaneEndpointsConfig;
+    /// let x = Cluster::new().set_or_clear_control_plane_endpoints_config(Some(ControlPlaneEndpointsConfig::default()/* use setters */));
+    /// let x = Cluster::new().set_or_clear_control_plane_endpoints_config(None::<ControlPlaneEndpointsConfig>);
+    /// ```
     pub fn set_or_clear_control_plane_endpoints_config<T>(
         mut self,
         v: std::option::Option<T>,
@@ -8948,6 +11821,13 @@ impl Cluster {
     }
 
     /// Sets the value of [enable_k8s_beta_apis][crate::model::Cluster::enable_k8s_beta_apis].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::Cluster;
+    /// use google_cloud_container_v1::model::K8sBetaAPIConfig;
+    /// let x = Cluster::new().set_enable_k8s_beta_apis(K8sBetaAPIConfig::default()/* use setters */);
+    /// ```
     pub fn set_enable_k8s_beta_apis<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::K8sBetaAPIConfig>,
@@ -8957,6 +11837,14 @@ impl Cluster {
     }
 
     /// Sets or clears the value of [enable_k8s_beta_apis][crate::model::Cluster::enable_k8s_beta_apis].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::Cluster;
+    /// use google_cloud_container_v1::model::K8sBetaAPIConfig;
+    /// let x = Cluster::new().set_or_clear_enable_k8s_beta_apis(Some(K8sBetaAPIConfig::default()/* use setters */));
+    /// let x = Cluster::new().set_or_clear_enable_k8s_beta_apis(None::<K8sBetaAPIConfig>);
+    /// ```
     pub fn set_or_clear_enable_k8s_beta_apis<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::K8sBetaAPIConfig>,
@@ -8966,6 +11854,13 @@ impl Cluster {
     }
 
     /// Sets the value of [enterprise_config][crate::model::Cluster::enterprise_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::Cluster;
+    /// use google_cloud_container_v1::model::EnterpriseConfig;
+    /// let x = Cluster::new().set_enterprise_config(EnterpriseConfig::default()/* use setters */);
+    /// ```
     #[deprecated]
     pub fn set_enterprise_config<T>(mut self, v: T) -> Self
     where
@@ -8976,6 +11871,14 @@ impl Cluster {
     }
 
     /// Sets or clears the value of [enterprise_config][crate::model::Cluster::enterprise_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::Cluster;
+    /// use google_cloud_container_v1::model::EnterpriseConfig;
+    /// let x = Cluster::new().set_or_clear_enterprise_config(Some(EnterpriseConfig::default()/* use setters */));
+    /// let x = Cluster::new().set_or_clear_enterprise_config(None::<EnterpriseConfig>);
+    /// ```
     #[deprecated]
     pub fn set_or_clear_enterprise_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
@@ -8986,6 +11889,13 @@ impl Cluster {
     }
 
     /// Sets the value of [secret_manager_config][crate::model::Cluster::secret_manager_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::Cluster;
+    /// use google_cloud_container_v1::model::SecretManagerConfig;
+    /// let x = Cluster::new().set_secret_manager_config(SecretManagerConfig::default()/* use setters */);
+    /// ```
     pub fn set_secret_manager_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::SecretManagerConfig>,
@@ -8995,6 +11905,14 @@ impl Cluster {
     }
 
     /// Sets or clears the value of [secret_manager_config][crate::model::Cluster::secret_manager_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::Cluster;
+    /// use google_cloud_container_v1::model::SecretManagerConfig;
+    /// let x = Cluster::new().set_or_clear_secret_manager_config(Some(SecretManagerConfig::default()/* use setters */));
+    /// let x = Cluster::new().set_or_clear_secret_manager_config(None::<SecretManagerConfig>);
+    /// ```
     pub fn set_or_clear_secret_manager_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::SecretManagerConfig>,
@@ -9004,6 +11922,13 @@ impl Cluster {
     }
 
     /// Sets the value of [compliance_posture_config][crate::model::Cluster::compliance_posture_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::Cluster;
+    /// use google_cloud_container_v1::model::CompliancePostureConfig;
+    /// let x = Cluster::new().set_compliance_posture_config(CompliancePostureConfig::default()/* use setters */);
+    /// ```
     pub fn set_compliance_posture_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::CompliancePostureConfig>,
@@ -9013,6 +11938,14 @@ impl Cluster {
     }
 
     /// Sets or clears the value of [compliance_posture_config][crate::model::Cluster::compliance_posture_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::Cluster;
+    /// use google_cloud_container_v1::model::CompliancePostureConfig;
+    /// let x = Cluster::new().set_or_clear_compliance_posture_config(Some(CompliancePostureConfig::default()/* use setters */));
+    /// let x = Cluster::new().set_or_clear_compliance_posture_config(None::<CompliancePostureConfig>);
+    /// ```
     pub fn set_or_clear_compliance_posture_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CompliancePostureConfig>,
@@ -9022,6 +11955,12 @@ impl Cluster {
     }
 
     /// Sets the value of [satisfies_pzs][crate::model::Cluster::satisfies_pzs].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::Cluster;
+    /// let x = Cluster::new().set_satisfies_pzs(true);
+    /// ```
     pub fn set_satisfies_pzs<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<bool>,
@@ -9031,6 +11970,13 @@ impl Cluster {
     }
 
     /// Sets or clears the value of [satisfies_pzs][crate::model::Cluster::satisfies_pzs].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::Cluster;
+    /// let x = Cluster::new().set_or_clear_satisfies_pzs(Some(false));
+    /// let x = Cluster::new().set_or_clear_satisfies_pzs(None::<bool>);
+    /// ```
     pub fn set_or_clear_satisfies_pzs<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<bool>,
@@ -9040,6 +11986,12 @@ impl Cluster {
     }
 
     /// Sets the value of [satisfies_pzi][crate::model::Cluster::satisfies_pzi].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::Cluster;
+    /// let x = Cluster::new().set_satisfies_pzi(true);
+    /// ```
     pub fn set_satisfies_pzi<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<bool>,
@@ -9049,6 +12001,13 @@ impl Cluster {
     }
 
     /// Sets or clears the value of [satisfies_pzi][crate::model::Cluster::satisfies_pzi].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::Cluster;
+    /// let x = Cluster::new().set_or_clear_satisfies_pzi(Some(false));
+    /// let x = Cluster::new().set_or_clear_satisfies_pzi(None::<bool>);
+    /// ```
     pub fn set_or_clear_satisfies_pzi<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<bool>,
@@ -9058,6 +12017,13 @@ impl Cluster {
     }
 
     /// Sets the value of [user_managed_keys_config][crate::model::Cluster::user_managed_keys_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::Cluster;
+    /// use google_cloud_container_v1::model::UserManagedKeysConfig;
+    /// let x = Cluster::new().set_user_managed_keys_config(UserManagedKeysConfig::default()/* use setters */);
+    /// ```
     pub fn set_user_managed_keys_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::UserManagedKeysConfig>,
@@ -9067,6 +12033,14 @@ impl Cluster {
     }
 
     /// Sets or clears the value of [user_managed_keys_config][crate::model::Cluster::user_managed_keys_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::Cluster;
+    /// use google_cloud_container_v1::model::UserManagedKeysConfig;
+    /// let x = Cluster::new().set_or_clear_user_managed_keys_config(Some(UserManagedKeysConfig::default()/* use setters */));
+    /// let x = Cluster::new().set_or_clear_user_managed_keys_config(None::<UserManagedKeysConfig>);
+    /// ```
     pub fn set_or_clear_user_managed_keys_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::UserManagedKeysConfig>,
@@ -9076,6 +12050,13 @@ impl Cluster {
     }
 
     /// Sets the value of [rbac_binding_config][crate::model::Cluster::rbac_binding_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::Cluster;
+    /// use google_cloud_container_v1::model::RBACBindingConfig;
+    /// let x = Cluster::new().set_rbac_binding_config(RBACBindingConfig::default()/* use setters */);
+    /// ```
     pub fn set_rbac_binding_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::RBACBindingConfig>,
@@ -9085,6 +12066,14 @@ impl Cluster {
     }
 
     /// Sets or clears the value of [rbac_binding_config][crate::model::Cluster::rbac_binding_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::Cluster;
+    /// use google_cloud_container_v1::model::RBACBindingConfig;
+    /// let x = Cluster::new().set_or_clear_rbac_binding_config(Some(RBACBindingConfig::default()/* use setters */));
+    /// let x = Cluster::new().set_or_clear_rbac_binding_config(None::<RBACBindingConfig>);
+    /// ```
     pub fn set_or_clear_rbac_binding_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::RBACBindingConfig>,
@@ -9094,6 +12083,13 @@ impl Cluster {
     }
 
     /// Sets the value of [gke_auto_upgrade_config][crate::model::Cluster::gke_auto_upgrade_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::Cluster;
+    /// use google_cloud_container_v1::model::GkeAutoUpgradeConfig;
+    /// let x = Cluster::new().set_gke_auto_upgrade_config(GkeAutoUpgradeConfig::default()/* use setters */);
+    /// ```
     pub fn set_gke_auto_upgrade_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::GkeAutoUpgradeConfig>,
@@ -9103,6 +12099,14 @@ impl Cluster {
     }
 
     /// Sets or clears the value of [gke_auto_upgrade_config][crate::model::Cluster::gke_auto_upgrade_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::Cluster;
+    /// use google_cloud_container_v1::model::GkeAutoUpgradeConfig;
+    /// let x = Cluster::new().set_or_clear_gke_auto_upgrade_config(Some(GkeAutoUpgradeConfig::default()/* use setters */));
+    /// let x = Cluster::new().set_or_clear_gke_auto_upgrade_config(None::<GkeAutoUpgradeConfig>);
+    /// ```
     pub fn set_or_clear_gke_auto_upgrade_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::GkeAutoUpgradeConfig>,
@@ -9112,6 +12116,13 @@ impl Cluster {
     }
 
     /// Sets the value of [anonymous_authentication_config][crate::model::Cluster::anonymous_authentication_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::Cluster;
+    /// use google_cloud_container_v1::model::AnonymousAuthenticationConfig;
+    /// let x = Cluster::new().set_anonymous_authentication_config(AnonymousAuthenticationConfig::default()/* use setters */);
+    /// ```
     pub fn set_anonymous_authentication_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::AnonymousAuthenticationConfig>,
@@ -9121,6 +12132,14 @@ impl Cluster {
     }
 
     /// Sets or clears the value of [anonymous_authentication_config][crate::model::Cluster::anonymous_authentication_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::Cluster;
+    /// use google_cloud_container_v1::model::AnonymousAuthenticationConfig;
+    /// let x = Cluster::new().set_or_clear_anonymous_authentication_config(Some(AnonymousAuthenticationConfig::default()/* use setters */));
+    /// let x = Cluster::new().set_or_clear_anonymous_authentication_config(None::<AnonymousAuthenticationConfig>);
+    /// ```
     pub fn set_or_clear_anonymous_authentication_config<T>(
         mut self,
         v: std::option::Option<T>,
@@ -9332,6 +12351,12 @@ impl RBACBindingConfig {
     }
 
     /// Sets the value of [enable_insecure_binding_system_unauthenticated][crate::model::RBACBindingConfig::enable_insecure_binding_system_unauthenticated].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::RBACBindingConfig;
+    /// let x = RBACBindingConfig::new().set_enable_insecure_binding_system_unauthenticated(true);
+    /// ```
     pub fn set_enable_insecure_binding_system_unauthenticated<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<bool>,
@@ -9341,6 +12366,13 @@ impl RBACBindingConfig {
     }
 
     /// Sets or clears the value of [enable_insecure_binding_system_unauthenticated][crate::model::RBACBindingConfig::enable_insecure_binding_system_unauthenticated].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::RBACBindingConfig;
+    /// let x = RBACBindingConfig::new().set_or_clear_enable_insecure_binding_system_unauthenticated(Some(false));
+    /// let x = RBACBindingConfig::new().set_or_clear_enable_insecure_binding_system_unauthenticated(None::<bool>);
+    /// ```
     pub fn set_or_clear_enable_insecure_binding_system_unauthenticated<T>(
         mut self,
         v: std::option::Option<T>,
@@ -9353,6 +12385,12 @@ impl RBACBindingConfig {
     }
 
     /// Sets the value of [enable_insecure_binding_system_authenticated][crate::model::RBACBindingConfig::enable_insecure_binding_system_authenticated].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::RBACBindingConfig;
+    /// let x = RBACBindingConfig::new().set_enable_insecure_binding_system_authenticated(true);
+    /// ```
     pub fn set_enable_insecure_binding_system_authenticated<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<bool>,
@@ -9362,6 +12400,13 @@ impl RBACBindingConfig {
     }
 
     /// Sets or clears the value of [enable_insecure_binding_system_authenticated][crate::model::RBACBindingConfig::enable_insecure_binding_system_authenticated].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::RBACBindingConfig;
+    /// let x = RBACBindingConfig::new().set_or_clear_enable_insecure_binding_system_authenticated(Some(false));
+    /// let x = RBACBindingConfig::new().set_or_clear_enable_insecure_binding_system_authenticated(None::<bool>);
+    /// ```
     pub fn set_or_clear_enable_insecure_binding_system_authenticated<T>(
         mut self,
         v: std::option::Option<T>,
@@ -9432,24 +12477,48 @@ impl UserManagedKeysConfig {
     }
 
     /// Sets the value of [cluster_ca][crate::model::UserManagedKeysConfig::cluster_ca].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::UserManagedKeysConfig;
+    /// let x = UserManagedKeysConfig::new().set_cluster_ca("example");
+    /// ```
     pub fn set_cluster_ca<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.cluster_ca = v.into();
         self
     }
 
     /// Sets the value of [etcd_api_ca][crate::model::UserManagedKeysConfig::etcd_api_ca].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::UserManagedKeysConfig;
+    /// let x = UserManagedKeysConfig::new().set_etcd_api_ca("example");
+    /// ```
     pub fn set_etcd_api_ca<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etcd_api_ca = v.into();
         self
     }
 
     /// Sets the value of [etcd_peer_ca][crate::model::UserManagedKeysConfig::etcd_peer_ca].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::UserManagedKeysConfig;
+    /// let x = UserManagedKeysConfig::new().set_etcd_peer_ca("example");
+    /// ```
     pub fn set_etcd_peer_ca<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etcd_peer_ca = v.into();
         self
     }
 
     /// Sets the value of [service_account_signing_keys][crate::model::UserManagedKeysConfig::service_account_signing_keys].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::UserManagedKeysConfig;
+    /// let x = UserManagedKeysConfig::new().set_service_account_signing_keys(["a", "b", "c"]);
+    /// ```
     pub fn set_service_account_signing_keys<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -9461,6 +12530,12 @@ impl UserManagedKeysConfig {
     }
 
     /// Sets the value of [service_account_verification_keys][crate::model::UserManagedKeysConfig::service_account_verification_keys].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::UserManagedKeysConfig;
+    /// let x = UserManagedKeysConfig::new().set_service_account_verification_keys(["a", "b", "c"]);
+    /// ```
     pub fn set_service_account_verification_keys<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -9472,12 +12547,24 @@ impl UserManagedKeysConfig {
     }
 
     /// Sets the value of [aggregation_ca][crate::model::UserManagedKeysConfig::aggregation_ca].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::UserManagedKeysConfig;
+    /// let x = UserManagedKeysConfig::new().set_aggregation_ca("example");
+    /// ```
     pub fn set_aggregation_ca<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.aggregation_ca = v.into();
         self
     }
 
     /// Sets the value of [control_plane_disk_encryption_key][crate::model::UserManagedKeysConfig::control_plane_disk_encryption_key].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::UserManagedKeysConfig;
+    /// let x = UserManagedKeysConfig::new().set_control_plane_disk_encryption_key("example");
+    /// ```
     pub fn set_control_plane_disk_encryption_key<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -9487,6 +12574,12 @@ impl UserManagedKeysConfig {
     }
 
     /// Sets the value of [gkeops_etcd_backup_encryption_key][crate::model::UserManagedKeysConfig::gkeops_etcd_backup_encryption_key].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::UserManagedKeysConfig;
+    /// let x = UserManagedKeysConfig::new().set_gkeops_etcd_backup_encryption_key("example");
+    /// ```
     pub fn set_gkeops_etcd_backup_encryption_key<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -9519,6 +12612,14 @@ impl AnonymousAuthenticationConfig {
     }
 
     /// Sets the value of [mode][crate::model::AnonymousAuthenticationConfig::mode].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::AnonymousAuthenticationConfig;
+    /// use google_cloud_container_v1::model::anonymous_authentication_config::Mode;
+    /// let x0 = AnonymousAuthenticationConfig::new().set_mode(Mode::Enabled);
+    /// let x1 = AnonymousAuthenticationConfig::new().set_mode(Mode::Limited);
+    /// ```
     pub fn set_mode<T: std::convert::Into<crate::model::anonymous_authentication_config::Mode>>(
         mut self,
         v: T,
@@ -9694,6 +12795,14 @@ impl CompliancePostureConfig {
     }
 
     /// Sets the value of [mode][crate::model::CompliancePostureConfig::mode].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::CompliancePostureConfig;
+    /// use google_cloud_container_v1::model::compliance_posture_config::Mode;
+    /// let x0 = CompliancePostureConfig::new().set_mode(Mode::Disabled);
+    /// let x1 = CompliancePostureConfig::new().set_mode(Mode::Enabled);
+    /// ```
     pub fn set_mode<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::compliance_posture_config::Mode>,
@@ -9703,6 +12812,15 @@ impl CompliancePostureConfig {
     }
 
     /// Sets or clears the value of [mode][crate::model::CompliancePostureConfig::mode].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::CompliancePostureConfig;
+    /// use google_cloud_container_v1::model::compliance_posture_config::Mode;
+    /// let x0 = CompliancePostureConfig::new().set_or_clear_mode(Some(Mode::Disabled));
+    /// let x1 = CompliancePostureConfig::new().set_or_clear_mode(Some(Mode::Enabled));
+    /// let x_none = CompliancePostureConfig::new().set_or_clear_mode(None::<Mode>);
+    /// ```
     pub fn set_or_clear_mode<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::compliance_posture_config::Mode>,
@@ -9712,6 +12830,17 @@ impl CompliancePostureConfig {
     }
 
     /// Sets the value of [compliance_standards][crate::model::CompliancePostureConfig::compliance_standards].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::CompliancePostureConfig;
+    /// use google_cloud_container_v1::model::compliance_posture_config::ComplianceStandard;
+    /// let x = CompliancePostureConfig::new()
+    ///     .set_compliance_standards([
+    ///         ComplianceStandard::default()/* use setters */,
+    ///         ComplianceStandard::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_compliance_standards<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -9750,6 +12879,12 @@ pub mod compliance_posture_config {
         }
 
         /// Sets the value of [standard][crate::model::compliance_posture_config::ComplianceStandard::standard].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_container_v1::model::compliance_posture_config::ComplianceStandard;
+        /// let x = ComplianceStandard::new().set_standard("example");
+        /// ```
         pub fn set_standard<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<std::string::String>,
@@ -9759,6 +12894,14 @@ pub mod compliance_posture_config {
         }
 
         /// Sets or clears the value of [standard][crate::model::compliance_posture_config::ComplianceStandard::standard].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_container_v1::model::compliance_posture_config::ComplianceStandard;
+        /// let x = ComplianceStandard::new().set_or_clear_standard("example");
+        /// let x = ComplianceStandard::new().set_or_clear_standard(Some("example"));
+        /// let x = ComplianceStandard::new().set_or_clear_standard(None::<String>);
+        /// ```
         pub fn set_or_clear_standard<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<std::string::String>,
@@ -9923,6 +13066,12 @@ impl K8sBetaAPIConfig {
     }
 
     /// Sets the value of [enabled_apis][crate::model::K8sBetaAPIConfig::enabled_apis].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::K8sBetaAPIConfig;
+    /// let x = K8sBetaAPIConfig::new().set_enabled_apis(["a", "b", "c"]);
+    /// ```
     pub fn set_enabled_apis<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -9961,6 +13110,15 @@ impl SecurityPostureConfig {
     }
 
     /// Sets the value of [mode][crate::model::SecurityPostureConfig::mode].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::SecurityPostureConfig;
+    /// use google_cloud_container_v1::model::security_posture_config::Mode;
+    /// let x0 = SecurityPostureConfig::new().set_mode(Mode::Disabled);
+    /// let x1 = SecurityPostureConfig::new().set_mode(Mode::Basic);
+    /// let x2 = SecurityPostureConfig::new().set_mode(Mode::Enterprise);
+    /// ```
     pub fn set_mode<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::security_posture_config::Mode>,
@@ -9970,6 +13128,16 @@ impl SecurityPostureConfig {
     }
 
     /// Sets or clears the value of [mode][crate::model::SecurityPostureConfig::mode].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::SecurityPostureConfig;
+    /// use google_cloud_container_v1::model::security_posture_config::Mode;
+    /// let x0 = SecurityPostureConfig::new().set_or_clear_mode(Some(Mode::Disabled));
+    /// let x1 = SecurityPostureConfig::new().set_or_clear_mode(Some(Mode::Basic));
+    /// let x2 = SecurityPostureConfig::new().set_or_clear_mode(Some(Mode::Enterprise));
+    /// let x_none = SecurityPostureConfig::new().set_or_clear_mode(None::<Mode>);
+    /// ```
     pub fn set_or_clear_mode<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::security_posture_config::Mode>,
@@ -9979,6 +13147,15 @@ impl SecurityPostureConfig {
     }
 
     /// Sets the value of [vulnerability_mode][crate::model::SecurityPostureConfig::vulnerability_mode].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::SecurityPostureConfig;
+    /// use google_cloud_container_v1::model::security_posture_config::VulnerabilityMode;
+    /// let x0 = SecurityPostureConfig::new().set_vulnerability_mode(VulnerabilityMode::VulnerabilityDisabled);
+    /// let x1 = SecurityPostureConfig::new().set_vulnerability_mode(VulnerabilityMode::VulnerabilityBasic);
+    /// let x2 = SecurityPostureConfig::new().set_vulnerability_mode(VulnerabilityMode::VulnerabilityEnterprise);
+    /// ```
     pub fn set_vulnerability_mode<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::security_posture_config::VulnerabilityMode>,
@@ -9988,6 +13165,16 @@ impl SecurityPostureConfig {
     }
 
     /// Sets or clears the value of [vulnerability_mode][crate::model::SecurityPostureConfig::vulnerability_mode].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::SecurityPostureConfig;
+    /// use google_cloud_container_v1::model::security_posture_config::VulnerabilityMode;
+    /// let x0 = SecurityPostureConfig::new().set_or_clear_vulnerability_mode(Some(VulnerabilityMode::VulnerabilityDisabled));
+    /// let x1 = SecurityPostureConfig::new().set_or_clear_vulnerability_mode(Some(VulnerabilityMode::VulnerabilityBasic));
+    /// let x2 = SecurityPostureConfig::new().set_or_clear_vulnerability_mode(Some(VulnerabilityMode::VulnerabilityEnterprise));
+    /// let x_none = SecurityPostureConfig::new().set_or_clear_vulnerability_mode(None::<VulnerabilityMode>);
+    /// ```
     pub fn set_or_clear_vulnerability_mode<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::security_posture_config::VulnerabilityMode>,
@@ -10322,6 +13509,13 @@ impl NodePoolAutoConfig {
     }
 
     /// Sets the value of [network_tags][crate::model::NodePoolAutoConfig::network_tags].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NodePoolAutoConfig;
+    /// use google_cloud_container_v1::model::NetworkTags;
+    /// let x = NodePoolAutoConfig::new().set_network_tags(NetworkTags::default()/* use setters */);
+    /// ```
     pub fn set_network_tags<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::NetworkTags>,
@@ -10331,6 +13525,14 @@ impl NodePoolAutoConfig {
     }
 
     /// Sets or clears the value of [network_tags][crate::model::NodePoolAutoConfig::network_tags].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NodePoolAutoConfig;
+    /// use google_cloud_container_v1::model::NetworkTags;
+    /// let x = NodePoolAutoConfig::new().set_or_clear_network_tags(Some(NetworkTags::default()/* use setters */));
+    /// let x = NodePoolAutoConfig::new().set_or_clear_network_tags(None::<NetworkTags>);
+    /// ```
     pub fn set_or_clear_network_tags<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::NetworkTags>,
@@ -10340,6 +13542,13 @@ impl NodePoolAutoConfig {
     }
 
     /// Sets the value of [resource_manager_tags][crate::model::NodePoolAutoConfig::resource_manager_tags].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NodePoolAutoConfig;
+    /// use google_cloud_container_v1::model::ResourceManagerTags;
+    /// let x = NodePoolAutoConfig::new().set_resource_manager_tags(ResourceManagerTags::default()/* use setters */);
+    /// ```
     pub fn set_resource_manager_tags<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ResourceManagerTags>,
@@ -10349,6 +13558,14 @@ impl NodePoolAutoConfig {
     }
 
     /// Sets or clears the value of [resource_manager_tags][crate::model::NodePoolAutoConfig::resource_manager_tags].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NodePoolAutoConfig;
+    /// use google_cloud_container_v1::model::ResourceManagerTags;
+    /// let x = NodePoolAutoConfig::new().set_or_clear_resource_manager_tags(Some(ResourceManagerTags::default()/* use setters */));
+    /// let x = NodePoolAutoConfig::new().set_or_clear_resource_manager_tags(None::<ResourceManagerTags>);
+    /// ```
     pub fn set_or_clear_resource_manager_tags<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ResourceManagerTags>,
@@ -10358,6 +13575,13 @@ impl NodePoolAutoConfig {
     }
 
     /// Sets the value of [node_kubelet_config][crate::model::NodePoolAutoConfig::node_kubelet_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NodePoolAutoConfig;
+    /// use google_cloud_container_v1::model::NodeKubeletConfig;
+    /// let x = NodePoolAutoConfig::new().set_node_kubelet_config(NodeKubeletConfig::default()/* use setters */);
+    /// ```
     pub fn set_node_kubelet_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::NodeKubeletConfig>,
@@ -10367,6 +13591,14 @@ impl NodePoolAutoConfig {
     }
 
     /// Sets or clears the value of [node_kubelet_config][crate::model::NodePoolAutoConfig::node_kubelet_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NodePoolAutoConfig;
+    /// use google_cloud_container_v1::model::NodeKubeletConfig;
+    /// let x = NodePoolAutoConfig::new().set_or_clear_node_kubelet_config(Some(NodeKubeletConfig::default()/* use setters */));
+    /// let x = NodePoolAutoConfig::new().set_or_clear_node_kubelet_config(None::<NodeKubeletConfig>);
+    /// ```
     pub fn set_or_clear_node_kubelet_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::NodeKubeletConfig>,
@@ -10376,6 +13608,13 @@ impl NodePoolAutoConfig {
     }
 
     /// Sets the value of [linux_node_config][crate::model::NodePoolAutoConfig::linux_node_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NodePoolAutoConfig;
+    /// use google_cloud_container_v1::model::LinuxNodeConfig;
+    /// let x = NodePoolAutoConfig::new().set_linux_node_config(LinuxNodeConfig::default()/* use setters */);
+    /// ```
     pub fn set_linux_node_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::LinuxNodeConfig>,
@@ -10385,6 +13624,14 @@ impl NodePoolAutoConfig {
     }
 
     /// Sets or clears the value of [linux_node_config][crate::model::NodePoolAutoConfig::linux_node_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NodePoolAutoConfig;
+    /// use google_cloud_container_v1::model::LinuxNodeConfig;
+    /// let x = NodePoolAutoConfig::new().set_or_clear_linux_node_config(Some(LinuxNodeConfig::default()/* use setters */));
+    /// let x = NodePoolAutoConfig::new().set_or_clear_linux_node_config(None::<LinuxNodeConfig>);
+    /// ```
     pub fn set_or_clear_linux_node_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::LinuxNodeConfig>,
@@ -10416,6 +13663,13 @@ impl NodePoolDefaults {
     }
 
     /// Sets the value of [node_config_defaults][crate::model::NodePoolDefaults::node_config_defaults].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NodePoolDefaults;
+    /// use google_cloud_container_v1::model::NodeConfigDefaults;
+    /// let x = NodePoolDefaults::new().set_node_config_defaults(NodeConfigDefaults::default()/* use setters */);
+    /// ```
     pub fn set_node_config_defaults<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::NodeConfigDefaults>,
@@ -10425,6 +13679,14 @@ impl NodePoolDefaults {
     }
 
     /// Sets or clears the value of [node_config_defaults][crate::model::NodePoolDefaults::node_config_defaults].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NodePoolDefaults;
+    /// use google_cloud_container_v1::model::NodeConfigDefaults;
+    /// let x = NodePoolDefaults::new().set_or_clear_node_config_defaults(Some(NodeConfigDefaults::default()/* use setters */));
+    /// let x = NodePoolDefaults::new().set_or_clear_node_config_defaults(None::<NodeConfigDefaults>);
+    /// ```
     pub fn set_or_clear_node_config_defaults<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::NodeConfigDefaults>,
@@ -10467,6 +13729,13 @@ impl NodeConfigDefaults {
     }
 
     /// Sets the value of [gcfs_config][crate::model::NodeConfigDefaults::gcfs_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NodeConfigDefaults;
+    /// use google_cloud_container_v1::model::GcfsConfig;
+    /// let x = NodeConfigDefaults::new().set_gcfs_config(GcfsConfig::default()/* use setters */);
+    /// ```
     pub fn set_gcfs_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::GcfsConfig>,
@@ -10476,6 +13745,14 @@ impl NodeConfigDefaults {
     }
 
     /// Sets or clears the value of [gcfs_config][crate::model::NodeConfigDefaults::gcfs_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NodeConfigDefaults;
+    /// use google_cloud_container_v1::model::GcfsConfig;
+    /// let x = NodeConfigDefaults::new().set_or_clear_gcfs_config(Some(GcfsConfig::default()/* use setters */));
+    /// let x = NodeConfigDefaults::new().set_or_clear_gcfs_config(None::<GcfsConfig>);
+    /// ```
     pub fn set_or_clear_gcfs_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::GcfsConfig>,
@@ -10485,6 +13762,13 @@ impl NodeConfigDefaults {
     }
 
     /// Sets the value of [logging_config][crate::model::NodeConfigDefaults::logging_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NodeConfigDefaults;
+    /// use google_cloud_container_v1::model::NodePoolLoggingConfig;
+    /// let x = NodeConfigDefaults::new().set_logging_config(NodePoolLoggingConfig::default()/* use setters */);
+    /// ```
     pub fn set_logging_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::NodePoolLoggingConfig>,
@@ -10494,6 +13778,14 @@ impl NodeConfigDefaults {
     }
 
     /// Sets or clears the value of [logging_config][crate::model::NodeConfigDefaults::logging_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NodeConfigDefaults;
+    /// use google_cloud_container_v1::model::NodePoolLoggingConfig;
+    /// let x = NodeConfigDefaults::new().set_or_clear_logging_config(Some(NodePoolLoggingConfig::default()/* use setters */));
+    /// let x = NodeConfigDefaults::new().set_or_clear_logging_config(None::<NodePoolLoggingConfig>);
+    /// ```
     pub fn set_or_clear_logging_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::NodePoolLoggingConfig>,
@@ -10503,6 +13795,13 @@ impl NodeConfigDefaults {
     }
 
     /// Sets the value of [containerd_config][crate::model::NodeConfigDefaults::containerd_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NodeConfigDefaults;
+    /// use google_cloud_container_v1::model::ContainerdConfig;
+    /// let x = NodeConfigDefaults::new().set_containerd_config(ContainerdConfig::default()/* use setters */);
+    /// ```
     pub fn set_containerd_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ContainerdConfig>,
@@ -10512,6 +13811,14 @@ impl NodeConfigDefaults {
     }
 
     /// Sets or clears the value of [containerd_config][crate::model::NodeConfigDefaults::containerd_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NodeConfigDefaults;
+    /// use google_cloud_container_v1::model::ContainerdConfig;
+    /// let x = NodeConfigDefaults::new().set_or_clear_containerd_config(Some(ContainerdConfig::default()/* use setters */));
+    /// let x = NodeConfigDefaults::new().set_or_clear_containerd_config(None::<ContainerdConfig>);
+    /// ```
     pub fn set_or_clear_containerd_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ContainerdConfig>,
@@ -10521,6 +13828,13 @@ impl NodeConfigDefaults {
     }
 
     /// Sets the value of [node_kubelet_config][crate::model::NodeConfigDefaults::node_kubelet_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NodeConfigDefaults;
+    /// use google_cloud_container_v1::model::NodeKubeletConfig;
+    /// let x = NodeConfigDefaults::new().set_node_kubelet_config(NodeKubeletConfig::default()/* use setters */);
+    /// ```
     pub fn set_node_kubelet_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::NodeKubeletConfig>,
@@ -10530,6 +13844,14 @@ impl NodeConfigDefaults {
     }
 
     /// Sets or clears the value of [node_kubelet_config][crate::model::NodeConfigDefaults::node_kubelet_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NodeConfigDefaults;
+    /// use google_cloud_container_v1::model::NodeKubeletConfig;
+    /// let x = NodeConfigDefaults::new().set_or_clear_node_kubelet_config(Some(NodeKubeletConfig::default()/* use setters */));
+    /// let x = NodeConfigDefaults::new().set_or_clear_node_kubelet_config(None::<NodeKubeletConfig>);
+    /// ```
     pub fn set_or_clear_node_kubelet_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::NodeKubeletConfig>,
@@ -10906,6 +14228,12 @@ impl ClusterUpdate {
     }
 
     /// Sets the value of [desired_node_version][crate::model::ClusterUpdate::desired_node_version].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::ClusterUpdate;
+    /// let x = ClusterUpdate::new().set_desired_node_version("example");
+    /// ```
     pub fn set_desired_node_version<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -10915,6 +14243,12 @@ impl ClusterUpdate {
     }
 
     /// Sets the value of [desired_monitoring_service][crate::model::ClusterUpdate::desired_monitoring_service].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::ClusterUpdate;
+    /// let x = ClusterUpdate::new().set_desired_monitoring_service("example");
+    /// ```
     pub fn set_desired_monitoring_service<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -10924,6 +14258,13 @@ impl ClusterUpdate {
     }
 
     /// Sets the value of [desired_addons_config][crate::model::ClusterUpdate::desired_addons_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::ClusterUpdate;
+    /// use google_cloud_container_v1::model::AddonsConfig;
+    /// let x = ClusterUpdate::new().set_desired_addons_config(AddonsConfig::default()/* use setters */);
+    /// ```
     pub fn set_desired_addons_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::AddonsConfig>,
@@ -10933,6 +14274,14 @@ impl ClusterUpdate {
     }
 
     /// Sets or clears the value of [desired_addons_config][crate::model::ClusterUpdate::desired_addons_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::ClusterUpdate;
+    /// use google_cloud_container_v1::model::AddonsConfig;
+    /// let x = ClusterUpdate::new().set_or_clear_desired_addons_config(Some(AddonsConfig::default()/* use setters */));
+    /// let x = ClusterUpdate::new().set_or_clear_desired_addons_config(None::<AddonsConfig>);
+    /// ```
     pub fn set_or_clear_desired_addons_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AddonsConfig>,
@@ -10942,6 +14291,12 @@ impl ClusterUpdate {
     }
 
     /// Sets the value of [desired_node_pool_id][crate::model::ClusterUpdate::desired_node_pool_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::ClusterUpdate;
+    /// let x = ClusterUpdate::new().set_desired_node_pool_id("example");
+    /// ```
     pub fn set_desired_node_pool_id<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -10951,6 +14306,12 @@ impl ClusterUpdate {
     }
 
     /// Sets the value of [desired_image_type][crate::model::ClusterUpdate::desired_image_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::ClusterUpdate;
+    /// let x = ClusterUpdate::new().set_desired_image_type("example");
+    /// ```
     pub fn set_desired_image_type<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -10960,6 +14321,13 @@ impl ClusterUpdate {
     }
 
     /// Sets the value of [desired_database_encryption][crate::model::ClusterUpdate::desired_database_encryption].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::ClusterUpdate;
+    /// use google_cloud_container_v1::model::DatabaseEncryption;
+    /// let x = ClusterUpdate::new().set_desired_database_encryption(DatabaseEncryption::default()/* use setters */);
+    /// ```
     pub fn set_desired_database_encryption<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::DatabaseEncryption>,
@@ -10969,6 +14337,14 @@ impl ClusterUpdate {
     }
 
     /// Sets or clears the value of [desired_database_encryption][crate::model::ClusterUpdate::desired_database_encryption].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::ClusterUpdate;
+    /// use google_cloud_container_v1::model::DatabaseEncryption;
+    /// let x = ClusterUpdate::new().set_or_clear_desired_database_encryption(Some(DatabaseEncryption::default()/* use setters */));
+    /// let x = ClusterUpdate::new().set_or_clear_desired_database_encryption(None::<DatabaseEncryption>);
+    /// ```
     pub fn set_or_clear_desired_database_encryption<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DatabaseEncryption>,
@@ -10978,6 +14354,13 @@ impl ClusterUpdate {
     }
 
     /// Sets the value of [desired_workload_identity_config][crate::model::ClusterUpdate::desired_workload_identity_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::ClusterUpdate;
+    /// use google_cloud_container_v1::model::WorkloadIdentityConfig;
+    /// let x = ClusterUpdate::new().set_desired_workload_identity_config(WorkloadIdentityConfig::default()/* use setters */);
+    /// ```
     pub fn set_desired_workload_identity_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::WorkloadIdentityConfig>,
@@ -10987,6 +14370,14 @@ impl ClusterUpdate {
     }
 
     /// Sets or clears the value of [desired_workload_identity_config][crate::model::ClusterUpdate::desired_workload_identity_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::ClusterUpdate;
+    /// use google_cloud_container_v1::model::WorkloadIdentityConfig;
+    /// let x = ClusterUpdate::new().set_or_clear_desired_workload_identity_config(Some(WorkloadIdentityConfig::default()/* use setters */));
+    /// let x = ClusterUpdate::new().set_or_clear_desired_workload_identity_config(None::<WorkloadIdentityConfig>);
+    /// ```
     pub fn set_or_clear_desired_workload_identity_config<T>(
         mut self,
         v: std::option::Option<T>,
@@ -10999,6 +14390,13 @@ impl ClusterUpdate {
     }
 
     /// Sets the value of [desired_mesh_certificates][crate::model::ClusterUpdate::desired_mesh_certificates].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::ClusterUpdate;
+    /// use google_cloud_container_v1::model::MeshCertificates;
+    /// let x = ClusterUpdate::new().set_desired_mesh_certificates(MeshCertificates::default()/* use setters */);
+    /// ```
     pub fn set_desired_mesh_certificates<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::MeshCertificates>,
@@ -11008,6 +14406,14 @@ impl ClusterUpdate {
     }
 
     /// Sets or clears the value of [desired_mesh_certificates][crate::model::ClusterUpdate::desired_mesh_certificates].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::ClusterUpdate;
+    /// use google_cloud_container_v1::model::MeshCertificates;
+    /// let x = ClusterUpdate::new().set_or_clear_desired_mesh_certificates(Some(MeshCertificates::default()/* use setters */));
+    /// let x = ClusterUpdate::new().set_or_clear_desired_mesh_certificates(None::<MeshCertificates>);
+    /// ```
     pub fn set_or_clear_desired_mesh_certificates<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::MeshCertificates>,
@@ -11017,6 +14423,13 @@ impl ClusterUpdate {
     }
 
     /// Sets the value of [desired_shielded_nodes][crate::model::ClusterUpdate::desired_shielded_nodes].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::ClusterUpdate;
+    /// use google_cloud_container_v1::model::ShieldedNodes;
+    /// let x = ClusterUpdate::new().set_desired_shielded_nodes(ShieldedNodes::default()/* use setters */);
+    /// ```
     pub fn set_desired_shielded_nodes<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ShieldedNodes>,
@@ -11026,6 +14439,14 @@ impl ClusterUpdate {
     }
 
     /// Sets or clears the value of [desired_shielded_nodes][crate::model::ClusterUpdate::desired_shielded_nodes].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::ClusterUpdate;
+    /// use google_cloud_container_v1::model::ShieldedNodes;
+    /// let x = ClusterUpdate::new().set_or_clear_desired_shielded_nodes(Some(ShieldedNodes::default()/* use setters */));
+    /// let x = ClusterUpdate::new().set_or_clear_desired_shielded_nodes(None::<ShieldedNodes>);
+    /// ```
     pub fn set_or_clear_desired_shielded_nodes<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ShieldedNodes>,
@@ -11035,6 +14456,13 @@ impl ClusterUpdate {
     }
 
     /// Sets the value of [desired_cost_management_config][crate::model::ClusterUpdate::desired_cost_management_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::ClusterUpdate;
+    /// use google_cloud_container_v1::model::CostManagementConfig;
+    /// let x = ClusterUpdate::new().set_desired_cost_management_config(CostManagementConfig::default()/* use setters */);
+    /// ```
     pub fn set_desired_cost_management_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::CostManagementConfig>,
@@ -11044,6 +14472,14 @@ impl ClusterUpdate {
     }
 
     /// Sets or clears the value of [desired_cost_management_config][crate::model::ClusterUpdate::desired_cost_management_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::ClusterUpdate;
+    /// use google_cloud_container_v1::model::CostManagementConfig;
+    /// let x = ClusterUpdate::new().set_or_clear_desired_cost_management_config(Some(CostManagementConfig::default()/* use setters */));
+    /// let x = ClusterUpdate::new().set_or_clear_desired_cost_management_config(None::<CostManagementConfig>);
+    /// ```
     pub fn set_or_clear_desired_cost_management_config<T>(
         mut self,
         v: std::option::Option<T>,
@@ -11056,6 +14492,13 @@ impl ClusterUpdate {
     }
 
     /// Sets the value of [desired_dns_config][crate::model::ClusterUpdate::desired_dns_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::ClusterUpdate;
+    /// use google_cloud_container_v1::model::DNSConfig;
+    /// let x = ClusterUpdate::new().set_desired_dns_config(DNSConfig::default()/* use setters */);
+    /// ```
     pub fn set_desired_dns_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::DNSConfig>,
@@ -11065,6 +14508,14 @@ impl ClusterUpdate {
     }
 
     /// Sets or clears the value of [desired_dns_config][crate::model::ClusterUpdate::desired_dns_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::ClusterUpdate;
+    /// use google_cloud_container_v1::model::DNSConfig;
+    /// let x = ClusterUpdate::new().set_or_clear_desired_dns_config(Some(DNSConfig::default()/* use setters */));
+    /// let x = ClusterUpdate::new().set_or_clear_desired_dns_config(None::<DNSConfig>);
+    /// ```
     pub fn set_or_clear_desired_dns_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DNSConfig>,
@@ -11074,6 +14525,13 @@ impl ClusterUpdate {
     }
 
     /// Sets the value of [desired_node_pool_autoscaling][crate::model::ClusterUpdate::desired_node_pool_autoscaling].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::ClusterUpdate;
+    /// use google_cloud_container_v1::model::NodePoolAutoscaling;
+    /// let x = ClusterUpdate::new().set_desired_node_pool_autoscaling(NodePoolAutoscaling::default()/* use setters */);
+    /// ```
     pub fn set_desired_node_pool_autoscaling<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::NodePoolAutoscaling>,
@@ -11083,6 +14541,14 @@ impl ClusterUpdate {
     }
 
     /// Sets or clears the value of [desired_node_pool_autoscaling][crate::model::ClusterUpdate::desired_node_pool_autoscaling].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::ClusterUpdate;
+    /// use google_cloud_container_v1::model::NodePoolAutoscaling;
+    /// let x = ClusterUpdate::new().set_or_clear_desired_node_pool_autoscaling(Some(NodePoolAutoscaling::default()/* use setters */));
+    /// let x = ClusterUpdate::new().set_or_clear_desired_node_pool_autoscaling(None::<NodePoolAutoscaling>);
+    /// ```
     pub fn set_or_clear_desired_node_pool_autoscaling<T>(
         mut self,
         v: std::option::Option<T>,
@@ -11095,6 +14561,12 @@ impl ClusterUpdate {
     }
 
     /// Sets the value of [desired_locations][crate::model::ClusterUpdate::desired_locations].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::ClusterUpdate;
+    /// let x = ClusterUpdate::new().set_desired_locations(["a", "b", "c"]);
+    /// ```
     pub fn set_desired_locations<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -11106,6 +14578,13 @@ impl ClusterUpdate {
     }
 
     /// Sets the value of [desired_master_authorized_networks_config][crate::model::ClusterUpdate::desired_master_authorized_networks_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::ClusterUpdate;
+    /// use google_cloud_container_v1::model::MasterAuthorizedNetworksConfig;
+    /// let x = ClusterUpdate::new().set_desired_master_authorized_networks_config(MasterAuthorizedNetworksConfig::default()/* use setters */);
+    /// ```
     #[deprecated]
     pub fn set_desired_master_authorized_networks_config<T>(mut self, v: T) -> Self
     where
@@ -11116,6 +14595,14 @@ impl ClusterUpdate {
     }
 
     /// Sets or clears the value of [desired_master_authorized_networks_config][crate::model::ClusterUpdate::desired_master_authorized_networks_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::ClusterUpdate;
+    /// use google_cloud_container_v1::model::MasterAuthorizedNetworksConfig;
+    /// let x = ClusterUpdate::new().set_or_clear_desired_master_authorized_networks_config(Some(MasterAuthorizedNetworksConfig::default()/* use setters */));
+    /// let x = ClusterUpdate::new().set_or_clear_desired_master_authorized_networks_config(None::<MasterAuthorizedNetworksConfig>);
+    /// ```
     #[deprecated]
     pub fn set_or_clear_desired_master_authorized_networks_config<T>(
         mut self,
@@ -11129,6 +14616,13 @@ impl ClusterUpdate {
     }
 
     /// Sets the value of [desired_cluster_autoscaling][crate::model::ClusterUpdate::desired_cluster_autoscaling].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::ClusterUpdate;
+    /// use google_cloud_container_v1::model::ClusterAutoscaling;
+    /// let x = ClusterUpdate::new().set_desired_cluster_autoscaling(ClusterAutoscaling::default()/* use setters */);
+    /// ```
     pub fn set_desired_cluster_autoscaling<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ClusterAutoscaling>,
@@ -11138,6 +14632,14 @@ impl ClusterUpdate {
     }
 
     /// Sets or clears the value of [desired_cluster_autoscaling][crate::model::ClusterUpdate::desired_cluster_autoscaling].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::ClusterUpdate;
+    /// use google_cloud_container_v1::model::ClusterAutoscaling;
+    /// let x = ClusterUpdate::new().set_or_clear_desired_cluster_autoscaling(Some(ClusterAutoscaling::default()/* use setters */));
+    /// let x = ClusterUpdate::new().set_or_clear_desired_cluster_autoscaling(None::<ClusterAutoscaling>);
+    /// ```
     pub fn set_or_clear_desired_cluster_autoscaling<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ClusterAutoscaling>,
@@ -11147,6 +14649,13 @@ impl ClusterUpdate {
     }
 
     /// Sets the value of [desired_binary_authorization][crate::model::ClusterUpdate::desired_binary_authorization].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::ClusterUpdate;
+    /// use google_cloud_container_v1::model::BinaryAuthorization;
+    /// let x = ClusterUpdate::new().set_desired_binary_authorization(BinaryAuthorization::default()/* use setters */);
+    /// ```
     pub fn set_desired_binary_authorization<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::BinaryAuthorization>,
@@ -11156,6 +14665,14 @@ impl ClusterUpdate {
     }
 
     /// Sets or clears the value of [desired_binary_authorization][crate::model::ClusterUpdate::desired_binary_authorization].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::ClusterUpdate;
+    /// use google_cloud_container_v1::model::BinaryAuthorization;
+    /// let x = ClusterUpdate::new().set_or_clear_desired_binary_authorization(Some(BinaryAuthorization::default()/* use setters */));
+    /// let x = ClusterUpdate::new().set_or_clear_desired_binary_authorization(None::<BinaryAuthorization>);
+    /// ```
     pub fn set_or_clear_desired_binary_authorization<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::BinaryAuthorization>,
@@ -11165,6 +14682,12 @@ impl ClusterUpdate {
     }
 
     /// Sets the value of [desired_logging_service][crate::model::ClusterUpdate::desired_logging_service].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::ClusterUpdate;
+    /// let x = ClusterUpdate::new().set_desired_logging_service("example");
+    /// ```
     pub fn set_desired_logging_service<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -11174,6 +14697,13 @@ impl ClusterUpdate {
     }
 
     /// Sets the value of [desired_resource_usage_export_config][crate::model::ClusterUpdate::desired_resource_usage_export_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::ClusterUpdate;
+    /// use google_cloud_container_v1::model::ResourceUsageExportConfig;
+    /// let x = ClusterUpdate::new().set_desired_resource_usage_export_config(ResourceUsageExportConfig::default()/* use setters */);
+    /// ```
     pub fn set_desired_resource_usage_export_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ResourceUsageExportConfig>,
@@ -11183,6 +14713,14 @@ impl ClusterUpdate {
     }
 
     /// Sets or clears the value of [desired_resource_usage_export_config][crate::model::ClusterUpdate::desired_resource_usage_export_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::ClusterUpdate;
+    /// use google_cloud_container_v1::model::ResourceUsageExportConfig;
+    /// let x = ClusterUpdate::new().set_or_clear_desired_resource_usage_export_config(Some(ResourceUsageExportConfig::default()/* use setters */));
+    /// let x = ClusterUpdate::new().set_or_clear_desired_resource_usage_export_config(None::<ResourceUsageExportConfig>);
+    /// ```
     pub fn set_or_clear_desired_resource_usage_export_config<T>(
         mut self,
         v: std::option::Option<T>,
@@ -11195,6 +14733,13 @@ impl ClusterUpdate {
     }
 
     /// Sets the value of [desired_vertical_pod_autoscaling][crate::model::ClusterUpdate::desired_vertical_pod_autoscaling].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::ClusterUpdate;
+    /// use google_cloud_container_v1::model::VerticalPodAutoscaling;
+    /// let x = ClusterUpdate::new().set_desired_vertical_pod_autoscaling(VerticalPodAutoscaling::default()/* use setters */);
+    /// ```
     pub fn set_desired_vertical_pod_autoscaling<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::VerticalPodAutoscaling>,
@@ -11204,6 +14749,14 @@ impl ClusterUpdate {
     }
 
     /// Sets or clears the value of [desired_vertical_pod_autoscaling][crate::model::ClusterUpdate::desired_vertical_pod_autoscaling].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::ClusterUpdate;
+    /// use google_cloud_container_v1::model::VerticalPodAutoscaling;
+    /// let x = ClusterUpdate::new().set_or_clear_desired_vertical_pod_autoscaling(Some(VerticalPodAutoscaling::default()/* use setters */));
+    /// let x = ClusterUpdate::new().set_or_clear_desired_vertical_pod_autoscaling(None::<VerticalPodAutoscaling>);
+    /// ```
     pub fn set_or_clear_desired_vertical_pod_autoscaling<T>(
         mut self,
         v: std::option::Option<T>,
@@ -11216,6 +14769,13 @@ impl ClusterUpdate {
     }
 
     /// Sets the value of [desired_private_cluster_config][crate::model::ClusterUpdate::desired_private_cluster_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::ClusterUpdate;
+    /// use google_cloud_container_v1::model::PrivateClusterConfig;
+    /// let x = ClusterUpdate::new().set_desired_private_cluster_config(PrivateClusterConfig::default()/* use setters */);
+    /// ```
     #[deprecated]
     pub fn set_desired_private_cluster_config<T>(mut self, v: T) -> Self
     where
@@ -11226,6 +14786,14 @@ impl ClusterUpdate {
     }
 
     /// Sets or clears the value of [desired_private_cluster_config][crate::model::ClusterUpdate::desired_private_cluster_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::ClusterUpdate;
+    /// use google_cloud_container_v1::model::PrivateClusterConfig;
+    /// let x = ClusterUpdate::new().set_or_clear_desired_private_cluster_config(Some(PrivateClusterConfig::default()/* use setters */));
+    /// let x = ClusterUpdate::new().set_or_clear_desired_private_cluster_config(None::<PrivateClusterConfig>);
+    /// ```
     #[deprecated]
     pub fn set_or_clear_desired_private_cluster_config<T>(
         mut self,
@@ -11239,6 +14807,13 @@ impl ClusterUpdate {
     }
 
     /// Sets the value of [desired_intra_node_visibility_config][crate::model::ClusterUpdate::desired_intra_node_visibility_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::ClusterUpdate;
+    /// use google_cloud_container_v1::model::IntraNodeVisibilityConfig;
+    /// let x = ClusterUpdate::new().set_desired_intra_node_visibility_config(IntraNodeVisibilityConfig::default()/* use setters */);
+    /// ```
     pub fn set_desired_intra_node_visibility_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::IntraNodeVisibilityConfig>,
@@ -11248,6 +14823,14 @@ impl ClusterUpdate {
     }
 
     /// Sets or clears the value of [desired_intra_node_visibility_config][crate::model::ClusterUpdate::desired_intra_node_visibility_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::ClusterUpdate;
+    /// use google_cloud_container_v1::model::IntraNodeVisibilityConfig;
+    /// let x = ClusterUpdate::new().set_or_clear_desired_intra_node_visibility_config(Some(IntraNodeVisibilityConfig::default()/* use setters */));
+    /// let x = ClusterUpdate::new().set_or_clear_desired_intra_node_visibility_config(None::<IntraNodeVisibilityConfig>);
+    /// ```
     pub fn set_or_clear_desired_intra_node_visibility_config<T>(
         mut self,
         v: std::option::Option<T>,
@@ -11260,6 +14843,13 @@ impl ClusterUpdate {
     }
 
     /// Sets the value of [desired_default_snat_status][crate::model::ClusterUpdate::desired_default_snat_status].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::ClusterUpdate;
+    /// use google_cloud_container_v1::model::DefaultSnatStatus;
+    /// let x = ClusterUpdate::new().set_desired_default_snat_status(DefaultSnatStatus::default()/* use setters */);
+    /// ```
     pub fn set_desired_default_snat_status<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::DefaultSnatStatus>,
@@ -11269,6 +14859,14 @@ impl ClusterUpdate {
     }
 
     /// Sets or clears the value of [desired_default_snat_status][crate::model::ClusterUpdate::desired_default_snat_status].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::ClusterUpdate;
+    /// use google_cloud_container_v1::model::DefaultSnatStatus;
+    /// let x = ClusterUpdate::new().set_or_clear_desired_default_snat_status(Some(DefaultSnatStatus::default()/* use setters */));
+    /// let x = ClusterUpdate::new().set_or_clear_desired_default_snat_status(None::<DefaultSnatStatus>);
+    /// ```
     pub fn set_or_clear_desired_default_snat_status<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DefaultSnatStatus>,
@@ -11278,6 +14876,13 @@ impl ClusterUpdate {
     }
 
     /// Sets the value of [desired_release_channel][crate::model::ClusterUpdate::desired_release_channel].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::ClusterUpdate;
+    /// use google_cloud_container_v1::model::ReleaseChannel;
+    /// let x = ClusterUpdate::new().set_desired_release_channel(ReleaseChannel::default()/* use setters */);
+    /// ```
     pub fn set_desired_release_channel<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ReleaseChannel>,
@@ -11287,6 +14892,14 @@ impl ClusterUpdate {
     }
 
     /// Sets or clears the value of [desired_release_channel][crate::model::ClusterUpdate::desired_release_channel].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::ClusterUpdate;
+    /// use google_cloud_container_v1::model::ReleaseChannel;
+    /// let x = ClusterUpdate::new().set_or_clear_desired_release_channel(Some(ReleaseChannel::default()/* use setters */));
+    /// let x = ClusterUpdate::new().set_or_clear_desired_release_channel(None::<ReleaseChannel>);
+    /// ```
     pub fn set_or_clear_desired_release_channel<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ReleaseChannel>,
@@ -11296,6 +14909,13 @@ impl ClusterUpdate {
     }
 
     /// Sets the value of [desired_l4ilb_subsetting_config][crate::model::ClusterUpdate::desired_l4ilb_subsetting_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::ClusterUpdate;
+    /// use google_cloud_container_v1::model::ILBSubsettingConfig;
+    /// let x = ClusterUpdate::new().set_desired_l4ilb_subsetting_config(ILBSubsettingConfig::default()/* use setters */);
+    /// ```
     pub fn set_desired_l4ilb_subsetting_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ILBSubsettingConfig>,
@@ -11305,6 +14925,14 @@ impl ClusterUpdate {
     }
 
     /// Sets or clears the value of [desired_l4ilb_subsetting_config][crate::model::ClusterUpdate::desired_l4ilb_subsetting_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::ClusterUpdate;
+    /// use google_cloud_container_v1::model::ILBSubsettingConfig;
+    /// let x = ClusterUpdate::new().set_or_clear_desired_l4ilb_subsetting_config(Some(ILBSubsettingConfig::default()/* use setters */));
+    /// let x = ClusterUpdate::new().set_or_clear_desired_l4ilb_subsetting_config(None::<ILBSubsettingConfig>);
+    /// ```
     pub fn set_or_clear_desired_l4ilb_subsetting_config<T>(
         mut self,
         v: std::option::Option<T>,
@@ -11317,6 +14945,14 @@ impl ClusterUpdate {
     }
 
     /// Sets the value of [desired_datapath_provider][crate::model::ClusterUpdate::desired_datapath_provider].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::ClusterUpdate;
+    /// use google_cloud_container_v1::model::DatapathProvider;
+    /// let x0 = ClusterUpdate::new().set_desired_datapath_provider(DatapathProvider::LegacyDatapath);
+    /// let x1 = ClusterUpdate::new().set_desired_datapath_provider(DatapathProvider::AdvancedDatapath);
+    /// ```
     pub fn set_desired_datapath_provider<T: std::convert::Into<crate::model::DatapathProvider>>(
         mut self,
         v: T,
@@ -11326,6 +14962,15 @@ impl ClusterUpdate {
     }
 
     /// Sets the value of [desired_private_ipv6_google_access][crate::model::ClusterUpdate::desired_private_ipv6_google_access].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::ClusterUpdate;
+    /// use google_cloud_container_v1::model::PrivateIPv6GoogleAccess;
+    /// let x0 = ClusterUpdate::new().set_desired_private_ipv6_google_access(PrivateIPv6GoogleAccess::PrivateIpv6GoogleAccessDisabled);
+    /// let x1 = ClusterUpdate::new().set_desired_private_ipv6_google_access(PrivateIPv6GoogleAccess::PrivateIpv6GoogleAccessToGoogle);
+    /// let x2 = ClusterUpdate::new().set_desired_private_ipv6_google_access(PrivateIPv6GoogleAccess::PrivateIpv6GoogleAccessBidirectional);
+    /// ```
     pub fn set_desired_private_ipv6_google_access<
         T: std::convert::Into<crate::model::PrivateIPv6GoogleAccess>,
     >(
@@ -11337,6 +14982,13 @@ impl ClusterUpdate {
     }
 
     /// Sets the value of [desired_notification_config][crate::model::ClusterUpdate::desired_notification_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::ClusterUpdate;
+    /// use google_cloud_container_v1::model::NotificationConfig;
+    /// let x = ClusterUpdate::new().set_desired_notification_config(NotificationConfig::default()/* use setters */);
+    /// ```
     pub fn set_desired_notification_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::NotificationConfig>,
@@ -11346,6 +14998,14 @@ impl ClusterUpdate {
     }
 
     /// Sets or clears the value of [desired_notification_config][crate::model::ClusterUpdate::desired_notification_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::ClusterUpdate;
+    /// use google_cloud_container_v1::model::NotificationConfig;
+    /// let x = ClusterUpdate::new().set_or_clear_desired_notification_config(Some(NotificationConfig::default()/* use setters */));
+    /// let x = ClusterUpdate::new().set_or_clear_desired_notification_config(None::<NotificationConfig>);
+    /// ```
     pub fn set_or_clear_desired_notification_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::NotificationConfig>,
@@ -11355,6 +15015,13 @@ impl ClusterUpdate {
     }
 
     /// Sets the value of [desired_authenticator_groups_config][crate::model::ClusterUpdate::desired_authenticator_groups_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::ClusterUpdate;
+    /// use google_cloud_container_v1::model::AuthenticatorGroupsConfig;
+    /// let x = ClusterUpdate::new().set_desired_authenticator_groups_config(AuthenticatorGroupsConfig::default()/* use setters */);
+    /// ```
     pub fn set_desired_authenticator_groups_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::AuthenticatorGroupsConfig>,
@@ -11364,6 +15031,14 @@ impl ClusterUpdate {
     }
 
     /// Sets or clears the value of [desired_authenticator_groups_config][crate::model::ClusterUpdate::desired_authenticator_groups_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::ClusterUpdate;
+    /// use google_cloud_container_v1::model::AuthenticatorGroupsConfig;
+    /// let x = ClusterUpdate::new().set_or_clear_desired_authenticator_groups_config(Some(AuthenticatorGroupsConfig::default()/* use setters */));
+    /// let x = ClusterUpdate::new().set_or_clear_desired_authenticator_groups_config(None::<AuthenticatorGroupsConfig>);
+    /// ```
     pub fn set_or_clear_desired_authenticator_groups_config<T>(
         mut self,
         v: std::option::Option<T>,
@@ -11376,6 +15051,13 @@ impl ClusterUpdate {
     }
 
     /// Sets the value of [desired_logging_config][crate::model::ClusterUpdate::desired_logging_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::ClusterUpdate;
+    /// use google_cloud_container_v1::model::LoggingConfig;
+    /// let x = ClusterUpdate::new().set_desired_logging_config(LoggingConfig::default()/* use setters */);
+    /// ```
     pub fn set_desired_logging_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::LoggingConfig>,
@@ -11385,6 +15067,14 @@ impl ClusterUpdate {
     }
 
     /// Sets or clears the value of [desired_logging_config][crate::model::ClusterUpdate::desired_logging_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::ClusterUpdate;
+    /// use google_cloud_container_v1::model::LoggingConfig;
+    /// let x = ClusterUpdate::new().set_or_clear_desired_logging_config(Some(LoggingConfig::default()/* use setters */));
+    /// let x = ClusterUpdate::new().set_or_clear_desired_logging_config(None::<LoggingConfig>);
+    /// ```
     pub fn set_or_clear_desired_logging_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::LoggingConfig>,
@@ -11394,6 +15084,13 @@ impl ClusterUpdate {
     }
 
     /// Sets the value of [desired_monitoring_config][crate::model::ClusterUpdate::desired_monitoring_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::ClusterUpdate;
+    /// use google_cloud_container_v1::model::MonitoringConfig;
+    /// let x = ClusterUpdate::new().set_desired_monitoring_config(MonitoringConfig::default()/* use setters */);
+    /// ```
     pub fn set_desired_monitoring_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::MonitoringConfig>,
@@ -11403,6 +15100,14 @@ impl ClusterUpdate {
     }
 
     /// Sets or clears the value of [desired_monitoring_config][crate::model::ClusterUpdate::desired_monitoring_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::ClusterUpdate;
+    /// use google_cloud_container_v1::model::MonitoringConfig;
+    /// let x = ClusterUpdate::new().set_or_clear_desired_monitoring_config(Some(MonitoringConfig::default()/* use setters */));
+    /// let x = ClusterUpdate::new().set_or_clear_desired_monitoring_config(None::<MonitoringConfig>);
+    /// ```
     pub fn set_or_clear_desired_monitoring_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::MonitoringConfig>,
@@ -11412,6 +15117,13 @@ impl ClusterUpdate {
     }
 
     /// Sets the value of [desired_identity_service_config][crate::model::ClusterUpdate::desired_identity_service_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::ClusterUpdate;
+    /// use google_cloud_container_v1::model::IdentityServiceConfig;
+    /// let x = ClusterUpdate::new().set_desired_identity_service_config(IdentityServiceConfig::default()/* use setters */);
+    /// ```
     pub fn set_desired_identity_service_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::IdentityServiceConfig>,
@@ -11421,6 +15133,14 @@ impl ClusterUpdate {
     }
 
     /// Sets or clears the value of [desired_identity_service_config][crate::model::ClusterUpdate::desired_identity_service_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::ClusterUpdate;
+    /// use google_cloud_container_v1::model::IdentityServiceConfig;
+    /// let x = ClusterUpdate::new().set_or_clear_desired_identity_service_config(Some(IdentityServiceConfig::default()/* use setters */));
+    /// let x = ClusterUpdate::new().set_or_clear_desired_identity_service_config(None::<IdentityServiceConfig>);
+    /// ```
     pub fn set_or_clear_desired_identity_service_config<T>(
         mut self,
         v: std::option::Option<T>,
@@ -11433,6 +15153,13 @@ impl ClusterUpdate {
     }
 
     /// Sets the value of [desired_service_external_ips_config][crate::model::ClusterUpdate::desired_service_external_ips_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::ClusterUpdate;
+    /// use google_cloud_container_v1::model::ServiceExternalIPsConfig;
+    /// let x = ClusterUpdate::new().set_desired_service_external_ips_config(ServiceExternalIPsConfig::default()/* use setters */);
+    /// ```
     pub fn set_desired_service_external_ips_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ServiceExternalIPsConfig>,
@@ -11442,6 +15169,14 @@ impl ClusterUpdate {
     }
 
     /// Sets or clears the value of [desired_service_external_ips_config][crate::model::ClusterUpdate::desired_service_external_ips_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::ClusterUpdate;
+    /// use google_cloud_container_v1::model::ServiceExternalIPsConfig;
+    /// let x = ClusterUpdate::new().set_or_clear_desired_service_external_ips_config(Some(ServiceExternalIPsConfig::default()/* use setters */));
+    /// let x = ClusterUpdate::new().set_or_clear_desired_service_external_ips_config(None::<ServiceExternalIPsConfig>);
+    /// ```
     pub fn set_or_clear_desired_service_external_ips_config<T>(
         mut self,
         v: std::option::Option<T>,
@@ -11454,6 +15189,12 @@ impl ClusterUpdate {
     }
 
     /// Sets the value of [desired_enable_private_endpoint][crate::model::ClusterUpdate::desired_enable_private_endpoint].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::ClusterUpdate;
+    /// let x = ClusterUpdate::new().set_desired_enable_private_endpoint(true);
+    /// ```
     #[deprecated]
     pub fn set_desired_enable_private_endpoint<T>(mut self, v: T) -> Self
     where
@@ -11464,6 +15205,13 @@ impl ClusterUpdate {
     }
 
     /// Sets or clears the value of [desired_enable_private_endpoint][crate::model::ClusterUpdate::desired_enable_private_endpoint].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::ClusterUpdate;
+    /// let x = ClusterUpdate::new().set_or_clear_desired_enable_private_endpoint(Some(false));
+    /// let x = ClusterUpdate::new().set_or_clear_desired_enable_private_endpoint(None::<bool>);
+    /// ```
     #[deprecated]
     pub fn set_or_clear_desired_enable_private_endpoint<T>(
         mut self,
@@ -11477,6 +15225,12 @@ impl ClusterUpdate {
     }
 
     /// Sets the value of [desired_default_enable_private_nodes][crate::model::ClusterUpdate::desired_default_enable_private_nodes].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::ClusterUpdate;
+    /// let x = ClusterUpdate::new().set_desired_default_enable_private_nodes(true);
+    /// ```
     pub fn set_desired_default_enable_private_nodes<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<bool>,
@@ -11486,6 +15240,13 @@ impl ClusterUpdate {
     }
 
     /// Sets or clears the value of [desired_default_enable_private_nodes][crate::model::ClusterUpdate::desired_default_enable_private_nodes].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::ClusterUpdate;
+    /// let x = ClusterUpdate::new().set_or_clear_desired_default_enable_private_nodes(Some(false));
+    /// let x = ClusterUpdate::new().set_or_clear_desired_default_enable_private_nodes(None::<bool>);
+    /// ```
     pub fn set_or_clear_desired_default_enable_private_nodes<T>(
         mut self,
         v: std::option::Option<T>,
@@ -11498,6 +15259,13 @@ impl ClusterUpdate {
     }
 
     /// Sets the value of [desired_control_plane_endpoints_config][crate::model::ClusterUpdate::desired_control_plane_endpoints_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::ClusterUpdate;
+    /// use google_cloud_container_v1::model::ControlPlaneEndpointsConfig;
+    /// let x = ClusterUpdate::new().set_desired_control_plane_endpoints_config(ControlPlaneEndpointsConfig::default()/* use setters */);
+    /// ```
     pub fn set_desired_control_plane_endpoints_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ControlPlaneEndpointsConfig>,
@@ -11507,6 +15275,14 @@ impl ClusterUpdate {
     }
 
     /// Sets or clears the value of [desired_control_plane_endpoints_config][crate::model::ClusterUpdate::desired_control_plane_endpoints_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::ClusterUpdate;
+    /// use google_cloud_container_v1::model::ControlPlaneEndpointsConfig;
+    /// let x = ClusterUpdate::new().set_or_clear_desired_control_plane_endpoints_config(Some(ControlPlaneEndpointsConfig::default()/* use setters */));
+    /// let x = ClusterUpdate::new().set_or_clear_desired_control_plane_endpoints_config(None::<ControlPlaneEndpointsConfig>);
+    /// ```
     pub fn set_or_clear_desired_control_plane_endpoints_config<T>(
         mut self,
         v: std::option::Option<T>,
@@ -11519,6 +15295,12 @@ impl ClusterUpdate {
     }
 
     /// Sets the value of [desired_master_version][crate::model::ClusterUpdate::desired_master_version].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::ClusterUpdate;
+    /// let x = ClusterUpdate::new().set_desired_master_version("example");
+    /// ```
     pub fn set_desired_master_version<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -11528,6 +15310,13 @@ impl ClusterUpdate {
     }
 
     /// Sets the value of [desired_gcfs_config][crate::model::ClusterUpdate::desired_gcfs_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::ClusterUpdate;
+    /// use google_cloud_container_v1::model::GcfsConfig;
+    /// let x = ClusterUpdate::new().set_desired_gcfs_config(GcfsConfig::default()/* use setters */);
+    /// ```
     pub fn set_desired_gcfs_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::GcfsConfig>,
@@ -11537,6 +15326,14 @@ impl ClusterUpdate {
     }
 
     /// Sets or clears the value of [desired_gcfs_config][crate::model::ClusterUpdate::desired_gcfs_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::ClusterUpdate;
+    /// use google_cloud_container_v1::model::GcfsConfig;
+    /// let x = ClusterUpdate::new().set_or_clear_desired_gcfs_config(Some(GcfsConfig::default()/* use setters */));
+    /// let x = ClusterUpdate::new().set_or_clear_desired_gcfs_config(None::<GcfsConfig>);
+    /// ```
     pub fn set_or_clear_desired_gcfs_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::GcfsConfig>,
@@ -11546,6 +15343,13 @@ impl ClusterUpdate {
     }
 
     /// Sets the value of [desired_node_pool_auto_config_network_tags][crate::model::ClusterUpdate::desired_node_pool_auto_config_network_tags].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::ClusterUpdate;
+    /// use google_cloud_container_v1::model::NetworkTags;
+    /// let x = ClusterUpdate::new().set_desired_node_pool_auto_config_network_tags(NetworkTags::default()/* use setters */);
+    /// ```
     pub fn set_desired_node_pool_auto_config_network_tags<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::NetworkTags>,
@@ -11555,6 +15359,14 @@ impl ClusterUpdate {
     }
 
     /// Sets or clears the value of [desired_node_pool_auto_config_network_tags][crate::model::ClusterUpdate::desired_node_pool_auto_config_network_tags].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::ClusterUpdate;
+    /// use google_cloud_container_v1::model::NetworkTags;
+    /// let x = ClusterUpdate::new().set_or_clear_desired_node_pool_auto_config_network_tags(Some(NetworkTags::default()/* use setters */));
+    /// let x = ClusterUpdate::new().set_or_clear_desired_node_pool_auto_config_network_tags(None::<NetworkTags>);
+    /// ```
     pub fn set_or_clear_desired_node_pool_auto_config_network_tags<T>(
         mut self,
         v: std::option::Option<T>,
@@ -11567,6 +15379,13 @@ impl ClusterUpdate {
     }
 
     /// Sets the value of [desired_pod_autoscaling][crate::model::ClusterUpdate::desired_pod_autoscaling].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::ClusterUpdate;
+    /// use google_cloud_container_v1::model::PodAutoscaling;
+    /// let x = ClusterUpdate::new().set_desired_pod_autoscaling(PodAutoscaling::default()/* use setters */);
+    /// ```
     pub fn set_desired_pod_autoscaling<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::PodAutoscaling>,
@@ -11576,6 +15395,14 @@ impl ClusterUpdate {
     }
 
     /// Sets or clears the value of [desired_pod_autoscaling][crate::model::ClusterUpdate::desired_pod_autoscaling].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::ClusterUpdate;
+    /// use google_cloud_container_v1::model::PodAutoscaling;
+    /// let x = ClusterUpdate::new().set_or_clear_desired_pod_autoscaling(Some(PodAutoscaling::default()/* use setters */));
+    /// let x = ClusterUpdate::new().set_or_clear_desired_pod_autoscaling(None::<PodAutoscaling>);
+    /// ```
     pub fn set_or_clear_desired_pod_autoscaling<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::PodAutoscaling>,
@@ -11585,6 +15412,13 @@ impl ClusterUpdate {
     }
 
     /// Sets the value of [desired_gateway_api_config][crate::model::ClusterUpdate::desired_gateway_api_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::ClusterUpdate;
+    /// use google_cloud_container_v1::model::GatewayAPIConfig;
+    /// let x = ClusterUpdate::new().set_desired_gateway_api_config(GatewayAPIConfig::default()/* use setters */);
+    /// ```
     pub fn set_desired_gateway_api_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::GatewayAPIConfig>,
@@ -11594,6 +15428,14 @@ impl ClusterUpdate {
     }
 
     /// Sets or clears the value of [desired_gateway_api_config][crate::model::ClusterUpdate::desired_gateway_api_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::ClusterUpdate;
+    /// use google_cloud_container_v1::model::GatewayAPIConfig;
+    /// let x = ClusterUpdate::new().set_or_clear_desired_gateway_api_config(Some(GatewayAPIConfig::default()/* use setters */));
+    /// let x = ClusterUpdate::new().set_or_clear_desired_gateway_api_config(None::<GatewayAPIConfig>);
+    /// ```
     pub fn set_or_clear_desired_gateway_api_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::GatewayAPIConfig>,
@@ -11603,12 +15445,25 @@ impl ClusterUpdate {
     }
 
     /// Sets the value of [etag][crate::model::ClusterUpdate::etag].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::ClusterUpdate;
+    /// let x = ClusterUpdate::new().set_etag("example");
+    /// ```
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
     }
 
     /// Sets the value of [desired_node_pool_logging_config][crate::model::ClusterUpdate::desired_node_pool_logging_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::ClusterUpdate;
+    /// use google_cloud_container_v1::model::NodePoolLoggingConfig;
+    /// let x = ClusterUpdate::new().set_desired_node_pool_logging_config(NodePoolLoggingConfig::default()/* use setters */);
+    /// ```
     pub fn set_desired_node_pool_logging_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::NodePoolLoggingConfig>,
@@ -11618,6 +15473,14 @@ impl ClusterUpdate {
     }
 
     /// Sets or clears the value of [desired_node_pool_logging_config][crate::model::ClusterUpdate::desired_node_pool_logging_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::ClusterUpdate;
+    /// use google_cloud_container_v1::model::NodePoolLoggingConfig;
+    /// let x = ClusterUpdate::new().set_or_clear_desired_node_pool_logging_config(Some(NodePoolLoggingConfig::default()/* use setters */));
+    /// let x = ClusterUpdate::new().set_or_clear_desired_node_pool_logging_config(None::<NodePoolLoggingConfig>);
+    /// ```
     pub fn set_or_clear_desired_node_pool_logging_config<T>(
         mut self,
         v: std::option::Option<T>,
@@ -11630,6 +15493,13 @@ impl ClusterUpdate {
     }
 
     /// Sets the value of [desired_fleet][crate::model::ClusterUpdate::desired_fleet].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::ClusterUpdate;
+    /// use google_cloud_container_v1::model::Fleet;
+    /// let x = ClusterUpdate::new().set_desired_fleet(Fleet::default()/* use setters */);
+    /// ```
     pub fn set_desired_fleet<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Fleet>,
@@ -11639,6 +15509,14 @@ impl ClusterUpdate {
     }
 
     /// Sets or clears the value of [desired_fleet][crate::model::ClusterUpdate::desired_fleet].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::ClusterUpdate;
+    /// use google_cloud_container_v1::model::Fleet;
+    /// let x = ClusterUpdate::new().set_or_clear_desired_fleet(Some(Fleet::default()/* use setters */));
+    /// let x = ClusterUpdate::new().set_or_clear_desired_fleet(None::<Fleet>);
+    /// ```
     pub fn set_or_clear_desired_fleet<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Fleet>,
@@ -11648,6 +15526,14 @@ impl ClusterUpdate {
     }
 
     /// Sets the value of [desired_stack_type][crate::model::ClusterUpdate::desired_stack_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::ClusterUpdate;
+    /// use google_cloud_container_v1::model::StackType;
+    /// let x0 = ClusterUpdate::new().set_desired_stack_type(StackType::Ipv4);
+    /// let x1 = ClusterUpdate::new().set_desired_stack_type(StackType::Ipv4Ipv6);
+    /// ```
     pub fn set_desired_stack_type<T: std::convert::Into<crate::model::StackType>>(
         mut self,
         v: T,
@@ -11657,6 +15543,13 @@ impl ClusterUpdate {
     }
 
     /// Sets the value of [additional_pod_ranges_config][crate::model::ClusterUpdate::additional_pod_ranges_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::ClusterUpdate;
+    /// use google_cloud_container_v1::model::AdditionalPodRangesConfig;
+    /// let x = ClusterUpdate::new().set_additional_pod_ranges_config(AdditionalPodRangesConfig::default()/* use setters */);
+    /// ```
     pub fn set_additional_pod_ranges_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::AdditionalPodRangesConfig>,
@@ -11666,6 +15559,14 @@ impl ClusterUpdate {
     }
 
     /// Sets or clears the value of [additional_pod_ranges_config][crate::model::ClusterUpdate::additional_pod_ranges_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::ClusterUpdate;
+    /// use google_cloud_container_v1::model::AdditionalPodRangesConfig;
+    /// let x = ClusterUpdate::new().set_or_clear_additional_pod_ranges_config(Some(AdditionalPodRangesConfig::default()/* use setters */));
+    /// let x = ClusterUpdate::new().set_or_clear_additional_pod_ranges_config(None::<AdditionalPodRangesConfig>);
+    /// ```
     pub fn set_or_clear_additional_pod_ranges_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AdditionalPodRangesConfig>,
@@ -11675,6 +15576,13 @@ impl ClusterUpdate {
     }
 
     /// Sets the value of [removed_additional_pod_ranges_config][crate::model::ClusterUpdate::removed_additional_pod_ranges_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::ClusterUpdate;
+    /// use google_cloud_container_v1::model::AdditionalPodRangesConfig;
+    /// let x = ClusterUpdate::new().set_removed_additional_pod_ranges_config(AdditionalPodRangesConfig::default()/* use setters */);
+    /// ```
     pub fn set_removed_additional_pod_ranges_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::AdditionalPodRangesConfig>,
@@ -11684,6 +15592,14 @@ impl ClusterUpdate {
     }
 
     /// Sets or clears the value of [removed_additional_pod_ranges_config][crate::model::ClusterUpdate::removed_additional_pod_ranges_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::ClusterUpdate;
+    /// use google_cloud_container_v1::model::AdditionalPodRangesConfig;
+    /// let x = ClusterUpdate::new().set_or_clear_removed_additional_pod_ranges_config(Some(AdditionalPodRangesConfig::default()/* use setters */));
+    /// let x = ClusterUpdate::new().set_or_clear_removed_additional_pod_ranges_config(None::<AdditionalPodRangesConfig>);
+    /// ```
     pub fn set_or_clear_removed_additional_pod_ranges_config<T>(
         mut self,
         v: std::option::Option<T>,
@@ -11696,6 +15612,13 @@ impl ClusterUpdate {
     }
 
     /// Sets the value of [enable_k8s_beta_apis][crate::model::ClusterUpdate::enable_k8s_beta_apis].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::ClusterUpdate;
+    /// use google_cloud_container_v1::model::K8sBetaAPIConfig;
+    /// let x = ClusterUpdate::new().set_enable_k8s_beta_apis(K8sBetaAPIConfig::default()/* use setters */);
+    /// ```
     pub fn set_enable_k8s_beta_apis<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::K8sBetaAPIConfig>,
@@ -11705,6 +15628,14 @@ impl ClusterUpdate {
     }
 
     /// Sets or clears the value of [enable_k8s_beta_apis][crate::model::ClusterUpdate::enable_k8s_beta_apis].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::ClusterUpdate;
+    /// use google_cloud_container_v1::model::K8sBetaAPIConfig;
+    /// let x = ClusterUpdate::new().set_or_clear_enable_k8s_beta_apis(Some(K8sBetaAPIConfig::default()/* use setters */));
+    /// let x = ClusterUpdate::new().set_or_clear_enable_k8s_beta_apis(None::<K8sBetaAPIConfig>);
+    /// ```
     pub fn set_or_clear_enable_k8s_beta_apis<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::K8sBetaAPIConfig>,
@@ -11714,6 +15645,13 @@ impl ClusterUpdate {
     }
 
     /// Sets the value of [desired_security_posture_config][crate::model::ClusterUpdate::desired_security_posture_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::ClusterUpdate;
+    /// use google_cloud_container_v1::model::SecurityPostureConfig;
+    /// let x = ClusterUpdate::new().set_desired_security_posture_config(SecurityPostureConfig::default()/* use setters */);
+    /// ```
     pub fn set_desired_security_posture_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::SecurityPostureConfig>,
@@ -11723,6 +15661,14 @@ impl ClusterUpdate {
     }
 
     /// Sets or clears the value of [desired_security_posture_config][crate::model::ClusterUpdate::desired_security_posture_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::ClusterUpdate;
+    /// use google_cloud_container_v1::model::SecurityPostureConfig;
+    /// let x = ClusterUpdate::new().set_or_clear_desired_security_posture_config(Some(SecurityPostureConfig::default()/* use setters */));
+    /// let x = ClusterUpdate::new().set_or_clear_desired_security_posture_config(None::<SecurityPostureConfig>);
+    /// ```
     pub fn set_or_clear_desired_security_posture_config<T>(
         mut self,
         v: std::option::Option<T>,
@@ -11735,6 +15681,13 @@ impl ClusterUpdate {
     }
 
     /// Sets the value of [desired_network_performance_config][crate::model::ClusterUpdate::desired_network_performance_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::ClusterUpdate;
+    /// use google_cloud_container_v1::model::network_config::ClusterNetworkPerformanceConfig;
+    /// let x = ClusterUpdate::new().set_desired_network_performance_config(ClusterNetworkPerformanceConfig::default()/* use setters */);
+    /// ```
     pub fn set_desired_network_performance_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::network_config::ClusterNetworkPerformanceConfig>,
@@ -11744,6 +15697,14 @@ impl ClusterUpdate {
     }
 
     /// Sets or clears the value of [desired_network_performance_config][crate::model::ClusterUpdate::desired_network_performance_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::ClusterUpdate;
+    /// use google_cloud_container_v1::model::network_config::ClusterNetworkPerformanceConfig;
+    /// let x = ClusterUpdate::new().set_or_clear_desired_network_performance_config(Some(ClusterNetworkPerformanceConfig::default()/* use setters */));
+    /// let x = ClusterUpdate::new().set_or_clear_desired_network_performance_config(None::<ClusterNetworkPerformanceConfig>);
+    /// ```
     pub fn set_or_clear_desired_network_performance_config<T>(
         mut self,
         v: std::option::Option<T>,
@@ -11756,6 +15717,12 @@ impl ClusterUpdate {
     }
 
     /// Sets the value of [desired_enable_fqdn_network_policy][crate::model::ClusterUpdate::desired_enable_fqdn_network_policy].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::ClusterUpdate;
+    /// let x = ClusterUpdate::new().set_desired_enable_fqdn_network_policy(true);
+    /// ```
     pub fn set_desired_enable_fqdn_network_policy<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<bool>,
@@ -11765,6 +15732,13 @@ impl ClusterUpdate {
     }
 
     /// Sets or clears the value of [desired_enable_fqdn_network_policy][crate::model::ClusterUpdate::desired_enable_fqdn_network_policy].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::ClusterUpdate;
+    /// let x = ClusterUpdate::new().set_or_clear_desired_enable_fqdn_network_policy(Some(false));
+    /// let x = ClusterUpdate::new().set_or_clear_desired_enable_fqdn_network_policy(None::<bool>);
+    /// ```
     pub fn set_or_clear_desired_enable_fqdn_network_policy<T>(
         mut self,
         v: std::option::Option<T>,
@@ -11777,6 +15751,13 @@ impl ClusterUpdate {
     }
 
     /// Sets the value of [desired_autopilot_workload_policy_config][crate::model::ClusterUpdate::desired_autopilot_workload_policy_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::ClusterUpdate;
+    /// use google_cloud_container_v1::model::WorkloadPolicyConfig;
+    /// let x = ClusterUpdate::new().set_desired_autopilot_workload_policy_config(WorkloadPolicyConfig::default()/* use setters */);
+    /// ```
     pub fn set_desired_autopilot_workload_policy_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::WorkloadPolicyConfig>,
@@ -11786,6 +15767,14 @@ impl ClusterUpdate {
     }
 
     /// Sets or clears the value of [desired_autopilot_workload_policy_config][crate::model::ClusterUpdate::desired_autopilot_workload_policy_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::ClusterUpdate;
+    /// use google_cloud_container_v1::model::WorkloadPolicyConfig;
+    /// let x = ClusterUpdate::new().set_or_clear_desired_autopilot_workload_policy_config(Some(WorkloadPolicyConfig::default()/* use setters */));
+    /// let x = ClusterUpdate::new().set_or_clear_desired_autopilot_workload_policy_config(None::<WorkloadPolicyConfig>);
+    /// ```
     pub fn set_or_clear_desired_autopilot_workload_policy_config<T>(
         mut self,
         v: std::option::Option<T>,
@@ -11798,6 +15787,13 @@ impl ClusterUpdate {
     }
 
     /// Sets the value of [desired_k8s_beta_apis][crate::model::ClusterUpdate::desired_k8s_beta_apis].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::ClusterUpdate;
+    /// use google_cloud_container_v1::model::K8sBetaAPIConfig;
+    /// let x = ClusterUpdate::new().set_desired_k8s_beta_apis(K8sBetaAPIConfig::default()/* use setters */);
+    /// ```
     pub fn set_desired_k8s_beta_apis<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::K8sBetaAPIConfig>,
@@ -11807,6 +15803,14 @@ impl ClusterUpdate {
     }
 
     /// Sets or clears the value of [desired_k8s_beta_apis][crate::model::ClusterUpdate::desired_k8s_beta_apis].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::ClusterUpdate;
+    /// use google_cloud_container_v1::model::K8sBetaAPIConfig;
+    /// let x = ClusterUpdate::new().set_or_clear_desired_k8s_beta_apis(Some(K8sBetaAPIConfig::default()/* use setters */));
+    /// let x = ClusterUpdate::new().set_or_clear_desired_k8s_beta_apis(None::<K8sBetaAPIConfig>);
+    /// ```
     pub fn set_or_clear_desired_k8s_beta_apis<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::K8sBetaAPIConfig>,
@@ -11816,6 +15820,13 @@ impl ClusterUpdate {
     }
 
     /// Sets the value of [desired_containerd_config][crate::model::ClusterUpdate::desired_containerd_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::ClusterUpdate;
+    /// use google_cloud_container_v1::model::ContainerdConfig;
+    /// let x = ClusterUpdate::new().set_desired_containerd_config(ContainerdConfig::default()/* use setters */);
+    /// ```
     pub fn set_desired_containerd_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ContainerdConfig>,
@@ -11825,6 +15836,14 @@ impl ClusterUpdate {
     }
 
     /// Sets or clears the value of [desired_containerd_config][crate::model::ClusterUpdate::desired_containerd_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::ClusterUpdate;
+    /// use google_cloud_container_v1::model::ContainerdConfig;
+    /// let x = ClusterUpdate::new().set_or_clear_desired_containerd_config(Some(ContainerdConfig::default()/* use setters */));
+    /// let x = ClusterUpdate::new().set_or_clear_desired_containerd_config(None::<ContainerdConfig>);
+    /// ```
     pub fn set_or_clear_desired_containerd_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ContainerdConfig>,
@@ -11834,6 +15853,12 @@ impl ClusterUpdate {
     }
 
     /// Sets the value of [desired_enable_multi_networking][crate::model::ClusterUpdate::desired_enable_multi_networking].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::ClusterUpdate;
+    /// let x = ClusterUpdate::new().set_desired_enable_multi_networking(true);
+    /// ```
     pub fn set_desired_enable_multi_networking<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<bool>,
@@ -11843,6 +15868,13 @@ impl ClusterUpdate {
     }
 
     /// Sets or clears the value of [desired_enable_multi_networking][crate::model::ClusterUpdate::desired_enable_multi_networking].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::ClusterUpdate;
+    /// let x = ClusterUpdate::new().set_or_clear_desired_enable_multi_networking(Some(false));
+    /// let x = ClusterUpdate::new().set_or_clear_desired_enable_multi_networking(None::<bool>);
+    /// ```
     pub fn set_or_clear_desired_enable_multi_networking<T>(
         mut self,
         v: std::option::Option<T>,
@@ -11855,6 +15887,13 @@ impl ClusterUpdate {
     }
 
     /// Sets the value of [desired_node_pool_auto_config_resource_manager_tags][crate::model::ClusterUpdate::desired_node_pool_auto_config_resource_manager_tags].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::ClusterUpdate;
+    /// use google_cloud_container_v1::model::ResourceManagerTags;
+    /// let x = ClusterUpdate::new().set_desired_node_pool_auto_config_resource_manager_tags(ResourceManagerTags::default()/* use setters */);
+    /// ```
     pub fn set_desired_node_pool_auto_config_resource_manager_tags<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ResourceManagerTags>,
@@ -11865,6 +15904,14 @@ impl ClusterUpdate {
     }
 
     /// Sets or clears the value of [desired_node_pool_auto_config_resource_manager_tags][crate::model::ClusterUpdate::desired_node_pool_auto_config_resource_manager_tags].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::ClusterUpdate;
+    /// use google_cloud_container_v1::model::ResourceManagerTags;
+    /// let x = ClusterUpdate::new().set_or_clear_desired_node_pool_auto_config_resource_manager_tags(Some(ResourceManagerTags::default()/* use setters */));
+    /// let x = ClusterUpdate::new().set_or_clear_desired_node_pool_auto_config_resource_manager_tags(None::<ResourceManagerTags>);
+    /// ```
     pub fn set_or_clear_desired_node_pool_auto_config_resource_manager_tags<T>(
         mut self,
         v: std::option::Option<T>,
@@ -11877,6 +15924,14 @@ impl ClusterUpdate {
     }
 
     /// Sets the value of [desired_in_transit_encryption_config][crate::model::ClusterUpdate::desired_in_transit_encryption_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::ClusterUpdate;
+    /// use google_cloud_container_v1::model::InTransitEncryptionConfig;
+    /// let x0 = ClusterUpdate::new().set_desired_in_transit_encryption_config(InTransitEncryptionConfig::InTransitEncryptionDisabled);
+    /// let x1 = ClusterUpdate::new().set_desired_in_transit_encryption_config(InTransitEncryptionConfig::InTransitEncryptionInterNodeTransparent);
+    /// ```
     pub fn set_desired_in_transit_encryption_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::InTransitEncryptionConfig>,
@@ -11886,6 +15941,15 @@ impl ClusterUpdate {
     }
 
     /// Sets or clears the value of [desired_in_transit_encryption_config][crate::model::ClusterUpdate::desired_in_transit_encryption_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::ClusterUpdate;
+    /// use google_cloud_container_v1::model::InTransitEncryptionConfig;
+    /// let x0 = ClusterUpdate::new().set_or_clear_desired_in_transit_encryption_config(Some(InTransitEncryptionConfig::InTransitEncryptionDisabled));
+    /// let x1 = ClusterUpdate::new().set_or_clear_desired_in_transit_encryption_config(Some(InTransitEncryptionConfig::InTransitEncryptionInterNodeTransparent));
+    /// let x_none = ClusterUpdate::new().set_or_clear_desired_in_transit_encryption_config(None::<InTransitEncryptionConfig>);
+    /// ```
     pub fn set_or_clear_desired_in_transit_encryption_config<T>(
         mut self,
         v: std::option::Option<T>,
@@ -11898,6 +15962,12 @@ impl ClusterUpdate {
     }
 
     /// Sets the value of [desired_enable_cilium_clusterwide_network_policy][crate::model::ClusterUpdate::desired_enable_cilium_clusterwide_network_policy].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::ClusterUpdate;
+    /// let x = ClusterUpdate::new().set_desired_enable_cilium_clusterwide_network_policy(true);
+    /// ```
     pub fn set_desired_enable_cilium_clusterwide_network_policy<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<bool>,
@@ -11907,6 +15977,13 @@ impl ClusterUpdate {
     }
 
     /// Sets or clears the value of [desired_enable_cilium_clusterwide_network_policy][crate::model::ClusterUpdate::desired_enable_cilium_clusterwide_network_policy].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::ClusterUpdate;
+    /// let x = ClusterUpdate::new().set_or_clear_desired_enable_cilium_clusterwide_network_policy(Some(false));
+    /// let x = ClusterUpdate::new().set_or_clear_desired_enable_cilium_clusterwide_network_policy(None::<bool>);
+    /// ```
     pub fn set_or_clear_desired_enable_cilium_clusterwide_network_policy<T>(
         mut self,
         v: std::option::Option<T>,
@@ -11919,6 +15996,13 @@ impl ClusterUpdate {
     }
 
     /// Sets the value of [desired_secret_manager_config][crate::model::ClusterUpdate::desired_secret_manager_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::ClusterUpdate;
+    /// use google_cloud_container_v1::model::SecretManagerConfig;
+    /// let x = ClusterUpdate::new().set_desired_secret_manager_config(SecretManagerConfig::default()/* use setters */);
+    /// ```
     pub fn set_desired_secret_manager_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::SecretManagerConfig>,
@@ -11928,6 +16012,14 @@ impl ClusterUpdate {
     }
 
     /// Sets or clears the value of [desired_secret_manager_config][crate::model::ClusterUpdate::desired_secret_manager_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::ClusterUpdate;
+    /// use google_cloud_container_v1::model::SecretManagerConfig;
+    /// let x = ClusterUpdate::new().set_or_clear_desired_secret_manager_config(Some(SecretManagerConfig::default()/* use setters */));
+    /// let x = ClusterUpdate::new().set_or_clear_desired_secret_manager_config(None::<SecretManagerConfig>);
+    /// ```
     pub fn set_or_clear_desired_secret_manager_config<T>(
         mut self,
         v: std::option::Option<T>,
@@ -11940,6 +16032,13 @@ impl ClusterUpdate {
     }
 
     /// Sets the value of [desired_compliance_posture_config][crate::model::ClusterUpdate::desired_compliance_posture_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::ClusterUpdate;
+    /// use google_cloud_container_v1::model::CompliancePostureConfig;
+    /// let x = ClusterUpdate::new().set_desired_compliance_posture_config(CompliancePostureConfig::default()/* use setters */);
+    /// ```
     pub fn set_desired_compliance_posture_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::CompliancePostureConfig>,
@@ -11949,6 +16048,14 @@ impl ClusterUpdate {
     }
 
     /// Sets or clears the value of [desired_compliance_posture_config][crate::model::ClusterUpdate::desired_compliance_posture_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::ClusterUpdate;
+    /// use google_cloud_container_v1::model::CompliancePostureConfig;
+    /// let x = ClusterUpdate::new().set_or_clear_desired_compliance_posture_config(Some(CompliancePostureConfig::default()/* use setters */));
+    /// let x = ClusterUpdate::new().set_or_clear_desired_compliance_posture_config(None::<CompliancePostureConfig>);
+    /// ```
     pub fn set_or_clear_desired_compliance_posture_config<T>(
         mut self,
         v: std::option::Option<T>,
@@ -11961,6 +16068,13 @@ impl ClusterUpdate {
     }
 
     /// Sets the value of [desired_node_kubelet_config][crate::model::ClusterUpdate::desired_node_kubelet_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::ClusterUpdate;
+    /// use google_cloud_container_v1::model::NodeKubeletConfig;
+    /// let x = ClusterUpdate::new().set_desired_node_kubelet_config(NodeKubeletConfig::default()/* use setters */);
+    /// ```
     pub fn set_desired_node_kubelet_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::NodeKubeletConfig>,
@@ -11970,6 +16084,14 @@ impl ClusterUpdate {
     }
 
     /// Sets or clears the value of [desired_node_kubelet_config][crate::model::ClusterUpdate::desired_node_kubelet_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::ClusterUpdate;
+    /// use google_cloud_container_v1::model::NodeKubeletConfig;
+    /// let x = ClusterUpdate::new().set_or_clear_desired_node_kubelet_config(Some(NodeKubeletConfig::default()/* use setters */));
+    /// let x = ClusterUpdate::new().set_or_clear_desired_node_kubelet_config(None::<NodeKubeletConfig>);
+    /// ```
     pub fn set_or_clear_desired_node_kubelet_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::NodeKubeletConfig>,
@@ -11979,6 +16101,13 @@ impl ClusterUpdate {
     }
 
     /// Sets the value of [desired_node_pool_auto_config_kubelet_config][crate::model::ClusterUpdate::desired_node_pool_auto_config_kubelet_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::ClusterUpdate;
+    /// use google_cloud_container_v1::model::NodeKubeletConfig;
+    /// let x = ClusterUpdate::new().set_desired_node_pool_auto_config_kubelet_config(NodeKubeletConfig::default()/* use setters */);
+    /// ```
     pub fn set_desired_node_pool_auto_config_kubelet_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::NodeKubeletConfig>,
@@ -11988,6 +16117,14 @@ impl ClusterUpdate {
     }
 
     /// Sets or clears the value of [desired_node_pool_auto_config_kubelet_config][crate::model::ClusterUpdate::desired_node_pool_auto_config_kubelet_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::ClusterUpdate;
+    /// use google_cloud_container_v1::model::NodeKubeletConfig;
+    /// let x = ClusterUpdate::new().set_or_clear_desired_node_pool_auto_config_kubelet_config(Some(NodeKubeletConfig::default()/* use setters */));
+    /// let x = ClusterUpdate::new().set_or_clear_desired_node_pool_auto_config_kubelet_config(None::<NodeKubeletConfig>);
+    /// ```
     pub fn set_or_clear_desired_node_pool_auto_config_kubelet_config<T>(
         mut self,
         v: std::option::Option<T>,
@@ -12000,6 +16137,13 @@ impl ClusterUpdate {
     }
 
     /// Sets the value of [user_managed_keys_config][crate::model::ClusterUpdate::user_managed_keys_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::ClusterUpdate;
+    /// use google_cloud_container_v1::model::UserManagedKeysConfig;
+    /// let x = ClusterUpdate::new().set_user_managed_keys_config(UserManagedKeysConfig::default()/* use setters */);
+    /// ```
     #[deprecated]
     pub fn set_user_managed_keys_config<T>(mut self, v: T) -> Self
     where
@@ -12010,6 +16154,14 @@ impl ClusterUpdate {
     }
 
     /// Sets or clears the value of [user_managed_keys_config][crate::model::ClusterUpdate::user_managed_keys_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::ClusterUpdate;
+    /// use google_cloud_container_v1::model::UserManagedKeysConfig;
+    /// let x = ClusterUpdate::new().set_or_clear_user_managed_keys_config(Some(UserManagedKeysConfig::default()/* use setters */));
+    /// let x = ClusterUpdate::new().set_or_clear_user_managed_keys_config(None::<UserManagedKeysConfig>);
+    /// ```
     #[deprecated]
     pub fn set_or_clear_user_managed_keys_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
@@ -12020,6 +16172,13 @@ impl ClusterUpdate {
     }
 
     /// Sets the value of [desired_rbac_binding_config][crate::model::ClusterUpdate::desired_rbac_binding_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::ClusterUpdate;
+    /// use google_cloud_container_v1::model::RBACBindingConfig;
+    /// let x = ClusterUpdate::new().set_desired_rbac_binding_config(RBACBindingConfig::default()/* use setters */);
+    /// ```
     pub fn set_desired_rbac_binding_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::RBACBindingConfig>,
@@ -12029,6 +16188,14 @@ impl ClusterUpdate {
     }
 
     /// Sets or clears the value of [desired_rbac_binding_config][crate::model::ClusterUpdate::desired_rbac_binding_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::ClusterUpdate;
+    /// use google_cloud_container_v1::model::RBACBindingConfig;
+    /// let x = ClusterUpdate::new().set_or_clear_desired_rbac_binding_config(Some(RBACBindingConfig::default()/* use setters */));
+    /// let x = ClusterUpdate::new().set_or_clear_desired_rbac_binding_config(None::<RBACBindingConfig>);
+    /// ```
     pub fn set_or_clear_desired_rbac_binding_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::RBACBindingConfig>,
@@ -12038,6 +16205,13 @@ impl ClusterUpdate {
     }
 
     /// Sets the value of [desired_additional_ip_ranges_config][crate::model::ClusterUpdate::desired_additional_ip_ranges_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::ClusterUpdate;
+    /// use google_cloud_container_v1::model::DesiredAdditionalIPRangesConfig;
+    /// let x = ClusterUpdate::new().set_desired_additional_ip_ranges_config(DesiredAdditionalIPRangesConfig::default()/* use setters */);
+    /// ```
     pub fn set_desired_additional_ip_ranges_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::DesiredAdditionalIPRangesConfig>,
@@ -12047,6 +16221,14 @@ impl ClusterUpdate {
     }
 
     /// Sets or clears the value of [desired_additional_ip_ranges_config][crate::model::ClusterUpdate::desired_additional_ip_ranges_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::ClusterUpdate;
+    /// use google_cloud_container_v1::model::DesiredAdditionalIPRangesConfig;
+    /// let x = ClusterUpdate::new().set_or_clear_desired_additional_ip_ranges_config(Some(DesiredAdditionalIPRangesConfig::default()/* use setters */));
+    /// let x = ClusterUpdate::new().set_or_clear_desired_additional_ip_ranges_config(None::<DesiredAdditionalIPRangesConfig>);
+    /// ```
     pub fn set_or_clear_desired_additional_ip_ranges_config<T>(
         mut self,
         v: std::option::Option<T>,
@@ -12059,6 +16241,13 @@ impl ClusterUpdate {
     }
 
     /// Sets the value of [desired_enterprise_config][crate::model::ClusterUpdate::desired_enterprise_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::ClusterUpdate;
+    /// use google_cloud_container_v1::model::DesiredEnterpriseConfig;
+    /// let x = ClusterUpdate::new().set_desired_enterprise_config(DesiredEnterpriseConfig::default()/* use setters */);
+    /// ```
     #[deprecated]
     pub fn set_desired_enterprise_config<T>(mut self, v: T) -> Self
     where
@@ -12069,6 +16258,14 @@ impl ClusterUpdate {
     }
 
     /// Sets or clears the value of [desired_enterprise_config][crate::model::ClusterUpdate::desired_enterprise_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::ClusterUpdate;
+    /// use google_cloud_container_v1::model::DesiredEnterpriseConfig;
+    /// let x = ClusterUpdate::new().set_or_clear_desired_enterprise_config(Some(DesiredEnterpriseConfig::default()/* use setters */));
+    /// let x = ClusterUpdate::new().set_or_clear_desired_enterprise_config(None::<DesiredEnterpriseConfig>);
+    /// ```
     #[deprecated]
     pub fn set_or_clear_desired_enterprise_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
@@ -12079,6 +16276,13 @@ impl ClusterUpdate {
     }
 
     /// Sets the value of [desired_auto_ipam_config][crate::model::ClusterUpdate::desired_auto_ipam_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::ClusterUpdate;
+    /// use google_cloud_container_v1::model::AutoIpamConfig;
+    /// let x = ClusterUpdate::new().set_desired_auto_ipam_config(AutoIpamConfig::default()/* use setters */);
+    /// ```
     pub fn set_desired_auto_ipam_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::AutoIpamConfig>,
@@ -12088,6 +16292,14 @@ impl ClusterUpdate {
     }
 
     /// Sets or clears the value of [desired_auto_ipam_config][crate::model::ClusterUpdate::desired_auto_ipam_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::ClusterUpdate;
+    /// use google_cloud_container_v1::model::AutoIpamConfig;
+    /// let x = ClusterUpdate::new().set_or_clear_desired_auto_ipam_config(Some(AutoIpamConfig::default()/* use setters */));
+    /// let x = ClusterUpdate::new().set_or_clear_desired_auto_ipam_config(None::<AutoIpamConfig>);
+    /// ```
     pub fn set_or_clear_desired_auto_ipam_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AutoIpamConfig>,
@@ -12097,6 +16309,12 @@ impl ClusterUpdate {
     }
 
     /// Sets the value of [desired_disable_l4_lb_firewall_reconciliation][crate::model::ClusterUpdate::desired_disable_l4_lb_firewall_reconciliation].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::ClusterUpdate;
+    /// let x = ClusterUpdate::new().set_desired_disable_l4_lb_firewall_reconciliation(true);
+    /// ```
     pub fn set_desired_disable_l4_lb_firewall_reconciliation<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<bool>,
@@ -12106,6 +16324,13 @@ impl ClusterUpdate {
     }
 
     /// Sets or clears the value of [desired_disable_l4_lb_firewall_reconciliation][crate::model::ClusterUpdate::desired_disable_l4_lb_firewall_reconciliation].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::ClusterUpdate;
+    /// let x = ClusterUpdate::new().set_or_clear_desired_disable_l4_lb_firewall_reconciliation(Some(false));
+    /// let x = ClusterUpdate::new().set_or_clear_desired_disable_l4_lb_firewall_reconciliation(None::<bool>);
+    /// ```
     pub fn set_or_clear_desired_disable_l4_lb_firewall_reconciliation<T>(
         mut self,
         v: std::option::Option<T>,
@@ -12118,6 +16343,13 @@ impl ClusterUpdate {
     }
 
     /// Sets the value of [desired_node_pool_auto_config_linux_node_config][crate::model::ClusterUpdate::desired_node_pool_auto_config_linux_node_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::ClusterUpdate;
+    /// use google_cloud_container_v1::model::LinuxNodeConfig;
+    /// let x = ClusterUpdate::new().set_desired_node_pool_auto_config_linux_node_config(LinuxNodeConfig::default()/* use setters */);
+    /// ```
     pub fn set_desired_node_pool_auto_config_linux_node_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::LinuxNodeConfig>,
@@ -12127,6 +16359,14 @@ impl ClusterUpdate {
     }
 
     /// Sets or clears the value of [desired_node_pool_auto_config_linux_node_config][crate::model::ClusterUpdate::desired_node_pool_auto_config_linux_node_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::ClusterUpdate;
+    /// use google_cloud_container_v1::model::LinuxNodeConfig;
+    /// let x = ClusterUpdate::new().set_or_clear_desired_node_pool_auto_config_linux_node_config(Some(LinuxNodeConfig::default()/* use setters */));
+    /// let x = ClusterUpdate::new().set_or_clear_desired_node_pool_auto_config_linux_node_config(None::<LinuxNodeConfig>);
+    /// ```
     pub fn set_or_clear_desired_node_pool_auto_config_linux_node_config<T>(
         mut self,
         v: std::option::Option<T>,
@@ -12139,6 +16379,13 @@ impl ClusterUpdate {
     }
 
     /// Sets the value of [desired_user_managed_keys_config][crate::model::ClusterUpdate::desired_user_managed_keys_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::ClusterUpdate;
+    /// use google_cloud_container_v1::model::UserManagedKeysConfig;
+    /// let x = ClusterUpdate::new().set_desired_user_managed_keys_config(UserManagedKeysConfig::default()/* use setters */);
+    /// ```
     pub fn set_desired_user_managed_keys_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::UserManagedKeysConfig>,
@@ -12148,6 +16395,14 @@ impl ClusterUpdate {
     }
 
     /// Sets or clears the value of [desired_user_managed_keys_config][crate::model::ClusterUpdate::desired_user_managed_keys_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::ClusterUpdate;
+    /// use google_cloud_container_v1::model::UserManagedKeysConfig;
+    /// let x = ClusterUpdate::new().set_or_clear_desired_user_managed_keys_config(Some(UserManagedKeysConfig::default()/* use setters */));
+    /// let x = ClusterUpdate::new().set_or_clear_desired_user_managed_keys_config(None::<UserManagedKeysConfig>);
+    /// ```
     pub fn set_or_clear_desired_user_managed_keys_config<T>(
         mut self,
         v: std::option::Option<T>,
@@ -12160,6 +16415,13 @@ impl ClusterUpdate {
     }
 
     /// Sets the value of [desired_anonymous_authentication_config][crate::model::ClusterUpdate::desired_anonymous_authentication_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::ClusterUpdate;
+    /// use google_cloud_container_v1::model::AnonymousAuthenticationConfig;
+    /// let x = ClusterUpdate::new().set_desired_anonymous_authentication_config(AnonymousAuthenticationConfig::default()/* use setters */);
+    /// ```
     pub fn set_desired_anonymous_authentication_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::AnonymousAuthenticationConfig>,
@@ -12169,6 +16431,14 @@ impl ClusterUpdate {
     }
 
     /// Sets or clears the value of [desired_anonymous_authentication_config][crate::model::ClusterUpdate::desired_anonymous_authentication_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::ClusterUpdate;
+    /// use google_cloud_container_v1::model::AnonymousAuthenticationConfig;
+    /// let x = ClusterUpdate::new().set_or_clear_desired_anonymous_authentication_config(Some(AnonymousAuthenticationConfig::default()/* use setters */));
+    /// let x = ClusterUpdate::new().set_or_clear_desired_anonymous_authentication_config(None::<AnonymousAuthenticationConfig>);
+    /// ```
     pub fn set_or_clear_desired_anonymous_authentication_config<T>(
         mut self,
         v: std::option::Option<T>,
@@ -12181,6 +16451,13 @@ impl ClusterUpdate {
     }
 
     /// Sets the value of [gke_auto_upgrade_config][crate::model::ClusterUpdate::gke_auto_upgrade_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::ClusterUpdate;
+    /// use google_cloud_container_v1::model::GkeAutoUpgradeConfig;
+    /// let x = ClusterUpdate::new().set_gke_auto_upgrade_config(GkeAutoUpgradeConfig::default()/* use setters */);
+    /// ```
     pub fn set_gke_auto_upgrade_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::GkeAutoUpgradeConfig>,
@@ -12190,6 +16467,14 @@ impl ClusterUpdate {
     }
 
     /// Sets or clears the value of [gke_auto_upgrade_config][crate::model::ClusterUpdate::gke_auto_upgrade_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::ClusterUpdate;
+    /// use google_cloud_container_v1::model::GkeAutoUpgradeConfig;
+    /// let x = ClusterUpdate::new().set_or_clear_gke_auto_upgrade_config(Some(GkeAutoUpgradeConfig::default()/* use setters */));
+    /// let x = ClusterUpdate::new().set_or_clear_gke_auto_upgrade_config(None::<GkeAutoUpgradeConfig>);
+    /// ```
     pub fn set_or_clear_gke_auto_upgrade_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::GkeAutoUpgradeConfig>,
@@ -12199,6 +16484,13 @@ impl ClusterUpdate {
     }
 
     /// Sets the value of [desired_network_tier_config][crate::model::ClusterUpdate::desired_network_tier_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::ClusterUpdate;
+    /// use google_cloud_container_v1::model::NetworkTierConfig;
+    /// let x = ClusterUpdate::new().set_desired_network_tier_config(NetworkTierConfig::default()/* use setters */);
+    /// ```
     pub fn set_desired_network_tier_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::NetworkTierConfig>,
@@ -12208,6 +16500,14 @@ impl ClusterUpdate {
     }
 
     /// Sets or clears the value of [desired_network_tier_config][crate::model::ClusterUpdate::desired_network_tier_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::ClusterUpdate;
+    /// use google_cloud_container_v1::model::NetworkTierConfig;
+    /// let x = ClusterUpdate::new().set_or_clear_desired_network_tier_config(Some(NetworkTierConfig::default()/* use setters */));
+    /// let x = ClusterUpdate::new().set_or_clear_desired_network_tier_config(None::<NetworkTierConfig>);
+    /// ```
     pub fn set_or_clear_desired_network_tier_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::NetworkTierConfig>,
@@ -12243,6 +16543,12 @@ impl AdditionalPodRangesConfig {
     }
 
     /// Sets the value of [pod_range_names][crate::model::AdditionalPodRangesConfig::pod_range_names].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::AdditionalPodRangesConfig;
+    /// let x = AdditionalPodRangesConfig::new().set_pod_range_names(["a", "b", "c"]);
+    /// ```
     pub fn set_pod_range_names<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -12254,6 +16560,17 @@ impl AdditionalPodRangesConfig {
     }
 
     /// Sets the value of [pod_range_info][crate::model::AdditionalPodRangesConfig::pod_range_info].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::AdditionalPodRangesConfig;
+    /// use google_cloud_container_v1::model::RangeInfo;
+    /// let x = AdditionalPodRangesConfig::new()
+    ///     .set_pod_range_info([
+    ///         RangeInfo::default()/* use setters */,
+    ///         RangeInfo::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_pod_range_info<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -12297,12 +16614,24 @@ impl AdditionalIPRangesConfig {
     }
 
     /// Sets the value of [subnetwork][crate::model::AdditionalIPRangesConfig::subnetwork].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::AdditionalIPRangesConfig;
+    /// let x = AdditionalIPRangesConfig::new().set_subnetwork("example");
+    /// ```
     pub fn set_subnetwork<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.subnetwork = v.into();
         self
     }
 
     /// Sets the value of [pod_ipv4_range_names][crate::model::AdditionalIPRangesConfig::pod_ipv4_range_names].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::AdditionalIPRangesConfig;
+    /// let x = AdditionalIPRangesConfig::new().set_pod_ipv4_range_names(["a", "b", "c"]);
+    /// ```
     pub fn set_pod_ipv4_range_names<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -12338,6 +16667,17 @@ impl DesiredAdditionalIPRangesConfig {
     }
 
     /// Sets the value of [additional_ip_ranges_configs][crate::model::DesiredAdditionalIPRangesConfig::additional_ip_ranges_configs].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::DesiredAdditionalIPRangesConfig;
+    /// use google_cloud_container_v1::model::AdditionalIPRangesConfig;
+    /// let x = DesiredAdditionalIPRangesConfig::new()
+    ///     .set_additional_ip_ranges_configs([
+    ///         AdditionalIPRangesConfig::default()/* use setters */,
+    ///         AdditionalIPRangesConfig::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_additional_ip_ranges_configs<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -12371,6 +16711,12 @@ impl AutoIpamConfig {
     }
 
     /// Sets the value of [enabled][crate::model::AutoIpamConfig::enabled].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::AutoIpamConfig;
+    /// let x = AutoIpamConfig::new().set_enabled(true);
+    /// ```
     pub fn set_enabled<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<bool>,
@@ -12380,6 +16726,13 @@ impl AutoIpamConfig {
     }
 
     /// Sets or clears the value of [enabled][crate::model::AutoIpamConfig::enabled].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::AutoIpamConfig;
+    /// let x = AutoIpamConfig::new().set_or_clear_enabled(Some(false));
+    /// let x = AutoIpamConfig::new().set_or_clear_enabled(None::<bool>);
+    /// ```
     pub fn set_or_clear_enabled<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<bool>,
@@ -12414,12 +16767,24 @@ impl RangeInfo {
     }
 
     /// Sets the value of [range_name][crate::model::RangeInfo::range_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::RangeInfo;
+    /// let x = RangeInfo::new().set_range_name("example");
+    /// ```
     pub fn set_range_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.range_name = v.into();
         self
     }
 
     /// Sets the value of [utilization][crate::model::RangeInfo::utilization].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::RangeInfo;
+    /// let x = RangeInfo::new().set_utilization(42.0);
+    /// ```
     pub fn set_utilization<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
         self.utilization = v.into();
         self
@@ -12452,6 +16817,14 @@ impl DesiredEnterpriseConfig {
     }
 
     /// Sets the value of [desired_tier][crate::model::DesiredEnterpriseConfig::desired_tier].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::DesiredEnterpriseConfig;
+    /// use google_cloud_container_v1::model::enterprise_config::ClusterTier;
+    /// let x0 = DesiredEnterpriseConfig::new().set_desired_tier(ClusterTier::Standard);
+    /// let x1 = DesiredEnterpriseConfig::new().set_desired_tier(ClusterTier::Enterprise);
+    /// ```
     pub fn set_desired_tier<T: std::convert::Into<crate::model::enterprise_config::ClusterTier>>(
         mut self,
         v: T,
@@ -12559,12 +16932,24 @@ impl Operation {
     }
 
     /// Sets the value of [name][crate::model::Operation::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::Operation;
+    /// let x = Operation::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [zone][crate::model::Operation::zone].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::Operation;
+    /// let x = Operation::new().set_zone("example");
+    /// ```
     #[deprecated]
     pub fn set_zone<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.zone = v.into();
@@ -12572,6 +16957,15 @@ impl Operation {
     }
 
     /// Sets the value of [operation_type][crate::model::Operation::operation_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::Operation;
+    /// use google_cloud_container_v1::model::operation::Type;
+    /// let x0 = Operation::new().set_operation_type(Type::CreateCluster);
+    /// let x1 = Operation::new().set_operation_type(Type::DeleteCluster);
+    /// let x2 = Operation::new().set_operation_type(Type::UpgradeMaster);
+    /// ```
     pub fn set_operation_type<T: std::convert::Into<crate::model::operation::Type>>(
         mut self,
         v: T,
@@ -12581,6 +16975,15 @@ impl Operation {
     }
 
     /// Sets the value of [status][crate::model::Operation::status].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::Operation;
+    /// use google_cloud_container_v1::model::operation::Status;
+    /// let x0 = Operation::new().set_status(Status::Pending);
+    /// let x1 = Operation::new().set_status(Status::Running);
+    /// let x2 = Operation::new().set_status(Status::Done);
+    /// ```
     pub fn set_status<T: std::convert::Into<crate::model::operation::Status>>(
         mut self,
         v: T,
@@ -12590,12 +16993,24 @@ impl Operation {
     }
 
     /// Sets the value of [detail][crate::model::Operation::detail].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::Operation;
+    /// let x = Operation::new().set_detail("example");
+    /// ```
     pub fn set_detail<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.detail = v.into();
         self
     }
 
     /// Sets the value of [status_message][crate::model::Operation::status_message].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::Operation;
+    /// let x = Operation::new().set_status_message("example");
+    /// ```
     #[deprecated]
     pub fn set_status_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.status_message = v.into();
@@ -12603,36 +17018,73 @@ impl Operation {
     }
 
     /// Sets the value of [self_link][crate::model::Operation::self_link].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::Operation;
+    /// let x = Operation::new().set_self_link("example");
+    /// ```
     pub fn set_self_link<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.self_link = v.into();
         self
     }
 
     /// Sets the value of [target_link][crate::model::Operation::target_link].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::Operation;
+    /// let x = Operation::new().set_target_link("example");
+    /// ```
     pub fn set_target_link<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.target_link = v.into();
         self
     }
 
     /// Sets the value of [location][crate::model::Operation::location].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::Operation;
+    /// let x = Operation::new().set_location("example");
+    /// ```
     pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.location = v.into();
         self
     }
 
     /// Sets the value of [start_time][crate::model::Operation::start_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::Operation;
+    /// let x = Operation::new().set_start_time("example");
+    /// ```
     pub fn set_start_time<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.start_time = v.into();
         self
     }
 
     /// Sets the value of [end_time][crate::model::Operation::end_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::Operation;
+    /// let x = Operation::new().set_end_time("example");
+    /// ```
     pub fn set_end_time<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.end_time = v.into();
         self
     }
 
     /// Sets the value of [progress][crate::model::Operation::progress].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::Operation;
+    /// use google_cloud_container_v1::model::OperationProgress;
+    /// let x = Operation::new().set_progress(OperationProgress::default()/* use setters */);
+    /// ```
     pub fn set_progress<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::OperationProgress>,
@@ -12642,6 +17094,14 @@ impl Operation {
     }
 
     /// Sets or clears the value of [progress][crate::model::Operation::progress].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::Operation;
+    /// use google_cloud_container_v1::model::OperationProgress;
+    /// let x = Operation::new().set_or_clear_progress(Some(OperationProgress::default()/* use setters */));
+    /// let x = Operation::new().set_or_clear_progress(None::<OperationProgress>);
+    /// ```
     pub fn set_or_clear_progress<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::OperationProgress>,
@@ -12651,6 +17111,17 @@ impl Operation {
     }
 
     /// Sets the value of [cluster_conditions][crate::model::Operation::cluster_conditions].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::Operation;
+    /// use google_cloud_container_v1::model::StatusCondition;
+    /// let x = Operation::new()
+    ///     .set_cluster_conditions([
+    ///         StatusCondition::default()/* use setters */,
+    ///         StatusCondition::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     #[deprecated]
     pub fn set_cluster_conditions<T, V>(mut self, v: T) -> Self
     where
@@ -12663,6 +17134,17 @@ impl Operation {
     }
 
     /// Sets the value of [nodepool_conditions][crate::model::Operation::nodepool_conditions].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::Operation;
+    /// use google_cloud_container_v1::model::StatusCondition;
+    /// let x = Operation::new()
+    ///     .set_nodepool_conditions([
+    ///         StatusCondition::default()/* use setters */,
+    ///         StatusCondition::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     #[deprecated]
     pub fn set_nodepool_conditions<T, V>(mut self, v: T) -> Self
     where
@@ -12675,6 +17157,13 @@ impl Operation {
     }
 
     /// Sets the value of [error][crate::model::Operation::error].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::Operation;
+    /// use rpc::model::Status;
+    /// let x = Operation::new().set_error(Status::default()/* use setters */);
+    /// ```
     pub fn set_error<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<rpc::model::Status>,
@@ -12684,6 +17173,14 @@ impl Operation {
     }
 
     /// Sets or clears the value of [error][crate::model::Operation::error].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::Operation;
+    /// use rpc::model::Status;
+    /// let x = Operation::new().set_or_clear_error(Some(Status::default()/* use setters */));
+    /// let x = Operation::new().set_or_clear_error(None::<Status>);
+    /// ```
     pub fn set_or_clear_error<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<rpc::model::Status>,
@@ -13221,12 +17718,27 @@ impl OperationProgress {
     }
 
     /// Sets the value of [name][crate::model::OperationProgress::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::OperationProgress;
+    /// let x = OperationProgress::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [status][crate::model::OperationProgress::status].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::OperationProgress;
+    /// use google_cloud_container_v1::model::operation::Status;
+    /// let x0 = OperationProgress::new().set_status(Status::Pending);
+    /// let x1 = OperationProgress::new().set_status(Status::Running);
+    /// let x2 = OperationProgress::new().set_status(Status::Done);
+    /// ```
     pub fn set_status<T: std::convert::Into<crate::model::operation::Status>>(
         mut self,
         v: T,
@@ -13236,6 +17748,17 @@ impl OperationProgress {
     }
 
     /// Sets the value of [metrics][crate::model::OperationProgress::metrics].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::OperationProgress;
+    /// use google_cloud_container_v1::model::operation_progress::Metric;
+    /// let x = OperationProgress::new()
+    ///     .set_metrics([
+    ///         Metric::default()/* use setters */,
+    ///         Metric::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_metrics<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -13247,6 +17770,17 @@ impl OperationProgress {
     }
 
     /// Sets the value of [stages][crate::model::OperationProgress::stages].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::OperationProgress;
+    /// use google_cloud_container_v1::model::OperationProgress;
+    /// let x = OperationProgress::new()
+    ///     .set_stages([
+    ///         OperationProgress::default()/* use setters */,
+    ///         OperationProgress::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_stages<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -13288,6 +17822,12 @@ pub mod operation_progress {
         }
 
         /// Sets the value of [name][crate::model::operation_progress::Metric::name].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_container_v1::model::operation_progress::Metric;
+        /// let x = Metric::new().set_name("example");
+        /// ```
         pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.name = v.into();
             self
@@ -13297,6 +17837,13 @@ pub mod operation_progress {
         ///
         /// Note that all the setters affecting `value` are mutually
         /// exclusive.
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_container_v1::model::operation_progress::Metric;
+        /// use google_cloud_container_v1::model::operation_progress::metric;
+        /// let x = Metric::new().set_value(Some(operation_progress::metric::Value::IntValue(42)));
+        /// ```
         pub fn set_value<
             T: std::convert::Into<
                     std::option::Option<crate::model::operation_progress::metric::Value>,
@@ -13327,6 +17874,15 @@ pub mod operation_progress {
         ///
         /// Note that all the setters affecting `value` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_container_v1::model::operation_progress::Metric;
+        /// let x = Metric::new().set_int_value(42);
+        /// assert!(x.int_value().is_some());
+        /// assert!(x.double_value().is_none());
+        /// assert!(x.string_value().is_none());
+        /// ```
         pub fn set_int_value<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
             self.value = std::option::Option::Some(
                 crate::model::operation_progress::metric::Value::IntValue(v.into()),
@@ -13352,6 +17908,15 @@ pub mod operation_progress {
         ///
         /// Note that all the setters affecting `value` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_container_v1::model::operation_progress::Metric;
+        /// let x = Metric::new().set_double_value(42.0);
+        /// assert!(x.double_value().is_some());
+        /// assert!(x.int_value().is_none());
+        /// assert!(x.string_value().is_none());
+        /// ```
         pub fn set_double_value<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
             self.value = std::option::Option::Some(
                 crate::model::operation_progress::metric::Value::DoubleValue(v.into()),
@@ -13377,6 +17942,15 @@ pub mod operation_progress {
         ///
         /// Note that all the setters affecting `value` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_container_v1::model::operation_progress::Metric;
+        /// let x = Metric::new().set_string_value("example");
+        /// assert!(x.string_value().is_some());
+        /// assert!(x.int_value().is_none());
+        /// assert!(x.double_value().is_none());
+        /// ```
         pub fn set_string_value<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -13447,6 +18021,12 @@ impl CreateClusterRequest {
     }
 
     /// Sets the value of [project_id][crate::model::CreateClusterRequest::project_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::CreateClusterRequest;
+    /// let x = CreateClusterRequest::new().set_project_id("example");
+    /// ```
     #[deprecated]
     pub fn set_project_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project_id = v.into();
@@ -13454,6 +18034,12 @@ impl CreateClusterRequest {
     }
 
     /// Sets the value of [zone][crate::model::CreateClusterRequest::zone].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::CreateClusterRequest;
+    /// let x = CreateClusterRequest::new().set_zone("example");
+    /// ```
     #[deprecated]
     pub fn set_zone<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.zone = v.into();
@@ -13461,6 +18047,13 @@ impl CreateClusterRequest {
     }
 
     /// Sets the value of [cluster][crate::model::CreateClusterRequest::cluster].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::CreateClusterRequest;
+    /// use google_cloud_container_v1::model::Cluster;
+    /// let x = CreateClusterRequest::new().set_cluster(Cluster::default()/* use setters */);
+    /// ```
     pub fn set_cluster<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Cluster>,
@@ -13470,6 +18063,14 @@ impl CreateClusterRequest {
     }
 
     /// Sets or clears the value of [cluster][crate::model::CreateClusterRequest::cluster].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::CreateClusterRequest;
+    /// use google_cloud_container_v1::model::Cluster;
+    /// let x = CreateClusterRequest::new().set_or_clear_cluster(Some(Cluster::default()/* use setters */));
+    /// let x = CreateClusterRequest::new().set_or_clear_cluster(None::<Cluster>);
+    /// ```
     pub fn set_or_clear_cluster<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Cluster>,
@@ -13479,6 +18080,12 @@ impl CreateClusterRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateClusterRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::CreateClusterRequest;
+    /// let x = CreateClusterRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
@@ -13526,6 +18133,12 @@ impl GetClusterRequest {
     }
 
     /// Sets the value of [project_id][crate::model::GetClusterRequest::project_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::GetClusterRequest;
+    /// let x = GetClusterRequest::new().set_project_id("example");
+    /// ```
     #[deprecated]
     pub fn set_project_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project_id = v.into();
@@ -13533,6 +18146,12 @@ impl GetClusterRequest {
     }
 
     /// Sets the value of [zone][crate::model::GetClusterRequest::zone].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::GetClusterRequest;
+    /// let x = GetClusterRequest::new().set_zone("example");
+    /// ```
     #[deprecated]
     pub fn set_zone<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.zone = v.into();
@@ -13540,6 +18159,12 @@ impl GetClusterRequest {
     }
 
     /// Sets the value of [cluster_id][crate::model::GetClusterRequest::cluster_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::GetClusterRequest;
+    /// let x = GetClusterRequest::new().set_cluster_id("example");
+    /// ```
     #[deprecated]
     pub fn set_cluster_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.cluster_id = v.into();
@@ -13547,6 +18172,12 @@ impl GetClusterRequest {
     }
 
     /// Sets the value of [name][crate::model::GetClusterRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::GetClusterRequest;
+    /// let x = GetClusterRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -13597,6 +18228,12 @@ impl UpdateClusterRequest {
     }
 
     /// Sets the value of [project_id][crate::model::UpdateClusterRequest::project_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::UpdateClusterRequest;
+    /// let x = UpdateClusterRequest::new().set_project_id("example");
+    /// ```
     #[deprecated]
     pub fn set_project_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project_id = v.into();
@@ -13604,6 +18241,12 @@ impl UpdateClusterRequest {
     }
 
     /// Sets the value of [zone][crate::model::UpdateClusterRequest::zone].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::UpdateClusterRequest;
+    /// let x = UpdateClusterRequest::new().set_zone("example");
+    /// ```
     #[deprecated]
     pub fn set_zone<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.zone = v.into();
@@ -13611,6 +18254,12 @@ impl UpdateClusterRequest {
     }
 
     /// Sets the value of [cluster_id][crate::model::UpdateClusterRequest::cluster_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::UpdateClusterRequest;
+    /// let x = UpdateClusterRequest::new().set_cluster_id("example");
+    /// ```
     #[deprecated]
     pub fn set_cluster_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.cluster_id = v.into();
@@ -13618,6 +18267,13 @@ impl UpdateClusterRequest {
     }
 
     /// Sets the value of [update][crate::model::UpdateClusterRequest::update].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::UpdateClusterRequest;
+    /// use google_cloud_container_v1::model::ClusterUpdate;
+    /// let x = UpdateClusterRequest::new().set_update(ClusterUpdate::default()/* use setters */);
+    /// ```
     pub fn set_update<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ClusterUpdate>,
@@ -13627,6 +18283,14 @@ impl UpdateClusterRequest {
     }
 
     /// Sets or clears the value of [update][crate::model::UpdateClusterRequest::update].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::UpdateClusterRequest;
+    /// use google_cloud_container_v1::model::ClusterUpdate;
+    /// let x = UpdateClusterRequest::new().set_or_clear_update(Some(ClusterUpdate::default()/* use setters */));
+    /// let x = UpdateClusterRequest::new().set_or_clear_update(None::<ClusterUpdate>);
+    /// ```
     pub fn set_or_clear_update<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ClusterUpdate>,
@@ -13636,6 +18300,12 @@ impl UpdateClusterRequest {
     }
 
     /// Sets the value of [name][crate::model::UpdateClusterRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::UpdateClusterRequest;
+    /// let x = UpdateClusterRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -13833,6 +18503,12 @@ impl UpdateNodePoolRequest {
     }
 
     /// Sets the value of [project_id][crate::model::UpdateNodePoolRequest::project_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::UpdateNodePoolRequest;
+    /// let x = UpdateNodePoolRequest::new().set_project_id("example");
+    /// ```
     #[deprecated]
     pub fn set_project_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project_id = v.into();
@@ -13840,6 +18516,12 @@ impl UpdateNodePoolRequest {
     }
 
     /// Sets the value of [zone][crate::model::UpdateNodePoolRequest::zone].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::UpdateNodePoolRequest;
+    /// let x = UpdateNodePoolRequest::new().set_zone("example");
+    /// ```
     #[deprecated]
     pub fn set_zone<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.zone = v.into();
@@ -13847,6 +18529,12 @@ impl UpdateNodePoolRequest {
     }
 
     /// Sets the value of [cluster_id][crate::model::UpdateNodePoolRequest::cluster_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::UpdateNodePoolRequest;
+    /// let x = UpdateNodePoolRequest::new().set_cluster_id("example");
+    /// ```
     #[deprecated]
     pub fn set_cluster_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.cluster_id = v.into();
@@ -13854,6 +18542,12 @@ impl UpdateNodePoolRequest {
     }
 
     /// Sets the value of [node_pool_id][crate::model::UpdateNodePoolRequest::node_pool_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::UpdateNodePoolRequest;
+    /// let x = UpdateNodePoolRequest::new().set_node_pool_id("example");
+    /// ```
     #[deprecated]
     pub fn set_node_pool_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.node_pool_id = v.into();
@@ -13861,24 +18555,48 @@ impl UpdateNodePoolRequest {
     }
 
     /// Sets the value of [node_version][crate::model::UpdateNodePoolRequest::node_version].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::UpdateNodePoolRequest;
+    /// let x = UpdateNodePoolRequest::new().set_node_version("example");
+    /// ```
     pub fn set_node_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.node_version = v.into();
         self
     }
 
     /// Sets the value of [image_type][crate::model::UpdateNodePoolRequest::image_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::UpdateNodePoolRequest;
+    /// let x = UpdateNodePoolRequest::new().set_image_type("example");
+    /// ```
     pub fn set_image_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.image_type = v.into();
         self
     }
 
     /// Sets the value of [name][crate::model::UpdateNodePoolRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::UpdateNodePoolRequest;
+    /// let x = UpdateNodePoolRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [locations][crate::model::UpdateNodePoolRequest::locations].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::UpdateNodePoolRequest;
+    /// let x = UpdateNodePoolRequest::new().set_locations(["a", "b", "c"]);
+    /// ```
     pub fn set_locations<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -13890,6 +18608,13 @@ impl UpdateNodePoolRequest {
     }
 
     /// Sets the value of [workload_metadata_config][crate::model::UpdateNodePoolRequest::workload_metadata_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::UpdateNodePoolRequest;
+    /// use google_cloud_container_v1::model::WorkloadMetadataConfig;
+    /// let x = UpdateNodePoolRequest::new().set_workload_metadata_config(WorkloadMetadataConfig::default()/* use setters */);
+    /// ```
     pub fn set_workload_metadata_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::WorkloadMetadataConfig>,
@@ -13899,6 +18624,14 @@ impl UpdateNodePoolRequest {
     }
 
     /// Sets or clears the value of [workload_metadata_config][crate::model::UpdateNodePoolRequest::workload_metadata_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::UpdateNodePoolRequest;
+    /// use google_cloud_container_v1::model::WorkloadMetadataConfig;
+    /// let x = UpdateNodePoolRequest::new().set_or_clear_workload_metadata_config(Some(WorkloadMetadataConfig::default()/* use setters */));
+    /// let x = UpdateNodePoolRequest::new().set_or_clear_workload_metadata_config(None::<WorkloadMetadataConfig>);
+    /// ```
     pub fn set_or_clear_workload_metadata_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::WorkloadMetadataConfig>,
@@ -13908,6 +18641,13 @@ impl UpdateNodePoolRequest {
     }
 
     /// Sets the value of [upgrade_settings][crate::model::UpdateNodePoolRequest::upgrade_settings].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::UpdateNodePoolRequest;
+    /// use google_cloud_container_v1::model::node_pool::UpgradeSettings;
+    /// let x = UpdateNodePoolRequest::new().set_upgrade_settings(UpgradeSettings::default()/* use setters */);
+    /// ```
     pub fn set_upgrade_settings<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::node_pool::UpgradeSettings>,
@@ -13917,6 +18657,14 @@ impl UpdateNodePoolRequest {
     }
 
     /// Sets or clears the value of [upgrade_settings][crate::model::UpdateNodePoolRequest::upgrade_settings].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::UpdateNodePoolRequest;
+    /// use google_cloud_container_v1::model::node_pool::UpgradeSettings;
+    /// let x = UpdateNodePoolRequest::new().set_or_clear_upgrade_settings(Some(UpgradeSettings::default()/* use setters */));
+    /// let x = UpdateNodePoolRequest::new().set_or_clear_upgrade_settings(None::<UpgradeSettings>);
+    /// ```
     pub fn set_or_clear_upgrade_settings<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::node_pool::UpgradeSettings>,
@@ -13926,6 +18674,13 @@ impl UpdateNodePoolRequest {
     }
 
     /// Sets the value of [tags][crate::model::UpdateNodePoolRequest::tags].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::UpdateNodePoolRequest;
+    /// use google_cloud_container_v1::model::NetworkTags;
+    /// let x = UpdateNodePoolRequest::new().set_tags(NetworkTags::default()/* use setters */);
+    /// ```
     pub fn set_tags<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::NetworkTags>,
@@ -13935,6 +18690,14 @@ impl UpdateNodePoolRequest {
     }
 
     /// Sets or clears the value of [tags][crate::model::UpdateNodePoolRequest::tags].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::UpdateNodePoolRequest;
+    /// use google_cloud_container_v1::model::NetworkTags;
+    /// let x = UpdateNodePoolRequest::new().set_or_clear_tags(Some(NetworkTags::default()/* use setters */));
+    /// let x = UpdateNodePoolRequest::new().set_or_clear_tags(None::<NetworkTags>);
+    /// ```
     pub fn set_or_clear_tags<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::NetworkTags>,
@@ -13944,6 +18707,13 @@ impl UpdateNodePoolRequest {
     }
 
     /// Sets the value of [taints][crate::model::UpdateNodePoolRequest::taints].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::UpdateNodePoolRequest;
+    /// use google_cloud_container_v1::model::NodeTaints;
+    /// let x = UpdateNodePoolRequest::new().set_taints(NodeTaints::default()/* use setters */);
+    /// ```
     pub fn set_taints<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::NodeTaints>,
@@ -13953,6 +18723,14 @@ impl UpdateNodePoolRequest {
     }
 
     /// Sets or clears the value of [taints][crate::model::UpdateNodePoolRequest::taints].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::UpdateNodePoolRequest;
+    /// use google_cloud_container_v1::model::NodeTaints;
+    /// let x = UpdateNodePoolRequest::new().set_or_clear_taints(Some(NodeTaints::default()/* use setters */));
+    /// let x = UpdateNodePoolRequest::new().set_or_clear_taints(None::<NodeTaints>);
+    /// ```
     pub fn set_or_clear_taints<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::NodeTaints>,
@@ -13962,6 +18740,13 @@ impl UpdateNodePoolRequest {
     }
 
     /// Sets the value of [labels][crate::model::UpdateNodePoolRequest::labels].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::UpdateNodePoolRequest;
+    /// use google_cloud_container_v1::model::NodeLabels;
+    /// let x = UpdateNodePoolRequest::new().set_labels(NodeLabels::default()/* use setters */);
+    /// ```
     pub fn set_labels<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::NodeLabels>,
@@ -13971,6 +18756,14 @@ impl UpdateNodePoolRequest {
     }
 
     /// Sets or clears the value of [labels][crate::model::UpdateNodePoolRequest::labels].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::UpdateNodePoolRequest;
+    /// use google_cloud_container_v1::model::NodeLabels;
+    /// let x = UpdateNodePoolRequest::new().set_or_clear_labels(Some(NodeLabels::default()/* use setters */));
+    /// let x = UpdateNodePoolRequest::new().set_or_clear_labels(None::<NodeLabels>);
+    /// ```
     pub fn set_or_clear_labels<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::NodeLabels>,
@@ -13980,6 +18773,13 @@ impl UpdateNodePoolRequest {
     }
 
     /// Sets the value of [linux_node_config][crate::model::UpdateNodePoolRequest::linux_node_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::UpdateNodePoolRequest;
+    /// use google_cloud_container_v1::model::LinuxNodeConfig;
+    /// let x = UpdateNodePoolRequest::new().set_linux_node_config(LinuxNodeConfig::default()/* use setters */);
+    /// ```
     pub fn set_linux_node_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::LinuxNodeConfig>,
@@ -13989,6 +18789,14 @@ impl UpdateNodePoolRequest {
     }
 
     /// Sets or clears the value of [linux_node_config][crate::model::UpdateNodePoolRequest::linux_node_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::UpdateNodePoolRequest;
+    /// use google_cloud_container_v1::model::LinuxNodeConfig;
+    /// let x = UpdateNodePoolRequest::new().set_or_clear_linux_node_config(Some(LinuxNodeConfig::default()/* use setters */));
+    /// let x = UpdateNodePoolRequest::new().set_or_clear_linux_node_config(None::<LinuxNodeConfig>);
+    /// ```
     pub fn set_or_clear_linux_node_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::LinuxNodeConfig>,
@@ -13998,6 +18806,13 @@ impl UpdateNodePoolRequest {
     }
 
     /// Sets the value of [kubelet_config][crate::model::UpdateNodePoolRequest::kubelet_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::UpdateNodePoolRequest;
+    /// use google_cloud_container_v1::model::NodeKubeletConfig;
+    /// let x = UpdateNodePoolRequest::new().set_kubelet_config(NodeKubeletConfig::default()/* use setters */);
+    /// ```
     pub fn set_kubelet_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::NodeKubeletConfig>,
@@ -14007,6 +18822,14 @@ impl UpdateNodePoolRequest {
     }
 
     /// Sets or clears the value of [kubelet_config][crate::model::UpdateNodePoolRequest::kubelet_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::UpdateNodePoolRequest;
+    /// use google_cloud_container_v1::model::NodeKubeletConfig;
+    /// let x = UpdateNodePoolRequest::new().set_or_clear_kubelet_config(Some(NodeKubeletConfig::default()/* use setters */));
+    /// let x = UpdateNodePoolRequest::new().set_or_clear_kubelet_config(None::<NodeKubeletConfig>);
+    /// ```
     pub fn set_or_clear_kubelet_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::NodeKubeletConfig>,
@@ -14016,6 +18839,13 @@ impl UpdateNodePoolRequest {
     }
 
     /// Sets the value of [node_network_config][crate::model::UpdateNodePoolRequest::node_network_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::UpdateNodePoolRequest;
+    /// use google_cloud_container_v1::model::NodeNetworkConfig;
+    /// let x = UpdateNodePoolRequest::new().set_node_network_config(NodeNetworkConfig::default()/* use setters */);
+    /// ```
     pub fn set_node_network_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::NodeNetworkConfig>,
@@ -14025,6 +18855,14 @@ impl UpdateNodePoolRequest {
     }
 
     /// Sets or clears the value of [node_network_config][crate::model::UpdateNodePoolRequest::node_network_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::UpdateNodePoolRequest;
+    /// use google_cloud_container_v1::model::NodeNetworkConfig;
+    /// let x = UpdateNodePoolRequest::new().set_or_clear_node_network_config(Some(NodeNetworkConfig::default()/* use setters */));
+    /// let x = UpdateNodePoolRequest::new().set_or_clear_node_network_config(None::<NodeNetworkConfig>);
+    /// ```
     pub fn set_or_clear_node_network_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::NodeNetworkConfig>,
@@ -14034,6 +18872,13 @@ impl UpdateNodePoolRequest {
     }
 
     /// Sets the value of [gcfs_config][crate::model::UpdateNodePoolRequest::gcfs_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::UpdateNodePoolRequest;
+    /// use google_cloud_container_v1::model::GcfsConfig;
+    /// let x = UpdateNodePoolRequest::new().set_gcfs_config(GcfsConfig::default()/* use setters */);
+    /// ```
     pub fn set_gcfs_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::GcfsConfig>,
@@ -14043,6 +18888,14 @@ impl UpdateNodePoolRequest {
     }
 
     /// Sets or clears the value of [gcfs_config][crate::model::UpdateNodePoolRequest::gcfs_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::UpdateNodePoolRequest;
+    /// use google_cloud_container_v1::model::GcfsConfig;
+    /// let x = UpdateNodePoolRequest::new().set_or_clear_gcfs_config(Some(GcfsConfig::default()/* use setters */));
+    /// let x = UpdateNodePoolRequest::new().set_or_clear_gcfs_config(None::<GcfsConfig>);
+    /// ```
     pub fn set_or_clear_gcfs_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::GcfsConfig>,
@@ -14052,6 +18905,13 @@ impl UpdateNodePoolRequest {
     }
 
     /// Sets the value of [confidential_nodes][crate::model::UpdateNodePoolRequest::confidential_nodes].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::UpdateNodePoolRequest;
+    /// use google_cloud_container_v1::model::ConfidentialNodes;
+    /// let x = UpdateNodePoolRequest::new().set_confidential_nodes(ConfidentialNodes::default()/* use setters */);
+    /// ```
     pub fn set_confidential_nodes<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ConfidentialNodes>,
@@ -14061,6 +18921,14 @@ impl UpdateNodePoolRequest {
     }
 
     /// Sets or clears the value of [confidential_nodes][crate::model::UpdateNodePoolRequest::confidential_nodes].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::UpdateNodePoolRequest;
+    /// use google_cloud_container_v1::model::ConfidentialNodes;
+    /// let x = UpdateNodePoolRequest::new().set_or_clear_confidential_nodes(Some(ConfidentialNodes::default()/* use setters */));
+    /// let x = UpdateNodePoolRequest::new().set_or_clear_confidential_nodes(None::<ConfidentialNodes>);
+    /// ```
     pub fn set_or_clear_confidential_nodes<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ConfidentialNodes>,
@@ -14070,6 +18938,13 @@ impl UpdateNodePoolRequest {
     }
 
     /// Sets the value of [gvnic][crate::model::UpdateNodePoolRequest::gvnic].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::UpdateNodePoolRequest;
+    /// use google_cloud_container_v1::model::VirtualNIC;
+    /// let x = UpdateNodePoolRequest::new().set_gvnic(VirtualNIC::default()/* use setters */);
+    /// ```
     pub fn set_gvnic<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::VirtualNIC>,
@@ -14079,6 +18954,14 @@ impl UpdateNodePoolRequest {
     }
 
     /// Sets or clears the value of [gvnic][crate::model::UpdateNodePoolRequest::gvnic].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::UpdateNodePoolRequest;
+    /// use google_cloud_container_v1::model::VirtualNIC;
+    /// let x = UpdateNodePoolRequest::new().set_or_clear_gvnic(Some(VirtualNIC::default()/* use setters */));
+    /// let x = UpdateNodePoolRequest::new().set_or_clear_gvnic(None::<VirtualNIC>);
+    /// ```
     pub fn set_or_clear_gvnic<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::VirtualNIC>,
@@ -14088,12 +18971,25 @@ impl UpdateNodePoolRequest {
     }
 
     /// Sets the value of [etag][crate::model::UpdateNodePoolRequest::etag].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::UpdateNodePoolRequest;
+    /// let x = UpdateNodePoolRequest::new().set_etag("example");
+    /// ```
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
     }
 
     /// Sets the value of [fast_socket][crate::model::UpdateNodePoolRequest::fast_socket].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::UpdateNodePoolRequest;
+    /// use google_cloud_container_v1::model::FastSocket;
+    /// let x = UpdateNodePoolRequest::new().set_fast_socket(FastSocket::default()/* use setters */);
+    /// ```
     pub fn set_fast_socket<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::FastSocket>,
@@ -14103,6 +18999,14 @@ impl UpdateNodePoolRequest {
     }
 
     /// Sets or clears the value of [fast_socket][crate::model::UpdateNodePoolRequest::fast_socket].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::UpdateNodePoolRequest;
+    /// use google_cloud_container_v1::model::FastSocket;
+    /// let x = UpdateNodePoolRequest::new().set_or_clear_fast_socket(Some(FastSocket::default()/* use setters */));
+    /// let x = UpdateNodePoolRequest::new().set_or_clear_fast_socket(None::<FastSocket>);
+    /// ```
     pub fn set_or_clear_fast_socket<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::FastSocket>,
@@ -14112,6 +19016,13 @@ impl UpdateNodePoolRequest {
     }
 
     /// Sets the value of [logging_config][crate::model::UpdateNodePoolRequest::logging_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::UpdateNodePoolRequest;
+    /// use google_cloud_container_v1::model::NodePoolLoggingConfig;
+    /// let x = UpdateNodePoolRequest::new().set_logging_config(NodePoolLoggingConfig::default()/* use setters */);
+    /// ```
     pub fn set_logging_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::NodePoolLoggingConfig>,
@@ -14121,6 +19032,14 @@ impl UpdateNodePoolRequest {
     }
 
     /// Sets or clears the value of [logging_config][crate::model::UpdateNodePoolRequest::logging_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::UpdateNodePoolRequest;
+    /// use google_cloud_container_v1::model::NodePoolLoggingConfig;
+    /// let x = UpdateNodePoolRequest::new().set_or_clear_logging_config(Some(NodePoolLoggingConfig::default()/* use setters */));
+    /// let x = UpdateNodePoolRequest::new().set_or_clear_logging_config(None::<NodePoolLoggingConfig>);
+    /// ```
     pub fn set_or_clear_logging_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::NodePoolLoggingConfig>,
@@ -14130,6 +19049,13 @@ impl UpdateNodePoolRequest {
     }
 
     /// Sets the value of [resource_labels][crate::model::UpdateNodePoolRequest::resource_labels].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::UpdateNodePoolRequest;
+    /// use google_cloud_container_v1::model::ResourceLabels;
+    /// let x = UpdateNodePoolRequest::new().set_resource_labels(ResourceLabels::default()/* use setters */);
+    /// ```
     pub fn set_resource_labels<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ResourceLabels>,
@@ -14139,6 +19065,14 @@ impl UpdateNodePoolRequest {
     }
 
     /// Sets or clears the value of [resource_labels][crate::model::UpdateNodePoolRequest::resource_labels].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::UpdateNodePoolRequest;
+    /// use google_cloud_container_v1::model::ResourceLabels;
+    /// let x = UpdateNodePoolRequest::new().set_or_clear_resource_labels(Some(ResourceLabels::default()/* use setters */));
+    /// let x = UpdateNodePoolRequest::new().set_or_clear_resource_labels(None::<ResourceLabels>);
+    /// ```
     pub fn set_or_clear_resource_labels<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ResourceLabels>,
@@ -14148,6 +19082,13 @@ impl UpdateNodePoolRequest {
     }
 
     /// Sets the value of [windows_node_config][crate::model::UpdateNodePoolRequest::windows_node_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::UpdateNodePoolRequest;
+    /// use google_cloud_container_v1::model::WindowsNodeConfig;
+    /// let x = UpdateNodePoolRequest::new().set_windows_node_config(WindowsNodeConfig::default()/* use setters */);
+    /// ```
     pub fn set_windows_node_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::WindowsNodeConfig>,
@@ -14157,6 +19098,14 @@ impl UpdateNodePoolRequest {
     }
 
     /// Sets or clears the value of [windows_node_config][crate::model::UpdateNodePoolRequest::windows_node_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::UpdateNodePoolRequest;
+    /// use google_cloud_container_v1::model::WindowsNodeConfig;
+    /// let x = UpdateNodePoolRequest::new().set_or_clear_windows_node_config(Some(WindowsNodeConfig::default()/* use setters */));
+    /// let x = UpdateNodePoolRequest::new().set_or_clear_windows_node_config(None::<WindowsNodeConfig>);
+    /// ```
     pub fn set_or_clear_windows_node_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::WindowsNodeConfig>,
@@ -14166,6 +19115,17 @@ impl UpdateNodePoolRequest {
     }
 
     /// Sets the value of [accelerators][crate::model::UpdateNodePoolRequest::accelerators].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::UpdateNodePoolRequest;
+    /// use google_cloud_container_v1::model::AcceleratorConfig;
+    /// let x = UpdateNodePoolRequest::new()
+    ///     .set_accelerators([
+    ///         AcceleratorConfig::default()/* use setters */,
+    ///         AcceleratorConfig::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_accelerators<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -14177,24 +19137,49 @@ impl UpdateNodePoolRequest {
     }
 
     /// Sets the value of [machine_type][crate::model::UpdateNodePoolRequest::machine_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::UpdateNodePoolRequest;
+    /// let x = UpdateNodePoolRequest::new().set_machine_type("example");
+    /// ```
     pub fn set_machine_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.machine_type = v.into();
         self
     }
 
     /// Sets the value of [disk_type][crate::model::UpdateNodePoolRequest::disk_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::UpdateNodePoolRequest;
+    /// let x = UpdateNodePoolRequest::new().set_disk_type("example");
+    /// ```
     pub fn set_disk_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.disk_type = v.into();
         self
     }
 
     /// Sets the value of [disk_size_gb][crate::model::UpdateNodePoolRequest::disk_size_gb].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::UpdateNodePoolRequest;
+    /// let x = UpdateNodePoolRequest::new().set_disk_size_gb(42);
+    /// ```
     pub fn set_disk_size_gb<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.disk_size_gb = v.into();
         self
     }
 
     /// Sets the value of [resource_manager_tags][crate::model::UpdateNodePoolRequest::resource_manager_tags].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::UpdateNodePoolRequest;
+    /// use google_cloud_container_v1::model::ResourceManagerTags;
+    /// let x = UpdateNodePoolRequest::new().set_resource_manager_tags(ResourceManagerTags::default()/* use setters */);
+    /// ```
     pub fn set_resource_manager_tags<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ResourceManagerTags>,
@@ -14204,6 +19189,14 @@ impl UpdateNodePoolRequest {
     }
 
     /// Sets or clears the value of [resource_manager_tags][crate::model::UpdateNodePoolRequest::resource_manager_tags].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::UpdateNodePoolRequest;
+    /// use google_cloud_container_v1::model::ResourceManagerTags;
+    /// let x = UpdateNodePoolRequest::new().set_or_clear_resource_manager_tags(Some(ResourceManagerTags::default()/* use setters */));
+    /// let x = UpdateNodePoolRequest::new().set_or_clear_resource_manager_tags(None::<ResourceManagerTags>);
+    /// ```
     pub fn set_or_clear_resource_manager_tags<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ResourceManagerTags>,
@@ -14213,6 +19206,13 @@ impl UpdateNodePoolRequest {
     }
 
     /// Sets the value of [containerd_config][crate::model::UpdateNodePoolRequest::containerd_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::UpdateNodePoolRequest;
+    /// use google_cloud_container_v1::model::ContainerdConfig;
+    /// let x = UpdateNodePoolRequest::new().set_containerd_config(ContainerdConfig::default()/* use setters */);
+    /// ```
     pub fn set_containerd_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ContainerdConfig>,
@@ -14222,6 +19222,14 @@ impl UpdateNodePoolRequest {
     }
 
     /// Sets or clears the value of [containerd_config][crate::model::UpdateNodePoolRequest::containerd_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::UpdateNodePoolRequest;
+    /// use google_cloud_container_v1::model::ContainerdConfig;
+    /// let x = UpdateNodePoolRequest::new().set_or_clear_containerd_config(Some(ContainerdConfig::default()/* use setters */));
+    /// let x = UpdateNodePoolRequest::new().set_or_clear_containerd_config(None::<ContainerdConfig>);
+    /// ```
     pub fn set_or_clear_containerd_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ContainerdConfig>,
@@ -14231,6 +19239,13 @@ impl UpdateNodePoolRequest {
     }
 
     /// Sets the value of [queued_provisioning][crate::model::UpdateNodePoolRequest::queued_provisioning].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::UpdateNodePoolRequest;
+    /// use google_cloud_container_v1::model::node_pool::QueuedProvisioning;
+    /// let x = UpdateNodePoolRequest::new().set_queued_provisioning(QueuedProvisioning::default()/* use setters */);
+    /// ```
     pub fn set_queued_provisioning<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::node_pool::QueuedProvisioning>,
@@ -14240,6 +19255,14 @@ impl UpdateNodePoolRequest {
     }
 
     /// Sets or clears the value of [queued_provisioning][crate::model::UpdateNodePoolRequest::queued_provisioning].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::UpdateNodePoolRequest;
+    /// use google_cloud_container_v1::model::node_pool::QueuedProvisioning;
+    /// let x = UpdateNodePoolRequest::new().set_or_clear_queued_provisioning(Some(QueuedProvisioning::default()/* use setters */));
+    /// let x = UpdateNodePoolRequest::new().set_or_clear_queued_provisioning(None::<QueuedProvisioning>);
+    /// ```
     pub fn set_or_clear_queued_provisioning<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::node_pool::QueuedProvisioning>,
@@ -14249,6 +19272,12 @@ impl UpdateNodePoolRequest {
     }
 
     /// Sets the value of [storage_pools][crate::model::UpdateNodePoolRequest::storage_pools].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::UpdateNodePoolRequest;
+    /// let x = UpdateNodePoolRequest::new().set_storage_pools(["a", "b", "c"]);
+    /// ```
     pub fn set_storage_pools<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -14260,6 +19289,13 @@ impl UpdateNodePoolRequest {
     }
 
     /// Sets the value of [max_run_duration][crate::model::UpdateNodePoolRequest::max_run_duration].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::UpdateNodePoolRequest;
+    /// use wkt::Duration;
+    /// let x = UpdateNodePoolRequest::new().set_max_run_duration(Duration::default()/* use setters */);
+    /// ```
     pub fn set_max_run_duration<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -14269,6 +19305,14 @@ impl UpdateNodePoolRequest {
     }
 
     /// Sets or clears the value of [max_run_duration][crate::model::UpdateNodePoolRequest::max_run_duration].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::UpdateNodePoolRequest;
+    /// use wkt::Duration;
+    /// let x = UpdateNodePoolRequest::new().set_or_clear_max_run_duration(Some(Duration::default()/* use setters */));
+    /// let x = UpdateNodePoolRequest::new().set_or_clear_max_run_duration(None::<Duration>);
+    /// ```
     pub fn set_or_clear_max_run_duration<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -14278,6 +19322,12 @@ impl UpdateNodePoolRequest {
     }
 
     /// Sets the value of [flex_start][crate::model::UpdateNodePoolRequest::flex_start].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::UpdateNodePoolRequest;
+    /// let x = UpdateNodePoolRequest::new().set_flex_start(true);
+    /// ```
     pub fn set_flex_start<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<bool>,
@@ -14287,6 +19337,13 @@ impl UpdateNodePoolRequest {
     }
 
     /// Sets or clears the value of [flex_start][crate::model::UpdateNodePoolRequest::flex_start].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::UpdateNodePoolRequest;
+    /// let x = UpdateNodePoolRequest::new().set_or_clear_flex_start(Some(false));
+    /// let x = UpdateNodePoolRequest::new().set_or_clear_flex_start(None::<bool>);
+    /// ```
     pub fn set_or_clear_flex_start<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<bool>,
@@ -14296,6 +19353,13 @@ impl UpdateNodePoolRequest {
     }
 
     /// Sets the value of [boot_disk][crate::model::UpdateNodePoolRequest::boot_disk].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::UpdateNodePoolRequest;
+    /// use google_cloud_container_v1::model::BootDisk;
+    /// let x = UpdateNodePoolRequest::new().set_boot_disk(BootDisk::default()/* use setters */);
+    /// ```
     pub fn set_boot_disk<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::BootDisk>,
@@ -14305,6 +19369,14 @@ impl UpdateNodePoolRequest {
     }
 
     /// Sets or clears the value of [boot_disk][crate::model::UpdateNodePoolRequest::boot_disk].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::UpdateNodePoolRequest;
+    /// use google_cloud_container_v1::model::BootDisk;
+    /// let x = UpdateNodePoolRequest::new().set_or_clear_boot_disk(Some(BootDisk::default()/* use setters */));
+    /// let x = UpdateNodePoolRequest::new().set_or_clear_boot_disk(None::<BootDisk>);
+    /// ```
     pub fn set_or_clear_boot_disk<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::BootDisk>,
@@ -14364,6 +19436,12 @@ impl SetNodePoolAutoscalingRequest {
     }
 
     /// Sets the value of [project_id][crate::model::SetNodePoolAutoscalingRequest::project_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::SetNodePoolAutoscalingRequest;
+    /// let x = SetNodePoolAutoscalingRequest::new().set_project_id("example");
+    /// ```
     #[deprecated]
     pub fn set_project_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project_id = v.into();
@@ -14371,6 +19449,12 @@ impl SetNodePoolAutoscalingRequest {
     }
 
     /// Sets the value of [zone][crate::model::SetNodePoolAutoscalingRequest::zone].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::SetNodePoolAutoscalingRequest;
+    /// let x = SetNodePoolAutoscalingRequest::new().set_zone("example");
+    /// ```
     #[deprecated]
     pub fn set_zone<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.zone = v.into();
@@ -14378,6 +19462,12 @@ impl SetNodePoolAutoscalingRequest {
     }
 
     /// Sets the value of [cluster_id][crate::model::SetNodePoolAutoscalingRequest::cluster_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::SetNodePoolAutoscalingRequest;
+    /// let x = SetNodePoolAutoscalingRequest::new().set_cluster_id("example");
+    /// ```
     #[deprecated]
     pub fn set_cluster_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.cluster_id = v.into();
@@ -14385,6 +19475,12 @@ impl SetNodePoolAutoscalingRequest {
     }
 
     /// Sets the value of [node_pool_id][crate::model::SetNodePoolAutoscalingRequest::node_pool_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::SetNodePoolAutoscalingRequest;
+    /// let x = SetNodePoolAutoscalingRequest::new().set_node_pool_id("example");
+    /// ```
     #[deprecated]
     pub fn set_node_pool_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.node_pool_id = v.into();
@@ -14392,6 +19488,13 @@ impl SetNodePoolAutoscalingRequest {
     }
 
     /// Sets the value of [autoscaling][crate::model::SetNodePoolAutoscalingRequest::autoscaling].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::SetNodePoolAutoscalingRequest;
+    /// use google_cloud_container_v1::model::NodePoolAutoscaling;
+    /// let x = SetNodePoolAutoscalingRequest::new().set_autoscaling(NodePoolAutoscaling::default()/* use setters */);
+    /// ```
     pub fn set_autoscaling<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::NodePoolAutoscaling>,
@@ -14401,6 +19504,14 @@ impl SetNodePoolAutoscalingRequest {
     }
 
     /// Sets or clears the value of [autoscaling][crate::model::SetNodePoolAutoscalingRequest::autoscaling].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::SetNodePoolAutoscalingRequest;
+    /// use google_cloud_container_v1::model::NodePoolAutoscaling;
+    /// let x = SetNodePoolAutoscalingRequest::new().set_or_clear_autoscaling(Some(NodePoolAutoscaling::default()/* use setters */));
+    /// let x = SetNodePoolAutoscalingRequest::new().set_or_clear_autoscaling(None::<NodePoolAutoscaling>);
+    /// ```
     pub fn set_or_clear_autoscaling<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::NodePoolAutoscaling>,
@@ -14410,6 +19521,12 @@ impl SetNodePoolAutoscalingRequest {
     }
 
     /// Sets the value of [name][crate::model::SetNodePoolAutoscalingRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::SetNodePoolAutoscalingRequest;
+    /// let x = SetNodePoolAutoscalingRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -14470,6 +19587,12 @@ impl SetLoggingServiceRequest {
     }
 
     /// Sets the value of [project_id][crate::model::SetLoggingServiceRequest::project_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::SetLoggingServiceRequest;
+    /// let x = SetLoggingServiceRequest::new().set_project_id("example");
+    /// ```
     #[deprecated]
     pub fn set_project_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project_id = v.into();
@@ -14477,6 +19600,12 @@ impl SetLoggingServiceRequest {
     }
 
     /// Sets the value of [zone][crate::model::SetLoggingServiceRequest::zone].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::SetLoggingServiceRequest;
+    /// let x = SetLoggingServiceRequest::new().set_zone("example");
+    /// ```
     #[deprecated]
     pub fn set_zone<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.zone = v.into();
@@ -14484,6 +19613,12 @@ impl SetLoggingServiceRequest {
     }
 
     /// Sets the value of [cluster_id][crate::model::SetLoggingServiceRequest::cluster_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::SetLoggingServiceRequest;
+    /// let x = SetLoggingServiceRequest::new().set_cluster_id("example");
+    /// ```
     #[deprecated]
     pub fn set_cluster_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.cluster_id = v.into();
@@ -14491,12 +19626,24 @@ impl SetLoggingServiceRequest {
     }
 
     /// Sets the value of [logging_service][crate::model::SetLoggingServiceRequest::logging_service].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::SetLoggingServiceRequest;
+    /// let x = SetLoggingServiceRequest::new().set_logging_service("example");
+    /// ```
     pub fn set_logging_service<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.logging_service = v.into();
         self
     }
 
     /// Sets the value of [name][crate::model::SetLoggingServiceRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::SetLoggingServiceRequest;
+    /// let x = SetLoggingServiceRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -14557,6 +19704,12 @@ impl SetMonitoringServiceRequest {
     }
 
     /// Sets the value of [project_id][crate::model::SetMonitoringServiceRequest::project_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::SetMonitoringServiceRequest;
+    /// let x = SetMonitoringServiceRequest::new().set_project_id("example");
+    /// ```
     #[deprecated]
     pub fn set_project_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project_id = v.into();
@@ -14564,6 +19717,12 @@ impl SetMonitoringServiceRequest {
     }
 
     /// Sets the value of [zone][crate::model::SetMonitoringServiceRequest::zone].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::SetMonitoringServiceRequest;
+    /// let x = SetMonitoringServiceRequest::new().set_zone("example");
+    /// ```
     #[deprecated]
     pub fn set_zone<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.zone = v.into();
@@ -14571,6 +19730,12 @@ impl SetMonitoringServiceRequest {
     }
 
     /// Sets the value of [cluster_id][crate::model::SetMonitoringServiceRequest::cluster_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::SetMonitoringServiceRequest;
+    /// let x = SetMonitoringServiceRequest::new().set_cluster_id("example");
+    /// ```
     #[deprecated]
     pub fn set_cluster_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.cluster_id = v.into();
@@ -14578,6 +19743,12 @@ impl SetMonitoringServiceRequest {
     }
 
     /// Sets the value of [monitoring_service][crate::model::SetMonitoringServiceRequest::monitoring_service].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::SetMonitoringServiceRequest;
+    /// let x = SetMonitoringServiceRequest::new().set_monitoring_service("example");
+    /// ```
     pub fn set_monitoring_service<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -14587,6 +19758,12 @@ impl SetMonitoringServiceRequest {
     }
 
     /// Sets the value of [name][crate::model::SetMonitoringServiceRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::SetMonitoringServiceRequest;
+    /// let x = SetMonitoringServiceRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -14638,6 +19815,12 @@ impl SetAddonsConfigRequest {
     }
 
     /// Sets the value of [project_id][crate::model::SetAddonsConfigRequest::project_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::SetAddonsConfigRequest;
+    /// let x = SetAddonsConfigRequest::new().set_project_id("example");
+    /// ```
     #[deprecated]
     pub fn set_project_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project_id = v.into();
@@ -14645,6 +19828,12 @@ impl SetAddonsConfigRequest {
     }
 
     /// Sets the value of [zone][crate::model::SetAddonsConfigRequest::zone].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::SetAddonsConfigRequest;
+    /// let x = SetAddonsConfigRequest::new().set_zone("example");
+    /// ```
     #[deprecated]
     pub fn set_zone<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.zone = v.into();
@@ -14652,6 +19841,12 @@ impl SetAddonsConfigRequest {
     }
 
     /// Sets the value of [cluster_id][crate::model::SetAddonsConfigRequest::cluster_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::SetAddonsConfigRequest;
+    /// let x = SetAddonsConfigRequest::new().set_cluster_id("example");
+    /// ```
     #[deprecated]
     pub fn set_cluster_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.cluster_id = v.into();
@@ -14659,6 +19854,13 @@ impl SetAddonsConfigRequest {
     }
 
     /// Sets the value of [addons_config][crate::model::SetAddonsConfigRequest::addons_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::SetAddonsConfigRequest;
+    /// use google_cloud_container_v1::model::AddonsConfig;
+    /// let x = SetAddonsConfigRequest::new().set_addons_config(AddonsConfig::default()/* use setters */);
+    /// ```
     pub fn set_addons_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::AddonsConfig>,
@@ -14668,6 +19870,14 @@ impl SetAddonsConfigRequest {
     }
 
     /// Sets or clears the value of [addons_config][crate::model::SetAddonsConfigRequest::addons_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::SetAddonsConfigRequest;
+    /// use google_cloud_container_v1::model::AddonsConfig;
+    /// let x = SetAddonsConfigRequest::new().set_or_clear_addons_config(Some(AddonsConfig::default()/* use setters */));
+    /// let x = SetAddonsConfigRequest::new().set_or_clear_addons_config(None::<AddonsConfig>);
+    /// ```
     pub fn set_or_clear_addons_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AddonsConfig>,
@@ -14677,6 +19887,12 @@ impl SetAddonsConfigRequest {
     }
 
     /// Sets the value of [name][crate::model::SetAddonsConfigRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::SetAddonsConfigRequest;
+    /// let x = SetAddonsConfigRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -14733,6 +19949,12 @@ impl SetLocationsRequest {
     }
 
     /// Sets the value of [project_id][crate::model::SetLocationsRequest::project_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::SetLocationsRequest;
+    /// let x = SetLocationsRequest::new().set_project_id("example");
+    /// ```
     #[deprecated]
     pub fn set_project_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project_id = v.into();
@@ -14740,6 +19962,12 @@ impl SetLocationsRequest {
     }
 
     /// Sets the value of [zone][crate::model::SetLocationsRequest::zone].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::SetLocationsRequest;
+    /// let x = SetLocationsRequest::new().set_zone("example");
+    /// ```
     #[deprecated]
     pub fn set_zone<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.zone = v.into();
@@ -14747,6 +19975,12 @@ impl SetLocationsRequest {
     }
 
     /// Sets the value of [cluster_id][crate::model::SetLocationsRequest::cluster_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::SetLocationsRequest;
+    /// let x = SetLocationsRequest::new().set_cluster_id("example");
+    /// ```
     #[deprecated]
     pub fn set_cluster_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.cluster_id = v.into();
@@ -14754,6 +19988,12 @@ impl SetLocationsRequest {
     }
 
     /// Sets the value of [locations][crate::model::SetLocationsRequest::locations].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::SetLocationsRequest;
+    /// let x = SetLocationsRequest::new().set_locations(["a", "b", "c"]);
+    /// ```
     pub fn set_locations<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -14765,6 +20005,12 @@ impl SetLocationsRequest {
     }
 
     /// Sets the value of [name][crate::model::SetLocationsRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::SetLocationsRequest;
+    /// let x = SetLocationsRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -14824,6 +20070,12 @@ impl UpdateMasterRequest {
     }
 
     /// Sets the value of [project_id][crate::model::UpdateMasterRequest::project_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::UpdateMasterRequest;
+    /// let x = UpdateMasterRequest::new().set_project_id("example");
+    /// ```
     #[deprecated]
     pub fn set_project_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project_id = v.into();
@@ -14831,6 +20083,12 @@ impl UpdateMasterRequest {
     }
 
     /// Sets the value of [zone][crate::model::UpdateMasterRequest::zone].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::UpdateMasterRequest;
+    /// let x = UpdateMasterRequest::new().set_zone("example");
+    /// ```
     #[deprecated]
     pub fn set_zone<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.zone = v.into();
@@ -14838,6 +20096,12 @@ impl UpdateMasterRequest {
     }
 
     /// Sets the value of [cluster_id][crate::model::UpdateMasterRequest::cluster_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::UpdateMasterRequest;
+    /// let x = UpdateMasterRequest::new().set_cluster_id("example");
+    /// ```
     #[deprecated]
     pub fn set_cluster_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.cluster_id = v.into();
@@ -14845,12 +20109,24 @@ impl UpdateMasterRequest {
     }
 
     /// Sets the value of [master_version][crate::model::UpdateMasterRequest::master_version].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::UpdateMasterRequest;
+    /// let x = UpdateMasterRequest::new().set_master_version("example");
+    /// ```
     pub fn set_master_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.master_version = v.into();
         self
     }
 
     /// Sets the value of [name][crate::model::UpdateMasterRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::UpdateMasterRequest;
+    /// let x = UpdateMasterRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -14904,6 +20180,12 @@ impl SetMasterAuthRequest {
     }
 
     /// Sets the value of [project_id][crate::model::SetMasterAuthRequest::project_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::SetMasterAuthRequest;
+    /// let x = SetMasterAuthRequest::new().set_project_id("example");
+    /// ```
     #[deprecated]
     pub fn set_project_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project_id = v.into();
@@ -14911,6 +20193,12 @@ impl SetMasterAuthRequest {
     }
 
     /// Sets the value of [zone][crate::model::SetMasterAuthRequest::zone].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::SetMasterAuthRequest;
+    /// let x = SetMasterAuthRequest::new().set_zone("example");
+    /// ```
     #[deprecated]
     pub fn set_zone<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.zone = v.into();
@@ -14918,6 +20206,12 @@ impl SetMasterAuthRequest {
     }
 
     /// Sets the value of [cluster_id][crate::model::SetMasterAuthRequest::cluster_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::SetMasterAuthRequest;
+    /// let x = SetMasterAuthRequest::new().set_cluster_id("example");
+    /// ```
     #[deprecated]
     pub fn set_cluster_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.cluster_id = v.into();
@@ -14925,6 +20219,15 @@ impl SetMasterAuthRequest {
     }
 
     /// Sets the value of [action][crate::model::SetMasterAuthRequest::action].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::SetMasterAuthRequest;
+    /// use google_cloud_container_v1::model::set_master_auth_request::Action;
+    /// let x0 = SetMasterAuthRequest::new().set_action(Action::SetPassword);
+    /// let x1 = SetMasterAuthRequest::new().set_action(Action::GeneratePassword);
+    /// let x2 = SetMasterAuthRequest::new().set_action(Action::SetUsername);
+    /// ```
     pub fn set_action<T: std::convert::Into<crate::model::set_master_auth_request::Action>>(
         mut self,
         v: T,
@@ -14934,6 +20237,13 @@ impl SetMasterAuthRequest {
     }
 
     /// Sets the value of [update][crate::model::SetMasterAuthRequest::update].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::SetMasterAuthRequest;
+    /// use google_cloud_container_v1::model::MasterAuth;
+    /// let x = SetMasterAuthRequest::new().set_update(MasterAuth::default()/* use setters */);
+    /// ```
     pub fn set_update<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::MasterAuth>,
@@ -14943,6 +20253,14 @@ impl SetMasterAuthRequest {
     }
 
     /// Sets or clears the value of [update][crate::model::SetMasterAuthRequest::update].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::SetMasterAuthRequest;
+    /// use google_cloud_container_v1::model::MasterAuth;
+    /// let x = SetMasterAuthRequest::new().set_or_clear_update(Some(MasterAuth::default()/* use setters */));
+    /// let x = SetMasterAuthRequest::new().set_or_clear_update(None::<MasterAuth>);
+    /// ```
     pub fn set_or_clear_update<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::MasterAuth>,
@@ -14952,6 +20270,12 @@ impl SetMasterAuthRequest {
     }
 
     /// Sets the value of [name][crate::model::SetMasterAuthRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::SetMasterAuthRequest;
+    /// let x = SetMasterAuthRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -15147,6 +20471,12 @@ impl DeleteClusterRequest {
     }
 
     /// Sets the value of [project_id][crate::model::DeleteClusterRequest::project_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::DeleteClusterRequest;
+    /// let x = DeleteClusterRequest::new().set_project_id("example");
+    /// ```
     #[deprecated]
     pub fn set_project_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project_id = v.into();
@@ -15154,6 +20484,12 @@ impl DeleteClusterRequest {
     }
 
     /// Sets the value of [zone][crate::model::DeleteClusterRequest::zone].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::DeleteClusterRequest;
+    /// let x = DeleteClusterRequest::new().set_zone("example");
+    /// ```
     #[deprecated]
     pub fn set_zone<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.zone = v.into();
@@ -15161,6 +20497,12 @@ impl DeleteClusterRequest {
     }
 
     /// Sets the value of [cluster_id][crate::model::DeleteClusterRequest::cluster_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::DeleteClusterRequest;
+    /// let x = DeleteClusterRequest::new().set_cluster_id("example");
+    /// ```
     #[deprecated]
     pub fn set_cluster_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.cluster_id = v.into();
@@ -15168,6 +20510,12 @@ impl DeleteClusterRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteClusterRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::DeleteClusterRequest;
+    /// let x = DeleteClusterRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -15211,6 +20559,12 @@ impl ListClustersRequest {
     }
 
     /// Sets the value of [project_id][crate::model::ListClustersRequest::project_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::ListClustersRequest;
+    /// let x = ListClustersRequest::new().set_project_id("example");
+    /// ```
     #[deprecated]
     pub fn set_project_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project_id = v.into();
@@ -15218,6 +20572,12 @@ impl ListClustersRequest {
     }
 
     /// Sets the value of [zone][crate::model::ListClustersRequest::zone].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::ListClustersRequest;
+    /// let x = ListClustersRequest::new().set_zone("example");
+    /// ```
     #[deprecated]
     pub fn set_zone<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.zone = v.into();
@@ -15225,6 +20585,12 @@ impl ListClustersRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListClustersRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::ListClustersRequest;
+    /// let x = ListClustersRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
@@ -15258,6 +20624,17 @@ impl ListClustersResponse {
     }
 
     /// Sets the value of [clusters][crate::model::ListClustersResponse::clusters].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::ListClustersResponse;
+    /// use google_cloud_container_v1::model::Cluster;
+    /// let x = ListClustersResponse::new()
+    ///     .set_clusters([
+    ///         Cluster::default()/* use setters */,
+    ///         Cluster::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_clusters<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -15269,6 +20646,12 @@ impl ListClustersResponse {
     }
 
     /// Sets the value of [missing_zones][crate::model::ListClustersResponse::missing_zones].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::ListClustersResponse;
+    /// let x = ListClustersResponse::new().set_missing_zones(["a", "b", "c"]);
+    /// ```
     pub fn set_missing_zones<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -15321,6 +20704,12 @@ impl GetOperationRequest {
     }
 
     /// Sets the value of [project_id][crate::model::GetOperationRequest::project_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::GetOperationRequest;
+    /// let x = GetOperationRequest::new().set_project_id("example");
+    /// ```
     #[deprecated]
     pub fn set_project_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project_id = v.into();
@@ -15328,6 +20717,12 @@ impl GetOperationRequest {
     }
 
     /// Sets the value of [zone][crate::model::GetOperationRequest::zone].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::GetOperationRequest;
+    /// let x = GetOperationRequest::new().set_zone("example");
+    /// ```
     #[deprecated]
     pub fn set_zone<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.zone = v.into();
@@ -15335,6 +20730,12 @@ impl GetOperationRequest {
     }
 
     /// Sets the value of [operation_id][crate::model::GetOperationRequest::operation_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::GetOperationRequest;
+    /// let x = GetOperationRequest::new().set_operation_id("example");
+    /// ```
     #[deprecated]
     pub fn set_operation_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.operation_id = v.into();
@@ -15342,6 +20743,12 @@ impl GetOperationRequest {
     }
 
     /// Sets the value of [name][crate::model::GetOperationRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::GetOperationRequest;
+    /// let x = GetOperationRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -15385,6 +20792,12 @@ impl ListOperationsRequest {
     }
 
     /// Sets the value of [project_id][crate::model::ListOperationsRequest::project_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::ListOperationsRequest;
+    /// let x = ListOperationsRequest::new().set_project_id("example");
+    /// ```
     #[deprecated]
     pub fn set_project_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project_id = v.into();
@@ -15392,6 +20805,12 @@ impl ListOperationsRequest {
     }
 
     /// Sets the value of [zone][crate::model::ListOperationsRequest::zone].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::ListOperationsRequest;
+    /// let x = ListOperationsRequest::new().set_zone("example");
+    /// ```
     #[deprecated]
     pub fn set_zone<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.zone = v.into();
@@ -15399,6 +20818,12 @@ impl ListOperationsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListOperationsRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::ListOperationsRequest;
+    /// let x = ListOperationsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
@@ -15446,6 +20871,12 @@ impl CancelOperationRequest {
     }
 
     /// Sets the value of [project_id][crate::model::CancelOperationRequest::project_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::CancelOperationRequest;
+    /// let x = CancelOperationRequest::new().set_project_id("example");
+    /// ```
     #[deprecated]
     pub fn set_project_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project_id = v.into();
@@ -15453,6 +20884,12 @@ impl CancelOperationRequest {
     }
 
     /// Sets the value of [zone][crate::model::CancelOperationRequest::zone].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::CancelOperationRequest;
+    /// let x = CancelOperationRequest::new().set_zone("example");
+    /// ```
     #[deprecated]
     pub fn set_zone<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.zone = v.into();
@@ -15460,6 +20897,12 @@ impl CancelOperationRequest {
     }
 
     /// Sets the value of [operation_id][crate::model::CancelOperationRequest::operation_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::CancelOperationRequest;
+    /// let x = CancelOperationRequest::new().set_operation_id("example");
+    /// ```
     #[deprecated]
     pub fn set_operation_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.operation_id = v.into();
@@ -15467,6 +20910,12 @@ impl CancelOperationRequest {
     }
 
     /// Sets the value of [name][crate::model::CancelOperationRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::CancelOperationRequest;
+    /// let x = CancelOperationRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -15499,6 +20948,17 @@ impl ListOperationsResponse {
     }
 
     /// Sets the value of [operations][crate::model::ListOperationsResponse::operations].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::ListOperationsResponse;
+    /// use google_cloud_container_v1::model::Operation;
+    /// let x = ListOperationsResponse::new()
+    ///     .set_operations([
+    ///         Operation::default()/* use setters */,
+    ///         Operation::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_operations<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -15510,6 +20970,12 @@ impl ListOperationsResponse {
     }
 
     /// Sets the value of [missing_zones][crate::model::ListOperationsResponse::missing_zones].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::ListOperationsResponse;
+    /// let x = ListOperationsResponse::new().set_missing_zones(["a", "b", "c"]);
+    /// ```
     pub fn set_missing_zones<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -15557,6 +21023,12 @@ impl GetServerConfigRequest {
     }
 
     /// Sets the value of [project_id][crate::model::GetServerConfigRequest::project_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::GetServerConfigRequest;
+    /// let x = GetServerConfigRequest::new().set_project_id("example");
+    /// ```
     #[deprecated]
     pub fn set_project_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project_id = v.into();
@@ -15564,6 +21036,12 @@ impl GetServerConfigRequest {
     }
 
     /// Sets the value of [zone][crate::model::GetServerConfigRequest::zone].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::GetServerConfigRequest;
+    /// let x = GetServerConfigRequest::new().set_zone("example");
+    /// ```
     #[deprecated]
     pub fn set_zone<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.zone = v.into();
@@ -15571,6 +21049,12 @@ impl GetServerConfigRequest {
     }
 
     /// Sets the value of [name][crate::model::GetServerConfigRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::GetServerConfigRequest;
+    /// let x = GetServerConfigRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -15614,6 +21098,12 @@ impl ServerConfig {
     }
 
     /// Sets the value of [default_cluster_version][crate::model::ServerConfig::default_cluster_version].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::ServerConfig;
+    /// let x = ServerConfig::new().set_default_cluster_version("example");
+    /// ```
     pub fn set_default_cluster_version<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -15623,6 +21113,12 @@ impl ServerConfig {
     }
 
     /// Sets the value of [valid_node_versions][crate::model::ServerConfig::valid_node_versions].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::ServerConfig;
+    /// let x = ServerConfig::new().set_valid_node_versions(["a", "b", "c"]);
+    /// ```
     pub fn set_valid_node_versions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -15634,6 +21130,12 @@ impl ServerConfig {
     }
 
     /// Sets the value of [default_image_type][crate::model::ServerConfig::default_image_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::ServerConfig;
+    /// let x = ServerConfig::new().set_default_image_type("example");
+    /// ```
     pub fn set_default_image_type<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -15643,6 +21145,12 @@ impl ServerConfig {
     }
 
     /// Sets the value of [valid_image_types][crate::model::ServerConfig::valid_image_types].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::ServerConfig;
+    /// let x = ServerConfig::new().set_valid_image_types(["a", "b", "c"]);
+    /// ```
     pub fn set_valid_image_types<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -15654,6 +21162,12 @@ impl ServerConfig {
     }
 
     /// Sets the value of [valid_master_versions][crate::model::ServerConfig::valid_master_versions].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::ServerConfig;
+    /// let x = ServerConfig::new().set_valid_master_versions(["a", "b", "c"]);
+    /// ```
     pub fn set_valid_master_versions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -15665,6 +21179,17 @@ impl ServerConfig {
     }
 
     /// Sets the value of [channels][crate::model::ServerConfig::channels].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::ServerConfig;
+    /// use google_cloud_container_v1::model::server_config::ReleaseChannelConfig;
+    /// let x = ServerConfig::new()
+    ///     .set_channels([
+    ///         ReleaseChannelConfig::default()/* use setters */,
+    ///         ReleaseChannelConfig::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_channels<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -15712,6 +21237,15 @@ pub mod server_config {
         }
 
         /// Sets the value of [channel][crate::model::server_config::ReleaseChannelConfig::channel].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_container_v1::model::server_config::ReleaseChannelConfig;
+        /// use google_cloud_container_v1::model::release_channel::Channel;
+        /// let x0 = ReleaseChannelConfig::new().set_channel(Channel::Rapid);
+        /// let x1 = ReleaseChannelConfig::new().set_channel(Channel::Regular);
+        /// let x2 = ReleaseChannelConfig::new().set_channel(Channel::Stable);
+        /// ```
         pub fn set_channel<T: std::convert::Into<crate::model::release_channel::Channel>>(
             mut self,
             v: T,
@@ -15721,6 +21255,12 @@ pub mod server_config {
         }
 
         /// Sets the value of [default_version][crate::model::server_config::ReleaseChannelConfig::default_version].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_container_v1::model::server_config::ReleaseChannelConfig;
+        /// let x = ReleaseChannelConfig::new().set_default_version("example");
+        /// ```
         pub fn set_default_version<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -15730,6 +21270,12 @@ pub mod server_config {
         }
 
         /// Sets the value of [valid_versions][crate::model::server_config::ReleaseChannelConfig::valid_versions].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_container_v1::model::server_config::ReleaseChannelConfig;
+        /// let x = ReleaseChannelConfig::new().set_valid_versions(["a", "b", "c"]);
+        /// ```
         pub fn set_valid_versions<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -15741,6 +21287,12 @@ pub mod server_config {
         }
 
         /// Sets the value of [upgrade_target_version][crate::model::server_config::ReleaseChannelConfig::upgrade_target_version].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_container_v1::model::server_config::ReleaseChannelConfig;
+        /// let x = ReleaseChannelConfig::new().set_upgrade_target_version("example");
+        /// ```
         pub fn set_upgrade_target_version<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -15796,6 +21348,12 @@ impl CreateNodePoolRequest {
     }
 
     /// Sets the value of [project_id][crate::model::CreateNodePoolRequest::project_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::CreateNodePoolRequest;
+    /// let x = CreateNodePoolRequest::new().set_project_id("example");
+    /// ```
     #[deprecated]
     pub fn set_project_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project_id = v.into();
@@ -15803,6 +21361,12 @@ impl CreateNodePoolRequest {
     }
 
     /// Sets the value of [zone][crate::model::CreateNodePoolRequest::zone].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::CreateNodePoolRequest;
+    /// let x = CreateNodePoolRequest::new().set_zone("example");
+    /// ```
     #[deprecated]
     pub fn set_zone<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.zone = v.into();
@@ -15810,6 +21374,12 @@ impl CreateNodePoolRequest {
     }
 
     /// Sets the value of [cluster_id][crate::model::CreateNodePoolRequest::cluster_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::CreateNodePoolRequest;
+    /// let x = CreateNodePoolRequest::new().set_cluster_id("example");
+    /// ```
     #[deprecated]
     pub fn set_cluster_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.cluster_id = v.into();
@@ -15817,6 +21387,13 @@ impl CreateNodePoolRequest {
     }
 
     /// Sets the value of [node_pool][crate::model::CreateNodePoolRequest::node_pool].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::CreateNodePoolRequest;
+    /// use google_cloud_container_v1::model::NodePool;
+    /// let x = CreateNodePoolRequest::new().set_node_pool(NodePool::default()/* use setters */);
+    /// ```
     pub fn set_node_pool<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::NodePool>,
@@ -15826,6 +21403,14 @@ impl CreateNodePoolRequest {
     }
 
     /// Sets or clears the value of [node_pool][crate::model::CreateNodePoolRequest::node_pool].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::CreateNodePoolRequest;
+    /// use google_cloud_container_v1::model::NodePool;
+    /// let x = CreateNodePoolRequest::new().set_or_clear_node_pool(Some(NodePool::default()/* use setters */));
+    /// let x = CreateNodePoolRequest::new().set_or_clear_node_pool(None::<NodePool>);
+    /// ```
     pub fn set_or_clear_node_pool<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::NodePool>,
@@ -15835,6 +21420,12 @@ impl CreateNodePoolRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateNodePoolRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::CreateNodePoolRequest;
+    /// let x = CreateNodePoolRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
@@ -15888,6 +21479,12 @@ impl DeleteNodePoolRequest {
     }
 
     /// Sets the value of [project_id][crate::model::DeleteNodePoolRequest::project_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::DeleteNodePoolRequest;
+    /// let x = DeleteNodePoolRequest::new().set_project_id("example");
+    /// ```
     #[deprecated]
     pub fn set_project_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project_id = v.into();
@@ -15895,6 +21492,12 @@ impl DeleteNodePoolRequest {
     }
 
     /// Sets the value of [zone][crate::model::DeleteNodePoolRequest::zone].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::DeleteNodePoolRequest;
+    /// let x = DeleteNodePoolRequest::new().set_zone("example");
+    /// ```
     #[deprecated]
     pub fn set_zone<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.zone = v.into();
@@ -15902,6 +21505,12 @@ impl DeleteNodePoolRequest {
     }
 
     /// Sets the value of [cluster_id][crate::model::DeleteNodePoolRequest::cluster_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::DeleteNodePoolRequest;
+    /// let x = DeleteNodePoolRequest::new().set_cluster_id("example");
+    /// ```
     #[deprecated]
     pub fn set_cluster_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.cluster_id = v.into();
@@ -15909,6 +21518,12 @@ impl DeleteNodePoolRequest {
     }
 
     /// Sets the value of [node_pool_id][crate::model::DeleteNodePoolRequest::node_pool_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::DeleteNodePoolRequest;
+    /// let x = DeleteNodePoolRequest::new().set_node_pool_id("example");
+    /// ```
     #[deprecated]
     pub fn set_node_pool_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.node_pool_id = v.into();
@@ -15916,6 +21531,12 @@ impl DeleteNodePoolRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteNodePoolRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::DeleteNodePoolRequest;
+    /// let x = DeleteNodePoolRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -15963,6 +21584,12 @@ impl ListNodePoolsRequest {
     }
 
     /// Sets the value of [project_id][crate::model::ListNodePoolsRequest::project_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::ListNodePoolsRequest;
+    /// let x = ListNodePoolsRequest::new().set_project_id("example");
+    /// ```
     #[deprecated]
     pub fn set_project_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project_id = v.into();
@@ -15970,6 +21597,12 @@ impl ListNodePoolsRequest {
     }
 
     /// Sets the value of [zone][crate::model::ListNodePoolsRequest::zone].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::ListNodePoolsRequest;
+    /// let x = ListNodePoolsRequest::new().set_zone("example");
+    /// ```
     #[deprecated]
     pub fn set_zone<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.zone = v.into();
@@ -15977,6 +21610,12 @@ impl ListNodePoolsRequest {
     }
 
     /// Sets the value of [cluster_id][crate::model::ListNodePoolsRequest::cluster_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::ListNodePoolsRequest;
+    /// let x = ListNodePoolsRequest::new().set_cluster_id("example");
+    /// ```
     #[deprecated]
     pub fn set_cluster_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.cluster_id = v.into();
@@ -15984,6 +21623,12 @@ impl ListNodePoolsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListNodePoolsRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::ListNodePoolsRequest;
+    /// let x = ListNodePoolsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
@@ -16037,6 +21682,12 @@ impl GetNodePoolRequest {
     }
 
     /// Sets the value of [project_id][crate::model::GetNodePoolRequest::project_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::GetNodePoolRequest;
+    /// let x = GetNodePoolRequest::new().set_project_id("example");
+    /// ```
     #[deprecated]
     pub fn set_project_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project_id = v.into();
@@ -16044,6 +21695,12 @@ impl GetNodePoolRequest {
     }
 
     /// Sets the value of [zone][crate::model::GetNodePoolRequest::zone].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::GetNodePoolRequest;
+    /// let x = GetNodePoolRequest::new().set_zone("example");
+    /// ```
     #[deprecated]
     pub fn set_zone<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.zone = v.into();
@@ -16051,6 +21708,12 @@ impl GetNodePoolRequest {
     }
 
     /// Sets the value of [cluster_id][crate::model::GetNodePoolRequest::cluster_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::GetNodePoolRequest;
+    /// let x = GetNodePoolRequest::new().set_cluster_id("example");
+    /// ```
     #[deprecated]
     pub fn set_cluster_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.cluster_id = v.into();
@@ -16058,6 +21721,12 @@ impl GetNodePoolRequest {
     }
 
     /// Sets the value of [node_pool_id][crate::model::GetNodePoolRequest::node_pool_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::GetNodePoolRequest;
+    /// let x = GetNodePoolRequest::new().set_node_pool_id("example");
+    /// ```
     #[deprecated]
     pub fn set_node_pool_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.node_pool_id = v.into();
@@ -16065,6 +21734,12 @@ impl GetNodePoolRequest {
     }
 
     /// Sets the value of [name][crate::model::GetNodePoolRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::GetNodePoolRequest;
+    /// let x = GetNodePoolRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -16097,6 +21772,13 @@ impl BlueGreenSettings {
     }
 
     /// Sets the value of [node_pool_soak_duration][crate::model::BlueGreenSettings::node_pool_soak_duration].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::BlueGreenSettings;
+    /// use wkt::Duration;
+    /// let x = BlueGreenSettings::new().set_node_pool_soak_duration(Duration::default()/* use setters */);
+    /// ```
     pub fn set_node_pool_soak_duration<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -16106,6 +21788,14 @@ impl BlueGreenSettings {
     }
 
     /// Sets or clears the value of [node_pool_soak_duration][crate::model::BlueGreenSettings::node_pool_soak_duration].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::BlueGreenSettings;
+    /// use wkt::Duration;
+    /// let x = BlueGreenSettings::new().set_or_clear_node_pool_soak_duration(Some(Duration::default()/* use setters */));
+    /// let x = BlueGreenSettings::new().set_or_clear_node_pool_soak_duration(None::<Duration>);
+    /// ```
     pub fn set_or_clear_node_pool_soak_duration<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -16118,6 +21808,14 @@ impl BlueGreenSettings {
     ///
     /// Note that all the setters affecting `rollout_policy` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::BlueGreenSettings;
+    /// use google_cloud_container_v1::model::blue_green_settings;
+    /// use google_cloud_container_v1::model::blue_green_settings::StandardRolloutPolicy;
+    /// let x = BlueGreenSettings::new().set_rollout_policy(Some(blue_green_settings::RolloutPolicy::StandardRolloutPolicy(StandardRolloutPolicy::default().into())));
+    /// ```
     pub fn set_rollout_policy<
         T: std::convert::Into<std::option::Option<crate::model::blue_green_settings::RolloutPolicy>>,
     >(
@@ -16150,6 +21848,15 @@ impl BlueGreenSettings {
     ///
     /// Note that all the setters affecting `rollout_policy` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::BlueGreenSettings;
+    /// use google_cloud_container_v1::model::blue_green_settings::StandardRolloutPolicy;
+    /// let x = BlueGreenSettings::new().set_standard_rollout_policy(StandardRolloutPolicy::default()/* use setters */);
+    /// assert!(x.standard_rollout_policy().is_some());
+    /// assert!(x.autoscaled_rollout_policy().is_none());
+    /// ```
     pub fn set_standard_rollout_policy<
         T: std::convert::Into<
                 std::boxed::Box<crate::model::blue_green_settings::StandardRolloutPolicy>,
@@ -16186,6 +21893,15 @@ impl BlueGreenSettings {
     ///
     /// Note that all the setters affecting `rollout_policy` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::BlueGreenSettings;
+    /// use google_cloud_container_v1::model::blue_green_settings::AutoscaledRolloutPolicy;
+    /// let x = BlueGreenSettings::new().set_autoscaled_rollout_policy(AutoscaledRolloutPolicy::default()/* use setters */);
+    /// assert!(x.autoscaled_rollout_policy().is_some());
+    /// assert!(x.standard_rollout_policy().is_none());
+    /// ```
     pub fn set_autoscaled_rollout_policy<
         T: std::convert::Into<
                 std::boxed::Box<crate::model::blue_green_settings::AutoscaledRolloutPolicy>,
@@ -16233,6 +21949,13 @@ pub mod blue_green_settings {
         }
 
         /// Sets the value of [batch_soak_duration][crate::model::blue_green_settings::StandardRolloutPolicy::batch_soak_duration].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_container_v1::model::blue_green_settings::StandardRolloutPolicy;
+        /// use wkt::Duration;
+        /// let x = StandardRolloutPolicy::new().set_batch_soak_duration(Duration::default()/* use setters */);
+        /// ```
         pub fn set_batch_soak_duration<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
@@ -16242,6 +21965,14 @@ pub mod blue_green_settings {
         }
 
         /// Sets or clears the value of [batch_soak_duration][crate::model::blue_green_settings::StandardRolloutPolicy::batch_soak_duration].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_container_v1::model::blue_green_settings::StandardRolloutPolicy;
+        /// use wkt::Duration;
+        /// let x = StandardRolloutPolicy::new().set_or_clear_batch_soak_duration(Some(Duration::default()/* use setters */));
+        /// let x = StandardRolloutPolicy::new().set_or_clear_batch_soak_duration(None::<Duration>);
+        /// ```
         pub fn set_or_clear_batch_soak_duration<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
@@ -16254,6 +21985,13 @@ pub mod blue_green_settings {
         ///
         /// Note that all the setters affecting `update_batch_size` are mutually
         /// exclusive.
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_container_v1::model::blue_green_settings::StandardRolloutPolicy;
+        /// use google_cloud_container_v1::model::blue_green_settings::standard_rollout_policy;
+        /// let x = StandardRolloutPolicy::new().set_update_batch_size(Some(blue_green_settings::standard_rollout_policy::UpdateBatchSize::BatchPercentage(42.0)));
+        /// ```
         pub fn set_update_batch_size<
             T: std::convert::Into<
                     std::option::Option<
@@ -16284,6 +22022,14 @@ pub mod blue_green_settings {
         ///
         /// Note that all the setters affecting `update_batch_size` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_container_v1::model::blue_green_settings::StandardRolloutPolicy;
+        /// let x = StandardRolloutPolicy::new().set_batch_percentage(42.0);
+        /// assert!(x.batch_percentage().is_some());
+        /// assert!(x.batch_node_count().is_none());
+        /// ```
         pub fn set_batch_percentage<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
             self.update_batch_size = std::option::Option::Some(
                 crate::model::blue_green_settings::standard_rollout_policy::UpdateBatchSize::BatchPercentage(
@@ -16309,6 +22055,14 @@ pub mod blue_green_settings {
         ///
         /// Note that all the setters affecting `update_batch_size` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_container_v1::model::blue_green_settings::StandardRolloutPolicy;
+        /// let x = StandardRolloutPolicy::new().set_batch_node_count(42);
+        /// assert!(x.batch_node_count().is_some());
+        /// assert!(x.batch_percentage().is_none());
+        /// ```
         pub fn set_batch_node_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.update_batch_size = std::option::Option::Some(
                 crate::model::blue_green_settings::standard_rollout_policy::UpdateBatchSize::BatchNodeCount(
@@ -16361,6 +22115,13 @@ pub mod blue_green_settings {
         }
 
         /// Sets the value of [wait_for_drain_duration][crate::model::blue_green_settings::AutoscaledRolloutPolicy::wait_for_drain_duration].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_container_v1::model::blue_green_settings::AutoscaledRolloutPolicy;
+        /// use wkt::Duration;
+        /// let x = AutoscaledRolloutPolicy::new().set_wait_for_drain_duration(Duration::default()/* use setters */);
+        /// ```
         pub fn set_wait_for_drain_duration<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
@@ -16370,6 +22131,14 @@ pub mod blue_green_settings {
         }
 
         /// Sets or clears the value of [wait_for_drain_duration][crate::model::blue_green_settings::AutoscaledRolloutPolicy::wait_for_drain_duration].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_container_v1::model::blue_green_settings::AutoscaledRolloutPolicy;
+        /// use wkt::Duration;
+        /// let x = AutoscaledRolloutPolicy::new().set_or_clear_wait_for_drain_duration(Some(Duration::default()/* use setters */));
+        /// let x = AutoscaledRolloutPolicy::new().set_or_clear_wait_for_drain_duration(None::<Duration>);
+        /// ```
         pub fn set_or_clear_wait_for_drain_duration<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
@@ -16509,12 +22278,25 @@ impl NodePool {
     }
 
     /// Sets the value of [name][crate::model::NodePool::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NodePool;
+    /// let x = NodePool::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [config][crate::model::NodePool::config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NodePool;
+    /// use google_cloud_container_v1::model::NodeConfig;
+    /// let x = NodePool::new().set_config(NodeConfig::default()/* use setters */);
+    /// ```
     pub fn set_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::NodeConfig>,
@@ -16524,6 +22306,14 @@ impl NodePool {
     }
 
     /// Sets or clears the value of [config][crate::model::NodePool::config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NodePool;
+    /// use google_cloud_container_v1::model::NodeConfig;
+    /// let x = NodePool::new().set_or_clear_config(Some(NodeConfig::default()/* use setters */));
+    /// let x = NodePool::new().set_or_clear_config(None::<NodeConfig>);
+    /// ```
     pub fn set_or_clear_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::NodeConfig>,
@@ -16533,12 +22323,24 @@ impl NodePool {
     }
 
     /// Sets the value of [initial_node_count][crate::model::NodePool::initial_node_count].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NodePool;
+    /// let x = NodePool::new().set_initial_node_count(42);
+    /// ```
     pub fn set_initial_node_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.initial_node_count = v.into();
         self
     }
 
     /// Sets the value of [locations][crate::model::NodePool::locations].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NodePool;
+    /// let x = NodePool::new().set_locations(["a", "b", "c"]);
+    /// ```
     pub fn set_locations<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -16550,6 +22352,13 @@ impl NodePool {
     }
 
     /// Sets the value of [network_config][crate::model::NodePool::network_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NodePool;
+    /// use google_cloud_container_v1::model::NodeNetworkConfig;
+    /// let x = NodePool::new().set_network_config(NodeNetworkConfig::default()/* use setters */);
+    /// ```
     pub fn set_network_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::NodeNetworkConfig>,
@@ -16559,6 +22368,14 @@ impl NodePool {
     }
 
     /// Sets or clears the value of [network_config][crate::model::NodePool::network_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NodePool;
+    /// use google_cloud_container_v1::model::NodeNetworkConfig;
+    /// let x = NodePool::new().set_or_clear_network_config(Some(NodeNetworkConfig::default()/* use setters */));
+    /// let x = NodePool::new().set_or_clear_network_config(None::<NodeNetworkConfig>);
+    /// ```
     pub fn set_or_clear_network_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::NodeNetworkConfig>,
@@ -16568,18 +22385,36 @@ impl NodePool {
     }
 
     /// Sets the value of [self_link][crate::model::NodePool::self_link].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NodePool;
+    /// let x = NodePool::new().set_self_link("example");
+    /// ```
     pub fn set_self_link<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.self_link = v.into();
         self
     }
 
     /// Sets the value of [version][crate::model::NodePool::version].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NodePool;
+    /// let x = NodePool::new().set_version("example");
+    /// ```
     pub fn set_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.version = v.into();
         self
     }
 
     /// Sets the value of [instance_group_urls][crate::model::NodePool::instance_group_urls].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NodePool;
+    /// let x = NodePool::new().set_instance_group_urls(["a", "b", "c"]);
+    /// ```
     pub fn set_instance_group_urls<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -16591,6 +22426,15 @@ impl NodePool {
     }
 
     /// Sets the value of [status][crate::model::NodePool::status].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NodePool;
+    /// use google_cloud_container_v1::model::node_pool::Status;
+    /// let x0 = NodePool::new().set_status(Status::Provisioning);
+    /// let x1 = NodePool::new().set_status(Status::Running);
+    /// let x2 = NodePool::new().set_status(Status::RunningWithError);
+    /// ```
     pub fn set_status<T: std::convert::Into<crate::model::node_pool::Status>>(
         mut self,
         v: T,
@@ -16600,6 +22444,12 @@ impl NodePool {
     }
 
     /// Sets the value of [status_message][crate::model::NodePool::status_message].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NodePool;
+    /// let x = NodePool::new().set_status_message("example");
+    /// ```
     #[deprecated]
     pub fn set_status_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.status_message = v.into();
@@ -16607,6 +22457,13 @@ impl NodePool {
     }
 
     /// Sets the value of [autoscaling][crate::model::NodePool::autoscaling].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NodePool;
+    /// use google_cloud_container_v1::model::NodePoolAutoscaling;
+    /// let x = NodePool::new().set_autoscaling(NodePoolAutoscaling::default()/* use setters */);
+    /// ```
     pub fn set_autoscaling<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::NodePoolAutoscaling>,
@@ -16616,6 +22473,14 @@ impl NodePool {
     }
 
     /// Sets or clears the value of [autoscaling][crate::model::NodePool::autoscaling].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NodePool;
+    /// use google_cloud_container_v1::model::NodePoolAutoscaling;
+    /// let x = NodePool::new().set_or_clear_autoscaling(Some(NodePoolAutoscaling::default()/* use setters */));
+    /// let x = NodePool::new().set_or_clear_autoscaling(None::<NodePoolAutoscaling>);
+    /// ```
     pub fn set_or_clear_autoscaling<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::NodePoolAutoscaling>,
@@ -16625,6 +22490,13 @@ impl NodePool {
     }
 
     /// Sets the value of [management][crate::model::NodePool::management].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NodePool;
+    /// use google_cloud_container_v1::model::NodeManagement;
+    /// let x = NodePool::new().set_management(NodeManagement::default()/* use setters */);
+    /// ```
     pub fn set_management<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::NodeManagement>,
@@ -16634,6 +22506,14 @@ impl NodePool {
     }
 
     /// Sets or clears the value of [management][crate::model::NodePool::management].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NodePool;
+    /// use google_cloud_container_v1::model::NodeManagement;
+    /// let x = NodePool::new().set_or_clear_management(Some(NodeManagement::default()/* use setters */));
+    /// let x = NodePool::new().set_or_clear_management(None::<NodeManagement>);
+    /// ```
     pub fn set_or_clear_management<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::NodeManagement>,
@@ -16643,6 +22523,13 @@ impl NodePool {
     }
 
     /// Sets the value of [max_pods_constraint][crate::model::NodePool::max_pods_constraint].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NodePool;
+    /// use google_cloud_container_v1::model::MaxPodsConstraint;
+    /// let x = NodePool::new().set_max_pods_constraint(MaxPodsConstraint::default()/* use setters */);
+    /// ```
     pub fn set_max_pods_constraint<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::MaxPodsConstraint>,
@@ -16652,6 +22539,14 @@ impl NodePool {
     }
 
     /// Sets or clears the value of [max_pods_constraint][crate::model::NodePool::max_pods_constraint].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NodePool;
+    /// use google_cloud_container_v1::model::MaxPodsConstraint;
+    /// let x = NodePool::new().set_or_clear_max_pods_constraint(Some(MaxPodsConstraint::default()/* use setters */));
+    /// let x = NodePool::new().set_or_clear_max_pods_constraint(None::<MaxPodsConstraint>);
+    /// ```
     pub fn set_or_clear_max_pods_constraint<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::MaxPodsConstraint>,
@@ -16661,6 +22556,17 @@ impl NodePool {
     }
 
     /// Sets the value of [conditions][crate::model::NodePool::conditions].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NodePool;
+    /// use google_cloud_container_v1::model::StatusCondition;
+    /// let x = NodePool::new()
+    ///     .set_conditions([
+    ///         StatusCondition::default()/* use setters */,
+    ///         StatusCondition::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_conditions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -16672,12 +22578,25 @@ impl NodePool {
     }
 
     /// Sets the value of [pod_ipv4_cidr_size][crate::model::NodePool::pod_ipv4_cidr_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NodePool;
+    /// let x = NodePool::new().set_pod_ipv4_cidr_size(42);
+    /// ```
     pub fn set_pod_ipv4_cidr_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.pod_ipv4_cidr_size = v.into();
         self
     }
 
     /// Sets the value of [upgrade_settings][crate::model::NodePool::upgrade_settings].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NodePool;
+    /// use google_cloud_container_v1::model::node_pool::UpgradeSettings;
+    /// let x = NodePool::new().set_upgrade_settings(UpgradeSettings::default()/* use setters */);
+    /// ```
     pub fn set_upgrade_settings<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::node_pool::UpgradeSettings>,
@@ -16687,6 +22606,14 @@ impl NodePool {
     }
 
     /// Sets or clears the value of [upgrade_settings][crate::model::NodePool::upgrade_settings].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NodePool;
+    /// use google_cloud_container_v1::model::node_pool::UpgradeSettings;
+    /// let x = NodePool::new().set_or_clear_upgrade_settings(Some(UpgradeSettings::default()/* use setters */));
+    /// let x = NodePool::new().set_or_clear_upgrade_settings(None::<UpgradeSettings>);
+    /// ```
     pub fn set_or_clear_upgrade_settings<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::node_pool::UpgradeSettings>,
@@ -16696,6 +22623,13 @@ impl NodePool {
     }
 
     /// Sets the value of [placement_policy][crate::model::NodePool::placement_policy].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NodePool;
+    /// use google_cloud_container_v1::model::node_pool::PlacementPolicy;
+    /// let x = NodePool::new().set_placement_policy(PlacementPolicy::default()/* use setters */);
+    /// ```
     pub fn set_placement_policy<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::node_pool::PlacementPolicy>,
@@ -16705,6 +22639,14 @@ impl NodePool {
     }
 
     /// Sets or clears the value of [placement_policy][crate::model::NodePool::placement_policy].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NodePool;
+    /// use google_cloud_container_v1::model::node_pool::PlacementPolicy;
+    /// let x = NodePool::new().set_or_clear_placement_policy(Some(PlacementPolicy::default()/* use setters */));
+    /// let x = NodePool::new().set_or_clear_placement_policy(None::<PlacementPolicy>);
+    /// ```
     pub fn set_or_clear_placement_policy<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::node_pool::PlacementPolicy>,
@@ -16714,6 +22656,13 @@ impl NodePool {
     }
 
     /// Sets the value of [update_info][crate::model::NodePool::update_info].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NodePool;
+    /// use google_cloud_container_v1::model::node_pool::UpdateInfo;
+    /// let x = NodePool::new().set_update_info(UpdateInfo::default()/* use setters */);
+    /// ```
     pub fn set_update_info<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::node_pool::UpdateInfo>,
@@ -16723,6 +22672,14 @@ impl NodePool {
     }
 
     /// Sets or clears the value of [update_info][crate::model::NodePool::update_info].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NodePool;
+    /// use google_cloud_container_v1::model::node_pool::UpdateInfo;
+    /// let x = NodePool::new().set_or_clear_update_info(Some(UpdateInfo::default()/* use setters */));
+    /// let x = NodePool::new().set_or_clear_update_info(None::<UpdateInfo>);
+    /// ```
     pub fn set_or_clear_update_info<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::node_pool::UpdateInfo>,
@@ -16732,12 +22689,25 @@ impl NodePool {
     }
 
     /// Sets the value of [etag][crate::model::NodePool::etag].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NodePool;
+    /// let x = NodePool::new().set_etag("example");
+    /// ```
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
     }
 
     /// Sets the value of [queued_provisioning][crate::model::NodePool::queued_provisioning].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NodePool;
+    /// use google_cloud_container_v1::model::node_pool::QueuedProvisioning;
+    /// let x = NodePool::new().set_queued_provisioning(QueuedProvisioning::default()/* use setters */);
+    /// ```
     pub fn set_queued_provisioning<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::node_pool::QueuedProvisioning>,
@@ -16747,6 +22717,14 @@ impl NodePool {
     }
 
     /// Sets or clears the value of [queued_provisioning][crate::model::NodePool::queued_provisioning].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NodePool;
+    /// use google_cloud_container_v1::model::node_pool::QueuedProvisioning;
+    /// let x = NodePool::new().set_or_clear_queued_provisioning(Some(QueuedProvisioning::default()/* use setters */));
+    /// let x = NodePool::new().set_or_clear_queued_provisioning(None::<QueuedProvisioning>);
+    /// ```
     pub fn set_or_clear_queued_provisioning<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::node_pool::QueuedProvisioning>,
@@ -16756,6 +22734,13 @@ impl NodePool {
     }
 
     /// Sets the value of [best_effort_provisioning][crate::model::NodePool::best_effort_provisioning].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NodePool;
+    /// use google_cloud_container_v1::model::BestEffortProvisioning;
+    /// let x = NodePool::new().set_best_effort_provisioning(BestEffortProvisioning::default()/* use setters */);
+    /// ```
     pub fn set_best_effort_provisioning<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::BestEffortProvisioning>,
@@ -16765,6 +22750,14 @@ impl NodePool {
     }
 
     /// Sets or clears the value of [best_effort_provisioning][crate::model::NodePool::best_effort_provisioning].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NodePool;
+    /// use google_cloud_container_v1::model::BestEffortProvisioning;
+    /// let x = NodePool::new().set_or_clear_best_effort_provisioning(Some(BestEffortProvisioning::default()/* use setters */));
+    /// let x = NodePool::new().set_or_clear_best_effort_provisioning(None::<BestEffortProvisioning>);
+    /// ```
     pub fn set_or_clear_best_effort_provisioning<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::BestEffortProvisioning>,
@@ -16860,18 +22853,38 @@ pub mod node_pool {
         }
 
         /// Sets the value of [max_surge][crate::model::node_pool::UpgradeSettings::max_surge].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_container_v1::model::node_pool::UpgradeSettings;
+        /// let x = UpgradeSettings::new().set_max_surge(42);
+        /// ```
         pub fn set_max_surge<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.max_surge = v.into();
             self
         }
 
         /// Sets the value of [max_unavailable][crate::model::node_pool::UpgradeSettings::max_unavailable].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_container_v1::model::node_pool::UpgradeSettings;
+        /// let x = UpgradeSettings::new().set_max_unavailable(42);
+        /// ```
         pub fn set_max_unavailable<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.max_unavailable = v.into();
             self
         }
 
         /// Sets the value of [strategy][crate::model::node_pool::UpgradeSettings::strategy].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_container_v1::model::node_pool::UpgradeSettings;
+        /// use google_cloud_container_v1::model::NodePoolUpdateStrategy;
+        /// let x0 = UpgradeSettings::new().set_strategy(NodePoolUpdateStrategy::BlueGreen);
+        /// let x1 = UpgradeSettings::new().set_strategy(NodePoolUpdateStrategy::Surge);
+        /// ```
         pub fn set_strategy<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::NodePoolUpdateStrategy>,
@@ -16881,6 +22894,15 @@ pub mod node_pool {
         }
 
         /// Sets or clears the value of [strategy][crate::model::node_pool::UpgradeSettings::strategy].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_container_v1::model::node_pool::UpgradeSettings;
+        /// use google_cloud_container_v1::model::NodePoolUpdateStrategy;
+        /// let x0 = UpgradeSettings::new().set_or_clear_strategy(Some(NodePoolUpdateStrategy::BlueGreen));
+        /// let x1 = UpgradeSettings::new().set_or_clear_strategy(Some(NodePoolUpdateStrategy::Surge));
+        /// let x_none = UpgradeSettings::new().set_or_clear_strategy(None::<NodePoolUpdateStrategy>);
+        /// ```
         pub fn set_or_clear_strategy<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::NodePoolUpdateStrategy>,
@@ -16890,6 +22912,13 @@ pub mod node_pool {
         }
 
         /// Sets the value of [blue_green_settings][crate::model::node_pool::UpgradeSettings::blue_green_settings].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_container_v1::model::node_pool::UpgradeSettings;
+        /// use google_cloud_container_v1::model::BlueGreenSettings;
+        /// let x = UpgradeSettings::new().set_blue_green_settings(BlueGreenSettings::default()/* use setters */);
+        /// ```
         pub fn set_blue_green_settings<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::BlueGreenSettings>,
@@ -16899,6 +22928,14 @@ pub mod node_pool {
         }
 
         /// Sets or clears the value of [blue_green_settings][crate::model::node_pool::UpgradeSettings::blue_green_settings].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_container_v1::model::node_pool::UpgradeSettings;
+        /// use google_cloud_container_v1::model::BlueGreenSettings;
+        /// let x = UpgradeSettings::new().set_or_clear_blue_green_settings(Some(BlueGreenSettings::default()/* use setters */));
+        /// let x = UpgradeSettings::new().set_or_clear_blue_green_settings(None::<BlueGreenSettings>);
+        /// ```
         pub fn set_or_clear_blue_green_settings<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::BlueGreenSettings>,
@@ -16932,6 +22969,13 @@ pub mod node_pool {
         }
 
         /// Sets the value of [blue_green_info][crate::model::node_pool::UpdateInfo::blue_green_info].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_container_v1::model::node_pool::UpdateInfo;
+        /// use google_cloud_container_v1::model::node_pool::update_info::BlueGreenInfo;
+        /// let x = UpdateInfo::new().set_blue_green_info(BlueGreenInfo::default()/* use setters */);
+        /// ```
         pub fn set_blue_green_info<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::node_pool::update_info::BlueGreenInfo>,
@@ -16941,6 +22985,14 @@ pub mod node_pool {
         }
 
         /// Sets or clears the value of [blue_green_info][crate::model::node_pool::UpdateInfo::blue_green_info].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_container_v1::model::node_pool::UpdateInfo;
+        /// use google_cloud_container_v1::model::node_pool::update_info::BlueGreenInfo;
+        /// let x = UpdateInfo::new().set_or_clear_blue_green_info(Some(BlueGreenInfo::default()/* use setters */));
+        /// let x = UpdateInfo::new().set_or_clear_blue_green_info(None::<BlueGreenInfo>);
+        /// ```
         pub fn set_or_clear_blue_green_info<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::node_pool::update_info::BlueGreenInfo>,
@@ -16994,6 +23046,15 @@ pub mod node_pool {
             }
 
             /// Sets the value of [phase][crate::model::node_pool::update_info::BlueGreenInfo::phase].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_container_v1::model::node_pool::update_info::BlueGreenInfo;
+            /// use google_cloud_container_v1::model::node_pool::update_info::blue_green_info::Phase;
+            /// let x0 = BlueGreenInfo::new().set_phase(Phase::UpdateStarted);
+            /// let x1 = BlueGreenInfo::new().set_phase(Phase::CreatingGreenPool);
+            /// let x2 = BlueGreenInfo::new().set_phase(Phase::CordoningBluePool);
+            /// ```
             pub fn set_phase<
                 T: std::convert::Into<crate::model::node_pool::update_info::blue_green_info::Phase>,
             >(
@@ -17005,6 +23066,12 @@ pub mod node_pool {
             }
 
             /// Sets the value of [blue_instance_group_urls][crate::model::node_pool::update_info::BlueGreenInfo::blue_instance_group_urls].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_container_v1::model::node_pool::update_info::BlueGreenInfo;
+            /// let x = BlueGreenInfo::new().set_blue_instance_group_urls(["a", "b", "c"]);
+            /// ```
             pub fn set_blue_instance_group_urls<T, V>(mut self, v: T) -> Self
             where
                 T: std::iter::IntoIterator<Item = V>,
@@ -17016,6 +23083,12 @@ pub mod node_pool {
             }
 
             /// Sets the value of [green_instance_group_urls][crate::model::node_pool::update_info::BlueGreenInfo::green_instance_group_urls].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_container_v1::model::node_pool::update_info::BlueGreenInfo;
+            /// let x = BlueGreenInfo::new().set_green_instance_group_urls(["a", "b", "c"]);
+            /// ```
             pub fn set_green_instance_group_urls<T, V>(mut self, v: T) -> Self
             where
                 T: std::iter::IntoIterator<Item = V>,
@@ -17027,6 +23100,12 @@ pub mod node_pool {
             }
 
             /// Sets the value of [blue_pool_deletion_start_time][crate::model::node_pool::update_info::BlueGreenInfo::blue_pool_deletion_start_time].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_container_v1::model::node_pool::update_info::BlueGreenInfo;
+            /// let x = BlueGreenInfo::new().set_blue_pool_deletion_start_time("example");
+            /// ```
             pub fn set_blue_pool_deletion_start_time<T: std::convert::Into<std::string::String>>(
                 mut self,
                 v: T,
@@ -17036,6 +23115,12 @@ pub mod node_pool {
             }
 
             /// Sets the value of [green_pool_version][crate::model::node_pool::update_info::BlueGreenInfo::green_pool_version].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_container_v1::model::node_pool::update_info::BlueGreenInfo;
+            /// let x = BlueGreenInfo::new().set_green_pool_version("example");
+            /// ```
             pub fn set_green_pool_version<T: std::convert::Into<std::string::String>>(
                 mut self,
                 v: T,
@@ -17253,6 +23338,13 @@ pub mod node_pool {
         }
 
         /// Sets the value of [r#type][crate::model::node_pool::PlacementPolicy::type].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_container_v1::model::node_pool::PlacementPolicy;
+        /// use google_cloud_container_v1::model::node_pool::placement_policy::Type;
+        /// let x0 = PlacementPolicy::new().set_type(Type::Compact);
+        /// ```
         pub fn set_type<T: std::convert::Into<crate::model::node_pool::placement_policy::Type>>(
             mut self,
             v: T,
@@ -17262,6 +23354,12 @@ pub mod node_pool {
         }
 
         /// Sets the value of [tpu_topology][crate::model::node_pool::PlacementPolicy::tpu_topology].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_container_v1::model::node_pool::PlacementPolicy;
+        /// let x = PlacementPolicy::new().set_tpu_topology("example");
+        /// ```
         pub fn set_tpu_topology<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -17271,6 +23369,12 @@ pub mod node_pool {
         }
 
         /// Sets the value of [policy_name][crate::model::node_pool::PlacementPolicy::policy_name].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_container_v1::model::node_pool::PlacementPolicy;
+        /// let x = PlacementPolicy::new().set_policy_name("example");
+        /// ```
         pub fn set_policy_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.policy_name = v.into();
             self
@@ -17437,6 +23541,12 @@ pub mod node_pool {
         }
 
         /// Sets the value of [enabled][crate::model::node_pool::QueuedProvisioning::enabled].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_container_v1::model::node_pool::QueuedProvisioning;
+        /// let x = QueuedProvisioning::new().set_enabled(true);
+        /// ```
         pub fn set_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.enabled = v.into();
             self
@@ -17645,18 +23755,37 @@ impl NodeManagement {
     }
 
     /// Sets the value of [auto_upgrade][crate::model::NodeManagement::auto_upgrade].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NodeManagement;
+    /// let x = NodeManagement::new().set_auto_upgrade(true);
+    /// ```
     pub fn set_auto_upgrade<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.auto_upgrade = v.into();
         self
     }
 
     /// Sets the value of [auto_repair][crate::model::NodeManagement::auto_repair].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NodeManagement;
+    /// let x = NodeManagement::new().set_auto_repair(true);
+    /// ```
     pub fn set_auto_repair<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.auto_repair = v.into();
         self
     }
 
     /// Sets the value of [upgrade_options][crate::model::NodeManagement::upgrade_options].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NodeManagement;
+    /// use google_cloud_container_v1::model::AutoUpgradeOptions;
+    /// let x = NodeManagement::new().set_upgrade_options(AutoUpgradeOptions::default()/* use setters */);
+    /// ```
     pub fn set_upgrade_options<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::AutoUpgradeOptions>,
@@ -17666,6 +23795,14 @@ impl NodeManagement {
     }
 
     /// Sets or clears the value of [upgrade_options][crate::model::NodeManagement::upgrade_options].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NodeManagement;
+    /// use google_cloud_container_v1::model::AutoUpgradeOptions;
+    /// let x = NodeManagement::new().set_or_clear_upgrade_options(Some(AutoUpgradeOptions::default()/* use setters */));
+    /// let x = NodeManagement::new().set_or_clear_upgrade_options(None::<AutoUpgradeOptions>);
+    /// ```
     pub fn set_or_clear_upgrade_options<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AutoUpgradeOptions>,
@@ -17704,12 +23841,24 @@ impl BestEffortProvisioning {
     }
 
     /// Sets the value of [enabled][crate::model::BestEffortProvisioning::enabled].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::BestEffortProvisioning;
+    /// let x = BestEffortProvisioning::new().set_enabled(true);
+    /// ```
     pub fn set_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.enabled = v.into();
         self
     }
 
     /// Sets the value of [min_provision_nodes][crate::model::BestEffortProvisioning::min_provision_nodes].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::BestEffortProvisioning;
+    /// let x = BestEffortProvisioning::new().set_min_provision_nodes(42);
+    /// ```
     pub fn set_min_provision_nodes<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.min_provision_nodes = v.into();
         self
@@ -17745,6 +23894,12 @@ impl AutoUpgradeOptions {
     }
 
     /// Sets the value of [auto_upgrade_start_time][crate::model::AutoUpgradeOptions::auto_upgrade_start_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::AutoUpgradeOptions;
+    /// let x = AutoUpgradeOptions::new().set_auto_upgrade_start_time("example");
+    /// ```
     pub fn set_auto_upgrade_start_time<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -17754,6 +23909,12 @@ impl AutoUpgradeOptions {
     }
 
     /// Sets the value of [description][crate::model::AutoUpgradeOptions::description].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::AutoUpgradeOptions;
+    /// let x = AutoUpgradeOptions::new().set_description("example");
+    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
@@ -17789,6 +23950,13 @@ impl MaintenancePolicy {
     }
 
     /// Sets the value of [window][crate::model::MaintenancePolicy::window].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::MaintenancePolicy;
+    /// use google_cloud_container_v1::model::MaintenanceWindow;
+    /// let x = MaintenancePolicy::new().set_window(MaintenanceWindow::default()/* use setters */);
+    /// ```
     pub fn set_window<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::MaintenanceWindow>,
@@ -17798,6 +23966,14 @@ impl MaintenancePolicy {
     }
 
     /// Sets or clears the value of [window][crate::model::MaintenancePolicy::window].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::MaintenancePolicy;
+    /// use google_cloud_container_v1::model::MaintenanceWindow;
+    /// let x = MaintenancePolicy::new().set_or_clear_window(Some(MaintenanceWindow::default()/* use setters */));
+    /// let x = MaintenancePolicy::new().set_or_clear_window(None::<MaintenanceWindow>);
+    /// ```
     pub fn set_or_clear_window<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::MaintenanceWindow>,
@@ -17807,6 +23983,12 @@ impl MaintenancePolicy {
     }
 
     /// Sets the value of [resource_version][crate::model::MaintenancePolicy::resource_version].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::MaintenancePolicy;
+    /// let x = MaintenancePolicy::new().set_resource_version("example");
+    /// ```
     pub fn set_resource_version<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -17842,6 +24024,16 @@ impl MaintenanceWindow {
     }
 
     /// Sets the value of [maintenance_exclusions][crate::model::MaintenanceWindow::maintenance_exclusions].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::MaintenanceWindow;
+    /// use google_cloud_container_v1::model::TimeWindow;
+    /// let x = MaintenanceWindow::new().set_maintenance_exclusions([
+    ///     ("key0", TimeWindow::default()/* use setters */),
+    ///     ("key1", TimeWindow::default()/* use (different) setters */),
+    /// ]);
+    /// ```
     pub fn set_maintenance_exclusions<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -17857,6 +24049,14 @@ impl MaintenanceWindow {
     ///
     /// Note that all the setters affecting `policy` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::MaintenanceWindow;
+    /// use google_cloud_container_v1::model::maintenance_window;
+    /// use google_cloud_container_v1::model::DailyMaintenanceWindow;
+    /// let x = MaintenanceWindow::new().set_policy(Some(maintenance_window::Policy::DailyMaintenanceWindow(DailyMaintenanceWindow::default().into())));
+    /// ```
     pub fn set_policy<
         T: std::convert::Into<std::option::Option<crate::model::maintenance_window::Policy>>,
     >(
@@ -17887,6 +24087,15 @@ impl MaintenanceWindow {
     ///
     /// Note that all the setters affecting `policy` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::MaintenanceWindow;
+    /// use google_cloud_container_v1::model::DailyMaintenanceWindow;
+    /// let x = MaintenanceWindow::new().set_daily_maintenance_window(DailyMaintenanceWindow::default()/* use setters */);
+    /// assert!(x.daily_maintenance_window().is_some());
+    /// assert!(x.recurring_window().is_none());
+    /// ```
     pub fn set_daily_maintenance_window<
         T: std::convert::Into<std::boxed::Box<crate::model::DailyMaintenanceWindow>>,
     >(
@@ -17919,6 +24128,15 @@ impl MaintenanceWindow {
     ///
     /// Note that all the setters affecting `policy` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::MaintenanceWindow;
+    /// use google_cloud_container_v1::model::RecurringTimeWindow;
+    /// let x = MaintenanceWindow::new().set_recurring_window(RecurringTimeWindow::default()/* use setters */);
+    /// assert!(x.recurring_window().is_some());
+    /// assert!(x.daily_maintenance_window().is_none());
+    /// ```
     pub fn set_recurring_window<
         T: std::convert::Into<std::boxed::Box<crate::model::RecurringTimeWindow>>,
     >(
@@ -17977,6 +24195,13 @@ impl TimeWindow {
     }
 
     /// Sets the value of [start_time][crate::model::TimeWindow::start_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::TimeWindow;
+    /// use wkt::Timestamp;
+    /// let x = TimeWindow::new().set_start_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_start_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -17986,6 +24211,14 @@ impl TimeWindow {
     }
 
     /// Sets or clears the value of [start_time][crate::model::TimeWindow::start_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::TimeWindow;
+    /// use wkt::Timestamp;
+    /// let x = TimeWindow::new().set_or_clear_start_time(Some(Timestamp::default()/* use setters */));
+    /// let x = TimeWindow::new().set_or_clear_start_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -17995,6 +24228,13 @@ impl TimeWindow {
     }
 
     /// Sets the value of [end_time][crate::model::TimeWindow::end_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::TimeWindow;
+    /// use wkt::Timestamp;
+    /// let x = TimeWindow::new().set_end_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -18004,6 +24244,14 @@ impl TimeWindow {
     }
 
     /// Sets or clears the value of [end_time][crate::model::TimeWindow::end_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::TimeWindow;
+    /// use wkt::Timestamp;
+    /// let x = TimeWindow::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
+    /// let x = TimeWindow::new().set_or_clear_end_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -18016,6 +24264,14 @@ impl TimeWindow {
     ///
     /// Note that all the setters affecting `options` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::TimeWindow;
+    /// use google_cloud_container_v1::model::time_window;
+    /// use google_cloud_container_v1::model::MaintenanceExclusionOptions;
+    /// let x = TimeWindow::new().set_options(Some(time_window::Options::MaintenanceExclusionOptions(MaintenanceExclusionOptions::default().into())));
+    /// ```
     pub fn set_options<
         T: std::convert::Into<std::option::Option<crate::model::time_window::Options>>,
     >(
@@ -18046,6 +24302,14 @@ impl TimeWindow {
     ///
     /// Note that all the setters affecting `options` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::TimeWindow;
+    /// use google_cloud_container_v1::model::MaintenanceExclusionOptions;
+    /// let x = TimeWindow::new().set_maintenance_exclusion_options(MaintenanceExclusionOptions::default()/* use setters */);
+    /// assert!(x.maintenance_exclusion_options().is_some());
+    /// ```
     pub fn set_maintenance_exclusion_options<
         T: std::convert::Into<std::boxed::Box<crate::model::MaintenanceExclusionOptions>>,
     >(
@@ -18099,6 +24363,14 @@ impl MaintenanceExclusionOptions {
     }
 
     /// Sets the value of [scope][crate::model::MaintenanceExclusionOptions::scope].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::MaintenanceExclusionOptions;
+    /// use google_cloud_container_v1::model::maintenance_exclusion_options::Scope;
+    /// let x0 = MaintenanceExclusionOptions::new().set_scope(Scope::NoMinorUpgrades);
+    /// let x1 = MaintenanceExclusionOptions::new().set_scope(Scope::NoMinorOrNodeUpgrades);
+    /// ```
     pub fn set_scope<T: std::convert::Into<crate::model::maintenance_exclusion_options::Scope>>(
         mut self,
         v: T,
@@ -18108,6 +24380,13 @@ impl MaintenanceExclusionOptions {
     }
 
     /// Sets the value of [end_time_behavior][crate::model::MaintenanceExclusionOptions::end_time_behavior].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::MaintenanceExclusionOptions;
+    /// use google_cloud_container_v1::model::maintenance_exclusion_options::EndTimeBehavior;
+    /// let x0 = MaintenanceExclusionOptions::new().set_end_time_behavior(EndTimeBehavior::UntilEndOfSupport);
+    /// ```
     pub fn set_end_time_behavior<
         T: std::convert::Into<crate::model::maintenance_exclusion_options::EndTimeBehavior>,
     >(
@@ -18449,6 +24728,13 @@ impl RecurringTimeWindow {
     }
 
     /// Sets the value of [window][crate::model::RecurringTimeWindow::window].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::RecurringTimeWindow;
+    /// use google_cloud_container_v1::model::TimeWindow;
+    /// let x = RecurringTimeWindow::new().set_window(TimeWindow::default()/* use setters */);
+    /// ```
     pub fn set_window<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::TimeWindow>,
@@ -18458,6 +24744,14 @@ impl RecurringTimeWindow {
     }
 
     /// Sets or clears the value of [window][crate::model::RecurringTimeWindow::window].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::RecurringTimeWindow;
+    /// use google_cloud_container_v1::model::TimeWindow;
+    /// let x = RecurringTimeWindow::new().set_or_clear_window(Some(TimeWindow::default()/* use setters */));
+    /// let x = RecurringTimeWindow::new().set_or_clear_window(None::<TimeWindow>);
+    /// ```
     pub fn set_or_clear_window<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::TimeWindow>,
@@ -18467,6 +24761,12 @@ impl RecurringTimeWindow {
     }
 
     /// Sets the value of [recurrence][crate::model::RecurringTimeWindow::recurrence].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::RecurringTimeWindow;
+    /// let x = RecurringTimeWindow::new().set_recurrence("example");
+    /// ```
     pub fn set_recurrence<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.recurrence = v.into();
         self
@@ -18503,12 +24803,24 @@ impl DailyMaintenanceWindow {
     }
 
     /// Sets the value of [start_time][crate::model::DailyMaintenanceWindow::start_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::DailyMaintenanceWindow;
+    /// let x = DailyMaintenanceWindow::new().set_start_time("example");
+    /// ```
     pub fn set_start_time<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.start_time = v.into();
         self
     }
 
     /// Sets the value of [duration][crate::model::DailyMaintenanceWindow::duration].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::DailyMaintenanceWindow;
+    /// let x = DailyMaintenanceWindow::new().set_duration("example");
+    /// ```
     pub fn set_duration<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.duration = v.into();
         self
@@ -18566,6 +24878,12 @@ impl SetNodePoolManagementRequest {
     }
 
     /// Sets the value of [project_id][crate::model::SetNodePoolManagementRequest::project_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::SetNodePoolManagementRequest;
+    /// let x = SetNodePoolManagementRequest::new().set_project_id("example");
+    /// ```
     #[deprecated]
     pub fn set_project_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project_id = v.into();
@@ -18573,6 +24891,12 @@ impl SetNodePoolManagementRequest {
     }
 
     /// Sets the value of [zone][crate::model::SetNodePoolManagementRequest::zone].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::SetNodePoolManagementRequest;
+    /// let x = SetNodePoolManagementRequest::new().set_zone("example");
+    /// ```
     #[deprecated]
     pub fn set_zone<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.zone = v.into();
@@ -18580,6 +24904,12 @@ impl SetNodePoolManagementRequest {
     }
 
     /// Sets the value of [cluster_id][crate::model::SetNodePoolManagementRequest::cluster_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::SetNodePoolManagementRequest;
+    /// let x = SetNodePoolManagementRequest::new().set_cluster_id("example");
+    /// ```
     #[deprecated]
     pub fn set_cluster_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.cluster_id = v.into();
@@ -18587,6 +24917,12 @@ impl SetNodePoolManagementRequest {
     }
 
     /// Sets the value of [node_pool_id][crate::model::SetNodePoolManagementRequest::node_pool_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::SetNodePoolManagementRequest;
+    /// let x = SetNodePoolManagementRequest::new().set_node_pool_id("example");
+    /// ```
     #[deprecated]
     pub fn set_node_pool_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.node_pool_id = v.into();
@@ -18594,6 +24930,13 @@ impl SetNodePoolManagementRequest {
     }
 
     /// Sets the value of [management][crate::model::SetNodePoolManagementRequest::management].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::SetNodePoolManagementRequest;
+    /// use google_cloud_container_v1::model::NodeManagement;
+    /// let x = SetNodePoolManagementRequest::new().set_management(NodeManagement::default()/* use setters */);
+    /// ```
     pub fn set_management<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::NodeManagement>,
@@ -18603,6 +24946,14 @@ impl SetNodePoolManagementRequest {
     }
 
     /// Sets or clears the value of [management][crate::model::SetNodePoolManagementRequest::management].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::SetNodePoolManagementRequest;
+    /// use google_cloud_container_v1::model::NodeManagement;
+    /// let x = SetNodePoolManagementRequest::new().set_or_clear_management(Some(NodeManagement::default()/* use setters */));
+    /// let x = SetNodePoolManagementRequest::new().set_or_clear_management(None::<NodeManagement>);
+    /// ```
     pub fn set_or_clear_management<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::NodeManagement>,
@@ -18612,6 +24963,12 @@ impl SetNodePoolManagementRequest {
     }
 
     /// Sets the value of [name][crate::model::SetNodePoolManagementRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::SetNodePoolManagementRequest;
+    /// let x = SetNodePoolManagementRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -18668,6 +25025,12 @@ impl SetNodePoolSizeRequest {
     }
 
     /// Sets the value of [project_id][crate::model::SetNodePoolSizeRequest::project_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::SetNodePoolSizeRequest;
+    /// let x = SetNodePoolSizeRequest::new().set_project_id("example");
+    /// ```
     #[deprecated]
     pub fn set_project_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project_id = v.into();
@@ -18675,6 +25038,12 @@ impl SetNodePoolSizeRequest {
     }
 
     /// Sets the value of [zone][crate::model::SetNodePoolSizeRequest::zone].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::SetNodePoolSizeRequest;
+    /// let x = SetNodePoolSizeRequest::new().set_zone("example");
+    /// ```
     #[deprecated]
     pub fn set_zone<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.zone = v.into();
@@ -18682,6 +25051,12 @@ impl SetNodePoolSizeRequest {
     }
 
     /// Sets the value of [cluster_id][crate::model::SetNodePoolSizeRequest::cluster_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::SetNodePoolSizeRequest;
+    /// let x = SetNodePoolSizeRequest::new().set_cluster_id("example");
+    /// ```
     #[deprecated]
     pub fn set_cluster_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.cluster_id = v.into();
@@ -18689,6 +25064,12 @@ impl SetNodePoolSizeRequest {
     }
 
     /// Sets the value of [node_pool_id][crate::model::SetNodePoolSizeRequest::node_pool_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::SetNodePoolSizeRequest;
+    /// let x = SetNodePoolSizeRequest::new().set_node_pool_id("example");
+    /// ```
     #[deprecated]
     pub fn set_node_pool_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.node_pool_id = v.into();
@@ -18696,12 +25077,24 @@ impl SetNodePoolSizeRequest {
     }
 
     /// Sets the value of [node_count][crate::model::SetNodePoolSizeRequest::node_count].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::SetNodePoolSizeRequest;
+    /// let x = SetNodePoolSizeRequest::new().set_node_count(42);
+    /// ```
     pub fn set_node_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.node_count = v.into();
         self
     }
 
     /// Sets the value of [name][crate::model::SetNodePoolSizeRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::SetNodePoolSizeRequest;
+    /// let x = SetNodePoolSizeRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -18733,6 +25126,12 @@ impl CompleteNodePoolUpgradeRequest {
     }
 
     /// Sets the value of [name][crate::model::CompleteNodePoolUpgradeRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::CompleteNodePoolUpgradeRequest;
+    /// let x = CompleteNodePoolUpgradeRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -18792,6 +25191,12 @@ impl RollbackNodePoolUpgradeRequest {
     }
 
     /// Sets the value of [project_id][crate::model::RollbackNodePoolUpgradeRequest::project_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::RollbackNodePoolUpgradeRequest;
+    /// let x = RollbackNodePoolUpgradeRequest::new().set_project_id("example");
+    /// ```
     #[deprecated]
     pub fn set_project_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project_id = v.into();
@@ -18799,6 +25204,12 @@ impl RollbackNodePoolUpgradeRequest {
     }
 
     /// Sets the value of [zone][crate::model::RollbackNodePoolUpgradeRequest::zone].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::RollbackNodePoolUpgradeRequest;
+    /// let x = RollbackNodePoolUpgradeRequest::new().set_zone("example");
+    /// ```
     #[deprecated]
     pub fn set_zone<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.zone = v.into();
@@ -18806,6 +25217,12 @@ impl RollbackNodePoolUpgradeRequest {
     }
 
     /// Sets the value of [cluster_id][crate::model::RollbackNodePoolUpgradeRequest::cluster_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::RollbackNodePoolUpgradeRequest;
+    /// let x = RollbackNodePoolUpgradeRequest::new().set_cluster_id("example");
+    /// ```
     #[deprecated]
     pub fn set_cluster_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.cluster_id = v.into();
@@ -18813,6 +25230,12 @@ impl RollbackNodePoolUpgradeRequest {
     }
 
     /// Sets the value of [node_pool_id][crate::model::RollbackNodePoolUpgradeRequest::node_pool_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::RollbackNodePoolUpgradeRequest;
+    /// let x = RollbackNodePoolUpgradeRequest::new().set_node_pool_id("example");
+    /// ```
     #[deprecated]
     pub fn set_node_pool_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.node_pool_id = v.into();
@@ -18820,12 +25243,24 @@ impl RollbackNodePoolUpgradeRequest {
     }
 
     /// Sets the value of [name][crate::model::RollbackNodePoolUpgradeRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::RollbackNodePoolUpgradeRequest;
+    /// let x = RollbackNodePoolUpgradeRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [respect_pdb][crate::model::RollbackNodePoolUpgradeRequest::respect_pdb].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::RollbackNodePoolUpgradeRequest;
+    /// let x = RollbackNodePoolUpgradeRequest::new().set_respect_pdb(true);
+    /// ```
     pub fn set_respect_pdb<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.respect_pdb = v.into();
         self
@@ -18854,6 +25289,17 @@ impl ListNodePoolsResponse {
     }
 
     /// Sets the value of [node_pools][crate::model::ListNodePoolsResponse::node_pools].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::ListNodePoolsResponse;
+    /// use google_cloud_container_v1::model::NodePool;
+    /// let x = ListNodePoolsResponse::new()
+    ///     .set_node_pools([
+    ///         NodePool::default()/* use setters */,
+    ///         NodePool::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_node_pools<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -18910,12 +25356,29 @@ impl ClusterAutoscaling {
     }
 
     /// Sets the value of [enable_node_autoprovisioning][crate::model::ClusterAutoscaling::enable_node_autoprovisioning].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::ClusterAutoscaling;
+    /// let x = ClusterAutoscaling::new().set_enable_node_autoprovisioning(true);
+    /// ```
     pub fn set_enable_node_autoprovisioning<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.enable_node_autoprovisioning = v.into();
         self
     }
 
     /// Sets the value of [resource_limits][crate::model::ClusterAutoscaling::resource_limits].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::ClusterAutoscaling;
+    /// use google_cloud_container_v1::model::ResourceLimit;
+    /// let x = ClusterAutoscaling::new()
+    ///     .set_resource_limits([
+    ///         ResourceLimit::default()/* use setters */,
+    ///         ResourceLimit::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_resource_limits<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -18927,6 +25390,14 @@ impl ClusterAutoscaling {
     }
 
     /// Sets the value of [autoscaling_profile][crate::model::ClusterAutoscaling::autoscaling_profile].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::ClusterAutoscaling;
+    /// use google_cloud_container_v1::model::cluster_autoscaling::AutoscalingProfile;
+    /// let x0 = ClusterAutoscaling::new().set_autoscaling_profile(AutoscalingProfile::OptimizeUtilization);
+    /// let x1 = ClusterAutoscaling::new().set_autoscaling_profile(AutoscalingProfile::Balanced);
+    /// ```
     pub fn set_autoscaling_profile<
         T: std::convert::Into<crate::model::cluster_autoscaling::AutoscalingProfile>,
     >(
@@ -18938,6 +25409,13 @@ impl ClusterAutoscaling {
     }
 
     /// Sets the value of [autoprovisioning_node_pool_defaults][crate::model::ClusterAutoscaling::autoprovisioning_node_pool_defaults].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::ClusterAutoscaling;
+    /// use google_cloud_container_v1::model::AutoprovisioningNodePoolDefaults;
+    /// let x = ClusterAutoscaling::new().set_autoprovisioning_node_pool_defaults(AutoprovisioningNodePoolDefaults::default()/* use setters */);
+    /// ```
     pub fn set_autoprovisioning_node_pool_defaults<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::AutoprovisioningNodePoolDefaults>,
@@ -18947,6 +25425,14 @@ impl ClusterAutoscaling {
     }
 
     /// Sets or clears the value of [autoprovisioning_node_pool_defaults][crate::model::ClusterAutoscaling::autoprovisioning_node_pool_defaults].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::ClusterAutoscaling;
+    /// use google_cloud_container_v1::model::AutoprovisioningNodePoolDefaults;
+    /// let x = ClusterAutoscaling::new().set_or_clear_autoprovisioning_node_pool_defaults(Some(AutoprovisioningNodePoolDefaults::default()/* use setters */));
+    /// let x = ClusterAutoscaling::new().set_or_clear_autoprovisioning_node_pool_defaults(None::<AutoprovisioningNodePoolDefaults>);
+    /// ```
     pub fn set_or_clear_autoprovisioning_node_pool_defaults<T>(
         mut self,
         v: std::option::Option<T>,
@@ -18959,6 +25445,12 @@ impl ClusterAutoscaling {
     }
 
     /// Sets the value of [autoprovisioning_locations][crate::model::ClusterAutoscaling::autoprovisioning_locations].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::ClusterAutoscaling;
+    /// let x = ClusterAutoscaling::new().set_autoprovisioning_locations(["a", "b", "c"]);
+    /// ```
     pub fn set_autoprovisioning_locations<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -18970,6 +25462,13 @@ impl ClusterAutoscaling {
     }
 
     /// Sets the value of [default_compute_class_config][crate::model::ClusterAutoscaling::default_compute_class_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::ClusterAutoscaling;
+    /// use google_cloud_container_v1::model::DefaultComputeClassConfig;
+    /// let x = ClusterAutoscaling::new().set_default_compute_class_config(DefaultComputeClassConfig::default()/* use setters */);
+    /// ```
     pub fn set_default_compute_class_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::DefaultComputeClassConfig>,
@@ -18979,6 +25478,14 @@ impl ClusterAutoscaling {
     }
 
     /// Sets or clears the value of [default_compute_class_config][crate::model::ClusterAutoscaling::default_compute_class_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::ClusterAutoscaling;
+    /// use google_cloud_container_v1::model::DefaultComputeClassConfig;
+    /// let x = ClusterAutoscaling::new().set_or_clear_default_compute_class_config(Some(DefaultComputeClassConfig::default()/* use setters */));
+    /// let x = ClusterAutoscaling::new().set_or_clear_default_compute_class_config(None::<DefaultComputeClassConfig>);
+    /// ```
     pub fn set_or_clear_default_compute_class_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DefaultComputeClassConfig>,
@@ -19203,6 +25710,12 @@ impl AutoprovisioningNodePoolDefaults {
     }
 
     /// Sets the value of [oauth_scopes][crate::model::AutoprovisioningNodePoolDefaults::oauth_scopes].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::AutoprovisioningNodePoolDefaults;
+    /// let x = AutoprovisioningNodePoolDefaults::new().set_oauth_scopes(["a", "b", "c"]);
+    /// ```
     pub fn set_oauth_scopes<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -19214,12 +25727,25 @@ impl AutoprovisioningNodePoolDefaults {
     }
 
     /// Sets the value of [service_account][crate::model::AutoprovisioningNodePoolDefaults::service_account].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::AutoprovisioningNodePoolDefaults;
+    /// let x = AutoprovisioningNodePoolDefaults::new().set_service_account("example");
+    /// ```
     pub fn set_service_account<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.service_account = v.into();
         self
     }
 
     /// Sets the value of [upgrade_settings][crate::model::AutoprovisioningNodePoolDefaults::upgrade_settings].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::AutoprovisioningNodePoolDefaults;
+    /// use google_cloud_container_v1::model::node_pool::UpgradeSettings;
+    /// let x = AutoprovisioningNodePoolDefaults::new().set_upgrade_settings(UpgradeSettings::default()/* use setters */);
+    /// ```
     pub fn set_upgrade_settings<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::node_pool::UpgradeSettings>,
@@ -19229,6 +25755,14 @@ impl AutoprovisioningNodePoolDefaults {
     }
 
     /// Sets or clears the value of [upgrade_settings][crate::model::AutoprovisioningNodePoolDefaults::upgrade_settings].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::AutoprovisioningNodePoolDefaults;
+    /// use google_cloud_container_v1::model::node_pool::UpgradeSettings;
+    /// let x = AutoprovisioningNodePoolDefaults::new().set_or_clear_upgrade_settings(Some(UpgradeSettings::default()/* use setters */));
+    /// let x = AutoprovisioningNodePoolDefaults::new().set_or_clear_upgrade_settings(None::<UpgradeSettings>);
+    /// ```
     pub fn set_or_clear_upgrade_settings<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::node_pool::UpgradeSettings>,
@@ -19238,6 +25772,13 @@ impl AutoprovisioningNodePoolDefaults {
     }
 
     /// Sets the value of [management][crate::model::AutoprovisioningNodePoolDefaults::management].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::AutoprovisioningNodePoolDefaults;
+    /// use google_cloud_container_v1::model::NodeManagement;
+    /// let x = AutoprovisioningNodePoolDefaults::new().set_management(NodeManagement::default()/* use setters */);
+    /// ```
     pub fn set_management<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::NodeManagement>,
@@ -19247,6 +25788,14 @@ impl AutoprovisioningNodePoolDefaults {
     }
 
     /// Sets or clears the value of [management][crate::model::AutoprovisioningNodePoolDefaults::management].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::AutoprovisioningNodePoolDefaults;
+    /// use google_cloud_container_v1::model::NodeManagement;
+    /// let x = AutoprovisioningNodePoolDefaults::new().set_or_clear_management(Some(NodeManagement::default()/* use setters */));
+    /// let x = AutoprovisioningNodePoolDefaults::new().set_or_clear_management(None::<NodeManagement>);
+    /// ```
     pub fn set_or_clear_management<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::NodeManagement>,
@@ -19256,6 +25805,12 @@ impl AutoprovisioningNodePoolDefaults {
     }
 
     /// Sets the value of [min_cpu_platform][crate::model::AutoprovisioningNodePoolDefaults::min_cpu_platform].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::AutoprovisioningNodePoolDefaults;
+    /// let x = AutoprovisioningNodePoolDefaults::new().set_min_cpu_platform("example");
+    /// ```
     #[deprecated]
     pub fn set_min_cpu_platform<T: std::convert::Into<std::string::String>>(
         mut self,
@@ -19266,18 +25821,37 @@ impl AutoprovisioningNodePoolDefaults {
     }
 
     /// Sets the value of [disk_size_gb][crate::model::AutoprovisioningNodePoolDefaults::disk_size_gb].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::AutoprovisioningNodePoolDefaults;
+    /// let x = AutoprovisioningNodePoolDefaults::new().set_disk_size_gb(42);
+    /// ```
     pub fn set_disk_size_gb<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.disk_size_gb = v.into();
         self
     }
 
     /// Sets the value of [disk_type][crate::model::AutoprovisioningNodePoolDefaults::disk_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::AutoprovisioningNodePoolDefaults;
+    /// let x = AutoprovisioningNodePoolDefaults::new().set_disk_type("example");
+    /// ```
     pub fn set_disk_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.disk_type = v.into();
         self
     }
 
     /// Sets the value of [shielded_instance_config][crate::model::AutoprovisioningNodePoolDefaults::shielded_instance_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::AutoprovisioningNodePoolDefaults;
+    /// use google_cloud_container_v1::model::ShieldedInstanceConfig;
+    /// let x = AutoprovisioningNodePoolDefaults::new().set_shielded_instance_config(ShieldedInstanceConfig::default()/* use setters */);
+    /// ```
     pub fn set_shielded_instance_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ShieldedInstanceConfig>,
@@ -19287,6 +25861,14 @@ impl AutoprovisioningNodePoolDefaults {
     }
 
     /// Sets or clears the value of [shielded_instance_config][crate::model::AutoprovisioningNodePoolDefaults::shielded_instance_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::AutoprovisioningNodePoolDefaults;
+    /// use google_cloud_container_v1::model::ShieldedInstanceConfig;
+    /// let x = AutoprovisioningNodePoolDefaults::new().set_or_clear_shielded_instance_config(Some(ShieldedInstanceConfig::default()/* use setters */));
+    /// let x = AutoprovisioningNodePoolDefaults::new().set_or_clear_shielded_instance_config(None::<ShieldedInstanceConfig>);
+    /// ```
     pub fn set_or_clear_shielded_instance_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ShieldedInstanceConfig>,
@@ -19296,6 +25878,12 @@ impl AutoprovisioningNodePoolDefaults {
     }
 
     /// Sets the value of [boot_disk_kms_key][crate::model::AutoprovisioningNodePoolDefaults::boot_disk_kms_key].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::AutoprovisioningNodePoolDefaults;
+    /// let x = AutoprovisioningNodePoolDefaults::new().set_boot_disk_kms_key("example");
+    /// ```
     pub fn set_boot_disk_kms_key<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -19305,12 +25893,24 @@ impl AutoprovisioningNodePoolDefaults {
     }
 
     /// Sets the value of [image_type][crate::model::AutoprovisioningNodePoolDefaults::image_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::AutoprovisioningNodePoolDefaults;
+    /// let x = AutoprovisioningNodePoolDefaults::new().set_image_type("example");
+    /// ```
     pub fn set_image_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.image_type = v.into();
         self
     }
 
     /// Sets the value of [insecure_kubelet_readonly_port_enabled][crate::model::AutoprovisioningNodePoolDefaults::insecure_kubelet_readonly_port_enabled].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::AutoprovisioningNodePoolDefaults;
+    /// let x = AutoprovisioningNodePoolDefaults::new().set_insecure_kubelet_readonly_port_enabled(true);
+    /// ```
     pub fn set_insecure_kubelet_readonly_port_enabled<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<bool>,
@@ -19320,6 +25920,13 @@ impl AutoprovisioningNodePoolDefaults {
     }
 
     /// Sets or clears the value of [insecure_kubelet_readonly_port_enabled][crate::model::AutoprovisioningNodePoolDefaults::insecure_kubelet_readonly_port_enabled].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::AutoprovisioningNodePoolDefaults;
+    /// let x = AutoprovisioningNodePoolDefaults::new().set_or_clear_insecure_kubelet_readonly_port_enabled(Some(false));
+    /// let x = AutoprovisioningNodePoolDefaults::new().set_or_clear_insecure_kubelet_readonly_port_enabled(None::<bool>);
+    /// ```
     pub fn set_or_clear_insecure_kubelet_readonly_port_enabled<T>(
         mut self,
         v: std::option::Option<T>,
@@ -19361,18 +25968,36 @@ impl ResourceLimit {
     }
 
     /// Sets the value of [resource_type][crate::model::ResourceLimit::resource_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::ResourceLimit;
+    /// let x = ResourceLimit::new().set_resource_type("example");
+    /// ```
     pub fn set_resource_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.resource_type = v.into();
         self
     }
 
     /// Sets the value of [minimum][crate::model::ResourceLimit::minimum].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::ResourceLimit;
+    /// let x = ResourceLimit::new().set_minimum(42);
+    /// ```
     pub fn set_minimum<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.minimum = v.into();
         self
     }
 
     /// Sets the value of [maximum][crate::model::ResourceLimit::maximum].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::ResourceLimit;
+    /// let x = ResourceLimit::new().set_maximum(42);
+    /// ```
     pub fn set_maximum<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.maximum = v.into();
         self
@@ -19402,6 +26027,12 @@ impl DefaultComputeClassConfig {
     }
 
     /// Sets the value of [enabled][crate::model::DefaultComputeClassConfig::enabled].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::DefaultComputeClassConfig;
+    /// let x = DefaultComputeClassConfig::new().set_enabled(true);
+    /// ```
     pub fn set_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.enabled = v.into();
         self
@@ -19457,30 +26088,62 @@ impl NodePoolAutoscaling {
     }
 
     /// Sets the value of [enabled][crate::model::NodePoolAutoscaling::enabled].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NodePoolAutoscaling;
+    /// let x = NodePoolAutoscaling::new().set_enabled(true);
+    /// ```
     pub fn set_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.enabled = v.into();
         self
     }
 
     /// Sets the value of [min_node_count][crate::model::NodePoolAutoscaling::min_node_count].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NodePoolAutoscaling;
+    /// let x = NodePoolAutoscaling::new().set_min_node_count(42);
+    /// ```
     pub fn set_min_node_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.min_node_count = v.into();
         self
     }
 
     /// Sets the value of [max_node_count][crate::model::NodePoolAutoscaling::max_node_count].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NodePoolAutoscaling;
+    /// let x = NodePoolAutoscaling::new().set_max_node_count(42);
+    /// ```
     pub fn set_max_node_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.max_node_count = v.into();
         self
     }
 
     /// Sets the value of [autoprovisioned][crate::model::NodePoolAutoscaling::autoprovisioned].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NodePoolAutoscaling;
+    /// let x = NodePoolAutoscaling::new().set_autoprovisioned(true);
+    /// ```
     pub fn set_autoprovisioned<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.autoprovisioned = v.into();
         self
     }
 
     /// Sets the value of [location_policy][crate::model::NodePoolAutoscaling::location_policy].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NodePoolAutoscaling;
+    /// use google_cloud_container_v1::model::node_pool_autoscaling::LocationPolicy;
+    /// let x0 = NodePoolAutoscaling::new().set_location_policy(LocationPolicy::Balanced);
+    /// let x1 = NodePoolAutoscaling::new().set_location_policy(LocationPolicy::Any);
+    /// ```
     pub fn set_location_policy<
         T: std::convert::Into<crate::model::node_pool_autoscaling::LocationPolicy>,
     >(
@@ -19492,12 +26155,24 @@ impl NodePoolAutoscaling {
     }
 
     /// Sets the value of [total_min_node_count][crate::model::NodePoolAutoscaling::total_min_node_count].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NodePoolAutoscaling;
+    /// let x = NodePoolAutoscaling::new().set_total_min_node_count(42);
+    /// ```
     pub fn set_total_min_node_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.total_min_node_count = v.into();
         self
     }
 
     /// Sets the value of [total_max_node_count][crate::model::NodePoolAutoscaling::total_max_node_count].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NodePoolAutoscaling;
+    /// let x = NodePoolAutoscaling::new().set_total_max_node_count(42);
+    /// ```
     pub fn set_total_max_node_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.total_max_node_count = v.into();
         self
@@ -19698,6 +26373,12 @@ impl SetLabelsRequest {
     }
 
     /// Sets the value of [project_id][crate::model::SetLabelsRequest::project_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::SetLabelsRequest;
+    /// let x = SetLabelsRequest::new().set_project_id("example");
+    /// ```
     #[deprecated]
     pub fn set_project_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project_id = v.into();
@@ -19705,6 +26386,12 @@ impl SetLabelsRequest {
     }
 
     /// Sets the value of [zone][crate::model::SetLabelsRequest::zone].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::SetLabelsRequest;
+    /// let x = SetLabelsRequest::new().set_zone("example");
+    /// ```
     #[deprecated]
     pub fn set_zone<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.zone = v.into();
@@ -19712,6 +26399,12 @@ impl SetLabelsRequest {
     }
 
     /// Sets the value of [cluster_id][crate::model::SetLabelsRequest::cluster_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::SetLabelsRequest;
+    /// let x = SetLabelsRequest::new().set_cluster_id("example");
+    /// ```
     #[deprecated]
     pub fn set_cluster_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.cluster_id = v.into();
@@ -19719,6 +26412,15 @@ impl SetLabelsRequest {
     }
 
     /// Sets the value of [resource_labels][crate::model::SetLabelsRequest::resource_labels].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::SetLabelsRequest;
+    /// let x = SetLabelsRequest::new().set_resource_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_resource_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -19731,6 +26433,12 @@ impl SetLabelsRequest {
     }
 
     /// Sets the value of [label_fingerprint][crate::model::SetLabelsRequest::label_fingerprint].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::SetLabelsRequest;
+    /// let x = SetLabelsRequest::new().set_label_fingerprint("example");
+    /// ```
     pub fn set_label_fingerprint<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -19740,6 +26448,12 @@ impl SetLabelsRequest {
     }
 
     /// Sets the value of [name][crate::model::SetLabelsRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::SetLabelsRequest;
+    /// let x = SetLabelsRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -19791,6 +26505,12 @@ impl SetLegacyAbacRequest {
     }
 
     /// Sets the value of [project_id][crate::model::SetLegacyAbacRequest::project_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::SetLegacyAbacRequest;
+    /// let x = SetLegacyAbacRequest::new().set_project_id("example");
+    /// ```
     #[deprecated]
     pub fn set_project_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project_id = v.into();
@@ -19798,6 +26518,12 @@ impl SetLegacyAbacRequest {
     }
 
     /// Sets the value of [zone][crate::model::SetLegacyAbacRequest::zone].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::SetLegacyAbacRequest;
+    /// let x = SetLegacyAbacRequest::new().set_zone("example");
+    /// ```
     #[deprecated]
     pub fn set_zone<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.zone = v.into();
@@ -19805,6 +26531,12 @@ impl SetLegacyAbacRequest {
     }
 
     /// Sets the value of [cluster_id][crate::model::SetLegacyAbacRequest::cluster_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::SetLegacyAbacRequest;
+    /// let x = SetLegacyAbacRequest::new().set_cluster_id("example");
+    /// ```
     #[deprecated]
     pub fn set_cluster_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.cluster_id = v.into();
@@ -19812,12 +26544,24 @@ impl SetLegacyAbacRequest {
     }
 
     /// Sets the value of [enabled][crate::model::SetLegacyAbacRequest::enabled].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::SetLegacyAbacRequest;
+    /// let x = SetLegacyAbacRequest::new().set_enabled(true);
+    /// ```
     pub fn set_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.enabled = v.into();
         self
     }
 
     /// Sets the value of [name][crate::model::SetLegacyAbacRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::SetLegacyAbacRequest;
+    /// let x = SetLegacyAbacRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -19869,6 +26613,12 @@ impl StartIPRotationRequest {
     }
 
     /// Sets the value of [project_id][crate::model::StartIPRotationRequest::project_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::StartIPRotationRequest;
+    /// let x = StartIPRotationRequest::new().set_project_id("example");
+    /// ```
     #[deprecated]
     pub fn set_project_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project_id = v.into();
@@ -19876,6 +26626,12 @@ impl StartIPRotationRequest {
     }
 
     /// Sets the value of [zone][crate::model::StartIPRotationRequest::zone].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::StartIPRotationRequest;
+    /// let x = StartIPRotationRequest::new().set_zone("example");
+    /// ```
     #[deprecated]
     pub fn set_zone<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.zone = v.into();
@@ -19883,6 +26639,12 @@ impl StartIPRotationRequest {
     }
 
     /// Sets the value of [cluster_id][crate::model::StartIPRotationRequest::cluster_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::StartIPRotationRequest;
+    /// let x = StartIPRotationRequest::new().set_cluster_id("example");
+    /// ```
     #[deprecated]
     pub fn set_cluster_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.cluster_id = v.into();
@@ -19890,12 +26652,24 @@ impl StartIPRotationRequest {
     }
 
     /// Sets the value of [name][crate::model::StartIPRotationRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::StartIPRotationRequest;
+    /// let x = StartIPRotationRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [rotate_credentials][crate::model::StartIPRotationRequest::rotate_credentials].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::StartIPRotationRequest;
+    /// let x = StartIPRotationRequest::new().set_rotate_credentials(true);
+    /// ```
     pub fn set_rotate_credentials<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.rotate_credentials = v.into();
         self
@@ -19943,6 +26717,12 @@ impl CompleteIPRotationRequest {
     }
 
     /// Sets the value of [project_id][crate::model::CompleteIPRotationRequest::project_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::CompleteIPRotationRequest;
+    /// let x = CompleteIPRotationRequest::new().set_project_id("example");
+    /// ```
     #[deprecated]
     pub fn set_project_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project_id = v.into();
@@ -19950,6 +26730,12 @@ impl CompleteIPRotationRequest {
     }
 
     /// Sets the value of [zone][crate::model::CompleteIPRotationRequest::zone].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::CompleteIPRotationRequest;
+    /// let x = CompleteIPRotationRequest::new().set_zone("example");
+    /// ```
     #[deprecated]
     pub fn set_zone<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.zone = v.into();
@@ -19957,6 +26743,12 @@ impl CompleteIPRotationRequest {
     }
 
     /// Sets the value of [cluster_id][crate::model::CompleteIPRotationRequest::cluster_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::CompleteIPRotationRequest;
+    /// let x = CompleteIPRotationRequest::new().set_cluster_id("example");
+    /// ```
     #[deprecated]
     pub fn set_cluster_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.cluster_id = v.into();
@@ -19964,6 +26756,12 @@ impl CompleteIPRotationRequest {
     }
 
     /// Sets the value of [name][crate::model::CompleteIPRotationRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::CompleteIPRotationRequest;
+    /// let x = CompleteIPRotationRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -20008,12 +26806,24 @@ impl AcceleratorConfig {
     }
 
     /// Sets the value of [accelerator_count][crate::model::AcceleratorConfig::accelerator_count].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::AcceleratorConfig;
+    /// let x = AcceleratorConfig::new().set_accelerator_count(42);
+    /// ```
     pub fn set_accelerator_count<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.accelerator_count = v.into();
         self
     }
 
     /// Sets the value of [accelerator_type][crate::model::AcceleratorConfig::accelerator_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::AcceleratorConfig;
+    /// let x = AcceleratorConfig::new().set_accelerator_type("example");
+    /// ```
     pub fn set_accelerator_type<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -20023,6 +26833,12 @@ impl AcceleratorConfig {
     }
 
     /// Sets the value of [gpu_partition_size][crate::model::AcceleratorConfig::gpu_partition_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::AcceleratorConfig;
+    /// let x = AcceleratorConfig::new().set_gpu_partition_size("example");
+    /// ```
     pub fn set_gpu_partition_size<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -20032,6 +26848,13 @@ impl AcceleratorConfig {
     }
 
     /// Sets the value of [gpu_sharing_config][crate::model::AcceleratorConfig::gpu_sharing_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::AcceleratorConfig;
+    /// use google_cloud_container_v1::model::GPUSharingConfig;
+    /// let x = AcceleratorConfig::new().set_gpu_sharing_config(GPUSharingConfig::default()/* use setters */);
+    /// ```
     pub fn set_gpu_sharing_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::GPUSharingConfig>,
@@ -20041,6 +26864,14 @@ impl AcceleratorConfig {
     }
 
     /// Sets or clears the value of [gpu_sharing_config][crate::model::AcceleratorConfig::gpu_sharing_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::AcceleratorConfig;
+    /// use google_cloud_container_v1::model::GPUSharingConfig;
+    /// let x = AcceleratorConfig::new().set_or_clear_gpu_sharing_config(Some(GPUSharingConfig::default()/* use setters */));
+    /// let x = AcceleratorConfig::new().set_or_clear_gpu_sharing_config(None::<GPUSharingConfig>);
+    /// ```
     pub fn set_or_clear_gpu_sharing_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::GPUSharingConfig>,
@@ -20050,6 +26881,13 @@ impl AcceleratorConfig {
     }
 
     /// Sets the value of [gpu_driver_installation_config][crate::model::AcceleratorConfig::gpu_driver_installation_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::AcceleratorConfig;
+    /// use google_cloud_container_v1::model::GPUDriverInstallationConfig;
+    /// let x = AcceleratorConfig::new().set_gpu_driver_installation_config(GPUDriverInstallationConfig::default()/* use setters */);
+    /// ```
     pub fn set_gpu_driver_installation_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::GPUDriverInstallationConfig>,
@@ -20059,6 +26897,14 @@ impl AcceleratorConfig {
     }
 
     /// Sets or clears the value of [gpu_driver_installation_config][crate::model::AcceleratorConfig::gpu_driver_installation_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::AcceleratorConfig;
+    /// use google_cloud_container_v1::model::GPUDriverInstallationConfig;
+    /// let x = AcceleratorConfig::new().set_or_clear_gpu_driver_installation_config(Some(GPUDriverInstallationConfig::default()/* use setters */));
+    /// let x = AcceleratorConfig::new().set_or_clear_gpu_driver_installation_config(None::<GPUDriverInstallationConfig>);
+    /// ```
     pub fn set_or_clear_gpu_driver_installation_config<T>(
         mut self,
         v: std::option::Option<T>,
@@ -20098,12 +26944,26 @@ impl GPUSharingConfig {
     }
 
     /// Sets the value of [max_shared_clients_per_gpu][crate::model::GPUSharingConfig::max_shared_clients_per_gpu].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::GPUSharingConfig;
+    /// let x = GPUSharingConfig::new().set_max_shared_clients_per_gpu(42);
+    /// ```
     pub fn set_max_shared_clients_per_gpu<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.max_shared_clients_per_gpu = v.into();
         self
     }
 
     /// Sets the value of [gpu_sharing_strategy][crate::model::GPUSharingConfig::gpu_sharing_strategy].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::GPUSharingConfig;
+    /// use google_cloud_container_v1::model::gpu_sharing_config::GPUSharingStrategy;
+    /// let x0 = GPUSharingConfig::new().set_gpu_sharing_strategy(GPUSharingStrategy::TimeSharing);
+    /// let x1 = GPUSharingConfig::new().set_gpu_sharing_strategy(GPUSharingStrategy::Mps);
+    /// ```
     pub fn set_gpu_sharing_strategy<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::gpu_sharing_config::GPUSharingStrategy>,
@@ -20113,6 +26973,15 @@ impl GPUSharingConfig {
     }
 
     /// Sets or clears the value of [gpu_sharing_strategy][crate::model::GPUSharingConfig::gpu_sharing_strategy].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::GPUSharingConfig;
+    /// use google_cloud_container_v1::model::gpu_sharing_config::GPUSharingStrategy;
+    /// let x0 = GPUSharingConfig::new().set_or_clear_gpu_sharing_strategy(Some(GPUSharingStrategy::TimeSharing));
+    /// let x1 = GPUSharingConfig::new().set_or_clear_gpu_sharing_strategy(Some(GPUSharingStrategy::Mps));
+    /// let x_none = GPUSharingConfig::new().set_or_clear_gpu_sharing_strategy(None::<GPUSharingStrategy>);
+    /// ```
     pub fn set_or_clear_gpu_sharing_strategy<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::gpu_sharing_config::GPUSharingStrategy>,
@@ -20284,6 +27153,15 @@ impl GPUDriverInstallationConfig {
     }
 
     /// Sets the value of [gpu_driver_version][crate::model::GPUDriverInstallationConfig::gpu_driver_version].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::GPUDriverInstallationConfig;
+    /// use google_cloud_container_v1::model::gpu_driver_installation_config::GPUDriverVersion;
+    /// let x0 = GPUDriverInstallationConfig::new().set_gpu_driver_version(GPUDriverVersion::InstallationDisabled);
+    /// let x1 = GPUDriverInstallationConfig::new().set_gpu_driver_version(GPUDriverVersion::Default);
+    /// let x2 = GPUDriverInstallationConfig::new().set_gpu_driver_version(GPUDriverVersion::Latest);
+    /// ```
     pub fn set_gpu_driver_version<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::gpu_driver_installation_config::GPUDriverVersion>,
@@ -20293,6 +27171,16 @@ impl GPUDriverInstallationConfig {
     }
 
     /// Sets or clears the value of [gpu_driver_version][crate::model::GPUDriverInstallationConfig::gpu_driver_version].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::GPUDriverInstallationConfig;
+    /// use google_cloud_container_v1::model::gpu_driver_installation_config::GPUDriverVersion;
+    /// let x0 = GPUDriverInstallationConfig::new().set_or_clear_gpu_driver_version(Some(GPUDriverVersion::InstallationDisabled));
+    /// let x1 = GPUDriverInstallationConfig::new().set_or_clear_gpu_driver_version(Some(GPUDriverVersion::Default));
+    /// let x2 = GPUDriverInstallationConfig::new().set_or_clear_gpu_driver_version(Some(GPUDriverVersion::Latest));
+    /// let x_none = GPUDriverInstallationConfig::new().set_or_clear_gpu_driver_version(None::<GPUDriverVersion>);
+    /// ```
     pub fn set_or_clear_gpu_driver_version<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::gpu_driver_installation_config::GPUDriverVersion>,
@@ -20471,6 +27359,14 @@ impl WorkloadMetadataConfig {
     }
 
     /// Sets the value of [mode][crate::model::WorkloadMetadataConfig::mode].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::WorkloadMetadataConfig;
+    /// use google_cloud_container_v1::model::workload_metadata_config::Mode;
+    /// let x0 = WorkloadMetadataConfig::new().set_mode(Mode::GceMetadata);
+    /// let x1 = WorkloadMetadataConfig::new().set_mode(Mode::GkeMetadata);
+    /// ```
     pub fn set_mode<T: std::convert::Into<crate::model::workload_metadata_config::Mode>>(
         mut self,
         v: T,
@@ -20667,6 +27563,12 @@ impl SetNetworkPolicyRequest {
     }
 
     /// Sets the value of [project_id][crate::model::SetNetworkPolicyRequest::project_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::SetNetworkPolicyRequest;
+    /// let x = SetNetworkPolicyRequest::new().set_project_id("example");
+    /// ```
     #[deprecated]
     pub fn set_project_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project_id = v.into();
@@ -20674,6 +27576,12 @@ impl SetNetworkPolicyRequest {
     }
 
     /// Sets the value of [zone][crate::model::SetNetworkPolicyRequest::zone].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::SetNetworkPolicyRequest;
+    /// let x = SetNetworkPolicyRequest::new().set_zone("example");
+    /// ```
     #[deprecated]
     pub fn set_zone<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.zone = v.into();
@@ -20681,6 +27589,12 @@ impl SetNetworkPolicyRequest {
     }
 
     /// Sets the value of [cluster_id][crate::model::SetNetworkPolicyRequest::cluster_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::SetNetworkPolicyRequest;
+    /// let x = SetNetworkPolicyRequest::new().set_cluster_id("example");
+    /// ```
     #[deprecated]
     pub fn set_cluster_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.cluster_id = v.into();
@@ -20688,6 +27602,13 @@ impl SetNetworkPolicyRequest {
     }
 
     /// Sets the value of [network_policy][crate::model::SetNetworkPolicyRequest::network_policy].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::SetNetworkPolicyRequest;
+    /// use google_cloud_container_v1::model::NetworkPolicy;
+    /// let x = SetNetworkPolicyRequest::new().set_network_policy(NetworkPolicy::default()/* use setters */);
+    /// ```
     pub fn set_network_policy<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::NetworkPolicy>,
@@ -20697,6 +27618,14 @@ impl SetNetworkPolicyRequest {
     }
 
     /// Sets or clears the value of [network_policy][crate::model::SetNetworkPolicyRequest::network_policy].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::SetNetworkPolicyRequest;
+    /// use google_cloud_container_v1::model::NetworkPolicy;
+    /// let x = SetNetworkPolicyRequest::new().set_or_clear_network_policy(Some(NetworkPolicy::default()/* use setters */));
+    /// let x = SetNetworkPolicyRequest::new().set_or_clear_network_policy(None::<NetworkPolicy>);
+    /// ```
     pub fn set_or_clear_network_policy<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::NetworkPolicy>,
@@ -20706,6 +27635,12 @@ impl SetNetworkPolicyRequest {
     }
 
     /// Sets the value of [name][crate::model::SetNetworkPolicyRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::SetNetworkPolicyRequest;
+    /// let x = SetNetworkPolicyRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -20752,24 +27687,49 @@ impl SetMaintenancePolicyRequest {
     }
 
     /// Sets the value of [project_id][crate::model::SetMaintenancePolicyRequest::project_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::SetMaintenancePolicyRequest;
+    /// let x = SetMaintenancePolicyRequest::new().set_project_id("example");
+    /// ```
     pub fn set_project_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project_id = v.into();
         self
     }
 
     /// Sets the value of [zone][crate::model::SetMaintenancePolicyRequest::zone].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::SetMaintenancePolicyRequest;
+    /// let x = SetMaintenancePolicyRequest::new().set_zone("example");
+    /// ```
     pub fn set_zone<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.zone = v.into();
         self
     }
 
     /// Sets the value of [cluster_id][crate::model::SetMaintenancePolicyRequest::cluster_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::SetMaintenancePolicyRequest;
+    /// let x = SetMaintenancePolicyRequest::new().set_cluster_id("example");
+    /// ```
     pub fn set_cluster_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.cluster_id = v.into();
         self
     }
 
     /// Sets the value of [maintenance_policy][crate::model::SetMaintenancePolicyRequest::maintenance_policy].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::SetMaintenancePolicyRequest;
+    /// use google_cloud_container_v1::model::MaintenancePolicy;
+    /// let x = SetMaintenancePolicyRequest::new().set_maintenance_policy(MaintenancePolicy::default()/* use setters */);
+    /// ```
     pub fn set_maintenance_policy<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::MaintenancePolicy>,
@@ -20779,6 +27739,14 @@ impl SetMaintenancePolicyRequest {
     }
 
     /// Sets or clears the value of [maintenance_policy][crate::model::SetMaintenancePolicyRequest::maintenance_policy].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::SetMaintenancePolicyRequest;
+    /// use google_cloud_container_v1::model::MaintenancePolicy;
+    /// let x = SetMaintenancePolicyRequest::new().set_or_clear_maintenance_policy(Some(MaintenancePolicy::default()/* use setters */));
+    /// let x = SetMaintenancePolicyRequest::new().set_or_clear_maintenance_policy(None::<MaintenancePolicy>);
+    /// ```
     pub fn set_or_clear_maintenance_policy<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::MaintenancePolicy>,
@@ -20788,6 +27756,12 @@ impl SetMaintenancePolicyRequest {
     }
 
     /// Sets the value of [name][crate::model::SetMaintenancePolicyRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::SetMaintenancePolicyRequest;
+    /// let x = SetMaintenancePolicyRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -20825,6 +27799,15 @@ impl StatusCondition {
     }
 
     /// Sets the value of [code][crate::model::StatusCondition::code].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::StatusCondition;
+    /// use google_cloud_container_v1::model::status_condition::Code;
+    /// let x0 = StatusCondition::new().set_code(Code::GceStockout);
+    /// let x1 = StatusCondition::new().set_code(Code::GkeServiceAccountDeleted);
+    /// let x2 = StatusCondition::new().set_code(Code::GceQuotaExceeded);
+    /// ```
     #[deprecated]
     pub fn set_code<T: std::convert::Into<crate::model::status_condition::Code>>(
         mut self,
@@ -20835,12 +27818,27 @@ impl StatusCondition {
     }
 
     /// Sets the value of [message][crate::model::StatusCondition::message].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::StatusCondition;
+    /// let x = StatusCondition::new().set_message("example");
+    /// ```
     pub fn set_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.message = v.into();
         self
     }
 
     /// Sets the value of [canonical_code][crate::model::StatusCondition::canonical_code].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::StatusCondition;
+    /// use rpc::model::Code;
+    /// let x0 = StatusCondition::new().set_canonical_code(Code::Cancelled);
+    /// let x1 = StatusCondition::new().set_canonical_code(Code::Unknown);
+    /// let x2 = StatusCondition::new().set_canonical_code(Code::InvalidArgument);
+    /// ```
     pub fn set_canonical_code<T: std::convert::Into<rpc::model::Code>>(mut self, v: T) -> Self {
         self.canonical_code = v.into();
         self
@@ -21130,24 +28128,49 @@ impl NetworkConfig {
     }
 
     /// Sets the value of [network][crate::model::NetworkConfig::network].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NetworkConfig;
+    /// let x = NetworkConfig::new().set_network("example");
+    /// ```
     pub fn set_network<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.network = v.into();
         self
     }
 
     /// Sets the value of [subnetwork][crate::model::NetworkConfig::subnetwork].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NetworkConfig;
+    /// let x = NetworkConfig::new().set_subnetwork("example");
+    /// ```
     pub fn set_subnetwork<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.subnetwork = v.into();
         self
     }
 
     /// Sets the value of [enable_intra_node_visibility][crate::model::NetworkConfig::enable_intra_node_visibility].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NetworkConfig;
+    /// let x = NetworkConfig::new().set_enable_intra_node_visibility(true);
+    /// ```
     pub fn set_enable_intra_node_visibility<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.enable_intra_node_visibility = v.into();
         self
     }
 
     /// Sets the value of [default_snat_status][crate::model::NetworkConfig::default_snat_status].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NetworkConfig;
+    /// use google_cloud_container_v1::model::DefaultSnatStatus;
+    /// let x = NetworkConfig::new().set_default_snat_status(DefaultSnatStatus::default()/* use setters */);
+    /// ```
     pub fn set_default_snat_status<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::DefaultSnatStatus>,
@@ -21157,6 +28180,14 @@ impl NetworkConfig {
     }
 
     /// Sets or clears the value of [default_snat_status][crate::model::NetworkConfig::default_snat_status].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NetworkConfig;
+    /// use google_cloud_container_v1::model::DefaultSnatStatus;
+    /// let x = NetworkConfig::new().set_or_clear_default_snat_status(Some(DefaultSnatStatus::default()/* use setters */));
+    /// let x = NetworkConfig::new().set_or_clear_default_snat_status(None::<DefaultSnatStatus>);
+    /// ```
     pub fn set_or_clear_default_snat_status<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DefaultSnatStatus>,
@@ -21166,12 +28197,26 @@ impl NetworkConfig {
     }
 
     /// Sets the value of [enable_l4ilb_subsetting][crate::model::NetworkConfig::enable_l4ilb_subsetting].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NetworkConfig;
+    /// let x = NetworkConfig::new().set_enable_l4ilb_subsetting(true);
+    /// ```
     pub fn set_enable_l4ilb_subsetting<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.enable_l4ilb_subsetting = v.into();
         self
     }
 
     /// Sets the value of [datapath_provider][crate::model::NetworkConfig::datapath_provider].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NetworkConfig;
+    /// use google_cloud_container_v1::model::DatapathProvider;
+    /// let x0 = NetworkConfig::new().set_datapath_provider(DatapathProvider::LegacyDatapath);
+    /// let x1 = NetworkConfig::new().set_datapath_provider(DatapathProvider::AdvancedDatapath);
+    /// ```
     pub fn set_datapath_provider<T: std::convert::Into<crate::model::DatapathProvider>>(
         mut self,
         v: T,
@@ -21181,6 +28226,15 @@ impl NetworkConfig {
     }
 
     /// Sets the value of [private_ipv6_google_access][crate::model::NetworkConfig::private_ipv6_google_access].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NetworkConfig;
+    /// use google_cloud_container_v1::model::PrivateIPv6GoogleAccess;
+    /// let x0 = NetworkConfig::new().set_private_ipv6_google_access(PrivateIPv6GoogleAccess::PrivateIpv6GoogleAccessDisabled);
+    /// let x1 = NetworkConfig::new().set_private_ipv6_google_access(PrivateIPv6GoogleAccess::PrivateIpv6GoogleAccessToGoogle);
+    /// let x2 = NetworkConfig::new().set_private_ipv6_google_access(PrivateIPv6GoogleAccess::PrivateIpv6GoogleAccessBidirectional);
+    /// ```
     pub fn set_private_ipv6_google_access<
         T: std::convert::Into<crate::model::PrivateIPv6GoogleAccess>,
     >(
@@ -21192,6 +28246,13 @@ impl NetworkConfig {
     }
 
     /// Sets the value of [dns_config][crate::model::NetworkConfig::dns_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NetworkConfig;
+    /// use google_cloud_container_v1::model::DNSConfig;
+    /// let x = NetworkConfig::new().set_dns_config(DNSConfig::default()/* use setters */);
+    /// ```
     pub fn set_dns_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::DNSConfig>,
@@ -21201,6 +28262,14 @@ impl NetworkConfig {
     }
 
     /// Sets or clears the value of [dns_config][crate::model::NetworkConfig::dns_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NetworkConfig;
+    /// use google_cloud_container_v1::model::DNSConfig;
+    /// let x = NetworkConfig::new().set_or_clear_dns_config(Some(DNSConfig::default()/* use setters */));
+    /// let x = NetworkConfig::new().set_or_clear_dns_config(None::<DNSConfig>);
+    /// ```
     pub fn set_or_clear_dns_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DNSConfig>,
@@ -21210,6 +28279,13 @@ impl NetworkConfig {
     }
 
     /// Sets the value of [service_external_ips_config][crate::model::NetworkConfig::service_external_ips_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NetworkConfig;
+    /// use google_cloud_container_v1::model::ServiceExternalIPsConfig;
+    /// let x = NetworkConfig::new().set_service_external_ips_config(ServiceExternalIPsConfig::default()/* use setters */);
+    /// ```
     pub fn set_service_external_ips_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ServiceExternalIPsConfig>,
@@ -21219,6 +28295,14 @@ impl NetworkConfig {
     }
 
     /// Sets or clears the value of [service_external_ips_config][crate::model::NetworkConfig::service_external_ips_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NetworkConfig;
+    /// use google_cloud_container_v1::model::ServiceExternalIPsConfig;
+    /// let x = NetworkConfig::new().set_or_clear_service_external_ips_config(Some(ServiceExternalIPsConfig::default()/* use setters */));
+    /// let x = NetworkConfig::new().set_or_clear_service_external_ips_config(None::<ServiceExternalIPsConfig>);
+    /// ```
     pub fn set_or_clear_service_external_ips_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ServiceExternalIPsConfig>,
@@ -21228,6 +28312,13 @@ impl NetworkConfig {
     }
 
     /// Sets the value of [gateway_api_config][crate::model::NetworkConfig::gateway_api_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NetworkConfig;
+    /// use google_cloud_container_v1::model::GatewayAPIConfig;
+    /// let x = NetworkConfig::new().set_gateway_api_config(GatewayAPIConfig::default()/* use setters */);
+    /// ```
     pub fn set_gateway_api_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::GatewayAPIConfig>,
@@ -21237,6 +28328,14 @@ impl NetworkConfig {
     }
 
     /// Sets or clears the value of [gateway_api_config][crate::model::NetworkConfig::gateway_api_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NetworkConfig;
+    /// use google_cloud_container_v1::model::GatewayAPIConfig;
+    /// let x = NetworkConfig::new().set_or_clear_gateway_api_config(Some(GatewayAPIConfig::default()/* use setters */));
+    /// let x = NetworkConfig::new().set_or_clear_gateway_api_config(None::<GatewayAPIConfig>);
+    /// ```
     pub fn set_or_clear_gateway_api_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::GatewayAPIConfig>,
@@ -21246,12 +28345,25 @@ impl NetworkConfig {
     }
 
     /// Sets the value of [enable_multi_networking][crate::model::NetworkConfig::enable_multi_networking].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NetworkConfig;
+    /// let x = NetworkConfig::new().set_enable_multi_networking(true);
+    /// ```
     pub fn set_enable_multi_networking<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.enable_multi_networking = v.into();
         self
     }
 
     /// Sets the value of [network_performance_config][crate::model::NetworkConfig::network_performance_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NetworkConfig;
+    /// use google_cloud_container_v1::model::network_config::ClusterNetworkPerformanceConfig;
+    /// let x = NetworkConfig::new().set_network_performance_config(ClusterNetworkPerformanceConfig::default()/* use setters */);
+    /// ```
     pub fn set_network_performance_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::network_config::ClusterNetworkPerformanceConfig>,
@@ -21261,6 +28373,14 @@ impl NetworkConfig {
     }
 
     /// Sets or clears the value of [network_performance_config][crate::model::NetworkConfig::network_performance_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NetworkConfig;
+    /// use google_cloud_container_v1::model::network_config::ClusterNetworkPerformanceConfig;
+    /// let x = NetworkConfig::new().set_or_clear_network_performance_config(Some(ClusterNetworkPerformanceConfig::default()/* use setters */));
+    /// let x = NetworkConfig::new().set_or_clear_network_performance_config(None::<ClusterNetworkPerformanceConfig>);
+    /// ```
     pub fn set_or_clear_network_performance_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::network_config::ClusterNetworkPerformanceConfig>,
@@ -21270,6 +28390,12 @@ impl NetworkConfig {
     }
 
     /// Sets the value of [enable_fqdn_network_policy][crate::model::NetworkConfig::enable_fqdn_network_policy].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NetworkConfig;
+    /// let x = NetworkConfig::new().set_enable_fqdn_network_policy(true);
+    /// ```
     pub fn set_enable_fqdn_network_policy<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<bool>,
@@ -21279,6 +28405,13 @@ impl NetworkConfig {
     }
 
     /// Sets or clears the value of [enable_fqdn_network_policy][crate::model::NetworkConfig::enable_fqdn_network_policy].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NetworkConfig;
+    /// let x = NetworkConfig::new().set_or_clear_enable_fqdn_network_policy(Some(false));
+    /// let x = NetworkConfig::new().set_or_clear_enable_fqdn_network_policy(None::<bool>);
+    /// ```
     pub fn set_or_clear_enable_fqdn_network_policy<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<bool>,
@@ -21288,6 +28421,14 @@ impl NetworkConfig {
     }
 
     /// Sets the value of [in_transit_encryption_config][crate::model::NetworkConfig::in_transit_encryption_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NetworkConfig;
+    /// use google_cloud_container_v1::model::InTransitEncryptionConfig;
+    /// let x0 = NetworkConfig::new().set_in_transit_encryption_config(InTransitEncryptionConfig::InTransitEncryptionDisabled);
+    /// let x1 = NetworkConfig::new().set_in_transit_encryption_config(InTransitEncryptionConfig::InTransitEncryptionInterNodeTransparent);
+    /// ```
     pub fn set_in_transit_encryption_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::InTransitEncryptionConfig>,
@@ -21297,6 +28438,15 @@ impl NetworkConfig {
     }
 
     /// Sets or clears the value of [in_transit_encryption_config][crate::model::NetworkConfig::in_transit_encryption_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NetworkConfig;
+    /// use google_cloud_container_v1::model::InTransitEncryptionConfig;
+    /// let x0 = NetworkConfig::new().set_or_clear_in_transit_encryption_config(Some(InTransitEncryptionConfig::InTransitEncryptionDisabled));
+    /// let x1 = NetworkConfig::new().set_or_clear_in_transit_encryption_config(Some(InTransitEncryptionConfig::InTransitEncryptionInterNodeTransparent));
+    /// let x_none = NetworkConfig::new().set_or_clear_in_transit_encryption_config(None::<InTransitEncryptionConfig>);
+    /// ```
     pub fn set_or_clear_in_transit_encryption_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::InTransitEncryptionConfig>,
@@ -21306,6 +28456,12 @@ impl NetworkConfig {
     }
 
     /// Sets the value of [enable_cilium_clusterwide_network_policy][crate::model::NetworkConfig::enable_cilium_clusterwide_network_policy].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NetworkConfig;
+    /// let x = NetworkConfig::new().set_enable_cilium_clusterwide_network_policy(true);
+    /// ```
     pub fn set_enable_cilium_clusterwide_network_policy<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<bool>,
@@ -21315,6 +28471,13 @@ impl NetworkConfig {
     }
 
     /// Sets or clears the value of [enable_cilium_clusterwide_network_policy][crate::model::NetworkConfig::enable_cilium_clusterwide_network_policy].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NetworkConfig;
+    /// let x = NetworkConfig::new().set_or_clear_enable_cilium_clusterwide_network_policy(Some(false));
+    /// let x = NetworkConfig::new().set_or_clear_enable_cilium_clusterwide_network_policy(None::<bool>);
+    /// ```
     pub fn set_or_clear_enable_cilium_clusterwide_network_policy<T>(
         mut self,
         v: std::option::Option<T>,
@@ -21327,6 +28490,12 @@ impl NetworkConfig {
     }
 
     /// Sets the value of [default_enable_private_nodes][crate::model::NetworkConfig::default_enable_private_nodes].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NetworkConfig;
+    /// let x = NetworkConfig::new().set_default_enable_private_nodes(true);
+    /// ```
     pub fn set_default_enable_private_nodes<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<bool>,
@@ -21336,6 +28505,13 @@ impl NetworkConfig {
     }
 
     /// Sets or clears the value of [default_enable_private_nodes][crate::model::NetworkConfig::default_enable_private_nodes].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NetworkConfig;
+    /// let x = NetworkConfig::new().set_or_clear_default_enable_private_nodes(Some(false));
+    /// let x = NetworkConfig::new().set_or_clear_default_enable_private_nodes(None::<bool>);
+    /// ```
     pub fn set_or_clear_default_enable_private_nodes<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<bool>,
@@ -21345,6 +28521,12 @@ impl NetworkConfig {
     }
 
     /// Sets the value of [disable_l4_lb_firewall_reconciliation][crate::model::NetworkConfig::disable_l4_lb_firewall_reconciliation].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NetworkConfig;
+    /// let x = NetworkConfig::new().set_disable_l4_lb_firewall_reconciliation(true);
+    /// ```
     pub fn set_disable_l4_lb_firewall_reconciliation<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<bool>,
@@ -21354,6 +28536,13 @@ impl NetworkConfig {
     }
 
     /// Sets or clears the value of [disable_l4_lb_firewall_reconciliation][crate::model::NetworkConfig::disable_l4_lb_firewall_reconciliation].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NetworkConfig;
+    /// let x = NetworkConfig::new().set_or_clear_disable_l4_lb_firewall_reconciliation(Some(false));
+    /// let x = NetworkConfig::new().set_or_clear_disable_l4_lb_firewall_reconciliation(None::<bool>);
+    /// ```
     pub fn set_or_clear_disable_l4_lb_firewall_reconciliation<T>(
         mut self,
         v: std::option::Option<T>,
@@ -21395,6 +28584,13 @@ pub mod network_config {
         }
 
         /// Sets the value of [total_egress_bandwidth_tier][crate::model::network_config::ClusterNetworkPerformanceConfig::total_egress_bandwidth_tier].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_container_v1::model::network_config::ClusterNetworkPerformanceConfig;
+        /// use google_cloud_container_v1::model::network_config::cluster_network_performance_config::Tier;
+        /// let x0 = ClusterNetworkPerformanceConfig::new().set_total_egress_bandwidth_tier(Tier::Tier1);
+        /// ```
         pub fn set_total_egress_bandwidth_tier<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<
@@ -21406,6 +28602,14 @@ pub mod network_config {
         }
 
         /// Sets or clears the value of [total_egress_bandwidth_tier][crate::model::network_config::ClusterNetworkPerformanceConfig::total_egress_bandwidth_tier].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_container_v1::model::network_config::ClusterNetworkPerformanceConfig;
+        /// use google_cloud_container_v1::model::network_config::cluster_network_performance_config::Tier;
+        /// let x0 = ClusterNetworkPerformanceConfig::new().set_or_clear_total_egress_bandwidth_tier(Some(Tier::Tier1));
+        /// let x_none = ClusterNetworkPerformanceConfig::new().set_or_clear_total_egress_bandwidth_tier(None::<Tier>);
+        /// ```
         pub fn set_or_clear_total_egress_bandwidth_tier<T>(
             mut self,
             v: std::option::Option<T>,
@@ -21577,6 +28781,14 @@ impl GatewayAPIConfig {
     }
 
     /// Sets the value of [channel][crate::model::GatewayAPIConfig::channel].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::GatewayAPIConfig;
+    /// use google_cloud_container_v1::model::gateway_api_config::Channel;
+    /// let x0 = GatewayAPIConfig::new().set_channel(Channel::Disabled);
+    /// let x1 = GatewayAPIConfig::new().set_channel(Channel::Standard);
+    /// ```
     pub fn set_channel<T: std::convert::Into<crate::model::gateway_api_config::Channel>>(
         mut self,
         v: T,
@@ -21756,6 +28968,12 @@ impl ServiceExternalIPsConfig {
     }
 
     /// Sets the value of [enabled][crate::model::ServiceExternalIPsConfig::enabled].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::ServiceExternalIPsConfig;
+    /// let x = ServiceExternalIPsConfig::new().set_enabled(true);
+    /// ```
     pub fn set_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.enabled = v.into();
         self
@@ -21786,6 +29004,12 @@ impl GetOpenIDConfigRequest {
     }
 
     /// Sets the value of [parent][crate::model::GetOpenIDConfigRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::GetOpenIDConfigRequest;
+    /// let x = GetOpenIDConfigRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
@@ -21833,18 +29057,36 @@ impl GetOpenIDConfigResponse {
     }
 
     /// Sets the value of [issuer][crate::model::GetOpenIDConfigResponse::issuer].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::GetOpenIDConfigResponse;
+    /// let x = GetOpenIDConfigResponse::new().set_issuer("example");
+    /// ```
     pub fn set_issuer<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.issuer = v.into();
         self
     }
 
     /// Sets the value of [jwks_uri][crate::model::GetOpenIDConfigResponse::jwks_uri].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::GetOpenIDConfigResponse;
+    /// let x = GetOpenIDConfigResponse::new().set_jwks_uri("example");
+    /// ```
     pub fn set_jwks_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.jwks_uri = v.into();
         self
     }
 
     /// Sets the value of [response_types_supported][crate::model::GetOpenIDConfigResponse::response_types_supported].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::GetOpenIDConfigResponse;
+    /// let x = GetOpenIDConfigResponse::new().set_response_types_supported(["a", "b", "c"]);
+    /// ```
     pub fn set_response_types_supported<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -21856,6 +29098,12 @@ impl GetOpenIDConfigResponse {
     }
 
     /// Sets the value of [subject_types_supported][crate::model::GetOpenIDConfigResponse::subject_types_supported].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::GetOpenIDConfigResponse;
+    /// let x = GetOpenIDConfigResponse::new().set_subject_types_supported(["a", "b", "c"]);
+    /// ```
     pub fn set_subject_types_supported<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -21867,6 +29115,12 @@ impl GetOpenIDConfigResponse {
     }
 
     /// Sets the value of [id_token_signing_alg_values_supported][crate::model::GetOpenIDConfigResponse::id_token_signing_alg_values_supported].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::GetOpenIDConfigResponse;
+    /// let x = GetOpenIDConfigResponse::new().set_id_token_signing_alg_values_supported(["a", "b", "c"]);
+    /// ```
     pub fn set_id_token_signing_alg_values_supported<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -21878,6 +29132,12 @@ impl GetOpenIDConfigResponse {
     }
 
     /// Sets the value of [claims_supported][crate::model::GetOpenIDConfigResponse::claims_supported].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::GetOpenIDConfigResponse;
+    /// let x = GetOpenIDConfigResponse::new().set_claims_supported(["a", "b", "c"]);
+    /// ```
     pub fn set_claims_supported<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -21889,6 +29149,12 @@ impl GetOpenIDConfigResponse {
     }
 
     /// Sets the value of [grant_types][crate::model::GetOpenIDConfigResponse::grant_types].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::GetOpenIDConfigResponse;
+    /// let x = GetOpenIDConfigResponse::new().set_grant_types(["a", "b", "c"]);
+    /// ```
     pub fn set_grant_types<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -21926,6 +29192,12 @@ impl GetJSONWebKeysRequest {
     }
 
     /// Sets the value of [parent][crate::model::GetJSONWebKeysRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::GetJSONWebKeysRequest;
+    /// let x = GetJSONWebKeysRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
@@ -21978,54 +29250,108 @@ impl Jwk {
     }
 
     /// Sets the value of [kty][crate::model::Jwk::kty].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::Jwk;
+    /// let x = Jwk::new().set_kty("example");
+    /// ```
     pub fn set_kty<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.kty = v.into();
         self
     }
 
     /// Sets the value of [alg][crate::model::Jwk::alg].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::Jwk;
+    /// let x = Jwk::new().set_alg("example");
+    /// ```
     pub fn set_alg<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.alg = v.into();
         self
     }
 
     /// Sets the value of [r#use][crate::model::Jwk::use].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::Jwk;
+    /// let x = Jwk::new().set_use("example");
+    /// ```
     pub fn set_use<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.r#use = v.into();
         self
     }
 
     /// Sets the value of [kid][crate::model::Jwk::kid].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::Jwk;
+    /// let x = Jwk::new().set_kid("example");
+    /// ```
     pub fn set_kid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.kid = v.into();
         self
     }
 
     /// Sets the value of [n][crate::model::Jwk::n].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::Jwk;
+    /// let x = Jwk::new().set_n("example");
+    /// ```
     pub fn set_n<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.n = v.into();
         self
     }
 
     /// Sets the value of [e][crate::model::Jwk::e].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::Jwk;
+    /// let x = Jwk::new().set_e("example");
+    /// ```
     pub fn set_e<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.e = v.into();
         self
     }
 
     /// Sets the value of [x][crate::model::Jwk::x].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::Jwk;
+    /// let x = Jwk::new().set_x("example");
+    /// ```
     pub fn set_x<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.x = v.into();
         self
     }
 
     /// Sets the value of [y][crate::model::Jwk::y].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::Jwk;
+    /// let x = Jwk::new().set_y("example");
+    /// ```
     pub fn set_y<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.y = v.into();
         self
     }
 
     /// Sets the value of [crv][crate::model::Jwk::crv].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::Jwk;
+    /// let x = Jwk::new().set_crv("example");
+    /// ```
     pub fn set_crv<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.crv = v.into();
         self
@@ -22055,6 +29381,17 @@ impl GetJSONWebKeysResponse {
     }
 
     /// Sets the value of [keys][crate::model::GetJSONWebKeysResponse::keys].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::GetJSONWebKeysResponse;
+    /// use google_cloud_container_v1::model::Jwk;
+    /// let x = GetJSONWebKeysResponse::new()
+    ///     .set_keys([
+    ///         Jwk::default()/* use setters */,
+    ///         Jwk::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_keys<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -22090,6 +29427,12 @@ impl CheckAutopilotCompatibilityRequest {
     }
 
     /// Sets the value of [name][crate::model::CheckAutopilotCompatibilityRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::CheckAutopilotCompatibilityRequest;
+    /// let x = CheckAutopilotCompatibilityRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -22134,6 +29477,13 @@ impl AutopilotCompatibilityIssue {
     }
 
     /// Sets the value of [last_observation][crate::model::AutopilotCompatibilityIssue::last_observation].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::AutopilotCompatibilityIssue;
+    /// use wkt::Timestamp;
+    /// let x = AutopilotCompatibilityIssue::new().set_last_observation(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_last_observation<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -22143,6 +29493,14 @@ impl AutopilotCompatibilityIssue {
     }
 
     /// Sets or clears the value of [last_observation][crate::model::AutopilotCompatibilityIssue::last_observation].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::AutopilotCompatibilityIssue;
+    /// use wkt::Timestamp;
+    /// let x = AutopilotCompatibilityIssue::new().set_or_clear_last_observation(Some(Timestamp::default()/* use setters */));
+    /// let x = AutopilotCompatibilityIssue::new().set_or_clear_last_observation(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_last_observation<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -22152,12 +29510,27 @@ impl AutopilotCompatibilityIssue {
     }
 
     /// Sets the value of [constraint_type][crate::model::AutopilotCompatibilityIssue::constraint_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::AutopilotCompatibilityIssue;
+    /// let x = AutopilotCompatibilityIssue::new().set_constraint_type("example");
+    /// ```
     pub fn set_constraint_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.constraint_type = v.into();
         self
     }
 
     /// Sets the value of [incompatibility_type][crate::model::AutopilotCompatibilityIssue::incompatibility_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::AutopilotCompatibilityIssue;
+    /// use google_cloud_container_v1::model::autopilot_compatibility_issue::IssueType;
+    /// let x0 = AutopilotCompatibilityIssue::new().set_incompatibility_type(IssueType::Incompatibility);
+    /// let x1 = AutopilotCompatibilityIssue::new().set_incompatibility_type(IssueType::AdditionalConfigRequired);
+    /// let x2 = AutopilotCompatibilityIssue::new().set_incompatibility_type(IssueType::PassedWithOptionalConfig);
+    /// ```
     pub fn set_incompatibility_type<
         T: std::convert::Into<crate::model::autopilot_compatibility_issue::IssueType>,
     >(
@@ -22169,6 +29542,12 @@ impl AutopilotCompatibilityIssue {
     }
 
     /// Sets the value of [subjects][crate::model::AutopilotCompatibilityIssue::subjects].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::AutopilotCompatibilityIssue;
+    /// let x = AutopilotCompatibilityIssue::new().set_subjects(["a", "b", "c"]);
+    /// ```
     pub fn set_subjects<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -22180,6 +29559,12 @@ impl AutopilotCompatibilityIssue {
     }
 
     /// Sets the value of [documentation_url][crate::model::AutopilotCompatibilityIssue::documentation_url].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::AutopilotCompatibilityIssue;
+    /// let x = AutopilotCompatibilityIssue::new().set_documentation_url("example");
+    /// ```
     pub fn set_documentation_url<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -22189,6 +29574,12 @@ impl AutopilotCompatibilityIssue {
     }
 
     /// Sets the value of [description][crate::model::AutopilotCompatibilityIssue::description].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::AutopilotCompatibilityIssue;
+    /// let x = AutopilotCompatibilityIssue::new().set_description("example");
+    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
@@ -22373,6 +29764,17 @@ impl CheckAutopilotCompatibilityResponse {
     }
 
     /// Sets the value of [issues][crate::model::CheckAutopilotCompatibilityResponse::issues].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::CheckAutopilotCompatibilityResponse;
+    /// use google_cloud_container_v1::model::AutopilotCompatibilityIssue;
+    /// let x = CheckAutopilotCompatibilityResponse::new()
+    ///     .set_issues([
+    ///         AutopilotCompatibilityIssue::default()/* use setters */,
+    ///         AutopilotCompatibilityIssue::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_issues<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -22384,6 +29786,12 @@ impl CheckAutopilotCompatibilityResponse {
     }
 
     /// Sets the value of [summary][crate::model::CheckAutopilotCompatibilityResponse::summary].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::CheckAutopilotCompatibilityResponse;
+    /// let x = CheckAutopilotCompatibilityResponse::new().set_summary("example");
+    /// ```
     pub fn set_summary<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.summary = v.into();
         self
@@ -22417,6 +29825,15 @@ impl ReleaseChannel {
     }
 
     /// Sets the value of [channel][crate::model::ReleaseChannel::channel].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::ReleaseChannel;
+    /// use google_cloud_container_v1::model::release_channel::Channel;
+    /// let x0 = ReleaseChannel::new().set_channel(Channel::Rapid);
+    /// let x1 = ReleaseChannel::new().set_channel(Channel::Regular);
+    /// let x2 = ReleaseChannel::new().set_channel(Channel::Stable);
+    /// ```
     pub fn set_channel<T: std::convert::Into<crate::model::release_channel::Channel>>(
         mut self,
         v: T,
@@ -22609,6 +30026,12 @@ impl CostManagementConfig {
     }
 
     /// Sets the value of [enabled][crate::model::CostManagementConfig::enabled].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::CostManagementConfig;
+    /// let x = CostManagementConfig::new().set_enabled(true);
+    /// ```
     pub fn set_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.enabled = v.into();
         self
@@ -22638,6 +30061,12 @@ impl IntraNodeVisibilityConfig {
     }
 
     /// Sets the value of [enabled][crate::model::IntraNodeVisibilityConfig::enabled].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::IntraNodeVisibilityConfig;
+    /// let x = IntraNodeVisibilityConfig::new().set_enabled(true);
+    /// ```
     pub fn set_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.enabled = v.into();
         self
@@ -22667,6 +30096,12 @@ impl ILBSubsettingConfig {
     }
 
     /// Sets the value of [enabled][crate::model::ILBSubsettingConfig::enabled].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::ILBSubsettingConfig;
+    /// let x = ILBSubsettingConfig::new().set_enabled(true);
+    /// ```
     pub fn set_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.enabled = v.into();
         self
@@ -22704,6 +30139,15 @@ impl DNSConfig {
     }
 
     /// Sets the value of [cluster_dns][crate::model::DNSConfig::cluster_dns].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::DNSConfig;
+    /// use google_cloud_container_v1::model::dns_config::Provider;
+    /// let x0 = DNSConfig::new().set_cluster_dns(Provider::PlatformDefault);
+    /// let x1 = DNSConfig::new().set_cluster_dns(Provider::CloudDns);
+    /// let x2 = DNSConfig::new().set_cluster_dns(Provider::KubeDns);
+    /// ```
     pub fn set_cluster_dns<T: std::convert::Into<crate::model::dns_config::Provider>>(
         mut self,
         v: T,
@@ -22713,6 +30157,14 @@ impl DNSConfig {
     }
 
     /// Sets the value of [cluster_dns_scope][crate::model::DNSConfig::cluster_dns_scope].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::DNSConfig;
+    /// use google_cloud_container_v1::model::dns_config::DNSScope;
+    /// let x0 = DNSConfig::new().set_cluster_dns_scope(DNSScope::ClusterScope);
+    /// let x1 = DNSConfig::new().set_cluster_dns_scope(DNSScope::VpcScope);
+    /// ```
     pub fn set_cluster_dns_scope<T: std::convert::Into<crate::model::dns_config::DNSScope>>(
         mut self,
         v: T,
@@ -22722,6 +30174,12 @@ impl DNSConfig {
     }
 
     /// Sets the value of [cluster_dns_domain][crate::model::DNSConfig::cluster_dns_domain].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::DNSConfig;
+    /// let x = DNSConfig::new().set_cluster_dns_domain("example");
+    /// ```
     pub fn set_cluster_dns_domain<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -22731,6 +30189,12 @@ impl DNSConfig {
     }
 
     /// Sets the value of [additive_vpc_scope_dns_domain][crate::model::DNSConfig::additive_vpc_scope_dns_domain].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::DNSConfig;
+    /// let x = DNSConfig::new().set_additive_vpc_scope_dns_domain("example");
+    /// ```
     pub fn set_additive_vpc_scope_dns_domain<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -23039,6 +30503,12 @@ impl MaxPodsConstraint {
     }
 
     /// Sets the value of [max_pods_per_node][crate::model::MaxPodsConstraint::max_pods_per_node].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::MaxPodsConstraint;
+    /// let x = MaxPodsConstraint::new().set_max_pods_per_node(42);
+    /// ```
     pub fn set_max_pods_per_node<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.max_pods_per_node = v.into();
         self
@@ -23067,6 +30537,12 @@ impl WorkloadIdentityConfig {
     }
 
     /// Sets the value of [workload_pool][crate::model::WorkloadIdentityConfig::workload_pool].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::WorkloadIdentityConfig;
+    /// let x = WorkloadIdentityConfig::new().set_workload_pool("example");
+    /// ```
     pub fn set_workload_pool<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.workload_pool = v.into();
         self
@@ -23096,6 +30572,12 @@ impl IdentityServiceConfig {
     }
 
     /// Sets the value of [enabled][crate::model::IdentityServiceConfig::enabled].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::IdentityServiceConfig;
+    /// let x = IdentityServiceConfig::new().set_enabled(true);
+    /// ```
     pub fn set_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.enabled = v.into();
         self
@@ -23134,6 +30616,13 @@ impl MeshCertificates {
     }
 
     /// Sets the value of [enable_certificates][crate::model::MeshCertificates::enable_certificates].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::MeshCertificates;
+    /// use wkt::BoolValue;
+    /// let x = MeshCertificates::new().set_enable_certificates(BoolValue::default()/* use setters */);
+    /// ```
     pub fn set_enable_certificates<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::BoolValue>,
@@ -23143,6 +30632,14 @@ impl MeshCertificates {
     }
 
     /// Sets or clears the value of [enable_certificates][crate::model::MeshCertificates::enable_certificates].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::MeshCertificates;
+    /// use wkt::BoolValue;
+    /// let x = MeshCertificates::new().set_or_clear_enable_certificates(Some(BoolValue::default()/* use setters */));
+    /// let x = MeshCertificates::new().set_or_clear_enable_certificates(None::<BoolValue>);
+    /// ```
     pub fn set_or_clear_enable_certificates<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::BoolValue>,
@@ -23191,12 +30688,26 @@ impl DatabaseEncryption {
     }
 
     /// Sets the value of [key_name][crate::model::DatabaseEncryption::key_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::DatabaseEncryption;
+    /// let x = DatabaseEncryption::new().set_key_name("example");
+    /// ```
     pub fn set_key_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.key_name = v.into();
         self
     }
 
     /// Sets the value of [state][crate::model::DatabaseEncryption::state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::DatabaseEncryption;
+    /// use google_cloud_container_v1::model::database_encryption::State;
+    /// let x0 = DatabaseEncryption::new().set_state(State::Encrypted);
+    /// let x1 = DatabaseEncryption::new().set_state(State::Decrypted);
+    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::database_encryption::State>>(
         mut self,
         v: T,
@@ -23206,6 +30717,15 @@ impl DatabaseEncryption {
     }
 
     /// Sets the value of [current_state][crate::model::DatabaseEncryption::current_state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::DatabaseEncryption;
+    /// use google_cloud_container_v1::model::database_encryption::CurrentState;
+    /// let x0 = DatabaseEncryption::new().set_current_state(CurrentState::Encrypted);
+    /// let x1 = DatabaseEncryption::new().set_current_state(CurrentState::Decrypted);
+    /// let x2 = DatabaseEncryption::new().set_current_state(CurrentState::EncryptionPending);
+    /// ```
     pub fn set_current_state<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::database_encryption::CurrentState>,
@@ -23215,6 +30735,16 @@ impl DatabaseEncryption {
     }
 
     /// Sets or clears the value of [current_state][crate::model::DatabaseEncryption::current_state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::DatabaseEncryption;
+    /// use google_cloud_container_v1::model::database_encryption::CurrentState;
+    /// let x0 = DatabaseEncryption::new().set_or_clear_current_state(Some(CurrentState::Encrypted));
+    /// let x1 = DatabaseEncryption::new().set_or_clear_current_state(Some(CurrentState::Decrypted));
+    /// let x2 = DatabaseEncryption::new().set_or_clear_current_state(Some(CurrentState::EncryptionPending));
+    /// let x_none = DatabaseEncryption::new().set_or_clear_current_state(None::<CurrentState>);
+    /// ```
     pub fn set_or_clear_current_state<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::database_encryption::CurrentState>,
@@ -23224,6 +30754,12 @@ impl DatabaseEncryption {
     }
 
     /// Sets the value of [decryption_keys][crate::model::DatabaseEncryption::decryption_keys].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::DatabaseEncryption;
+    /// let x = DatabaseEncryption::new().set_decryption_keys(["a", "b", "c"]);
+    /// ```
     pub fn set_decryption_keys<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -23235,6 +30771,17 @@ impl DatabaseEncryption {
     }
 
     /// Sets the value of [last_operation_errors][crate::model::DatabaseEncryption::last_operation_errors].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::DatabaseEncryption;
+    /// use google_cloud_container_v1::model::database_encryption::OperationError;
+    /// let x = DatabaseEncryption::new()
+    ///     .set_last_operation_errors([
+    ///         OperationError::default()/* use setters */,
+    ///         OperationError::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_last_operation_errors<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -23280,12 +30827,24 @@ pub mod database_encryption {
         }
 
         /// Sets the value of [key_name][crate::model::database_encryption::OperationError::key_name].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_container_v1::model::database_encryption::OperationError;
+        /// let x = OperationError::new().set_key_name("example");
+        /// ```
         pub fn set_key_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.key_name = v.into();
             self
         }
 
         /// Sets the value of [error_message][crate::model::database_encryption::OperationError::error_message].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_container_v1::model::database_encryption::OperationError;
+        /// let x = OperationError::new().set_error_message("example");
+        /// ```
         pub fn set_error_message<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -23295,6 +30854,13 @@ pub mod database_encryption {
         }
 
         /// Sets the value of [timestamp][crate::model::database_encryption::OperationError::timestamp].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_container_v1::model::database_encryption::OperationError;
+        /// use wkt::Timestamp;
+        /// let x = OperationError::new().set_timestamp(Timestamp::default()/* use setters */);
+        /// ```
         pub fn set_timestamp<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -23304,6 +30870,14 @@ pub mod database_encryption {
         }
 
         /// Sets or clears the value of [timestamp][crate::model::database_encryption::OperationError::timestamp].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_container_v1::model::database_encryption::OperationError;
+        /// use wkt::Timestamp;
+        /// let x = OperationError::new().set_or_clear_timestamp(Some(Timestamp::default()/* use setters */));
+        /// let x = OperationError::new().set_or_clear_timestamp(None::<Timestamp>);
+        /// ```
         pub fn set_or_clear_timestamp<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -23658,24 +31232,48 @@ impl ListUsableSubnetworksRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListUsableSubnetworksRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::ListUsableSubnetworksRequest;
+    /// let x = ListUsableSubnetworksRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListUsableSubnetworksRequest::filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::ListUsableSubnetworksRequest;
+    /// let x = ListUsableSubnetworksRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListUsableSubnetworksRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::ListUsableSubnetworksRequest;
+    /// let x = ListUsableSubnetworksRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListUsableSubnetworksRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::ListUsableSubnetworksRequest;
+    /// let x = ListUsableSubnetworksRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -23711,6 +31309,17 @@ impl ListUsableSubnetworksResponse {
     }
 
     /// Sets the value of [subnetworks][crate::model::ListUsableSubnetworksResponse::subnetworks].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::ListUsableSubnetworksResponse;
+    /// use google_cloud_container_v1::model::UsableSubnetwork;
+    /// let x = ListUsableSubnetworksResponse::new()
+    ///     .set_subnetworks([
+    ///         UsableSubnetwork::default()/* use setters */,
+    ///         UsableSubnetwork::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_subnetworks<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -23722,6 +31331,12 @@ impl ListUsableSubnetworksResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListUsableSubnetworksResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::ListUsableSubnetworksResponse;
+    /// let x = ListUsableSubnetworksResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -23771,18 +31386,39 @@ impl UsableSubnetworkSecondaryRange {
     }
 
     /// Sets the value of [range_name][crate::model::UsableSubnetworkSecondaryRange::range_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::UsableSubnetworkSecondaryRange;
+    /// let x = UsableSubnetworkSecondaryRange::new().set_range_name("example");
+    /// ```
     pub fn set_range_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.range_name = v.into();
         self
     }
 
     /// Sets the value of [ip_cidr_range][crate::model::UsableSubnetworkSecondaryRange::ip_cidr_range].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::UsableSubnetworkSecondaryRange;
+    /// let x = UsableSubnetworkSecondaryRange::new().set_ip_cidr_range("example");
+    /// ```
     pub fn set_ip_cidr_range<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.ip_cidr_range = v.into();
         self
     }
 
     /// Sets the value of [status][crate::model::UsableSubnetworkSecondaryRange::status].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::UsableSubnetworkSecondaryRange;
+    /// use google_cloud_container_v1::model::usable_subnetwork_secondary_range::Status;
+    /// let x0 = UsableSubnetworkSecondaryRange::new().set_status(Status::Unused);
+    /// let x1 = UsableSubnetworkSecondaryRange::new().set_status(Status::InUseService);
+    /// let x2 = UsableSubnetworkSecondaryRange::new().set_status(Status::InUseShareablePod);
+    /// ```
     pub fn set_status<
         T: std::convert::Into<crate::model::usable_subnetwork_secondary_range::Status>,
     >(
@@ -23991,24 +31627,53 @@ impl UsableSubnetwork {
     }
 
     /// Sets the value of [subnetwork][crate::model::UsableSubnetwork::subnetwork].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::UsableSubnetwork;
+    /// let x = UsableSubnetwork::new().set_subnetwork("example");
+    /// ```
     pub fn set_subnetwork<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.subnetwork = v.into();
         self
     }
 
     /// Sets the value of [network][crate::model::UsableSubnetwork::network].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::UsableSubnetwork;
+    /// let x = UsableSubnetwork::new().set_network("example");
+    /// ```
     pub fn set_network<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.network = v.into();
         self
     }
 
     /// Sets the value of [ip_cidr_range][crate::model::UsableSubnetwork::ip_cidr_range].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::UsableSubnetwork;
+    /// let x = UsableSubnetwork::new().set_ip_cidr_range("example");
+    /// ```
     pub fn set_ip_cidr_range<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.ip_cidr_range = v.into();
         self
     }
 
     /// Sets the value of [secondary_ip_ranges][crate::model::UsableSubnetwork::secondary_ip_ranges].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::UsableSubnetwork;
+    /// use google_cloud_container_v1::model::UsableSubnetworkSecondaryRange;
+    /// let x = UsableSubnetwork::new()
+    ///     .set_secondary_ip_ranges([
+    ///         UsableSubnetworkSecondaryRange::default()/* use setters */,
+    ///         UsableSubnetworkSecondaryRange::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_secondary_ip_ranges<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -24020,6 +31685,12 @@ impl UsableSubnetwork {
     }
 
     /// Sets the value of [status_message][crate::model::UsableSubnetwork::status_message].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::UsableSubnetwork;
+    /// let x = UsableSubnetwork::new().set_status_message("example");
+    /// ```
     pub fn set_status_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.status_message = v.into();
         self
@@ -24057,6 +31728,13 @@ impl ResourceUsageExportConfig {
     }
 
     /// Sets the value of [bigquery_destination][crate::model::ResourceUsageExportConfig::bigquery_destination].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::ResourceUsageExportConfig;
+    /// use google_cloud_container_v1::model::resource_usage_export_config::BigQueryDestination;
+    /// let x = ResourceUsageExportConfig::new().set_bigquery_destination(BigQueryDestination::default()/* use setters */);
+    /// ```
     pub fn set_bigquery_destination<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::resource_usage_export_config::BigQueryDestination>,
@@ -24066,6 +31744,14 @@ impl ResourceUsageExportConfig {
     }
 
     /// Sets or clears the value of [bigquery_destination][crate::model::ResourceUsageExportConfig::bigquery_destination].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::ResourceUsageExportConfig;
+    /// use google_cloud_container_v1::model::resource_usage_export_config::BigQueryDestination;
+    /// let x = ResourceUsageExportConfig::new().set_or_clear_bigquery_destination(Some(BigQueryDestination::default()/* use setters */));
+    /// let x = ResourceUsageExportConfig::new().set_or_clear_bigquery_destination(None::<BigQueryDestination>);
+    /// ```
     pub fn set_or_clear_bigquery_destination<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::resource_usage_export_config::BigQueryDestination>,
@@ -24075,12 +31761,25 @@ impl ResourceUsageExportConfig {
     }
 
     /// Sets the value of [enable_network_egress_metering][crate::model::ResourceUsageExportConfig::enable_network_egress_metering].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::ResourceUsageExportConfig;
+    /// let x = ResourceUsageExportConfig::new().set_enable_network_egress_metering(true);
+    /// ```
     pub fn set_enable_network_egress_metering<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.enable_network_egress_metering = v.into();
         self
     }
 
     /// Sets the value of [consumption_metering_config][crate::model::ResourceUsageExportConfig::consumption_metering_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::ResourceUsageExportConfig;
+    /// use google_cloud_container_v1::model::resource_usage_export_config::ConsumptionMeteringConfig;
+    /// let x = ResourceUsageExportConfig::new().set_consumption_metering_config(ConsumptionMeteringConfig::default()/* use setters */);
+    /// ```
     pub fn set_consumption_metering_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<
@@ -24092,6 +31791,14 @@ impl ResourceUsageExportConfig {
     }
 
     /// Sets or clears the value of [consumption_metering_config][crate::model::ResourceUsageExportConfig::consumption_metering_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::ResourceUsageExportConfig;
+    /// use google_cloud_container_v1::model::resource_usage_export_config::ConsumptionMeteringConfig;
+    /// let x = ResourceUsageExportConfig::new().set_or_clear_consumption_metering_config(Some(ConsumptionMeteringConfig::default()/* use setters */));
+    /// let x = ResourceUsageExportConfig::new().set_or_clear_consumption_metering_config(None::<ConsumptionMeteringConfig>);
+    /// ```
     pub fn set_or_clear_consumption_metering_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<
@@ -24130,6 +31837,12 @@ pub mod resource_usage_export_config {
         }
 
         /// Sets the value of [dataset_id][crate::model::resource_usage_export_config::BigQueryDestination::dataset_id].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_container_v1::model::resource_usage_export_config::BigQueryDestination;
+        /// let x = BigQueryDestination::new().set_dataset_id("example");
+        /// ```
         pub fn set_dataset_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.dataset_id = v.into();
             self
@@ -24160,6 +31873,12 @@ pub mod resource_usage_export_config {
         }
 
         /// Sets the value of [enabled][crate::model::resource_usage_export_config::ConsumptionMeteringConfig::enabled].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_container_v1::model::resource_usage_export_config::ConsumptionMeteringConfig;
+        /// let x = ConsumptionMeteringConfig::new().set_enabled(true);
+        /// ```
         pub fn set_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.enabled = v.into();
             self
@@ -24191,6 +31910,12 @@ impl VerticalPodAutoscaling {
     }
 
     /// Sets the value of [enabled][crate::model::VerticalPodAutoscaling::enabled].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::VerticalPodAutoscaling;
+    /// let x = VerticalPodAutoscaling::new().set_enabled(true);
+    /// ```
     pub fn set_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.enabled = v.into();
         self
@@ -24220,6 +31945,12 @@ impl DefaultSnatStatus {
     }
 
     /// Sets the value of [disabled][crate::model::DefaultSnatStatus::disabled].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::DefaultSnatStatus;
+    /// let x = DefaultSnatStatus::new().set_disabled(true);
+    /// ```
     pub fn set_disabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.disabled = v.into();
         self
@@ -24248,6 +31979,12 @@ impl ShieldedNodes {
     }
 
     /// Sets the value of [enabled][crate::model::ShieldedNodes::enabled].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::ShieldedNodes;
+    /// let x = ShieldedNodes::new().set_enabled(true);
+    /// ```
     pub fn set_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.enabled = v.into();
         self
@@ -24276,6 +32013,12 @@ impl VirtualNIC {
     }
 
     /// Sets the value of [enabled][crate::model::VirtualNIC::enabled].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::VirtualNIC;
+    /// let x = VirtualNIC::new().set_enabled(true);
+    /// ```
     pub fn set_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.enabled = v.into();
         self
@@ -24304,6 +32047,12 @@ impl FastSocket {
     }
 
     /// Sets the value of [enabled][crate::model::FastSocket::enabled].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::FastSocket;
+    /// let x = FastSocket::new().set_enabled(true);
+    /// ```
     pub fn set_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.enabled = v.into();
         self
@@ -24332,6 +32081,13 @@ impl NotificationConfig {
     }
 
     /// Sets the value of [pubsub][crate::model::NotificationConfig::pubsub].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NotificationConfig;
+    /// use google_cloud_container_v1::model::notification_config::PubSub;
+    /// let x = NotificationConfig::new().set_pubsub(PubSub::default()/* use setters */);
+    /// ```
     pub fn set_pubsub<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::notification_config::PubSub>,
@@ -24341,6 +32097,14 @@ impl NotificationConfig {
     }
 
     /// Sets or clears the value of [pubsub][crate::model::NotificationConfig::pubsub].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NotificationConfig;
+    /// use google_cloud_container_v1::model::notification_config::PubSub;
+    /// let x = NotificationConfig::new().set_or_clear_pubsub(Some(PubSub::default()/* use setters */));
+    /// let x = NotificationConfig::new().set_or_clear_pubsub(None::<PubSub>);
+    /// ```
     pub fn set_or_clear_pubsub<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::notification_config::PubSub>,
@@ -24386,18 +32150,37 @@ pub mod notification_config {
         }
 
         /// Sets the value of [enabled][crate::model::notification_config::PubSub::enabled].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_container_v1::model::notification_config::PubSub;
+        /// let x = PubSub::new().set_enabled(true);
+        /// ```
         pub fn set_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.enabled = v.into();
             self
         }
 
         /// Sets the value of [topic][crate::model::notification_config::PubSub::topic].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_container_v1::model::notification_config::PubSub;
+        /// let x = PubSub::new().set_topic("example");
+        /// ```
         pub fn set_topic<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.topic = v.into();
             self
         }
 
         /// Sets the value of [filter][crate::model::notification_config::PubSub::filter].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_container_v1::model::notification_config::PubSub;
+        /// use google_cloud_container_v1::model::notification_config::Filter;
+        /// let x = PubSub::new().set_filter(Filter::default()/* use setters */);
+        /// ```
         pub fn set_filter<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::notification_config::Filter>,
@@ -24407,6 +32190,14 @@ pub mod notification_config {
         }
 
         /// Sets or clears the value of [filter][crate::model::notification_config::PubSub::filter].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_container_v1::model::notification_config::PubSub;
+        /// use google_cloud_container_v1::model::notification_config::Filter;
+        /// let x = PubSub::new().set_or_clear_filter(Some(Filter::default()/* use setters */));
+        /// let x = PubSub::new().set_or_clear_filter(None::<Filter>);
+        /// ```
         pub fn set_or_clear_filter<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::notification_config::Filter>,
@@ -24441,6 +32232,17 @@ pub mod notification_config {
         }
 
         /// Sets the value of [event_type][crate::model::notification_config::Filter::event_type].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_container_v1::model::notification_config::Filter;
+        /// use google_cloud_container_v1::model::notification_config::EventType;
+        /// let x = Filter::new().set_event_type([
+        ///     EventType::UpgradeAvailableEvent,
+        ///     EventType::UpgradeEvent,
+        ///     EventType::SecurityBulletinEvent,
+        /// ]);
+        /// ```
         pub fn set_event_type<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -24626,12 +32428,27 @@ impl ConfidentialNodes {
     }
 
     /// Sets the value of [enabled][crate::model::ConfidentialNodes::enabled].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::ConfidentialNodes;
+    /// let x = ConfidentialNodes::new().set_enabled(true);
+    /// ```
     pub fn set_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.enabled = v.into();
         self
     }
 
     /// Sets the value of [confidential_instance_type][crate::model::ConfidentialNodes::confidential_instance_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::ConfidentialNodes;
+    /// use google_cloud_container_v1::model::confidential_nodes::ConfidentialInstanceType;
+    /// let x0 = ConfidentialNodes::new().set_confidential_instance_type(ConfidentialInstanceType::Sev);
+    /// let x1 = ConfidentialNodes::new().set_confidential_instance_type(ConfidentialInstanceType::SevSnp);
+    /// let x2 = ConfidentialNodes::new().set_confidential_instance_type(ConfidentialInstanceType::Tdx);
+    /// ```
     pub fn set_confidential_instance_type<
         T: std::convert::Into<crate::model::confidential_nodes::ConfidentialInstanceType>,
     >(
@@ -24831,6 +32648,14 @@ impl UpgradeEvent {
     }
 
     /// Sets the value of [resource_type][crate::model::UpgradeEvent::resource_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::UpgradeEvent;
+    /// use google_cloud_container_v1::model::UpgradeResourceType;
+    /// let x0 = UpgradeEvent::new().set_resource_type(UpgradeResourceType::Master);
+    /// let x1 = UpgradeEvent::new().set_resource_type(UpgradeResourceType::NodePool);
+    /// ```
     pub fn set_resource_type<T: std::convert::Into<crate::model::UpgradeResourceType>>(
         mut self,
         v: T,
@@ -24840,12 +32665,25 @@ impl UpgradeEvent {
     }
 
     /// Sets the value of [operation][crate::model::UpgradeEvent::operation].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::UpgradeEvent;
+    /// let x = UpgradeEvent::new().set_operation("example");
+    /// ```
     pub fn set_operation<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.operation = v.into();
         self
     }
 
     /// Sets the value of [operation_start_time][crate::model::UpgradeEvent::operation_start_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::UpgradeEvent;
+    /// use wkt::Timestamp;
+    /// let x = UpgradeEvent::new().set_operation_start_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_operation_start_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -24855,6 +32693,14 @@ impl UpgradeEvent {
     }
 
     /// Sets or clears the value of [operation_start_time][crate::model::UpgradeEvent::operation_start_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::UpgradeEvent;
+    /// use wkt::Timestamp;
+    /// let x = UpgradeEvent::new().set_or_clear_operation_start_time(Some(Timestamp::default()/* use setters */));
+    /// let x = UpgradeEvent::new().set_or_clear_operation_start_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_operation_start_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -24864,18 +32710,36 @@ impl UpgradeEvent {
     }
 
     /// Sets the value of [current_version][crate::model::UpgradeEvent::current_version].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::UpgradeEvent;
+    /// let x = UpgradeEvent::new().set_current_version("example");
+    /// ```
     pub fn set_current_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.current_version = v.into();
         self
     }
 
     /// Sets the value of [target_version][crate::model::UpgradeEvent::target_version].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::UpgradeEvent;
+    /// let x = UpgradeEvent::new().set_target_version("example");
+    /// ```
     pub fn set_target_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.target_version = v.into();
         self
     }
 
     /// Sets the value of [resource][crate::model::UpgradeEvent::resource].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::UpgradeEvent;
+    /// let x = UpgradeEvent::new().set_resource("example");
+    /// ```
     pub fn set_resource<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.resource = v.into();
         self
@@ -24939,6 +32803,14 @@ impl UpgradeInfoEvent {
     }
 
     /// Sets the value of [resource_type][crate::model::UpgradeInfoEvent::resource_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::UpgradeInfoEvent;
+    /// use google_cloud_container_v1::model::UpgradeResourceType;
+    /// let x0 = UpgradeInfoEvent::new().set_resource_type(UpgradeResourceType::Master);
+    /// let x1 = UpgradeInfoEvent::new().set_resource_type(UpgradeResourceType::NodePool);
+    /// ```
     pub fn set_resource_type<T: std::convert::Into<crate::model::UpgradeResourceType>>(
         mut self,
         v: T,
@@ -24948,12 +32820,25 @@ impl UpgradeInfoEvent {
     }
 
     /// Sets the value of [operation][crate::model::UpgradeInfoEvent::operation].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::UpgradeInfoEvent;
+    /// let x = UpgradeInfoEvent::new().set_operation("example");
+    /// ```
     pub fn set_operation<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.operation = v.into();
         self
     }
 
     /// Sets the value of [start_time][crate::model::UpgradeInfoEvent::start_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::UpgradeInfoEvent;
+    /// use wkt::Timestamp;
+    /// let x = UpgradeInfoEvent::new().set_start_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_start_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -24963,6 +32848,14 @@ impl UpgradeInfoEvent {
     }
 
     /// Sets or clears the value of [start_time][crate::model::UpgradeInfoEvent::start_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::UpgradeInfoEvent;
+    /// use wkt::Timestamp;
+    /// let x = UpgradeInfoEvent::new().set_or_clear_start_time(Some(Timestamp::default()/* use setters */));
+    /// let x = UpgradeInfoEvent::new().set_or_clear_start_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -24972,6 +32865,13 @@ impl UpgradeInfoEvent {
     }
 
     /// Sets the value of [end_time][crate::model::UpgradeInfoEvent::end_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::UpgradeInfoEvent;
+    /// use wkt::Timestamp;
+    /// let x = UpgradeInfoEvent::new().set_end_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -24981,6 +32881,14 @@ impl UpgradeInfoEvent {
     }
 
     /// Sets or clears the value of [end_time][crate::model::UpgradeInfoEvent::end_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::UpgradeInfoEvent;
+    /// use wkt::Timestamp;
+    /// let x = UpgradeInfoEvent::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
+    /// let x = UpgradeInfoEvent::new().set_or_clear_end_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -24990,24 +32898,51 @@ impl UpgradeInfoEvent {
     }
 
     /// Sets the value of [current_version][crate::model::UpgradeInfoEvent::current_version].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::UpgradeInfoEvent;
+    /// let x = UpgradeInfoEvent::new().set_current_version("example");
+    /// ```
     pub fn set_current_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.current_version = v.into();
         self
     }
 
     /// Sets the value of [target_version][crate::model::UpgradeInfoEvent::target_version].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::UpgradeInfoEvent;
+    /// let x = UpgradeInfoEvent::new().set_target_version("example");
+    /// ```
     pub fn set_target_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.target_version = v.into();
         self
     }
 
     /// Sets the value of [resource][crate::model::UpgradeInfoEvent::resource].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::UpgradeInfoEvent;
+    /// let x = UpgradeInfoEvent::new().set_resource("example");
+    /// ```
     pub fn set_resource<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.resource = v.into();
         self
     }
 
     /// Sets the value of [state][crate::model::UpgradeInfoEvent::state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::UpgradeInfoEvent;
+    /// use google_cloud_container_v1::model::upgrade_info_event::State;
+    /// let x0 = UpgradeInfoEvent::new().set_state(State::Started);
+    /// let x1 = UpgradeInfoEvent::new().set_state(State::Succeeded);
+    /// let x2 = UpgradeInfoEvent::new().set_state(State::Failed);
+    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::upgrade_info_event::State>>(
         mut self,
         v: T,
@@ -25017,6 +32952,13 @@ impl UpgradeInfoEvent {
     }
 
     /// Sets the value of [standard_support_end_time][crate::model::UpgradeInfoEvent::standard_support_end_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::UpgradeInfoEvent;
+    /// use wkt::Timestamp;
+    /// let x = UpgradeInfoEvent::new().set_standard_support_end_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_standard_support_end_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -25026,6 +32968,14 @@ impl UpgradeInfoEvent {
     }
 
     /// Sets or clears the value of [standard_support_end_time][crate::model::UpgradeInfoEvent::standard_support_end_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::UpgradeInfoEvent;
+    /// use wkt::Timestamp;
+    /// let x = UpgradeInfoEvent::new().set_or_clear_standard_support_end_time(Some(Timestamp::default()/* use setters */));
+    /// let x = UpgradeInfoEvent::new().set_or_clear_standard_support_end_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_standard_support_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -25035,6 +32985,13 @@ impl UpgradeInfoEvent {
     }
 
     /// Sets the value of [extended_support_end_time][crate::model::UpgradeInfoEvent::extended_support_end_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::UpgradeInfoEvent;
+    /// use wkt::Timestamp;
+    /// let x = UpgradeInfoEvent::new().set_extended_support_end_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_extended_support_end_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -25044,6 +33001,14 @@ impl UpgradeInfoEvent {
     }
 
     /// Sets or clears the value of [extended_support_end_time][crate::model::UpgradeInfoEvent::extended_support_end_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::UpgradeInfoEvent;
+    /// use wkt::Timestamp;
+    /// let x = UpgradeInfoEvent::new().set_or_clear_extended_support_end_time(Some(Timestamp::default()/* use setters */));
+    /// let x = UpgradeInfoEvent::new().set_or_clear_extended_support_end_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_extended_support_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -25053,12 +33018,27 @@ impl UpgradeInfoEvent {
     }
 
     /// Sets the value of [description][crate::model::UpgradeInfoEvent::description].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::UpgradeInfoEvent;
+    /// let x = UpgradeInfoEvent::new().set_description("example");
+    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [event_type][crate::model::UpgradeInfoEvent::event_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::UpgradeInfoEvent;
+    /// use google_cloud_container_v1::model::upgrade_info_event::EventType;
+    /// let x0 = UpgradeInfoEvent::new().set_event_type(EventType::EndOfSupport);
+    /// let x1 = UpgradeInfoEvent::new().set_event_type(EventType::CosMilestoneVersionUpdate);
+    /// let x2 = UpgradeInfoEvent::new().set_event_type(EventType::UpgradeLifecycle);
+    /// ```
     pub fn set_event_type<T: std::convert::Into<crate::model::upgrade_info_event::EventType>>(
         mut self,
         v: T,
@@ -25398,12 +33378,26 @@ impl UpgradeAvailableEvent {
     }
 
     /// Sets the value of [version][crate::model::UpgradeAvailableEvent::version].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::UpgradeAvailableEvent;
+    /// let x = UpgradeAvailableEvent::new().set_version("example");
+    /// ```
     pub fn set_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.version = v.into();
         self
     }
 
     /// Sets the value of [resource_type][crate::model::UpgradeAvailableEvent::resource_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::UpgradeAvailableEvent;
+    /// use google_cloud_container_v1::model::UpgradeResourceType;
+    /// let x0 = UpgradeAvailableEvent::new().set_resource_type(UpgradeResourceType::Master);
+    /// let x1 = UpgradeAvailableEvent::new().set_resource_type(UpgradeResourceType::NodePool);
+    /// ```
     pub fn set_resource_type<T: std::convert::Into<crate::model::UpgradeResourceType>>(
         mut self,
         v: T,
@@ -25413,6 +33407,13 @@ impl UpgradeAvailableEvent {
     }
 
     /// Sets the value of [release_channel][crate::model::UpgradeAvailableEvent::release_channel].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::UpgradeAvailableEvent;
+    /// use google_cloud_container_v1::model::ReleaseChannel;
+    /// let x = UpgradeAvailableEvent::new().set_release_channel(ReleaseChannel::default()/* use setters */);
+    /// ```
     pub fn set_release_channel<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ReleaseChannel>,
@@ -25422,6 +33423,14 @@ impl UpgradeAvailableEvent {
     }
 
     /// Sets or clears the value of [release_channel][crate::model::UpgradeAvailableEvent::release_channel].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::UpgradeAvailableEvent;
+    /// use google_cloud_container_v1::model::ReleaseChannel;
+    /// let x = UpgradeAvailableEvent::new().set_or_clear_release_channel(Some(ReleaseChannel::default()/* use setters */));
+    /// let x = UpgradeAvailableEvent::new().set_or_clear_release_channel(None::<ReleaseChannel>);
+    /// ```
     pub fn set_or_clear_release_channel<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ReleaseChannel>,
@@ -25431,6 +33440,12 @@ impl UpgradeAvailableEvent {
     }
 
     /// Sets the value of [resource][crate::model::UpgradeAvailableEvent::resource].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::UpgradeAvailableEvent;
+    /// let x = UpgradeAvailableEvent::new().set_resource("example");
+    /// ```
     pub fn set_resource<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.resource = v.into();
         self
@@ -25498,6 +33513,12 @@ impl SecurityBulletinEvent {
     }
 
     /// Sets the value of [resource_type_affected][crate::model::SecurityBulletinEvent::resource_type_affected].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::SecurityBulletinEvent;
+    /// let x = SecurityBulletinEvent::new().set_resource_type_affected("example");
+    /// ```
     pub fn set_resource_type_affected<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -25507,12 +33528,24 @@ impl SecurityBulletinEvent {
     }
 
     /// Sets the value of [bulletin_id][crate::model::SecurityBulletinEvent::bulletin_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::SecurityBulletinEvent;
+    /// let x = SecurityBulletinEvent::new().set_bulletin_id("example");
+    /// ```
     pub fn set_bulletin_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.bulletin_id = v.into();
         self
     }
 
     /// Sets the value of [cve_ids][crate::model::SecurityBulletinEvent::cve_ids].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::SecurityBulletinEvent;
+    /// let x = SecurityBulletinEvent::new().set_cve_ids(["a", "b", "c"]);
+    /// ```
     pub fn set_cve_ids<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -25524,18 +33557,36 @@ impl SecurityBulletinEvent {
     }
 
     /// Sets the value of [severity][crate::model::SecurityBulletinEvent::severity].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::SecurityBulletinEvent;
+    /// let x = SecurityBulletinEvent::new().set_severity("example");
+    /// ```
     pub fn set_severity<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.severity = v.into();
         self
     }
 
     /// Sets the value of [bulletin_uri][crate::model::SecurityBulletinEvent::bulletin_uri].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::SecurityBulletinEvent;
+    /// let x = SecurityBulletinEvent::new().set_bulletin_uri("example");
+    /// ```
     pub fn set_bulletin_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.bulletin_uri = v.into();
         self
     }
 
     /// Sets the value of [brief_description][crate::model::SecurityBulletinEvent::brief_description].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::SecurityBulletinEvent;
+    /// let x = SecurityBulletinEvent::new().set_brief_description("example");
+    /// ```
     pub fn set_brief_description<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -25545,6 +33596,12 @@ impl SecurityBulletinEvent {
     }
 
     /// Sets the value of [affected_supported_minors][crate::model::SecurityBulletinEvent::affected_supported_minors].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::SecurityBulletinEvent;
+    /// let x = SecurityBulletinEvent::new().set_affected_supported_minors(["a", "b", "c"]);
+    /// ```
     pub fn set_affected_supported_minors<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -25556,6 +33613,12 @@ impl SecurityBulletinEvent {
     }
 
     /// Sets the value of [patched_versions][crate::model::SecurityBulletinEvent::patched_versions].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::SecurityBulletinEvent;
+    /// let x = SecurityBulletinEvent::new().set_patched_versions(["a", "b", "c"]);
+    /// ```
     pub fn set_patched_versions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -25567,6 +33630,12 @@ impl SecurityBulletinEvent {
     }
 
     /// Sets the value of [suggested_upgrade_target][crate::model::SecurityBulletinEvent::suggested_upgrade_target].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::SecurityBulletinEvent;
+    /// let x = SecurityBulletinEvent::new().set_suggested_upgrade_target("example");
+    /// ```
     pub fn set_suggested_upgrade_target<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -25576,12 +33645,24 @@ impl SecurityBulletinEvent {
     }
 
     /// Sets the value of [manual_steps_required][crate::model::SecurityBulletinEvent::manual_steps_required].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::SecurityBulletinEvent;
+    /// let x = SecurityBulletinEvent::new().set_manual_steps_required(true);
+    /// ```
     pub fn set_manual_steps_required<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.manual_steps_required = v.into();
         self
     }
 
     /// Sets the value of [mitigated_versions][crate::model::SecurityBulletinEvent::mitigated_versions].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::SecurityBulletinEvent;
+    /// let x = SecurityBulletinEvent::new().set_mitigated_versions(["a", "b", "c"]);
+    /// ```
     pub fn set_mitigated_versions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -25622,12 +33703,25 @@ impl Autopilot {
     }
 
     /// Sets the value of [enabled][crate::model::Autopilot::enabled].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::Autopilot;
+    /// let x = Autopilot::new().set_enabled(true);
+    /// ```
     pub fn set_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.enabled = v.into();
         self
     }
 
     /// Sets the value of [workload_policy_config][crate::model::Autopilot::workload_policy_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::Autopilot;
+    /// use google_cloud_container_v1::model::WorkloadPolicyConfig;
+    /// let x = Autopilot::new().set_workload_policy_config(WorkloadPolicyConfig::default()/* use setters */);
+    /// ```
     pub fn set_workload_policy_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::WorkloadPolicyConfig>,
@@ -25637,6 +33731,14 @@ impl Autopilot {
     }
 
     /// Sets or clears the value of [workload_policy_config][crate::model::Autopilot::workload_policy_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::Autopilot;
+    /// use google_cloud_container_v1::model::WorkloadPolicyConfig;
+    /// let x = Autopilot::new().set_or_clear_workload_policy_config(Some(WorkloadPolicyConfig::default()/* use setters */));
+    /// let x = Autopilot::new().set_or_clear_workload_policy_config(None::<WorkloadPolicyConfig>);
+    /// ```
     pub fn set_or_clear_workload_policy_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::WorkloadPolicyConfig>,
@@ -25646,6 +33748,13 @@ impl Autopilot {
     }
 
     /// Sets the value of [privileged_admission_config][crate::model::Autopilot::privileged_admission_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::Autopilot;
+    /// use google_cloud_container_v1::model::PrivilegedAdmissionConfig;
+    /// let x = Autopilot::new().set_privileged_admission_config(PrivilegedAdmissionConfig::default()/* use setters */);
+    /// ```
     pub fn set_privileged_admission_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::PrivilegedAdmissionConfig>,
@@ -25655,6 +33764,14 @@ impl Autopilot {
     }
 
     /// Sets or clears the value of [privileged_admission_config][crate::model::Autopilot::privileged_admission_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::Autopilot;
+    /// use google_cloud_container_v1::model::PrivilegedAdmissionConfig;
+    /// let x = Autopilot::new().set_or_clear_privileged_admission_config(Some(PrivilegedAdmissionConfig::default()/* use setters */));
+    /// let x = Autopilot::new().set_or_clear_privileged_admission_config(None::<PrivilegedAdmissionConfig>);
+    /// ```
     pub fn set_or_clear_privileged_admission_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::PrivilegedAdmissionConfig>,
@@ -25697,6 +33814,12 @@ impl PrivilegedAdmissionConfig {
     }
 
     /// Sets the value of [allowlist_paths][crate::model::PrivilegedAdmissionConfig::allowlist_paths].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::PrivilegedAdmissionConfig;
+    /// let x = PrivilegedAdmissionConfig::new().set_allowlist_paths(["a", "b", "c"]);
+    /// ```
     pub fn set_allowlist_paths<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -25734,6 +33857,12 @@ impl WorkloadPolicyConfig {
     }
 
     /// Sets the value of [allow_net_admin][crate::model::WorkloadPolicyConfig::allow_net_admin].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::WorkloadPolicyConfig;
+    /// let x = WorkloadPolicyConfig::new().set_allow_net_admin(true);
+    /// ```
     pub fn set_allow_net_admin<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<bool>,
@@ -25743,6 +33872,13 @@ impl WorkloadPolicyConfig {
     }
 
     /// Sets or clears the value of [allow_net_admin][crate::model::WorkloadPolicyConfig::allow_net_admin].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::WorkloadPolicyConfig;
+    /// let x = WorkloadPolicyConfig::new().set_or_clear_allow_net_admin(Some(false));
+    /// let x = WorkloadPolicyConfig::new().set_or_clear_allow_net_admin(None::<bool>);
+    /// ```
     pub fn set_or_clear_allow_net_admin<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<bool>,
@@ -25752,6 +33888,12 @@ impl WorkloadPolicyConfig {
     }
 
     /// Sets the value of [autopilot_compatibility_auditing_enabled][crate::model::WorkloadPolicyConfig::autopilot_compatibility_auditing_enabled].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::WorkloadPolicyConfig;
+    /// let x = WorkloadPolicyConfig::new().set_autopilot_compatibility_auditing_enabled(true);
+    /// ```
     pub fn set_autopilot_compatibility_auditing_enabled<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<bool>,
@@ -25761,6 +33903,13 @@ impl WorkloadPolicyConfig {
     }
 
     /// Sets or clears the value of [autopilot_compatibility_auditing_enabled][crate::model::WorkloadPolicyConfig::autopilot_compatibility_auditing_enabled].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::WorkloadPolicyConfig;
+    /// let x = WorkloadPolicyConfig::new().set_or_clear_autopilot_compatibility_auditing_enabled(Some(false));
+    /// let x = WorkloadPolicyConfig::new().set_or_clear_autopilot_compatibility_auditing_enabled(None::<bool>);
+    /// ```
     pub fn set_or_clear_autopilot_compatibility_auditing_enabled<T>(
         mut self,
         v: std::option::Option<T>,
@@ -25795,6 +33944,13 @@ impl LoggingConfig {
     }
 
     /// Sets the value of [component_config][crate::model::LoggingConfig::component_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::LoggingConfig;
+    /// use google_cloud_container_v1::model::LoggingComponentConfig;
+    /// let x = LoggingConfig::new().set_component_config(LoggingComponentConfig::default()/* use setters */);
+    /// ```
     pub fn set_component_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::LoggingComponentConfig>,
@@ -25804,6 +33960,14 @@ impl LoggingConfig {
     }
 
     /// Sets or clears the value of [component_config][crate::model::LoggingConfig::component_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::LoggingConfig;
+    /// use google_cloud_container_v1::model::LoggingComponentConfig;
+    /// let x = LoggingConfig::new().set_or_clear_component_config(Some(LoggingComponentConfig::default()/* use setters */));
+    /// let x = LoggingConfig::new().set_or_clear_component_config(None::<LoggingComponentConfig>);
+    /// ```
     pub fn set_or_clear_component_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::LoggingComponentConfig>,
@@ -25835,6 +33999,17 @@ impl LoggingComponentConfig {
     }
 
     /// Sets the value of [enable_components][crate::model::LoggingComponentConfig::enable_components].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::LoggingComponentConfig;
+    /// use google_cloud_container_v1::model::logging_component_config::Component;
+    /// let x = LoggingComponentConfig::new().set_enable_components([
+    ///     Component::SystemComponents,
+    ///     Component::Workloads,
+    ///     Component::Apiserver,
+    /// ]);
+    /// ```
     pub fn set_enable_components<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -26048,6 +34223,12 @@ impl RayClusterLoggingConfig {
     }
 
     /// Sets the value of [enabled][crate::model::RayClusterLoggingConfig::enabled].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::RayClusterLoggingConfig;
+    /// let x = RayClusterLoggingConfig::new().set_enabled(true);
+    /// ```
     pub fn set_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.enabled = v.into();
         self
@@ -26084,6 +34265,13 @@ impl MonitoringConfig {
     }
 
     /// Sets the value of [component_config][crate::model::MonitoringConfig::component_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::MonitoringConfig;
+    /// use google_cloud_container_v1::model::MonitoringComponentConfig;
+    /// let x = MonitoringConfig::new().set_component_config(MonitoringComponentConfig::default()/* use setters */);
+    /// ```
     pub fn set_component_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::MonitoringComponentConfig>,
@@ -26093,6 +34281,14 @@ impl MonitoringConfig {
     }
 
     /// Sets or clears the value of [component_config][crate::model::MonitoringConfig::component_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::MonitoringConfig;
+    /// use google_cloud_container_v1::model::MonitoringComponentConfig;
+    /// let x = MonitoringConfig::new().set_or_clear_component_config(Some(MonitoringComponentConfig::default()/* use setters */));
+    /// let x = MonitoringConfig::new().set_or_clear_component_config(None::<MonitoringComponentConfig>);
+    /// ```
     pub fn set_or_clear_component_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::MonitoringComponentConfig>,
@@ -26102,6 +34298,13 @@ impl MonitoringConfig {
     }
 
     /// Sets the value of [managed_prometheus_config][crate::model::MonitoringConfig::managed_prometheus_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::MonitoringConfig;
+    /// use google_cloud_container_v1::model::ManagedPrometheusConfig;
+    /// let x = MonitoringConfig::new().set_managed_prometheus_config(ManagedPrometheusConfig::default()/* use setters */);
+    /// ```
     pub fn set_managed_prometheus_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ManagedPrometheusConfig>,
@@ -26111,6 +34314,14 @@ impl MonitoringConfig {
     }
 
     /// Sets or clears the value of [managed_prometheus_config][crate::model::MonitoringConfig::managed_prometheus_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::MonitoringConfig;
+    /// use google_cloud_container_v1::model::ManagedPrometheusConfig;
+    /// let x = MonitoringConfig::new().set_or_clear_managed_prometheus_config(Some(ManagedPrometheusConfig::default()/* use setters */));
+    /// let x = MonitoringConfig::new().set_or_clear_managed_prometheus_config(None::<ManagedPrometheusConfig>);
+    /// ```
     pub fn set_or_clear_managed_prometheus_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ManagedPrometheusConfig>,
@@ -26120,6 +34331,13 @@ impl MonitoringConfig {
     }
 
     /// Sets the value of [advanced_datapath_observability_config][crate::model::MonitoringConfig::advanced_datapath_observability_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::MonitoringConfig;
+    /// use google_cloud_container_v1::model::AdvancedDatapathObservabilityConfig;
+    /// let x = MonitoringConfig::new().set_advanced_datapath_observability_config(AdvancedDatapathObservabilityConfig::default()/* use setters */);
+    /// ```
     pub fn set_advanced_datapath_observability_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::AdvancedDatapathObservabilityConfig>,
@@ -26129,6 +34347,14 @@ impl MonitoringConfig {
     }
 
     /// Sets or clears the value of [advanced_datapath_observability_config][crate::model::MonitoringConfig::advanced_datapath_observability_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::MonitoringConfig;
+    /// use google_cloud_container_v1::model::AdvancedDatapathObservabilityConfig;
+    /// let x = MonitoringConfig::new().set_or_clear_advanced_datapath_observability_config(Some(AdvancedDatapathObservabilityConfig::default()/* use setters */));
+    /// let x = MonitoringConfig::new().set_or_clear_advanced_datapath_observability_config(None::<AdvancedDatapathObservabilityConfig>);
+    /// ```
     pub fn set_or_clear_advanced_datapath_observability_config<T>(
         mut self,
         v: std::option::Option<T>,
@@ -26170,12 +34396,27 @@ impl AdvancedDatapathObservabilityConfig {
     }
 
     /// Sets the value of [enable_metrics][crate::model::AdvancedDatapathObservabilityConfig::enable_metrics].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::AdvancedDatapathObservabilityConfig;
+    /// let x = AdvancedDatapathObservabilityConfig::new().set_enable_metrics(true);
+    /// ```
     pub fn set_enable_metrics<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.enable_metrics = v.into();
         self
     }
 
     /// Sets the value of [relay_mode][crate::model::AdvancedDatapathObservabilityConfig::relay_mode].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::AdvancedDatapathObservabilityConfig;
+    /// use google_cloud_container_v1::model::advanced_datapath_observability_config::RelayMode;
+    /// let x0 = AdvancedDatapathObservabilityConfig::new().set_relay_mode(RelayMode::Disabled);
+    /// let x1 = AdvancedDatapathObservabilityConfig::new().set_relay_mode(RelayMode::InternalVpcLb);
+    /// let x2 = AdvancedDatapathObservabilityConfig::new().set_relay_mode(RelayMode::ExternalLb);
+    /// ```
     pub fn set_relay_mode<
         T: std::convert::Into<crate::model::advanced_datapath_observability_config::RelayMode>,
     >(
@@ -26187,6 +34428,12 @@ impl AdvancedDatapathObservabilityConfig {
     }
 
     /// Sets the value of [enable_relay][crate::model::AdvancedDatapathObservabilityConfig::enable_relay].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::AdvancedDatapathObservabilityConfig;
+    /// let x = AdvancedDatapathObservabilityConfig::new().set_enable_relay(true);
+    /// ```
     pub fn set_enable_relay<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<bool>,
@@ -26196,6 +34443,13 @@ impl AdvancedDatapathObservabilityConfig {
     }
 
     /// Sets or clears the value of [enable_relay][crate::model::AdvancedDatapathObservabilityConfig::enable_relay].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::AdvancedDatapathObservabilityConfig;
+    /// let x = AdvancedDatapathObservabilityConfig::new().set_or_clear_enable_relay(Some(false));
+    /// let x = AdvancedDatapathObservabilityConfig::new().set_or_clear_enable_relay(None::<bool>);
+    /// ```
     pub fn set_or_clear_enable_relay<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<bool>,
@@ -26373,6 +34627,12 @@ impl RayClusterMonitoringConfig {
     }
 
     /// Sets the value of [enabled][crate::model::RayClusterMonitoringConfig::enabled].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::RayClusterMonitoringConfig;
+    /// let x = RayClusterMonitoringConfig::new().set_enabled(true);
+    /// ```
     pub fn set_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.enabled = v.into();
         self
@@ -26401,6 +34661,13 @@ impl NodePoolLoggingConfig {
     }
 
     /// Sets the value of [variant_config][crate::model::NodePoolLoggingConfig::variant_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NodePoolLoggingConfig;
+    /// use google_cloud_container_v1::model::LoggingVariantConfig;
+    /// let x = NodePoolLoggingConfig::new().set_variant_config(LoggingVariantConfig::default()/* use setters */);
+    /// ```
     pub fn set_variant_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::LoggingVariantConfig>,
@@ -26410,6 +34677,14 @@ impl NodePoolLoggingConfig {
     }
 
     /// Sets or clears the value of [variant_config][crate::model::NodePoolLoggingConfig::variant_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NodePoolLoggingConfig;
+    /// use google_cloud_container_v1::model::LoggingVariantConfig;
+    /// let x = NodePoolLoggingConfig::new().set_or_clear_variant_config(Some(LoggingVariantConfig::default()/* use setters */));
+    /// let x = NodePoolLoggingConfig::new().set_or_clear_variant_config(None::<LoggingVariantConfig>);
+    /// ```
     pub fn set_or_clear_variant_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::LoggingVariantConfig>,
@@ -26441,6 +34716,14 @@ impl LoggingVariantConfig {
     }
 
     /// Sets the value of [variant][crate::model::LoggingVariantConfig::variant].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::LoggingVariantConfig;
+    /// use google_cloud_container_v1::model::logging_variant_config::Variant;
+    /// let x0 = LoggingVariantConfig::new().set_variant(Variant::Default);
+    /// let x1 = LoggingVariantConfig::new().set_variant(Variant::MaxThroughput);
+    /// ```
     pub fn set_variant<T: std::convert::Into<crate::model::logging_variant_config::Variant>>(
         mut self,
         v: T,
@@ -26611,6 +34894,17 @@ impl MonitoringComponentConfig {
     }
 
     /// Sets the value of [enable_components][crate::model::MonitoringComponentConfig::enable_components].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::MonitoringComponentConfig;
+    /// use google_cloud_container_v1::model::monitoring_component_config::Component;
+    /// let x = MonitoringComponentConfig::new().set_enable_components([
+    ///     Component::SystemComponents,
+    ///     Component::Apiserver,
+    ///     Component::Scheduler,
+    /// ]);
+    /// ```
     pub fn set_enable_components<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -26870,12 +35164,25 @@ impl ManagedPrometheusConfig {
     }
 
     /// Sets the value of [enabled][crate::model::ManagedPrometheusConfig::enabled].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::ManagedPrometheusConfig;
+    /// let x = ManagedPrometheusConfig::new().set_enabled(true);
+    /// ```
     pub fn set_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.enabled = v.into();
         self
     }
 
     /// Sets the value of [auto_monitoring_config][crate::model::ManagedPrometheusConfig::auto_monitoring_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::ManagedPrometheusConfig;
+    /// use google_cloud_container_v1::model::AutoMonitoringConfig;
+    /// let x = ManagedPrometheusConfig::new().set_auto_monitoring_config(AutoMonitoringConfig::default()/* use setters */);
+    /// ```
     pub fn set_auto_monitoring_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::AutoMonitoringConfig>,
@@ -26885,6 +35192,14 @@ impl ManagedPrometheusConfig {
     }
 
     /// Sets or clears the value of [auto_monitoring_config][crate::model::ManagedPrometheusConfig::auto_monitoring_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::ManagedPrometheusConfig;
+    /// use google_cloud_container_v1::model::AutoMonitoringConfig;
+    /// let x = ManagedPrometheusConfig::new().set_or_clear_auto_monitoring_config(Some(AutoMonitoringConfig::default()/* use setters */));
+    /// let x = ManagedPrometheusConfig::new().set_or_clear_auto_monitoring_config(None::<AutoMonitoringConfig>);
+    /// ```
     pub fn set_or_clear_auto_monitoring_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AutoMonitoringConfig>,
@@ -26917,6 +35232,14 @@ impl AutoMonitoringConfig {
     }
 
     /// Sets the value of [scope][crate::model::AutoMonitoringConfig::scope].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::AutoMonitoringConfig;
+    /// use google_cloud_container_v1::model::auto_monitoring_config::Scope;
+    /// let x0 = AutoMonitoringConfig::new().set_scope(Scope::All);
+    /// let x1 = AutoMonitoringConfig::new().set_scope(Scope::None);
+    /// ```
     pub fn set_scope<T: std::convert::Into<crate::model::auto_monitoring_config::Scope>>(
         mut self,
         v: T,
@@ -27087,6 +35410,14 @@ impl PodAutoscaling {
     }
 
     /// Sets the value of [hpa_profile][crate::model::PodAutoscaling::hpa_profile].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::PodAutoscaling;
+    /// use google_cloud_container_v1::model::pod_autoscaling::HPAProfile;
+    /// let x0 = PodAutoscaling::new().set_hpa_profile(HPAProfile::None);
+    /// let x1 = PodAutoscaling::new().set_hpa_profile(HPAProfile::Performance);
+    /// ```
     pub fn set_hpa_profile<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::pod_autoscaling::HPAProfile>,
@@ -27096,6 +35427,15 @@ impl PodAutoscaling {
     }
 
     /// Sets or clears the value of [hpa_profile][crate::model::PodAutoscaling::hpa_profile].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::PodAutoscaling;
+    /// use google_cloud_container_v1::model::pod_autoscaling::HPAProfile;
+    /// let x0 = PodAutoscaling::new().set_or_clear_hpa_profile(Some(HPAProfile::None));
+    /// let x1 = PodAutoscaling::new().set_or_clear_hpa_profile(Some(HPAProfile::Performance));
+    /// let x_none = PodAutoscaling::new().set_or_clear_hpa_profile(None::<HPAProfile>);
+    /// ```
     pub fn set_or_clear_hpa_profile<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::pod_autoscaling::HPAProfile>,
@@ -27281,24 +35621,49 @@ impl Fleet {
     }
 
     /// Sets the value of [project][crate::model::Fleet::project].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::Fleet;
+    /// let x = Fleet::new().set_project("example");
+    /// ```
     pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project = v.into();
         self
     }
 
     /// Sets the value of [membership][crate::model::Fleet::membership].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::Fleet;
+    /// let x = Fleet::new().set_membership("example");
+    /// ```
     pub fn set_membership<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.membership = v.into();
         self
     }
 
     /// Sets the value of [pre_registered][crate::model::Fleet::pre_registered].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::Fleet;
+    /// let x = Fleet::new().set_pre_registered(true);
+    /// ```
     pub fn set_pre_registered<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.pre_registered = v.into();
         self
     }
 
     /// Sets the value of [membership_type][crate::model::Fleet::membership_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::Fleet;
+    /// use google_cloud_container_v1::model::fleet::MembershipType;
+    /// let x0 = Fleet::new().set_membership_type(MembershipType::Lightweight);
+    /// ```
     pub fn set_membership_type<T: std::convert::Into<crate::model::fleet::MembershipType>>(
         mut self,
         v: T,
@@ -27467,6 +35832,13 @@ impl ControlPlaneEndpointsConfig {
     }
 
     /// Sets the value of [dns_endpoint_config][crate::model::ControlPlaneEndpointsConfig::dns_endpoint_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::ControlPlaneEndpointsConfig;
+    /// use google_cloud_container_v1::model::control_plane_endpoints_config::DNSEndpointConfig;
+    /// let x = ControlPlaneEndpointsConfig::new().set_dns_endpoint_config(DNSEndpointConfig::default()/* use setters */);
+    /// ```
     pub fn set_dns_endpoint_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::control_plane_endpoints_config::DNSEndpointConfig>,
@@ -27476,6 +35848,14 @@ impl ControlPlaneEndpointsConfig {
     }
 
     /// Sets or clears the value of [dns_endpoint_config][crate::model::ControlPlaneEndpointsConfig::dns_endpoint_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::ControlPlaneEndpointsConfig;
+    /// use google_cloud_container_v1::model::control_plane_endpoints_config::DNSEndpointConfig;
+    /// let x = ControlPlaneEndpointsConfig::new().set_or_clear_dns_endpoint_config(Some(DNSEndpointConfig::default()/* use setters */));
+    /// let x = ControlPlaneEndpointsConfig::new().set_or_clear_dns_endpoint_config(None::<DNSEndpointConfig>);
+    /// ```
     pub fn set_or_clear_dns_endpoint_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::control_plane_endpoints_config::DNSEndpointConfig>,
@@ -27485,6 +35865,13 @@ impl ControlPlaneEndpointsConfig {
     }
 
     /// Sets the value of [ip_endpoints_config][crate::model::ControlPlaneEndpointsConfig::ip_endpoints_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::ControlPlaneEndpointsConfig;
+    /// use google_cloud_container_v1::model::control_plane_endpoints_config::IPEndpointsConfig;
+    /// let x = ControlPlaneEndpointsConfig::new().set_ip_endpoints_config(IPEndpointsConfig::default()/* use setters */);
+    /// ```
     pub fn set_ip_endpoints_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::control_plane_endpoints_config::IPEndpointsConfig>,
@@ -27494,6 +35881,14 @@ impl ControlPlaneEndpointsConfig {
     }
 
     /// Sets or clears the value of [ip_endpoints_config][crate::model::ControlPlaneEndpointsConfig::ip_endpoints_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::ControlPlaneEndpointsConfig;
+    /// use google_cloud_container_v1::model::control_plane_endpoints_config::IPEndpointsConfig;
+    /// let x = ControlPlaneEndpointsConfig::new().set_or_clear_ip_endpoints_config(Some(IPEndpointsConfig::default()/* use setters */));
+    /// let x = ControlPlaneEndpointsConfig::new().set_or_clear_ip_endpoints_config(None::<IPEndpointsConfig>);
+    /// ```
     pub fn set_or_clear_ip_endpoints_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::control_plane_endpoints_config::IPEndpointsConfig>,
@@ -27546,12 +35941,24 @@ pub mod control_plane_endpoints_config {
         }
 
         /// Sets the value of [endpoint][crate::model::control_plane_endpoints_config::DNSEndpointConfig::endpoint].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_container_v1::model::control_plane_endpoints_config::DNSEndpointConfig;
+        /// let x = DNSEndpointConfig::new().set_endpoint("example");
+        /// ```
         pub fn set_endpoint<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.endpoint = v.into();
             self
         }
 
         /// Sets the value of [allow_external_traffic][crate::model::control_plane_endpoints_config::DNSEndpointConfig::allow_external_traffic].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_container_v1::model::control_plane_endpoints_config::DNSEndpointConfig;
+        /// let x = DNSEndpointConfig::new().set_allow_external_traffic(true);
+        /// ```
         pub fn set_allow_external_traffic<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<bool>,
@@ -27561,6 +35968,13 @@ pub mod control_plane_endpoints_config {
         }
 
         /// Sets or clears the value of [allow_external_traffic][crate::model::control_plane_endpoints_config::DNSEndpointConfig::allow_external_traffic].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_container_v1::model::control_plane_endpoints_config::DNSEndpointConfig;
+        /// let x = DNSEndpointConfig::new().set_or_clear_allow_external_traffic(Some(false));
+        /// let x = DNSEndpointConfig::new().set_or_clear_allow_external_traffic(None::<bool>);
+        /// ```
         pub fn set_or_clear_allow_external_traffic<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<bool>,
@@ -27570,6 +35984,12 @@ pub mod control_plane_endpoints_config {
         }
 
         /// Sets the value of [enable_k8s_tokens_via_dns][crate::model::control_plane_endpoints_config::DNSEndpointConfig::enable_k8s_tokens_via_dns].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_container_v1::model::control_plane_endpoints_config::DNSEndpointConfig;
+        /// let x = DNSEndpointConfig::new().set_enable_k8s_tokens_via_dns(true);
+        /// ```
         pub fn set_enable_k8s_tokens_via_dns<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<bool>,
@@ -27579,6 +35999,13 @@ pub mod control_plane_endpoints_config {
         }
 
         /// Sets or clears the value of [enable_k8s_tokens_via_dns][crate::model::control_plane_endpoints_config::DNSEndpointConfig::enable_k8s_tokens_via_dns].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_container_v1::model::control_plane_endpoints_config::DNSEndpointConfig;
+        /// let x = DNSEndpointConfig::new().set_or_clear_enable_k8s_tokens_via_dns(Some(false));
+        /// let x = DNSEndpointConfig::new().set_or_clear_enable_k8s_tokens_via_dns(None::<bool>);
+        /// ```
         pub fn set_or_clear_enable_k8s_tokens_via_dns<T>(
             mut self,
             v: std::option::Option<T>,
@@ -27591,6 +36018,12 @@ pub mod control_plane_endpoints_config {
         }
 
         /// Sets the value of [enable_k8s_certs_via_dns][crate::model::control_plane_endpoints_config::DNSEndpointConfig::enable_k8s_certs_via_dns].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_container_v1::model::control_plane_endpoints_config::DNSEndpointConfig;
+        /// let x = DNSEndpointConfig::new().set_enable_k8s_certs_via_dns(true);
+        /// ```
         pub fn set_enable_k8s_certs_via_dns<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<bool>,
@@ -27600,6 +36033,13 @@ pub mod control_plane_endpoints_config {
         }
 
         /// Sets or clears the value of [enable_k8s_certs_via_dns][crate::model::control_plane_endpoints_config::DNSEndpointConfig::enable_k8s_certs_via_dns].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_container_v1::model::control_plane_endpoints_config::DNSEndpointConfig;
+        /// let x = DNSEndpointConfig::new().set_or_clear_enable_k8s_certs_via_dns(Some(false));
+        /// let x = DNSEndpointConfig::new().set_or_clear_enable_k8s_certs_via_dns(None::<bool>);
+        /// ```
         pub fn set_or_clear_enable_k8s_certs_via_dns<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<bool>,
@@ -27669,6 +36109,12 @@ pub mod control_plane_endpoints_config {
         }
 
         /// Sets the value of [enabled][crate::model::control_plane_endpoints_config::IPEndpointsConfig::enabled].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_container_v1::model::control_plane_endpoints_config::IPEndpointsConfig;
+        /// let x = IPEndpointsConfig::new().set_enabled(true);
+        /// ```
         pub fn set_enabled<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<bool>,
@@ -27678,6 +36124,13 @@ pub mod control_plane_endpoints_config {
         }
 
         /// Sets or clears the value of [enabled][crate::model::control_plane_endpoints_config::IPEndpointsConfig::enabled].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_container_v1::model::control_plane_endpoints_config::IPEndpointsConfig;
+        /// let x = IPEndpointsConfig::new().set_or_clear_enabled(Some(false));
+        /// let x = IPEndpointsConfig::new().set_or_clear_enabled(None::<bool>);
+        /// ```
         pub fn set_or_clear_enabled<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<bool>,
@@ -27687,6 +36140,12 @@ pub mod control_plane_endpoints_config {
         }
 
         /// Sets the value of [enable_public_endpoint][crate::model::control_plane_endpoints_config::IPEndpointsConfig::enable_public_endpoint].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_container_v1::model::control_plane_endpoints_config::IPEndpointsConfig;
+        /// let x = IPEndpointsConfig::new().set_enable_public_endpoint(true);
+        /// ```
         pub fn set_enable_public_endpoint<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<bool>,
@@ -27696,6 +36155,13 @@ pub mod control_plane_endpoints_config {
         }
 
         /// Sets or clears the value of [enable_public_endpoint][crate::model::control_plane_endpoints_config::IPEndpointsConfig::enable_public_endpoint].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_container_v1::model::control_plane_endpoints_config::IPEndpointsConfig;
+        /// let x = IPEndpointsConfig::new().set_or_clear_enable_public_endpoint(Some(false));
+        /// let x = IPEndpointsConfig::new().set_or_clear_enable_public_endpoint(None::<bool>);
+        /// ```
         pub fn set_or_clear_enable_public_endpoint<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<bool>,
@@ -27705,6 +36171,12 @@ pub mod control_plane_endpoints_config {
         }
 
         /// Sets the value of [global_access][crate::model::control_plane_endpoints_config::IPEndpointsConfig::global_access].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_container_v1::model::control_plane_endpoints_config::IPEndpointsConfig;
+        /// let x = IPEndpointsConfig::new().set_global_access(true);
+        /// ```
         pub fn set_global_access<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<bool>,
@@ -27714,6 +36186,13 @@ pub mod control_plane_endpoints_config {
         }
 
         /// Sets or clears the value of [global_access][crate::model::control_plane_endpoints_config::IPEndpointsConfig::global_access].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_container_v1::model::control_plane_endpoints_config::IPEndpointsConfig;
+        /// let x = IPEndpointsConfig::new().set_or_clear_global_access(Some(false));
+        /// let x = IPEndpointsConfig::new().set_or_clear_global_access(None::<bool>);
+        /// ```
         pub fn set_or_clear_global_access<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<bool>,
@@ -27723,6 +36202,13 @@ pub mod control_plane_endpoints_config {
         }
 
         /// Sets the value of [authorized_networks_config][crate::model::control_plane_endpoints_config::IPEndpointsConfig::authorized_networks_config].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_container_v1::model::control_plane_endpoints_config::IPEndpointsConfig;
+        /// use google_cloud_container_v1::model::MasterAuthorizedNetworksConfig;
+        /// let x = IPEndpointsConfig::new().set_authorized_networks_config(MasterAuthorizedNetworksConfig::default()/* use setters */);
+        /// ```
         pub fn set_authorized_networks_config<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::MasterAuthorizedNetworksConfig>,
@@ -27732,6 +36218,14 @@ pub mod control_plane_endpoints_config {
         }
 
         /// Sets or clears the value of [authorized_networks_config][crate::model::control_plane_endpoints_config::IPEndpointsConfig::authorized_networks_config].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_container_v1::model::control_plane_endpoints_config::IPEndpointsConfig;
+        /// use google_cloud_container_v1::model::MasterAuthorizedNetworksConfig;
+        /// let x = IPEndpointsConfig::new().set_or_clear_authorized_networks_config(Some(MasterAuthorizedNetworksConfig::default()/* use setters */));
+        /// let x = IPEndpointsConfig::new().set_or_clear_authorized_networks_config(None::<MasterAuthorizedNetworksConfig>);
+        /// ```
         pub fn set_or_clear_authorized_networks_config<T>(
             mut self,
             v: std::option::Option<T>,
@@ -27744,6 +36238,12 @@ pub mod control_plane_endpoints_config {
         }
 
         /// Sets the value of [public_endpoint][crate::model::control_plane_endpoints_config::IPEndpointsConfig::public_endpoint].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_container_v1::model::control_plane_endpoints_config::IPEndpointsConfig;
+        /// let x = IPEndpointsConfig::new().set_public_endpoint("example");
+        /// ```
         pub fn set_public_endpoint<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -27753,6 +36253,12 @@ pub mod control_plane_endpoints_config {
         }
 
         /// Sets the value of [private_endpoint][crate::model::control_plane_endpoints_config::IPEndpointsConfig::private_endpoint].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_container_v1::model::control_plane_endpoints_config::IPEndpointsConfig;
+        /// let x = IPEndpointsConfig::new().set_private_endpoint("example");
+        /// ```
         pub fn set_private_endpoint<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -27762,6 +36268,12 @@ pub mod control_plane_endpoints_config {
         }
 
         /// Sets the value of [private_endpoint_subnetwork][crate::model::control_plane_endpoints_config::IPEndpointsConfig::private_endpoint_subnetwork].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_container_v1::model::control_plane_endpoints_config::IPEndpointsConfig;
+        /// let x = IPEndpointsConfig::new().set_private_endpoint_subnetwork("example");
+        /// ```
         pub fn set_private_endpoint_subnetwork<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -27811,6 +36323,12 @@ impl LocalNvmeSsdBlockConfig {
     }
 
     /// Sets the value of [local_ssd_count][crate::model::LocalNvmeSsdBlockConfig::local_ssd_count].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::LocalNvmeSsdBlockConfig;
+    /// let x = LocalNvmeSsdBlockConfig::new().set_local_ssd_count(42);
+    /// ```
     pub fn set_local_ssd_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.local_ssd_count = v.into();
         self
@@ -27861,12 +36379,24 @@ impl EphemeralStorageLocalSsdConfig {
     }
 
     /// Sets the value of [local_ssd_count][crate::model::EphemeralStorageLocalSsdConfig::local_ssd_count].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::EphemeralStorageLocalSsdConfig;
+    /// let x = EphemeralStorageLocalSsdConfig::new().set_local_ssd_count(42);
+    /// ```
     pub fn set_local_ssd_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.local_ssd_count = v.into();
         self
     }
 
     /// Sets the value of [data_cache_count][crate::model::EphemeralStorageLocalSsdConfig::data_cache_count].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::EphemeralStorageLocalSsdConfig;
+    /// let x = EphemeralStorageLocalSsdConfig::new().set_data_cache_count(42);
+    /// ```
     pub fn set_data_cache_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.data_cache_count = v.into();
         self
@@ -27904,6 +36434,15 @@ impl ResourceManagerTags {
     }
 
     /// Sets the value of [tags][crate::model::ResourceManagerTags::tags].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::ResourceManagerTags;
+    /// let x = ResourceManagerTags::new().set_tags([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_tags<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -27945,6 +36484,14 @@ impl EnterpriseConfig {
     }
 
     /// Sets the value of [cluster_tier][crate::model::EnterpriseConfig::cluster_tier].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::EnterpriseConfig;
+    /// use google_cloud_container_v1::model::enterprise_config::ClusterTier;
+    /// let x0 = EnterpriseConfig::new().set_cluster_tier(ClusterTier::Standard);
+    /// let x1 = EnterpriseConfig::new().set_cluster_tier(ClusterTier::Enterprise);
+    /// ```
     pub fn set_cluster_tier<T: std::convert::Into<crate::model::enterprise_config::ClusterTier>>(
         mut self,
         v: T,
@@ -27954,6 +36501,14 @@ impl EnterpriseConfig {
     }
 
     /// Sets the value of [desired_tier][crate::model::EnterpriseConfig::desired_tier].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::EnterpriseConfig;
+    /// use google_cloud_container_v1::model::enterprise_config::ClusterTier;
+    /// let x0 = EnterpriseConfig::new().set_desired_tier(ClusterTier::Standard);
+    /// let x1 = EnterpriseConfig::new().set_desired_tier(ClusterTier::Enterprise);
+    /// ```
     pub fn set_desired_tier<T: std::convert::Into<crate::model::enterprise_config::ClusterTier>>(
         mut self,
         v: T,
@@ -28130,6 +36685,12 @@ impl SecretManagerConfig {
     }
 
     /// Sets the value of [enabled][crate::model::SecretManagerConfig::enabled].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::SecretManagerConfig;
+    /// let x = SecretManagerConfig::new().set_enabled(true);
+    /// ```
     pub fn set_enabled<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<bool>,
@@ -28139,6 +36700,13 @@ impl SecretManagerConfig {
     }
 
     /// Sets or clears the value of [enabled][crate::model::SecretManagerConfig::enabled].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::SecretManagerConfig;
+    /// let x = SecretManagerConfig::new().set_or_clear_enabled(Some(false));
+    /// let x = SecretManagerConfig::new().set_or_clear_enabled(None::<bool>);
+    /// ```
     pub fn set_or_clear_enabled<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<bool>,
@@ -28148,6 +36716,13 @@ impl SecretManagerConfig {
     }
 
     /// Sets the value of [rotation_config][crate::model::SecretManagerConfig::rotation_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::SecretManagerConfig;
+    /// use google_cloud_container_v1::model::secret_manager_config::RotationConfig;
+    /// let x = SecretManagerConfig::new().set_rotation_config(RotationConfig::default()/* use setters */);
+    /// ```
     pub fn set_rotation_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::secret_manager_config::RotationConfig>,
@@ -28157,6 +36732,14 @@ impl SecretManagerConfig {
     }
 
     /// Sets or clears the value of [rotation_config][crate::model::SecretManagerConfig::rotation_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::SecretManagerConfig;
+    /// use google_cloud_container_v1::model::secret_manager_config::RotationConfig;
+    /// let x = SecretManagerConfig::new().set_or_clear_rotation_config(Some(RotationConfig::default()/* use setters */));
+    /// let x = SecretManagerConfig::new().set_or_clear_rotation_config(None::<RotationConfig>);
+    /// ```
     pub fn set_or_clear_rotation_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::secret_manager_config::RotationConfig>,
@@ -28197,6 +36780,12 @@ pub mod secret_manager_config {
         }
 
         /// Sets the value of [enabled][crate::model::secret_manager_config::RotationConfig::enabled].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_container_v1::model::secret_manager_config::RotationConfig;
+        /// let x = RotationConfig::new().set_enabled(true);
+        /// ```
         pub fn set_enabled<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<bool>,
@@ -28206,6 +36795,13 @@ pub mod secret_manager_config {
         }
 
         /// Sets or clears the value of [enabled][crate::model::secret_manager_config::RotationConfig::enabled].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_container_v1::model::secret_manager_config::RotationConfig;
+        /// let x = RotationConfig::new().set_or_clear_enabled(Some(false));
+        /// let x = RotationConfig::new().set_or_clear_enabled(None::<bool>);
+        /// ```
         pub fn set_or_clear_enabled<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<bool>,
@@ -28215,6 +36811,13 @@ pub mod secret_manager_config {
         }
 
         /// Sets the value of [rotation_interval][crate::model::secret_manager_config::RotationConfig::rotation_interval].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_container_v1::model::secret_manager_config::RotationConfig;
+        /// use wkt::Duration;
+        /// let x = RotationConfig::new().set_rotation_interval(Duration::default()/* use setters */);
+        /// ```
         pub fn set_rotation_interval<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
@@ -28224,6 +36827,14 @@ pub mod secret_manager_config {
         }
 
         /// Sets or clears the value of [rotation_interval][crate::model::secret_manager_config::RotationConfig::rotation_interval].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_container_v1::model::secret_manager_config::RotationConfig;
+        /// use wkt::Duration;
+        /// let x = RotationConfig::new().set_or_clear_rotation_interval(Some(Duration::default()/* use setters */));
+        /// let x = RotationConfig::new().set_or_clear_rotation_interval(None::<Duration>);
+        /// ```
         pub fn set_or_clear_rotation_interval<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
@@ -28266,24 +36877,48 @@ impl BootDisk {
     }
 
     /// Sets the value of [disk_type][crate::model::BootDisk::disk_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::BootDisk;
+    /// let x = BootDisk::new().set_disk_type("example");
+    /// ```
     pub fn set_disk_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.disk_type = v.into();
         self
     }
 
     /// Sets the value of [size_gb][crate::model::BootDisk::size_gb].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::BootDisk;
+    /// let x = BootDisk::new().set_size_gb(42);
+    /// ```
     pub fn set_size_gb<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.size_gb = v.into();
         self
     }
 
     /// Sets the value of [provisioned_iops][crate::model::BootDisk::provisioned_iops].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::BootDisk;
+    /// let x = BootDisk::new().set_provisioned_iops(42);
+    /// ```
     pub fn set_provisioned_iops<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.provisioned_iops = v.into();
         self
     }
 
     /// Sets the value of [provisioned_throughput][crate::model::BootDisk::provisioned_throughput].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::BootDisk;
+    /// let x = BootDisk::new().set_provisioned_throughput(42);
+    /// ```
     pub fn set_provisioned_throughput<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.provisioned_throughput = v.into();
         self
@@ -28316,6 +36951,13 @@ impl SecondaryBootDisk {
     }
 
     /// Sets the value of [mode][crate::model::SecondaryBootDisk::mode].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::SecondaryBootDisk;
+    /// use google_cloud_container_v1::model::secondary_boot_disk::Mode;
+    /// let x0 = SecondaryBootDisk::new().set_mode(Mode::ContainerImageCache);
+    /// ```
     pub fn set_mode<T: std::convert::Into<crate::model::secondary_boot_disk::Mode>>(
         mut self,
         v: T,
@@ -28325,6 +36967,12 @@ impl SecondaryBootDisk {
     }
 
     /// Sets the value of [disk_image][crate::model::SecondaryBootDisk::disk_image].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::SecondaryBootDisk;
+    /// let x = SecondaryBootDisk::new().set_disk_image("example");
+    /// ```
     pub fn set_disk_image<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.disk_image = v.into();
         self
@@ -28511,12 +37159,24 @@ impl FetchClusterUpgradeInfoRequest {
     }
 
     /// Sets the value of [name][crate::model::FetchClusterUpgradeInfoRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::FetchClusterUpgradeInfoRequest;
+    /// let x = FetchClusterUpgradeInfoRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [version][crate::model::FetchClusterUpgradeInfoRequest::version].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::FetchClusterUpgradeInfoRequest;
+    /// let x = FetchClusterUpgradeInfoRequest::new().set_version("example");
+    /// ```
     pub fn set_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.version = v.into();
         self
@@ -28563,6 +37223,12 @@ impl ClusterUpgradeInfo {
     }
 
     /// Sets the value of [minor_target_version][crate::model::ClusterUpgradeInfo::minor_target_version].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::ClusterUpgradeInfo;
+    /// let x = ClusterUpgradeInfo::new().set_minor_target_version("example");
+    /// ```
     pub fn set_minor_target_version<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -28572,6 +37238,14 @@ impl ClusterUpgradeInfo {
     }
 
     /// Sets or clears the value of [minor_target_version][crate::model::ClusterUpgradeInfo::minor_target_version].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::ClusterUpgradeInfo;
+    /// let x = ClusterUpgradeInfo::new().set_or_clear_minor_target_version("example");
+    /// let x = ClusterUpgradeInfo::new().set_or_clear_minor_target_version(Some("example"));
+    /// let x = ClusterUpgradeInfo::new().set_or_clear_minor_target_version(None::<String>);
+    /// ```
     pub fn set_or_clear_minor_target_version<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -28581,6 +37255,12 @@ impl ClusterUpgradeInfo {
     }
 
     /// Sets the value of [patch_target_version][crate::model::ClusterUpgradeInfo::patch_target_version].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::ClusterUpgradeInfo;
+    /// let x = ClusterUpgradeInfo::new().set_patch_target_version("example");
+    /// ```
     pub fn set_patch_target_version<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -28590,6 +37270,14 @@ impl ClusterUpgradeInfo {
     }
 
     /// Sets or clears the value of [patch_target_version][crate::model::ClusterUpgradeInfo::patch_target_version].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::ClusterUpgradeInfo;
+    /// let x = ClusterUpgradeInfo::new().set_or_clear_patch_target_version("example");
+    /// let x = ClusterUpgradeInfo::new().set_or_clear_patch_target_version(Some("example"));
+    /// let x = ClusterUpgradeInfo::new().set_or_clear_patch_target_version(None::<String>);
+    /// ```
     pub fn set_or_clear_patch_target_version<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -28599,6 +37287,17 @@ impl ClusterUpgradeInfo {
     }
 
     /// Sets the value of [auto_upgrade_status][crate::model::ClusterUpgradeInfo::auto_upgrade_status].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::ClusterUpgradeInfo;
+    /// use google_cloud_container_v1::model::cluster_upgrade_info::AutoUpgradeStatus;
+    /// let x = ClusterUpgradeInfo::new().set_auto_upgrade_status([
+    ///     AutoUpgradeStatus::Active,
+    ///     AutoUpgradeStatus::MinorUpgradePaused,
+    ///     AutoUpgradeStatus::UpgradePaused,
+    /// ]);
+    /// ```
     pub fn set_auto_upgrade_status<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -28610,6 +37309,17 @@ impl ClusterUpgradeInfo {
     }
 
     /// Sets the value of [paused_reason][crate::model::ClusterUpgradeInfo::paused_reason].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::ClusterUpgradeInfo;
+    /// use google_cloud_container_v1::model::cluster_upgrade_info::AutoUpgradePausedReason;
+    /// let x = ClusterUpgradeInfo::new().set_paused_reason([
+    ///     AutoUpgradePausedReason::MaintenanceWindow,
+    ///     AutoUpgradePausedReason::MaintenanceExclusionNoUpgrades,
+    ///     AutoUpgradePausedReason::MaintenanceExclusionNoMinorUpgrades,
+    /// ]);
+    /// ```
     pub fn set_paused_reason<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -28621,6 +37331,17 @@ impl ClusterUpgradeInfo {
     }
 
     /// Sets the value of [upgrade_details][crate::model::ClusterUpgradeInfo::upgrade_details].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::ClusterUpgradeInfo;
+    /// use google_cloud_container_v1::model::UpgradeDetails;
+    /// let x = ClusterUpgradeInfo::new()
+    ///     .set_upgrade_details([
+    ///         UpgradeDetails::default()/* use setters */,
+    ///         UpgradeDetails::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_upgrade_details<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -28632,6 +37353,12 @@ impl ClusterUpgradeInfo {
     }
 
     /// Sets the value of [end_of_standard_support_timestamp][crate::model::ClusterUpgradeInfo::end_of_standard_support_timestamp].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::ClusterUpgradeInfo;
+    /// let x = ClusterUpgradeInfo::new().set_end_of_standard_support_timestamp("example");
+    /// ```
     pub fn set_end_of_standard_support_timestamp<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -28641,6 +37368,14 @@ impl ClusterUpgradeInfo {
     }
 
     /// Sets or clears the value of [end_of_standard_support_timestamp][crate::model::ClusterUpgradeInfo::end_of_standard_support_timestamp].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::ClusterUpgradeInfo;
+    /// let x = ClusterUpgradeInfo::new().set_or_clear_end_of_standard_support_timestamp("example");
+    /// let x = ClusterUpgradeInfo::new().set_or_clear_end_of_standard_support_timestamp(Some("example"));
+    /// let x = ClusterUpgradeInfo::new().set_or_clear_end_of_standard_support_timestamp(None::<String>);
+    /// ```
     pub fn set_or_clear_end_of_standard_support_timestamp<T>(
         mut self,
         v: std::option::Option<T>,
@@ -28653,6 +37388,12 @@ impl ClusterUpgradeInfo {
     }
 
     /// Sets the value of [end_of_extended_support_timestamp][crate::model::ClusterUpgradeInfo::end_of_extended_support_timestamp].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::ClusterUpgradeInfo;
+    /// let x = ClusterUpgradeInfo::new().set_end_of_extended_support_timestamp("example");
+    /// ```
     pub fn set_end_of_extended_support_timestamp<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -28662,6 +37403,14 @@ impl ClusterUpgradeInfo {
     }
 
     /// Sets or clears the value of [end_of_extended_support_timestamp][crate::model::ClusterUpgradeInfo::end_of_extended_support_timestamp].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::ClusterUpgradeInfo;
+    /// let x = ClusterUpgradeInfo::new().set_or_clear_end_of_extended_support_timestamp("example");
+    /// let x = ClusterUpgradeInfo::new().set_or_clear_end_of_extended_support_timestamp(Some("example"));
+    /// let x = ClusterUpgradeInfo::new().set_or_clear_end_of_extended_support_timestamp(None::<String>);
+    /// ```
     pub fn set_or_clear_end_of_extended_support_timestamp<T>(
         mut self,
         v: std::option::Option<T>,
@@ -29040,6 +37789,15 @@ impl UpgradeDetails {
     }
 
     /// Sets the value of [state][crate::model::UpgradeDetails::state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::UpgradeDetails;
+    /// use google_cloud_container_v1::model::upgrade_details::State;
+    /// let x0 = UpgradeDetails::new().set_state(State::Failed);
+    /// let x1 = UpgradeDetails::new().set_state(State::Succeeded);
+    /// let x2 = UpgradeDetails::new().set_state(State::Canceled);
+    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::upgrade_details::State>>(
         mut self,
         v: T,
@@ -29049,6 +37807,13 @@ impl UpgradeDetails {
     }
 
     /// Sets the value of [start_time][crate::model::UpgradeDetails::start_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::UpgradeDetails;
+    /// use wkt::Timestamp;
+    /// let x = UpgradeDetails::new().set_start_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_start_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -29058,6 +37823,14 @@ impl UpgradeDetails {
     }
 
     /// Sets or clears the value of [start_time][crate::model::UpgradeDetails::start_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::UpgradeDetails;
+    /// use wkt::Timestamp;
+    /// let x = UpgradeDetails::new().set_or_clear_start_time(Some(Timestamp::default()/* use setters */));
+    /// let x = UpgradeDetails::new().set_or_clear_start_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -29067,6 +37840,13 @@ impl UpgradeDetails {
     }
 
     /// Sets the value of [end_time][crate::model::UpgradeDetails::end_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::UpgradeDetails;
+    /// use wkt::Timestamp;
+    /// let x = UpgradeDetails::new().set_end_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -29076,6 +37856,14 @@ impl UpgradeDetails {
     }
 
     /// Sets or clears the value of [end_time][crate::model::UpgradeDetails::end_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::UpgradeDetails;
+    /// use wkt::Timestamp;
+    /// let x = UpgradeDetails::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
+    /// let x = UpgradeDetails::new().set_or_clear_end_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -29085,18 +37873,38 @@ impl UpgradeDetails {
     }
 
     /// Sets the value of [initial_version][crate::model::UpgradeDetails::initial_version].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::UpgradeDetails;
+    /// let x = UpgradeDetails::new().set_initial_version("example");
+    /// ```
     pub fn set_initial_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.initial_version = v.into();
         self
     }
 
     /// Sets the value of [target_version][crate::model::UpgradeDetails::target_version].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::UpgradeDetails;
+    /// let x = UpgradeDetails::new().set_target_version("example");
+    /// ```
     pub fn set_target_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.target_version = v.into();
         self
     }
 
     /// Sets the value of [start_type][crate::model::UpgradeDetails::start_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::UpgradeDetails;
+    /// use google_cloud_container_v1::model::upgrade_details::StartType;
+    /// let x0 = UpgradeDetails::new().set_start_type(StartType::Automatic);
+    /// let x1 = UpgradeDetails::new().set_start_type(StartType::Manual);
+    /// ```
     pub fn set_start_type<T: std::convert::Into<crate::model::upgrade_details::StartType>>(
         mut self,
         v: T,
@@ -29419,12 +38227,24 @@ impl FetchNodePoolUpgradeInfoRequest {
     }
 
     /// Sets the value of [name][crate::model::FetchNodePoolUpgradeInfoRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::FetchNodePoolUpgradeInfoRequest;
+    /// let x = FetchNodePoolUpgradeInfoRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [version][crate::model::FetchNodePoolUpgradeInfoRequest::version].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::FetchNodePoolUpgradeInfoRequest;
+    /// let x = FetchNodePoolUpgradeInfoRequest::new().set_version("example");
+    /// ```
     pub fn set_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.version = v.into();
         self
@@ -29471,6 +38291,12 @@ impl NodePoolUpgradeInfo {
     }
 
     /// Sets the value of [minor_target_version][crate::model::NodePoolUpgradeInfo::minor_target_version].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NodePoolUpgradeInfo;
+    /// let x = NodePoolUpgradeInfo::new().set_minor_target_version("example");
+    /// ```
     pub fn set_minor_target_version<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -29480,6 +38306,14 @@ impl NodePoolUpgradeInfo {
     }
 
     /// Sets or clears the value of [minor_target_version][crate::model::NodePoolUpgradeInfo::minor_target_version].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NodePoolUpgradeInfo;
+    /// let x = NodePoolUpgradeInfo::new().set_or_clear_minor_target_version("example");
+    /// let x = NodePoolUpgradeInfo::new().set_or_clear_minor_target_version(Some("example"));
+    /// let x = NodePoolUpgradeInfo::new().set_or_clear_minor_target_version(None::<String>);
+    /// ```
     pub fn set_or_clear_minor_target_version<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -29489,6 +38323,12 @@ impl NodePoolUpgradeInfo {
     }
 
     /// Sets the value of [patch_target_version][crate::model::NodePoolUpgradeInfo::patch_target_version].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NodePoolUpgradeInfo;
+    /// let x = NodePoolUpgradeInfo::new().set_patch_target_version("example");
+    /// ```
     pub fn set_patch_target_version<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -29498,6 +38338,14 @@ impl NodePoolUpgradeInfo {
     }
 
     /// Sets or clears the value of [patch_target_version][crate::model::NodePoolUpgradeInfo::patch_target_version].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NodePoolUpgradeInfo;
+    /// let x = NodePoolUpgradeInfo::new().set_or_clear_patch_target_version("example");
+    /// let x = NodePoolUpgradeInfo::new().set_or_clear_patch_target_version(Some("example"));
+    /// let x = NodePoolUpgradeInfo::new().set_or_clear_patch_target_version(None::<String>);
+    /// ```
     pub fn set_or_clear_patch_target_version<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -29507,6 +38355,17 @@ impl NodePoolUpgradeInfo {
     }
 
     /// Sets the value of [auto_upgrade_status][crate::model::NodePoolUpgradeInfo::auto_upgrade_status].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NodePoolUpgradeInfo;
+    /// use google_cloud_container_v1::model::node_pool_upgrade_info::AutoUpgradeStatus;
+    /// let x = NodePoolUpgradeInfo::new().set_auto_upgrade_status([
+    ///     AutoUpgradeStatus::Active,
+    ///     AutoUpgradeStatus::MinorUpgradePaused,
+    ///     AutoUpgradeStatus::UpgradePaused,
+    /// ]);
+    /// ```
     pub fn set_auto_upgrade_status<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -29518,6 +38377,17 @@ impl NodePoolUpgradeInfo {
     }
 
     /// Sets the value of [paused_reason][crate::model::NodePoolUpgradeInfo::paused_reason].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NodePoolUpgradeInfo;
+    /// use google_cloud_container_v1::model::node_pool_upgrade_info::AutoUpgradePausedReason;
+    /// let x = NodePoolUpgradeInfo::new().set_paused_reason([
+    ///     AutoUpgradePausedReason::MaintenanceWindow,
+    ///     AutoUpgradePausedReason::MaintenanceExclusionNoUpgrades,
+    ///     AutoUpgradePausedReason::MaintenanceExclusionNoMinorUpgrades,
+    /// ]);
+    /// ```
     pub fn set_paused_reason<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -29529,6 +38399,17 @@ impl NodePoolUpgradeInfo {
     }
 
     /// Sets the value of [upgrade_details][crate::model::NodePoolUpgradeInfo::upgrade_details].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NodePoolUpgradeInfo;
+    /// use google_cloud_container_v1::model::UpgradeDetails;
+    /// let x = NodePoolUpgradeInfo::new()
+    ///     .set_upgrade_details([
+    ///         UpgradeDetails::default()/* use setters */,
+    ///         UpgradeDetails::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_upgrade_details<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -29540,6 +38421,12 @@ impl NodePoolUpgradeInfo {
     }
 
     /// Sets the value of [end_of_standard_support_timestamp][crate::model::NodePoolUpgradeInfo::end_of_standard_support_timestamp].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NodePoolUpgradeInfo;
+    /// let x = NodePoolUpgradeInfo::new().set_end_of_standard_support_timestamp("example");
+    /// ```
     pub fn set_end_of_standard_support_timestamp<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -29549,6 +38436,14 @@ impl NodePoolUpgradeInfo {
     }
 
     /// Sets or clears the value of [end_of_standard_support_timestamp][crate::model::NodePoolUpgradeInfo::end_of_standard_support_timestamp].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NodePoolUpgradeInfo;
+    /// let x = NodePoolUpgradeInfo::new().set_or_clear_end_of_standard_support_timestamp("example");
+    /// let x = NodePoolUpgradeInfo::new().set_or_clear_end_of_standard_support_timestamp(Some("example"));
+    /// let x = NodePoolUpgradeInfo::new().set_or_clear_end_of_standard_support_timestamp(None::<String>);
+    /// ```
     pub fn set_or_clear_end_of_standard_support_timestamp<T>(
         mut self,
         v: std::option::Option<T>,
@@ -29561,6 +38456,12 @@ impl NodePoolUpgradeInfo {
     }
 
     /// Sets the value of [end_of_extended_support_timestamp][crate::model::NodePoolUpgradeInfo::end_of_extended_support_timestamp].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NodePoolUpgradeInfo;
+    /// let x = NodePoolUpgradeInfo::new().set_end_of_extended_support_timestamp("example");
+    /// ```
     pub fn set_end_of_extended_support_timestamp<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -29570,6 +38471,14 @@ impl NodePoolUpgradeInfo {
     }
 
     /// Sets or clears the value of [end_of_extended_support_timestamp][crate::model::NodePoolUpgradeInfo::end_of_extended_support_timestamp].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NodePoolUpgradeInfo;
+    /// let x = NodePoolUpgradeInfo::new().set_or_clear_end_of_extended_support_timestamp("example");
+    /// let x = NodePoolUpgradeInfo::new().set_or_clear_end_of_extended_support_timestamp(Some("example"));
+    /// let x = NodePoolUpgradeInfo::new().set_or_clear_end_of_extended_support_timestamp(None::<String>);
+    /// ```
     pub fn set_or_clear_end_of_extended_support_timestamp<T>(
         mut self,
         v: std::option::Option<T>,
@@ -29911,6 +38820,13 @@ impl GkeAutoUpgradeConfig {
     }
 
     /// Sets the value of [patch_mode][crate::model::GkeAutoUpgradeConfig::patch_mode].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::GkeAutoUpgradeConfig;
+    /// use google_cloud_container_v1::model::gke_auto_upgrade_config::PatchMode;
+    /// let x0 = GkeAutoUpgradeConfig::new().set_patch_mode(PatchMode::Accelerated);
+    /// ```
     pub fn set_patch_mode<
         T: std::convert::Into<crate::model::gke_auto_upgrade_config::PatchMode>,
     >(
@@ -30079,6 +38995,15 @@ impl NetworkTierConfig {
     }
 
     /// Sets the value of [network_tier][crate::model::NetworkTierConfig::network_tier].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::model::NetworkTierConfig;
+    /// use google_cloud_container_v1::model::network_tier_config::NetworkTier;
+    /// let x0 = NetworkTierConfig::new().set_network_tier(NetworkTier::Default);
+    /// let x1 = NetworkTierConfig::new().set_network_tier(NetworkTier::Premium);
+    /// let x2 = NetworkTierConfig::new().set_network_tier(NetworkTier::Standard);
+    /// ```
     pub fn set_network_tier<
         T: std::convert::Into<crate::model::network_tier_config::NetworkTier>,
     >(

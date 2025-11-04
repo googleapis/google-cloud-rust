@@ -71,12 +71,24 @@ impl CheckRequest {
     }
 
     /// Sets the value of [service_name][crate::model::CheckRequest::service_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api_servicecontrol_v2::model::CheckRequest;
+    /// let x = CheckRequest::new().set_service_name("example");
+    /// ```
     pub fn set_service_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.service_name = v.into();
         self
     }
 
     /// Sets the value of [service_config_id][crate::model::CheckRequest::service_config_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api_servicecontrol_v2::model::CheckRequest;
+    /// let x = CheckRequest::new().set_service_config_id("example");
+    /// ```
     pub fn set_service_config_id<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -86,6 +98,13 @@ impl CheckRequest {
     }
 
     /// Sets the value of [attributes][crate::model::CheckRequest::attributes].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api_servicecontrol_v2::model::CheckRequest;
+    /// use rpc_context::model::AttributeContext;
+    /// let x = CheckRequest::new().set_attributes(AttributeContext::default()/* use setters */);
+    /// ```
     pub fn set_attributes<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<rpc_context::model::AttributeContext>,
@@ -95,6 +114,14 @@ impl CheckRequest {
     }
 
     /// Sets or clears the value of [attributes][crate::model::CheckRequest::attributes].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api_servicecontrol_v2::model::CheckRequest;
+    /// use rpc_context::model::AttributeContext;
+    /// let x = CheckRequest::new().set_or_clear_attributes(Some(AttributeContext::default()/* use setters */));
+    /// let x = CheckRequest::new().set_or_clear_attributes(None::<AttributeContext>);
+    /// ```
     pub fn set_or_clear_attributes<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<rpc_context::model::AttributeContext>,
@@ -104,6 +131,17 @@ impl CheckRequest {
     }
 
     /// Sets the value of [resources][crate::model::CheckRequest::resources].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api_servicecontrol_v2::model::CheckRequest;
+    /// use google_cloud_api_servicecontrol_v2::model::ResourceInfo;
+    /// let x = CheckRequest::new()
+    ///     .set_resources([
+    ///         ResourceInfo::default()/* use setters */,
+    ///         ResourceInfo::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_resources<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -115,6 +153,12 @@ impl CheckRequest {
     }
 
     /// Sets the value of [flags][crate::model::CheckRequest::flags].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api_servicecontrol_v2::model::CheckRequest;
+    /// let x = CheckRequest::new().set_flags("example");
+    /// ```
     pub fn set_flags<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.flags = v.into();
         self
@@ -166,30 +210,60 @@ impl ResourceInfo {
     }
 
     /// Sets the value of [name][crate::model::ResourceInfo::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api_servicecontrol_v2::model::ResourceInfo;
+    /// let x = ResourceInfo::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [r#type][crate::model::ResourceInfo::type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api_servicecontrol_v2::model::ResourceInfo;
+    /// let x = ResourceInfo::new().set_type("example");
+    /// ```
     pub fn set_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.r#type = v.into();
         self
     }
 
     /// Sets the value of [permission][crate::model::ResourceInfo::permission].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api_servicecontrol_v2::model::ResourceInfo;
+    /// let x = ResourceInfo::new().set_permission("example");
+    /// ```
     pub fn set_permission<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.permission = v.into();
         self
     }
 
     /// Sets the value of [container][crate::model::ResourceInfo::container].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api_servicecontrol_v2::model::ResourceInfo;
+    /// let x = ResourceInfo::new().set_container("example");
+    /// ```
     pub fn set_container<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.container = v.into();
         self
     }
 
     /// Sets the value of [location][crate::model::ResourceInfo::location].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api_servicecontrol_v2::model::ResourceInfo;
+    /// let x = ResourceInfo::new().set_location("example");
+    /// ```
     pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.location = v.into();
         self
@@ -225,6 +299,13 @@ impl CheckResponse {
     }
 
     /// Sets the value of [status][crate::model::CheckResponse::status].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api_servicecontrol_v2::model::CheckResponse;
+    /// use rpc::model::Status;
+    /// let x = CheckResponse::new().set_status(Status::default()/* use setters */);
+    /// ```
     pub fn set_status<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<rpc::model::Status>,
@@ -234,6 +315,14 @@ impl CheckResponse {
     }
 
     /// Sets or clears the value of [status][crate::model::CheckResponse::status].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api_servicecontrol_v2::model::CheckResponse;
+    /// use rpc::model::Status;
+    /// let x = CheckResponse::new().set_or_clear_status(Some(Status::default()/* use setters */));
+    /// let x = CheckResponse::new().set_or_clear_status(None::<Status>);
+    /// ```
     pub fn set_or_clear_status<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<rpc::model::Status>,
@@ -243,6 +332,15 @@ impl CheckResponse {
     }
 
     /// Sets the value of [headers][crate::model::CheckResponse::headers].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api_servicecontrol_v2::model::CheckResponse;
+    /// let x = CheckResponse::new().set_headers([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_headers<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -292,12 +390,24 @@ impl ReportRequest {
     }
 
     /// Sets the value of [service_name][crate::model::ReportRequest::service_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api_servicecontrol_v2::model::ReportRequest;
+    /// let x = ReportRequest::new().set_service_name("example");
+    /// ```
     pub fn set_service_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.service_name = v.into();
         self
     }
 
     /// Sets the value of [service_config_id][crate::model::ReportRequest::service_config_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api_servicecontrol_v2::model::ReportRequest;
+    /// let x = ReportRequest::new().set_service_config_id("example");
+    /// ```
     pub fn set_service_config_id<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -307,6 +417,17 @@ impl ReportRequest {
     }
 
     /// Sets the value of [operations][crate::model::ReportRequest::operations].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api_servicecontrol_v2::model::ReportRequest;
+    /// use rpc_context::model::AttributeContext;
+    /// let x = ReportRequest::new()
+    ///     .set_operations([
+    ///         AttributeContext::default()/* use setters */,
+    ///         AttributeContext::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_operations<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -360,6 +481,17 @@ impl ResourceInfoList {
     }
 
     /// Sets the value of [resources][crate::model::ResourceInfoList::resources].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api_servicecontrol_v2::model::ResourceInfoList;
+    /// use google_cloud_api_servicecontrol_v2::model::ResourceInfo;
+    /// let x = ResourceInfoList::new()
+    ///     .set_resources([
+    ///         ResourceInfo::default()/* use setters */,
+    ///         ResourceInfo::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_resources<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,

@@ -68,6 +68,17 @@ impl Authentication {
     }
 
     /// Sets the value of [rules][crate::model::Authentication::rules].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::Authentication;
+    /// use google_cloud_api::model::AuthenticationRule;
+    /// let x = Authentication::new()
+    ///     .set_rules([
+    ///         AuthenticationRule::default()/* use setters */,
+    ///         AuthenticationRule::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_rules<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -79,6 +90,17 @@ impl Authentication {
     }
 
     /// Sets the value of [providers][crate::model::Authentication::providers].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::Authentication;
+    /// use google_cloud_api::model::AuthProvider;
+    /// let x = Authentication::new()
+    ///     .set_providers([
+    ///         AuthProvider::default()/* use setters */,
+    ///         AuthProvider::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_providers<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -135,12 +157,25 @@ impl AuthenticationRule {
     }
 
     /// Sets the value of [selector][crate::model::AuthenticationRule::selector].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::AuthenticationRule;
+    /// let x = AuthenticationRule::new().set_selector("example");
+    /// ```
     pub fn set_selector<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.selector = v.into();
         self
     }
 
     /// Sets the value of [oauth][crate::model::AuthenticationRule::oauth].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::AuthenticationRule;
+    /// use google_cloud_api::model::OAuthRequirements;
+    /// let x = AuthenticationRule::new().set_oauth(OAuthRequirements::default()/* use setters */);
+    /// ```
     pub fn set_oauth<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::OAuthRequirements>,
@@ -150,6 +185,14 @@ impl AuthenticationRule {
     }
 
     /// Sets or clears the value of [oauth][crate::model::AuthenticationRule::oauth].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::AuthenticationRule;
+    /// use google_cloud_api::model::OAuthRequirements;
+    /// let x = AuthenticationRule::new().set_or_clear_oauth(Some(OAuthRequirements::default()/* use setters */));
+    /// let x = AuthenticationRule::new().set_or_clear_oauth(None::<OAuthRequirements>);
+    /// ```
     pub fn set_or_clear_oauth<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::OAuthRequirements>,
@@ -159,12 +202,29 @@ impl AuthenticationRule {
     }
 
     /// Sets the value of [allow_without_credential][crate::model::AuthenticationRule::allow_without_credential].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::AuthenticationRule;
+    /// let x = AuthenticationRule::new().set_allow_without_credential(true);
+    /// ```
     pub fn set_allow_without_credential<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.allow_without_credential = v.into();
         self
     }
 
     /// Sets the value of [requirements][crate::model::AuthenticationRule::requirements].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::AuthenticationRule;
+    /// use google_cloud_api::model::AuthRequirement;
+    /// let x = AuthenticationRule::new()
+    ///     .set_requirements([
+    ///         AuthRequirement::default()/* use setters */,
+    ///         AuthRequirement::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_requirements<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -207,6 +267,12 @@ impl JwtLocation {
     }
 
     /// Sets the value of [value_prefix][crate::model::JwtLocation::value_prefix].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::JwtLocation;
+    /// let x = JwtLocation::new().set_value_prefix("example");
+    /// ```
     pub fn set_value_prefix<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.value_prefix = v.into();
         self
@@ -216,6 +282,13 @@ impl JwtLocation {
     ///
     /// Note that all the setters affecting `r#in` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::JwtLocation;
+    /// use google_cloud_api::model::jwt_location;
+    /// let x = JwtLocation::new().set_in(Some(jwt_location::In::Header("example".to_string())));
+    /// ```
     pub fn set_in<T: std::convert::Into<std::option::Option<crate::model::jwt_location::In>>>(
         mut self,
         v: T,
@@ -240,6 +313,15 @@ impl JwtLocation {
     ///
     /// Note that all the setters affecting `r#in` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::JwtLocation;
+    /// let x = JwtLocation::new().set_header("example");
+    /// assert!(x.header().is_some());
+    /// assert!(x.query().is_none());
+    /// assert!(x.cookie().is_none());
+    /// ```
     pub fn set_header<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.r#in = std::option::Option::Some(crate::model::jwt_location::In::Header(v.into()));
         self
@@ -261,6 +343,15 @@ impl JwtLocation {
     ///
     /// Note that all the setters affecting `r#in` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::JwtLocation;
+    /// let x = JwtLocation::new().set_query("example");
+    /// assert!(x.query().is_some());
+    /// assert!(x.header().is_none());
+    /// assert!(x.cookie().is_none());
+    /// ```
     pub fn set_query<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.r#in = std::option::Option::Some(crate::model::jwt_location::In::Query(v.into()));
         self
@@ -282,6 +373,15 @@ impl JwtLocation {
     ///
     /// Note that all the setters affecting `r#in` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::JwtLocation;
+    /// let x = JwtLocation::new().set_cookie("example");
+    /// assert!(x.cookie().is_some());
+    /// assert!(x.header().is_none());
+    /// assert!(x.query().is_none());
+    /// ```
     pub fn set_cookie<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.r#in = std::option::Option::Some(crate::model::jwt_location::In::Cookie(v.into()));
         self
@@ -404,30 +504,60 @@ impl AuthProvider {
     }
 
     /// Sets the value of [id][crate::model::AuthProvider::id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::AuthProvider;
+    /// let x = AuthProvider::new().set_id("example");
+    /// ```
     pub fn set_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.id = v.into();
         self
     }
 
     /// Sets the value of [issuer][crate::model::AuthProvider::issuer].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::AuthProvider;
+    /// let x = AuthProvider::new().set_issuer("example");
+    /// ```
     pub fn set_issuer<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.issuer = v.into();
         self
     }
 
     /// Sets the value of [jwks_uri][crate::model::AuthProvider::jwks_uri].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::AuthProvider;
+    /// let x = AuthProvider::new().set_jwks_uri("example");
+    /// ```
     pub fn set_jwks_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.jwks_uri = v.into();
         self
     }
 
     /// Sets the value of [audiences][crate::model::AuthProvider::audiences].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::AuthProvider;
+    /// let x = AuthProvider::new().set_audiences("example");
+    /// ```
     pub fn set_audiences<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.audiences = v.into();
         self
     }
 
     /// Sets the value of [authorization_url][crate::model::AuthProvider::authorization_url].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::AuthProvider;
+    /// let x = AuthProvider::new().set_authorization_url("example");
+    /// ```
     pub fn set_authorization_url<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -437,6 +567,17 @@ impl AuthProvider {
     }
 
     /// Sets the value of [jwt_locations][crate::model::AuthProvider::jwt_locations].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::AuthProvider;
+    /// use google_cloud_api::model::JwtLocation;
+    /// let x = AuthProvider::new()
+    ///     .set_jwt_locations([
+    ///         JwtLocation::default()/* use setters */,
+    ///         JwtLocation::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_jwt_locations<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -495,6 +636,12 @@ impl OAuthRequirements {
     }
 
     /// Sets the value of [canonical_scopes][crate::model::OAuthRequirements::canonical_scopes].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::OAuthRequirements;
+    /// let x = OAuthRequirements::new().set_canonical_scopes("example");
+    /// ```
     pub fn set_canonical_scopes<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -559,12 +706,24 @@ impl AuthRequirement {
     }
 
     /// Sets the value of [provider_id][crate::model::AuthRequirement::provider_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::AuthRequirement;
+    /// let x = AuthRequirement::new().set_provider_id("example");
+    /// ```
     pub fn set_provider_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.provider_id = v.into();
         self
     }
 
     /// Sets the value of [audiences][crate::model::AuthRequirement::audiences].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::AuthRequirement;
+    /// let x = AuthRequirement::new().set_audiences("example");
+    /// ```
     pub fn set_audiences<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.audiences = v.into();
         self
@@ -595,6 +754,17 @@ impl Backend {
     }
 
     /// Sets the value of [rules][crate::model::Backend::rules].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::Backend;
+    /// use google_cloud_api::model::BackendRule;
+    /// let x = Backend::new()
+    ///     .set_rules([
+    ///         BackendRule::default()/* use setters */,
+    ///         BackendRule::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_rules<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -717,24 +887,48 @@ impl BackendRule {
     }
 
     /// Sets the value of [selector][crate::model::BackendRule::selector].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::BackendRule;
+    /// let x = BackendRule::new().set_selector("example");
+    /// ```
     pub fn set_selector<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.selector = v.into();
         self
     }
 
     /// Sets the value of [address][crate::model::BackendRule::address].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::BackendRule;
+    /// let x = BackendRule::new().set_address("example");
+    /// ```
     pub fn set_address<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.address = v.into();
         self
     }
 
     /// Sets the value of [deadline][crate::model::BackendRule::deadline].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::BackendRule;
+    /// let x = BackendRule::new().set_deadline(42.0);
+    /// ```
     pub fn set_deadline<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
         self.deadline = v.into();
         self
     }
 
     /// Sets the value of [min_deadline][crate::model::BackendRule::min_deadline].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::BackendRule;
+    /// let x = BackendRule::new().set_min_deadline(42.0);
+    /// ```
     #[deprecated]
     pub fn set_min_deadline<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
         self.min_deadline = v.into();
@@ -742,12 +936,26 @@ impl BackendRule {
     }
 
     /// Sets the value of [operation_deadline][crate::model::BackendRule::operation_deadline].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::BackendRule;
+    /// let x = BackendRule::new().set_operation_deadline(42.0);
+    /// ```
     pub fn set_operation_deadline<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
         self.operation_deadline = v.into();
         self
     }
 
     /// Sets the value of [path_translation][crate::model::BackendRule::path_translation].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::BackendRule;
+    /// use google_cloud_api::model::backend_rule::PathTranslation;
+    /// let x0 = BackendRule::new().set_path_translation(PathTranslation::ConstantAddress);
+    /// let x1 = BackendRule::new().set_path_translation(PathTranslation::AppendPathToAddress);
+    /// ```
     pub fn set_path_translation<
         T: std::convert::Into<crate::model::backend_rule::PathTranslation>,
     >(
@@ -759,12 +967,28 @@ impl BackendRule {
     }
 
     /// Sets the value of [protocol][crate::model::BackendRule::protocol].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::BackendRule;
+    /// let x = BackendRule::new().set_protocol("example");
+    /// ```
     pub fn set_protocol<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.protocol = v.into();
         self
     }
 
     /// Sets the value of [overrides_by_request_protocol][crate::model::BackendRule::overrides_by_request_protocol].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::BackendRule;
+    /// use google_cloud_api::model::BackendRule;
+    /// let x = BackendRule::new().set_overrides_by_request_protocol([
+    ///     ("key0", BackendRule::default()/* use setters */),
+    ///     ("key1", BackendRule::default()/* use (different) setters */),
+    /// ]);
+    /// ```
     pub fn set_overrides_by_request_protocol<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -781,6 +1005,13 @@ impl BackendRule {
     ///
     /// Note that all the setters affecting `authentication` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::BackendRule;
+    /// use google_cloud_api::model::backend_rule;
+    /// let x = BackendRule::new().set_authentication(Some(backend_rule::Authentication::JwtAudience("example".to_string())));
+    /// ```
     pub fn set_authentication<
         T: std::convert::Into<std::option::Option<crate::model::backend_rule::Authentication>>,
     >(
@@ -809,6 +1040,14 @@ impl BackendRule {
     ///
     /// Note that all the setters affecting `authentication` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::BackendRule;
+    /// let x = BackendRule::new().set_jwt_audience("example");
+    /// assert!(x.jwt_audience().is_some());
+    /// assert!(x.disable_auth().is_none());
+    /// ```
     pub fn set_jwt_audience<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.authentication = std::option::Option::Some(
             crate::model::backend_rule::Authentication::JwtAudience(v.into()),
@@ -834,6 +1073,14 @@ impl BackendRule {
     ///
     /// Note that all the setters affecting `authentication` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::BackendRule;
+    /// let x = BackendRule::new().set_disable_auth(true);
+    /// assert!(x.disable_auth().is_some());
+    /// assert!(x.jwt_audience().is_none());
+    /// ```
     pub fn set_disable_auth<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.authentication = std::option::Option::Some(
             crate::model::backend_rule::Authentication::DisableAuth(v.into()),
@@ -1118,6 +1365,17 @@ impl Billing {
     }
 
     /// Sets the value of [consumer_destinations][crate::model::Billing::consumer_destinations].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::Billing;
+    /// use google_cloud_api::model::billing::BillingDestination;
+    /// let x = Billing::new()
+    ///     .set_consumer_destinations([
+    ///         BillingDestination::default()/* use setters */,
+    ///         BillingDestination::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_consumer_destinations<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1168,6 +1426,12 @@ pub mod billing {
         }
 
         /// Sets the value of [monitored_resource][crate::model::billing::BillingDestination::monitored_resource].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_api::model::billing::BillingDestination;
+        /// let x = BillingDestination::new().set_monitored_resource("example");
+        /// ```
         pub fn set_monitored_resource<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -1177,6 +1441,12 @@ pub mod billing {
         }
 
         /// Sets the value of [metrics][crate::model::billing::BillingDestination::metrics].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_api::model::billing::BillingDestination;
+        /// let x = BillingDestination::new().set_metrics(["a", "b", "c"]);
+        /// ```
         pub fn set_metrics<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -1219,6 +1489,12 @@ impl CommonLanguageSettings {
     }
 
     /// Sets the value of [reference_docs_uri][crate::model::CommonLanguageSettings::reference_docs_uri].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::CommonLanguageSettings;
+    /// let x = CommonLanguageSettings::new().set_reference_docs_uri("example");
+    /// ```
     #[deprecated]
     pub fn set_reference_docs_uri<T: std::convert::Into<std::string::String>>(
         mut self,
@@ -1229,6 +1505,16 @@ impl CommonLanguageSettings {
     }
 
     /// Sets the value of [destinations][crate::model::CommonLanguageSettings::destinations].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::CommonLanguageSettings;
+    /// use google_cloud_api::model::ClientLibraryDestination;
+    /// let x = CommonLanguageSettings::new().set_destinations([
+    ///     ClientLibraryDestination::Github,
+    ///     ClientLibraryDestination::PackageManager,
+    /// ]);
+    /// ```
     pub fn set_destinations<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1240,6 +1526,13 @@ impl CommonLanguageSettings {
     }
 
     /// Sets the value of [selective_gapic_generation][crate::model::CommonLanguageSettings::selective_gapic_generation].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::CommonLanguageSettings;
+    /// use google_cloud_api::model::SelectiveGapicGeneration;
+    /// let x = CommonLanguageSettings::new().set_selective_gapic_generation(SelectiveGapicGeneration::default()/* use setters */);
+    /// ```
     pub fn set_selective_gapic_generation<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::SelectiveGapicGeneration>,
@@ -1249,6 +1542,14 @@ impl CommonLanguageSettings {
     }
 
     /// Sets or clears the value of [selective_gapic_generation][crate::model::CommonLanguageSettings::selective_gapic_generation].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::CommonLanguageSettings;
+    /// use google_cloud_api::model::SelectiveGapicGeneration;
+    /// let x = CommonLanguageSettings::new().set_or_clear_selective_gapic_generation(Some(SelectiveGapicGeneration::default()/* use setters */));
+    /// let x = CommonLanguageSettings::new().set_or_clear_selective_gapic_generation(None::<SelectiveGapicGeneration>);
+    /// ```
     pub fn set_or_clear_selective_gapic_generation<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::SelectiveGapicGeneration>,
@@ -1313,12 +1614,27 @@ impl ClientLibrarySettings {
     }
 
     /// Sets the value of [version][crate::model::ClientLibrarySettings::version].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::ClientLibrarySettings;
+    /// let x = ClientLibrarySettings::new().set_version("example");
+    /// ```
     pub fn set_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.version = v.into();
         self
     }
 
     /// Sets the value of [launch_stage][crate::model::ClientLibrarySettings::launch_stage].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::ClientLibrarySettings;
+    /// use google_cloud_api::model::LaunchStage;
+    /// let x0 = ClientLibrarySettings::new().set_launch_stage(LaunchStage::Unimplemented);
+    /// let x1 = ClientLibrarySettings::new().set_launch_stage(LaunchStage::Prelaunch);
+    /// let x2 = ClientLibrarySettings::new().set_launch_stage(LaunchStage::EarlyAccess);
+    /// ```
     pub fn set_launch_stage<T: std::convert::Into<crate::model::LaunchStage>>(
         mut self,
         v: T,
@@ -1328,12 +1644,25 @@ impl ClientLibrarySettings {
     }
 
     /// Sets the value of [rest_numeric_enums][crate::model::ClientLibrarySettings::rest_numeric_enums].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::ClientLibrarySettings;
+    /// let x = ClientLibrarySettings::new().set_rest_numeric_enums(true);
+    /// ```
     pub fn set_rest_numeric_enums<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.rest_numeric_enums = v.into();
         self
     }
 
     /// Sets the value of [java_settings][crate::model::ClientLibrarySettings::java_settings].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::ClientLibrarySettings;
+    /// use google_cloud_api::model::JavaSettings;
+    /// let x = ClientLibrarySettings::new().set_java_settings(JavaSettings::default()/* use setters */);
+    /// ```
     pub fn set_java_settings<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::JavaSettings>,
@@ -1343,6 +1672,14 @@ impl ClientLibrarySettings {
     }
 
     /// Sets or clears the value of [java_settings][crate::model::ClientLibrarySettings::java_settings].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::ClientLibrarySettings;
+    /// use google_cloud_api::model::JavaSettings;
+    /// let x = ClientLibrarySettings::new().set_or_clear_java_settings(Some(JavaSettings::default()/* use setters */));
+    /// let x = ClientLibrarySettings::new().set_or_clear_java_settings(None::<JavaSettings>);
+    /// ```
     pub fn set_or_clear_java_settings<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::JavaSettings>,
@@ -1352,6 +1689,13 @@ impl ClientLibrarySettings {
     }
 
     /// Sets the value of [cpp_settings][crate::model::ClientLibrarySettings::cpp_settings].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::ClientLibrarySettings;
+    /// use google_cloud_api::model::CppSettings;
+    /// let x = ClientLibrarySettings::new().set_cpp_settings(CppSettings::default()/* use setters */);
+    /// ```
     pub fn set_cpp_settings<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::CppSettings>,
@@ -1361,6 +1705,14 @@ impl ClientLibrarySettings {
     }
 
     /// Sets or clears the value of [cpp_settings][crate::model::ClientLibrarySettings::cpp_settings].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::ClientLibrarySettings;
+    /// use google_cloud_api::model::CppSettings;
+    /// let x = ClientLibrarySettings::new().set_or_clear_cpp_settings(Some(CppSettings::default()/* use setters */));
+    /// let x = ClientLibrarySettings::new().set_or_clear_cpp_settings(None::<CppSettings>);
+    /// ```
     pub fn set_or_clear_cpp_settings<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CppSettings>,
@@ -1370,6 +1722,13 @@ impl ClientLibrarySettings {
     }
 
     /// Sets the value of [php_settings][crate::model::ClientLibrarySettings::php_settings].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::ClientLibrarySettings;
+    /// use google_cloud_api::model::PhpSettings;
+    /// let x = ClientLibrarySettings::new().set_php_settings(PhpSettings::default()/* use setters */);
+    /// ```
     pub fn set_php_settings<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::PhpSettings>,
@@ -1379,6 +1738,14 @@ impl ClientLibrarySettings {
     }
 
     /// Sets or clears the value of [php_settings][crate::model::ClientLibrarySettings::php_settings].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::ClientLibrarySettings;
+    /// use google_cloud_api::model::PhpSettings;
+    /// let x = ClientLibrarySettings::new().set_or_clear_php_settings(Some(PhpSettings::default()/* use setters */));
+    /// let x = ClientLibrarySettings::new().set_or_clear_php_settings(None::<PhpSettings>);
+    /// ```
     pub fn set_or_clear_php_settings<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::PhpSettings>,
@@ -1388,6 +1755,13 @@ impl ClientLibrarySettings {
     }
 
     /// Sets the value of [python_settings][crate::model::ClientLibrarySettings::python_settings].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::ClientLibrarySettings;
+    /// use google_cloud_api::model::PythonSettings;
+    /// let x = ClientLibrarySettings::new().set_python_settings(PythonSettings::default()/* use setters */);
+    /// ```
     pub fn set_python_settings<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::PythonSettings>,
@@ -1397,6 +1771,14 @@ impl ClientLibrarySettings {
     }
 
     /// Sets or clears the value of [python_settings][crate::model::ClientLibrarySettings::python_settings].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::ClientLibrarySettings;
+    /// use google_cloud_api::model::PythonSettings;
+    /// let x = ClientLibrarySettings::new().set_or_clear_python_settings(Some(PythonSettings::default()/* use setters */));
+    /// let x = ClientLibrarySettings::new().set_or_clear_python_settings(None::<PythonSettings>);
+    /// ```
     pub fn set_or_clear_python_settings<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::PythonSettings>,
@@ -1406,6 +1788,13 @@ impl ClientLibrarySettings {
     }
 
     /// Sets the value of [node_settings][crate::model::ClientLibrarySettings::node_settings].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::ClientLibrarySettings;
+    /// use google_cloud_api::model::NodeSettings;
+    /// let x = ClientLibrarySettings::new().set_node_settings(NodeSettings::default()/* use setters */);
+    /// ```
     pub fn set_node_settings<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::NodeSettings>,
@@ -1415,6 +1804,14 @@ impl ClientLibrarySettings {
     }
 
     /// Sets or clears the value of [node_settings][crate::model::ClientLibrarySettings::node_settings].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::ClientLibrarySettings;
+    /// use google_cloud_api::model::NodeSettings;
+    /// let x = ClientLibrarySettings::new().set_or_clear_node_settings(Some(NodeSettings::default()/* use setters */));
+    /// let x = ClientLibrarySettings::new().set_or_clear_node_settings(None::<NodeSettings>);
+    /// ```
     pub fn set_or_clear_node_settings<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::NodeSettings>,
@@ -1424,6 +1821,13 @@ impl ClientLibrarySettings {
     }
 
     /// Sets the value of [dotnet_settings][crate::model::ClientLibrarySettings::dotnet_settings].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::ClientLibrarySettings;
+    /// use google_cloud_api::model::DotnetSettings;
+    /// let x = ClientLibrarySettings::new().set_dotnet_settings(DotnetSettings::default()/* use setters */);
+    /// ```
     pub fn set_dotnet_settings<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::DotnetSettings>,
@@ -1433,6 +1837,14 @@ impl ClientLibrarySettings {
     }
 
     /// Sets or clears the value of [dotnet_settings][crate::model::ClientLibrarySettings::dotnet_settings].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::ClientLibrarySettings;
+    /// use google_cloud_api::model::DotnetSettings;
+    /// let x = ClientLibrarySettings::new().set_or_clear_dotnet_settings(Some(DotnetSettings::default()/* use setters */));
+    /// let x = ClientLibrarySettings::new().set_or_clear_dotnet_settings(None::<DotnetSettings>);
+    /// ```
     pub fn set_or_clear_dotnet_settings<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DotnetSettings>,
@@ -1442,6 +1854,13 @@ impl ClientLibrarySettings {
     }
 
     /// Sets the value of [ruby_settings][crate::model::ClientLibrarySettings::ruby_settings].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::ClientLibrarySettings;
+    /// use google_cloud_api::model::RubySettings;
+    /// let x = ClientLibrarySettings::new().set_ruby_settings(RubySettings::default()/* use setters */);
+    /// ```
     pub fn set_ruby_settings<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::RubySettings>,
@@ -1451,6 +1870,14 @@ impl ClientLibrarySettings {
     }
 
     /// Sets or clears the value of [ruby_settings][crate::model::ClientLibrarySettings::ruby_settings].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::ClientLibrarySettings;
+    /// use google_cloud_api::model::RubySettings;
+    /// let x = ClientLibrarySettings::new().set_or_clear_ruby_settings(Some(RubySettings::default()/* use setters */));
+    /// let x = ClientLibrarySettings::new().set_or_clear_ruby_settings(None::<RubySettings>);
+    /// ```
     pub fn set_or_clear_ruby_settings<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::RubySettings>,
@@ -1460,6 +1887,13 @@ impl ClientLibrarySettings {
     }
 
     /// Sets the value of [go_settings][crate::model::ClientLibrarySettings::go_settings].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::ClientLibrarySettings;
+    /// use google_cloud_api::model::GoSettings;
+    /// let x = ClientLibrarySettings::new().set_go_settings(GoSettings::default()/* use setters */);
+    /// ```
     pub fn set_go_settings<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::GoSettings>,
@@ -1469,6 +1903,14 @@ impl ClientLibrarySettings {
     }
 
     /// Sets or clears the value of [go_settings][crate::model::ClientLibrarySettings::go_settings].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::ClientLibrarySettings;
+    /// use google_cloud_api::model::GoSettings;
+    /// let x = ClientLibrarySettings::new().set_or_clear_go_settings(Some(GoSettings::default()/* use setters */));
+    /// let x = ClientLibrarySettings::new().set_or_clear_go_settings(None::<GoSettings>);
+    /// ```
     pub fn set_or_clear_go_settings<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::GoSettings>,
@@ -1543,6 +1985,17 @@ impl Publishing {
     }
 
     /// Sets the value of [method_settings][crate::model::Publishing::method_settings].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::Publishing;
+    /// use google_cloud_api::model::MethodSettings;
+    /// let x = Publishing::new()
+    ///     .set_method_settings([
+    ///         MethodSettings::default()/* use setters */,
+    ///         MethodSettings::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_method_settings<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1554,12 +2007,24 @@ impl Publishing {
     }
 
     /// Sets the value of [new_issue_uri][crate::model::Publishing::new_issue_uri].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::Publishing;
+    /// let x = Publishing::new().set_new_issue_uri("example");
+    /// ```
     pub fn set_new_issue_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.new_issue_uri = v.into();
         self
     }
 
     /// Sets the value of [documentation_uri][crate::model::Publishing::documentation_uri].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::Publishing;
+    /// let x = Publishing::new().set_documentation_uri("example");
+    /// ```
     pub fn set_documentation_uri<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -1569,18 +2034,36 @@ impl Publishing {
     }
 
     /// Sets the value of [api_short_name][crate::model::Publishing::api_short_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::Publishing;
+    /// let x = Publishing::new().set_api_short_name("example");
+    /// ```
     pub fn set_api_short_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.api_short_name = v.into();
         self
     }
 
     /// Sets the value of [github_label][crate::model::Publishing::github_label].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::Publishing;
+    /// let x = Publishing::new().set_github_label("example");
+    /// ```
     pub fn set_github_label<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.github_label = v.into();
         self
     }
 
     /// Sets the value of [codeowner_github_teams][crate::model::Publishing::codeowner_github_teams].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::Publishing;
+    /// let x = Publishing::new().set_codeowner_github_teams(["a", "b", "c"]);
+    /// ```
     pub fn set_codeowner_github_teams<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1592,12 +2075,27 @@ impl Publishing {
     }
 
     /// Sets the value of [doc_tag_prefix][crate::model::Publishing::doc_tag_prefix].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::Publishing;
+    /// let x = Publishing::new().set_doc_tag_prefix("example");
+    /// ```
     pub fn set_doc_tag_prefix<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.doc_tag_prefix = v.into();
         self
     }
 
     /// Sets the value of [organization][crate::model::Publishing::organization].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::Publishing;
+    /// use google_cloud_api::model::ClientLibraryOrganization;
+    /// let x0 = Publishing::new().set_organization(ClientLibraryOrganization::Cloud);
+    /// let x1 = Publishing::new().set_organization(ClientLibraryOrganization::Ads);
+    /// let x2 = Publishing::new().set_organization(ClientLibraryOrganization::Photos);
+    /// ```
     pub fn set_organization<T: std::convert::Into<crate::model::ClientLibraryOrganization>>(
         mut self,
         v: T,
@@ -1607,6 +2105,17 @@ impl Publishing {
     }
 
     /// Sets the value of [library_settings][crate::model::Publishing::library_settings].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::Publishing;
+    /// use google_cloud_api::model::ClientLibrarySettings;
+    /// let x = Publishing::new()
+    ///     .set_library_settings([
+    ///         ClientLibrarySettings::default()/* use setters */,
+    ///         ClientLibrarySettings::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_library_settings<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1618,6 +2127,12 @@ impl Publishing {
     }
 
     /// Sets the value of [proto_reference_documentation_uri][crate::model::Publishing::proto_reference_documentation_uri].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::Publishing;
+    /// let x = Publishing::new().set_proto_reference_documentation_uri("example");
+    /// ```
     pub fn set_proto_reference_documentation_uri<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -1627,6 +2142,12 @@ impl Publishing {
     }
 
     /// Sets the value of [rest_reference_documentation_uri][crate::model::Publishing::rest_reference_documentation_uri].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::Publishing;
+    /// let x = Publishing::new().set_rest_reference_documentation_uri("example");
+    /// ```
     pub fn set_rest_reference_documentation_uri<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -1687,12 +2208,27 @@ impl JavaSettings {
     }
 
     /// Sets the value of [library_package][crate::model::JavaSettings::library_package].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::JavaSettings;
+    /// let x = JavaSettings::new().set_library_package("example");
+    /// ```
     pub fn set_library_package<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.library_package = v.into();
         self
     }
 
     /// Sets the value of [service_class_names][crate::model::JavaSettings::service_class_names].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::JavaSettings;
+    /// let x = JavaSettings::new().set_service_class_names([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_service_class_names<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -1705,6 +2241,13 @@ impl JavaSettings {
     }
 
     /// Sets the value of [common][crate::model::JavaSettings::common].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::JavaSettings;
+    /// use google_cloud_api::model::CommonLanguageSettings;
+    /// let x = JavaSettings::new().set_common(CommonLanguageSettings::default()/* use setters */);
+    /// ```
     pub fn set_common<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::CommonLanguageSettings>,
@@ -1714,6 +2257,14 @@ impl JavaSettings {
     }
 
     /// Sets or clears the value of [common][crate::model::JavaSettings::common].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::JavaSettings;
+    /// use google_cloud_api::model::CommonLanguageSettings;
+    /// let x = JavaSettings::new().set_or_clear_common(Some(CommonLanguageSettings::default()/* use setters */));
+    /// let x = JavaSettings::new().set_or_clear_common(None::<CommonLanguageSettings>);
+    /// ```
     pub fn set_or_clear_common<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CommonLanguageSettings>,
@@ -1745,6 +2296,13 @@ impl CppSettings {
     }
 
     /// Sets the value of [common][crate::model::CppSettings::common].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::CppSettings;
+    /// use google_cloud_api::model::CommonLanguageSettings;
+    /// let x = CppSettings::new().set_common(CommonLanguageSettings::default()/* use setters */);
+    /// ```
     pub fn set_common<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::CommonLanguageSettings>,
@@ -1754,6 +2312,14 @@ impl CppSettings {
     }
 
     /// Sets or clears the value of [common][crate::model::CppSettings::common].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::CppSettings;
+    /// use google_cloud_api::model::CommonLanguageSettings;
+    /// let x = CppSettings::new().set_or_clear_common(Some(CommonLanguageSettings::default()/* use setters */));
+    /// let x = CppSettings::new().set_or_clear_common(None::<CommonLanguageSettings>);
+    /// ```
     pub fn set_or_clear_common<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CommonLanguageSettings>,
@@ -1785,6 +2351,13 @@ impl PhpSettings {
     }
 
     /// Sets the value of [common][crate::model::PhpSettings::common].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::PhpSettings;
+    /// use google_cloud_api::model::CommonLanguageSettings;
+    /// let x = PhpSettings::new().set_common(CommonLanguageSettings::default()/* use setters */);
+    /// ```
     pub fn set_common<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::CommonLanguageSettings>,
@@ -1794,6 +2367,14 @@ impl PhpSettings {
     }
 
     /// Sets or clears the value of [common][crate::model::PhpSettings::common].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::PhpSettings;
+    /// use google_cloud_api::model::CommonLanguageSettings;
+    /// let x = PhpSettings::new().set_or_clear_common(Some(CommonLanguageSettings::default()/* use setters */));
+    /// let x = PhpSettings::new().set_or_clear_common(None::<CommonLanguageSettings>);
+    /// ```
     pub fn set_or_clear_common<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CommonLanguageSettings>,
@@ -1829,6 +2410,13 @@ impl PythonSettings {
     }
 
     /// Sets the value of [common][crate::model::PythonSettings::common].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::PythonSettings;
+    /// use google_cloud_api::model::CommonLanguageSettings;
+    /// let x = PythonSettings::new().set_common(CommonLanguageSettings::default()/* use setters */);
+    /// ```
     pub fn set_common<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::CommonLanguageSettings>,
@@ -1838,6 +2426,14 @@ impl PythonSettings {
     }
 
     /// Sets or clears the value of [common][crate::model::PythonSettings::common].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::PythonSettings;
+    /// use google_cloud_api::model::CommonLanguageSettings;
+    /// let x = PythonSettings::new().set_or_clear_common(Some(CommonLanguageSettings::default()/* use setters */));
+    /// let x = PythonSettings::new().set_or_clear_common(None::<CommonLanguageSettings>);
+    /// ```
     pub fn set_or_clear_common<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CommonLanguageSettings>,
@@ -1847,6 +2443,13 @@ impl PythonSettings {
     }
 
     /// Sets the value of [experimental_features][crate::model::PythonSettings::experimental_features].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::PythonSettings;
+    /// use google_cloud_api::model::python_settings::ExperimentalFeatures;
+    /// let x = PythonSettings::new().set_experimental_features(ExperimentalFeatures::default()/* use setters */);
+    /// ```
     pub fn set_experimental_features<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::python_settings::ExperimentalFeatures>,
@@ -1856,6 +2459,14 @@ impl PythonSettings {
     }
 
     /// Sets or clears the value of [experimental_features][crate::model::PythonSettings::experimental_features].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::PythonSettings;
+    /// use google_cloud_api::model::python_settings::ExperimentalFeatures;
+    /// let x = PythonSettings::new().set_or_clear_experimental_features(Some(ExperimentalFeatures::default()/* use setters */));
+    /// let x = PythonSettings::new().set_or_clear_experimental_features(None::<ExperimentalFeatures>);
+    /// ```
     pub fn set_or_clear_experimental_features<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::python_settings::ExperimentalFeatures>,
@@ -1909,12 +2520,24 @@ pub mod python_settings {
         }
 
         /// Sets the value of [rest_async_io_enabled][crate::model::python_settings::ExperimentalFeatures::rest_async_io_enabled].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_api::model::python_settings::ExperimentalFeatures;
+        /// let x = ExperimentalFeatures::new().set_rest_async_io_enabled(true);
+        /// ```
         pub fn set_rest_async_io_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.rest_async_io_enabled = v.into();
             self
         }
 
         /// Sets the value of [protobuf_pythonic_types_enabled][crate::model::python_settings::ExperimentalFeatures::protobuf_pythonic_types_enabled].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_api::model::python_settings::ExperimentalFeatures;
+        /// let x = ExperimentalFeatures::new().set_protobuf_pythonic_types_enabled(true);
+        /// ```
         pub fn set_protobuf_pythonic_types_enabled<T: std::convert::Into<bool>>(
             mut self,
             v: T,
@@ -1924,6 +2547,12 @@ pub mod python_settings {
         }
 
         /// Sets the value of [unversioned_package_disabled][crate::model::python_settings::ExperimentalFeatures::unversioned_package_disabled].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_api::model::python_settings::ExperimentalFeatures;
+        /// let x = ExperimentalFeatures::new().set_unversioned_package_disabled(true);
+        /// ```
         pub fn set_unversioned_package_disabled<T: std::convert::Into<bool>>(
             mut self,
             v: T,
@@ -1956,6 +2585,13 @@ impl NodeSettings {
     }
 
     /// Sets the value of [common][crate::model::NodeSettings::common].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::NodeSettings;
+    /// use google_cloud_api::model::CommonLanguageSettings;
+    /// let x = NodeSettings::new().set_common(CommonLanguageSettings::default()/* use setters */);
+    /// ```
     pub fn set_common<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::CommonLanguageSettings>,
@@ -1965,6 +2601,14 @@ impl NodeSettings {
     }
 
     /// Sets or clears the value of [common][crate::model::NodeSettings::common].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::NodeSettings;
+    /// use google_cloud_api::model::CommonLanguageSettings;
+    /// let x = NodeSettings::new().set_or_clear_common(Some(CommonLanguageSettings::default()/* use setters */));
+    /// let x = NodeSettings::new().set_or_clear_common(None::<CommonLanguageSettings>);
+    /// ```
     pub fn set_or_clear_common<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CommonLanguageSettings>,
@@ -2026,6 +2670,13 @@ impl DotnetSettings {
     }
 
     /// Sets the value of [common][crate::model::DotnetSettings::common].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::DotnetSettings;
+    /// use google_cloud_api::model::CommonLanguageSettings;
+    /// let x = DotnetSettings::new().set_common(CommonLanguageSettings::default()/* use setters */);
+    /// ```
     pub fn set_common<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::CommonLanguageSettings>,
@@ -2035,6 +2686,14 @@ impl DotnetSettings {
     }
 
     /// Sets or clears the value of [common][crate::model::DotnetSettings::common].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::DotnetSettings;
+    /// use google_cloud_api::model::CommonLanguageSettings;
+    /// let x = DotnetSettings::new().set_or_clear_common(Some(CommonLanguageSettings::default()/* use setters */));
+    /// let x = DotnetSettings::new().set_or_clear_common(None::<CommonLanguageSettings>);
+    /// ```
     pub fn set_or_clear_common<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CommonLanguageSettings>,
@@ -2044,6 +2703,15 @@ impl DotnetSettings {
     }
 
     /// Sets the value of [renamed_services][crate::model::DotnetSettings::renamed_services].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::DotnetSettings;
+    /// let x = DotnetSettings::new().set_renamed_services([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_renamed_services<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -2056,6 +2724,15 @@ impl DotnetSettings {
     }
 
     /// Sets the value of [renamed_resources][crate::model::DotnetSettings::renamed_resources].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::DotnetSettings;
+    /// let x = DotnetSettings::new().set_renamed_resources([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_renamed_resources<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -2068,6 +2745,12 @@ impl DotnetSettings {
     }
 
     /// Sets the value of [ignored_resources][crate::model::DotnetSettings::ignored_resources].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::DotnetSettings;
+    /// let x = DotnetSettings::new().set_ignored_resources(["a", "b", "c"]);
+    /// ```
     pub fn set_ignored_resources<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2079,6 +2762,12 @@ impl DotnetSettings {
     }
 
     /// Sets the value of [forced_namespace_aliases][crate::model::DotnetSettings::forced_namespace_aliases].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::DotnetSettings;
+    /// let x = DotnetSettings::new().set_forced_namespace_aliases(["a", "b", "c"]);
+    /// ```
     pub fn set_forced_namespace_aliases<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2090,6 +2779,12 @@ impl DotnetSettings {
     }
 
     /// Sets the value of [handwritten_signatures][crate::model::DotnetSettings::handwritten_signatures].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::DotnetSettings;
+    /// let x = DotnetSettings::new().set_handwritten_signatures(["a", "b", "c"]);
+    /// ```
     pub fn set_handwritten_signatures<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2123,6 +2818,13 @@ impl RubySettings {
     }
 
     /// Sets the value of [common][crate::model::RubySettings::common].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::RubySettings;
+    /// use google_cloud_api::model::CommonLanguageSettings;
+    /// let x = RubySettings::new().set_common(CommonLanguageSettings::default()/* use setters */);
+    /// ```
     pub fn set_common<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::CommonLanguageSettings>,
@@ -2132,6 +2834,14 @@ impl RubySettings {
     }
 
     /// Sets or clears the value of [common][crate::model::RubySettings::common].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::RubySettings;
+    /// use google_cloud_api::model::CommonLanguageSettings;
+    /// let x = RubySettings::new().set_or_clear_common(Some(CommonLanguageSettings::default()/* use setters */));
+    /// let x = RubySettings::new().set_or_clear_common(None::<CommonLanguageSettings>);
+    /// ```
     pub fn set_or_clear_common<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CommonLanguageSettings>,
@@ -2173,6 +2883,13 @@ impl GoSettings {
     }
 
     /// Sets the value of [common][crate::model::GoSettings::common].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::GoSettings;
+    /// use google_cloud_api::model::CommonLanguageSettings;
+    /// let x = GoSettings::new().set_common(CommonLanguageSettings::default()/* use setters */);
+    /// ```
     pub fn set_common<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::CommonLanguageSettings>,
@@ -2182,6 +2899,14 @@ impl GoSettings {
     }
 
     /// Sets or clears the value of [common][crate::model::GoSettings::common].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::GoSettings;
+    /// use google_cloud_api::model::CommonLanguageSettings;
+    /// let x = GoSettings::new().set_or_clear_common(Some(CommonLanguageSettings::default()/* use setters */));
+    /// let x = GoSettings::new().set_or_clear_common(None::<CommonLanguageSettings>);
+    /// ```
     pub fn set_or_clear_common<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CommonLanguageSettings>,
@@ -2191,6 +2916,15 @@ impl GoSettings {
     }
 
     /// Sets the value of [renamed_services][crate::model::GoSettings::renamed_services].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::GoSettings;
+    /// let x = GoSettings::new().set_renamed_services([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_renamed_services<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -2268,12 +3002,25 @@ impl MethodSettings {
     }
 
     /// Sets the value of [selector][crate::model::MethodSettings::selector].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::MethodSettings;
+    /// let x = MethodSettings::new().set_selector("example");
+    /// ```
     pub fn set_selector<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.selector = v.into();
         self
     }
 
     /// Sets the value of [long_running][crate::model::MethodSettings::long_running].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::MethodSettings;
+    /// use google_cloud_api::model::method_settings::LongRunning;
+    /// let x = MethodSettings::new().set_long_running(LongRunning::default()/* use setters */);
+    /// ```
     pub fn set_long_running<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::method_settings::LongRunning>,
@@ -2283,6 +3030,14 @@ impl MethodSettings {
     }
 
     /// Sets or clears the value of [long_running][crate::model::MethodSettings::long_running].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::MethodSettings;
+    /// use google_cloud_api::model::method_settings::LongRunning;
+    /// let x = MethodSettings::new().set_or_clear_long_running(Some(LongRunning::default()/* use setters */));
+    /// let x = MethodSettings::new().set_or_clear_long_running(None::<LongRunning>);
+    /// ```
     pub fn set_or_clear_long_running<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::method_settings::LongRunning>,
@@ -2292,6 +3047,12 @@ impl MethodSettings {
     }
 
     /// Sets the value of [auto_populated_fields][crate::model::MethodSettings::auto_populated_fields].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::MethodSettings;
+    /// let x = MethodSettings::new().set_auto_populated_fields(["a", "b", "c"]);
+    /// ```
     pub fn set_auto_populated_fields<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2348,6 +3109,13 @@ pub mod method_settings {
         }
 
         /// Sets the value of [initial_poll_delay][crate::model::method_settings::LongRunning::initial_poll_delay].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_api::model::method_settings::LongRunning;
+        /// use wkt::Duration;
+        /// let x = LongRunning::new().set_initial_poll_delay(Duration::default()/* use setters */);
+        /// ```
         pub fn set_initial_poll_delay<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
@@ -2357,6 +3125,14 @@ pub mod method_settings {
         }
 
         /// Sets or clears the value of [initial_poll_delay][crate::model::method_settings::LongRunning::initial_poll_delay].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_api::model::method_settings::LongRunning;
+        /// use wkt::Duration;
+        /// let x = LongRunning::new().set_or_clear_initial_poll_delay(Some(Duration::default()/* use setters */));
+        /// let x = LongRunning::new().set_or_clear_initial_poll_delay(None::<Duration>);
+        /// ```
         pub fn set_or_clear_initial_poll_delay<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
@@ -2366,12 +3142,25 @@ pub mod method_settings {
         }
 
         /// Sets the value of [poll_delay_multiplier][crate::model::method_settings::LongRunning::poll_delay_multiplier].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_api::model::method_settings::LongRunning;
+        /// let x = LongRunning::new().set_poll_delay_multiplier(42.0);
+        /// ```
         pub fn set_poll_delay_multiplier<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
             self.poll_delay_multiplier = v.into();
             self
         }
 
         /// Sets the value of [max_poll_delay][crate::model::method_settings::LongRunning::max_poll_delay].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_api::model::method_settings::LongRunning;
+        /// use wkt::Duration;
+        /// let x = LongRunning::new().set_max_poll_delay(Duration::default()/* use setters */);
+        /// ```
         pub fn set_max_poll_delay<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
@@ -2381,6 +3170,14 @@ pub mod method_settings {
         }
 
         /// Sets or clears the value of [max_poll_delay][crate::model::method_settings::LongRunning::max_poll_delay].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_api::model::method_settings::LongRunning;
+        /// use wkt::Duration;
+        /// let x = LongRunning::new().set_or_clear_max_poll_delay(Some(Duration::default()/* use setters */));
+        /// let x = LongRunning::new().set_or_clear_max_poll_delay(None::<Duration>);
+        /// ```
         pub fn set_or_clear_max_poll_delay<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
@@ -2390,6 +3187,13 @@ pub mod method_settings {
         }
 
         /// Sets the value of [total_poll_timeout][crate::model::method_settings::LongRunning::total_poll_timeout].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_api::model::method_settings::LongRunning;
+        /// use wkt::Duration;
+        /// let x = LongRunning::new().set_total_poll_timeout(Duration::default()/* use setters */);
+        /// ```
         pub fn set_total_poll_timeout<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
@@ -2399,6 +3203,14 @@ pub mod method_settings {
         }
 
         /// Sets or clears the value of [total_poll_timeout][crate::model::method_settings::LongRunning::total_poll_timeout].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_api::model::method_settings::LongRunning;
+        /// use wkt::Duration;
+        /// let x = LongRunning::new().set_or_clear_total_poll_timeout(Some(Duration::default()/* use setters */));
+        /// let x = LongRunning::new().set_or_clear_total_poll_timeout(None::<Duration>);
+        /// ```
         pub fn set_or_clear_total_poll_timeout<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
@@ -2441,6 +3253,12 @@ impl SelectiveGapicGeneration {
     }
 
     /// Sets the value of [methods][crate::model::SelectiveGapicGeneration::methods].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::SelectiveGapicGeneration;
+    /// let x = SelectiveGapicGeneration::new().set_methods(["a", "b", "c"]);
+    /// ```
     pub fn set_methods<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2452,6 +3270,12 @@ impl SelectiveGapicGeneration {
     }
 
     /// Sets the value of [generate_omitted_as_internal][crate::model::SelectiveGapicGeneration::generate_omitted_as_internal].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::SelectiveGapicGeneration;
+    /// let x = SelectiveGapicGeneration::new().set_generate_omitted_as_internal(true);
+    /// ```
     pub fn set_generate_omitted_as_internal<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.generate_omitted_as_internal = v.into();
         self
@@ -2509,24 +3333,51 @@ impl ConfigChange {
     }
 
     /// Sets the value of [element][crate::model::ConfigChange::element].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::ConfigChange;
+    /// let x = ConfigChange::new().set_element("example");
+    /// ```
     pub fn set_element<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.element = v.into();
         self
     }
 
     /// Sets the value of [old_value][crate::model::ConfigChange::old_value].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::ConfigChange;
+    /// let x = ConfigChange::new().set_old_value("example");
+    /// ```
     pub fn set_old_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.old_value = v.into();
         self
     }
 
     /// Sets the value of [new_value][crate::model::ConfigChange::new_value].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::ConfigChange;
+    /// let x = ConfigChange::new().set_new_value("example");
+    /// ```
     pub fn set_new_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.new_value = v.into();
         self
     }
 
     /// Sets the value of [change_type][crate::model::ConfigChange::change_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::ConfigChange;
+    /// use google_cloud_api::model::ChangeType;
+    /// let x0 = ConfigChange::new().set_change_type(ChangeType::Added);
+    /// let x1 = ConfigChange::new().set_change_type(ChangeType::Removed);
+    /// let x2 = ConfigChange::new().set_change_type(ChangeType::Modified);
+    /// ```
     pub fn set_change_type<T: std::convert::Into<crate::model::ChangeType>>(
         mut self,
         v: T,
@@ -2536,6 +3387,17 @@ impl ConfigChange {
     }
 
     /// Sets the value of [advices][crate::model::ConfigChange::advices].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::ConfigChange;
+    /// use google_cloud_api::model::Advice;
+    /// let x = ConfigChange::new()
+    ///     .set_advices([
+    ///         Advice::default()/* use setters */,
+    ///         Advice::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_advices<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2571,6 +3433,12 @@ impl Advice {
     }
 
     /// Sets the value of [description][crate::model::Advice::description].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::Advice;
+    /// let x = Advice::new().set_description("example");
+    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
@@ -2616,6 +3484,17 @@ impl ProjectProperties {
     }
 
     /// Sets the value of [properties][crate::model::ProjectProperties::properties].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::ProjectProperties;
+    /// use google_cloud_api::model::Property;
+    /// let x = ProjectProperties::new()
+    ///     .set_properties([
+    ///         Property::default()/* use setters */,
+    ///         Property::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_properties<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2664,12 +3543,27 @@ impl Property {
     }
 
     /// Sets the value of [name][crate::model::Property::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::Property;
+    /// let x = Property::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [r#type][crate::model::Property::type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::Property;
+    /// use google_cloud_api::model::property::PropertyType;
+    /// let x0 = Property::new().set_type(PropertyType::Int64);
+    /// let x1 = Property::new().set_type(PropertyType::Bool);
+    /// let x2 = Property::new().set_type(PropertyType::String);
+    /// ```
     pub fn set_type<T: std::convert::Into<crate::model::property::PropertyType>>(
         mut self,
         v: T,
@@ -2679,6 +3573,12 @@ impl Property {
     }
 
     /// Sets the value of [description][crate::model::Property::description].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::Property;
+    /// let x = Property::new().set_description("example");
+    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
@@ -2900,6 +3800,17 @@ impl Context {
     }
 
     /// Sets the value of [rules][crate::model::Context::rules].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::Context;
+    /// use google_cloud_api::model::ContextRule;
+    /// let x = Context::new()
+    ///     .set_rules([
+    ///         ContextRule::default()/* use setters */,
+    ///         ContextRule::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_rules<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2955,12 +3866,24 @@ impl ContextRule {
     }
 
     /// Sets the value of [selector][crate::model::ContextRule::selector].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::ContextRule;
+    /// let x = ContextRule::new().set_selector("example");
+    /// ```
     pub fn set_selector<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.selector = v.into();
         self
     }
 
     /// Sets the value of [requested][crate::model::ContextRule::requested].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::ContextRule;
+    /// let x = ContextRule::new().set_requested(["a", "b", "c"]);
+    /// ```
     pub fn set_requested<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2972,6 +3895,12 @@ impl ContextRule {
     }
 
     /// Sets the value of [provided][crate::model::ContextRule::provided].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::ContextRule;
+    /// let x = ContextRule::new().set_provided(["a", "b", "c"]);
+    /// ```
     pub fn set_provided<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2983,6 +3912,12 @@ impl ContextRule {
     }
 
     /// Sets the value of [allowed_request_extensions][crate::model::ContextRule::allowed_request_extensions].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::ContextRule;
+    /// let x = ContextRule::new().set_allowed_request_extensions(["a", "b", "c"]);
+    /// ```
     pub fn set_allowed_request_extensions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2994,6 +3929,12 @@ impl ContextRule {
     }
 
     /// Sets the value of [allowed_response_extensions][crate::model::ContextRule::allowed_response_extensions].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::ContextRule;
+    /// let x = ContextRule::new().set_allowed_response_extensions(["a", "b", "c"]);
+    /// ```
     pub fn set_allowed_response_extensions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3039,12 +3980,29 @@ impl Control {
     }
 
     /// Sets the value of [environment][crate::model::Control::environment].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::Control;
+    /// let x = Control::new().set_environment("example");
+    /// ```
     pub fn set_environment<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.environment = v.into();
         self
     }
 
     /// Sets the value of [method_policies][crate::model::Control::method_policies].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::Control;
+    /// use google_cloud_api::model::MethodPolicy;
+    /// let x = Control::new()
+    ///     .set_method_policies([
+    ///         MethodPolicy::default()/* use setters */,
+    ///         MethodPolicy::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_method_policies<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3138,24 +4096,49 @@ impl Distribution {
     }
 
     /// Sets the value of [count][crate::model::Distribution::count].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::Distribution;
+    /// let x = Distribution::new().set_count(42);
+    /// ```
     pub fn set_count<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.count = v.into();
         self
     }
 
     /// Sets the value of [mean][crate::model::Distribution::mean].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::Distribution;
+    /// let x = Distribution::new().set_mean(42.0);
+    /// ```
     pub fn set_mean<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
         self.mean = v.into();
         self
     }
 
     /// Sets the value of [sum_of_squared_deviation][crate::model::Distribution::sum_of_squared_deviation].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::Distribution;
+    /// let x = Distribution::new().set_sum_of_squared_deviation(42.0);
+    /// ```
     pub fn set_sum_of_squared_deviation<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
         self.sum_of_squared_deviation = v.into();
         self
     }
 
     /// Sets the value of [range][crate::model::Distribution::range].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::Distribution;
+    /// use google_cloud_api::model::distribution::Range;
+    /// let x = Distribution::new().set_range(Range::default()/* use setters */);
+    /// ```
     pub fn set_range<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::distribution::Range>,
@@ -3165,6 +4148,14 @@ impl Distribution {
     }
 
     /// Sets or clears the value of [range][crate::model::Distribution::range].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::Distribution;
+    /// use google_cloud_api::model::distribution::Range;
+    /// let x = Distribution::new().set_or_clear_range(Some(Range::default()/* use setters */));
+    /// let x = Distribution::new().set_or_clear_range(None::<Range>);
+    /// ```
     pub fn set_or_clear_range<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::distribution::Range>,
@@ -3174,6 +4165,13 @@ impl Distribution {
     }
 
     /// Sets the value of [bucket_options][crate::model::Distribution::bucket_options].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::Distribution;
+    /// use google_cloud_api::model::distribution::BucketOptions;
+    /// let x = Distribution::new().set_bucket_options(BucketOptions::default()/* use setters */);
+    /// ```
     pub fn set_bucket_options<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::distribution::BucketOptions>,
@@ -3183,6 +4181,14 @@ impl Distribution {
     }
 
     /// Sets or clears the value of [bucket_options][crate::model::Distribution::bucket_options].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::Distribution;
+    /// use google_cloud_api::model::distribution::BucketOptions;
+    /// let x = Distribution::new().set_or_clear_bucket_options(Some(BucketOptions::default()/* use setters */));
+    /// let x = Distribution::new().set_or_clear_bucket_options(None::<BucketOptions>);
+    /// ```
     pub fn set_or_clear_bucket_options<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::distribution::BucketOptions>,
@@ -3192,6 +4198,12 @@ impl Distribution {
     }
 
     /// Sets the value of [bucket_counts][crate::model::Distribution::bucket_counts].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::Distribution;
+    /// let x = Distribution::new().set_bucket_counts([1, 2, 3]);
+    /// ```
     pub fn set_bucket_counts<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3203,6 +4215,17 @@ impl Distribution {
     }
 
     /// Sets the value of [exemplars][crate::model::Distribution::exemplars].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::Distribution;
+    /// use google_cloud_api::model::distribution::Exemplar;
+    /// let x = Distribution::new()
+    ///     .set_exemplars([
+    ///         Exemplar::default()/* use setters */,
+    ///         Exemplar::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_exemplars<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3244,12 +4267,24 @@ pub mod distribution {
         }
 
         /// Sets the value of [min][crate::model::distribution::Range::min].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_api::model::distribution::Range;
+        /// let x = Range::new().set_min(42.0);
+        /// ```
         pub fn set_min<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
             self.min = v.into();
             self
         }
 
         /// Sets the value of [max][crate::model::distribution::Range::max].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_api::model::distribution::Range;
+        /// let x = Range::new().set_max(42.0);
+        /// ```
         pub fn set_max<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
             self.max = v.into();
             self
@@ -3295,6 +4330,14 @@ pub mod distribution {
         ///
         /// Note that all the setters affecting `options` are mutually
         /// exclusive.
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_api::model::distribution::BucketOptions;
+        /// use google_cloud_api::model::distribution::bucket_options;
+        /// use google_cloud_api::model::distribution::bucket_options::Linear;
+        /// let x = BucketOptions::new().set_options(Some(distribution::bucket_options::Options::LinearBuckets(Linear::default().into())));
+        /// ```
         pub fn set_options<
             T: std::convert::Into<
                     std::option::Option<crate::model::distribution::bucket_options::Options>,
@@ -3328,6 +4371,16 @@ pub mod distribution {
         ///
         /// Note that all the setters affecting `options` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_api::model::distribution::BucketOptions;
+        /// use google_cloud_api::model::distribution::bucket_options::Linear;
+        /// let x = BucketOptions::new().set_linear_buckets(Linear::default()/* use setters */);
+        /// assert!(x.linear_buckets().is_some());
+        /// assert!(x.exponential_buckets().is_none());
+        /// assert!(x.explicit_buckets().is_none());
+        /// ```
         pub fn set_linear_buckets<
             T: std::convert::Into<std::boxed::Box<crate::model::distribution::bucket_options::Linear>>,
         >(
@@ -3362,6 +4415,16 @@ pub mod distribution {
         ///
         /// Note that all the setters affecting `options` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_api::model::distribution::BucketOptions;
+        /// use google_cloud_api::model::distribution::bucket_options::Exponential;
+        /// let x = BucketOptions::new().set_exponential_buckets(Exponential::default()/* use setters */);
+        /// assert!(x.exponential_buckets().is_some());
+        /// assert!(x.linear_buckets().is_none());
+        /// assert!(x.explicit_buckets().is_none());
+        /// ```
         pub fn set_exponential_buckets<
             T: std::convert::Into<
                     std::boxed::Box<crate::model::distribution::bucket_options::Exponential>,
@@ -3398,6 +4461,16 @@ pub mod distribution {
         ///
         /// Note that all the setters affecting `options` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_api::model::distribution::BucketOptions;
+        /// use google_cloud_api::model::distribution::bucket_options::Explicit;
+        /// let x = BucketOptions::new().set_explicit_buckets(Explicit::default()/* use setters */);
+        /// assert!(x.explicit_buckets().is_some());
+        /// assert!(x.linear_buckets().is_none());
+        /// assert!(x.exponential_buckets().is_none());
+        /// ```
         pub fn set_explicit_buckets<
             T: std::convert::Into<
                     std::boxed::Box<crate::model::distribution::bucket_options::Explicit>,
@@ -3455,18 +4528,36 @@ pub mod distribution {
             }
 
             /// Sets the value of [num_finite_buckets][crate::model::distribution::bucket_options::Linear::num_finite_buckets].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_api::model::distribution::bucket_options::Linear;
+            /// let x = Linear::new().set_num_finite_buckets(42);
+            /// ```
             pub fn set_num_finite_buckets<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
                 self.num_finite_buckets = v.into();
                 self
             }
 
             /// Sets the value of [width][crate::model::distribution::bucket_options::Linear::width].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_api::model::distribution::bucket_options::Linear;
+            /// let x = Linear::new().set_width(42.0);
+            /// ```
             pub fn set_width<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
                 self.width = v.into();
                 self
             }
 
             /// Sets the value of [offset][crate::model::distribution::bucket_options::Linear::offset].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_api::model::distribution::bucket_options::Linear;
+            /// let x = Linear::new().set_offset(42.0);
+            /// ```
             pub fn set_offset<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
                 self.offset = v.into();
                 self
@@ -3510,18 +4601,36 @@ pub mod distribution {
             }
 
             /// Sets the value of [num_finite_buckets][crate::model::distribution::bucket_options::Exponential::num_finite_buckets].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_api::model::distribution::bucket_options::Exponential;
+            /// let x = Exponential::new().set_num_finite_buckets(42);
+            /// ```
             pub fn set_num_finite_buckets<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
                 self.num_finite_buckets = v.into();
                 self
             }
 
             /// Sets the value of [growth_factor][crate::model::distribution::bucket_options::Exponential::growth_factor].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_api::model::distribution::bucket_options::Exponential;
+            /// let x = Exponential::new().set_growth_factor(42.0);
+            /// ```
             pub fn set_growth_factor<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
                 self.growth_factor = v.into();
                 self
             }
 
             /// Sets the value of [scale][crate::model::distribution::bucket_options::Exponential::scale].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_api::model::distribution::bucket_options::Exponential;
+            /// let x = Exponential::new().set_scale(42.0);
+            /// ```
             pub fn set_scale<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
                 self.scale = v.into();
                 self
@@ -3560,6 +4669,12 @@ pub mod distribution {
             }
 
             /// Sets the value of [bounds][crate::model::distribution::bucket_options::Explicit::bounds].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_api::model::distribution::bucket_options::Explicit;
+            /// let x = Explicit::new().set_bounds([1.0, 2.0, 3.0]);
+            /// ```
             pub fn set_bounds<T, V>(mut self, v: T) -> Self
             where
                 T: std::iter::IntoIterator<Item = V>,
@@ -3629,12 +4744,25 @@ pub mod distribution {
         }
 
         /// Sets the value of [value][crate::model::distribution::Exemplar::value].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_api::model::distribution::Exemplar;
+        /// let x = Exemplar::new().set_value(42.0);
+        /// ```
         pub fn set_value<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
             self.value = v.into();
             self
         }
 
         /// Sets the value of [timestamp][crate::model::distribution::Exemplar::timestamp].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_api::model::distribution::Exemplar;
+        /// use wkt::Timestamp;
+        /// let x = Exemplar::new().set_timestamp(Timestamp::default()/* use setters */);
+        /// ```
         pub fn set_timestamp<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -3644,6 +4772,14 @@ pub mod distribution {
         }
 
         /// Sets or clears the value of [timestamp][crate::model::distribution::Exemplar::timestamp].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_api::model::distribution::Exemplar;
+        /// use wkt::Timestamp;
+        /// let x = Exemplar::new().set_or_clear_timestamp(Some(Timestamp::default()/* use setters */));
+        /// let x = Exemplar::new().set_or_clear_timestamp(None::<Timestamp>);
+        /// ```
         pub fn set_or_clear_timestamp<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -3653,6 +4789,17 @@ pub mod distribution {
         }
 
         /// Sets the value of [attachments][crate::model::distribution::Exemplar::attachments].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_api::model::distribution::Exemplar;
+        /// use wkt::Any;
+        /// let x = Exemplar::new()
+        ///     .set_attachments([
+        ///         Any::default()/* use setters */,
+        ///         Any::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
         pub fn set_attachments<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -3748,12 +4895,29 @@ impl Documentation {
     }
 
     /// Sets the value of [summary][crate::model::Documentation::summary].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::Documentation;
+    /// let x = Documentation::new().set_summary("example");
+    /// ```
     pub fn set_summary<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.summary = v.into();
         self
     }
 
     /// Sets the value of [pages][crate::model::Documentation::pages].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::Documentation;
+    /// use google_cloud_api::model::Page;
+    /// let x = Documentation::new()
+    ///     .set_pages([
+    ///         Page::default()/* use setters */,
+    ///         Page::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_pages<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3765,6 +4929,17 @@ impl Documentation {
     }
 
     /// Sets the value of [rules][crate::model::Documentation::rules].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::Documentation;
+    /// use google_cloud_api::model::DocumentationRule;
+    /// let x = Documentation::new()
+    ///     .set_rules([
+    ///         DocumentationRule::default()/* use setters */,
+    ///         DocumentationRule::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_rules<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3776,6 +4951,12 @@ impl Documentation {
     }
 
     /// Sets the value of [documentation_root_url][crate::model::Documentation::documentation_root_url].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::Documentation;
+    /// let x = Documentation::new().set_documentation_root_url("example");
+    /// ```
     pub fn set_documentation_root_url<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -3785,6 +4966,12 @@ impl Documentation {
     }
 
     /// Sets the value of [service_root_url][crate::model::Documentation::service_root_url].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::Documentation;
+    /// let x = Documentation::new().set_service_root_url("example");
+    /// ```
     pub fn set_service_root_url<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -3794,6 +4981,12 @@ impl Documentation {
     }
 
     /// Sets the value of [overview][crate::model::Documentation::overview].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::Documentation;
+    /// let x = Documentation::new().set_overview("example");
+    /// ```
     pub fn set_overview<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.overview = v.into();
         self
@@ -3837,18 +5030,36 @@ impl DocumentationRule {
     }
 
     /// Sets the value of [selector][crate::model::DocumentationRule::selector].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::DocumentationRule;
+    /// let x = DocumentationRule::new().set_selector("example");
+    /// ```
     pub fn set_selector<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.selector = v.into();
         self
     }
 
     /// Sets the value of [description][crate::model::DocumentationRule::description].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::DocumentationRule;
+    /// let x = DocumentationRule::new().set_description("example");
+    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [deprecation_description][crate::model::DocumentationRule::deprecation_description].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::DocumentationRule;
+    /// let x = DocumentationRule::new().set_deprecation_description("example");
+    /// ```
     pub fn set_deprecation_description<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -3897,18 +5108,41 @@ impl Page {
     }
 
     /// Sets the value of [name][crate::model::Page::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::Page;
+    /// let x = Page::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [content][crate::model::Page::content].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::Page;
+    /// let x = Page::new().set_content("example");
+    /// ```
     pub fn set_content<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.content = v.into();
         self
     }
 
     /// Sets the value of [subpages][crate::model::Page::subpages].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::Page;
+    /// use google_cloud_api::model::Page;
+    /// let x = Page::new()
+    ///     .set_subpages([
+    ///         Page::default()/* use setters */,
+    ///         Page::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_subpages<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3984,12 +5218,24 @@ impl Endpoint {
     }
 
     /// Sets the value of [name][crate::model::Endpoint::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::Endpoint;
+    /// let x = Endpoint::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [aliases][crate::model::Endpoint::aliases].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::Endpoint;
+    /// let x = Endpoint::new().set_aliases(["a", "b", "c"]);
+    /// ```
     pub fn set_aliases<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4001,12 +5247,24 @@ impl Endpoint {
     }
 
     /// Sets the value of [target][crate::model::Endpoint::target].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::Endpoint;
+    /// let x = Endpoint::new().set_target("example");
+    /// ```
     pub fn set_target<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.target = v.into();
         self
     }
 
     /// Sets the value of [allow_cors][crate::model::Endpoint::allow_cors].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::Endpoint;
+    /// let x = Endpoint::new().set_allow_cors(true);
+    /// ```
     pub fn set_allow_cors<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.allow_cors = v.into();
         self
@@ -4043,6 +5301,15 @@ impl FieldInfo {
     }
 
     /// Sets the value of [format][crate::model::FieldInfo::format].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::FieldInfo;
+    /// use google_cloud_api::model::field_info::Format;
+    /// let x0 = FieldInfo::new().set_format(Format::Uuid4);
+    /// let x1 = FieldInfo::new().set_format(Format::Ipv4);
+    /// let x2 = FieldInfo::new().set_format(Format::Ipv6);
+    /// ```
     pub fn set_format<T: std::convert::Into<crate::model::field_info::Format>>(
         mut self,
         v: T,
@@ -4052,6 +5319,17 @@ impl FieldInfo {
     }
 
     /// Sets the value of [referenced_types][crate::model::FieldInfo::referenced_types].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::FieldInfo;
+    /// use google_cloud_api::model::TypeReference;
+    /// let x = FieldInfo::new()
+    ///     .set_referenced_types([
+    ///         TypeReference::default()/* use setters */,
+    ///         TypeReference::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_referenced_types<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4261,6 +5539,12 @@ impl TypeReference {
     }
 
     /// Sets the value of [type_name][crate::model::TypeReference::type_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::TypeReference;
+    /// let x = TypeReference::new().set_type_name("example");
+    /// ```
     pub fn set_type_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.type_name = v.into();
         self
@@ -4303,6 +5587,17 @@ impl Http {
     }
 
     /// Sets the value of [rules][crate::model::Http::rules].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::Http;
+    /// use google_cloud_api::model::HttpRule;
+    /// let x = Http::new()
+    ///     .set_rules([
+    ///         HttpRule::default()/* use setters */,
+    ///         HttpRule::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_rules<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4314,6 +5609,12 @@ impl Http {
     }
 
     /// Sets the value of [fully_decode_reserved_expansion][crate::model::Http::fully_decode_reserved_expansion].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::Http;
+    /// let x = Http::new().set_fully_decode_reserved_expansion(true);
+    /// ```
     pub fn set_fully_decode_reserved_expansion<T: std::convert::Into<bool>>(
         mut self,
         v: T,
@@ -4657,24 +5958,53 @@ impl HttpRule {
     }
 
     /// Sets the value of [selector][crate::model::HttpRule::selector].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::HttpRule;
+    /// let x = HttpRule::new().set_selector("example");
+    /// ```
     pub fn set_selector<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.selector = v.into();
         self
     }
 
     /// Sets the value of [body][crate::model::HttpRule::body].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::HttpRule;
+    /// let x = HttpRule::new().set_body("example");
+    /// ```
     pub fn set_body<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.body = v.into();
         self
     }
 
     /// Sets the value of [response_body][crate::model::HttpRule::response_body].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::HttpRule;
+    /// let x = HttpRule::new().set_response_body("example");
+    /// ```
     pub fn set_response_body<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.response_body = v.into();
         self
     }
 
     /// Sets the value of [additional_bindings][crate::model::HttpRule::additional_bindings].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::HttpRule;
+    /// use google_cloud_api::model::HttpRule;
+    /// let x = HttpRule::new()
+    ///     .set_additional_bindings([
+    ///         HttpRule::default()/* use setters */,
+    ///         HttpRule::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_additional_bindings<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4689,6 +6019,13 @@ impl HttpRule {
     ///
     /// Note that all the setters affecting `pattern` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::HttpRule;
+    /// use google_cloud_api::model::http_rule;
+    /// let x = HttpRule::new().set_pattern(Some(http_rule::Pattern::Get("example".to_string())));
+    /// ```
     pub fn set_pattern<
         T: std::convert::Into<std::option::Option<crate::model::http_rule::Pattern>>,
     >(
@@ -4715,6 +6052,18 @@ impl HttpRule {
     ///
     /// Note that all the setters affecting `pattern` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::HttpRule;
+    /// let x = HttpRule::new().set_get("example");
+    /// assert!(x.get().is_some());
+    /// assert!(x.put().is_none());
+    /// assert!(x.post().is_none());
+    /// assert!(x.delete().is_none());
+    /// assert!(x.patch().is_none());
+    /// assert!(x.custom().is_none());
+    /// ```
     pub fn set_get<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.pattern = std::option::Option::Some(crate::model::http_rule::Pattern::Get(v.into()));
         self
@@ -4736,6 +6085,18 @@ impl HttpRule {
     ///
     /// Note that all the setters affecting `pattern` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::HttpRule;
+    /// let x = HttpRule::new().set_put("example");
+    /// assert!(x.put().is_some());
+    /// assert!(x.get().is_none());
+    /// assert!(x.post().is_none());
+    /// assert!(x.delete().is_none());
+    /// assert!(x.patch().is_none());
+    /// assert!(x.custom().is_none());
+    /// ```
     pub fn set_put<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.pattern = std::option::Option::Some(crate::model::http_rule::Pattern::Put(v.into()));
         self
@@ -4757,6 +6118,18 @@ impl HttpRule {
     ///
     /// Note that all the setters affecting `pattern` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::HttpRule;
+    /// let x = HttpRule::new().set_post("example");
+    /// assert!(x.post().is_some());
+    /// assert!(x.get().is_none());
+    /// assert!(x.put().is_none());
+    /// assert!(x.delete().is_none());
+    /// assert!(x.patch().is_none());
+    /// assert!(x.custom().is_none());
+    /// ```
     pub fn set_post<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.pattern = std::option::Option::Some(crate::model::http_rule::Pattern::Post(v.into()));
         self
@@ -4778,6 +6151,18 @@ impl HttpRule {
     ///
     /// Note that all the setters affecting `pattern` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::HttpRule;
+    /// let x = HttpRule::new().set_delete("example");
+    /// assert!(x.delete().is_some());
+    /// assert!(x.get().is_none());
+    /// assert!(x.put().is_none());
+    /// assert!(x.post().is_none());
+    /// assert!(x.patch().is_none());
+    /// assert!(x.custom().is_none());
+    /// ```
     pub fn set_delete<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.pattern =
             std::option::Option::Some(crate::model::http_rule::Pattern::Delete(v.into()));
@@ -4800,6 +6185,18 @@ impl HttpRule {
     ///
     /// Note that all the setters affecting `pattern` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::HttpRule;
+    /// let x = HttpRule::new().set_patch("example");
+    /// assert!(x.patch().is_some());
+    /// assert!(x.get().is_none());
+    /// assert!(x.put().is_none());
+    /// assert!(x.post().is_none());
+    /// assert!(x.delete().is_none());
+    /// assert!(x.custom().is_none());
+    /// ```
     pub fn set_patch<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.pattern = std::option::Option::Some(crate::model::http_rule::Pattern::Patch(v.into()));
         self
@@ -4821,6 +6218,19 @@ impl HttpRule {
     ///
     /// Note that all the setters affecting `pattern` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::HttpRule;
+    /// use google_cloud_api::model::CustomHttpPattern;
+    /// let x = HttpRule::new().set_custom(CustomHttpPattern::default()/* use setters */);
+    /// assert!(x.custom().is_some());
+    /// assert!(x.get().is_none());
+    /// assert!(x.put().is_none());
+    /// assert!(x.post().is_none());
+    /// assert!(x.delete().is_none());
+    /// assert!(x.patch().is_none());
+    /// ```
     pub fn set_custom<T: std::convert::Into<std::boxed::Box<crate::model::CustomHttpPattern>>>(
         mut self,
         v: T,
@@ -4886,12 +6296,24 @@ impl CustomHttpPattern {
     }
 
     /// Sets the value of [kind][crate::model::CustomHttpPattern::kind].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::CustomHttpPattern;
+    /// let x = CustomHttpPattern::new().set_kind("example");
+    /// ```
     pub fn set_kind<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.kind = v.into();
         self
     }
 
     /// Sets the value of [path][crate::model::CustomHttpPattern::path].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::CustomHttpPattern;
+    /// let x = CustomHttpPattern::new().set_path("example");
+    /// ```
     pub fn set_path<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.path = v.into();
         self
@@ -4972,18 +6394,41 @@ impl HttpBody {
     }
 
     /// Sets the value of [content_type][crate::model::HttpBody::content_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::HttpBody;
+    /// let x = HttpBody::new().set_content_type("example");
+    /// ```
     pub fn set_content_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.content_type = v.into();
         self
     }
 
     /// Sets the value of [data][crate::model::HttpBody::data].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::HttpBody;
+    /// let x = HttpBody::new().set_data(bytes::Bytes::from_static(b"example"));
+    /// ```
     pub fn set_data<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.data = v.into();
         self
     }
 
     /// Sets the value of [extensions][crate::model::HttpBody::extensions].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::HttpBody;
+    /// use wkt::Any;
+    /// let x = HttpBody::new()
+    ///     .set_extensions([
+    ///         Any::default()/* use setters */,
+    ///         Any::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_extensions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -5023,12 +6468,26 @@ impl LabelDescriptor {
     }
 
     /// Sets the value of [key][crate::model::LabelDescriptor::key].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::LabelDescriptor;
+    /// let x = LabelDescriptor::new().set_key("example");
+    /// ```
     pub fn set_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.key = v.into();
         self
     }
 
     /// Sets the value of [value_type][crate::model::LabelDescriptor::value_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::LabelDescriptor;
+    /// use google_cloud_api::model::label_descriptor::ValueType;
+    /// let x0 = LabelDescriptor::new().set_value_type(ValueType::Bool);
+    /// let x1 = LabelDescriptor::new().set_value_type(ValueType::Int64);
+    /// ```
     pub fn set_value_type<T: std::convert::Into<crate::model::label_descriptor::ValueType>>(
         mut self,
         v: T,
@@ -5038,6 +6497,12 @@ impl LabelDescriptor {
     }
 
     /// Sets the value of [description][crate::model::LabelDescriptor::description].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::LabelDescriptor;
+    /// let x = LabelDescriptor::new().set_description("example");
+    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
@@ -5229,12 +6694,29 @@ impl LogDescriptor {
     }
 
     /// Sets the value of [name][crate::model::LogDescriptor::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::LogDescriptor;
+    /// let x = LogDescriptor::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [labels][crate::model::LogDescriptor::labels].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::LogDescriptor;
+    /// use google_cloud_api::model::LabelDescriptor;
+    /// let x = LogDescriptor::new()
+    ///     .set_labels([
+    ///         LabelDescriptor::default()/* use setters */,
+    ///         LabelDescriptor::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_labels<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -5246,12 +6728,24 @@ impl LogDescriptor {
     }
 
     /// Sets the value of [description][crate::model::LogDescriptor::description].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::LogDescriptor;
+    /// let x = LogDescriptor::new().set_description("example");
+    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [display_name][crate::model::LogDescriptor::display_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::LogDescriptor;
+    /// let x = LogDescriptor::new().set_display_name("example");
+    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
@@ -5319,6 +6813,17 @@ impl Logging {
     }
 
     /// Sets the value of [producer_destinations][crate::model::Logging::producer_destinations].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::Logging;
+    /// use google_cloud_api::model::logging::LoggingDestination;
+    /// let x = Logging::new()
+    ///     .set_producer_destinations([
+    ///         LoggingDestination::default()/* use setters */,
+    ///         LoggingDestination::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_producer_destinations<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -5330,6 +6835,17 @@ impl Logging {
     }
 
     /// Sets the value of [consumer_destinations][crate::model::Logging::consumer_destinations].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::Logging;
+    /// use google_cloud_api::model::logging::LoggingDestination;
+    /// let x = Logging::new()
+    ///     .set_consumer_destinations([
+    ///         LoggingDestination::default()/* use setters */,
+    ///         LoggingDestination::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_consumer_destinations<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -5381,6 +6897,12 @@ pub mod logging {
         }
 
         /// Sets the value of [monitored_resource][crate::model::logging::LoggingDestination::monitored_resource].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_api::model::logging::LoggingDestination;
+        /// let x = LoggingDestination::new().set_monitored_resource("example");
+        /// ```
         pub fn set_monitored_resource<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -5390,6 +6912,12 @@ pub mod logging {
         }
 
         /// Sets the value of [logs][crate::model::logging::LoggingDestination::logs].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_api::model::logging::LoggingDestination;
+        /// let x = LoggingDestination::new().set_logs(["a", "b", "c"]);
+        /// ```
         pub fn set_logs<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -5604,18 +7132,41 @@ impl MetricDescriptor {
     }
 
     /// Sets the value of [name][crate::model::MetricDescriptor::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::MetricDescriptor;
+    /// let x = MetricDescriptor::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [r#type][crate::model::MetricDescriptor::type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::MetricDescriptor;
+    /// let x = MetricDescriptor::new().set_type("example");
+    /// ```
     pub fn set_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.r#type = v.into();
         self
     }
 
     /// Sets the value of [labels][crate::model::MetricDescriptor::labels].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::MetricDescriptor;
+    /// use google_cloud_api::model::LabelDescriptor;
+    /// let x = MetricDescriptor::new()
+    ///     .set_labels([
+    ///         LabelDescriptor::default()/* use setters */,
+    ///         LabelDescriptor::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_labels<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -5627,6 +7178,15 @@ impl MetricDescriptor {
     }
 
     /// Sets the value of [metric_kind][crate::model::MetricDescriptor::metric_kind].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::MetricDescriptor;
+    /// use google_cloud_api::model::metric_descriptor::MetricKind;
+    /// let x0 = MetricDescriptor::new().set_metric_kind(MetricKind::Gauge);
+    /// let x1 = MetricDescriptor::new().set_metric_kind(MetricKind::Delta);
+    /// let x2 = MetricDescriptor::new().set_metric_kind(MetricKind::Cumulative);
+    /// ```
     pub fn set_metric_kind<T: std::convert::Into<crate::model::metric_descriptor::MetricKind>>(
         mut self,
         v: T,
@@ -5636,6 +7196,15 @@ impl MetricDescriptor {
     }
 
     /// Sets the value of [value_type][crate::model::MetricDescriptor::value_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::MetricDescriptor;
+    /// use google_cloud_api::model::metric_descriptor::ValueType;
+    /// let x0 = MetricDescriptor::new().set_value_type(ValueType::Bool);
+    /// let x1 = MetricDescriptor::new().set_value_type(ValueType::Int64);
+    /// let x2 = MetricDescriptor::new().set_value_type(ValueType::Double);
+    /// ```
     pub fn set_value_type<T: std::convert::Into<crate::model::metric_descriptor::ValueType>>(
         mut self,
         v: T,
@@ -5645,24 +7214,49 @@ impl MetricDescriptor {
     }
 
     /// Sets the value of [unit][crate::model::MetricDescriptor::unit].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::MetricDescriptor;
+    /// let x = MetricDescriptor::new().set_unit("example");
+    /// ```
     pub fn set_unit<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.unit = v.into();
         self
     }
 
     /// Sets the value of [description][crate::model::MetricDescriptor::description].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::MetricDescriptor;
+    /// let x = MetricDescriptor::new().set_description("example");
+    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [display_name][crate::model::MetricDescriptor::display_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::MetricDescriptor;
+    /// let x = MetricDescriptor::new().set_display_name("example");
+    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
     }
 
     /// Sets the value of [metadata][crate::model::MetricDescriptor::metadata].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::MetricDescriptor;
+    /// use google_cloud_api::model::metric_descriptor::MetricDescriptorMetadata;
+    /// let x = MetricDescriptor::new().set_metadata(MetricDescriptorMetadata::default()/* use setters */);
+    /// ```
     pub fn set_metadata<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::metric_descriptor::MetricDescriptorMetadata>,
@@ -5672,6 +7266,14 @@ impl MetricDescriptor {
     }
 
     /// Sets or clears the value of [metadata][crate::model::MetricDescriptor::metadata].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::MetricDescriptor;
+    /// use google_cloud_api::model::metric_descriptor::MetricDescriptorMetadata;
+    /// let x = MetricDescriptor::new().set_or_clear_metadata(Some(MetricDescriptorMetadata::default()/* use setters */));
+    /// let x = MetricDescriptor::new().set_or_clear_metadata(None::<MetricDescriptorMetadata>);
+    /// ```
     pub fn set_or_clear_metadata<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::metric_descriptor::MetricDescriptorMetadata>,
@@ -5681,6 +7283,15 @@ impl MetricDescriptor {
     }
 
     /// Sets the value of [launch_stage][crate::model::MetricDescriptor::launch_stage].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::MetricDescriptor;
+    /// use google_cloud_api::model::LaunchStage;
+    /// let x0 = MetricDescriptor::new().set_launch_stage(LaunchStage::Unimplemented);
+    /// let x1 = MetricDescriptor::new().set_launch_stage(LaunchStage::Prelaunch);
+    /// let x2 = MetricDescriptor::new().set_launch_stage(LaunchStage::EarlyAccess);
+    /// ```
     pub fn set_launch_stage<T: std::convert::Into<crate::model::LaunchStage>>(
         mut self,
         v: T,
@@ -5690,6 +7301,12 @@ impl MetricDescriptor {
     }
 
     /// Sets the value of [monitored_resource_types][crate::model::MetricDescriptor::monitored_resource_types].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::MetricDescriptor;
+    /// let x = MetricDescriptor::new().set_monitored_resource_types(["a", "b", "c"]);
+    /// ```
     pub fn set_monitored_resource_types<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -5748,6 +7365,15 @@ pub mod metric_descriptor {
         }
 
         /// Sets the value of [launch_stage][crate::model::metric_descriptor::MetricDescriptorMetadata::launch_stage].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_api::model::metric_descriptor::MetricDescriptorMetadata;
+        /// use google_cloud_api::model::LaunchStage;
+        /// let x0 = MetricDescriptorMetadata::new().set_launch_stage(LaunchStage::Unimplemented);
+        /// let x1 = MetricDescriptorMetadata::new().set_launch_stage(LaunchStage::Prelaunch);
+        /// let x2 = MetricDescriptorMetadata::new().set_launch_stage(LaunchStage::EarlyAccess);
+        /// ```
         #[deprecated]
         pub fn set_launch_stage<T: std::convert::Into<crate::model::LaunchStage>>(
             mut self,
@@ -5758,6 +7384,13 @@ pub mod metric_descriptor {
         }
 
         /// Sets the value of [sample_period][crate::model::metric_descriptor::MetricDescriptorMetadata::sample_period].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_api::model::metric_descriptor::MetricDescriptorMetadata;
+        /// use wkt::Duration;
+        /// let x = MetricDescriptorMetadata::new().set_sample_period(Duration::default()/* use setters */);
+        /// ```
         pub fn set_sample_period<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
@@ -5767,6 +7400,14 @@ pub mod metric_descriptor {
         }
 
         /// Sets or clears the value of [sample_period][crate::model::metric_descriptor::MetricDescriptorMetadata::sample_period].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_api::model::metric_descriptor::MetricDescriptorMetadata;
+        /// use wkt::Duration;
+        /// let x = MetricDescriptorMetadata::new().set_or_clear_sample_period(Some(Duration::default()/* use setters */));
+        /// let x = MetricDescriptorMetadata::new().set_or_clear_sample_period(None::<Duration>);
+        /// ```
         pub fn set_or_clear_sample_period<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
@@ -5776,6 +7417,13 @@ pub mod metric_descriptor {
         }
 
         /// Sets the value of [ingest_delay][crate::model::metric_descriptor::MetricDescriptorMetadata::ingest_delay].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_api::model::metric_descriptor::MetricDescriptorMetadata;
+        /// use wkt::Duration;
+        /// let x = MetricDescriptorMetadata::new().set_ingest_delay(Duration::default()/* use setters */);
+        /// ```
         pub fn set_ingest_delay<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
@@ -5785,6 +7433,14 @@ pub mod metric_descriptor {
         }
 
         /// Sets or clears the value of [ingest_delay][crate::model::metric_descriptor::MetricDescriptorMetadata::ingest_delay].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_api::model::metric_descriptor::MetricDescriptorMetadata;
+        /// use wkt::Duration;
+        /// let x = MetricDescriptorMetadata::new().set_or_clear_ingest_delay(Some(Duration::default()/* use setters */));
+        /// let x = MetricDescriptorMetadata::new().set_or_clear_ingest_delay(None::<Duration>);
+        /// ```
         pub fn set_or_clear_ingest_delay<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
@@ -5794,6 +7450,17 @@ pub mod metric_descriptor {
         }
 
         /// Sets the value of [time_series_resource_hierarchy_level][crate::model::metric_descriptor::MetricDescriptorMetadata::time_series_resource_hierarchy_level].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_api::model::metric_descriptor::MetricDescriptorMetadata;
+        /// use google_cloud_api::model::metric_descriptor::metric_descriptor_metadata::TimeSeriesResourceHierarchyLevel;
+        /// let x = MetricDescriptorMetadata::new().set_time_series_resource_hierarchy_level([
+        ///     TimeSeriesResourceHierarchyLevel::Project,
+        ///     TimeSeriesResourceHierarchyLevel::Organization,
+        ///     TimeSeriesResourceHierarchyLevel::Folder,
+        /// ]);
+        /// ```
         pub fn set_time_series_resource_hierarchy_level<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -6297,12 +7964,27 @@ impl Metric {
     }
 
     /// Sets the value of [r#type][crate::model::Metric::type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::Metric;
+    /// let x = Metric::new().set_type("example");
+    /// ```
     pub fn set_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.r#type = v.into();
         self
     }
 
     /// Sets the value of [labels][crate::model::Metric::labels].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::Metric;
+    /// let x = Metric::new().set_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -6379,30 +8061,65 @@ impl MonitoredResourceDescriptor {
     }
 
     /// Sets the value of [name][crate::model::MonitoredResourceDescriptor::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::MonitoredResourceDescriptor;
+    /// let x = MonitoredResourceDescriptor::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [r#type][crate::model::MonitoredResourceDescriptor::type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::MonitoredResourceDescriptor;
+    /// let x = MonitoredResourceDescriptor::new().set_type("example");
+    /// ```
     pub fn set_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.r#type = v.into();
         self
     }
 
     /// Sets the value of [display_name][crate::model::MonitoredResourceDescriptor::display_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::MonitoredResourceDescriptor;
+    /// let x = MonitoredResourceDescriptor::new().set_display_name("example");
+    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
     }
 
     /// Sets the value of [description][crate::model::MonitoredResourceDescriptor::description].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::MonitoredResourceDescriptor;
+    /// let x = MonitoredResourceDescriptor::new().set_description("example");
+    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [labels][crate::model::MonitoredResourceDescriptor::labels].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::MonitoredResourceDescriptor;
+    /// use google_cloud_api::model::LabelDescriptor;
+    /// let x = MonitoredResourceDescriptor::new()
+    ///     .set_labels([
+    ///         LabelDescriptor::default()/* use setters */,
+    ///         LabelDescriptor::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_labels<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -6414,6 +8131,15 @@ impl MonitoredResourceDescriptor {
     }
 
     /// Sets the value of [launch_stage][crate::model::MonitoredResourceDescriptor::launch_stage].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::MonitoredResourceDescriptor;
+    /// use google_cloud_api::model::LaunchStage;
+    /// let x0 = MonitoredResourceDescriptor::new().set_launch_stage(LaunchStage::Unimplemented);
+    /// let x1 = MonitoredResourceDescriptor::new().set_launch_stage(LaunchStage::Prelaunch);
+    /// let x2 = MonitoredResourceDescriptor::new().set_launch_stage(LaunchStage::EarlyAccess);
+    /// ```
     pub fn set_launch_stage<T: std::convert::Into<crate::model::LaunchStage>>(
         mut self,
         v: T,
@@ -6477,12 +8203,27 @@ impl MonitoredResource {
     }
 
     /// Sets the value of [r#type][crate::model::MonitoredResource::type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::MonitoredResource;
+    /// let x = MonitoredResource::new().set_type("example");
+    /// ```
     pub fn set_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.r#type = v.into();
         self
     }
 
     /// Sets the value of [labels][crate::model::MonitoredResource::labels].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::MonitoredResource;
+    /// let x = MonitoredResource::new().set_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -6538,6 +8279,13 @@ impl MonitoredResourceMetadata {
     }
 
     /// Sets the value of [system_labels][crate::model::MonitoredResourceMetadata::system_labels].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::MonitoredResourceMetadata;
+    /// use wkt::Struct;
+    /// let x = MonitoredResourceMetadata::new().set_system_labels(Struct::default()/* use setters */);
+    /// ```
     pub fn set_system_labels<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Struct>,
@@ -6547,6 +8295,14 @@ impl MonitoredResourceMetadata {
     }
 
     /// Sets or clears the value of [system_labels][crate::model::MonitoredResourceMetadata::system_labels].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::MonitoredResourceMetadata;
+    /// use wkt::Struct;
+    /// let x = MonitoredResourceMetadata::new().set_or_clear_system_labels(Some(Struct::default()/* use setters */));
+    /// let x = MonitoredResourceMetadata::new().set_or_clear_system_labels(None::<Struct>);
+    /// ```
     pub fn set_or_clear_system_labels<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Struct>,
@@ -6556,6 +8312,15 @@ impl MonitoredResourceMetadata {
     }
 
     /// Sets the value of [user_labels][crate::model::MonitoredResourceMetadata::user_labels].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::MonitoredResourceMetadata;
+    /// let x = MonitoredResourceMetadata::new().set_user_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_user_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -6656,6 +8421,17 @@ impl Monitoring {
     }
 
     /// Sets the value of [producer_destinations][crate::model::Monitoring::producer_destinations].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::Monitoring;
+    /// use google_cloud_api::model::monitoring::MonitoringDestination;
+    /// let x = Monitoring::new()
+    ///     .set_producer_destinations([
+    ///         MonitoringDestination::default()/* use setters */,
+    ///         MonitoringDestination::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_producer_destinations<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -6667,6 +8443,17 @@ impl Monitoring {
     }
 
     /// Sets the value of [consumer_destinations][crate::model::Monitoring::consumer_destinations].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::Monitoring;
+    /// use google_cloud_api::model::monitoring::MonitoringDestination;
+    /// let x = Monitoring::new()
+    ///     .set_consumer_destinations([
+    ///         MonitoringDestination::default()/* use setters */,
+    ///         MonitoringDestination::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_consumer_destinations<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -6717,6 +8504,12 @@ pub mod monitoring {
         }
 
         /// Sets the value of [monitored_resource][crate::model::monitoring::MonitoringDestination::monitored_resource].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_api::model::monitoring::MonitoringDestination;
+        /// let x = MonitoringDestination::new().set_monitored_resource("example");
+        /// ```
         pub fn set_monitored_resource<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -6726,6 +8519,12 @@ pub mod monitoring {
         }
 
         /// Sets the value of [metrics][crate::model::monitoring::MonitoringDestination::metrics].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_api::model::monitoring::MonitoringDestination;
+        /// let x = MonitoringDestination::new().set_metrics(["a", "b", "c"]);
+        /// ```
         pub fn set_metrics<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -6785,12 +8584,24 @@ impl FieldPolicy {
     }
 
     /// Sets the value of [selector][crate::model::FieldPolicy::selector].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::FieldPolicy;
+    /// let x = FieldPolicy::new().set_selector("example");
+    /// ```
     pub fn set_selector<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.selector = v.into();
         self
     }
 
     /// Sets the value of [resource_permission][crate::model::FieldPolicy::resource_permission].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::FieldPolicy;
+    /// let x = FieldPolicy::new().set_resource_permission("example");
+    /// ```
     pub fn set_resource_permission<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -6800,6 +8611,12 @@ impl FieldPolicy {
     }
 
     /// Sets the value of [resource_type][crate::model::FieldPolicy::resource_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::FieldPolicy;
+    /// let x = FieldPolicy::new().set_resource_type("example");
+    /// ```
     pub fn set_resource_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.resource_type = v.into();
         self
@@ -6840,12 +8657,29 @@ impl MethodPolicy {
     }
 
     /// Sets the value of [selector][crate::model::MethodPolicy::selector].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::MethodPolicy;
+    /// let x = MethodPolicy::new().set_selector("example");
+    /// ```
     pub fn set_selector<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.selector = v.into();
         self
     }
 
     /// Sets the value of [request_policies][crate::model::MethodPolicy::request_policies].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::MethodPolicy;
+    /// use google_cloud_api::model::FieldPolicy;
+    /// let x = MethodPolicy::new()
+    ///     .set_request_policies([
+    ///         FieldPolicy::default()/* use setters */,
+    ///         FieldPolicy::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_request_policies<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -6936,6 +8770,17 @@ impl Quota {
     }
 
     /// Sets the value of [limits][crate::model::Quota::limits].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::Quota;
+    /// use google_cloud_api::model::QuotaLimit;
+    /// let x = Quota::new()
+    ///     .set_limits([
+    ///         QuotaLimit::default()/* use setters */,
+    ///         QuotaLimit::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_limits<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -6947,6 +8792,17 @@ impl Quota {
     }
 
     /// Sets the value of [metric_rules][crate::model::Quota::metric_rules].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::Quota;
+    /// use google_cloud_api::model::MetricRule;
+    /// let x = Quota::new()
+    ///     .set_metric_rules([
+    ///         MetricRule::default()/* use setters */,
+    ///         MetricRule::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_metric_rules<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -6994,12 +8850,27 @@ impl MetricRule {
     }
 
     /// Sets the value of [selector][crate::model::MetricRule::selector].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::MetricRule;
+    /// let x = MetricRule::new().set_selector("example");
+    /// ```
     pub fn set_selector<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.selector = v.into();
         self
     }
 
     /// Sets the value of [metric_costs][crate::model::MetricRule::metric_costs].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::MetricRule;
+    /// let x = MetricRule::new().set_metric_costs([
+    ///     ("key0", 123),
+    ///     ("key1", 456),
+    /// ]);
+    /// ```
     pub fn set_metric_costs<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -7114,54 +8985,111 @@ impl QuotaLimit {
     }
 
     /// Sets the value of [name][crate::model::QuotaLimit::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::QuotaLimit;
+    /// let x = QuotaLimit::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [description][crate::model::QuotaLimit::description].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::QuotaLimit;
+    /// let x = QuotaLimit::new().set_description("example");
+    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [default_limit][crate::model::QuotaLimit::default_limit].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::QuotaLimit;
+    /// let x = QuotaLimit::new().set_default_limit(42);
+    /// ```
     pub fn set_default_limit<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.default_limit = v.into();
         self
     }
 
     /// Sets the value of [max_limit][crate::model::QuotaLimit::max_limit].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::QuotaLimit;
+    /// let x = QuotaLimit::new().set_max_limit(42);
+    /// ```
     pub fn set_max_limit<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.max_limit = v.into();
         self
     }
 
     /// Sets the value of [free_tier][crate::model::QuotaLimit::free_tier].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::QuotaLimit;
+    /// let x = QuotaLimit::new().set_free_tier(42);
+    /// ```
     pub fn set_free_tier<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.free_tier = v.into();
         self
     }
 
     /// Sets the value of [duration][crate::model::QuotaLimit::duration].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::QuotaLimit;
+    /// let x = QuotaLimit::new().set_duration("example");
+    /// ```
     pub fn set_duration<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.duration = v.into();
         self
     }
 
     /// Sets the value of [metric][crate::model::QuotaLimit::metric].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::QuotaLimit;
+    /// let x = QuotaLimit::new().set_metric("example");
+    /// ```
     pub fn set_metric<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.metric = v.into();
         self
     }
 
     /// Sets the value of [unit][crate::model::QuotaLimit::unit].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::QuotaLimit;
+    /// let x = QuotaLimit::new().set_unit("example");
+    /// ```
     pub fn set_unit<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.unit = v.into();
         self
     }
 
     /// Sets the value of [values][crate::model::QuotaLimit::values].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::QuotaLimit;
+    /// let x = QuotaLimit::new().set_values([
+    ///     ("key0", 123),
+    ///     ("key1", 456),
+    /// ]);
+    /// ```
     pub fn set_values<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -7174,6 +9102,12 @@ impl QuotaLimit {
     }
 
     /// Sets the value of [display_name][crate::model::QuotaLimit::display_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::QuotaLimit;
+    /// let x = QuotaLimit::new().set_display_name("example");
+    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
@@ -7338,12 +9272,24 @@ impl ResourceDescriptor {
     }
 
     /// Sets the value of [r#type][crate::model::ResourceDescriptor::type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::ResourceDescriptor;
+    /// let x = ResourceDescriptor::new().set_type("example");
+    /// ```
     pub fn set_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.r#type = v.into();
         self
     }
 
     /// Sets the value of [pattern][crate::model::ResourceDescriptor::pattern].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::ResourceDescriptor;
+    /// let x = ResourceDescriptor::new().set_pattern(["a", "b", "c"]);
+    /// ```
     pub fn set_pattern<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -7355,12 +9301,26 @@ impl ResourceDescriptor {
     }
 
     /// Sets the value of [name_field][crate::model::ResourceDescriptor::name_field].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::ResourceDescriptor;
+    /// let x = ResourceDescriptor::new().set_name_field("example");
+    /// ```
     pub fn set_name_field<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name_field = v.into();
         self
     }
 
     /// Sets the value of [history][crate::model::ResourceDescriptor::history].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::ResourceDescriptor;
+    /// use google_cloud_api::model::resource_descriptor::History;
+    /// let x0 = ResourceDescriptor::new().set_history(History::OriginallySinglePattern);
+    /// let x1 = ResourceDescriptor::new().set_history(History::FutureMultiPattern);
+    /// ```
     pub fn set_history<T: std::convert::Into<crate::model::resource_descriptor::History>>(
         mut self,
         v: T,
@@ -7370,18 +9330,39 @@ impl ResourceDescriptor {
     }
 
     /// Sets the value of [plural][crate::model::ResourceDescriptor::plural].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::ResourceDescriptor;
+    /// let x = ResourceDescriptor::new().set_plural("example");
+    /// ```
     pub fn set_plural<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.plural = v.into();
         self
     }
 
     /// Sets the value of [singular][crate::model::ResourceDescriptor::singular].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::ResourceDescriptor;
+    /// let x = ResourceDescriptor::new().set_singular("example");
+    /// ```
     pub fn set_singular<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.singular = v.into();
         self
     }
 
     /// Sets the value of [style][crate::model::ResourceDescriptor::style].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::ResourceDescriptor;
+    /// use google_cloud_api::model::resource_descriptor::Style;
+    /// let x = ResourceDescriptor::new().set_style([
+    ///     Style::DeclarativeFriendly,
+    /// ]);
+    /// ```
     pub fn set_style<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -7730,12 +9711,24 @@ impl ResourceReference {
     }
 
     /// Sets the value of [r#type][crate::model::ResourceReference::type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::ResourceReference;
+    /// let x = ResourceReference::new().set_type("example");
+    /// ```
     pub fn set_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.r#type = v.into();
         self
     }
 
     /// Sets the value of [child_type][crate::model::ResourceReference::child_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::ResourceReference;
+    /// let x = ResourceReference::new().set_child_type("example");
+    /// ```
     pub fn set_child_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.child_type = v.into();
         self
@@ -8179,6 +10172,17 @@ impl RoutingRule {
     }
 
     /// Sets the value of [routing_parameters][crate::model::RoutingRule::routing_parameters].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::RoutingRule;
+    /// use google_cloud_api::model::RoutingParameter;
+    /// let x = RoutingRule::new()
+    ///     .set_routing_parameters([
+    ///         RoutingParameter::default()/* use setters */,
+    ///         RoutingParameter::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_routing_parameters<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -8276,12 +10280,24 @@ impl RoutingParameter {
     }
 
     /// Sets the value of [field][crate::model::RoutingParameter::field].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::RoutingParameter;
+    /// let x = RoutingParameter::new().set_field("example");
+    /// ```
     pub fn set_field<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.field = v.into();
         self
     }
 
     /// Sets the value of [path_template][crate::model::RoutingParameter::path_template].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::RoutingParameter;
+    /// let x = RoutingParameter::new().set_path_template("example");
+    /// ```
     pub fn set_path_template<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.path_template = v.into();
         self
@@ -8461,18 +10477,36 @@ impl Service {
     }
 
     /// Sets the value of [name][crate::model::Service::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::Service;
+    /// let x = Service::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [title][crate::model::Service::title].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::Service;
+    /// let x = Service::new().set_title("example");
+    /// ```
     pub fn set_title<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.title = v.into();
         self
     }
 
     /// Sets the value of [producer_project_id][crate::model::Service::producer_project_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::Service;
+    /// let x = Service::new().set_producer_project_id("example");
+    /// ```
     pub fn set_producer_project_id<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -8482,12 +10516,29 @@ impl Service {
     }
 
     /// Sets the value of [id][crate::model::Service::id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::Service;
+    /// let x = Service::new().set_id("example");
+    /// ```
     pub fn set_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.id = v.into();
         self
     }
 
     /// Sets the value of [apis][crate::model::Service::apis].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::Service;
+    /// use wkt::Api;
+    /// let x = Service::new()
+    ///     .set_apis([
+    ///         Api::default()/* use setters */,
+    ///         Api::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_apis<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -8499,6 +10550,17 @@ impl Service {
     }
 
     /// Sets the value of [types][crate::model::Service::types].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::Service;
+    /// use wkt::Type;
+    /// let x = Service::new()
+    ///     .set_types([
+    ///         Type::default()/* use setters */,
+    ///         Type::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_types<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -8510,6 +10572,17 @@ impl Service {
     }
 
     /// Sets the value of [enums][crate::model::Service::enums].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::Service;
+    /// use wkt::Enum;
+    /// let x = Service::new()
+    ///     .set_enums([
+    ///         Enum::default()/* use setters */,
+    ///         Enum::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_enums<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -8521,6 +10594,13 @@ impl Service {
     }
 
     /// Sets the value of [documentation][crate::model::Service::documentation].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::Service;
+    /// use google_cloud_api::model::Documentation;
+    /// let x = Service::new().set_documentation(Documentation::default()/* use setters */);
+    /// ```
     pub fn set_documentation<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Documentation>,
@@ -8530,6 +10610,14 @@ impl Service {
     }
 
     /// Sets or clears the value of [documentation][crate::model::Service::documentation].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::Service;
+    /// use google_cloud_api::model::Documentation;
+    /// let x = Service::new().set_or_clear_documentation(Some(Documentation::default()/* use setters */));
+    /// let x = Service::new().set_or_clear_documentation(None::<Documentation>);
+    /// ```
     pub fn set_or_clear_documentation<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Documentation>,
@@ -8539,6 +10627,13 @@ impl Service {
     }
 
     /// Sets the value of [backend][crate::model::Service::backend].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::Service;
+    /// use google_cloud_api::model::Backend;
+    /// let x = Service::new().set_backend(Backend::default()/* use setters */);
+    /// ```
     pub fn set_backend<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Backend>,
@@ -8548,6 +10643,14 @@ impl Service {
     }
 
     /// Sets or clears the value of [backend][crate::model::Service::backend].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::Service;
+    /// use google_cloud_api::model::Backend;
+    /// let x = Service::new().set_or_clear_backend(Some(Backend::default()/* use setters */));
+    /// let x = Service::new().set_or_clear_backend(None::<Backend>);
+    /// ```
     pub fn set_or_clear_backend<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Backend>,
@@ -8557,6 +10660,13 @@ impl Service {
     }
 
     /// Sets the value of [http][crate::model::Service::http].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::Service;
+    /// use google_cloud_api::model::Http;
+    /// let x = Service::new().set_http(Http::default()/* use setters */);
+    /// ```
     pub fn set_http<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Http>,
@@ -8566,6 +10676,14 @@ impl Service {
     }
 
     /// Sets or clears the value of [http][crate::model::Service::http].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::Service;
+    /// use google_cloud_api::model::Http;
+    /// let x = Service::new().set_or_clear_http(Some(Http::default()/* use setters */));
+    /// let x = Service::new().set_or_clear_http(None::<Http>);
+    /// ```
     pub fn set_or_clear_http<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Http>,
@@ -8575,6 +10693,13 @@ impl Service {
     }
 
     /// Sets the value of [quota][crate::model::Service::quota].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::Service;
+    /// use google_cloud_api::model::Quota;
+    /// let x = Service::new().set_quota(Quota::default()/* use setters */);
+    /// ```
     pub fn set_quota<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Quota>,
@@ -8584,6 +10709,14 @@ impl Service {
     }
 
     /// Sets or clears the value of [quota][crate::model::Service::quota].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::Service;
+    /// use google_cloud_api::model::Quota;
+    /// let x = Service::new().set_or_clear_quota(Some(Quota::default()/* use setters */));
+    /// let x = Service::new().set_or_clear_quota(None::<Quota>);
+    /// ```
     pub fn set_or_clear_quota<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Quota>,
@@ -8593,6 +10726,13 @@ impl Service {
     }
 
     /// Sets the value of [authentication][crate::model::Service::authentication].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::Service;
+    /// use google_cloud_api::model::Authentication;
+    /// let x = Service::new().set_authentication(Authentication::default()/* use setters */);
+    /// ```
     pub fn set_authentication<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Authentication>,
@@ -8602,6 +10742,14 @@ impl Service {
     }
 
     /// Sets or clears the value of [authentication][crate::model::Service::authentication].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::Service;
+    /// use google_cloud_api::model::Authentication;
+    /// let x = Service::new().set_or_clear_authentication(Some(Authentication::default()/* use setters */));
+    /// let x = Service::new().set_or_clear_authentication(None::<Authentication>);
+    /// ```
     pub fn set_or_clear_authentication<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Authentication>,
@@ -8611,6 +10759,13 @@ impl Service {
     }
 
     /// Sets the value of [context][crate::model::Service::context].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::Service;
+    /// use google_cloud_api::model::Context;
+    /// let x = Service::new().set_context(Context::default()/* use setters */);
+    /// ```
     pub fn set_context<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Context>,
@@ -8620,6 +10775,14 @@ impl Service {
     }
 
     /// Sets or clears the value of [context][crate::model::Service::context].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::Service;
+    /// use google_cloud_api::model::Context;
+    /// let x = Service::new().set_or_clear_context(Some(Context::default()/* use setters */));
+    /// let x = Service::new().set_or_clear_context(None::<Context>);
+    /// ```
     pub fn set_or_clear_context<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Context>,
@@ -8629,6 +10792,13 @@ impl Service {
     }
 
     /// Sets the value of [usage][crate::model::Service::usage].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::Service;
+    /// use google_cloud_api::model::Usage;
+    /// let x = Service::new().set_usage(Usage::default()/* use setters */);
+    /// ```
     pub fn set_usage<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Usage>,
@@ -8638,6 +10808,14 @@ impl Service {
     }
 
     /// Sets or clears the value of [usage][crate::model::Service::usage].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::Service;
+    /// use google_cloud_api::model::Usage;
+    /// let x = Service::new().set_or_clear_usage(Some(Usage::default()/* use setters */));
+    /// let x = Service::new().set_or_clear_usage(None::<Usage>);
+    /// ```
     pub fn set_or_clear_usage<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Usage>,
@@ -8647,6 +10825,17 @@ impl Service {
     }
 
     /// Sets the value of [endpoints][crate::model::Service::endpoints].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::Service;
+    /// use google_cloud_api::model::Endpoint;
+    /// let x = Service::new()
+    ///     .set_endpoints([
+    ///         Endpoint::default()/* use setters */,
+    ///         Endpoint::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_endpoints<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -8658,6 +10847,13 @@ impl Service {
     }
 
     /// Sets the value of [control][crate::model::Service::control].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::Service;
+    /// use google_cloud_api::model::Control;
+    /// let x = Service::new().set_control(Control::default()/* use setters */);
+    /// ```
     pub fn set_control<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Control>,
@@ -8667,6 +10863,14 @@ impl Service {
     }
 
     /// Sets or clears the value of [control][crate::model::Service::control].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::Service;
+    /// use google_cloud_api::model::Control;
+    /// let x = Service::new().set_or_clear_control(Some(Control::default()/* use setters */));
+    /// let x = Service::new().set_or_clear_control(None::<Control>);
+    /// ```
     pub fn set_or_clear_control<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Control>,
@@ -8676,6 +10880,17 @@ impl Service {
     }
 
     /// Sets the value of [logs][crate::model::Service::logs].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::Service;
+    /// use google_cloud_api::model::LogDescriptor;
+    /// let x = Service::new()
+    ///     .set_logs([
+    ///         LogDescriptor::default()/* use setters */,
+    ///         LogDescriptor::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_logs<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -8687,6 +10902,17 @@ impl Service {
     }
 
     /// Sets the value of [metrics][crate::model::Service::metrics].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::Service;
+    /// use google_cloud_api::model::MetricDescriptor;
+    /// let x = Service::new()
+    ///     .set_metrics([
+    ///         MetricDescriptor::default()/* use setters */,
+    ///         MetricDescriptor::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_metrics<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -8698,6 +10924,17 @@ impl Service {
     }
 
     /// Sets the value of [monitored_resources][crate::model::Service::monitored_resources].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::Service;
+    /// use google_cloud_api::model::MonitoredResourceDescriptor;
+    /// let x = Service::new()
+    ///     .set_monitored_resources([
+    ///         MonitoredResourceDescriptor::default()/* use setters */,
+    ///         MonitoredResourceDescriptor::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_monitored_resources<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -8709,6 +10946,13 @@ impl Service {
     }
 
     /// Sets the value of [billing][crate::model::Service::billing].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::Service;
+    /// use google_cloud_api::model::Billing;
+    /// let x = Service::new().set_billing(Billing::default()/* use setters */);
+    /// ```
     pub fn set_billing<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Billing>,
@@ -8718,6 +10962,14 @@ impl Service {
     }
 
     /// Sets or clears the value of [billing][crate::model::Service::billing].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::Service;
+    /// use google_cloud_api::model::Billing;
+    /// let x = Service::new().set_or_clear_billing(Some(Billing::default()/* use setters */));
+    /// let x = Service::new().set_or_clear_billing(None::<Billing>);
+    /// ```
     pub fn set_or_clear_billing<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Billing>,
@@ -8727,6 +10979,13 @@ impl Service {
     }
 
     /// Sets the value of [logging][crate::model::Service::logging].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::Service;
+    /// use google_cloud_api::model::Logging;
+    /// let x = Service::new().set_logging(Logging::default()/* use setters */);
+    /// ```
     pub fn set_logging<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Logging>,
@@ -8736,6 +10995,14 @@ impl Service {
     }
 
     /// Sets or clears the value of [logging][crate::model::Service::logging].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::Service;
+    /// use google_cloud_api::model::Logging;
+    /// let x = Service::new().set_or_clear_logging(Some(Logging::default()/* use setters */));
+    /// let x = Service::new().set_or_clear_logging(None::<Logging>);
+    /// ```
     pub fn set_or_clear_logging<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Logging>,
@@ -8745,6 +11012,13 @@ impl Service {
     }
 
     /// Sets the value of [monitoring][crate::model::Service::monitoring].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::Service;
+    /// use google_cloud_api::model::Monitoring;
+    /// let x = Service::new().set_monitoring(Monitoring::default()/* use setters */);
+    /// ```
     pub fn set_monitoring<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Monitoring>,
@@ -8754,6 +11028,14 @@ impl Service {
     }
 
     /// Sets or clears the value of [monitoring][crate::model::Service::monitoring].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::Service;
+    /// use google_cloud_api::model::Monitoring;
+    /// let x = Service::new().set_or_clear_monitoring(Some(Monitoring::default()/* use setters */));
+    /// let x = Service::new().set_or_clear_monitoring(None::<Monitoring>);
+    /// ```
     pub fn set_or_clear_monitoring<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Monitoring>,
@@ -8763,6 +11045,13 @@ impl Service {
     }
 
     /// Sets the value of [system_parameters][crate::model::Service::system_parameters].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::Service;
+    /// use google_cloud_api::model::SystemParameters;
+    /// let x = Service::new().set_system_parameters(SystemParameters::default()/* use setters */);
+    /// ```
     pub fn set_system_parameters<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::SystemParameters>,
@@ -8772,6 +11061,14 @@ impl Service {
     }
 
     /// Sets or clears the value of [system_parameters][crate::model::Service::system_parameters].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::Service;
+    /// use google_cloud_api::model::SystemParameters;
+    /// let x = Service::new().set_or_clear_system_parameters(Some(SystemParameters::default()/* use setters */));
+    /// let x = Service::new().set_or_clear_system_parameters(None::<SystemParameters>);
+    /// ```
     pub fn set_or_clear_system_parameters<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::SystemParameters>,
@@ -8781,6 +11078,13 @@ impl Service {
     }
 
     /// Sets the value of [source_info][crate::model::Service::source_info].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::Service;
+    /// use google_cloud_api::model::SourceInfo;
+    /// let x = Service::new().set_source_info(SourceInfo::default()/* use setters */);
+    /// ```
     pub fn set_source_info<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::SourceInfo>,
@@ -8790,6 +11094,14 @@ impl Service {
     }
 
     /// Sets or clears the value of [source_info][crate::model::Service::source_info].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::Service;
+    /// use google_cloud_api::model::SourceInfo;
+    /// let x = Service::new().set_or_clear_source_info(Some(SourceInfo::default()/* use setters */));
+    /// let x = Service::new().set_or_clear_source_info(None::<SourceInfo>);
+    /// ```
     pub fn set_or_clear_source_info<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::SourceInfo>,
@@ -8799,6 +11111,13 @@ impl Service {
     }
 
     /// Sets the value of [publishing][crate::model::Service::publishing].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::Service;
+    /// use google_cloud_api::model::Publishing;
+    /// let x = Service::new().set_publishing(Publishing::default()/* use setters */);
+    /// ```
     pub fn set_publishing<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Publishing>,
@@ -8808,6 +11127,14 @@ impl Service {
     }
 
     /// Sets or clears the value of [publishing][crate::model::Service::publishing].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::Service;
+    /// use google_cloud_api::model::Publishing;
+    /// let x = Service::new().set_or_clear_publishing(Some(Publishing::default()/* use setters */));
+    /// let x = Service::new().set_or_clear_publishing(None::<Publishing>);
+    /// ```
     pub fn set_or_clear_publishing<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Publishing>,
@@ -8817,6 +11144,13 @@ impl Service {
     }
 
     /// Sets the value of [config_version][crate::model::Service::config_version].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::Service;
+    /// use wkt::UInt32Value;
+    /// let x = Service::new().set_config_version(UInt32Value::default()/* use setters */);
+    /// ```
     pub fn set_config_version<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::UInt32Value>,
@@ -8826,6 +11160,14 @@ impl Service {
     }
 
     /// Sets or clears the value of [config_version][crate::model::Service::config_version].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::Service;
+    /// use wkt::UInt32Value;
+    /// let x = Service::new().set_or_clear_config_version(Some(UInt32Value::default()/* use setters */));
+    /// let x = Service::new().set_or_clear_config_version(None::<UInt32Value>);
+    /// ```
     pub fn set_or_clear_config_version<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::UInt32Value>,
@@ -8857,6 +11199,17 @@ impl SourceInfo {
     }
 
     /// Sets the value of [source_files][crate::model::SourceInfo::source_files].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::SourceInfo;
+    /// use wkt::Any;
+    /// let x = SourceInfo::new()
+    ///     .set_source_files([
+    ///         Any::default()/* use setters */,
+    ///         Any::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_source_files<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -8926,6 +11279,17 @@ impl SystemParameters {
     }
 
     /// Sets the value of [rules][crate::model::SystemParameters::rules].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::SystemParameters;
+    /// use google_cloud_api::model::SystemParameterRule;
+    /// let x = SystemParameters::new()
+    ///     .set_rules([
+    ///         SystemParameterRule::default()/* use setters */,
+    ///         SystemParameterRule::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_rules<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -8973,12 +11337,29 @@ impl SystemParameterRule {
     }
 
     /// Sets the value of [selector][crate::model::SystemParameterRule::selector].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::SystemParameterRule;
+    /// let x = SystemParameterRule::new().set_selector("example");
+    /// ```
     pub fn set_selector<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.selector = v.into();
         self
     }
 
     /// Sets the value of [parameters][crate::model::SystemParameterRule::parameters].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::SystemParameterRule;
+    /// use google_cloud_api::model::SystemParameter;
+    /// let x = SystemParameterRule::new()
+    ///     .set_parameters([
+    ///         SystemParameter::default()/* use setters */,
+    ///         SystemParameter::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_parameters<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -9022,18 +11403,36 @@ impl SystemParameter {
     }
 
     /// Sets the value of [name][crate::model::SystemParameter::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::SystemParameter;
+    /// let x = SystemParameter::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [http_header][crate::model::SystemParameter::http_header].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::SystemParameter;
+    /// let x = SystemParameter::new().set_http_header("example");
+    /// ```
     pub fn set_http_header<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.http_header = v.into();
         self
     }
 
     /// Sets the value of [url_query_parameter][crate::model::SystemParameter::url_query_parameter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::SystemParameter;
+    /// let x = SystemParameter::new().set_url_query_parameter("example");
+    /// ```
     pub fn set_url_query_parameter<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -9088,6 +11487,12 @@ impl Usage {
     }
 
     /// Sets the value of [requirements][crate::model::Usage::requirements].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::Usage;
+    /// let x = Usage::new().set_requirements(["a", "b", "c"]);
+    /// ```
     pub fn set_requirements<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -9099,6 +11504,17 @@ impl Usage {
     }
 
     /// Sets the value of [rules][crate::model::Usage::rules].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::Usage;
+    /// use google_cloud_api::model::UsageRule;
+    /// let x = Usage::new()
+    ///     .set_rules([
+    ///         UsageRule::default()/* use setters */,
+    ///         UsageRule::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_rules<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -9110,6 +11526,12 @@ impl Usage {
     }
 
     /// Sets the value of [producer_notification_channel][crate::model::Usage::producer_notification_channel].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::Usage;
+    /// let x = Usage::new().set_producer_notification_channel("example");
+    /// ```
     pub fn set_producer_notification_channel<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -9184,18 +11606,36 @@ impl UsageRule {
     }
 
     /// Sets the value of [selector][crate::model::UsageRule::selector].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::UsageRule;
+    /// let x = UsageRule::new().set_selector("example");
+    /// ```
     pub fn set_selector<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.selector = v.into();
         self
     }
 
     /// Sets the value of [allow_unregistered_calls][crate::model::UsageRule::allow_unregistered_calls].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::UsageRule;
+    /// let x = UsageRule::new().set_allow_unregistered_calls(true);
+    /// ```
     pub fn set_allow_unregistered_calls<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.allow_unregistered_calls = v.into();
         self
     }
 
     /// Sets the value of [skip_service_control][crate::model::UsageRule::skip_service_control].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::UsageRule;
+    /// let x = UsageRule::new().set_skip_service_control(true);
+    /// ```
     pub fn set_skip_service_control<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.skip_service_control = v.into();
         self
@@ -9250,6 +11690,17 @@ impl Visibility {
     }
 
     /// Sets the value of [rules][crate::model::Visibility::rules].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::Visibility;
+    /// use google_cloud_api::model::VisibilityRule;
+    /// let x = Visibility::new()
+    ///     .set_rules([
+    ///         VisibilityRule::default()/* use setters */,
+    ///         VisibilityRule::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_rules<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -9308,12 +11759,24 @@ impl VisibilityRule {
     }
 
     /// Sets the value of [selector][crate::model::VisibilityRule::selector].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::VisibilityRule;
+    /// let x = VisibilityRule::new().set_selector("example");
+    /// ```
     pub fn set_selector<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.selector = v.into();
         self
     }
 
     /// Sets the value of [restriction][crate::model::VisibilityRule::restriction].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api::model::VisibilityRule;
+    /// let x = VisibilityRule::new().set_restriction("example");
+    /// ```
     pub fn set_restriction<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.restriction = v.into();
         self

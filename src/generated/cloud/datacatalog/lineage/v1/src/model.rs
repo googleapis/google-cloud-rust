@@ -71,18 +71,40 @@ impl Process {
     }
 
     /// Sets the value of [name][crate::model::Process::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datacatalog_lineage_v1::model::Process;
+    /// let x = Process::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [display_name][crate::model::Process::display_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datacatalog_lineage_v1::model::Process;
+    /// let x = Process::new().set_display_name("example");
+    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
     }
 
     /// Sets the value of [attributes][crate::model::Process::attributes].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datacatalog_lineage_v1::model::Process;
+    /// use wkt::Value;
+    /// let x = Process::new().set_attributes([
+    ///     ("key0", Value::default()/* use setters */),
+    ///     ("key1", Value::default()/* use (different) setters */),
+    /// ]);
+    /// ```
     pub fn set_attributes<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -95,6 +117,13 @@ impl Process {
     }
 
     /// Sets the value of [origin][crate::model::Process::origin].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datacatalog_lineage_v1::model::Process;
+    /// use google_cloud_datacatalog_lineage_v1::model::Origin;
+    /// let x = Process::new().set_origin(Origin::default()/* use setters */);
+    /// ```
     pub fn set_origin<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Origin>,
@@ -104,6 +133,14 @@ impl Process {
     }
 
     /// Sets or clears the value of [origin][crate::model::Process::origin].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datacatalog_lineage_v1::model::Process;
+    /// use google_cloud_datacatalog_lineage_v1::model::Origin;
+    /// let x = Process::new().set_or_clear_origin(Some(Origin::default()/* use setters */));
+    /// let x = Process::new().set_or_clear_origin(None::<Origin>);
+    /// ```
     pub fn set_or_clear_origin<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Origin>,
@@ -160,18 +197,40 @@ impl Run {
     }
 
     /// Sets the value of [name][crate::model::Run::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datacatalog_lineage_v1::model::Run;
+    /// let x = Run::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [display_name][crate::model::Run::display_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datacatalog_lineage_v1::model::Run;
+    /// let x = Run::new().set_display_name("example");
+    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
     }
 
     /// Sets the value of [attributes][crate::model::Run::attributes].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datacatalog_lineage_v1::model::Run;
+    /// use wkt::Value;
+    /// let x = Run::new().set_attributes([
+    ///     ("key0", Value::default()/* use setters */),
+    ///     ("key1", Value::default()/* use (different) setters */),
+    /// ]);
+    /// ```
     pub fn set_attributes<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -184,6 +243,13 @@ impl Run {
     }
 
     /// Sets the value of [start_time][crate::model::Run::start_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datacatalog_lineage_v1::model::Run;
+    /// use wkt::Timestamp;
+    /// let x = Run::new().set_start_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_start_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -193,6 +259,14 @@ impl Run {
     }
 
     /// Sets or clears the value of [start_time][crate::model::Run::start_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datacatalog_lineage_v1::model::Run;
+    /// use wkt::Timestamp;
+    /// let x = Run::new().set_or_clear_start_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Run::new().set_or_clear_start_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -202,6 +276,13 @@ impl Run {
     }
 
     /// Sets the value of [end_time][crate::model::Run::end_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datacatalog_lineage_v1::model::Run;
+    /// use wkt::Timestamp;
+    /// let x = Run::new().set_end_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -211,6 +292,14 @@ impl Run {
     }
 
     /// Sets or clears the value of [end_time][crate::model::Run::end_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datacatalog_lineage_v1::model::Run;
+    /// use wkt::Timestamp;
+    /// let x = Run::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Run::new().set_or_clear_end_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -220,6 +309,15 @@ impl Run {
     }
 
     /// Sets the value of [state][crate::model::Run::state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datacatalog_lineage_v1::model::Run;
+    /// use google_cloud_datacatalog_lineage_v1::model::run::State;
+    /// let x0 = Run::new().set_state(State::Started);
+    /// let x1 = Run::new().set_state(State::Completed);
+    /// let x2 = Run::new().set_state(State::Failed);
+    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::run::State>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
@@ -420,12 +518,29 @@ impl LineageEvent {
     }
 
     /// Sets the value of [name][crate::model::LineageEvent::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datacatalog_lineage_v1::model::LineageEvent;
+    /// let x = LineageEvent::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [links][crate::model::LineageEvent::links].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datacatalog_lineage_v1::model::LineageEvent;
+    /// use google_cloud_datacatalog_lineage_v1::model::EventLink;
+    /// let x = LineageEvent::new()
+    ///     .set_links([
+    ///         EventLink::default()/* use setters */,
+    ///         EventLink::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_links<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -437,6 +552,13 @@ impl LineageEvent {
     }
 
     /// Sets the value of [start_time][crate::model::LineageEvent::start_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datacatalog_lineage_v1::model::LineageEvent;
+    /// use wkt::Timestamp;
+    /// let x = LineageEvent::new().set_start_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_start_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -446,6 +568,14 @@ impl LineageEvent {
     }
 
     /// Sets or clears the value of [start_time][crate::model::LineageEvent::start_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datacatalog_lineage_v1::model::LineageEvent;
+    /// use wkt::Timestamp;
+    /// let x = LineageEvent::new().set_or_clear_start_time(Some(Timestamp::default()/* use setters */));
+    /// let x = LineageEvent::new().set_or_clear_start_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -455,6 +585,13 @@ impl LineageEvent {
     }
 
     /// Sets the value of [end_time][crate::model::LineageEvent::end_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datacatalog_lineage_v1::model::LineageEvent;
+    /// use wkt::Timestamp;
+    /// let x = LineageEvent::new().set_end_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -464,6 +601,14 @@ impl LineageEvent {
     }
 
     /// Sets or clears the value of [end_time][crate::model::LineageEvent::end_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datacatalog_lineage_v1::model::LineageEvent;
+    /// use wkt::Timestamp;
+    /// let x = LineageEvent::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
+    /// let x = LineageEvent::new().set_or_clear_end_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -498,6 +643,13 @@ impl EventLink {
     }
 
     /// Sets the value of [source][crate::model::EventLink::source].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datacatalog_lineage_v1::model::EventLink;
+    /// use google_cloud_datacatalog_lineage_v1::model::EntityReference;
+    /// let x = EventLink::new().set_source(EntityReference::default()/* use setters */);
+    /// ```
     pub fn set_source<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::EntityReference>,
@@ -507,6 +659,14 @@ impl EventLink {
     }
 
     /// Sets or clears the value of [source][crate::model::EventLink::source].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datacatalog_lineage_v1::model::EventLink;
+    /// use google_cloud_datacatalog_lineage_v1::model::EntityReference;
+    /// let x = EventLink::new().set_or_clear_source(Some(EntityReference::default()/* use setters */));
+    /// let x = EventLink::new().set_or_clear_source(None::<EntityReference>);
+    /// ```
     pub fn set_or_clear_source<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::EntityReference>,
@@ -516,6 +676,13 @@ impl EventLink {
     }
 
     /// Sets the value of [target][crate::model::EventLink::target].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datacatalog_lineage_v1::model::EventLink;
+    /// use google_cloud_datacatalog_lineage_v1::model::EntityReference;
+    /// let x = EventLink::new().set_target(EntityReference::default()/* use setters */);
+    /// ```
     pub fn set_target<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::EntityReference>,
@@ -525,6 +692,14 @@ impl EventLink {
     }
 
     /// Sets or clears the value of [target][crate::model::EventLink::target].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datacatalog_lineage_v1::model::EventLink;
+    /// use google_cloud_datacatalog_lineage_v1::model::EntityReference;
+    /// let x = EventLink::new().set_or_clear_target(Some(EntityReference::default()/* use setters */));
+    /// let x = EventLink::new().set_or_clear_target(None::<EntityReference>);
+    /// ```
     pub fn set_or_clear_target<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::EntityReference>,
@@ -558,6 +733,12 @@ impl EntityReference {
     }
 
     /// Sets the value of [fully_qualified_name][crate::model::EntityReference::fully_qualified_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datacatalog_lineage_v1::model::EntityReference;
+    /// let x = EntityReference::new().set_fully_qualified_name("example");
+    /// ```
     pub fn set_fully_qualified_name<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -607,6 +788,15 @@ impl OperationMetadata {
     }
 
     /// Sets the value of [state][crate::model::OperationMetadata::state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datacatalog_lineage_v1::model::OperationMetadata;
+    /// use google_cloud_datacatalog_lineage_v1::model::operation_metadata::State;
+    /// let x0 = OperationMetadata::new().set_state(State::Pending);
+    /// let x1 = OperationMetadata::new().set_state(State::Running);
+    /// let x2 = OperationMetadata::new().set_state(State::Succeeded);
+    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::operation_metadata::State>>(
         mut self,
         v: T,
@@ -616,6 +806,14 @@ impl OperationMetadata {
     }
 
     /// Sets the value of [operation_type][crate::model::OperationMetadata::operation_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datacatalog_lineage_v1::model::OperationMetadata;
+    /// use google_cloud_datacatalog_lineage_v1::model::operation_metadata::Type;
+    /// let x0 = OperationMetadata::new().set_operation_type(Type::Delete);
+    /// let x1 = OperationMetadata::new().set_operation_type(Type::Create);
+    /// ```
     pub fn set_operation_type<T: std::convert::Into<crate::model::operation_metadata::Type>>(
         mut self,
         v: T,
@@ -625,18 +823,37 @@ impl OperationMetadata {
     }
 
     /// Sets the value of [resource][crate::model::OperationMetadata::resource].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datacatalog_lineage_v1::model::OperationMetadata;
+    /// let x = OperationMetadata::new().set_resource("example");
+    /// ```
     pub fn set_resource<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.resource = v.into();
         self
     }
 
     /// Sets the value of [resource_uuid][crate::model::OperationMetadata::resource_uuid].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datacatalog_lineage_v1::model::OperationMetadata;
+    /// let x = OperationMetadata::new().set_resource_uuid("example");
+    /// ```
     pub fn set_resource_uuid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.resource_uuid = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::OperationMetadata::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datacatalog_lineage_v1::model::OperationMetadata;
+    /// use wkt::Timestamp;
+    /// let x = OperationMetadata::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -646,6 +863,14 @@ impl OperationMetadata {
     }
 
     /// Sets or clears the value of [create_time][crate::model::OperationMetadata::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datacatalog_lineage_v1::model::OperationMetadata;
+    /// use wkt::Timestamp;
+    /// let x = OperationMetadata::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = OperationMetadata::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -655,6 +880,13 @@ impl OperationMetadata {
     }
 
     /// Sets the value of [end_time][crate::model::OperationMetadata::end_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datacatalog_lineage_v1::model::OperationMetadata;
+    /// use wkt::Timestamp;
+    /// let x = OperationMetadata::new().set_end_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -664,6 +896,14 @@ impl OperationMetadata {
     }
 
     /// Sets or clears the value of [end_time][crate::model::OperationMetadata::end_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datacatalog_lineage_v1::model::OperationMetadata;
+    /// use wkt::Timestamp;
+    /// let x = OperationMetadata::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
+    /// let x = OperationMetadata::new().set_or_clear_end_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -990,12 +1230,25 @@ impl ProcessOpenLineageRunEventRequest {
     }
 
     /// Sets the value of [parent][crate::model::ProcessOpenLineageRunEventRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datacatalog_lineage_v1::model::ProcessOpenLineageRunEventRequest;
+    /// let x = ProcessOpenLineageRunEventRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [open_lineage][crate::model::ProcessOpenLineageRunEventRequest::open_lineage].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datacatalog_lineage_v1::model::ProcessOpenLineageRunEventRequest;
+    /// use wkt::Struct;
+    /// let x = ProcessOpenLineageRunEventRequest::new().set_open_lineage(Struct::default()/* use setters */);
+    /// ```
     pub fn set_open_lineage<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Struct>,
@@ -1005,6 +1258,14 @@ impl ProcessOpenLineageRunEventRequest {
     }
 
     /// Sets or clears the value of [open_lineage][crate::model::ProcessOpenLineageRunEventRequest::open_lineage].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datacatalog_lineage_v1::model::ProcessOpenLineageRunEventRequest;
+    /// use wkt::Struct;
+    /// let x = ProcessOpenLineageRunEventRequest::new().set_or_clear_open_lineage(Some(Struct::default()/* use setters */));
+    /// let x = ProcessOpenLineageRunEventRequest::new().set_or_clear_open_lineage(None::<Struct>);
+    /// ```
     pub fn set_or_clear_open_lineage<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Struct>,
@@ -1014,6 +1275,12 @@ impl ProcessOpenLineageRunEventRequest {
     }
 
     /// Sets the value of [request_id][crate::model::ProcessOpenLineageRunEventRequest::request_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datacatalog_lineage_v1::model::ProcessOpenLineageRunEventRequest;
+    /// let x = ProcessOpenLineageRunEventRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -1054,18 +1321,36 @@ impl ProcessOpenLineageRunEventResponse {
     }
 
     /// Sets the value of [process][crate::model::ProcessOpenLineageRunEventResponse::process].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datacatalog_lineage_v1::model::ProcessOpenLineageRunEventResponse;
+    /// let x = ProcessOpenLineageRunEventResponse::new().set_process("example");
+    /// ```
     pub fn set_process<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.process = v.into();
         self
     }
 
     /// Sets the value of [run][crate::model::ProcessOpenLineageRunEventResponse::run].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datacatalog_lineage_v1::model::ProcessOpenLineageRunEventResponse;
+    /// let x = ProcessOpenLineageRunEventResponse::new().set_run("example");
+    /// ```
     pub fn set_run<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.run = v.into();
         self
     }
 
     /// Sets the value of [lineage_events][crate::model::ProcessOpenLineageRunEventResponse::lineage_events].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datacatalog_lineage_v1::model::ProcessOpenLineageRunEventResponse;
+    /// let x = ProcessOpenLineageRunEventResponse::new().set_lineage_events(["a", "b", "c"]);
+    /// ```
     pub fn set_lineage_events<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1109,12 +1394,25 @@ impl CreateProcessRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateProcessRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datacatalog_lineage_v1::model::CreateProcessRequest;
+    /// let x = CreateProcessRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [process][crate::model::CreateProcessRequest::process].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datacatalog_lineage_v1::model::CreateProcessRequest;
+    /// use google_cloud_datacatalog_lineage_v1::model::Process;
+    /// let x = CreateProcessRequest::new().set_process(Process::default()/* use setters */);
+    /// ```
     pub fn set_process<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Process>,
@@ -1124,6 +1422,14 @@ impl CreateProcessRequest {
     }
 
     /// Sets or clears the value of [process][crate::model::CreateProcessRequest::process].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datacatalog_lineage_v1::model::CreateProcessRequest;
+    /// use google_cloud_datacatalog_lineage_v1::model::Process;
+    /// let x = CreateProcessRequest::new().set_or_clear_process(Some(Process::default()/* use setters */));
+    /// let x = CreateProcessRequest::new().set_or_clear_process(None::<Process>);
+    /// ```
     pub fn set_or_clear_process<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Process>,
@@ -1133,6 +1439,12 @@ impl CreateProcessRequest {
     }
 
     /// Sets the value of [request_id][crate::model::CreateProcessRequest::request_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datacatalog_lineage_v1::model::CreateProcessRequest;
+    /// let x = CreateProcessRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -1171,6 +1483,13 @@ impl UpdateProcessRequest {
     }
 
     /// Sets the value of [process][crate::model::UpdateProcessRequest::process].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datacatalog_lineage_v1::model::UpdateProcessRequest;
+    /// use google_cloud_datacatalog_lineage_v1::model::Process;
+    /// let x = UpdateProcessRequest::new().set_process(Process::default()/* use setters */);
+    /// ```
     pub fn set_process<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Process>,
@@ -1180,6 +1499,14 @@ impl UpdateProcessRequest {
     }
 
     /// Sets or clears the value of [process][crate::model::UpdateProcessRequest::process].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datacatalog_lineage_v1::model::UpdateProcessRequest;
+    /// use google_cloud_datacatalog_lineage_v1::model::Process;
+    /// let x = UpdateProcessRequest::new().set_or_clear_process(Some(Process::default()/* use setters */));
+    /// let x = UpdateProcessRequest::new().set_or_clear_process(None::<Process>);
+    /// ```
     pub fn set_or_clear_process<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Process>,
@@ -1189,6 +1516,13 @@ impl UpdateProcessRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateProcessRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datacatalog_lineage_v1::model::UpdateProcessRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateProcessRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -1198,6 +1532,14 @@ impl UpdateProcessRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateProcessRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datacatalog_lineage_v1::model::UpdateProcessRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateProcessRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateProcessRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -1207,6 +1549,12 @@ impl UpdateProcessRequest {
     }
 
     /// Sets the value of [allow_missing][crate::model::UpdateProcessRequest::allow_missing].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datacatalog_lineage_v1::model::UpdateProcessRequest;
+    /// let x = UpdateProcessRequest::new().set_allow_missing(true);
+    /// ```
     pub fn set_allow_missing<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.allow_missing = v.into();
         self
@@ -1236,6 +1584,12 @@ impl GetProcessRequest {
     }
 
     /// Sets the value of [name][crate::model::GetProcessRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datacatalog_lineage_v1::model::GetProcessRequest;
+    /// let x = GetProcessRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -1279,18 +1633,36 @@ impl ListProcessesRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListProcessesRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datacatalog_lineage_v1::model::ListProcessesRequest;
+    /// let x = ListProcessesRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListProcessesRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datacatalog_lineage_v1::model::ListProcessesRequest;
+    /// let x = ListProcessesRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListProcessesRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datacatalog_lineage_v1::model::ListProcessesRequest;
+    /// let x = ListProcessesRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -1324,6 +1696,17 @@ impl ListProcessesResponse {
     }
 
     /// Sets the value of [processes][crate::model::ListProcessesResponse::processes].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datacatalog_lineage_v1::model::ListProcessesResponse;
+    /// use google_cloud_datacatalog_lineage_v1::model::Process;
+    /// let x = ListProcessesResponse::new()
+    ///     .set_processes([
+    ///         Process::default()/* use setters */,
+    ///         Process::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_processes<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1335,6 +1718,12 @@ impl ListProcessesResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListProcessesResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datacatalog_lineage_v1::model::ListProcessesResponse;
+    /// let x = ListProcessesResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -1382,12 +1771,24 @@ impl DeleteProcessRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteProcessRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datacatalog_lineage_v1::model::DeleteProcessRequest;
+    /// let x = DeleteProcessRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [allow_missing][crate::model::DeleteProcessRequest::allow_missing].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datacatalog_lineage_v1::model::DeleteProcessRequest;
+    /// let x = DeleteProcessRequest::new().set_allow_missing(true);
+    /// ```
     pub fn set_allow_missing<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.allow_missing = v.into();
         self
@@ -1425,12 +1826,25 @@ impl CreateRunRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateRunRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datacatalog_lineage_v1::model::CreateRunRequest;
+    /// let x = CreateRunRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [run][crate::model::CreateRunRequest::run].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datacatalog_lineage_v1::model::CreateRunRequest;
+    /// use google_cloud_datacatalog_lineage_v1::model::Run;
+    /// let x = CreateRunRequest::new().set_run(Run::default()/* use setters */);
+    /// ```
     pub fn set_run<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Run>,
@@ -1440,6 +1854,14 @@ impl CreateRunRequest {
     }
 
     /// Sets or clears the value of [run][crate::model::CreateRunRequest::run].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datacatalog_lineage_v1::model::CreateRunRequest;
+    /// use google_cloud_datacatalog_lineage_v1::model::Run;
+    /// let x = CreateRunRequest::new().set_or_clear_run(Some(Run::default()/* use setters */));
+    /// let x = CreateRunRequest::new().set_or_clear_run(None::<Run>);
+    /// ```
     pub fn set_or_clear_run<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Run>,
@@ -1449,6 +1871,12 @@ impl CreateRunRequest {
     }
 
     /// Sets the value of [request_id][crate::model::CreateRunRequest::request_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datacatalog_lineage_v1::model::CreateRunRequest;
+    /// let x = CreateRunRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -1490,6 +1918,13 @@ impl UpdateRunRequest {
     }
 
     /// Sets the value of [run][crate::model::UpdateRunRequest::run].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datacatalog_lineage_v1::model::UpdateRunRequest;
+    /// use google_cloud_datacatalog_lineage_v1::model::Run;
+    /// let x = UpdateRunRequest::new().set_run(Run::default()/* use setters */);
+    /// ```
     pub fn set_run<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Run>,
@@ -1499,6 +1934,14 @@ impl UpdateRunRequest {
     }
 
     /// Sets or clears the value of [run][crate::model::UpdateRunRequest::run].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datacatalog_lineage_v1::model::UpdateRunRequest;
+    /// use google_cloud_datacatalog_lineage_v1::model::Run;
+    /// let x = UpdateRunRequest::new().set_or_clear_run(Some(Run::default()/* use setters */));
+    /// let x = UpdateRunRequest::new().set_or_clear_run(None::<Run>);
+    /// ```
     pub fn set_or_clear_run<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Run>,
@@ -1508,6 +1951,13 @@ impl UpdateRunRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateRunRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datacatalog_lineage_v1::model::UpdateRunRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateRunRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -1517,6 +1967,14 @@ impl UpdateRunRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateRunRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datacatalog_lineage_v1::model::UpdateRunRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateRunRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateRunRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -1526,6 +1984,12 @@ impl UpdateRunRequest {
     }
 
     /// Sets the value of [allow_missing][crate::model::UpdateRunRequest::allow_missing].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datacatalog_lineage_v1::model::UpdateRunRequest;
+    /// let x = UpdateRunRequest::new().set_allow_missing(true);
+    /// ```
     pub fn set_allow_missing<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.allow_missing = v.into();
         self
@@ -1555,6 +2019,12 @@ impl GetRunRequest {
     }
 
     /// Sets the value of [name][crate::model::GetRunRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datacatalog_lineage_v1::model::GetRunRequest;
+    /// let x = GetRunRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -1597,18 +2067,36 @@ impl ListRunsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListRunsRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datacatalog_lineage_v1::model::ListRunsRequest;
+    /// let x = ListRunsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListRunsRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datacatalog_lineage_v1::model::ListRunsRequest;
+    /// let x = ListRunsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListRunsRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datacatalog_lineage_v1::model::ListRunsRequest;
+    /// let x = ListRunsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -1642,6 +2130,17 @@ impl ListRunsResponse {
     }
 
     /// Sets the value of [runs][crate::model::ListRunsResponse::runs].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datacatalog_lineage_v1::model::ListRunsResponse;
+    /// use google_cloud_datacatalog_lineage_v1::model::Run;
+    /// let x = ListRunsResponse::new()
+    ///     .set_runs([
+    ///         Run::default()/* use setters */,
+    ///         Run::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_runs<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1653,6 +2152,12 @@ impl ListRunsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListRunsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datacatalog_lineage_v1::model::ListRunsResponse;
+    /// let x = ListRunsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -1700,12 +2205,24 @@ impl DeleteRunRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteRunRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datacatalog_lineage_v1::model::DeleteRunRequest;
+    /// let x = DeleteRunRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [allow_missing][crate::model::DeleteRunRequest::allow_missing].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datacatalog_lineage_v1::model::DeleteRunRequest;
+    /// let x = DeleteRunRequest::new().set_allow_missing(true);
+    /// ```
     pub fn set_allow_missing<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.allow_missing = v.into();
         self
@@ -1743,12 +2260,25 @@ impl CreateLineageEventRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateLineageEventRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datacatalog_lineage_v1::model::CreateLineageEventRequest;
+    /// let x = CreateLineageEventRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [lineage_event][crate::model::CreateLineageEventRequest::lineage_event].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datacatalog_lineage_v1::model::CreateLineageEventRequest;
+    /// use google_cloud_datacatalog_lineage_v1::model::LineageEvent;
+    /// let x = CreateLineageEventRequest::new().set_lineage_event(LineageEvent::default()/* use setters */);
+    /// ```
     pub fn set_lineage_event<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::LineageEvent>,
@@ -1758,6 +2288,14 @@ impl CreateLineageEventRequest {
     }
 
     /// Sets or clears the value of [lineage_event][crate::model::CreateLineageEventRequest::lineage_event].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datacatalog_lineage_v1::model::CreateLineageEventRequest;
+    /// use google_cloud_datacatalog_lineage_v1::model::LineageEvent;
+    /// let x = CreateLineageEventRequest::new().set_or_clear_lineage_event(Some(LineageEvent::default()/* use setters */));
+    /// let x = CreateLineageEventRequest::new().set_or_clear_lineage_event(None::<LineageEvent>);
+    /// ```
     pub fn set_or_clear_lineage_event<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::LineageEvent>,
@@ -1767,6 +2305,12 @@ impl CreateLineageEventRequest {
     }
 
     /// Sets the value of [request_id][crate::model::CreateLineageEventRequest::request_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datacatalog_lineage_v1::model::CreateLineageEventRequest;
+    /// let x = CreateLineageEventRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -1796,6 +2340,12 @@ impl GetLineageEventRequest {
     }
 
     /// Sets the value of [name][crate::model::GetLineageEventRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datacatalog_lineage_v1::model::GetLineageEventRequest;
+    /// let x = GetLineageEventRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -1840,18 +2390,36 @@ impl ListLineageEventsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListLineageEventsRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datacatalog_lineage_v1::model::ListLineageEventsRequest;
+    /// let x = ListLineageEventsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListLineageEventsRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datacatalog_lineage_v1::model::ListLineageEventsRequest;
+    /// let x = ListLineageEventsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListLineageEventsRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datacatalog_lineage_v1::model::ListLineageEventsRequest;
+    /// let x = ListLineageEventsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -1885,6 +2453,17 @@ impl ListLineageEventsResponse {
     }
 
     /// Sets the value of [lineage_events][crate::model::ListLineageEventsResponse::lineage_events].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datacatalog_lineage_v1::model::ListLineageEventsResponse;
+    /// use google_cloud_datacatalog_lineage_v1::model::LineageEvent;
+    /// let x = ListLineageEventsResponse::new()
+    ///     .set_lineage_events([
+    ///         LineageEvent::default()/* use setters */,
+    ///         LineageEvent::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_lineage_events<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1896,6 +2475,12 @@ impl ListLineageEventsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListLineageEventsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datacatalog_lineage_v1::model::ListLineageEventsResponse;
+    /// let x = ListLineageEventsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -1943,12 +2528,24 @@ impl DeleteLineageEventRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteLineageEventRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datacatalog_lineage_v1::model::DeleteLineageEventRequest;
+    /// let x = DeleteLineageEventRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [allow_missing][crate::model::DeleteLineageEventRequest::allow_missing].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datacatalog_lineage_v1::model::DeleteLineageEventRequest;
+    /// let x = DeleteLineageEventRequest::new().set_allow_missing(true);
+    /// ```
     pub fn set_allow_missing<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.allow_missing = v.into();
         self
@@ -1998,18 +2595,36 @@ impl SearchLinksRequest {
     }
 
     /// Sets the value of [parent][crate::model::SearchLinksRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datacatalog_lineage_v1::model::SearchLinksRequest;
+    /// let x = SearchLinksRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::SearchLinksRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datacatalog_lineage_v1::model::SearchLinksRequest;
+    /// let x = SearchLinksRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::SearchLinksRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datacatalog_lineage_v1::model::SearchLinksRequest;
+    /// let x = SearchLinksRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -2019,6 +2634,14 @@ impl SearchLinksRequest {
     ///
     /// Note that all the setters affecting `criteria` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datacatalog_lineage_v1::model::SearchLinksRequest;
+    /// use google_cloud_datacatalog_lineage_v1::model::search_links_request;
+    /// use google_cloud_datacatalog_lineage_v1::model::EntityReference;
+    /// let x = SearchLinksRequest::new().set_criteria(Some(search_links_request::Criteria::Source(EntityReference::default().into())));
+    /// ```
     pub fn set_criteria<
         T: std::convert::Into<std::option::Option<crate::model::search_links_request::Criteria>>,
     >(
@@ -2045,6 +2668,15 @@ impl SearchLinksRequest {
     ///
     /// Note that all the setters affecting `criteria` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datacatalog_lineage_v1::model::SearchLinksRequest;
+    /// use google_cloud_datacatalog_lineage_v1::model::EntityReference;
+    /// let x = SearchLinksRequest::new().set_source(EntityReference::default()/* use setters */);
+    /// assert!(x.source().is_some());
+    /// assert!(x.target().is_none());
+    /// ```
     pub fn set_source<T: std::convert::Into<std::boxed::Box<crate::model::EntityReference>>>(
         mut self,
         v: T,
@@ -2071,6 +2703,15 @@ impl SearchLinksRequest {
     ///
     /// Note that all the setters affecting `criteria` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datacatalog_lineage_v1::model::SearchLinksRequest;
+    /// use google_cloud_datacatalog_lineage_v1::model::EntityReference;
+    /// let x = SearchLinksRequest::new().set_target(EntityReference::default()/* use setters */);
+    /// assert!(x.target().is_some());
+    /// assert!(x.source().is_none());
+    /// ```
     pub fn set_target<T: std::convert::Into<std::boxed::Box<crate::model::EntityReference>>>(
         mut self,
         v: T,
@@ -2130,6 +2771,17 @@ impl SearchLinksResponse {
     }
 
     /// Sets the value of [links][crate::model::SearchLinksResponse::links].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datacatalog_lineage_v1::model::SearchLinksResponse;
+    /// use google_cloud_datacatalog_lineage_v1::model::Link;
+    /// let x = SearchLinksResponse::new()
+    ///     .set_links([
+    ///         Link::default()/* use setters */,
+    ///         Link::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_links<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2141,6 +2793,12 @@ impl SearchLinksResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::SearchLinksResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datacatalog_lineage_v1::model::SearchLinksResponse;
+    /// let x = SearchLinksResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -2200,12 +2858,25 @@ impl Link {
     }
 
     /// Sets the value of [name][crate::model::Link::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datacatalog_lineage_v1::model::Link;
+    /// let x = Link::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [source][crate::model::Link::source].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datacatalog_lineage_v1::model::Link;
+    /// use google_cloud_datacatalog_lineage_v1::model::EntityReference;
+    /// let x = Link::new().set_source(EntityReference::default()/* use setters */);
+    /// ```
     pub fn set_source<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::EntityReference>,
@@ -2215,6 +2886,14 @@ impl Link {
     }
 
     /// Sets or clears the value of [source][crate::model::Link::source].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datacatalog_lineage_v1::model::Link;
+    /// use google_cloud_datacatalog_lineage_v1::model::EntityReference;
+    /// let x = Link::new().set_or_clear_source(Some(EntityReference::default()/* use setters */));
+    /// let x = Link::new().set_or_clear_source(None::<EntityReference>);
+    /// ```
     pub fn set_or_clear_source<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::EntityReference>,
@@ -2224,6 +2903,13 @@ impl Link {
     }
 
     /// Sets the value of [target][crate::model::Link::target].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datacatalog_lineage_v1::model::Link;
+    /// use google_cloud_datacatalog_lineage_v1::model::EntityReference;
+    /// let x = Link::new().set_target(EntityReference::default()/* use setters */);
+    /// ```
     pub fn set_target<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::EntityReference>,
@@ -2233,6 +2919,14 @@ impl Link {
     }
 
     /// Sets or clears the value of [target][crate::model::Link::target].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datacatalog_lineage_v1::model::Link;
+    /// use google_cloud_datacatalog_lineage_v1::model::EntityReference;
+    /// let x = Link::new().set_or_clear_target(Some(EntityReference::default()/* use setters */));
+    /// let x = Link::new().set_or_clear_target(None::<EntityReference>);
+    /// ```
     pub fn set_or_clear_target<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::EntityReference>,
@@ -2242,6 +2936,13 @@ impl Link {
     }
 
     /// Sets the value of [start_time][crate::model::Link::start_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datacatalog_lineage_v1::model::Link;
+    /// use wkt::Timestamp;
+    /// let x = Link::new().set_start_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_start_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2251,6 +2952,14 @@ impl Link {
     }
 
     /// Sets or clears the value of [start_time][crate::model::Link::start_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datacatalog_lineage_v1::model::Link;
+    /// use wkt::Timestamp;
+    /// let x = Link::new().set_or_clear_start_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Link::new().set_or_clear_start_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2260,6 +2969,13 @@ impl Link {
     }
 
     /// Sets the value of [end_time][crate::model::Link::end_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datacatalog_lineage_v1::model::Link;
+    /// use wkt::Timestamp;
+    /// let x = Link::new().set_end_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2269,6 +2985,14 @@ impl Link {
     }
 
     /// Sets or clears the value of [end_time][crate::model::Link::end_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datacatalog_lineage_v1::model::Link;
+    /// use wkt::Timestamp;
+    /// let x = Link::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Link::new().set_or_clear_end_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2324,12 +3048,24 @@ impl BatchSearchLinkProcessesRequest {
     }
 
     /// Sets the value of [parent][crate::model::BatchSearchLinkProcessesRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datacatalog_lineage_v1::model::BatchSearchLinkProcessesRequest;
+    /// let x = BatchSearchLinkProcessesRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [links][crate::model::BatchSearchLinkProcessesRequest::links].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datacatalog_lineage_v1::model::BatchSearchLinkProcessesRequest;
+    /// let x = BatchSearchLinkProcessesRequest::new().set_links(["a", "b", "c"]);
+    /// ```
     pub fn set_links<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2341,12 +3077,24 @@ impl BatchSearchLinkProcessesRequest {
     }
 
     /// Sets the value of [page_size][crate::model::BatchSearchLinkProcessesRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datacatalog_lineage_v1::model::BatchSearchLinkProcessesRequest;
+    /// let x = BatchSearchLinkProcessesRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::BatchSearchLinkProcessesRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datacatalog_lineage_v1::model::BatchSearchLinkProcessesRequest;
+    /// let x = BatchSearchLinkProcessesRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -2382,6 +3130,17 @@ impl BatchSearchLinkProcessesResponse {
     }
 
     /// Sets the value of [process_links][crate::model::BatchSearchLinkProcessesResponse::process_links].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datacatalog_lineage_v1::model::BatchSearchLinkProcessesResponse;
+    /// use google_cloud_datacatalog_lineage_v1::model::ProcessLinks;
+    /// let x = BatchSearchLinkProcessesResponse::new()
+    ///     .set_process_links([
+    ///         ProcessLinks::default()/* use setters */,
+    ///         ProcessLinks::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_process_links<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2393,6 +3152,12 @@ impl BatchSearchLinkProcessesResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::BatchSearchLinkProcessesResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datacatalog_lineage_v1::model::BatchSearchLinkProcessesResponse;
+    /// let x = BatchSearchLinkProcessesResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -2444,12 +3209,29 @@ impl ProcessLinks {
     }
 
     /// Sets the value of [process][crate::model::ProcessLinks::process].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datacatalog_lineage_v1::model::ProcessLinks;
+    /// let x = ProcessLinks::new().set_process("example");
+    /// ```
     pub fn set_process<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.process = v.into();
         self
     }
 
     /// Sets the value of [links][crate::model::ProcessLinks::links].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datacatalog_lineage_v1::model::ProcessLinks;
+    /// use google_cloud_datacatalog_lineage_v1::model::ProcessLinkInfo;
+    /// let x = ProcessLinks::new()
+    ///     .set_links([
+    ///         ProcessLinkInfo::default()/* use setters */,
+    ///         ProcessLinkInfo::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_links<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2490,12 +3272,25 @@ impl ProcessLinkInfo {
     }
 
     /// Sets the value of [link][crate::model::ProcessLinkInfo::link].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datacatalog_lineage_v1::model::ProcessLinkInfo;
+    /// let x = ProcessLinkInfo::new().set_link("example");
+    /// ```
     pub fn set_link<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.link = v.into();
         self
     }
 
     /// Sets the value of [start_time][crate::model::ProcessLinkInfo::start_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datacatalog_lineage_v1::model::ProcessLinkInfo;
+    /// use wkt::Timestamp;
+    /// let x = ProcessLinkInfo::new().set_start_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_start_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2505,6 +3300,14 @@ impl ProcessLinkInfo {
     }
 
     /// Sets or clears the value of [start_time][crate::model::ProcessLinkInfo::start_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datacatalog_lineage_v1::model::ProcessLinkInfo;
+    /// use wkt::Timestamp;
+    /// let x = ProcessLinkInfo::new().set_or_clear_start_time(Some(Timestamp::default()/* use setters */));
+    /// let x = ProcessLinkInfo::new().set_or_clear_start_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2514,6 +3317,13 @@ impl ProcessLinkInfo {
     }
 
     /// Sets the value of [end_time][crate::model::ProcessLinkInfo::end_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datacatalog_lineage_v1::model::ProcessLinkInfo;
+    /// use wkt::Timestamp;
+    /// let x = ProcessLinkInfo::new().set_end_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2523,6 +3333,14 @@ impl ProcessLinkInfo {
     }
 
     /// Sets or clears the value of [end_time][crate::model::ProcessLinkInfo::end_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datacatalog_lineage_v1::model::ProcessLinkInfo;
+    /// use wkt::Timestamp;
+    /// let x = ProcessLinkInfo::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
+    /// let x = ProcessLinkInfo::new().set_or_clear_end_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2569,6 +3387,15 @@ impl Origin {
     }
 
     /// Sets the value of [source_type][crate::model::Origin::source_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datacatalog_lineage_v1::model::Origin;
+    /// use google_cloud_datacatalog_lineage_v1::model::origin::SourceType;
+    /// let x0 = Origin::new().set_source_type(SourceType::Custom);
+    /// let x1 = Origin::new().set_source_type(SourceType::Bigquery);
+    /// let x2 = Origin::new().set_source_type(SourceType::DataFusion);
+    /// ```
     pub fn set_source_type<T: std::convert::Into<crate::model::origin::SourceType>>(
         mut self,
         v: T,
@@ -2578,6 +3405,12 @@ impl Origin {
     }
 
     /// Sets the value of [name][crate::model::Origin::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datacatalog_lineage_v1::model::Origin;
+    /// let x = Origin::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self

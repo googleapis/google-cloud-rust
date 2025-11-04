@@ -79,6 +79,12 @@ impl AccessLocations {
     }
 
     /// Sets the value of [principal_office_country][crate::model::AccessLocations::principal_office_country].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_accessapproval_v1::model::AccessLocations;
+    /// let x = AccessLocations::new().set_principal_office_country("example");
+    /// ```
     pub fn set_principal_office_country<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -88,6 +94,12 @@ impl AccessLocations {
     }
 
     /// Sets the value of [principal_physical_location_country][crate::model::AccessLocations::principal_physical_location_country].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_accessapproval_v1::model::AccessLocations;
+    /// let x = AccessLocations::new().set_principal_physical_location_country("example");
+    /// ```
     pub fn set_principal_physical_location_country<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -121,6 +133,15 @@ impl AccessReason {
     }
 
     /// Sets the value of [r#type][crate::model::AccessReason::type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_accessapproval_v1::model::AccessReason;
+    /// use google_cloud_accessapproval_v1::model::access_reason::Type;
+    /// let x0 = AccessReason::new().set_type(Type::CustomerInitiatedSupport);
+    /// let x1 = AccessReason::new().set_type(Type::GoogleInitiatedService);
+    /// let x2 = AccessReason::new().set_type(Type::GoogleInitiatedReview);
+    /// ```
     pub fn set_type<T: std::convert::Into<crate::model::access_reason::Type>>(
         mut self,
         v: T,
@@ -130,6 +151,12 @@ impl AccessReason {
     }
 
     /// Sets the value of [detail][crate::model::AccessReason::detail].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_accessapproval_v1::model::AccessReason;
+    /// let x = AccessReason::new().set_detail("example");
+    /// ```
     pub fn set_detail<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.detail = v.into();
         self
@@ -343,6 +370,12 @@ impl SignatureInfo {
     }
 
     /// Sets the value of [signature][crate::model::SignatureInfo::signature].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_accessapproval_v1::model::SignatureInfo;
+    /// let x = SignatureInfo::new().set_signature(bytes::Bytes::from_static(b"example"));
+    /// ```
     pub fn set_signature<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.signature = v.into();
         self
@@ -352,6 +385,13 @@ impl SignatureInfo {
     ///
     /// Note that all the setters affecting `verification_info` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_accessapproval_v1::model::SignatureInfo;
+    /// use google_cloud_accessapproval_v1::model::signature_info;
+    /// let x = SignatureInfo::new().set_verification_info(Some(signature_info::VerificationInfo::GooglePublicKeyPem("example".to_string())));
+    /// ```
     pub fn set_verification_info<
         T: std::convert::Into<std::option::Option<crate::model::signature_info::VerificationInfo>>,
     >(
@@ -380,6 +420,14 @@ impl SignatureInfo {
     ///
     /// Note that all the setters affecting `verification_info` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_accessapproval_v1::model::SignatureInfo;
+    /// let x = SignatureInfo::new().set_google_public_key_pem("example");
+    /// assert!(x.google_public_key_pem().is_some());
+    /// assert!(x.customer_kms_key_version().is_none());
+    /// ```
     pub fn set_google_public_key_pem<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -408,6 +456,14 @@ impl SignatureInfo {
     ///
     /// Note that all the setters affecting `verification_info` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_accessapproval_v1::model::SignatureInfo;
+    /// let x = SignatureInfo::new().set_customer_kms_key_version("example");
+    /// assert!(x.customer_kms_key_version().is_some());
+    /// assert!(x.google_public_key_pem().is_none());
+    /// ```
     pub fn set_customer_kms_key_version<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -471,6 +527,13 @@ impl ApproveDecision {
     }
 
     /// Sets the value of [approve_time][crate::model::ApproveDecision::approve_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_accessapproval_v1::model::ApproveDecision;
+    /// use wkt::Timestamp;
+    /// let x = ApproveDecision::new().set_approve_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_approve_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -480,6 +543,14 @@ impl ApproveDecision {
     }
 
     /// Sets or clears the value of [approve_time][crate::model::ApproveDecision::approve_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_accessapproval_v1::model::ApproveDecision;
+    /// use wkt::Timestamp;
+    /// let x = ApproveDecision::new().set_or_clear_approve_time(Some(Timestamp::default()/* use setters */));
+    /// let x = ApproveDecision::new().set_or_clear_approve_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_approve_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -489,6 +560,13 @@ impl ApproveDecision {
     }
 
     /// Sets the value of [expire_time][crate::model::ApproveDecision::expire_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_accessapproval_v1::model::ApproveDecision;
+    /// use wkt::Timestamp;
+    /// let x = ApproveDecision::new().set_expire_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_expire_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -498,6 +576,14 @@ impl ApproveDecision {
     }
 
     /// Sets or clears the value of [expire_time][crate::model::ApproveDecision::expire_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_accessapproval_v1::model::ApproveDecision;
+    /// use wkt::Timestamp;
+    /// let x = ApproveDecision::new().set_or_clear_expire_time(Some(Timestamp::default()/* use setters */));
+    /// let x = ApproveDecision::new().set_or_clear_expire_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_expire_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -507,6 +593,13 @@ impl ApproveDecision {
     }
 
     /// Sets the value of [invalidate_time][crate::model::ApproveDecision::invalidate_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_accessapproval_v1::model::ApproveDecision;
+    /// use wkt::Timestamp;
+    /// let x = ApproveDecision::new().set_invalidate_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_invalidate_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -516,6 +609,14 @@ impl ApproveDecision {
     }
 
     /// Sets or clears the value of [invalidate_time][crate::model::ApproveDecision::invalidate_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_accessapproval_v1::model::ApproveDecision;
+    /// use wkt::Timestamp;
+    /// let x = ApproveDecision::new().set_or_clear_invalidate_time(Some(Timestamp::default()/* use setters */));
+    /// let x = ApproveDecision::new().set_or_clear_invalidate_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_invalidate_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -525,6 +626,13 @@ impl ApproveDecision {
     }
 
     /// Sets the value of [signature_info][crate::model::ApproveDecision::signature_info].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_accessapproval_v1::model::ApproveDecision;
+    /// use google_cloud_accessapproval_v1::model::SignatureInfo;
+    /// let x = ApproveDecision::new().set_signature_info(SignatureInfo::default()/* use setters */);
+    /// ```
     pub fn set_signature_info<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::SignatureInfo>,
@@ -534,6 +642,14 @@ impl ApproveDecision {
     }
 
     /// Sets or clears the value of [signature_info][crate::model::ApproveDecision::signature_info].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_accessapproval_v1::model::ApproveDecision;
+    /// use google_cloud_accessapproval_v1::model::SignatureInfo;
+    /// let x = ApproveDecision::new().set_or_clear_signature_info(Some(SignatureInfo::default()/* use setters */));
+    /// let x = ApproveDecision::new().set_or_clear_signature_info(None::<SignatureInfo>);
+    /// ```
     pub fn set_or_clear_signature_info<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::SignatureInfo>,
@@ -543,6 +659,12 @@ impl ApproveDecision {
     }
 
     /// Sets the value of [auto_approved][crate::model::ApproveDecision::auto_approved].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_accessapproval_v1::model::ApproveDecision;
+    /// let x = ApproveDecision::new().set_auto_approved(true);
+    /// ```
     pub fn set_auto_approved<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.auto_approved = v.into();
         self
@@ -576,6 +698,13 @@ impl DismissDecision {
     }
 
     /// Sets the value of [dismiss_time][crate::model::DismissDecision::dismiss_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_accessapproval_v1::model::DismissDecision;
+    /// use wkt::Timestamp;
+    /// let x = DismissDecision::new().set_dismiss_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_dismiss_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -585,6 +714,14 @@ impl DismissDecision {
     }
 
     /// Sets or clears the value of [dismiss_time][crate::model::DismissDecision::dismiss_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_accessapproval_v1::model::DismissDecision;
+    /// use wkt::Timestamp;
+    /// let x = DismissDecision::new().set_or_clear_dismiss_time(Some(Timestamp::default()/* use setters */));
+    /// let x = DismissDecision::new().set_or_clear_dismiss_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_dismiss_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -594,6 +731,12 @@ impl DismissDecision {
     }
 
     /// Sets the value of [implicit][crate::model::DismissDecision::implicit].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_accessapproval_v1::model::DismissDecision;
+    /// let x = DismissDecision::new().set_implicit(true);
+    /// ```
     pub fn set_implicit<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.implicit = v.into();
         self
@@ -623,6 +766,12 @@ impl ResourceProperties {
     }
 
     /// Sets the value of [excludes_descendants][crate::model::ResourceProperties::excludes_descendants].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_accessapproval_v1::model::ResourceProperties;
+    /// let x = ResourceProperties::new().set_excludes_descendants(true);
+    /// ```
     pub fn set_excludes_descendants<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.excludes_descendants = v.into();
         self
@@ -680,12 +829,24 @@ impl ApprovalRequest {
     }
 
     /// Sets the value of [name][crate::model::ApprovalRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_accessapproval_v1::model::ApprovalRequest;
+    /// let x = ApprovalRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [requested_resource_name][crate::model::ApprovalRequest::requested_resource_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_accessapproval_v1::model::ApprovalRequest;
+    /// let x = ApprovalRequest::new().set_requested_resource_name("example");
+    /// ```
     pub fn set_requested_resource_name<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -695,6 +856,13 @@ impl ApprovalRequest {
     }
 
     /// Sets the value of [requested_resource_properties][crate::model::ApprovalRequest::requested_resource_properties].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_accessapproval_v1::model::ApprovalRequest;
+    /// use google_cloud_accessapproval_v1::model::ResourceProperties;
+    /// let x = ApprovalRequest::new().set_requested_resource_properties(ResourceProperties::default()/* use setters */);
+    /// ```
     pub fn set_requested_resource_properties<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ResourceProperties>,
@@ -704,6 +872,14 @@ impl ApprovalRequest {
     }
 
     /// Sets or clears the value of [requested_resource_properties][crate::model::ApprovalRequest::requested_resource_properties].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_accessapproval_v1::model::ApprovalRequest;
+    /// use google_cloud_accessapproval_v1::model::ResourceProperties;
+    /// let x = ApprovalRequest::new().set_or_clear_requested_resource_properties(Some(ResourceProperties::default()/* use setters */));
+    /// let x = ApprovalRequest::new().set_or_clear_requested_resource_properties(None::<ResourceProperties>);
+    /// ```
     pub fn set_or_clear_requested_resource_properties<T>(
         mut self,
         v: std::option::Option<T>,
@@ -716,6 +892,13 @@ impl ApprovalRequest {
     }
 
     /// Sets the value of [requested_reason][crate::model::ApprovalRequest::requested_reason].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_accessapproval_v1::model::ApprovalRequest;
+    /// use google_cloud_accessapproval_v1::model::AccessReason;
+    /// let x = ApprovalRequest::new().set_requested_reason(AccessReason::default()/* use setters */);
+    /// ```
     pub fn set_requested_reason<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::AccessReason>,
@@ -725,6 +908,14 @@ impl ApprovalRequest {
     }
 
     /// Sets or clears the value of [requested_reason][crate::model::ApprovalRequest::requested_reason].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_accessapproval_v1::model::ApprovalRequest;
+    /// use google_cloud_accessapproval_v1::model::AccessReason;
+    /// let x = ApprovalRequest::new().set_or_clear_requested_reason(Some(AccessReason::default()/* use setters */));
+    /// let x = ApprovalRequest::new().set_or_clear_requested_reason(None::<AccessReason>);
+    /// ```
     pub fn set_or_clear_requested_reason<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AccessReason>,
@@ -734,6 +925,13 @@ impl ApprovalRequest {
     }
 
     /// Sets the value of [requested_locations][crate::model::ApprovalRequest::requested_locations].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_accessapproval_v1::model::ApprovalRequest;
+    /// use google_cloud_accessapproval_v1::model::AccessLocations;
+    /// let x = ApprovalRequest::new().set_requested_locations(AccessLocations::default()/* use setters */);
+    /// ```
     pub fn set_requested_locations<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::AccessLocations>,
@@ -743,6 +941,14 @@ impl ApprovalRequest {
     }
 
     /// Sets or clears the value of [requested_locations][crate::model::ApprovalRequest::requested_locations].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_accessapproval_v1::model::ApprovalRequest;
+    /// use google_cloud_accessapproval_v1::model::AccessLocations;
+    /// let x = ApprovalRequest::new().set_or_clear_requested_locations(Some(AccessLocations::default()/* use setters */));
+    /// let x = ApprovalRequest::new().set_or_clear_requested_locations(None::<AccessLocations>);
+    /// ```
     pub fn set_or_clear_requested_locations<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AccessLocations>,
@@ -752,6 +958,13 @@ impl ApprovalRequest {
     }
 
     /// Sets the value of [request_time][crate::model::ApprovalRequest::request_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_accessapproval_v1::model::ApprovalRequest;
+    /// use wkt::Timestamp;
+    /// let x = ApprovalRequest::new().set_request_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_request_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -761,6 +974,14 @@ impl ApprovalRequest {
     }
 
     /// Sets or clears the value of [request_time][crate::model::ApprovalRequest::request_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_accessapproval_v1::model::ApprovalRequest;
+    /// use wkt::Timestamp;
+    /// let x = ApprovalRequest::new().set_or_clear_request_time(Some(Timestamp::default()/* use setters */));
+    /// let x = ApprovalRequest::new().set_or_clear_request_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_request_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -770,6 +991,13 @@ impl ApprovalRequest {
     }
 
     /// Sets the value of [requested_expiration][crate::model::ApprovalRequest::requested_expiration].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_accessapproval_v1::model::ApprovalRequest;
+    /// use wkt::Timestamp;
+    /// let x = ApprovalRequest::new().set_requested_expiration(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_requested_expiration<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -779,6 +1007,14 @@ impl ApprovalRequest {
     }
 
     /// Sets or clears the value of [requested_expiration][crate::model::ApprovalRequest::requested_expiration].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_accessapproval_v1::model::ApprovalRequest;
+    /// use wkt::Timestamp;
+    /// let x = ApprovalRequest::new().set_or_clear_requested_expiration(Some(Timestamp::default()/* use setters */));
+    /// let x = ApprovalRequest::new().set_or_clear_requested_expiration(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_requested_expiration<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -791,6 +1027,14 @@ impl ApprovalRequest {
     ///
     /// Note that all the setters affecting `decision` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_accessapproval_v1::model::ApprovalRequest;
+    /// use google_cloud_accessapproval_v1::model::approval_request;
+    /// use google_cloud_accessapproval_v1::model::ApproveDecision;
+    /// let x = ApprovalRequest::new().set_decision(Some(approval_request::Decision::Approve(ApproveDecision::default().into())));
+    /// ```
     pub fn set_decision<
         T: std::convert::Into<std::option::Option<crate::model::approval_request::Decision>>,
     >(
@@ -817,6 +1061,15 @@ impl ApprovalRequest {
     ///
     /// Note that all the setters affecting `decision` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_accessapproval_v1::model::ApprovalRequest;
+    /// use google_cloud_accessapproval_v1::model::ApproveDecision;
+    /// let x = ApprovalRequest::new().set_approve(ApproveDecision::default()/* use setters */);
+    /// assert!(x.approve().is_some());
+    /// assert!(x.dismiss().is_none());
+    /// ```
     pub fn set_approve<T: std::convert::Into<std::boxed::Box<crate::model::ApproveDecision>>>(
         mut self,
         v: T,
@@ -842,6 +1095,15 @@ impl ApprovalRequest {
     ///
     /// Note that all the setters affecting `decision` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_accessapproval_v1::model::ApprovalRequest;
+    /// use google_cloud_accessapproval_v1::model::DismissDecision;
+    /// let x = ApprovalRequest::new().set_dismiss(DismissDecision::default()/* use setters */);
+    /// assert!(x.dismiss().is_some());
+    /// assert!(x.approve().is_none());
+    /// ```
     pub fn set_dismiss<T: std::convert::Into<std::boxed::Box<crate::model::DismissDecision>>>(
         mut self,
         v: T,
@@ -954,12 +1216,25 @@ impl EnrolledService {
     }
 
     /// Sets the value of [cloud_product][crate::model::EnrolledService::cloud_product].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_accessapproval_v1::model::EnrolledService;
+    /// let x = EnrolledService::new().set_cloud_product("example");
+    /// ```
     pub fn set_cloud_product<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.cloud_product = v.into();
         self
     }
 
     /// Sets the value of [enrollment_level][crate::model::EnrolledService::enrollment_level].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_accessapproval_v1::model::EnrolledService;
+    /// use google_cloud_accessapproval_v1::model::EnrollmentLevel;
+    /// let x0 = EnrolledService::new().set_enrollment_level(EnrollmentLevel::BlockAll);
+    /// ```
     pub fn set_enrollment_level<T: std::convert::Into<crate::model::EnrollmentLevel>>(
         mut self,
         v: T,
@@ -1042,12 +1317,24 @@ impl AccessApprovalSettings {
     }
 
     /// Sets the value of [name][crate::model::AccessApprovalSettings::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_accessapproval_v1::model::AccessApprovalSettings;
+    /// let x = AccessApprovalSettings::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [notification_emails][crate::model::AccessApprovalSettings::notification_emails].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_accessapproval_v1::model::AccessApprovalSettings;
+    /// let x = AccessApprovalSettings::new().set_notification_emails(["a", "b", "c"]);
+    /// ```
     pub fn set_notification_emails<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1059,6 +1346,17 @@ impl AccessApprovalSettings {
     }
 
     /// Sets the value of [enrolled_services][crate::model::AccessApprovalSettings::enrolled_services].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_accessapproval_v1::model::AccessApprovalSettings;
+    /// use google_cloud_accessapproval_v1::model::EnrolledService;
+    /// let x = AccessApprovalSettings::new()
+    ///     .set_enrolled_services([
+    ///         EnrolledService::default()/* use setters */,
+    ///         EnrolledService::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_enrolled_services<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1070,12 +1368,24 @@ impl AccessApprovalSettings {
     }
 
     /// Sets the value of [enrolled_ancestor][crate::model::AccessApprovalSettings::enrolled_ancestor].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_accessapproval_v1::model::AccessApprovalSettings;
+    /// let x = AccessApprovalSettings::new().set_enrolled_ancestor(true);
+    /// ```
     pub fn set_enrolled_ancestor<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.enrolled_ancestor = v.into();
         self
     }
 
     /// Sets the value of [active_key_version][crate::model::AccessApprovalSettings::active_key_version].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_accessapproval_v1::model::AccessApprovalSettings;
+    /// let x = AccessApprovalSettings::new().set_active_key_version("example");
+    /// ```
     pub fn set_active_key_version<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -1085,6 +1395,12 @@ impl AccessApprovalSettings {
     }
 
     /// Sets the value of [ancestor_has_active_key_version][crate::model::AccessApprovalSettings::ancestor_has_active_key_version].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_accessapproval_v1::model::AccessApprovalSettings;
+    /// let x = AccessApprovalSettings::new().set_ancestor_has_active_key_version(true);
+    /// ```
     pub fn set_ancestor_has_active_key_version<T: std::convert::Into<bool>>(
         mut self,
         v: T,
@@ -1094,6 +1410,12 @@ impl AccessApprovalSettings {
     }
 
     /// Sets the value of [invalid_key_version][crate::model::AccessApprovalSettings::invalid_key_version].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_accessapproval_v1::model::AccessApprovalSettings;
+    /// let x = AccessApprovalSettings::new().set_invalid_key_version(true);
+    /// ```
     pub fn set_invalid_key_version<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.invalid_key_version = v.into();
         self
@@ -1129,12 +1451,24 @@ impl AccessApprovalServiceAccount {
     }
 
     /// Sets the value of [name][crate::model::AccessApprovalServiceAccount::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_accessapproval_v1::model::AccessApprovalServiceAccount;
+    /// let x = AccessApprovalServiceAccount::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [account_email][crate::model::AccessApprovalServiceAccount::account_email].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_accessapproval_v1::model::AccessApprovalServiceAccount;
+    /// let x = AccessApprovalServiceAccount::new().set_account_email("example");
+    /// ```
     pub fn set_account_email<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.account_email = v.into();
         self
@@ -1184,24 +1518,48 @@ impl ListApprovalRequestsMessage {
     }
 
     /// Sets the value of [parent][crate::model::ListApprovalRequestsMessage::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_accessapproval_v1::model::ListApprovalRequestsMessage;
+    /// let x = ListApprovalRequestsMessage::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListApprovalRequestsMessage::filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_accessapproval_v1::model::ListApprovalRequestsMessage;
+    /// let x = ListApprovalRequestsMessage::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListApprovalRequestsMessage::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_accessapproval_v1::model::ListApprovalRequestsMessage;
+    /// let x = ListApprovalRequestsMessage::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListApprovalRequestsMessage::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_accessapproval_v1::model::ListApprovalRequestsMessage;
+    /// let x = ListApprovalRequestsMessage::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -1233,6 +1591,17 @@ impl ListApprovalRequestsResponse {
     }
 
     /// Sets the value of [approval_requests][crate::model::ListApprovalRequestsResponse::approval_requests].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_accessapproval_v1::model::ListApprovalRequestsResponse;
+    /// use google_cloud_accessapproval_v1::model::ApprovalRequest;
+    /// let x = ListApprovalRequestsResponse::new()
+    ///     .set_approval_requests([
+    ///         ApprovalRequest::default()/* use setters */,
+    ///         ApprovalRequest::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_approval_requests<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1244,6 +1613,12 @@ impl ListApprovalRequestsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListApprovalRequestsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_accessapproval_v1::model::ListApprovalRequestsResponse;
+    /// let x = ListApprovalRequestsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -1288,6 +1663,12 @@ impl GetApprovalRequestMessage {
     }
 
     /// Sets the value of [name][crate::model::GetApprovalRequestMessage::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_accessapproval_v1::model::GetApprovalRequestMessage;
+    /// let x = GetApprovalRequestMessage::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -1319,12 +1700,25 @@ impl ApproveApprovalRequestMessage {
     }
 
     /// Sets the value of [name][crate::model::ApproveApprovalRequestMessage::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_accessapproval_v1::model::ApproveApprovalRequestMessage;
+    /// let x = ApproveApprovalRequestMessage::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [expire_time][crate::model::ApproveApprovalRequestMessage::expire_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_accessapproval_v1::model::ApproveApprovalRequestMessage;
+    /// use wkt::Timestamp;
+    /// let x = ApproveApprovalRequestMessage::new().set_expire_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_expire_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1334,6 +1728,14 @@ impl ApproveApprovalRequestMessage {
     }
 
     /// Sets or clears the value of [expire_time][crate::model::ApproveApprovalRequestMessage::expire_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_accessapproval_v1::model::ApproveApprovalRequestMessage;
+    /// use wkt::Timestamp;
+    /// let x = ApproveApprovalRequestMessage::new().set_or_clear_expire_time(Some(Timestamp::default()/* use setters */));
+    /// let x = ApproveApprovalRequestMessage::new().set_or_clear_expire_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_expire_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1365,6 +1767,12 @@ impl DismissApprovalRequestMessage {
     }
 
     /// Sets the value of [name][crate::model::DismissApprovalRequestMessage::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_accessapproval_v1::model::DismissApprovalRequestMessage;
+    /// let x = DismissApprovalRequestMessage::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -1393,6 +1801,12 @@ impl InvalidateApprovalRequestMessage {
     }
 
     /// Sets the value of [name][crate::model::InvalidateApprovalRequestMessage::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_accessapproval_v1::model::InvalidateApprovalRequestMessage;
+    /// let x = InvalidateApprovalRequestMessage::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -1422,6 +1836,12 @@ impl GetAccessApprovalSettingsMessage {
     }
 
     /// Sets the value of [name][crate::model::GetAccessApprovalSettingsMessage::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_accessapproval_v1::model::GetAccessApprovalSettingsMessage;
+    /// let x = GetAccessApprovalSettingsMessage::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -1462,6 +1882,13 @@ impl UpdateAccessApprovalSettingsMessage {
     }
 
     /// Sets the value of [settings][crate::model::UpdateAccessApprovalSettingsMessage::settings].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_accessapproval_v1::model::UpdateAccessApprovalSettingsMessage;
+    /// use google_cloud_accessapproval_v1::model::AccessApprovalSettings;
+    /// let x = UpdateAccessApprovalSettingsMessage::new().set_settings(AccessApprovalSettings::default()/* use setters */);
+    /// ```
     pub fn set_settings<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::AccessApprovalSettings>,
@@ -1471,6 +1898,14 @@ impl UpdateAccessApprovalSettingsMessage {
     }
 
     /// Sets or clears the value of [settings][crate::model::UpdateAccessApprovalSettingsMessage::settings].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_accessapproval_v1::model::UpdateAccessApprovalSettingsMessage;
+    /// use google_cloud_accessapproval_v1::model::AccessApprovalSettings;
+    /// let x = UpdateAccessApprovalSettingsMessage::new().set_or_clear_settings(Some(AccessApprovalSettings::default()/* use setters */));
+    /// let x = UpdateAccessApprovalSettingsMessage::new().set_or_clear_settings(None::<AccessApprovalSettings>);
+    /// ```
     pub fn set_or_clear_settings<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AccessApprovalSettings>,
@@ -1480,6 +1915,13 @@ impl UpdateAccessApprovalSettingsMessage {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateAccessApprovalSettingsMessage::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_accessapproval_v1::model::UpdateAccessApprovalSettingsMessage;
+    /// use wkt::FieldMask;
+    /// let x = UpdateAccessApprovalSettingsMessage::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -1489,6 +1931,14 @@ impl UpdateAccessApprovalSettingsMessage {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateAccessApprovalSettingsMessage::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_accessapproval_v1::model::UpdateAccessApprovalSettingsMessage;
+    /// use wkt::FieldMask;
+    /// let x = UpdateAccessApprovalSettingsMessage::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateAccessApprovalSettingsMessage::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -1520,6 +1970,12 @@ impl DeleteAccessApprovalSettingsMessage {
     }
 
     /// Sets the value of [name][crate::model::DeleteAccessApprovalSettingsMessage::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_accessapproval_v1::model::DeleteAccessApprovalSettingsMessage;
+    /// let x = DeleteAccessApprovalSettingsMessage::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -1548,6 +2004,12 @@ impl GetAccessApprovalServiceAccountMessage {
     }
 
     /// Sets the value of [name][crate::model::GetAccessApprovalServiceAccountMessage::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_accessapproval_v1::model::GetAccessApprovalServiceAccountMessage;
+    /// let x = GetAccessApprovalServiceAccountMessage::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self

@@ -83,24 +83,49 @@ impl Backup {
     }
 
     /// Sets the value of [name][crate::model::Backup::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::Backup;
+    /// let x = Backup::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [database][crate::model::Backup::database].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::Backup;
+    /// let x = Backup::new().set_database("example");
+    /// ```
     pub fn set_database<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.database = v.into();
         self
     }
 
     /// Sets the value of [database_uid][crate::model::Backup::database_uid].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::Backup;
+    /// let x = Backup::new().set_database_uid("example");
+    /// ```
     pub fn set_database_uid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.database_uid = v.into();
         self
     }
 
     /// Sets the value of [snapshot_time][crate::model::Backup::snapshot_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::Backup;
+    /// use wkt::Timestamp;
+    /// let x = Backup::new().set_snapshot_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_snapshot_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -110,6 +135,14 @@ impl Backup {
     }
 
     /// Sets or clears the value of [snapshot_time][crate::model::Backup::snapshot_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::Backup;
+    /// use wkt::Timestamp;
+    /// let x = Backup::new().set_or_clear_snapshot_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Backup::new().set_or_clear_snapshot_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_snapshot_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -119,6 +152,13 @@ impl Backup {
     }
 
     /// Sets the value of [expire_time][crate::model::Backup::expire_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::Backup;
+    /// use wkt::Timestamp;
+    /// let x = Backup::new().set_expire_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_expire_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -128,6 +168,14 @@ impl Backup {
     }
 
     /// Sets or clears the value of [expire_time][crate::model::Backup::expire_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::Backup;
+    /// use wkt::Timestamp;
+    /// let x = Backup::new().set_or_clear_expire_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Backup::new().set_or_clear_expire_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_expire_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -137,6 +185,13 @@ impl Backup {
     }
 
     /// Sets the value of [stats][crate::model::Backup::stats].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::Backup;
+    /// use google_cloud_firestore_admin_v1::model::backup::Stats;
+    /// let x = Backup::new().set_stats(Stats::default()/* use setters */);
+    /// ```
     pub fn set_stats<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::backup::Stats>,
@@ -146,6 +201,14 @@ impl Backup {
     }
 
     /// Sets or clears the value of [stats][crate::model::Backup::stats].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::Backup;
+    /// use google_cloud_firestore_admin_v1::model::backup::Stats;
+    /// let x = Backup::new().set_or_clear_stats(Some(Stats::default()/* use setters */));
+    /// let x = Backup::new().set_or_clear_stats(None::<Stats>);
+    /// ```
     pub fn set_or_clear_stats<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::backup::Stats>,
@@ -155,6 +218,15 @@ impl Backup {
     }
 
     /// Sets the value of [state][crate::model::Backup::state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::Backup;
+    /// use google_cloud_firestore_admin_v1::model::backup::State;
+    /// let x0 = Backup::new().set_state(State::Creating);
+    /// let x1 = Backup::new().set_state(State::Ready);
+    /// let x2 = Backup::new().set_state(State::NotAvailable);
+    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::backup::State>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
@@ -195,18 +267,36 @@ pub mod backup {
         }
 
         /// Sets the value of [size_bytes][crate::model::backup::Stats::size_bytes].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_firestore_admin_v1::model::backup::Stats;
+        /// let x = Stats::new().set_size_bytes(42);
+        /// ```
         pub fn set_size_bytes<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
             self.size_bytes = v.into();
             self
         }
 
         /// Sets the value of [document_count][crate::model::backup::Stats::document_count].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_firestore_admin_v1::model::backup::Stats;
+        /// let x = Stats::new().set_document_count(42);
+        /// ```
         pub fn set_document_count<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
             self.document_count = v.into();
             self
         }
 
         /// Sets the value of [index_count][crate::model::backup::Stats::index_count].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_firestore_admin_v1::model::backup::Stats;
+        /// let x = Stats::new().set_index_count(42);
+        /// ```
         pub fn set_index_count<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
             self.index_count = v.into();
             self
@@ -482,18 +572,37 @@ impl Database {
     }
 
     /// Sets the value of [name][crate::model::Database::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::Database;
+    /// let x = Database::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [uid][crate::model::Database::uid].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::Database;
+    /// let x = Database::new().set_uid("example");
+    /// ```
     pub fn set_uid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.uid = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::Database::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::Database;
+    /// use wkt::Timestamp;
+    /// let x = Database::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -503,6 +612,14 @@ impl Database {
     }
 
     /// Sets or clears the value of [create_time][crate::model::Database::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::Database;
+    /// use wkt::Timestamp;
+    /// let x = Database::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Database::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -512,6 +629,13 @@ impl Database {
     }
 
     /// Sets the value of [update_time][crate::model::Database::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::Database;
+    /// use wkt::Timestamp;
+    /// let x = Database::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -521,6 +645,14 @@ impl Database {
     }
 
     /// Sets or clears the value of [update_time][crate::model::Database::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::Database;
+    /// use wkt::Timestamp;
+    /// let x = Database::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Database::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -530,6 +662,13 @@ impl Database {
     }
 
     /// Sets the value of [delete_time][crate::model::Database::delete_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::Database;
+    /// use wkt::Timestamp;
+    /// let x = Database::new().set_delete_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_delete_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -539,6 +678,14 @@ impl Database {
     }
 
     /// Sets or clears the value of [delete_time][crate::model::Database::delete_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::Database;
+    /// use wkt::Timestamp;
+    /// let x = Database::new().set_or_clear_delete_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Database::new().set_or_clear_delete_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_delete_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -548,12 +695,26 @@ impl Database {
     }
 
     /// Sets the value of [location_id][crate::model::Database::location_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::Database;
+    /// let x = Database::new().set_location_id("example");
+    /// ```
     pub fn set_location_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.location_id = v.into();
         self
     }
 
     /// Sets the value of [r#type][crate::model::Database::type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::Database;
+    /// use google_cloud_firestore_admin_v1::model::database::DatabaseType;
+    /// let x0 = Database::new().set_type(DatabaseType::FirestoreNative);
+    /// let x1 = Database::new().set_type(DatabaseType::DatastoreMode);
+    /// ```
     pub fn set_type<T: std::convert::Into<crate::model::database::DatabaseType>>(
         mut self,
         v: T,
@@ -563,6 +724,15 @@ impl Database {
     }
 
     /// Sets the value of [concurrency_mode][crate::model::Database::concurrency_mode].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::Database;
+    /// use google_cloud_firestore_admin_v1::model::database::ConcurrencyMode;
+    /// let x0 = Database::new().set_concurrency_mode(ConcurrencyMode::Optimistic);
+    /// let x1 = Database::new().set_concurrency_mode(ConcurrencyMode::Pessimistic);
+    /// let x2 = Database::new().set_concurrency_mode(ConcurrencyMode::OptimisticWithEntityGroups);
+    /// ```
     pub fn set_concurrency_mode<T: std::convert::Into<crate::model::database::ConcurrencyMode>>(
         mut self,
         v: T,
@@ -572,6 +742,13 @@ impl Database {
     }
 
     /// Sets the value of [version_retention_period][crate::model::Database::version_retention_period].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::Database;
+    /// use wkt::Duration;
+    /// let x = Database::new().set_version_retention_period(Duration::default()/* use setters */);
+    /// ```
     pub fn set_version_retention_period<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -581,6 +758,14 @@ impl Database {
     }
 
     /// Sets or clears the value of [version_retention_period][crate::model::Database::version_retention_period].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::Database;
+    /// use wkt::Duration;
+    /// let x = Database::new().set_or_clear_version_retention_period(Some(Duration::default()/* use setters */));
+    /// let x = Database::new().set_or_clear_version_retention_period(None::<Duration>);
+    /// ```
     pub fn set_or_clear_version_retention_period<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -590,6 +775,13 @@ impl Database {
     }
 
     /// Sets the value of [earliest_version_time][crate::model::Database::earliest_version_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::Database;
+    /// use wkt::Timestamp;
+    /// let x = Database::new().set_earliest_version_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_earliest_version_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -599,6 +791,14 @@ impl Database {
     }
 
     /// Sets or clears the value of [earliest_version_time][crate::model::Database::earliest_version_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::Database;
+    /// use wkt::Timestamp;
+    /// let x = Database::new().set_or_clear_earliest_version_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Database::new().set_or_clear_earliest_version_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_earliest_version_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -608,6 +808,14 @@ impl Database {
     }
 
     /// Sets the value of [point_in_time_recovery_enablement][crate::model::Database::point_in_time_recovery_enablement].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::Database;
+    /// use google_cloud_firestore_admin_v1::model::database::PointInTimeRecoveryEnablement;
+    /// let x0 = Database::new().set_point_in_time_recovery_enablement(PointInTimeRecoveryEnablement::PointInTimeRecoveryEnabled);
+    /// let x1 = Database::new().set_point_in_time_recovery_enablement(PointInTimeRecoveryEnablement::PointInTimeRecoveryDisabled);
+    /// ```
     pub fn set_point_in_time_recovery_enablement<
         T: std::convert::Into<crate::model::database::PointInTimeRecoveryEnablement>,
     >(
@@ -619,6 +827,14 @@ impl Database {
     }
 
     /// Sets the value of [app_engine_integration_mode][crate::model::Database::app_engine_integration_mode].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::Database;
+    /// use google_cloud_firestore_admin_v1::model::database::AppEngineIntegrationMode;
+    /// let x0 = Database::new().set_app_engine_integration_mode(AppEngineIntegrationMode::Enabled);
+    /// let x1 = Database::new().set_app_engine_integration_mode(AppEngineIntegrationMode::Disabled);
+    /// ```
     pub fn set_app_engine_integration_mode<
         T: std::convert::Into<crate::model::database::AppEngineIntegrationMode>,
     >(
@@ -630,12 +846,26 @@ impl Database {
     }
 
     /// Sets the value of [key_prefix][crate::model::Database::key_prefix].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::Database;
+    /// let x = Database::new().set_key_prefix("example");
+    /// ```
     pub fn set_key_prefix<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.key_prefix = v.into();
         self
     }
 
     /// Sets the value of [delete_protection_state][crate::model::Database::delete_protection_state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::Database;
+    /// use google_cloud_firestore_admin_v1::model::database::DeleteProtectionState;
+    /// let x0 = Database::new().set_delete_protection_state(DeleteProtectionState::DeleteProtectionDisabled);
+    /// let x1 = Database::new().set_delete_protection_state(DeleteProtectionState::DeleteProtectionEnabled);
+    /// ```
     pub fn set_delete_protection_state<
         T: std::convert::Into<crate::model::database::DeleteProtectionState>,
     >(
@@ -647,6 +877,13 @@ impl Database {
     }
 
     /// Sets the value of [cmek_config][crate::model::Database::cmek_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::Database;
+    /// use google_cloud_firestore_admin_v1::model::database::CmekConfig;
+    /// let x = Database::new().set_cmek_config(CmekConfig::default()/* use setters */);
+    /// ```
     pub fn set_cmek_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::database::CmekConfig>,
@@ -656,6 +893,14 @@ impl Database {
     }
 
     /// Sets or clears the value of [cmek_config][crate::model::Database::cmek_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::Database;
+    /// use google_cloud_firestore_admin_v1::model::database::CmekConfig;
+    /// let x = Database::new().set_or_clear_cmek_config(Some(CmekConfig::default()/* use setters */));
+    /// let x = Database::new().set_or_clear_cmek_config(None::<CmekConfig>);
+    /// ```
     pub fn set_or_clear_cmek_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::database::CmekConfig>,
@@ -665,12 +910,25 @@ impl Database {
     }
 
     /// Sets the value of [previous_id][crate::model::Database::previous_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::Database;
+    /// let x = Database::new().set_previous_id("example");
+    /// ```
     pub fn set_previous_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.previous_id = v.into();
         self
     }
 
     /// Sets the value of [source_info][crate::model::Database::source_info].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::Database;
+    /// use google_cloud_firestore_admin_v1::model::database::SourceInfo;
+    /// let x = Database::new().set_source_info(SourceInfo::default()/* use setters */);
+    /// ```
     pub fn set_source_info<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::database::SourceInfo>,
@@ -680,6 +938,14 @@ impl Database {
     }
 
     /// Sets or clears the value of [source_info][crate::model::Database::source_info].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::Database;
+    /// use google_cloud_firestore_admin_v1::model::database::SourceInfo;
+    /// let x = Database::new().set_or_clear_source_info(Some(SourceInfo::default()/* use setters */));
+    /// let x = Database::new().set_or_clear_source_info(None::<SourceInfo>);
+    /// ```
     pub fn set_or_clear_source_info<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::database::SourceInfo>,
@@ -689,6 +955,15 @@ impl Database {
     }
 
     /// Sets the value of [tags][crate::model::Database::tags].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::Database;
+    /// let x = Database::new().set_tags([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_tags<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -701,6 +976,12 @@ impl Database {
     }
 
     /// Sets the value of [free_tier][crate::model::Database::free_tier].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::Database;
+    /// let x = Database::new().set_free_tier(true);
+    /// ```
     pub fn set_free_tier<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<bool>,
@@ -710,6 +991,13 @@ impl Database {
     }
 
     /// Sets or clears the value of [free_tier][crate::model::Database::free_tier].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::Database;
+    /// let x = Database::new().set_or_clear_free_tier(Some(false));
+    /// let x = Database::new().set_or_clear_free_tier(None::<bool>);
+    /// ```
     pub fn set_or_clear_free_tier<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<bool>,
@@ -719,12 +1007,26 @@ impl Database {
     }
 
     /// Sets the value of [etag][crate::model::Database::etag].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::Database;
+    /// let x = Database::new().set_etag("example");
+    /// ```
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
     }
 
     /// Sets the value of [database_edition][crate::model::Database::database_edition].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::Database;
+    /// use google_cloud_firestore_admin_v1::model::database::DatabaseEdition;
+    /// let x0 = Database::new().set_database_edition(DatabaseEdition::Standard);
+    /// let x1 = Database::new().set_database_edition(DatabaseEdition::Enterprise);
+    /// ```
     pub fn set_database_edition<T: std::convert::Into<crate::model::database::DatabaseEdition>>(
         mut self,
         v: T,
@@ -781,6 +1083,12 @@ pub mod database {
         }
 
         /// Sets the value of [kms_key_name][crate::model::database::CmekConfig::kms_key_name].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_firestore_admin_v1::model::database::CmekConfig;
+        /// let x = CmekConfig::new().set_kms_key_name("example");
+        /// ```
         pub fn set_kms_key_name<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -790,6 +1098,12 @@ pub mod database {
         }
 
         /// Sets the value of [active_key_version][crate::model::database::CmekConfig::active_key_version].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_firestore_admin_v1::model::database::CmekConfig;
+        /// let x = CmekConfig::new().set_active_key_version(["a", "b", "c"]);
+        /// ```
         pub fn set_active_key_version<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -828,6 +1142,12 @@ pub mod database {
         }
 
         /// Sets the value of [operation][crate::model::database::SourceInfo::operation].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_firestore_admin_v1::model::database::SourceInfo;
+        /// let x = SourceInfo::new().set_operation("example");
+        /// ```
         pub fn set_operation<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.operation = v.into();
             self
@@ -837,6 +1157,14 @@ pub mod database {
         ///
         /// Note that all the setters affecting `source` are mutually
         /// exclusive.
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_firestore_admin_v1::model::database::SourceInfo;
+        /// use google_cloud_firestore_admin_v1::model::database::source_info;
+        /// use google_cloud_firestore_admin_v1::model::database::source_info::BackupSource;
+        /// let x = SourceInfo::new().set_source(Some(database::source_info::Source::Backup(BackupSource::default().into())));
+        /// ```
         pub fn set_source<
             T: std::convert::Into<std::option::Option<crate::model::database::source_info::Source>>,
         >(
@@ -868,6 +1196,14 @@ pub mod database {
         ///
         /// Note that all the setters affecting `source` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_firestore_admin_v1::model::database::SourceInfo;
+        /// use google_cloud_firestore_admin_v1::model::database::source_info::BackupSource;
+        /// let x = SourceInfo::new().set_backup(BackupSource::default()/* use setters */);
+        /// assert!(x.backup().is_some());
+        /// ```
         pub fn set_backup<
             T: std::convert::Into<std::boxed::Box<crate::model::database::source_info::BackupSource>>,
         >(
@@ -910,6 +1246,12 @@ pub mod database {
             }
 
             /// Sets the value of [backup][crate::model::database::source_info::BackupSource::backup].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_firestore_admin_v1::model::database::source_info::BackupSource;
+            /// let x = BackupSource::new().set_backup("example");
+            /// ```
             pub fn set_backup<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
                 self.backup = v.into();
                 self
@@ -957,6 +1299,14 @@ pub mod database {
         ///
         /// Note that all the setters affecting `encryption_type` are mutually
         /// exclusive.
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_firestore_admin_v1::model::database::EncryptionConfig;
+        /// use google_cloud_firestore_admin_v1::model::database::encryption_config;
+        /// use google_cloud_firestore_admin_v1::model::database::encryption_config::GoogleDefaultEncryptionOptions;
+        /// let x = EncryptionConfig::new().set_encryption_type(Some(database::encryption_config::EncryptionType::GoogleDefaultEncryption(GoogleDefaultEncryptionOptions::default().into())));
+        /// ```
         pub fn set_encryption_type<
             T: std::convert::Into<
                     std::option::Option<crate::model::database::encryption_config::EncryptionType>,
@@ -991,6 +1341,16 @@ pub mod database {
         ///
         /// Note that all the setters affecting `encryption_type` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_firestore_admin_v1::model::database::EncryptionConfig;
+        /// use google_cloud_firestore_admin_v1::model::database::encryption_config::GoogleDefaultEncryptionOptions;
+        /// let x = EncryptionConfig::new().set_google_default_encryption(GoogleDefaultEncryptionOptions::default()/* use setters */);
+        /// assert!(x.google_default_encryption().is_some());
+        /// assert!(x.use_source_encryption().is_none());
+        /// assert!(x.customer_managed_encryption().is_none());
+        /// ```
         pub fn set_google_default_encryption<
             T: std::convert::Into<
                     std::boxed::Box<
@@ -1031,6 +1391,16 @@ pub mod database {
         ///
         /// Note that all the setters affecting `encryption_type` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_firestore_admin_v1::model::database::EncryptionConfig;
+        /// use google_cloud_firestore_admin_v1::model::database::encryption_config::SourceEncryptionOptions;
+        /// let x = EncryptionConfig::new().set_use_source_encryption(SourceEncryptionOptions::default()/* use setters */);
+        /// assert!(x.use_source_encryption().is_some());
+        /// assert!(x.google_default_encryption().is_none());
+        /// assert!(x.customer_managed_encryption().is_none());
+        /// ```
         pub fn set_use_source_encryption<
             T: std::convert::Into<
                     std::boxed::Box<
@@ -1071,6 +1441,16 @@ pub mod database {
         ///
         /// Note that all the setters affecting `encryption_type` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_firestore_admin_v1::model::database::EncryptionConfig;
+        /// use google_cloud_firestore_admin_v1::model::database::encryption_config::CustomerManagedEncryptionOptions;
+        /// let x = EncryptionConfig::new().set_customer_managed_encryption(CustomerManagedEncryptionOptions::default()/* use setters */);
+        /// assert!(x.customer_managed_encryption().is_some());
+        /// assert!(x.google_default_encryption().is_none());
+        /// assert!(x.use_source_encryption().is_none());
+        /// ```
         pub fn set_customer_managed_encryption<
             T: std::convert::Into<
                     std::boxed::Box<
@@ -1166,6 +1546,12 @@ pub mod database {
             }
 
             /// Sets the value of [kms_key_name][crate::model::database::encryption_config::CustomerManagedEncryptionOptions::kms_key_name].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_firestore_admin_v1::model::database::encryption_config::CustomerManagedEncryptionOptions;
+            /// let x = CustomerManagedEncryptionOptions::new().set_kms_key_name("example");
+            /// ```
             pub fn set_kms_key_name<T: std::convert::Into<std::string::String>>(
                 mut self,
                 v: T,
@@ -2106,12 +2492,25 @@ impl Field {
     }
 
     /// Sets the value of [name][crate::model::Field::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::Field;
+    /// let x = Field::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [index_config][crate::model::Field::index_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::Field;
+    /// use google_cloud_firestore_admin_v1::model::field::IndexConfig;
+    /// let x = Field::new().set_index_config(IndexConfig::default()/* use setters */);
+    /// ```
     pub fn set_index_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::field::IndexConfig>,
@@ -2121,6 +2520,14 @@ impl Field {
     }
 
     /// Sets or clears the value of [index_config][crate::model::Field::index_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::Field;
+    /// use google_cloud_firestore_admin_v1::model::field::IndexConfig;
+    /// let x = Field::new().set_or_clear_index_config(Some(IndexConfig::default()/* use setters */));
+    /// let x = Field::new().set_or_clear_index_config(None::<IndexConfig>);
+    /// ```
     pub fn set_or_clear_index_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::field::IndexConfig>,
@@ -2130,6 +2537,13 @@ impl Field {
     }
 
     /// Sets the value of [ttl_config][crate::model::Field::ttl_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::Field;
+    /// use google_cloud_firestore_admin_v1::model::field::TtlConfig;
+    /// let x = Field::new().set_ttl_config(TtlConfig::default()/* use setters */);
+    /// ```
     pub fn set_ttl_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::field::TtlConfig>,
@@ -2139,6 +2553,14 @@ impl Field {
     }
 
     /// Sets or clears the value of [ttl_config][crate::model::Field::ttl_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::Field;
+    /// use google_cloud_firestore_admin_v1::model::field::TtlConfig;
+    /// let x = Field::new().set_or_clear_ttl_config(Some(TtlConfig::default()/* use setters */));
+    /// let x = Field::new().set_or_clear_ttl_config(None::<TtlConfig>);
+    /// ```
     pub fn set_or_clear_ttl_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::field::TtlConfig>,
@@ -2193,6 +2615,17 @@ pub mod field {
         }
 
         /// Sets the value of [indexes][crate::model::field::IndexConfig::indexes].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_firestore_admin_v1::model::field::IndexConfig;
+        /// use google_cloud_firestore_admin_v1::model::Index;
+        /// let x = IndexConfig::new()
+        ///     .set_indexes([
+        ///         Index::default()/* use setters */,
+        ///         Index::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
         pub fn set_indexes<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -2204,12 +2637,24 @@ pub mod field {
         }
 
         /// Sets the value of [uses_ancestor_config][crate::model::field::IndexConfig::uses_ancestor_config].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_firestore_admin_v1::model::field::IndexConfig;
+        /// let x = IndexConfig::new().set_uses_ancestor_config(true);
+        /// ```
         pub fn set_uses_ancestor_config<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.uses_ancestor_config = v.into();
             self
         }
 
         /// Sets the value of [ancestor_field][crate::model::field::IndexConfig::ancestor_field].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_firestore_admin_v1::model::field::IndexConfig;
+        /// let x = IndexConfig::new().set_ancestor_field("example");
+        /// ```
         pub fn set_ancestor_field<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -2219,6 +2664,12 @@ pub mod field {
         }
 
         /// Sets the value of [reverting][crate::model::field::IndexConfig::reverting].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_firestore_admin_v1::model::field::IndexConfig;
+        /// let x = IndexConfig::new().set_reverting(true);
+        /// ```
         pub fn set_reverting<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.reverting = v.into();
             self
@@ -2254,6 +2705,15 @@ pub mod field {
         }
 
         /// Sets the value of [state][crate::model::field::TtlConfig::state].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_firestore_admin_v1::model::field::TtlConfig;
+        /// use google_cloud_firestore_admin_v1::model::field::ttl_config::State;
+        /// let x0 = TtlConfig::new().set_state(State::Creating);
+        /// let x1 = TtlConfig::new().set_state(State::Active);
+        /// let x2 = TtlConfig::new().set_state(State::NeedsRepair);
+        /// ```
         pub fn set_state<T: std::convert::Into<crate::model::field::ttl_config::State>>(
             mut self,
             v: T,
@@ -2445,12 +2905,24 @@ impl ListDatabasesRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListDatabasesRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::ListDatabasesRequest;
+    /// let x = ListDatabasesRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [show_deleted][crate::model::ListDatabasesRequest::show_deleted].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::ListDatabasesRequest;
+    /// let x = ListDatabasesRequest::new().set_show_deleted(true);
+    /// ```
     pub fn set_show_deleted<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.show_deleted = v.into();
         self
@@ -2496,12 +2968,25 @@ impl CreateDatabaseRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateDatabaseRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::CreateDatabaseRequest;
+    /// let x = CreateDatabaseRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [database][crate::model::CreateDatabaseRequest::database].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::CreateDatabaseRequest;
+    /// use google_cloud_firestore_admin_v1::model::Database;
+    /// let x = CreateDatabaseRequest::new().set_database(Database::default()/* use setters */);
+    /// ```
     pub fn set_database<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Database>,
@@ -2511,6 +2996,14 @@ impl CreateDatabaseRequest {
     }
 
     /// Sets or clears the value of [database][crate::model::CreateDatabaseRequest::database].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::CreateDatabaseRequest;
+    /// use google_cloud_firestore_admin_v1::model::Database;
+    /// let x = CreateDatabaseRequest::new().set_or_clear_database(Some(Database::default()/* use setters */));
+    /// let x = CreateDatabaseRequest::new().set_or_clear_database(None::<Database>);
+    /// ```
     pub fn set_or_clear_database<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Database>,
@@ -2520,6 +3013,12 @@ impl CreateDatabaseRequest {
     }
 
     /// Sets the value of [database_id][crate::model::CreateDatabaseRequest::database_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::CreateDatabaseRequest;
+    /// let x = CreateDatabaseRequest::new().set_database_id("example");
+    /// ```
     pub fn set_database_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.database_id = v.into();
         self
@@ -2578,6 +3077,17 @@ impl ListDatabasesResponse {
     }
 
     /// Sets the value of [databases][crate::model::ListDatabasesResponse::databases].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::ListDatabasesResponse;
+    /// use google_cloud_firestore_admin_v1::model::Database;
+    /// let x = ListDatabasesResponse::new()
+    ///     .set_databases([
+    ///         Database::default()/* use setters */,
+    ///         Database::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_databases<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2589,6 +3099,12 @@ impl ListDatabasesResponse {
     }
 
     /// Sets the value of [unreachable][crate::model::ListDatabasesResponse::unreachable].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::ListDatabasesResponse;
+    /// let x = ListDatabasesResponse::new().set_unreachable(["a", "b", "c"]);
+    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2626,6 +3142,12 @@ impl GetDatabaseRequest {
     }
 
     /// Sets the value of [name][crate::model::GetDatabaseRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::GetDatabaseRequest;
+    /// let x = GetDatabaseRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -2660,6 +3182,13 @@ impl UpdateDatabaseRequest {
     }
 
     /// Sets the value of [database][crate::model::UpdateDatabaseRequest::database].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::UpdateDatabaseRequest;
+    /// use google_cloud_firestore_admin_v1::model::Database;
+    /// let x = UpdateDatabaseRequest::new().set_database(Database::default()/* use setters */);
+    /// ```
     pub fn set_database<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Database>,
@@ -2669,6 +3198,14 @@ impl UpdateDatabaseRequest {
     }
 
     /// Sets or clears the value of [database][crate::model::UpdateDatabaseRequest::database].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::UpdateDatabaseRequest;
+    /// use google_cloud_firestore_admin_v1::model::Database;
+    /// let x = UpdateDatabaseRequest::new().set_or_clear_database(Some(Database::default()/* use setters */));
+    /// let x = UpdateDatabaseRequest::new().set_or_clear_database(None::<Database>);
+    /// ```
     pub fn set_or_clear_database<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Database>,
@@ -2678,6 +3215,13 @@ impl UpdateDatabaseRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateDatabaseRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::UpdateDatabaseRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateDatabaseRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -2687,6 +3231,14 @@ impl UpdateDatabaseRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateDatabaseRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::UpdateDatabaseRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateDatabaseRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateDatabaseRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -2746,12 +3298,24 @@ impl DeleteDatabaseRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteDatabaseRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::DeleteDatabaseRequest;
+    /// let x = DeleteDatabaseRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [etag][crate::model::DeleteDatabaseRequest::etag].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::DeleteDatabaseRequest;
+    /// let x = DeleteDatabaseRequest::new().set_etag("example");
+    /// ```
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
@@ -2814,12 +3378,25 @@ impl CreateUserCredsRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateUserCredsRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::CreateUserCredsRequest;
+    /// let x = CreateUserCredsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [user_creds][crate::model::CreateUserCredsRequest::user_creds].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::CreateUserCredsRequest;
+    /// use google_cloud_firestore_admin_v1::model::UserCreds;
+    /// let x = CreateUserCredsRequest::new().set_user_creds(UserCreds::default()/* use setters */);
+    /// ```
     pub fn set_user_creds<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::UserCreds>,
@@ -2829,6 +3406,14 @@ impl CreateUserCredsRequest {
     }
 
     /// Sets or clears the value of [user_creds][crate::model::CreateUserCredsRequest::user_creds].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::CreateUserCredsRequest;
+    /// use google_cloud_firestore_admin_v1::model::UserCreds;
+    /// let x = CreateUserCredsRequest::new().set_or_clear_user_creds(Some(UserCreds::default()/* use setters */));
+    /// let x = CreateUserCredsRequest::new().set_or_clear_user_creds(None::<UserCreds>);
+    /// ```
     pub fn set_or_clear_user_creds<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::UserCreds>,
@@ -2838,6 +3423,12 @@ impl CreateUserCredsRequest {
     }
 
     /// Sets the value of [user_creds_id][crate::model::CreateUserCredsRequest::user_creds_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::CreateUserCredsRequest;
+    /// let x = CreateUserCredsRequest::new().set_user_creds_id("example");
+    /// ```
     pub fn set_user_creds_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.user_creds_id = v.into();
         self
@@ -2870,6 +3461,12 @@ impl GetUserCredsRequest {
     }
 
     /// Sets the value of [name][crate::model::GetUserCredsRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::GetUserCredsRequest;
+    /// let x = GetUserCredsRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -2902,6 +3499,12 @@ impl ListUserCredsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListUserCredsRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::ListUserCredsRequest;
+    /// let x = ListUserCredsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
@@ -2933,6 +3536,17 @@ impl ListUserCredsResponse {
     }
 
     /// Sets the value of [user_creds][crate::model::ListUserCredsResponse::user_creds].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::ListUserCredsResponse;
+    /// use google_cloud_firestore_admin_v1::model::UserCreds;
+    /// let x = ListUserCredsResponse::new()
+    ///     .set_user_creds([
+    ///         UserCreds::default()/* use setters */,
+    ///         UserCreds::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_user_creds<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2970,6 +3584,12 @@ impl EnableUserCredsRequest {
     }
 
     /// Sets the value of [name][crate::model::EnableUserCredsRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::EnableUserCredsRequest;
+    /// let x = EnableUserCredsRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -3002,6 +3622,12 @@ impl DisableUserCredsRequest {
     }
 
     /// Sets the value of [name][crate::model::DisableUserCredsRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::DisableUserCredsRequest;
+    /// let x = DisableUserCredsRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -3034,6 +3660,12 @@ impl ResetUserPasswordRequest {
     }
 
     /// Sets the value of [name][crate::model::ResetUserPasswordRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::ResetUserPasswordRequest;
+    /// let x = ResetUserPasswordRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -3066,6 +3698,12 @@ impl DeleteUserCredsRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteUserCredsRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::DeleteUserCredsRequest;
+    /// let x = DeleteUserCredsRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -3102,12 +3740,25 @@ impl CreateBackupScheduleRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateBackupScheduleRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::CreateBackupScheduleRequest;
+    /// let x = CreateBackupScheduleRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [backup_schedule][crate::model::CreateBackupScheduleRequest::backup_schedule].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::CreateBackupScheduleRequest;
+    /// use google_cloud_firestore_admin_v1::model::BackupSchedule;
+    /// let x = CreateBackupScheduleRequest::new().set_backup_schedule(BackupSchedule::default()/* use setters */);
+    /// ```
     pub fn set_backup_schedule<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::BackupSchedule>,
@@ -3117,6 +3768,14 @@ impl CreateBackupScheduleRequest {
     }
 
     /// Sets or clears the value of [backup_schedule][crate::model::CreateBackupScheduleRequest::backup_schedule].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::CreateBackupScheduleRequest;
+    /// use google_cloud_firestore_admin_v1::model::BackupSchedule;
+    /// let x = CreateBackupScheduleRequest::new().set_or_clear_backup_schedule(Some(BackupSchedule::default()/* use setters */));
+    /// let x = CreateBackupScheduleRequest::new().set_or_clear_backup_schedule(None::<BackupSchedule>);
+    /// ```
     pub fn set_or_clear_backup_schedule<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::BackupSchedule>,
@@ -3154,6 +3813,12 @@ impl GetBackupScheduleRequest {
     }
 
     /// Sets the value of [name][crate::model::GetBackupScheduleRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::GetBackupScheduleRequest;
+    /// let x = GetBackupScheduleRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -3188,6 +3853,13 @@ impl UpdateBackupScheduleRequest {
     }
 
     /// Sets the value of [backup_schedule][crate::model::UpdateBackupScheduleRequest::backup_schedule].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::UpdateBackupScheduleRequest;
+    /// use google_cloud_firestore_admin_v1::model::BackupSchedule;
+    /// let x = UpdateBackupScheduleRequest::new().set_backup_schedule(BackupSchedule::default()/* use setters */);
+    /// ```
     pub fn set_backup_schedule<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::BackupSchedule>,
@@ -3197,6 +3869,14 @@ impl UpdateBackupScheduleRequest {
     }
 
     /// Sets or clears the value of [backup_schedule][crate::model::UpdateBackupScheduleRequest::backup_schedule].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::UpdateBackupScheduleRequest;
+    /// use google_cloud_firestore_admin_v1::model::BackupSchedule;
+    /// let x = UpdateBackupScheduleRequest::new().set_or_clear_backup_schedule(Some(BackupSchedule::default()/* use setters */));
+    /// let x = UpdateBackupScheduleRequest::new().set_or_clear_backup_schedule(None::<BackupSchedule>);
+    /// ```
     pub fn set_or_clear_backup_schedule<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::BackupSchedule>,
@@ -3206,6 +3886,13 @@ impl UpdateBackupScheduleRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateBackupScheduleRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::UpdateBackupScheduleRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateBackupScheduleRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -3215,6 +3902,14 @@ impl UpdateBackupScheduleRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateBackupScheduleRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::UpdateBackupScheduleRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateBackupScheduleRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateBackupScheduleRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -3251,6 +3946,12 @@ impl ListBackupSchedulesRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListBackupSchedulesRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::ListBackupSchedulesRequest;
+    /// let x = ListBackupSchedulesRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
@@ -3282,6 +3983,17 @@ impl ListBackupSchedulesResponse {
     }
 
     /// Sets the value of [backup_schedules][crate::model::ListBackupSchedulesResponse::backup_schedules].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::ListBackupSchedulesResponse;
+    /// use google_cloud_firestore_admin_v1::model::BackupSchedule;
+    /// let x = ListBackupSchedulesResponse::new()
+    ///     .set_backup_schedules([
+    ///         BackupSchedule::default()/* use setters */,
+    ///         BackupSchedule::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_backup_schedules<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3318,6 +4030,12 @@ impl DeleteBackupScheduleRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteBackupScheduleRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::DeleteBackupScheduleRequest;
+    /// let x = DeleteBackupScheduleRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -3353,12 +4071,25 @@ impl CreateIndexRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateIndexRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::CreateIndexRequest;
+    /// let x = CreateIndexRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [index][crate::model::CreateIndexRequest::index].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::CreateIndexRequest;
+    /// use google_cloud_firestore_admin_v1::model::Index;
+    /// let x = CreateIndexRequest::new().set_index(Index::default()/* use setters */);
+    /// ```
     pub fn set_index<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Index>,
@@ -3368,6 +4099,14 @@ impl CreateIndexRequest {
     }
 
     /// Sets or clears the value of [index][crate::model::CreateIndexRequest::index].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::CreateIndexRequest;
+    /// use google_cloud_firestore_admin_v1::model::Index;
+    /// let x = CreateIndexRequest::new().set_or_clear_index(Some(Index::default()/* use setters */));
+    /// let x = CreateIndexRequest::new().set_or_clear_index(None::<Index>);
+    /// ```
     pub fn set_or_clear_index<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Index>,
@@ -3416,24 +4155,48 @@ impl ListIndexesRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListIndexesRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::ListIndexesRequest;
+    /// let x = ListIndexesRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListIndexesRequest::filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::ListIndexesRequest;
+    /// let x = ListIndexesRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListIndexesRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::ListIndexesRequest;
+    /// let x = ListIndexesRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListIndexesRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::ListIndexesRequest;
+    /// let x = ListIndexesRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -3469,6 +4232,17 @@ impl ListIndexesResponse {
     }
 
     /// Sets the value of [indexes][crate::model::ListIndexesResponse::indexes].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::ListIndexesResponse;
+    /// use google_cloud_firestore_admin_v1::model::Index;
+    /// let x = ListIndexesResponse::new()
+    ///     .set_indexes([
+    ///         Index::default()/* use setters */,
+    ///         Index::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_indexes<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3480,6 +4254,12 @@ impl ListIndexesResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListIndexesResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::ListIndexesResponse;
+    /// let x = ListIndexesResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -3526,6 +4306,12 @@ impl GetIndexRequest {
     }
 
     /// Sets the value of [name][crate::model::GetIndexRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::GetIndexRequest;
+    /// let x = GetIndexRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -3558,6 +4344,12 @@ impl DeleteIndexRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteIndexRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::DeleteIndexRequest;
+    /// let x = DeleteIndexRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -3593,6 +4385,13 @@ impl UpdateFieldRequest {
     }
 
     /// Sets the value of [field][crate::model::UpdateFieldRequest::field].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::UpdateFieldRequest;
+    /// use google_cloud_firestore_admin_v1::model::Field;
+    /// let x = UpdateFieldRequest::new().set_field(Field::default()/* use setters */);
+    /// ```
     pub fn set_field<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Field>,
@@ -3602,6 +4401,14 @@ impl UpdateFieldRequest {
     }
 
     /// Sets or clears the value of [field][crate::model::UpdateFieldRequest::field].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::UpdateFieldRequest;
+    /// use google_cloud_firestore_admin_v1::model::Field;
+    /// let x = UpdateFieldRequest::new().set_or_clear_field(Some(Field::default()/* use setters */));
+    /// let x = UpdateFieldRequest::new().set_or_clear_field(None::<Field>);
+    /// ```
     pub fn set_or_clear_field<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Field>,
@@ -3611,6 +4418,13 @@ impl UpdateFieldRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateFieldRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::UpdateFieldRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateFieldRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -3620,6 +4434,14 @@ impl UpdateFieldRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateFieldRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::UpdateFieldRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateFieldRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateFieldRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -3655,6 +4477,12 @@ impl GetFieldRequest {
     }
 
     /// Sets the value of [name][crate::model::GetFieldRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::GetFieldRequest;
+    /// let x = GetFieldRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -3708,24 +4536,48 @@ impl ListFieldsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListFieldsRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::ListFieldsRequest;
+    /// let x = ListFieldsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListFieldsRequest::filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::ListFieldsRequest;
+    /// let x = ListFieldsRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListFieldsRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::ListFieldsRequest;
+    /// let x = ListFieldsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListFieldsRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::ListFieldsRequest;
+    /// let x = ListFieldsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -3761,6 +4613,17 @@ impl ListFieldsResponse {
     }
 
     /// Sets the value of [fields][crate::model::ListFieldsResponse::fields].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::ListFieldsResponse;
+    /// use google_cloud_firestore_admin_v1::model::Field;
+    /// let x = ListFieldsResponse::new()
+    ///     .set_fields([
+    ///         Field::default()/* use setters */,
+    ///         Field::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_fields<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3772,6 +4635,12 @@ impl ListFieldsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListFieldsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::ListFieldsResponse;
+    /// let x = ListFieldsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -3851,12 +4720,24 @@ impl ExportDocumentsRequest {
     }
 
     /// Sets the value of [name][crate::model::ExportDocumentsRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::ExportDocumentsRequest;
+    /// let x = ExportDocumentsRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [collection_ids][crate::model::ExportDocumentsRequest::collection_ids].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::ExportDocumentsRequest;
+    /// let x = ExportDocumentsRequest::new().set_collection_ids(["a", "b", "c"]);
+    /// ```
     pub fn set_collection_ids<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3868,6 +4749,12 @@ impl ExportDocumentsRequest {
     }
 
     /// Sets the value of [output_uri_prefix][crate::model::ExportDocumentsRequest::output_uri_prefix].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::ExportDocumentsRequest;
+    /// let x = ExportDocumentsRequest::new().set_output_uri_prefix("example");
+    /// ```
     pub fn set_output_uri_prefix<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -3877,6 +4764,12 @@ impl ExportDocumentsRequest {
     }
 
     /// Sets the value of [namespace_ids][crate::model::ExportDocumentsRequest::namespace_ids].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::ExportDocumentsRequest;
+    /// let x = ExportDocumentsRequest::new().set_namespace_ids(["a", "b", "c"]);
+    /// ```
     pub fn set_namespace_ids<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3888,6 +4781,13 @@ impl ExportDocumentsRequest {
     }
 
     /// Sets the value of [snapshot_time][crate::model::ExportDocumentsRequest::snapshot_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::ExportDocumentsRequest;
+    /// use wkt::Timestamp;
+    /// let x = ExportDocumentsRequest::new().set_snapshot_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_snapshot_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3897,6 +4797,14 @@ impl ExportDocumentsRequest {
     }
 
     /// Sets or clears the value of [snapshot_time][crate::model::ExportDocumentsRequest::snapshot_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::ExportDocumentsRequest;
+    /// use wkt::Timestamp;
+    /// let x = ExportDocumentsRequest::new().set_or_clear_snapshot_time(Some(Timestamp::default()/* use setters */));
+    /// let x = ExportDocumentsRequest::new().set_or_clear_snapshot_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_snapshot_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3953,12 +4861,24 @@ impl ImportDocumentsRequest {
     }
 
     /// Sets the value of [name][crate::model::ImportDocumentsRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::ImportDocumentsRequest;
+    /// let x = ImportDocumentsRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [collection_ids][crate::model::ImportDocumentsRequest::collection_ids].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::ImportDocumentsRequest;
+    /// let x = ImportDocumentsRequest::new().set_collection_ids(["a", "b", "c"]);
+    /// ```
     pub fn set_collection_ids<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3970,6 +4890,12 @@ impl ImportDocumentsRequest {
     }
 
     /// Sets the value of [input_uri_prefix][crate::model::ImportDocumentsRequest::input_uri_prefix].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::ImportDocumentsRequest;
+    /// let x = ImportDocumentsRequest::new().set_input_uri_prefix("example");
+    /// ```
     pub fn set_input_uri_prefix<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -3979,6 +4905,12 @@ impl ImportDocumentsRequest {
     }
 
     /// Sets the value of [namespace_ids][crate::model::ImportDocumentsRequest::namespace_ids].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::ImportDocumentsRequest;
+    /// let x = ImportDocumentsRequest::new().set_namespace_ids(["a", "b", "c"]);
+    /// ```
     pub fn set_namespace_ids<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4043,12 +4975,24 @@ impl BulkDeleteDocumentsRequest {
     }
 
     /// Sets the value of [name][crate::model::BulkDeleteDocumentsRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::BulkDeleteDocumentsRequest;
+    /// let x = BulkDeleteDocumentsRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [collection_ids][crate::model::BulkDeleteDocumentsRequest::collection_ids].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::BulkDeleteDocumentsRequest;
+    /// let x = BulkDeleteDocumentsRequest::new().set_collection_ids(["a", "b", "c"]);
+    /// ```
     pub fn set_collection_ids<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4060,6 +5004,12 @@ impl BulkDeleteDocumentsRequest {
     }
 
     /// Sets the value of [namespace_ids][crate::model::BulkDeleteDocumentsRequest::namespace_ids].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::BulkDeleteDocumentsRequest;
+    /// let x = BulkDeleteDocumentsRequest::new().set_namespace_ids(["a", "b", "c"]);
+    /// ```
     pub fn set_namespace_ids<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4120,6 +5070,12 @@ impl GetBackupRequest {
     }
 
     /// Sets the value of [name][crate::model::GetBackupRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::GetBackupRequest;
+    /// let x = GetBackupRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -4172,12 +5128,24 @@ impl ListBackupsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListBackupsRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::ListBackupsRequest;
+    /// let x = ListBackupsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListBackupsRequest::filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::ListBackupsRequest;
+    /// let x = ListBackupsRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
@@ -4217,6 +5185,17 @@ impl ListBackupsResponse {
     }
 
     /// Sets the value of [backups][crate::model::ListBackupsResponse::backups].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::ListBackupsResponse;
+    /// use google_cloud_firestore_admin_v1::model::Backup;
+    /// let x = ListBackupsResponse::new()
+    ///     .set_backups([
+    ///         Backup::default()/* use setters */,
+    ///         Backup::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_backups<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4228,6 +5207,12 @@ impl ListBackupsResponse {
     }
 
     /// Sets the value of [unreachable][crate::model::ListBackupsResponse::unreachable].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::ListBackupsResponse;
+    /// let x = ListBackupsResponse::new().set_unreachable(["a", "b", "c"]);
+    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4266,6 +5251,12 @@ impl DeleteBackupRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteBackupRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::DeleteBackupRequest;
+    /// let x = DeleteBackupRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -4333,24 +5324,49 @@ impl RestoreDatabaseRequest {
     }
 
     /// Sets the value of [parent][crate::model::RestoreDatabaseRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::RestoreDatabaseRequest;
+    /// let x = RestoreDatabaseRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [database_id][crate::model::RestoreDatabaseRequest::database_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::RestoreDatabaseRequest;
+    /// let x = RestoreDatabaseRequest::new().set_database_id("example");
+    /// ```
     pub fn set_database_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.database_id = v.into();
         self
     }
 
     /// Sets the value of [backup][crate::model::RestoreDatabaseRequest::backup].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::RestoreDatabaseRequest;
+    /// let x = RestoreDatabaseRequest::new().set_backup("example");
+    /// ```
     pub fn set_backup<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.backup = v.into();
         self
     }
 
     /// Sets the value of [encryption_config][crate::model::RestoreDatabaseRequest::encryption_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::RestoreDatabaseRequest;
+    /// use google_cloud_firestore_admin_v1::model::database::EncryptionConfig;
+    /// let x = RestoreDatabaseRequest::new().set_encryption_config(EncryptionConfig::default()/* use setters */);
+    /// ```
     pub fn set_encryption_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::database::EncryptionConfig>,
@@ -4360,6 +5376,14 @@ impl RestoreDatabaseRequest {
     }
 
     /// Sets or clears the value of [encryption_config][crate::model::RestoreDatabaseRequest::encryption_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::RestoreDatabaseRequest;
+    /// use google_cloud_firestore_admin_v1::model::database::EncryptionConfig;
+    /// let x = RestoreDatabaseRequest::new().set_or_clear_encryption_config(Some(EncryptionConfig::default()/* use setters */));
+    /// let x = RestoreDatabaseRequest::new().set_or_clear_encryption_config(None::<EncryptionConfig>);
+    /// ```
     pub fn set_or_clear_encryption_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::database::EncryptionConfig>,
@@ -4369,6 +5393,15 @@ impl RestoreDatabaseRequest {
     }
 
     /// Sets the value of [tags][crate::model::RestoreDatabaseRequest::tags].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::RestoreDatabaseRequest;
+    /// let x = RestoreDatabaseRequest::new().set_tags([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_tags<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -4440,18 +5473,37 @@ impl CloneDatabaseRequest {
     }
 
     /// Sets the value of [parent][crate::model::CloneDatabaseRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::CloneDatabaseRequest;
+    /// let x = CloneDatabaseRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [database_id][crate::model::CloneDatabaseRequest::database_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::CloneDatabaseRequest;
+    /// let x = CloneDatabaseRequest::new().set_database_id("example");
+    /// ```
     pub fn set_database_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.database_id = v.into();
         self
     }
 
     /// Sets the value of [pitr_snapshot][crate::model::CloneDatabaseRequest::pitr_snapshot].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::CloneDatabaseRequest;
+    /// use google_cloud_firestore_admin_v1::model::PitrSnapshot;
+    /// let x = CloneDatabaseRequest::new().set_pitr_snapshot(PitrSnapshot::default()/* use setters */);
+    /// ```
     pub fn set_pitr_snapshot<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::PitrSnapshot>,
@@ -4461,6 +5513,14 @@ impl CloneDatabaseRequest {
     }
 
     /// Sets or clears the value of [pitr_snapshot][crate::model::CloneDatabaseRequest::pitr_snapshot].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::CloneDatabaseRequest;
+    /// use google_cloud_firestore_admin_v1::model::PitrSnapshot;
+    /// let x = CloneDatabaseRequest::new().set_or_clear_pitr_snapshot(Some(PitrSnapshot::default()/* use setters */));
+    /// let x = CloneDatabaseRequest::new().set_or_clear_pitr_snapshot(None::<PitrSnapshot>);
+    /// ```
     pub fn set_or_clear_pitr_snapshot<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::PitrSnapshot>,
@@ -4470,6 +5530,13 @@ impl CloneDatabaseRequest {
     }
 
     /// Sets the value of [encryption_config][crate::model::CloneDatabaseRequest::encryption_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::CloneDatabaseRequest;
+    /// use google_cloud_firestore_admin_v1::model::database::EncryptionConfig;
+    /// let x = CloneDatabaseRequest::new().set_encryption_config(EncryptionConfig::default()/* use setters */);
+    /// ```
     pub fn set_encryption_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::database::EncryptionConfig>,
@@ -4479,6 +5546,14 @@ impl CloneDatabaseRequest {
     }
 
     /// Sets or clears the value of [encryption_config][crate::model::CloneDatabaseRequest::encryption_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::CloneDatabaseRequest;
+    /// use google_cloud_firestore_admin_v1::model::database::EncryptionConfig;
+    /// let x = CloneDatabaseRequest::new().set_or_clear_encryption_config(Some(EncryptionConfig::default()/* use setters */));
+    /// let x = CloneDatabaseRequest::new().set_or_clear_encryption_config(None::<EncryptionConfig>);
+    /// ```
     pub fn set_or_clear_encryption_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::database::EncryptionConfig>,
@@ -4488,6 +5563,15 @@ impl CloneDatabaseRequest {
     }
 
     /// Sets the value of [tags][crate::model::CloneDatabaseRequest::tags].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::CloneDatabaseRequest;
+    /// let x = CloneDatabaseRequest::new().set_tags([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_tags<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -4570,12 +5654,27 @@ impl Index {
     }
 
     /// Sets the value of [name][crate::model::Index::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::Index;
+    /// let x = Index::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [query_scope][crate::model::Index::query_scope].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::Index;
+    /// use google_cloud_firestore_admin_v1::model::index::QueryScope;
+    /// let x0 = Index::new().set_query_scope(QueryScope::Collection);
+    /// let x1 = Index::new().set_query_scope(QueryScope::CollectionGroup);
+    /// let x2 = Index::new().set_query_scope(QueryScope::CollectionRecursive);
+    /// ```
     pub fn set_query_scope<T: std::convert::Into<crate::model::index::QueryScope>>(
         mut self,
         v: T,
@@ -4585,6 +5684,14 @@ impl Index {
     }
 
     /// Sets the value of [api_scope][crate::model::Index::api_scope].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::Index;
+    /// use google_cloud_firestore_admin_v1::model::index::ApiScope;
+    /// let x0 = Index::new().set_api_scope(ApiScope::DatastoreModeApi);
+    /// let x1 = Index::new().set_api_scope(ApiScope::MongodbCompatibleApi);
+    /// ```
     pub fn set_api_scope<T: std::convert::Into<crate::model::index::ApiScope>>(
         mut self,
         v: T,
@@ -4594,6 +5701,17 @@ impl Index {
     }
 
     /// Sets the value of [fields][crate::model::Index::fields].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::Index;
+    /// use google_cloud_firestore_admin_v1::model::index::IndexField;
+    /// let x = Index::new()
+    ///     .set_fields([
+    ///         IndexField::default()/* use setters */,
+    ///         IndexField::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_fields<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4605,12 +5723,30 @@ impl Index {
     }
 
     /// Sets the value of [state][crate::model::Index::state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::Index;
+    /// use google_cloud_firestore_admin_v1::model::index::State;
+    /// let x0 = Index::new().set_state(State::Creating);
+    /// let x1 = Index::new().set_state(State::Ready);
+    /// let x2 = Index::new().set_state(State::NeedsRepair);
+    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::index::State>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
     }
 
     /// Sets the value of [density][crate::model::Index::density].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::Index;
+    /// use google_cloud_firestore_admin_v1::model::index::Density;
+    /// let x0 = Index::new().set_density(Density::SparseAll);
+    /// let x1 = Index::new().set_density(Density::SparseAny);
+    /// let x2 = Index::new().set_density(Density::Dense);
+    /// ```
     pub fn set_density<T: std::convert::Into<crate::model::index::Density>>(
         mut self,
         v: T,
@@ -4620,12 +5756,24 @@ impl Index {
     }
 
     /// Sets the value of [multikey][crate::model::Index::multikey].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::Index;
+    /// let x = Index::new().set_multikey(true);
+    /// ```
     pub fn set_multikey<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.multikey = v.into();
         self
     }
 
     /// Sets the value of [shard_count][crate::model::Index::shard_count].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::Index;
+    /// let x = Index::new().set_shard_count(42);
+    /// ```
     pub fn set_shard_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.shard_count = v.into();
         self
@@ -4666,6 +5814,12 @@ pub mod index {
         }
 
         /// Sets the value of [field_path][crate::model::index::IndexField::field_path].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_firestore_admin_v1::model::index::IndexField;
+        /// let x = IndexField::new().set_field_path("example");
+        /// ```
         pub fn set_field_path<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.field_path = v.into();
             self
@@ -4675,6 +5829,15 @@ pub mod index {
         ///
         /// Note that all the setters affecting `value_mode` are mutually
         /// exclusive.
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_firestore_admin_v1::model::index::IndexField;
+        /// use google_cloud_firestore_admin_v1::model::index::index_field;
+        /// use google_cloud_firestore_admin_v1::model::index::index_field::Order;
+        /// let x0 = IndexField::new().set_value_mode(Some(index::index_field::ValueMode::Order(Order::Ascending)));
+        /// let x1 = IndexField::new().set_value_mode(Some(index::index_field::ValueMode::Order(Order::Descending)));
+        /// ```
         pub fn set_value_mode<
             T: std::convert::Into<std::option::Option<crate::model::index::index_field::ValueMode>>,
         >(
@@ -4703,6 +5866,17 @@ pub mod index {
         ///
         /// Note that all the setters affecting `value_mode` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_firestore_admin_v1::model::index::IndexField;
+        /// use google_cloud_firestore_admin_v1::model::index::index_field::Order;
+        /// let x0 = IndexField::new().set_order(Order::Ascending);
+        /// let x1 = IndexField::new().set_order(Order::Descending);
+        /// assert!(x.order().is_some());
+        /// assert!(x.array_config().is_none());
+        /// assert!(x.vector_config().is_none());
+        /// ```
         pub fn set_order<T: std::convert::Into<crate::model::index::index_field::Order>>(
             mut self,
             v: T,
@@ -4733,6 +5907,16 @@ pub mod index {
         ///
         /// Note that all the setters affecting `value_mode` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_firestore_admin_v1::model::index::IndexField;
+        /// use google_cloud_firestore_admin_v1::model::index::index_field::ArrayConfig;
+        /// let x0 = IndexField::new().set_array_config(ArrayConfig::Contains);
+        /// assert!(x.array_config().is_some());
+        /// assert!(x.order().is_none());
+        /// assert!(x.vector_config().is_none());
+        /// ```
         pub fn set_array_config<
             T: std::convert::Into<crate::model::index::index_field::ArrayConfig>,
         >(
@@ -4766,6 +5950,16 @@ pub mod index {
         ///
         /// Note that all the setters affecting `value_mode` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_firestore_admin_v1::model::index::IndexField;
+        /// use google_cloud_firestore_admin_v1::model::index::index_field::VectorConfig;
+        /// let x = IndexField::new().set_vector_config(VectorConfig::default()/* use setters */);
+        /// assert!(x.vector_config().is_some());
+        /// assert!(x.order().is_none());
+        /// assert!(x.array_config().is_none());
+        /// ```
         pub fn set_vector_config<
             T: std::convert::Into<std::boxed::Box<crate::model::index::index_field::VectorConfig>>,
         >(
@@ -4812,6 +6006,12 @@ pub mod index {
             }
 
             /// Sets the value of [dimension][crate::model::index::index_field::VectorConfig::dimension].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_firestore_admin_v1::model::index::index_field::VectorConfig;
+            /// let x = VectorConfig::new().set_dimension(42);
+            /// ```
             pub fn set_dimension<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
                 self.dimension = v.into();
                 self
@@ -4821,6 +6021,14 @@ pub mod index {
             ///
             /// Note that all the setters affecting `r#type` are mutually
             /// exclusive.
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_firestore_admin_v1::model::index::index_field::VectorConfig;
+            /// use google_cloud_firestore_admin_v1::model::index::index_field::vector_config;
+            /// use google_cloud_firestore_admin_v1::model::index::index_field::vector_config::FlatIndex;
+            /// let x = VectorConfig::new().set_type(Some(index::index_field::vector_config::Type::Flat(FlatIndex::default().into())));
+            /// ```
             pub fn set_type<
                 T: std::convert::Into<
                         std::option::Option<crate::model::index::index_field::vector_config::Type>,
@@ -4855,6 +6063,14 @@ pub mod index {
             ///
             /// Note that all the setters affecting `r#type` are
             /// mutually exclusive.
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_firestore_admin_v1::model::index::index_field::VectorConfig;
+            /// use google_cloud_firestore_admin_v1::model::index::index_field::vector_config::FlatIndex;
+            /// let x = VectorConfig::new().set_flat(FlatIndex::default()/* use setters */);
+            /// assert!(x.flat().is_some());
+            /// ```
             pub fn set_flat<
                 T: std::convert::Into<
                         std::boxed::Box<crate::model::index::index_field::vector_config::FlatIndex>,
@@ -5832,6 +7048,13 @@ impl IndexOperationMetadata {
     }
 
     /// Sets the value of [start_time][crate::model::IndexOperationMetadata::start_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::IndexOperationMetadata;
+    /// use wkt::Timestamp;
+    /// let x = IndexOperationMetadata::new().set_start_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_start_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -5841,6 +7064,14 @@ impl IndexOperationMetadata {
     }
 
     /// Sets or clears the value of [start_time][crate::model::IndexOperationMetadata::start_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::IndexOperationMetadata;
+    /// use wkt::Timestamp;
+    /// let x = IndexOperationMetadata::new().set_or_clear_start_time(Some(Timestamp::default()/* use setters */));
+    /// let x = IndexOperationMetadata::new().set_or_clear_start_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -5850,6 +7081,13 @@ impl IndexOperationMetadata {
     }
 
     /// Sets the value of [end_time][crate::model::IndexOperationMetadata::end_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::IndexOperationMetadata;
+    /// use wkt::Timestamp;
+    /// let x = IndexOperationMetadata::new().set_end_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -5859,6 +7097,14 @@ impl IndexOperationMetadata {
     }
 
     /// Sets or clears the value of [end_time][crate::model::IndexOperationMetadata::end_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::IndexOperationMetadata;
+    /// use wkt::Timestamp;
+    /// let x = IndexOperationMetadata::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
+    /// let x = IndexOperationMetadata::new().set_or_clear_end_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -5868,18 +7114,40 @@ impl IndexOperationMetadata {
     }
 
     /// Sets the value of [index][crate::model::IndexOperationMetadata::index].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::IndexOperationMetadata;
+    /// let x = IndexOperationMetadata::new().set_index("example");
+    /// ```
     pub fn set_index<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.index = v.into();
         self
     }
 
     /// Sets the value of [state][crate::model::IndexOperationMetadata::state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::IndexOperationMetadata;
+    /// use google_cloud_firestore_admin_v1::model::OperationState;
+    /// let x0 = IndexOperationMetadata::new().set_state(OperationState::Initializing);
+    /// let x1 = IndexOperationMetadata::new().set_state(OperationState::Processing);
+    /// let x2 = IndexOperationMetadata::new().set_state(OperationState::Cancelling);
+    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::OperationState>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
     }
 
     /// Sets the value of [progress_documents][crate::model::IndexOperationMetadata::progress_documents].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::IndexOperationMetadata;
+    /// use google_cloud_firestore_admin_v1::model::Progress;
+    /// let x = IndexOperationMetadata::new().set_progress_documents(Progress::default()/* use setters */);
+    /// ```
     pub fn set_progress_documents<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Progress>,
@@ -5889,6 +7157,14 @@ impl IndexOperationMetadata {
     }
 
     /// Sets or clears the value of [progress_documents][crate::model::IndexOperationMetadata::progress_documents].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::IndexOperationMetadata;
+    /// use google_cloud_firestore_admin_v1::model::Progress;
+    /// let x = IndexOperationMetadata::new().set_or_clear_progress_documents(Some(Progress::default()/* use setters */));
+    /// let x = IndexOperationMetadata::new().set_or_clear_progress_documents(None::<Progress>);
+    /// ```
     pub fn set_or_clear_progress_documents<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Progress>,
@@ -5898,6 +7174,13 @@ impl IndexOperationMetadata {
     }
 
     /// Sets the value of [progress_bytes][crate::model::IndexOperationMetadata::progress_bytes].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::IndexOperationMetadata;
+    /// use google_cloud_firestore_admin_v1::model::Progress;
+    /// let x = IndexOperationMetadata::new().set_progress_bytes(Progress::default()/* use setters */);
+    /// ```
     pub fn set_progress_bytes<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Progress>,
@@ -5907,6 +7190,14 @@ impl IndexOperationMetadata {
     }
 
     /// Sets or clears the value of [progress_bytes][crate::model::IndexOperationMetadata::progress_bytes].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::IndexOperationMetadata;
+    /// use google_cloud_firestore_admin_v1::model::Progress;
+    /// let x = IndexOperationMetadata::new().set_or_clear_progress_bytes(Some(Progress::default()/* use setters */));
+    /// let x = IndexOperationMetadata::new().set_or_clear_progress_bytes(None::<Progress>);
+    /// ```
     pub fn set_or_clear_progress_bytes<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Progress>,
@@ -5972,6 +7263,13 @@ impl FieldOperationMetadata {
     }
 
     /// Sets the value of [start_time][crate::model::FieldOperationMetadata::start_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::FieldOperationMetadata;
+    /// use wkt::Timestamp;
+    /// let x = FieldOperationMetadata::new().set_start_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_start_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -5981,6 +7279,14 @@ impl FieldOperationMetadata {
     }
 
     /// Sets or clears the value of [start_time][crate::model::FieldOperationMetadata::start_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::FieldOperationMetadata;
+    /// use wkt::Timestamp;
+    /// let x = FieldOperationMetadata::new().set_or_clear_start_time(Some(Timestamp::default()/* use setters */));
+    /// let x = FieldOperationMetadata::new().set_or_clear_start_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -5990,6 +7296,13 @@ impl FieldOperationMetadata {
     }
 
     /// Sets the value of [end_time][crate::model::FieldOperationMetadata::end_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::FieldOperationMetadata;
+    /// use wkt::Timestamp;
+    /// let x = FieldOperationMetadata::new().set_end_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -5999,6 +7312,14 @@ impl FieldOperationMetadata {
     }
 
     /// Sets or clears the value of [end_time][crate::model::FieldOperationMetadata::end_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::FieldOperationMetadata;
+    /// use wkt::Timestamp;
+    /// let x = FieldOperationMetadata::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
+    /// let x = FieldOperationMetadata::new().set_or_clear_end_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -6008,12 +7329,29 @@ impl FieldOperationMetadata {
     }
 
     /// Sets the value of [field][crate::model::FieldOperationMetadata::field].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::FieldOperationMetadata;
+    /// let x = FieldOperationMetadata::new().set_field("example");
+    /// ```
     pub fn set_field<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.field = v.into();
         self
     }
 
     /// Sets the value of [index_config_deltas][crate::model::FieldOperationMetadata::index_config_deltas].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::FieldOperationMetadata;
+    /// use google_cloud_firestore_admin_v1::model::field_operation_metadata::IndexConfigDelta;
+    /// let x = FieldOperationMetadata::new()
+    ///     .set_index_config_deltas([
+    ///         IndexConfigDelta::default()/* use setters */,
+    ///         IndexConfigDelta::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_index_config_deltas<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -6025,12 +7363,28 @@ impl FieldOperationMetadata {
     }
 
     /// Sets the value of [state][crate::model::FieldOperationMetadata::state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::FieldOperationMetadata;
+    /// use google_cloud_firestore_admin_v1::model::OperationState;
+    /// let x0 = FieldOperationMetadata::new().set_state(OperationState::Initializing);
+    /// let x1 = FieldOperationMetadata::new().set_state(OperationState::Processing);
+    /// let x2 = FieldOperationMetadata::new().set_state(OperationState::Cancelling);
+    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::OperationState>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
     }
 
     /// Sets the value of [progress_documents][crate::model::FieldOperationMetadata::progress_documents].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::FieldOperationMetadata;
+    /// use google_cloud_firestore_admin_v1::model::Progress;
+    /// let x = FieldOperationMetadata::new().set_progress_documents(Progress::default()/* use setters */);
+    /// ```
     pub fn set_progress_documents<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Progress>,
@@ -6040,6 +7394,14 @@ impl FieldOperationMetadata {
     }
 
     /// Sets or clears the value of [progress_documents][crate::model::FieldOperationMetadata::progress_documents].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::FieldOperationMetadata;
+    /// use google_cloud_firestore_admin_v1::model::Progress;
+    /// let x = FieldOperationMetadata::new().set_or_clear_progress_documents(Some(Progress::default()/* use setters */));
+    /// let x = FieldOperationMetadata::new().set_or_clear_progress_documents(None::<Progress>);
+    /// ```
     pub fn set_or_clear_progress_documents<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Progress>,
@@ -6049,6 +7411,13 @@ impl FieldOperationMetadata {
     }
 
     /// Sets the value of [progress_bytes][crate::model::FieldOperationMetadata::progress_bytes].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::FieldOperationMetadata;
+    /// use google_cloud_firestore_admin_v1::model::Progress;
+    /// let x = FieldOperationMetadata::new().set_progress_bytes(Progress::default()/* use setters */);
+    /// ```
     pub fn set_progress_bytes<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Progress>,
@@ -6058,6 +7427,14 @@ impl FieldOperationMetadata {
     }
 
     /// Sets or clears the value of [progress_bytes][crate::model::FieldOperationMetadata::progress_bytes].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::FieldOperationMetadata;
+    /// use google_cloud_firestore_admin_v1::model::Progress;
+    /// let x = FieldOperationMetadata::new().set_or_clear_progress_bytes(Some(Progress::default()/* use setters */));
+    /// let x = FieldOperationMetadata::new().set_or_clear_progress_bytes(None::<Progress>);
+    /// ```
     pub fn set_or_clear_progress_bytes<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Progress>,
@@ -6067,6 +7444,13 @@ impl FieldOperationMetadata {
     }
 
     /// Sets the value of [ttl_config_delta][crate::model::FieldOperationMetadata::ttl_config_delta].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::FieldOperationMetadata;
+    /// use google_cloud_firestore_admin_v1::model::field_operation_metadata::TtlConfigDelta;
+    /// let x = FieldOperationMetadata::new().set_ttl_config_delta(TtlConfigDelta::default()/* use setters */);
+    /// ```
     pub fn set_ttl_config_delta<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::field_operation_metadata::TtlConfigDelta>,
@@ -6076,6 +7460,14 @@ impl FieldOperationMetadata {
     }
 
     /// Sets or clears the value of [ttl_config_delta][crate::model::FieldOperationMetadata::ttl_config_delta].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::FieldOperationMetadata;
+    /// use google_cloud_firestore_admin_v1::model::field_operation_metadata::TtlConfigDelta;
+    /// let x = FieldOperationMetadata::new().set_or_clear_ttl_config_delta(Some(TtlConfigDelta::default()/* use setters */));
+    /// let x = FieldOperationMetadata::new().set_or_clear_ttl_config_delta(None::<TtlConfigDelta>);
+    /// ```
     pub fn set_or_clear_ttl_config_delta<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::field_operation_metadata::TtlConfigDelta>,
@@ -6115,6 +7507,14 @@ pub mod field_operation_metadata {
         }
 
         /// Sets the value of [change_type][crate::model::field_operation_metadata::IndexConfigDelta::change_type].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_firestore_admin_v1::model::field_operation_metadata::IndexConfigDelta;
+        /// use google_cloud_firestore_admin_v1::model::field_operation_metadata::index_config_delta::ChangeType;
+        /// let x0 = IndexConfigDelta::new().set_change_type(ChangeType::Add);
+        /// let x1 = IndexConfigDelta::new().set_change_type(ChangeType::Remove);
+        /// ```
         pub fn set_change_type<
             T: std::convert::Into<
                     crate::model::field_operation_metadata::index_config_delta::ChangeType,
@@ -6128,6 +7528,13 @@ pub mod field_operation_metadata {
         }
 
         /// Sets the value of [index][crate::model::field_operation_metadata::IndexConfigDelta::index].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_firestore_admin_v1::model::field_operation_metadata::IndexConfigDelta;
+        /// use google_cloud_firestore_admin_v1::model::Index;
+        /// let x = IndexConfigDelta::new().set_index(Index::default()/* use setters */);
+        /// ```
         pub fn set_index<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::Index>,
@@ -6137,6 +7544,14 @@ pub mod field_operation_metadata {
         }
 
         /// Sets or clears the value of [index][crate::model::field_operation_metadata::IndexConfigDelta::index].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_firestore_admin_v1::model::field_operation_metadata::IndexConfigDelta;
+        /// use google_cloud_firestore_admin_v1::model::Index;
+        /// let x = IndexConfigDelta::new().set_or_clear_index(Some(Index::default()/* use setters */));
+        /// let x = IndexConfigDelta::new().set_or_clear_index(None::<Index>);
+        /// ```
         pub fn set_or_clear_index<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Index>,
@@ -6309,6 +7724,14 @@ pub mod field_operation_metadata {
         }
 
         /// Sets the value of [change_type][crate::model::field_operation_metadata::TtlConfigDelta::change_type].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_firestore_admin_v1::model::field_operation_metadata::TtlConfigDelta;
+        /// use google_cloud_firestore_admin_v1::model::field_operation_metadata::ttl_config_delta::ChangeType;
+        /// let x0 = TtlConfigDelta::new().set_change_type(ChangeType::Add);
+        /// let x1 = TtlConfigDelta::new().set_change_type(ChangeType::Remove);
+        /// ```
         pub fn set_change_type<
             T: std::convert::Into<
                     crate::model::field_operation_metadata::ttl_config_delta::ChangeType,
@@ -6518,6 +7941,13 @@ impl ExportDocumentsMetadata {
     }
 
     /// Sets the value of [start_time][crate::model::ExportDocumentsMetadata::start_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::ExportDocumentsMetadata;
+    /// use wkt::Timestamp;
+    /// let x = ExportDocumentsMetadata::new().set_start_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_start_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -6527,6 +7957,14 @@ impl ExportDocumentsMetadata {
     }
 
     /// Sets or clears the value of [start_time][crate::model::ExportDocumentsMetadata::start_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::ExportDocumentsMetadata;
+    /// use wkt::Timestamp;
+    /// let x = ExportDocumentsMetadata::new().set_or_clear_start_time(Some(Timestamp::default()/* use setters */));
+    /// let x = ExportDocumentsMetadata::new().set_or_clear_start_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -6536,6 +7974,13 @@ impl ExportDocumentsMetadata {
     }
 
     /// Sets the value of [end_time][crate::model::ExportDocumentsMetadata::end_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::ExportDocumentsMetadata;
+    /// use wkt::Timestamp;
+    /// let x = ExportDocumentsMetadata::new().set_end_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -6545,6 +7990,14 @@ impl ExportDocumentsMetadata {
     }
 
     /// Sets or clears the value of [end_time][crate::model::ExportDocumentsMetadata::end_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::ExportDocumentsMetadata;
+    /// use wkt::Timestamp;
+    /// let x = ExportDocumentsMetadata::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
+    /// let x = ExportDocumentsMetadata::new().set_or_clear_end_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -6554,6 +8007,15 @@ impl ExportDocumentsMetadata {
     }
 
     /// Sets the value of [operation_state][crate::model::ExportDocumentsMetadata::operation_state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::ExportDocumentsMetadata;
+    /// use google_cloud_firestore_admin_v1::model::OperationState;
+    /// let x0 = ExportDocumentsMetadata::new().set_operation_state(OperationState::Initializing);
+    /// let x1 = ExportDocumentsMetadata::new().set_operation_state(OperationState::Processing);
+    /// let x2 = ExportDocumentsMetadata::new().set_operation_state(OperationState::Cancelling);
+    /// ```
     pub fn set_operation_state<T: std::convert::Into<crate::model::OperationState>>(
         mut self,
         v: T,
@@ -6563,6 +8025,13 @@ impl ExportDocumentsMetadata {
     }
 
     /// Sets the value of [progress_documents][crate::model::ExportDocumentsMetadata::progress_documents].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::ExportDocumentsMetadata;
+    /// use google_cloud_firestore_admin_v1::model::Progress;
+    /// let x = ExportDocumentsMetadata::new().set_progress_documents(Progress::default()/* use setters */);
+    /// ```
     pub fn set_progress_documents<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Progress>,
@@ -6572,6 +8041,14 @@ impl ExportDocumentsMetadata {
     }
 
     /// Sets or clears the value of [progress_documents][crate::model::ExportDocumentsMetadata::progress_documents].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::ExportDocumentsMetadata;
+    /// use google_cloud_firestore_admin_v1::model::Progress;
+    /// let x = ExportDocumentsMetadata::new().set_or_clear_progress_documents(Some(Progress::default()/* use setters */));
+    /// let x = ExportDocumentsMetadata::new().set_or_clear_progress_documents(None::<Progress>);
+    /// ```
     pub fn set_or_clear_progress_documents<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Progress>,
@@ -6581,6 +8058,13 @@ impl ExportDocumentsMetadata {
     }
 
     /// Sets the value of [progress_bytes][crate::model::ExportDocumentsMetadata::progress_bytes].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::ExportDocumentsMetadata;
+    /// use google_cloud_firestore_admin_v1::model::Progress;
+    /// let x = ExportDocumentsMetadata::new().set_progress_bytes(Progress::default()/* use setters */);
+    /// ```
     pub fn set_progress_bytes<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Progress>,
@@ -6590,6 +8074,14 @@ impl ExportDocumentsMetadata {
     }
 
     /// Sets or clears the value of [progress_bytes][crate::model::ExportDocumentsMetadata::progress_bytes].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::ExportDocumentsMetadata;
+    /// use google_cloud_firestore_admin_v1::model::Progress;
+    /// let x = ExportDocumentsMetadata::new().set_or_clear_progress_bytes(Some(Progress::default()/* use setters */));
+    /// let x = ExportDocumentsMetadata::new().set_or_clear_progress_bytes(None::<Progress>);
+    /// ```
     pub fn set_or_clear_progress_bytes<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Progress>,
@@ -6599,6 +8091,12 @@ impl ExportDocumentsMetadata {
     }
 
     /// Sets the value of [collection_ids][crate::model::ExportDocumentsMetadata::collection_ids].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::ExportDocumentsMetadata;
+    /// let x = ExportDocumentsMetadata::new().set_collection_ids(["a", "b", "c"]);
+    /// ```
     pub fn set_collection_ids<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -6610,6 +8108,12 @@ impl ExportDocumentsMetadata {
     }
 
     /// Sets the value of [output_uri_prefix][crate::model::ExportDocumentsMetadata::output_uri_prefix].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::ExportDocumentsMetadata;
+    /// let x = ExportDocumentsMetadata::new().set_output_uri_prefix("example");
+    /// ```
     pub fn set_output_uri_prefix<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -6619,6 +8123,12 @@ impl ExportDocumentsMetadata {
     }
 
     /// Sets the value of [namespace_ids][crate::model::ExportDocumentsMetadata::namespace_ids].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::ExportDocumentsMetadata;
+    /// let x = ExportDocumentsMetadata::new().set_namespace_ids(["a", "b", "c"]);
+    /// ```
     pub fn set_namespace_ids<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -6630,6 +8140,13 @@ impl ExportDocumentsMetadata {
     }
 
     /// Sets the value of [snapshot_time][crate::model::ExportDocumentsMetadata::snapshot_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::ExportDocumentsMetadata;
+    /// use wkt::Timestamp;
+    /// let x = ExportDocumentsMetadata::new().set_snapshot_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_snapshot_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -6639,6 +8156,14 @@ impl ExportDocumentsMetadata {
     }
 
     /// Sets or clears the value of [snapshot_time][crate::model::ExportDocumentsMetadata::snapshot_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::ExportDocumentsMetadata;
+    /// use wkt::Timestamp;
+    /// let x = ExportDocumentsMetadata::new().set_or_clear_snapshot_time(Some(Timestamp::default()/* use setters */));
+    /// let x = ExportDocumentsMetadata::new().set_or_clear_snapshot_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_snapshot_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -6697,6 +8222,13 @@ impl ImportDocumentsMetadata {
     }
 
     /// Sets the value of [start_time][crate::model::ImportDocumentsMetadata::start_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::ImportDocumentsMetadata;
+    /// use wkt::Timestamp;
+    /// let x = ImportDocumentsMetadata::new().set_start_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_start_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -6706,6 +8238,14 @@ impl ImportDocumentsMetadata {
     }
 
     /// Sets or clears the value of [start_time][crate::model::ImportDocumentsMetadata::start_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::ImportDocumentsMetadata;
+    /// use wkt::Timestamp;
+    /// let x = ImportDocumentsMetadata::new().set_or_clear_start_time(Some(Timestamp::default()/* use setters */));
+    /// let x = ImportDocumentsMetadata::new().set_or_clear_start_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -6715,6 +8255,13 @@ impl ImportDocumentsMetadata {
     }
 
     /// Sets the value of [end_time][crate::model::ImportDocumentsMetadata::end_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::ImportDocumentsMetadata;
+    /// use wkt::Timestamp;
+    /// let x = ImportDocumentsMetadata::new().set_end_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -6724,6 +8271,14 @@ impl ImportDocumentsMetadata {
     }
 
     /// Sets or clears the value of [end_time][crate::model::ImportDocumentsMetadata::end_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::ImportDocumentsMetadata;
+    /// use wkt::Timestamp;
+    /// let x = ImportDocumentsMetadata::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
+    /// let x = ImportDocumentsMetadata::new().set_or_clear_end_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -6733,6 +8288,15 @@ impl ImportDocumentsMetadata {
     }
 
     /// Sets the value of [operation_state][crate::model::ImportDocumentsMetadata::operation_state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::ImportDocumentsMetadata;
+    /// use google_cloud_firestore_admin_v1::model::OperationState;
+    /// let x0 = ImportDocumentsMetadata::new().set_operation_state(OperationState::Initializing);
+    /// let x1 = ImportDocumentsMetadata::new().set_operation_state(OperationState::Processing);
+    /// let x2 = ImportDocumentsMetadata::new().set_operation_state(OperationState::Cancelling);
+    /// ```
     pub fn set_operation_state<T: std::convert::Into<crate::model::OperationState>>(
         mut self,
         v: T,
@@ -6742,6 +8306,13 @@ impl ImportDocumentsMetadata {
     }
 
     /// Sets the value of [progress_documents][crate::model::ImportDocumentsMetadata::progress_documents].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::ImportDocumentsMetadata;
+    /// use google_cloud_firestore_admin_v1::model::Progress;
+    /// let x = ImportDocumentsMetadata::new().set_progress_documents(Progress::default()/* use setters */);
+    /// ```
     pub fn set_progress_documents<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Progress>,
@@ -6751,6 +8322,14 @@ impl ImportDocumentsMetadata {
     }
 
     /// Sets or clears the value of [progress_documents][crate::model::ImportDocumentsMetadata::progress_documents].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::ImportDocumentsMetadata;
+    /// use google_cloud_firestore_admin_v1::model::Progress;
+    /// let x = ImportDocumentsMetadata::new().set_or_clear_progress_documents(Some(Progress::default()/* use setters */));
+    /// let x = ImportDocumentsMetadata::new().set_or_clear_progress_documents(None::<Progress>);
+    /// ```
     pub fn set_or_clear_progress_documents<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Progress>,
@@ -6760,6 +8339,13 @@ impl ImportDocumentsMetadata {
     }
 
     /// Sets the value of [progress_bytes][crate::model::ImportDocumentsMetadata::progress_bytes].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::ImportDocumentsMetadata;
+    /// use google_cloud_firestore_admin_v1::model::Progress;
+    /// let x = ImportDocumentsMetadata::new().set_progress_bytes(Progress::default()/* use setters */);
+    /// ```
     pub fn set_progress_bytes<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Progress>,
@@ -6769,6 +8355,14 @@ impl ImportDocumentsMetadata {
     }
 
     /// Sets or clears the value of [progress_bytes][crate::model::ImportDocumentsMetadata::progress_bytes].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::ImportDocumentsMetadata;
+    /// use google_cloud_firestore_admin_v1::model::Progress;
+    /// let x = ImportDocumentsMetadata::new().set_or_clear_progress_bytes(Some(Progress::default()/* use setters */));
+    /// let x = ImportDocumentsMetadata::new().set_or_clear_progress_bytes(None::<Progress>);
+    /// ```
     pub fn set_or_clear_progress_bytes<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Progress>,
@@ -6778,6 +8372,12 @@ impl ImportDocumentsMetadata {
     }
 
     /// Sets the value of [collection_ids][crate::model::ImportDocumentsMetadata::collection_ids].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::ImportDocumentsMetadata;
+    /// let x = ImportDocumentsMetadata::new().set_collection_ids(["a", "b", "c"]);
+    /// ```
     pub fn set_collection_ids<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -6789,6 +8389,12 @@ impl ImportDocumentsMetadata {
     }
 
     /// Sets the value of [input_uri_prefix][crate::model::ImportDocumentsMetadata::input_uri_prefix].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::ImportDocumentsMetadata;
+    /// let x = ImportDocumentsMetadata::new().set_input_uri_prefix("example");
+    /// ```
     pub fn set_input_uri_prefix<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -6798,6 +8404,12 @@ impl ImportDocumentsMetadata {
     }
 
     /// Sets the value of [namespace_ids][crate::model::ImportDocumentsMetadata::namespace_ids].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::ImportDocumentsMetadata;
+    /// let x = ImportDocumentsMetadata::new().set_namespace_ids(["a", "b", "c"]);
+    /// ```
     pub fn set_namespace_ids<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -6861,6 +8473,13 @@ impl BulkDeleteDocumentsMetadata {
     }
 
     /// Sets the value of [start_time][crate::model::BulkDeleteDocumentsMetadata::start_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::BulkDeleteDocumentsMetadata;
+    /// use wkt::Timestamp;
+    /// let x = BulkDeleteDocumentsMetadata::new().set_start_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_start_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -6870,6 +8489,14 @@ impl BulkDeleteDocumentsMetadata {
     }
 
     /// Sets or clears the value of [start_time][crate::model::BulkDeleteDocumentsMetadata::start_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::BulkDeleteDocumentsMetadata;
+    /// use wkt::Timestamp;
+    /// let x = BulkDeleteDocumentsMetadata::new().set_or_clear_start_time(Some(Timestamp::default()/* use setters */));
+    /// let x = BulkDeleteDocumentsMetadata::new().set_or_clear_start_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -6879,6 +8506,13 @@ impl BulkDeleteDocumentsMetadata {
     }
 
     /// Sets the value of [end_time][crate::model::BulkDeleteDocumentsMetadata::end_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::BulkDeleteDocumentsMetadata;
+    /// use wkt::Timestamp;
+    /// let x = BulkDeleteDocumentsMetadata::new().set_end_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -6888,6 +8522,14 @@ impl BulkDeleteDocumentsMetadata {
     }
 
     /// Sets or clears the value of [end_time][crate::model::BulkDeleteDocumentsMetadata::end_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::BulkDeleteDocumentsMetadata;
+    /// use wkt::Timestamp;
+    /// let x = BulkDeleteDocumentsMetadata::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
+    /// let x = BulkDeleteDocumentsMetadata::new().set_or_clear_end_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -6897,6 +8539,15 @@ impl BulkDeleteDocumentsMetadata {
     }
 
     /// Sets the value of [operation_state][crate::model::BulkDeleteDocumentsMetadata::operation_state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::BulkDeleteDocumentsMetadata;
+    /// use google_cloud_firestore_admin_v1::model::OperationState;
+    /// let x0 = BulkDeleteDocumentsMetadata::new().set_operation_state(OperationState::Initializing);
+    /// let x1 = BulkDeleteDocumentsMetadata::new().set_operation_state(OperationState::Processing);
+    /// let x2 = BulkDeleteDocumentsMetadata::new().set_operation_state(OperationState::Cancelling);
+    /// ```
     pub fn set_operation_state<T: std::convert::Into<crate::model::OperationState>>(
         mut self,
         v: T,
@@ -6906,6 +8557,13 @@ impl BulkDeleteDocumentsMetadata {
     }
 
     /// Sets the value of [progress_documents][crate::model::BulkDeleteDocumentsMetadata::progress_documents].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::BulkDeleteDocumentsMetadata;
+    /// use google_cloud_firestore_admin_v1::model::Progress;
+    /// let x = BulkDeleteDocumentsMetadata::new().set_progress_documents(Progress::default()/* use setters */);
+    /// ```
     pub fn set_progress_documents<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Progress>,
@@ -6915,6 +8573,14 @@ impl BulkDeleteDocumentsMetadata {
     }
 
     /// Sets or clears the value of [progress_documents][crate::model::BulkDeleteDocumentsMetadata::progress_documents].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::BulkDeleteDocumentsMetadata;
+    /// use google_cloud_firestore_admin_v1::model::Progress;
+    /// let x = BulkDeleteDocumentsMetadata::new().set_or_clear_progress_documents(Some(Progress::default()/* use setters */));
+    /// let x = BulkDeleteDocumentsMetadata::new().set_or_clear_progress_documents(None::<Progress>);
+    /// ```
     pub fn set_or_clear_progress_documents<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Progress>,
@@ -6924,6 +8590,13 @@ impl BulkDeleteDocumentsMetadata {
     }
 
     /// Sets the value of [progress_bytes][crate::model::BulkDeleteDocumentsMetadata::progress_bytes].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::BulkDeleteDocumentsMetadata;
+    /// use google_cloud_firestore_admin_v1::model::Progress;
+    /// let x = BulkDeleteDocumentsMetadata::new().set_progress_bytes(Progress::default()/* use setters */);
+    /// ```
     pub fn set_progress_bytes<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Progress>,
@@ -6933,6 +8606,14 @@ impl BulkDeleteDocumentsMetadata {
     }
 
     /// Sets or clears the value of [progress_bytes][crate::model::BulkDeleteDocumentsMetadata::progress_bytes].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::BulkDeleteDocumentsMetadata;
+    /// use google_cloud_firestore_admin_v1::model::Progress;
+    /// let x = BulkDeleteDocumentsMetadata::new().set_or_clear_progress_bytes(Some(Progress::default()/* use setters */));
+    /// let x = BulkDeleteDocumentsMetadata::new().set_or_clear_progress_bytes(None::<Progress>);
+    /// ```
     pub fn set_or_clear_progress_bytes<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Progress>,
@@ -6942,6 +8623,12 @@ impl BulkDeleteDocumentsMetadata {
     }
 
     /// Sets the value of [collection_ids][crate::model::BulkDeleteDocumentsMetadata::collection_ids].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::BulkDeleteDocumentsMetadata;
+    /// let x = BulkDeleteDocumentsMetadata::new().set_collection_ids(["a", "b", "c"]);
+    /// ```
     pub fn set_collection_ids<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -6953,6 +8640,12 @@ impl BulkDeleteDocumentsMetadata {
     }
 
     /// Sets the value of [namespace_ids][crate::model::BulkDeleteDocumentsMetadata::namespace_ids].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::BulkDeleteDocumentsMetadata;
+    /// let x = BulkDeleteDocumentsMetadata::new().set_namespace_ids(["a", "b", "c"]);
+    /// ```
     pub fn set_namespace_ids<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -6964,6 +8657,13 @@ impl BulkDeleteDocumentsMetadata {
     }
 
     /// Sets the value of [snapshot_time][crate::model::BulkDeleteDocumentsMetadata::snapshot_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::BulkDeleteDocumentsMetadata;
+    /// use wkt::Timestamp;
+    /// let x = BulkDeleteDocumentsMetadata::new().set_snapshot_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_snapshot_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -6973,6 +8673,14 @@ impl BulkDeleteDocumentsMetadata {
     }
 
     /// Sets or clears the value of [snapshot_time][crate::model::BulkDeleteDocumentsMetadata::snapshot_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::BulkDeleteDocumentsMetadata;
+    /// use wkt::Timestamp;
+    /// let x = BulkDeleteDocumentsMetadata::new().set_or_clear_snapshot_time(Some(Timestamp::default()/* use setters */));
+    /// let x = BulkDeleteDocumentsMetadata::new().set_or_clear_snapshot_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_snapshot_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -7009,6 +8717,12 @@ impl ExportDocumentsResponse {
     }
 
     /// Sets the value of [output_uri_prefix][crate::model::ExportDocumentsResponse::output_uri_prefix].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::ExportDocumentsResponse;
+    /// let x = ExportDocumentsResponse::new().set_output_uri_prefix("example");
+    /// ```
     pub fn set_output_uri_prefix<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -7058,6 +8772,13 @@ impl RestoreDatabaseMetadata {
     }
 
     /// Sets the value of [start_time][crate::model::RestoreDatabaseMetadata::start_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::RestoreDatabaseMetadata;
+    /// use wkt::Timestamp;
+    /// let x = RestoreDatabaseMetadata::new().set_start_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_start_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -7067,6 +8788,14 @@ impl RestoreDatabaseMetadata {
     }
 
     /// Sets or clears the value of [start_time][crate::model::RestoreDatabaseMetadata::start_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::RestoreDatabaseMetadata;
+    /// use wkt::Timestamp;
+    /// let x = RestoreDatabaseMetadata::new().set_or_clear_start_time(Some(Timestamp::default()/* use setters */));
+    /// let x = RestoreDatabaseMetadata::new().set_or_clear_start_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -7076,6 +8805,13 @@ impl RestoreDatabaseMetadata {
     }
 
     /// Sets the value of [end_time][crate::model::RestoreDatabaseMetadata::end_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::RestoreDatabaseMetadata;
+    /// use wkt::Timestamp;
+    /// let x = RestoreDatabaseMetadata::new().set_end_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -7085,6 +8821,14 @@ impl RestoreDatabaseMetadata {
     }
 
     /// Sets or clears the value of [end_time][crate::model::RestoreDatabaseMetadata::end_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::RestoreDatabaseMetadata;
+    /// use wkt::Timestamp;
+    /// let x = RestoreDatabaseMetadata::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
+    /// let x = RestoreDatabaseMetadata::new().set_or_clear_end_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -7094,6 +8838,15 @@ impl RestoreDatabaseMetadata {
     }
 
     /// Sets the value of [operation_state][crate::model::RestoreDatabaseMetadata::operation_state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::RestoreDatabaseMetadata;
+    /// use google_cloud_firestore_admin_v1::model::OperationState;
+    /// let x0 = RestoreDatabaseMetadata::new().set_operation_state(OperationState::Initializing);
+    /// let x1 = RestoreDatabaseMetadata::new().set_operation_state(OperationState::Processing);
+    /// let x2 = RestoreDatabaseMetadata::new().set_operation_state(OperationState::Cancelling);
+    /// ```
     pub fn set_operation_state<T: std::convert::Into<crate::model::OperationState>>(
         mut self,
         v: T,
@@ -7103,18 +8856,37 @@ impl RestoreDatabaseMetadata {
     }
 
     /// Sets the value of [database][crate::model::RestoreDatabaseMetadata::database].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::RestoreDatabaseMetadata;
+    /// let x = RestoreDatabaseMetadata::new().set_database("example");
+    /// ```
     pub fn set_database<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.database = v.into();
         self
     }
 
     /// Sets the value of [backup][crate::model::RestoreDatabaseMetadata::backup].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::RestoreDatabaseMetadata;
+    /// let x = RestoreDatabaseMetadata::new().set_backup("example");
+    /// ```
     pub fn set_backup<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.backup = v.into();
         self
     }
 
     /// Sets the value of [progress_percentage][crate::model::RestoreDatabaseMetadata::progress_percentage].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::RestoreDatabaseMetadata;
+    /// use google_cloud_firestore_admin_v1::model::Progress;
+    /// let x = RestoreDatabaseMetadata::new().set_progress_percentage(Progress::default()/* use setters */);
+    /// ```
     pub fn set_progress_percentage<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Progress>,
@@ -7124,6 +8896,14 @@ impl RestoreDatabaseMetadata {
     }
 
     /// Sets or clears the value of [progress_percentage][crate::model::RestoreDatabaseMetadata::progress_percentage].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::RestoreDatabaseMetadata;
+    /// use google_cloud_firestore_admin_v1::model::Progress;
+    /// let x = RestoreDatabaseMetadata::new().set_or_clear_progress_percentage(Some(Progress::default()/* use setters */));
+    /// let x = RestoreDatabaseMetadata::new().set_or_clear_progress_percentage(None::<Progress>);
+    /// ```
     pub fn set_or_clear_progress_percentage<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Progress>,
@@ -7173,6 +8953,13 @@ impl CloneDatabaseMetadata {
     }
 
     /// Sets the value of [start_time][crate::model::CloneDatabaseMetadata::start_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::CloneDatabaseMetadata;
+    /// use wkt::Timestamp;
+    /// let x = CloneDatabaseMetadata::new().set_start_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_start_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -7182,6 +8969,14 @@ impl CloneDatabaseMetadata {
     }
 
     /// Sets or clears the value of [start_time][crate::model::CloneDatabaseMetadata::start_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::CloneDatabaseMetadata;
+    /// use wkt::Timestamp;
+    /// let x = CloneDatabaseMetadata::new().set_or_clear_start_time(Some(Timestamp::default()/* use setters */));
+    /// let x = CloneDatabaseMetadata::new().set_or_clear_start_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -7191,6 +8986,13 @@ impl CloneDatabaseMetadata {
     }
 
     /// Sets the value of [end_time][crate::model::CloneDatabaseMetadata::end_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::CloneDatabaseMetadata;
+    /// use wkt::Timestamp;
+    /// let x = CloneDatabaseMetadata::new().set_end_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -7200,6 +9002,14 @@ impl CloneDatabaseMetadata {
     }
 
     /// Sets or clears the value of [end_time][crate::model::CloneDatabaseMetadata::end_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::CloneDatabaseMetadata;
+    /// use wkt::Timestamp;
+    /// let x = CloneDatabaseMetadata::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
+    /// let x = CloneDatabaseMetadata::new().set_or_clear_end_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -7209,6 +9019,15 @@ impl CloneDatabaseMetadata {
     }
 
     /// Sets the value of [operation_state][crate::model::CloneDatabaseMetadata::operation_state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::CloneDatabaseMetadata;
+    /// use google_cloud_firestore_admin_v1::model::OperationState;
+    /// let x0 = CloneDatabaseMetadata::new().set_operation_state(OperationState::Initializing);
+    /// let x1 = CloneDatabaseMetadata::new().set_operation_state(OperationState::Processing);
+    /// let x2 = CloneDatabaseMetadata::new().set_operation_state(OperationState::Cancelling);
+    /// ```
     pub fn set_operation_state<T: std::convert::Into<crate::model::OperationState>>(
         mut self,
         v: T,
@@ -7218,12 +9037,25 @@ impl CloneDatabaseMetadata {
     }
 
     /// Sets the value of [database][crate::model::CloneDatabaseMetadata::database].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::CloneDatabaseMetadata;
+    /// let x = CloneDatabaseMetadata::new().set_database("example");
+    /// ```
     pub fn set_database<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.database = v.into();
         self
     }
 
     /// Sets the value of [pitr_snapshot][crate::model::CloneDatabaseMetadata::pitr_snapshot].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::CloneDatabaseMetadata;
+    /// use google_cloud_firestore_admin_v1::model::PitrSnapshot;
+    /// let x = CloneDatabaseMetadata::new().set_pitr_snapshot(PitrSnapshot::default()/* use setters */);
+    /// ```
     pub fn set_pitr_snapshot<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::PitrSnapshot>,
@@ -7233,6 +9065,14 @@ impl CloneDatabaseMetadata {
     }
 
     /// Sets or clears the value of [pitr_snapshot][crate::model::CloneDatabaseMetadata::pitr_snapshot].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::CloneDatabaseMetadata;
+    /// use google_cloud_firestore_admin_v1::model::PitrSnapshot;
+    /// let x = CloneDatabaseMetadata::new().set_or_clear_pitr_snapshot(Some(PitrSnapshot::default()/* use setters */));
+    /// let x = CloneDatabaseMetadata::new().set_or_clear_pitr_snapshot(None::<PitrSnapshot>);
+    /// ```
     pub fn set_or_clear_pitr_snapshot<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::PitrSnapshot>,
@@ -7242,6 +9082,13 @@ impl CloneDatabaseMetadata {
     }
 
     /// Sets the value of [progress_percentage][crate::model::CloneDatabaseMetadata::progress_percentage].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::CloneDatabaseMetadata;
+    /// use google_cloud_firestore_admin_v1::model::Progress;
+    /// let x = CloneDatabaseMetadata::new().set_progress_percentage(Progress::default()/* use setters */);
+    /// ```
     pub fn set_progress_percentage<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Progress>,
@@ -7251,6 +9098,14 @@ impl CloneDatabaseMetadata {
     }
 
     /// Sets or clears the value of [progress_percentage][crate::model::CloneDatabaseMetadata::progress_percentage].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::CloneDatabaseMetadata;
+    /// use google_cloud_firestore_admin_v1::model::Progress;
+    /// let x = CloneDatabaseMetadata::new().set_or_clear_progress_percentage(Some(Progress::default()/* use setters */));
+    /// let x = CloneDatabaseMetadata::new().set_or_clear_progress_percentage(None::<Progress>);
+    /// ```
     pub fn set_or_clear_progress_percentage<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Progress>,
@@ -7289,12 +9144,24 @@ impl Progress {
     }
 
     /// Sets the value of [estimated_work][crate::model::Progress::estimated_work].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::Progress;
+    /// let x = Progress::new().set_estimated_work(42);
+    /// ```
     pub fn set_estimated_work<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.estimated_work = v.into();
         self
     }
 
     /// Sets the value of [completed_work][crate::model::Progress::completed_work].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::Progress;
+    /// let x = Progress::new().set_completed_work(42);
+    /// ```
     pub fn set_completed_work<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.completed_work = v.into();
         self
@@ -7352,12 +9219,25 @@ impl BackupSchedule {
     }
 
     /// Sets the value of [name][crate::model::BackupSchedule::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::BackupSchedule;
+    /// let x = BackupSchedule::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::BackupSchedule::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::BackupSchedule;
+    /// use wkt::Timestamp;
+    /// let x = BackupSchedule::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -7367,6 +9247,14 @@ impl BackupSchedule {
     }
 
     /// Sets or clears the value of [create_time][crate::model::BackupSchedule::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::BackupSchedule;
+    /// use wkt::Timestamp;
+    /// let x = BackupSchedule::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = BackupSchedule::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -7376,6 +9264,13 @@ impl BackupSchedule {
     }
 
     /// Sets the value of [update_time][crate::model::BackupSchedule::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::BackupSchedule;
+    /// use wkt::Timestamp;
+    /// let x = BackupSchedule::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -7385,6 +9280,14 @@ impl BackupSchedule {
     }
 
     /// Sets or clears the value of [update_time][crate::model::BackupSchedule::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::BackupSchedule;
+    /// use wkt::Timestamp;
+    /// let x = BackupSchedule::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = BackupSchedule::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -7394,6 +9297,13 @@ impl BackupSchedule {
     }
 
     /// Sets the value of [retention][crate::model::BackupSchedule::retention].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::BackupSchedule;
+    /// use wkt::Duration;
+    /// let x = BackupSchedule::new().set_retention(Duration::default()/* use setters */);
+    /// ```
     pub fn set_retention<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -7403,6 +9313,14 @@ impl BackupSchedule {
     }
 
     /// Sets or clears the value of [retention][crate::model::BackupSchedule::retention].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::BackupSchedule;
+    /// use wkt::Duration;
+    /// let x = BackupSchedule::new().set_or_clear_retention(Some(Duration::default()/* use setters */));
+    /// let x = BackupSchedule::new().set_or_clear_retention(None::<Duration>);
+    /// ```
     pub fn set_or_clear_retention<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -7415,6 +9333,14 @@ impl BackupSchedule {
     ///
     /// Note that all the setters affecting `recurrence` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::BackupSchedule;
+    /// use google_cloud_firestore_admin_v1::model::backup_schedule;
+    /// use google_cloud_firestore_admin_v1::model::DailyRecurrence;
+    /// let x = BackupSchedule::new().set_recurrence(Some(backup_schedule::Recurrence::DailyRecurrence(DailyRecurrence::default().into())));
+    /// ```
     pub fn set_recurrence<
         T: std::convert::Into<std::option::Option<crate::model::backup_schedule::Recurrence>>,
     >(
@@ -7445,6 +9371,15 @@ impl BackupSchedule {
     ///
     /// Note that all the setters affecting `recurrence` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::BackupSchedule;
+    /// use google_cloud_firestore_admin_v1::model::DailyRecurrence;
+    /// let x = BackupSchedule::new().set_daily_recurrence(DailyRecurrence::default()/* use setters */);
+    /// assert!(x.daily_recurrence().is_some());
+    /// assert!(x.weekly_recurrence().is_none());
+    /// ```
     pub fn set_daily_recurrence<
         T: std::convert::Into<std::boxed::Box<crate::model::DailyRecurrence>>,
     >(
@@ -7477,6 +9412,15 @@ impl BackupSchedule {
     ///
     /// Note that all the setters affecting `recurrence` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::BackupSchedule;
+    /// use google_cloud_firestore_admin_v1::model::WeeklyRecurrence;
+    /// let x = BackupSchedule::new().set_weekly_recurrence(WeeklyRecurrence::default()/* use setters */);
+    /// assert!(x.weekly_recurrence().is_some());
+    /// assert!(x.daily_recurrence().is_none());
+    /// ```
     pub fn set_weekly_recurrence<
         T: std::convert::Into<std::boxed::Box<crate::model::WeeklyRecurrence>>,
     >(
@@ -7553,6 +9497,15 @@ impl WeeklyRecurrence {
     }
 
     /// Sets the value of [day][crate::model::WeeklyRecurrence::day].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::WeeklyRecurrence;
+    /// use gtype::model::DayOfWeek;
+    /// let x0 = WeeklyRecurrence::new().set_day(DayOfWeek::Monday);
+    /// let x1 = WeeklyRecurrence::new().set_day(DayOfWeek::Tuesday);
+    /// let x2 = WeeklyRecurrence::new().set_day(DayOfWeek::Wednesday);
+    /// ```
     pub fn set_day<T: std::convert::Into<gtype::model::DayOfWeek>>(mut self, v: T) -> Self {
         self.day = v.into();
         self
@@ -7592,18 +9545,37 @@ impl PitrSnapshot {
     }
 
     /// Sets the value of [database][crate::model::PitrSnapshot::database].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::PitrSnapshot;
+    /// let x = PitrSnapshot::new().set_database("example");
+    /// ```
     pub fn set_database<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.database = v.into();
         self
     }
 
     /// Sets the value of [database_uid][crate::model::PitrSnapshot::database_uid].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::PitrSnapshot;
+    /// let x = PitrSnapshot::new().set_database_uid(bytes::Bytes::from_static(b"example"));
+    /// ```
     pub fn set_database_uid<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.database_uid = v.into();
         self
     }
 
     /// Sets the value of [snapshot_time][crate::model::PitrSnapshot::snapshot_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::PitrSnapshot;
+    /// use wkt::Timestamp;
+    /// let x = PitrSnapshot::new().set_snapshot_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_snapshot_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -7613,6 +9585,14 @@ impl PitrSnapshot {
     }
 
     /// Sets or clears the value of [snapshot_time][crate::model::PitrSnapshot::snapshot_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::PitrSnapshot;
+    /// use wkt::Timestamp;
+    /// let x = PitrSnapshot::new().set_or_clear_snapshot_time(Some(Timestamp::default()/* use setters */));
+    /// let x = PitrSnapshot::new().set_or_clear_snapshot_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_snapshot_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -7663,12 +9643,25 @@ impl UserCreds {
     }
 
     /// Sets the value of [name][crate::model::UserCreds::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::UserCreds;
+    /// let x = UserCreds::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::UserCreds::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::UserCreds;
+    /// use wkt::Timestamp;
+    /// let x = UserCreds::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -7678,6 +9671,14 @@ impl UserCreds {
     }
 
     /// Sets or clears the value of [create_time][crate::model::UserCreds::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::UserCreds;
+    /// use wkt::Timestamp;
+    /// let x = UserCreds::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = UserCreds::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -7687,6 +9688,13 @@ impl UserCreds {
     }
 
     /// Sets the value of [update_time][crate::model::UserCreds::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::UserCreds;
+    /// use wkt::Timestamp;
+    /// let x = UserCreds::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -7696,6 +9704,14 @@ impl UserCreds {
     }
 
     /// Sets or clears the value of [update_time][crate::model::UserCreds::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::UserCreds;
+    /// use wkt::Timestamp;
+    /// let x = UserCreds::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = UserCreds::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -7705,6 +9721,14 @@ impl UserCreds {
     }
 
     /// Sets the value of [state][crate::model::UserCreds::state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::UserCreds;
+    /// use google_cloud_firestore_admin_v1::model::user_creds::State;
+    /// let x0 = UserCreds::new().set_state(State::Enabled);
+    /// let x1 = UserCreds::new().set_state(State::Disabled);
+    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::user_creds::State>>(
         mut self,
         v: T,
@@ -7714,6 +9738,12 @@ impl UserCreds {
     }
 
     /// Sets the value of [secure_password][crate::model::UserCreds::secure_password].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::UserCreds;
+    /// let x = UserCreds::new().set_secure_password("example");
+    /// ```
     pub fn set_secure_password<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.secure_password = v.into();
         self
@@ -7723,6 +9753,14 @@ impl UserCreds {
     ///
     /// Note that all the setters affecting `user_creds_identity` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::UserCreds;
+    /// use google_cloud_firestore_admin_v1::model::user_creds;
+    /// use google_cloud_firestore_admin_v1::model::user_creds::ResourceIdentity;
+    /// let x = UserCreds::new().set_user_creds_identity(Some(user_creds::UserCredsIdentity::ResourceIdentity(ResourceIdentity::default().into())));
+    /// ```
     pub fn set_user_creds_identity<
         T: std::convert::Into<std::option::Option<crate::model::user_creds::UserCredsIdentity>>,
     >(
@@ -7753,6 +9791,14 @@ impl UserCreds {
     ///
     /// Note that all the setters affecting `user_creds_identity` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::model::UserCreds;
+    /// use google_cloud_firestore_admin_v1::model::user_creds::ResourceIdentity;
+    /// let x = UserCreds::new().set_resource_identity(ResourceIdentity::default()/* use setters */);
+    /// assert!(x.resource_identity().is_some());
+    /// ```
     pub fn set_resource_identity<
         T: std::convert::Into<std::boxed::Box<crate::model::user_creds::ResourceIdentity>>,
     >(
@@ -7794,6 +9840,12 @@ pub mod user_creds {
         }
 
         /// Sets the value of [principal][crate::model::user_creds::ResourceIdentity::principal].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_firestore_admin_v1::model::user_creds::ResourceIdentity;
+        /// let x = ResourceIdentity::new().set_principal("example");
+        /// ```
         pub fn set_principal<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.principal = v.into();
             self

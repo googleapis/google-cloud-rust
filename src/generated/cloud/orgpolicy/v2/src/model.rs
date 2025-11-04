@@ -102,24 +102,50 @@ impl Constraint {
     }
 
     /// Sets the value of [name][crate::model::Constraint::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_orgpolicy_v2::model::Constraint;
+    /// let x = Constraint::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [display_name][crate::model::Constraint::display_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_orgpolicy_v2::model::Constraint;
+    /// let x = Constraint::new().set_display_name("example");
+    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
     }
 
     /// Sets the value of [description][crate::model::Constraint::description].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_orgpolicy_v2::model::Constraint;
+    /// let x = Constraint::new().set_description("example");
+    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [constraint_default][crate::model::Constraint::constraint_default].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_orgpolicy_v2::model::Constraint;
+    /// use google_cloud_orgpolicy_v2::model::constraint::ConstraintDefault;
+    /// let x0 = Constraint::new().set_constraint_default(ConstraintDefault::Allow);
+    /// let x1 = Constraint::new().set_constraint_default(ConstraintDefault::Deny);
+    /// ```
     pub fn set_constraint_default<
         T: std::convert::Into<crate::model::constraint::ConstraintDefault>,
     >(
@@ -131,12 +157,24 @@ impl Constraint {
     }
 
     /// Sets the value of [supports_dry_run][crate::model::Constraint::supports_dry_run].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_orgpolicy_v2::model::Constraint;
+    /// let x = Constraint::new().set_supports_dry_run(true);
+    /// ```
     pub fn set_supports_dry_run<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.supports_dry_run = v.into();
         self
     }
 
     /// Sets the value of [equivalent_constraint][crate::model::Constraint::equivalent_constraint].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_orgpolicy_v2::model::Constraint;
+    /// let x = Constraint::new().set_equivalent_constraint("example");
+    /// ```
     pub fn set_equivalent_constraint<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -146,6 +184,12 @@ impl Constraint {
     }
 
     /// Sets the value of [supports_simulation][crate::model::Constraint::supports_simulation].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_orgpolicy_v2::model::Constraint;
+    /// let x = Constraint::new().set_supports_simulation(true);
+    /// ```
     pub fn set_supports_simulation<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.supports_simulation = v.into();
         self
@@ -155,6 +199,14 @@ impl Constraint {
     ///
     /// Note that all the setters affecting `constraint_type` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_orgpolicy_v2::model::Constraint;
+    /// use google_cloud_orgpolicy_v2::model::constraint;
+    /// use google_cloud_orgpolicy_v2::model::constraint::ListConstraint;
+    /// let x = Constraint::new().set_constraint_type(Some(constraint::ConstraintType::ListConstraint(ListConstraint::default().into())));
+    /// ```
     pub fn set_constraint_type<
         T: std::convert::Into<std::option::Option<crate::model::constraint::ConstraintType>>,
     >(
@@ -185,6 +237,15 @@ impl Constraint {
     ///
     /// Note that all the setters affecting `constraint_type` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_orgpolicy_v2::model::Constraint;
+    /// use google_cloud_orgpolicy_v2::model::constraint::ListConstraint;
+    /// let x = Constraint::new().set_list_constraint(ListConstraint::default()/* use setters */);
+    /// assert!(x.list_constraint().is_some());
+    /// assert!(x.boolean_constraint().is_none());
+    /// ```
     pub fn set_list_constraint<
         T: std::convert::Into<std::boxed::Box<crate::model::constraint::ListConstraint>>,
     >(
@@ -217,6 +278,15 @@ impl Constraint {
     ///
     /// Note that all the setters affecting `constraint_type` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_orgpolicy_v2::model::Constraint;
+    /// use google_cloud_orgpolicy_v2::model::constraint::BooleanConstraint;
+    /// let x = Constraint::new().set_boolean_constraint(BooleanConstraint::default()/* use setters */);
+    /// assert!(x.boolean_constraint().is_some());
+    /// assert!(x.list_constraint().is_none());
+    /// ```
     pub fn set_boolean_constraint<
         T: std::convert::Into<std::boxed::Box<crate::model::constraint::BooleanConstraint>>,
     >(
@@ -269,12 +339,24 @@ pub mod constraint {
         }
 
         /// Sets the value of [supports_in][crate::model::constraint::ListConstraint::supports_in].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_orgpolicy_v2::model::constraint::ListConstraint;
+        /// let x = ListConstraint::new().set_supports_in(true);
+        /// ```
         pub fn set_supports_in<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.supports_in = v.into();
             self
         }
 
         /// Sets the value of [supports_under][crate::model::constraint::ListConstraint::supports_under].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_orgpolicy_v2::model::constraint::ListConstraint;
+        /// let x = ListConstraint::new().set_supports_under(true);
+        /// ```
         pub fn set_supports_under<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.supports_under = v.into();
             self
@@ -331,6 +413,12 @@ pub mod constraint {
         }
 
         /// Sets the value of [resource_types][crate::model::constraint::CustomConstraintDefinition::resource_types].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_orgpolicy_v2::model::constraint::CustomConstraintDefinition;
+        /// let x = CustomConstraintDefinition::new().set_resource_types(["a", "b", "c"]);
+        /// ```
         pub fn set_resource_types<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -342,6 +430,17 @@ pub mod constraint {
         }
 
         /// Sets the value of [method_types][crate::model::constraint::CustomConstraintDefinition::method_types].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_orgpolicy_v2::model::constraint::CustomConstraintDefinition;
+        /// use google_cloud_orgpolicy_v2::model::constraint::custom_constraint_definition::MethodType;
+        /// let x = CustomConstraintDefinition::new().set_method_types([
+        ///     MethodType::Create,
+        ///     MethodType::Update,
+        ///     MethodType::Delete,
+        /// ]);
+        /// ```
         pub fn set_method_types<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -355,12 +454,26 @@ pub mod constraint {
         }
 
         /// Sets the value of [condition][crate::model::constraint::CustomConstraintDefinition::condition].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_orgpolicy_v2::model::constraint::CustomConstraintDefinition;
+        /// let x = CustomConstraintDefinition::new().set_condition("example");
+        /// ```
         pub fn set_condition<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.condition = v.into();
             self
         }
 
         /// Sets the value of [action_type][crate::model::constraint::CustomConstraintDefinition::action_type].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_orgpolicy_v2::model::constraint::CustomConstraintDefinition;
+        /// use google_cloud_orgpolicy_v2::model::constraint::custom_constraint_definition::ActionType;
+        /// let x0 = CustomConstraintDefinition::new().set_action_type(ActionType::Allow);
+        /// let x1 = CustomConstraintDefinition::new().set_action_type(ActionType::Deny);
+        /// ```
         pub fn set_action_type<
             T: std::convert::Into<crate::model::constraint::custom_constraint_definition::ActionType>,
         >(
@@ -372,6 +485,16 @@ pub mod constraint {
         }
 
         /// Sets the value of [parameters][crate::model::constraint::CustomConstraintDefinition::parameters].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_orgpolicy_v2::model::constraint::CustomConstraintDefinition;
+        /// use google_cloud_orgpolicy_v2::model::constraint::custom_constraint_definition::Parameter;
+        /// let x = CustomConstraintDefinition::new().set_parameters([
+        ///     ("key0", Parameter::default()/* use setters */),
+        ///     ("key1", Parameter::default()/* use (different) setters */),
+        /// ]);
+        /// ```
         pub fn set_parameters<T, K, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = (K, V)>,
@@ -432,6 +555,15 @@ pub mod constraint {
             }
 
             /// Sets the value of [r#type][crate::model::constraint::custom_constraint_definition::Parameter::type].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_orgpolicy_v2::model::constraint::custom_constraint_definition::Parameter;
+            /// use google_cloud_orgpolicy_v2::model::constraint::custom_constraint_definition::parameter::Type;
+            /// let x0 = Parameter::new().set_type(Type::List);
+            /// let x1 = Parameter::new().set_type(Type::String);
+            /// let x2 = Parameter::new().set_type(Type::Boolean);
+            /// ```
             pub fn set_type<
                 T: std::convert::Into<
                         crate::model::constraint::custom_constraint_definition::parameter::Type,
@@ -445,6 +577,13 @@ pub mod constraint {
             }
 
             /// Sets the value of [default_value][crate::model::constraint::custom_constraint_definition::Parameter::default_value].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_orgpolicy_v2::model::constraint::custom_constraint_definition::Parameter;
+            /// use wkt::Value;
+            /// let x = Parameter::new().set_default_value(Value::default()/* use setters */);
+            /// ```
             pub fn set_default_value<T>(mut self, v: T) -> Self
             where
                 T: std::convert::Into<wkt::Value>,
@@ -454,6 +593,14 @@ pub mod constraint {
             }
 
             /// Sets or clears the value of [default_value][crate::model::constraint::custom_constraint_definition::Parameter::default_value].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_orgpolicy_v2::model::constraint::custom_constraint_definition::Parameter;
+            /// use wkt::Value;
+            /// let x = Parameter::new().set_or_clear_default_value(Some(Value::default()/* use setters */));
+            /// let x = Parameter::new().set_or_clear_default_value(None::<Value>);
+            /// ```
             pub fn set_or_clear_default_value<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<wkt::Value>,
@@ -463,6 +610,12 @@ pub mod constraint {
             }
 
             /// Sets the value of [valid_values_expr][crate::model::constraint::custom_constraint_definition::Parameter::valid_values_expr].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_orgpolicy_v2::model::constraint::custom_constraint_definition::Parameter;
+            /// let x = Parameter::new().set_valid_values_expr("example");
+            /// ```
             pub fn set_valid_values_expr<T: std::convert::Into<std::string::String>>(
                 mut self,
                 v: T,
@@ -472,6 +625,13 @@ pub mod constraint {
             }
 
             /// Sets the value of [metadata][crate::model::constraint::custom_constraint_definition::Parameter::metadata].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_orgpolicy_v2::model::constraint::custom_constraint_definition::Parameter;
+            /// use google_cloud_orgpolicy_v2::model::constraint::custom_constraint_definition::parameter::Metadata;
+            /// let x = Parameter::new().set_metadata(Metadata::default()/* use setters */);
+            /// ```
             pub fn set_metadata<T>(mut self, v: T) -> Self
             where
                 T: std::convert::Into<
@@ -483,6 +643,14 @@ pub mod constraint {
             }
 
             /// Sets or clears the value of [metadata][crate::model::constraint::custom_constraint_definition::Parameter::metadata].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_orgpolicy_v2::model::constraint::custom_constraint_definition::Parameter;
+            /// use google_cloud_orgpolicy_v2::model::constraint::custom_constraint_definition::parameter::Metadata;
+            /// let x = Parameter::new().set_or_clear_metadata(Some(Metadata::default()/* use setters */));
+            /// let x = Parameter::new().set_or_clear_metadata(None::<Metadata>);
+            /// ```
             pub fn set_or_clear_metadata<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<
@@ -494,6 +662,15 @@ pub mod constraint {
             }
 
             /// Sets the value of [item][crate::model::constraint::custom_constraint_definition::Parameter::item].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_orgpolicy_v2::model::constraint::custom_constraint_definition::Parameter;
+            /// use google_cloud_orgpolicy_v2::model::constraint::custom_constraint_definition::parameter::Type;
+            /// let x0 = Parameter::new().set_item(Type::List);
+            /// let x1 = Parameter::new().set_item(Type::String);
+            /// let x2 = Parameter::new().set_item(Type::Boolean);
+            /// ```
             pub fn set_item<
                 T: std::convert::Into<
                         crate::model::constraint::custom_constraint_definition::parameter::Type,
@@ -535,6 +712,12 @@ pub mod constraint {
                 }
 
                 /// Sets the value of [description][crate::model::constraint::custom_constraint_definition::parameter::Metadata::description].
+                ///
+                /// # Example
+                /// ```
+                /// # use google_cloud_orgpolicy_v2::model::constraint::custom_constraint_definition::parameter::Metadata;
+                /// let x = Metadata::new().set_description("example");
+                /// ```
                 pub fn set_description<T: std::convert::Into<std::string::String>>(
                     mut self,
                     v: T,
@@ -1017,6 +1200,13 @@ pub mod constraint {
         }
 
         /// Sets the value of [custom_constraint_definition][crate::model::constraint::BooleanConstraint::custom_constraint_definition].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_orgpolicy_v2::model::constraint::BooleanConstraint;
+        /// use google_cloud_orgpolicy_v2::model::constraint::CustomConstraintDefinition;
+        /// let x = BooleanConstraint::new().set_custom_constraint_definition(CustomConstraintDefinition::default()/* use setters */);
+        /// ```
         pub fn set_custom_constraint_definition<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::constraint::CustomConstraintDefinition>,
@@ -1026,6 +1216,14 @@ pub mod constraint {
         }
 
         /// Sets or clears the value of [custom_constraint_definition][crate::model::constraint::BooleanConstraint::custom_constraint_definition].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_orgpolicy_v2::model::constraint::BooleanConstraint;
+        /// use google_cloud_orgpolicy_v2::model::constraint::CustomConstraintDefinition;
+        /// let x = BooleanConstraint::new().set_or_clear_custom_constraint_definition(Some(CustomConstraintDefinition::default()/* use setters */));
+        /// let x = BooleanConstraint::new().set_or_clear_custom_constraint_definition(None::<CustomConstraintDefinition>);
+        /// ```
         pub fn set_or_clear_custom_constraint_definition<T>(
             mut self,
             v: std::option::Option<T>,
@@ -1257,12 +1455,24 @@ impl CustomConstraint {
     }
 
     /// Sets the value of [name][crate::model::CustomConstraint::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_orgpolicy_v2::model::CustomConstraint;
+    /// let x = CustomConstraint::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [resource_types][crate::model::CustomConstraint::resource_types].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_orgpolicy_v2::model::CustomConstraint;
+    /// let x = CustomConstraint::new().set_resource_types(["a", "b", "c"]);
+    /// ```
     pub fn set_resource_types<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1274,6 +1484,17 @@ impl CustomConstraint {
     }
 
     /// Sets the value of [method_types][crate::model::CustomConstraint::method_types].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_orgpolicy_v2::model::CustomConstraint;
+    /// use google_cloud_orgpolicy_v2::model::custom_constraint::MethodType;
+    /// let x = CustomConstraint::new().set_method_types([
+    ///     MethodType::Create,
+    ///     MethodType::Update,
+    ///     MethodType::Delete,
+    /// ]);
+    /// ```
     pub fn set_method_types<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1285,12 +1506,26 @@ impl CustomConstraint {
     }
 
     /// Sets the value of [condition][crate::model::CustomConstraint::condition].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_orgpolicy_v2::model::CustomConstraint;
+    /// let x = CustomConstraint::new().set_condition("example");
+    /// ```
     pub fn set_condition<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.condition = v.into();
         self
     }
 
     /// Sets the value of [action_type][crate::model::CustomConstraint::action_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_orgpolicy_v2::model::CustomConstraint;
+    /// use google_cloud_orgpolicy_v2::model::custom_constraint::ActionType;
+    /// let x0 = CustomConstraint::new().set_action_type(ActionType::Allow);
+    /// let x1 = CustomConstraint::new().set_action_type(ActionType::Deny);
+    /// ```
     pub fn set_action_type<T: std::convert::Into<crate::model::custom_constraint::ActionType>>(
         mut self,
         v: T,
@@ -1300,18 +1535,37 @@ impl CustomConstraint {
     }
 
     /// Sets the value of [display_name][crate::model::CustomConstraint::display_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_orgpolicy_v2::model::CustomConstraint;
+    /// let x = CustomConstraint::new().set_display_name("example");
+    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
     }
 
     /// Sets the value of [description][crate::model::CustomConstraint::description].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_orgpolicy_v2::model::CustomConstraint;
+    /// let x = CustomConstraint::new().set_description("example");
+    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [update_time][crate::model::CustomConstraint::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_orgpolicy_v2::model::CustomConstraint;
+    /// use wkt::Timestamp;
+    /// let x = CustomConstraint::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1321,6 +1575,14 @@ impl CustomConstraint {
     }
 
     /// Sets or clears the value of [update_time][crate::model::CustomConstraint::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_orgpolicy_v2::model::CustomConstraint;
+    /// use wkt::Timestamp;
+    /// let x = CustomConstraint::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = CustomConstraint::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1683,12 +1945,25 @@ impl Policy {
     }
 
     /// Sets the value of [name][crate::model::Policy::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_orgpolicy_v2::model::Policy;
+    /// let x = Policy::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [spec][crate::model::Policy::spec].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_orgpolicy_v2::model::Policy;
+    /// use google_cloud_orgpolicy_v2::model::PolicySpec;
+    /// let x = Policy::new().set_spec(PolicySpec::default()/* use setters */);
+    /// ```
     pub fn set_spec<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::PolicySpec>,
@@ -1698,6 +1973,14 @@ impl Policy {
     }
 
     /// Sets or clears the value of [spec][crate::model::Policy::spec].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_orgpolicy_v2::model::Policy;
+    /// use google_cloud_orgpolicy_v2::model::PolicySpec;
+    /// let x = Policy::new().set_or_clear_spec(Some(PolicySpec::default()/* use setters */));
+    /// let x = Policy::new().set_or_clear_spec(None::<PolicySpec>);
+    /// ```
     pub fn set_or_clear_spec<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::PolicySpec>,
@@ -1707,6 +1990,13 @@ impl Policy {
     }
 
     /// Sets the value of [alternate][crate::model::Policy::alternate].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_orgpolicy_v2::model::Policy;
+    /// use google_cloud_orgpolicy_v2::model::AlternatePolicySpec;
+    /// let x = Policy::new().set_alternate(AlternatePolicySpec::default()/* use setters */);
+    /// ```
     #[deprecated]
     pub fn set_alternate<T>(mut self, v: T) -> Self
     where
@@ -1717,6 +2007,14 @@ impl Policy {
     }
 
     /// Sets or clears the value of [alternate][crate::model::Policy::alternate].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_orgpolicy_v2::model::Policy;
+    /// use google_cloud_orgpolicy_v2::model::AlternatePolicySpec;
+    /// let x = Policy::new().set_or_clear_alternate(Some(AlternatePolicySpec::default()/* use setters */));
+    /// let x = Policy::new().set_or_clear_alternate(None::<AlternatePolicySpec>);
+    /// ```
     #[deprecated]
     pub fn set_or_clear_alternate<T>(mut self, v: std::option::Option<T>) -> Self
     where
@@ -1727,6 +2025,13 @@ impl Policy {
     }
 
     /// Sets the value of [dry_run_spec][crate::model::Policy::dry_run_spec].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_orgpolicy_v2::model::Policy;
+    /// use google_cloud_orgpolicy_v2::model::PolicySpec;
+    /// let x = Policy::new().set_dry_run_spec(PolicySpec::default()/* use setters */);
+    /// ```
     pub fn set_dry_run_spec<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::PolicySpec>,
@@ -1736,6 +2041,14 @@ impl Policy {
     }
 
     /// Sets or clears the value of [dry_run_spec][crate::model::Policy::dry_run_spec].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_orgpolicy_v2::model::Policy;
+    /// use google_cloud_orgpolicy_v2::model::PolicySpec;
+    /// let x = Policy::new().set_or_clear_dry_run_spec(Some(PolicySpec::default()/* use setters */));
+    /// let x = Policy::new().set_or_clear_dry_run_spec(None::<PolicySpec>);
+    /// ```
     pub fn set_or_clear_dry_run_spec<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::PolicySpec>,
@@ -1745,6 +2058,12 @@ impl Policy {
     }
 
     /// Sets the value of [etag][crate::model::Policy::etag].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_orgpolicy_v2::model::Policy;
+    /// let x = Policy::new().set_etag("example");
+    /// ```
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
@@ -1779,12 +2098,25 @@ impl AlternatePolicySpec {
     }
 
     /// Sets the value of [launch][crate::model::AlternatePolicySpec::launch].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_orgpolicy_v2::model::AlternatePolicySpec;
+    /// let x = AlternatePolicySpec::new().set_launch("example");
+    /// ```
     pub fn set_launch<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.launch = v.into();
         self
     }
 
     /// Sets the value of [spec][crate::model::AlternatePolicySpec::spec].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_orgpolicy_v2::model::AlternatePolicySpec;
+    /// use google_cloud_orgpolicy_v2::model::PolicySpec;
+    /// let x = AlternatePolicySpec::new().set_spec(PolicySpec::default()/* use setters */);
+    /// ```
     pub fn set_spec<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::PolicySpec>,
@@ -1794,6 +2126,14 @@ impl AlternatePolicySpec {
     }
 
     /// Sets or clears the value of [spec][crate::model::AlternatePolicySpec::spec].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_orgpolicy_v2::model::AlternatePolicySpec;
+    /// use google_cloud_orgpolicy_v2::model::PolicySpec;
+    /// let x = AlternatePolicySpec::new().set_or_clear_spec(Some(PolicySpec::default()/* use setters */));
+    /// let x = AlternatePolicySpec::new().set_or_clear_spec(None::<PolicySpec>);
+    /// ```
     pub fn set_or_clear_spec<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::PolicySpec>,
@@ -1867,12 +2207,25 @@ impl PolicySpec {
     }
 
     /// Sets the value of [etag][crate::model::PolicySpec::etag].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_orgpolicy_v2::model::PolicySpec;
+    /// let x = PolicySpec::new().set_etag("example");
+    /// ```
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
     }
 
     /// Sets the value of [update_time][crate::model::PolicySpec::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_orgpolicy_v2::model::PolicySpec;
+    /// use wkt::Timestamp;
+    /// let x = PolicySpec::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1882,6 +2235,14 @@ impl PolicySpec {
     }
 
     /// Sets or clears the value of [update_time][crate::model::PolicySpec::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_orgpolicy_v2::model::PolicySpec;
+    /// use wkt::Timestamp;
+    /// let x = PolicySpec::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = PolicySpec::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1891,6 +2252,17 @@ impl PolicySpec {
     }
 
     /// Sets the value of [rules][crate::model::PolicySpec::rules].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_orgpolicy_v2::model::PolicySpec;
+    /// use google_cloud_orgpolicy_v2::model::policy_spec::PolicyRule;
+    /// let x = PolicySpec::new()
+    ///     .set_rules([
+    ///         PolicyRule::default()/* use setters */,
+    ///         PolicyRule::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_rules<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1902,12 +2274,24 @@ impl PolicySpec {
     }
 
     /// Sets the value of [inherit_from_parent][crate::model::PolicySpec::inherit_from_parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_orgpolicy_v2::model::PolicySpec;
+    /// let x = PolicySpec::new().set_inherit_from_parent(true);
+    /// ```
     pub fn set_inherit_from_parent<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.inherit_from_parent = v.into();
         self
     }
 
     /// Sets the value of [reset][crate::model::PolicySpec::reset].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_orgpolicy_v2::model::PolicySpec;
+    /// let x = PolicySpec::new().set_reset(true);
+    /// ```
     pub fn set_reset<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.reset = v.into();
         self
@@ -1964,6 +2348,13 @@ pub mod policy_spec {
         }
 
         /// Sets the value of [condition][crate::model::policy_spec::PolicyRule::condition].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_orgpolicy_v2::model::policy_spec::PolicyRule;
+        /// use gtype::model::Expr;
+        /// let x = PolicyRule::new().set_condition(Expr::default()/* use setters */);
+        /// ```
         pub fn set_condition<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<gtype::model::Expr>,
@@ -1973,6 +2364,14 @@ pub mod policy_spec {
         }
 
         /// Sets or clears the value of [condition][crate::model::policy_spec::PolicyRule::condition].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_orgpolicy_v2::model::policy_spec::PolicyRule;
+        /// use gtype::model::Expr;
+        /// let x = PolicyRule::new().set_or_clear_condition(Some(Expr::default()/* use setters */));
+        /// let x = PolicyRule::new().set_or_clear_condition(None::<Expr>);
+        /// ```
         pub fn set_or_clear_condition<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<gtype::model::Expr>,
@@ -1982,6 +2381,13 @@ pub mod policy_spec {
         }
 
         /// Sets the value of [parameters][crate::model::policy_spec::PolicyRule::parameters].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_orgpolicy_v2::model::policy_spec::PolicyRule;
+        /// use wkt::Struct;
+        /// let x = PolicyRule::new().set_parameters(Struct::default()/* use setters */);
+        /// ```
         pub fn set_parameters<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Struct>,
@@ -1991,6 +2397,14 @@ pub mod policy_spec {
         }
 
         /// Sets or clears the value of [parameters][crate::model::policy_spec::PolicyRule::parameters].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_orgpolicy_v2::model::policy_spec::PolicyRule;
+        /// use wkt::Struct;
+        /// let x = PolicyRule::new().set_or_clear_parameters(Some(Struct::default()/* use setters */));
+        /// let x = PolicyRule::new().set_or_clear_parameters(None::<Struct>);
+        /// ```
         pub fn set_or_clear_parameters<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Struct>,
@@ -2003,6 +2417,13 @@ pub mod policy_spec {
         ///
         /// Note that all the setters affecting `kind` are mutually
         /// exclusive.
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_orgpolicy_v2::model::policy_spec::PolicyRule;
+        /// use google_cloud_orgpolicy_v2::model::policy_spec::policy_rule;
+        /// let x = PolicyRule::new().set_kind(Some(policy_spec::policy_rule::Kind::AllowAll(true)));
+        /// ```
         pub fn set_kind<
             T: std::convert::Into<std::option::Option<crate::model::policy_spec::policy_rule::Kind>>,
         >(
@@ -2035,6 +2456,17 @@ pub mod policy_spec {
         ///
         /// Note that all the setters affecting `kind` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_orgpolicy_v2::model::policy_spec::PolicyRule;
+        /// use google_cloud_orgpolicy_v2::model::policy_spec::policy_rule::StringValues;
+        /// let x = PolicyRule::new().set_values(StringValues::default()/* use setters */);
+        /// assert!(x.values().is_some());
+        /// assert!(x.allow_all().is_none());
+        /// assert!(x.deny_all().is_none());
+        /// assert!(x.enforce().is_none());
+        /// ```
         pub fn set_values<
             T: std::convert::Into<
                     std::boxed::Box<crate::model::policy_spec::policy_rule::StringValues>,
@@ -2067,6 +2499,16 @@ pub mod policy_spec {
         ///
         /// Note that all the setters affecting `kind` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_orgpolicy_v2::model::policy_spec::PolicyRule;
+        /// let x = PolicyRule::new().set_allow_all(true);
+        /// assert!(x.allow_all().is_some());
+        /// assert!(x.values().is_none());
+        /// assert!(x.deny_all().is_none());
+        /// assert!(x.enforce().is_none());
+        /// ```
         pub fn set_allow_all<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.kind = std::option::Option::Some(
                 crate::model::policy_spec::policy_rule::Kind::AllowAll(v.into()),
@@ -2092,6 +2534,16 @@ pub mod policy_spec {
         ///
         /// Note that all the setters affecting `kind` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_orgpolicy_v2::model::policy_spec::PolicyRule;
+        /// let x = PolicyRule::new().set_deny_all(true);
+        /// assert!(x.deny_all().is_some());
+        /// assert!(x.values().is_none());
+        /// assert!(x.allow_all().is_none());
+        /// assert!(x.enforce().is_none());
+        /// ```
         pub fn set_deny_all<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.kind = std::option::Option::Some(
                 crate::model::policy_spec::policy_rule::Kind::DenyAll(v.into()),
@@ -2117,6 +2569,16 @@ pub mod policy_spec {
         ///
         /// Note that all the setters affecting `kind` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_orgpolicy_v2::model::policy_spec::PolicyRule;
+        /// let x = PolicyRule::new().set_enforce(true);
+        /// assert!(x.enforce().is_some());
+        /// assert!(x.values().is_none());
+        /// assert!(x.allow_all().is_none());
+        /// assert!(x.deny_all().is_none());
+        /// ```
         pub fn set_enforce<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.kind = std::option::Option::Some(
                 crate::model::policy_spec::policy_rule::Kind::Enforce(v.into()),
@@ -2171,6 +2633,12 @@ pub mod policy_spec {
             }
 
             /// Sets the value of [allowed_values][crate::model::policy_spec::policy_rule::StringValues::allowed_values].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_orgpolicy_v2::model::policy_spec::policy_rule::StringValues;
+            /// let x = StringValues::new().set_allowed_values(["a", "b", "c"]);
+            /// ```
             pub fn set_allowed_values<T, V>(mut self, v: T) -> Self
             where
                 T: std::iter::IntoIterator<Item = V>,
@@ -2182,6 +2650,12 @@ pub mod policy_spec {
             }
 
             /// Sets the value of [denied_values][crate::model::policy_spec::policy_rule::StringValues::denied_values].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_orgpolicy_v2::model::policy_spec::policy_rule::StringValues;
+            /// let x = StringValues::new().set_denied_values(["a", "b", "c"]);
+            /// ```
             pub fn set_denied_values<T, V>(mut self, v: T) -> Self
             where
                 T: std::iter::IntoIterator<Item = V>,
@@ -2251,18 +2725,36 @@ impl ListConstraintsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListConstraintsRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_orgpolicy_v2::model::ListConstraintsRequest;
+    /// let x = ListConstraintsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListConstraintsRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_orgpolicy_v2::model::ListConstraintsRequest;
+    /// let x = ListConstraintsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListConstraintsRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_orgpolicy_v2::model::ListConstraintsRequest;
+    /// let x = ListConstraintsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -2295,6 +2787,17 @@ impl ListConstraintsResponse {
     }
 
     /// Sets the value of [constraints][crate::model::ListConstraintsResponse::constraints].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_orgpolicy_v2::model::ListConstraintsResponse;
+    /// use google_cloud_orgpolicy_v2::model::Constraint;
+    /// let x = ListConstraintsResponse::new()
+    ///     .set_constraints([
+    ///         Constraint::default()/* use setters */,
+    ///         Constraint::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_constraints<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2306,6 +2809,12 @@ impl ListConstraintsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListConstraintsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_orgpolicy_v2::model::ListConstraintsResponse;
+    /// let x = ListConstraintsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -2365,18 +2874,36 @@ impl ListPoliciesRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListPoliciesRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_orgpolicy_v2::model::ListPoliciesRequest;
+    /// let x = ListPoliciesRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListPoliciesRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_orgpolicy_v2::model::ListPoliciesRequest;
+    /// let x = ListPoliciesRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListPoliciesRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_orgpolicy_v2::model::ListPoliciesRequest;
+    /// let x = ListPoliciesRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -2412,6 +2939,17 @@ impl ListPoliciesResponse {
     }
 
     /// Sets the value of [policies][crate::model::ListPoliciesResponse::policies].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_orgpolicy_v2::model::ListPoliciesResponse;
+    /// use google_cloud_orgpolicy_v2::model::Policy;
+    /// let x = ListPoliciesResponse::new()
+    ///     .set_policies([
+    ///         Policy::default()/* use setters */,
+    ///         Policy::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_policies<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2423,6 +2961,12 @@ impl ListPoliciesResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListPoliciesResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_orgpolicy_v2::model::ListPoliciesResponse;
+    /// let x = ListPoliciesResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -2469,6 +3013,12 @@ impl GetPolicyRequest {
     }
 
     /// Sets the value of [name][crate::model::GetPolicyRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_orgpolicy_v2::model::GetPolicyRequest;
+    /// let x = GetPolicyRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -2501,6 +3051,12 @@ impl GetEffectivePolicyRequest {
     }
 
     /// Sets the value of [name][crate::model::GetEffectivePolicyRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_orgpolicy_v2::model::GetEffectivePolicyRequest;
+    /// let x = GetEffectivePolicyRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -2539,12 +3095,25 @@ impl CreatePolicyRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreatePolicyRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_orgpolicy_v2::model::CreatePolicyRequest;
+    /// let x = CreatePolicyRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [policy][crate::model::CreatePolicyRequest::policy].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_orgpolicy_v2::model::CreatePolicyRequest;
+    /// use google_cloud_orgpolicy_v2::model::Policy;
+    /// let x = CreatePolicyRequest::new().set_policy(Policy::default()/* use setters */);
+    /// ```
     pub fn set_policy<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Policy>,
@@ -2554,6 +3123,14 @@ impl CreatePolicyRequest {
     }
 
     /// Sets or clears the value of [policy][crate::model::CreatePolicyRequest::policy].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_orgpolicy_v2::model::CreatePolicyRequest;
+    /// use google_cloud_orgpolicy_v2::model::Policy;
+    /// let x = CreatePolicyRequest::new().set_or_clear_policy(Some(Policy::default()/* use setters */));
+    /// let x = CreatePolicyRequest::new().set_or_clear_policy(None::<Policy>);
+    /// ```
     pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Policy>,
@@ -2591,6 +3168,13 @@ impl UpdatePolicyRequest {
     }
 
     /// Sets the value of [policy][crate::model::UpdatePolicyRequest::policy].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_orgpolicy_v2::model::UpdatePolicyRequest;
+    /// use google_cloud_orgpolicy_v2::model::Policy;
+    /// let x = UpdatePolicyRequest::new().set_policy(Policy::default()/* use setters */);
+    /// ```
     pub fn set_policy<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Policy>,
@@ -2600,6 +3184,14 @@ impl UpdatePolicyRequest {
     }
 
     /// Sets or clears the value of [policy][crate::model::UpdatePolicyRequest::policy].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_orgpolicy_v2::model::UpdatePolicyRequest;
+    /// use google_cloud_orgpolicy_v2::model::Policy;
+    /// let x = UpdatePolicyRequest::new().set_or_clear_policy(Some(Policy::default()/* use setters */));
+    /// let x = UpdatePolicyRequest::new().set_or_clear_policy(None::<Policy>);
+    /// ```
     pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Policy>,
@@ -2609,6 +3201,13 @@ impl UpdatePolicyRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdatePolicyRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_orgpolicy_v2::model::UpdatePolicyRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdatePolicyRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -2618,6 +3217,14 @@ impl UpdatePolicyRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdatePolicyRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_orgpolicy_v2::model::UpdatePolicyRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdatePolicyRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdatePolicyRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -2656,12 +3263,24 @@ impl DeletePolicyRequest {
     }
 
     /// Sets the value of [name][crate::model::DeletePolicyRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_orgpolicy_v2::model::DeletePolicyRequest;
+    /// let x = DeletePolicyRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [etag][crate::model::DeletePolicyRequest::etag].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_orgpolicy_v2::model::DeletePolicyRequest;
+    /// let x = DeletePolicyRequest::new().set_etag("example");
+    /// ```
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
@@ -2696,12 +3315,25 @@ impl CreateCustomConstraintRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateCustomConstraintRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_orgpolicy_v2::model::CreateCustomConstraintRequest;
+    /// let x = CreateCustomConstraintRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [custom_constraint][crate::model::CreateCustomConstraintRequest::custom_constraint].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_orgpolicy_v2::model::CreateCustomConstraintRequest;
+    /// use google_cloud_orgpolicy_v2::model::CustomConstraint;
+    /// let x = CreateCustomConstraintRequest::new().set_custom_constraint(CustomConstraint::default()/* use setters */);
+    /// ```
     pub fn set_custom_constraint<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::CustomConstraint>,
@@ -2711,6 +3343,14 @@ impl CreateCustomConstraintRequest {
     }
 
     /// Sets or clears the value of [custom_constraint][crate::model::CreateCustomConstraintRequest::custom_constraint].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_orgpolicy_v2::model::CreateCustomConstraintRequest;
+    /// use google_cloud_orgpolicy_v2::model::CustomConstraint;
+    /// let x = CreateCustomConstraintRequest::new().set_or_clear_custom_constraint(Some(CustomConstraint::default()/* use setters */));
+    /// let x = CreateCustomConstraintRequest::new().set_or_clear_custom_constraint(None::<CustomConstraint>);
+    /// ```
     pub fn set_or_clear_custom_constraint<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CustomConstraint>,
@@ -2744,6 +3384,12 @@ impl GetCustomConstraintRequest {
     }
 
     /// Sets the value of [name][crate::model::GetCustomConstraintRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_orgpolicy_v2::model::GetCustomConstraintRequest;
+    /// let x = GetCustomConstraintRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -2786,18 +3432,36 @@ impl ListCustomConstraintsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListCustomConstraintsRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_orgpolicy_v2::model::ListCustomConstraintsRequest;
+    /// let x = ListCustomConstraintsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListCustomConstraintsRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_orgpolicy_v2::model::ListCustomConstraintsRequest;
+    /// let x = ListCustomConstraintsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListCustomConstraintsRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_orgpolicy_v2::model::ListCustomConstraintsRequest;
+    /// let x = ListCustomConstraintsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -2834,6 +3498,17 @@ impl ListCustomConstraintsResponse {
     }
 
     /// Sets the value of [custom_constraints][crate::model::ListCustomConstraintsResponse::custom_constraints].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_orgpolicy_v2::model::ListCustomConstraintsResponse;
+    /// use google_cloud_orgpolicy_v2::model::CustomConstraint;
+    /// let x = ListCustomConstraintsResponse::new()
+    ///     .set_custom_constraints([
+    ///         CustomConstraint::default()/* use setters */,
+    ///         CustomConstraint::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_custom_constraints<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2845,6 +3520,12 @@ impl ListCustomConstraintsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListCustomConstraintsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_orgpolicy_v2::model::ListCustomConstraintsResponse;
+    /// let x = ListCustomConstraintsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -2888,6 +3569,13 @@ impl UpdateCustomConstraintRequest {
     }
 
     /// Sets the value of [custom_constraint][crate::model::UpdateCustomConstraintRequest::custom_constraint].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_orgpolicy_v2::model::UpdateCustomConstraintRequest;
+    /// use google_cloud_orgpolicy_v2::model::CustomConstraint;
+    /// let x = UpdateCustomConstraintRequest::new().set_custom_constraint(CustomConstraint::default()/* use setters */);
+    /// ```
     pub fn set_custom_constraint<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::CustomConstraint>,
@@ -2897,6 +3585,14 @@ impl UpdateCustomConstraintRequest {
     }
 
     /// Sets or clears the value of [custom_constraint][crate::model::UpdateCustomConstraintRequest::custom_constraint].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_orgpolicy_v2::model::UpdateCustomConstraintRequest;
+    /// use google_cloud_orgpolicy_v2::model::CustomConstraint;
+    /// let x = UpdateCustomConstraintRequest::new().set_or_clear_custom_constraint(Some(CustomConstraint::default()/* use setters */));
+    /// let x = UpdateCustomConstraintRequest::new().set_or_clear_custom_constraint(None::<CustomConstraint>);
+    /// ```
     pub fn set_or_clear_custom_constraint<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CustomConstraint>,
@@ -2930,6 +3626,12 @@ impl DeleteCustomConstraintRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteCustomConstraintRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_orgpolicy_v2::model::DeleteCustomConstraintRequest;
+    /// let x = DeleteCustomConstraintRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self

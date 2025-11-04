@@ -60,6 +60,12 @@ impl GetAuthorizationRequest {
     }
 
     /// Sets the value of [name][crate::model::GetAuthorizationRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gsuiteaddons_v1::model::GetAuthorizationRequest;
+    /// let x = GetAuthorizationRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -97,12 +103,24 @@ impl Authorization {
     }
 
     /// Sets the value of [name][crate::model::Authorization::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gsuiteaddons_v1::model::Authorization;
+    /// let x = Authorization::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [service_account_email][crate::model::Authorization::service_account_email].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gsuiteaddons_v1::model::Authorization;
+    /// let x = Authorization::new().set_service_account_email("example");
+    /// ```
     pub fn set_service_account_email<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -112,6 +130,12 @@ impl Authorization {
     }
 
     /// Sets the value of [oauth_client_id][crate::model::Authorization::oauth_client_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gsuiteaddons_v1::model::Authorization;
+    /// let x = Authorization::new().set_oauth_client_id("example");
+    /// ```
     pub fn set_oauth_client_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.oauth_client_id = v.into();
         self
@@ -149,18 +173,37 @@ impl CreateDeploymentRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateDeploymentRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gsuiteaddons_v1::model::CreateDeploymentRequest;
+    /// let x = CreateDeploymentRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [deployment_id][crate::model::CreateDeploymentRequest::deployment_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gsuiteaddons_v1::model::CreateDeploymentRequest;
+    /// let x = CreateDeploymentRequest::new().set_deployment_id("example");
+    /// ```
     pub fn set_deployment_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.deployment_id = v.into();
         self
     }
 
     /// Sets the value of [deployment][crate::model::CreateDeploymentRequest::deployment].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gsuiteaddons_v1::model::CreateDeploymentRequest;
+    /// use google_cloud_gsuiteaddons_v1::model::Deployment;
+    /// let x = CreateDeploymentRequest::new().set_deployment(Deployment::default()/* use setters */);
+    /// ```
     pub fn set_deployment<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Deployment>,
@@ -170,6 +213,14 @@ impl CreateDeploymentRequest {
     }
 
     /// Sets or clears the value of [deployment][crate::model::CreateDeploymentRequest::deployment].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gsuiteaddons_v1::model::CreateDeploymentRequest;
+    /// use google_cloud_gsuiteaddons_v1::model::Deployment;
+    /// let x = CreateDeploymentRequest::new().set_or_clear_deployment(Some(Deployment::default()/* use setters */));
+    /// let x = CreateDeploymentRequest::new().set_or_clear_deployment(None::<Deployment>);
+    /// ```
     pub fn set_or_clear_deployment<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Deployment>,
@@ -201,6 +252,13 @@ impl ReplaceDeploymentRequest {
     }
 
     /// Sets the value of [deployment][crate::model::ReplaceDeploymentRequest::deployment].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gsuiteaddons_v1::model::ReplaceDeploymentRequest;
+    /// use google_cloud_gsuiteaddons_v1::model::Deployment;
+    /// let x = ReplaceDeploymentRequest::new().set_deployment(Deployment::default()/* use setters */);
+    /// ```
     pub fn set_deployment<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Deployment>,
@@ -210,6 +268,14 @@ impl ReplaceDeploymentRequest {
     }
 
     /// Sets or clears the value of [deployment][crate::model::ReplaceDeploymentRequest::deployment].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gsuiteaddons_v1::model::ReplaceDeploymentRequest;
+    /// use google_cloud_gsuiteaddons_v1::model::Deployment;
+    /// let x = ReplaceDeploymentRequest::new().set_or_clear_deployment(Some(Deployment::default()/* use setters */));
+    /// let x = ReplaceDeploymentRequest::new().set_or_clear_deployment(None::<Deployment>);
+    /// ```
     pub fn set_or_clear_deployment<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Deployment>,
@@ -243,6 +309,12 @@ impl GetDeploymentRequest {
     }
 
     /// Sets the value of [name][crate::model::GetDeploymentRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gsuiteaddons_v1::model::GetDeploymentRequest;
+    /// let x = GetDeploymentRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -286,18 +358,36 @@ impl ListDeploymentsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListDeploymentsRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gsuiteaddons_v1::model::ListDeploymentsRequest;
+    /// let x = ListDeploymentsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListDeploymentsRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gsuiteaddons_v1::model::ListDeploymentsRequest;
+    /// let x = ListDeploymentsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListDeploymentsRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gsuiteaddons_v1::model::ListDeploymentsRequest;
+    /// let x = ListDeploymentsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -330,6 +420,17 @@ impl ListDeploymentsResponse {
     }
 
     /// Sets the value of [deployments][crate::model::ListDeploymentsResponse::deployments].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gsuiteaddons_v1::model::ListDeploymentsResponse;
+    /// use google_cloud_gsuiteaddons_v1::model::Deployment;
+    /// let x = ListDeploymentsResponse::new()
+    ///     .set_deployments([
+    ///         Deployment::default()/* use setters */,
+    ///         Deployment::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_deployments<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -341,6 +442,12 @@ impl ListDeploymentsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListDeploymentsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gsuiteaddons_v1::model::ListDeploymentsResponse;
+    /// let x = ListDeploymentsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -389,12 +496,24 @@ impl DeleteDeploymentRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteDeploymentRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gsuiteaddons_v1::model::DeleteDeploymentRequest;
+    /// let x = DeleteDeploymentRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [etag][crate::model::DeleteDeploymentRequest::etag].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gsuiteaddons_v1::model::DeleteDeploymentRequest;
+    /// let x = DeleteDeploymentRequest::new().set_etag("example");
+    /// ```
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
@@ -425,6 +544,12 @@ impl InstallDeploymentRequest {
     }
 
     /// Sets the value of [name][crate::model::InstallDeploymentRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gsuiteaddons_v1::model::InstallDeploymentRequest;
+    /// let x = InstallDeploymentRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -455,6 +580,12 @@ impl UninstallDeploymentRequest {
     }
 
     /// Sets the value of [name][crate::model::UninstallDeploymentRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gsuiteaddons_v1::model::UninstallDeploymentRequest;
+    /// let x = UninstallDeploymentRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -485,6 +616,12 @@ impl GetInstallStatusRequest {
     }
 
     /// Sets the value of [name][crate::model::GetInstallStatusRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gsuiteaddons_v1::model::GetInstallStatusRequest;
+    /// let x = GetInstallStatusRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -518,12 +655,25 @@ impl InstallStatus {
     }
 
     /// Sets the value of [name][crate::model::InstallStatus::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gsuiteaddons_v1::model::InstallStatus;
+    /// let x = InstallStatus::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [installed][crate::model::InstallStatus::installed].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gsuiteaddons_v1::model::InstallStatus;
+    /// use wkt::BoolValue;
+    /// let x = InstallStatus::new().set_installed(BoolValue::default()/* use setters */);
+    /// ```
     pub fn set_installed<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::BoolValue>,
@@ -533,6 +683,14 @@ impl InstallStatus {
     }
 
     /// Sets or clears the value of [installed][crate::model::InstallStatus::installed].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gsuiteaddons_v1::model::InstallStatus;
+    /// use wkt::BoolValue;
+    /// let x = InstallStatus::new().set_or_clear_installed(Some(BoolValue::default()/* use setters */));
+    /// let x = InstallStatus::new().set_or_clear_installed(None::<BoolValue>);
+    /// ```
     pub fn set_or_clear_installed<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::BoolValue>,
@@ -577,12 +735,24 @@ impl Deployment {
     }
 
     /// Sets the value of [name][crate::model::Deployment::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gsuiteaddons_v1::model::Deployment;
+    /// let x = Deployment::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [oauth_scopes][crate::model::Deployment::oauth_scopes].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gsuiteaddons_v1::model::Deployment;
+    /// let x = Deployment::new().set_oauth_scopes(["a", "b", "c"]);
+    /// ```
     pub fn set_oauth_scopes<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -594,6 +764,13 @@ impl Deployment {
     }
 
     /// Sets the value of [add_ons][crate::model::Deployment::add_ons].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gsuiteaddons_v1::model::Deployment;
+    /// use google_cloud_gsuiteaddons_v1::model::AddOns;
+    /// let x = Deployment::new().set_add_ons(AddOns::default()/* use setters */);
+    /// ```
     pub fn set_add_ons<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::AddOns>,
@@ -603,6 +780,14 @@ impl Deployment {
     }
 
     /// Sets or clears the value of [add_ons][crate::model::Deployment::add_ons].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gsuiteaddons_v1::model::Deployment;
+    /// use google_cloud_gsuiteaddons_v1::model::AddOns;
+    /// let x = Deployment::new().set_or_clear_add_ons(Some(AddOns::default()/* use setters */));
+    /// let x = Deployment::new().set_or_clear_add_ons(None::<AddOns>);
+    /// ```
     pub fn set_or_clear_add_ons<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AddOns>,
@@ -612,6 +797,12 @@ impl Deployment {
     }
 
     /// Sets the value of [etag][crate::model::Deployment::etag].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gsuiteaddons_v1::model::Deployment;
+    /// let x = Deployment::new().set_etag("example");
+    /// ```
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
@@ -661,6 +852,13 @@ impl AddOns {
     }
 
     /// Sets the value of [common][crate::model::AddOns::common].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gsuiteaddons_v1::model::AddOns;
+    /// use apps_script_type::model::CommonAddOnManifest;
+    /// let x = AddOns::new().set_common(CommonAddOnManifest::default()/* use setters */);
+    /// ```
     pub fn set_common<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<apps_script_type::model::CommonAddOnManifest>,
@@ -670,6 +868,14 @@ impl AddOns {
     }
 
     /// Sets or clears the value of [common][crate::model::AddOns::common].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gsuiteaddons_v1::model::AddOns;
+    /// use apps_script_type::model::CommonAddOnManifest;
+    /// let x = AddOns::new().set_or_clear_common(Some(CommonAddOnManifest::default()/* use setters */));
+    /// let x = AddOns::new().set_or_clear_common(None::<CommonAddOnManifest>);
+    /// ```
     pub fn set_or_clear_common<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<apps_script_type::model::CommonAddOnManifest>,
@@ -679,6 +885,13 @@ impl AddOns {
     }
 
     /// Sets the value of [gmail][crate::model::AddOns::gmail].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gsuiteaddons_v1::model::AddOns;
+    /// use apps_script_gmail::model::GmailAddOnManifest;
+    /// let x = AddOns::new().set_gmail(GmailAddOnManifest::default()/* use setters */);
+    /// ```
     pub fn set_gmail<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<apps_script_gmail::model::GmailAddOnManifest>,
@@ -688,6 +901,14 @@ impl AddOns {
     }
 
     /// Sets or clears the value of [gmail][crate::model::AddOns::gmail].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gsuiteaddons_v1::model::AddOns;
+    /// use apps_script_gmail::model::GmailAddOnManifest;
+    /// let x = AddOns::new().set_or_clear_gmail(Some(GmailAddOnManifest::default()/* use setters */));
+    /// let x = AddOns::new().set_or_clear_gmail(None::<GmailAddOnManifest>);
+    /// ```
     pub fn set_or_clear_gmail<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<apps_script_gmail::model::GmailAddOnManifest>,
@@ -697,6 +918,13 @@ impl AddOns {
     }
 
     /// Sets the value of [drive][crate::model::AddOns::drive].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gsuiteaddons_v1::model::AddOns;
+    /// use apps_script_drive::model::DriveAddOnManifest;
+    /// let x = AddOns::new().set_drive(DriveAddOnManifest::default()/* use setters */);
+    /// ```
     pub fn set_drive<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<apps_script_drive::model::DriveAddOnManifest>,
@@ -706,6 +934,14 @@ impl AddOns {
     }
 
     /// Sets or clears the value of [drive][crate::model::AddOns::drive].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gsuiteaddons_v1::model::AddOns;
+    /// use apps_script_drive::model::DriveAddOnManifest;
+    /// let x = AddOns::new().set_or_clear_drive(Some(DriveAddOnManifest::default()/* use setters */));
+    /// let x = AddOns::new().set_or_clear_drive(None::<DriveAddOnManifest>);
+    /// ```
     pub fn set_or_clear_drive<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<apps_script_drive::model::DriveAddOnManifest>,
@@ -715,6 +951,13 @@ impl AddOns {
     }
 
     /// Sets the value of [calendar][crate::model::AddOns::calendar].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gsuiteaddons_v1::model::AddOns;
+    /// use apps_script_calendar::model::CalendarAddOnManifest;
+    /// let x = AddOns::new().set_calendar(CalendarAddOnManifest::default()/* use setters */);
+    /// ```
     pub fn set_calendar<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<apps_script_calendar::model::CalendarAddOnManifest>,
@@ -724,6 +967,14 @@ impl AddOns {
     }
 
     /// Sets or clears the value of [calendar][crate::model::AddOns::calendar].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gsuiteaddons_v1::model::AddOns;
+    /// use apps_script_calendar::model::CalendarAddOnManifest;
+    /// let x = AddOns::new().set_or_clear_calendar(Some(CalendarAddOnManifest::default()/* use setters */));
+    /// let x = AddOns::new().set_or_clear_calendar(None::<CalendarAddOnManifest>);
+    /// ```
     pub fn set_or_clear_calendar<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<apps_script_calendar::model::CalendarAddOnManifest>,
@@ -733,6 +984,13 @@ impl AddOns {
     }
 
     /// Sets the value of [docs][crate::model::AddOns::docs].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gsuiteaddons_v1::model::AddOns;
+    /// use apps_script_docs::model::DocsAddOnManifest;
+    /// let x = AddOns::new().set_docs(DocsAddOnManifest::default()/* use setters */);
+    /// ```
     pub fn set_docs<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<apps_script_docs::model::DocsAddOnManifest>,
@@ -742,6 +1000,14 @@ impl AddOns {
     }
 
     /// Sets or clears the value of [docs][crate::model::AddOns::docs].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gsuiteaddons_v1::model::AddOns;
+    /// use apps_script_docs::model::DocsAddOnManifest;
+    /// let x = AddOns::new().set_or_clear_docs(Some(DocsAddOnManifest::default()/* use setters */));
+    /// let x = AddOns::new().set_or_clear_docs(None::<DocsAddOnManifest>);
+    /// ```
     pub fn set_or_clear_docs<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<apps_script_docs::model::DocsAddOnManifest>,
@@ -751,6 +1017,13 @@ impl AddOns {
     }
 
     /// Sets the value of [sheets][crate::model::AddOns::sheets].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gsuiteaddons_v1::model::AddOns;
+    /// use apps_script_sheets::model::SheetsAddOnManifest;
+    /// let x = AddOns::new().set_sheets(SheetsAddOnManifest::default()/* use setters */);
+    /// ```
     pub fn set_sheets<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<apps_script_sheets::model::SheetsAddOnManifest>,
@@ -760,6 +1033,14 @@ impl AddOns {
     }
 
     /// Sets or clears the value of [sheets][crate::model::AddOns::sheets].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gsuiteaddons_v1::model::AddOns;
+    /// use apps_script_sheets::model::SheetsAddOnManifest;
+    /// let x = AddOns::new().set_or_clear_sheets(Some(SheetsAddOnManifest::default()/* use setters */));
+    /// let x = AddOns::new().set_or_clear_sheets(None::<SheetsAddOnManifest>);
+    /// ```
     pub fn set_or_clear_sheets<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<apps_script_sheets::model::SheetsAddOnManifest>,
@@ -769,6 +1050,13 @@ impl AddOns {
     }
 
     /// Sets the value of [slides][crate::model::AddOns::slides].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gsuiteaddons_v1::model::AddOns;
+    /// use apps_script_slides::model::SlidesAddOnManifest;
+    /// let x = AddOns::new().set_slides(SlidesAddOnManifest::default()/* use setters */);
+    /// ```
     pub fn set_slides<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<apps_script_slides::model::SlidesAddOnManifest>,
@@ -778,6 +1066,14 @@ impl AddOns {
     }
 
     /// Sets or clears the value of [slides][crate::model::AddOns::slides].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gsuiteaddons_v1::model::AddOns;
+    /// use apps_script_slides::model::SlidesAddOnManifest;
+    /// let x = AddOns::new().set_or_clear_slides(Some(SlidesAddOnManifest::default()/* use setters */));
+    /// let x = AddOns::new().set_or_clear_slides(None::<SlidesAddOnManifest>);
+    /// ```
     pub fn set_or_clear_slides<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<apps_script_slides::model::SlidesAddOnManifest>,
@@ -787,6 +1083,13 @@ impl AddOns {
     }
 
     /// Sets the value of [http_options][crate::model::AddOns::http_options].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gsuiteaddons_v1::model::AddOns;
+    /// use apps_script_type::model::HttpOptions;
+    /// let x = AddOns::new().set_http_options(HttpOptions::default()/* use setters */);
+    /// ```
     pub fn set_http_options<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<apps_script_type::model::HttpOptions>,
@@ -796,6 +1099,14 @@ impl AddOns {
     }
 
     /// Sets or clears the value of [http_options][crate::model::AddOns::http_options].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gsuiteaddons_v1::model::AddOns;
+    /// use apps_script_type::model::HttpOptions;
+    /// let x = AddOns::new().set_or_clear_http_options(Some(HttpOptions::default()/* use setters */));
+    /// let x = AddOns::new().set_or_clear_http_options(None::<HttpOptions>);
+    /// ```
     pub fn set_or_clear_http_options<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<apps_script_type::model::HttpOptions>,
