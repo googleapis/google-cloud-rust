@@ -572,5 +572,10 @@ mod tests {
             string_foo, static_bar,
             "String should not equal StaticString with different value"
         );
+        assert_ne!(
+            AttributeValue::Int64(123),
+            AttributeValue::UInt64(123),
+            "Int64 should not equal UInt64 even with same value"
+        );
     }
 }
