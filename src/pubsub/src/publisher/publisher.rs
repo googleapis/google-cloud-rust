@@ -16,6 +16,7 @@ use crate::generated::gapic_dataplane::client::Publisher as GapicPublisher;
 use crate::publisher::options::BatchingOptions;
 use std::time::Duration;
 use std::sync::Arc;
+use std::time::Duration;
 use tokio::sync::mpsc::UnboundedSender;
 use tokio::sync::{mpsc, oneshot};
 
@@ -177,15 +178,48 @@ impl Worker {
 
     async fn run(mut self) {
         let mut batch = Batch::new();
-        while let Some(msg) = self.rx.recv().await {
-            // Add the message to the current batch.
-            batch.push(msg);
-            // In the future, we may also want to keep track of JoinHandles in order to
-            // flush the results.
-            if batch.batch.len() as u32 >= self.batching_options.message_count_threshold {
-                let batch_to_send = std::mem::take(&mut batch);
-                let _handle =
+        // Set max delay at 1 year to avoid overflow. This should probably be in the setting itself.
+        // Would be reasonable to make it much less.
+        let delay = self.batching_options.delay_threshold.min(
+            Duration::from_secs(60 * 60 * 24 * 365), // 1 year.
+        );
+        let message_limit = self.batching_options.message_count_threshold;
+
+        let timer = tokio::time::sleep(delay);
+        // Pin the timer to the stack.
+        tokio::pin!(timer);
+        loop {
+            tokio::select! {
+                // Handle timer events.
+                // This branch will only be checked when there is a non-empty batch,
+                // so this will not fire continuously.
+                _ = &mut timer, if !batch.batch.is_empty() => {
+                    let batch_to_send = std::mem::take(&mut batch);
                     tokio::spawn(batch_to_send.send(self.client.clone(), self.topic_name.clone()));
+                }
+                // Handle receiving a message from the channel.
+                msg = self.rx.recv() => {
+                    match msg {
+                        Some(msg) => {
+                            // Reset the timer if this is the first message to be added to the batch.
+                            if batch.batch.is_empty() {
+                                timer.as_mut().reset(tokio::time::Instant::now() + delay);
+                            }
+                            batch.push(msg);
+                            if batch.batch.len() as u32 >= message_limit {
+                                let batch_to_send = std::mem::take(&mut batch);
+                                // In the future, we may also want to keep track of JoinHandles in order to
+                                // flush the results.
+                                let _handle =
+                                    tokio::spawn(batch_to_send.send(self.client.clone(), self.topic_name.clone()));
+                            }
+                        },
+                        None => {
+                            // The sender has been dropped, stop running.
+                            break;
+                        }
+                    }
+                }
             }
         }
     }
@@ -413,6 +447,53 @@ mod tests {
         for rx in handles.into_iter() {
             let got = rx.await;
             assert!(got.is_err());
+        }
+    }
+
+    #[tokio::test]
+    async fn test_batching_messages_send_on_timeout() {
+        let mut mock = MockGapicPublisher::new();
+        mock.expect_publish().returning({
+            |r, _| {
+                assert_eq!(r.topic, "my-topic");
+                let ids = r
+                    .messages
+                    .iter()
+                    .map(|m| String::from_utf8(m.data.to_vec()).unwrap());
+                Ok(gax::response::Response::from(
+                    PublishResponse::new().set_message_ids(ids),
+                ))
+            }
+        });
+
+        let client = GapicPublisher::from_stub(mock);
+        let publisher = PublisherBuilder::new(client, "my-topic".to_string())
+            .with_batching(BatchingOptions {
+                delay_threshold: std::time::Duration::from_millis(10),
+                // Maximizing byte and message count threshold to make sure that
+                // delay is used.
+                byte_threshold: u32::MAX,
+                message_count_threshold: u32::MAX,
+            })
+            .build();
+
+        // Test that messages eventually all send.
+        for _ in 0..3 {
+            let messages = vec![
+                PubsubMessage::new().set_data("hello".to_string()),
+                PubsubMessage::new().set_data("world".to_string()),
+            ];
+            let mut handles = Vec::new();
+            for msg in messages {
+                let handle = publisher.publish(msg.clone());
+                handles.push((msg, handle));
+            }
+
+            for (id, rx) in handles.into_iter() {
+                let got = rx.await.expect("expected message id");
+                let id = String::from_utf8(id.data.to_vec()).unwrap();
+                assert_eq!(got, id);
+            }
         }
     }
 
