@@ -695,7 +695,7 @@ mod unstable_tests {
             "client_email": "test-client-email",
             "universe_domain": "test-universe-domain"
         }"#;
-        let path = write_cred_json(&contents);
+        let path = write_cred_json(contents);
         let _e = ScopedEnv::set("GOOGLE_APPLICATION_CREDENTIALS", path.to_str().unwrap());
 
         let id_token_creds =
