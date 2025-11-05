@@ -14,7 +14,7 @@
 
 //! Implements the common features of all gRPC-based client.
 
-mod from_status;
+pub mod from_status;
 pub mod status;
 
 use auth::credentials::{CacheableResource, Credentials};
