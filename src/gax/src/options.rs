@@ -49,6 +49,7 @@ pub struct RequestOptions {
     retry_throttler: Option<SharedRetryThrottler>,
     polling_error_policy: Option<Arc<dyn PollingErrorPolicy>>,
     polling_backoff_policy: Option<Arc<dyn PollingBackoffPolicy>>,
+    #[cfg(google_cloud_unstable_tracing)]
     path_template: Option<&'static str>,
 }
 
@@ -156,11 +157,13 @@ impl RequestOptions {
     }
 
     /// Get the current path template, if any.
+    #[cfg(google_cloud_unstable_tracing)]
     pub(crate) fn path_template(&self) -> Option<&'static str> {
         self.path_template
     }
 
     /// Sets the path template for the request URL.
+    #[cfg(google_cloud_unstable_tracing)]
     pub(crate) fn set_path_template(&mut self, v: &'static str) {
         self.path_template = Some(v);
     }
@@ -223,6 +226,7 @@ pub mod internal {
         options
     }
 
+    #[cfg(google_cloud_unstable_tracing)]
     pub fn set_path_template(
         mut options: RequestOptions,
         path_template: &'static str,
@@ -231,6 +235,7 @@ pub mod internal {
         options
     }
 
+    #[cfg(google_cloud_unstable_tracing)]
     pub fn get_path_template(options: &RequestOptions) -> Option<&'static str> {
         options.path_template()
     }
@@ -337,8 +342,11 @@ mod tests {
         opts.set_polling_backoff_policy(ExponentialBackoffBuilder::new().clamp());
         assert!(opts.polling_backoff_policy().is_some(), "{opts:?}");
 
-        opts.set_path_template("test");
-        assert_eq!(opts.path_template(), Some("test"));
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            opts.set_path_template("test");
+            assert_eq!(opts.path_template(), Some("test"));
+        }
     }
 
     #[test]
@@ -355,6 +363,7 @@ mod tests {
     }
 
     #[test]
+    #[cfg(google_cloud_unstable_tracing)]
     fn request_options_path_template() {
         let opts = RequestOptions::default();
         assert_eq!(opts.path_template(), None);
