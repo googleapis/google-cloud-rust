@@ -12,11 +12,13 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use std::collections::VecDeque;
-use std::sync::Arc;
-use std::sync::Mutex;
+use google::test::v1::{EchoRequest, EchoResponse};
+use std::collections::{HashMap, VecDeque};
+use std::sync::{Arc, Mutex};
 use tokio::task::JoinHandle;
-type EchoResult = tonic::Result<tonic::Response<google::test::v1::EchoResponse>>;
+use tonic::metadata::MetadataMap;
+
+type EchoResult = tonic::Result<tonic::Response<EchoResponse>>;
 
 pub mod google {
     pub mod test {
@@ -31,7 +33,7 @@ pub async fn start_echo_server() -> anyhow::Result<(String, JoinHandle<()>)> {
     let addr = listener.local_addr()?;
 
     let server = tokio::spawn(async {
-        let echo = Echo::default();
+        let echo = Echo;
         let stream = tokio_stream::wrappers::TcpListenerStream::new(listener);
 
         let _ = tonic::transport::Server::builder()
@@ -83,24 +85,15 @@ impl gax::client_builder::internal::ClientFactory for Factory {
 }
 
 #[derive(Debug, Default)]
-struct Echo {}
+struct Echo;
 
 #[tonic::async_trait]
 impl google::test::v1::echo_service_server::EchoService for Echo {
     async fn echo(
         &self,
-        request: tonic::Request<google::test::v1::EchoRequest>,
-    ) -> tonic::Result<tonic::Response<google::test::v1::EchoResponse>, tonic::Status> {
-        use http::header::{HeaderName, HeaderValue};
-
+        request: tonic::Request<EchoRequest>,
+    ) -> tonic::Result<tonic::Response<EchoResponse>> {
         let (metadata, _, request) = request.into_parts();
-        let h_as_str = |h: Option<HeaderName>| {
-            h.as_ref()
-                .map(HeaderName::as_str)
-                .unwrap_or_default()
-                .to_string()
-        };
-        let v_as_str = |v: HeaderValue| v.to_str().ok().unwrap_or("[error]").to_string();
 
         if request.message.is_empty() {
             return Err(tonic::Status::with_metadata(
@@ -116,15 +109,72 @@ impl google::test::v1::echo_service_server::EchoService for Echo {
 
         let response = google::test::v1::EchoResponse {
             message: request.message,
-            metadata: metadata
-                .into_headers()
-                .into_iter()
-                .map(|(k, v)| (h_as_str(k), v_as_str(v)))
-                .collect(),
+            metadata: headers(metadata),
         };
 
         Ok(tonic::Response::new(response))
     }
+
+    type ChatStream = tokio_stream::wrappers::ReceiverStream<tonic::Result<EchoResponse>>;
+    async fn chat(
+        &self,
+        request: tonic::Request<tonic::Streaming<EchoRequest>>,
+    ) -> tonic::Result<tonic::Response<Self::ChatStream>> {
+        let (metadata, _, request) = request.into_parts();
+        if metadata
+            .get("x-goog-request-params")
+            .is_some_and(|h| h.as_bytes() == b"resource=error")
+        {
+            return Err(tonic::Status::aborted("test with initial error"));
+        }
+
+        let (tx, rx) = tokio::sync::mpsc::channel(100);
+        let _handler = tokio::spawn(run_chat(tx, metadata, request));
+
+        let stream = Self::ChatStream::new(rx);
+        Ok(tonic::Response::from(stream))
+    }
+}
+
+async fn run_chat(
+    tx: tokio::sync::mpsc::Sender<tonic::Result<EchoResponse>>,
+    metadata: MetadataMap,
+    mut request_stream: tonic::Streaming<EchoRequest>,
+) {
+    let mut headers = headers(metadata);
+    while let Ok(Some(request)) = request_stream.message().await {
+        if let Some(delay) = request.delay_ms.map(tokio::time::Duration::from_millis) {
+            tokio::time::sleep(delay).await;
+        }
+        if request.message.is_empty() {
+            let status = tonic::Status::invalid_argument("empty message");
+            let _ = tx.send(Err(status)).await;
+            return;
+        }
+
+        let response = EchoResponse {
+            message: request.message,
+            metadata: std::mem::take(&mut headers),
+        };
+        let _ = tx.send(Ok(response)).await;
+    }
+}
+
+fn headers(metadata: tonic::metadata::MetadataMap) -> HashMap<String, String> {
+    use http::header::{HeaderName, HeaderValue};
+
+    let h_as_str = |h: Option<HeaderName>| {
+        h.as_ref()
+            .map(HeaderName::as_str)
+            .unwrap_or_default()
+            .to_string()
+    };
+    let v_as_str = |v: HeaderValue| v.to_str().ok().unwrap_or("[error]").to_string();
+    metadata
+        .into_headers()
+        .into_iter()
+        .map(|(k, v)| (h_as_str(k), v_as_str(v)))
+        .collect()
 }
 
 #[derive(Debug, Default)]
@@ -156,5 +206,13 @@ impl google::test::v1::echo_service_server::EchoService for FixedResponses {
             return r;
         }
         Err(tonic::Status::failed_precondition("no available responses"))
+    }
+
+    type ChatStream = tokio_stream::wrappers::ReceiverStream<tonic::Result<EchoResponse>>;
+    async fn chat(
+        &self,
+        _request: tonic::Request<tonic::Streaming<EchoRequest>>,
+    ) -> tonic::Result<tonic::Response<Self::ChatStream>> {
+        Err(tonic::Status::internal("not implemented".to_string()))
     }
 }

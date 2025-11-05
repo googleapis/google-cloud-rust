@@ -102,12 +102,55 @@ impl Client {
         request_params: &str,
     ) -> Result<tonic::Response<Response>>
     where
-        Request: prost::Message + 'static + Clone,
+        Request: prost::Message + Clone + 'static,
         Response: prost::Message + Default + 'static,
     {
         let headers = Self::make_headers(api_client_header, request_params, &options).await?;
         self.retry_loop::<Request, Response>(extensions, path, request, options, headers)
             .await
+    }
+
+    #[cfg(google_cloud_unstable_storage_bidi)]
+    /// Opens a bidirectional stream.
+    pub async fn bidi_stream<Request, Response>(
+        &self,
+        extensions: tonic::Extensions,
+        path: http::uri::PathAndQuery,
+        request: impl tokio_stream::Stream<Item = Request> + Send + 'static,
+        options: gax::options::RequestOptions,
+        api_client_header: &'static str,
+        request_params: &str,
+    ) -> Result<tonic::Response<tonic::codec::Streaming<Response>>>
+    where
+        Request: prost::Message + 'static,
+        Response: prost::Message + Default + 'static,
+    {
+        use tonic::IntoStreamingRequest;
+
+        let cached_auth_headers = self
+            .credentials
+            .headers(http::Extensions::new())
+            .await
+            .map_err(Error::authentication)?;
+
+        let auth_headers = match cached_auth_headers {
+            CacheableResource::New { data, .. } => data,
+            CacheableResource::NotModified => {
+                unreachable!("headers are not cached");
+            }
+        };
+
+        let mut headers = Self::make_headers(api_client_header, request_params, &options).await?;
+        headers.extend(auth_headers);
+        let metadata = tonic::metadata::MetadataMap::from_headers(headers);
+        let request = tonic::Request::from_parts(metadata, extensions, request);
+        let codec = tonic_prost::ProstCodec::<Request, Response>::default();
+        let mut inner = self.inner.clone();
+        inner.ready().await.map_err(Error::io)?;
+        inner
+            .streaming(request.into_streaming_request(), path, codec)
+            .await
+            .map_err(to_gax_error)
     }
 
     /// Runs the retry loop.
