@@ -12,9 +12,27 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-/// Options for configurating publisher batching behavior.
+/// Configure publisher batching behavior.
 ///
-/// To turn off batching, set the value of message_count_threshold to 1.
+/// # Examples
+///
+/// Configure message count threshold and delay
+///
+/// ```
+/// # use google_cloud_pubsub::options::publisher::BatchingOptions;
+/// use std::time::Duration;
+/// let options = BatchingOptions::new()
+///     .set_message_count_threshold(100_u32)
+///     .set_delay_threshold(Duration::from_millis(20));
+/// ```
+///
+/// Set batch size to 1 to disable batching
+///
+/// ```
+/// # use google_cloud_pubsub::options::publisher::BatchingOptions;
+/// let options = BatchingOptions::new()
+///     .set_message_count_threshold(1_u32);
+/// ```
 #[derive(Clone, Debug)]
 #[non_exhaustive]
 pub struct BatchingOptions {
@@ -60,7 +78,8 @@ impl BatchingOptions {
     /// # Example
     /// ```
     /// # use google_cloud_pubsub::options::publisher::BatchingOptions;
-    /// let options = BatchingOptions::new().set_delay_threshold(std::time::Duration::from_millis(10));
+    /// let options =
+    ///     BatchingOptions::new().set_delay_threshold(std::time::Duration::from_millis(10));
     /// ```
     pub fn set_delay_threshold<V: Into<std::time::Duration>>(mut self, v: V) -> Self {
         self.delay_threshold = v.into();
