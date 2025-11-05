@@ -501,7 +501,7 @@ mod tests {
         }
     }
 
-    #[tokio::test]
+    #[tokio::test(start_paused = true)]
     async fn test_batching_messages_send_on_timeout() {
         let mut mock = MockGapicPublisher::new();
         mock.expect_publish().returning({
@@ -518,9 +518,10 @@ mod tests {
         });
 
         let client = GapicPublisher::from_stub(mock);
+        let delay = std::time::Duration::from_millis(10);
         let publisher = PublisherBuilder::new(client, "my-topic".to_string())
             .with_batching(BatchingOptions {
-                delay_threshold: std::time::Duration::from_millis(10),
+                delay_threshold: delay,
                 // Maximizing byte and message count threshold to make sure that
                 // delay is used.
                 byte_threshold: u32::MAX,
@@ -528,8 +529,9 @@ mod tests {
             })
             .build();
 
-        // Test that messages eventually all send.
+        // Test that messages send after delay.
         for _ in 0..3 {
+            let start = tokio::time::Instant::now();
             let messages = vec![
                 PubsubMessage::new().set_data("hello".to_string()),
                 PubsubMessage::new().set_data("world".to_string()),
@@ -544,6 +546,12 @@ mod tests {
                 let got = rx.await.expect("expected message id");
                 let id = String::from_utf8(id.data.to_vec()).unwrap();
                 assert_eq!(got, id);
+                assert_eq!(
+                    start.elapsed(),
+                    delay,
+                    "batch of messages should have sent after {:?}",
+                    delay
+                )
             }
         }
     }
