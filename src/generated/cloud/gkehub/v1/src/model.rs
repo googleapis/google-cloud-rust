@@ -114,12 +114,27 @@ impl Feature {
     }
 
     /// Sets the value of [name][crate::model::Feature::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::model::Feature;
+    /// let x = Feature::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [labels][crate::model::Feature::labels].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::model::Feature;
+    /// let x = Feature::new().set_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -132,6 +147,13 @@ impl Feature {
     }
 
     /// Sets the value of [resource_state][crate::model::Feature::resource_state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::model::Feature;
+    /// use google_cloud_gkehub_v1::model::FeatureResourceState;
+    /// let x = Feature::new().set_resource_state(FeatureResourceState::default()/* use setters */);
+    /// ```
     pub fn set_resource_state<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::FeatureResourceState>,
@@ -141,6 +163,14 @@ impl Feature {
     }
 
     /// Sets or clears the value of [resource_state][crate::model::Feature::resource_state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::model::Feature;
+    /// use google_cloud_gkehub_v1::model::FeatureResourceState;
+    /// let x = Feature::new().set_or_clear_resource_state(Some(FeatureResourceState::default()/* use setters */));
+    /// let x = Feature::new().set_or_clear_resource_state(None::<FeatureResourceState>);
+    /// ```
     pub fn set_or_clear_resource_state<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::FeatureResourceState>,
@@ -150,6 +180,13 @@ impl Feature {
     }
 
     /// Sets the value of [spec][crate::model::Feature::spec].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::model::Feature;
+    /// use google_cloud_gkehub_v1::model::CommonFeatureSpec;
+    /// let x = Feature::new().set_spec(CommonFeatureSpec::default()/* use setters */);
+    /// ```
     pub fn set_spec<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::CommonFeatureSpec>,
@@ -159,6 +196,14 @@ impl Feature {
     }
 
     /// Sets or clears the value of [spec][crate::model::Feature::spec].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::model::Feature;
+    /// use google_cloud_gkehub_v1::model::CommonFeatureSpec;
+    /// let x = Feature::new().set_or_clear_spec(Some(CommonFeatureSpec::default()/* use setters */));
+    /// let x = Feature::new().set_or_clear_spec(None::<CommonFeatureSpec>);
+    /// ```
     pub fn set_or_clear_spec<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CommonFeatureSpec>,
@@ -168,6 +213,16 @@ impl Feature {
     }
 
     /// Sets the value of [membership_specs][crate::model::Feature::membership_specs].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::model::Feature;
+    /// use google_cloud_gkehub_v1::model::MembershipFeatureSpec;
+    /// let x = Feature::new().set_membership_specs([
+    ///     ("key0", MembershipFeatureSpec::default()/* use setters */),
+    ///     ("key1", MembershipFeatureSpec::default()/* use (different) setters */),
+    /// ]);
+    /// ```
     pub fn set_membership_specs<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -180,6 +235,13 @@ impl Feature {
     }
 
     /// Sets the value of [state][crate::model::Feature::state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::model::Feature;
+    /// use google_cloud_gkehub_v1::model::CommonFeatureState;
+    /// let x = Feature::new().set_state(CommonFeatureState::default()/* use setters */);
+    /// ```
     pub fn set_state<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::CommonFeatureState>,
@@ -189,6 +251,14 @@ impl Feature {
     }
 
     /// Sets or clears the value of [state][crate::model::Feature::state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::model::Feature;
+    /// use google_cloud_gkehub_v1::model::CommonFeatureState;
+    /// let x = Feature::new().set_or_clear_state(Some(CommonFeatureState::default()/* use setters */));
+    /// let x = Feature::new().set_or_clear_state(None::<CommonFeatureState>);
+    /// ```
     pub fn set_or_clear_state<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CommonFeatureState>,
@@ -198,6 +268,16 @@ impl Feature {
     }
 
     /// Sets the value of [membership_states][crate::model::Feature::membership_states].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::model::Feature;
+    /// use google_cloud_gkehub_v1::model::MembershipFeatureState;
+    /// let x = Feature::new().set_membership_states([
+    ///     ("key0", MembershipFeatureState::default()/* use setters */),
+    ///     ("key1", MembershipFeatureState::default()/* use (different) setters */),
+    /// ]);
+    /// ```
     pub fn set_membership_states<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -210,6 +290,13 @@ impl Feature {
     }
 
     /// Sets the value of [create_time][crate::model::Feature::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::model::Feature;
+    /// use wkt::Timestamp;
+    /// let x = Feature::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -219,6 +306,14 @@ impl Feature {
     }
 
     /// Sets or clears the value of [create_time][crate::model::Feature::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::model::Feature;
+    /// use wkt::Timestamp;
+    /// let x = Feature::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Feature::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -228,6 +323,13 @@ impl Feature {
     }
 
     /// Sets the value of [update_time][crate::model::Feature::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::model::Feature;
+    /// use wkt::Timestamp;
+    /// let x = Feature::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -237,6 +339,14 @@ impl Feature {
     }
 
     /// Sets or clears the value of [update_time][crate::model::Feature::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::model::Feature;
+    /// use wkt::Timestamp;
+    /// let x = Feature::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Feature::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -246,6 +356,13 @@ impl Feature {
     }
 
     /// Sets the value of [delete_time][crate::model::Feature::delete_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::model::Feature;
+    /// use wkt::Timestamp;
+    /// let x = Feature::new().set_delete_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_delete_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -255,6 +372,14 @@ impl Feature {
     }
 
     /// Sets or clears the value of [delete_time][crate::model::Feature::delete_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::model::Feature;
+    /// use wkt::Timestamp;
+    /// let x = Feature::new().set_or_clear_delete_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Feature::new().set_or_clear_delete_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_delete_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -288,6 +413,15 @@ impl FeatureResourceState {
     }
 
     /// Sets the value of [state][crate::model::FeatureResourceState::state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::model::FeatureResourceState;
+    /// use google_cloud_gkehub_v1::model::feature_resource_state::State;
+    /// let x0 = FeatureResourceState::new().set_state(State::Enabling);
+    /// let x1 = FeatureResourceState::new().set_state(State::Active);
+    /// let x2 = FeatureResourceState::new().set_state(State::Disabling);
+    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::feature_resource_state::State>>(
         mut self,
         v: T,
@@ -489,6 +623,15 @@ impl FeatureState {
     }
 
     /// Sets the value of [code][crate::model::FeatureState::code].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::model::FeatureState;
+    /// use google_cloud_gkehub_v1::model::feature_state::Code;
+    /// let x0 = FeatureState::new().set_code(Code::Ok);
+    /// let x1 = FeatureState::new().set_code(Code::Warning);
+    /// let x2 = FeatureState::new().set_code(Code::Error);
+    /// ```
     pub fn set_code<T: std::convert::Into<crate::model::feature_state::Code>>(
         mut self,
         v: T,
@@ -498,12 +641,25 @@ impl FeatureState {
     }
 
     /// Sets the value of [description][crate::model::FeatureState::description].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::model::FeatureState;
+    /// let x = FeatureState::new().set_description("example");
+    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [update_time][crate::model::FeatureState::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::model::FeatureState;
+    /// use wkt::Timestamp;
+    /// let x = FeatureState::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -513,6 +669,14 @@ impl FeatureState {
     }
 
     /// Sets or clears the value of [update_time][crate::model::FeatureState::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::model::FeatureState;
+    /// use wkt::Timestamp;
+    /// let x = FeatureState::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = FeatureState::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -697,6 +861,14 @@ impl CommonFeatureSpec {
     ///
     /// Note that all the setters affecting `feature_spec` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::model::CommonFeatureSpec;
+    /// use google_cloud_gkehub_v1::model::common_feature_spec;
+    /// use gkehub_multiclusteringress_v1::model::FeatureSpec;
+    /// let x = CommonFeatureSpec::new().set_feature_spec(Some(common_feature_spec::FeatureSpec::Multiclusteringress(FeatureSpec::default().into())));
+    /// ```
     pub fn set_feature_spec<
         T: std::convert::Into<std::option::Option<crate::model::common_feature_spec::FeatureSpec>>,
     >(
@@ -728,6 +900,14 @@ impl CommonFeatureSpec {
     ///
     /// Note that all the setters affecting `feature_spec` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::model::CommonFeatureSpec;
+    /// use gkehub_multiclusteringress_v1::model::FeatureSpec;
+    /// let x = CommonFeatureSpec::new().set_multiclusteringress(FeatureSpec::default()/* use setters */);
+    /// assert!(x.multiclusteringress().is_some());
+    /// ```
     pub fn set_multiclusteringress<
         T: std::convert::Into<std::boxed::Box<gkehub_multiclusteringress_v1::model::FeatureSpec>>,
     >(
@@ -776,6 +956,13 @@ impl CommonFeatureState {
     }
 
     /// Sets the value of [state][crate::model::CommonFeatureState::state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::model::CommonFeatureState;
+    /// use google_cloud_gkehub_v1::model::FeatureState;
+    /// let x = CommonFeatureState::new().set_state(FeatureState::default()/* use setters */);
+    /// ```
     pub fn set_state<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::FeatureState>,
@@ -785,6 +972,14 @@ impl CommonFeatureState {
     }
 
     /// Sets or clears the value of [state][crate::model::CommonFeatureState::state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::model::CommonFeatureState;
+    /// use google_cloud_gkehub_v1::model::FeatureState;
+    /// let x = CommonFeatureState::new().set_or_clear_state(Some(FeatureState::default()/* use setters */));
+    /// let x = CommonFeatureState::new().set_or_clear_state(None::<FeatureState>);
+    /// ```
     pub fn set_or_clear_state<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::FeatureState>,
@@ -819,6 +1014,14 @@ impl MembershipFeatureSpec {
     ///
     /// Note that all the setters affecting `feature_spec` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::model::MembershipFeatureSpec;
+    /// use google_cloud_gkehub_v1::model::membership_feature_spec;
+    /// use gkehub_configmanagement_v1::model::MembershipSpec;
+    /// let x = MembershipFeatureSpec::new().set_feature_spec(Some(membership_feature_spec::FeatureSpec::Configmanagement(MembershipSpec::default().into())));
+    /// ```
     pub fn set_feature_spec<
         T: std::convert::Into<std::option::Option<crate::model::membership_feature_spec::FeatureSpec>>,
     >(
@@ -850,6 +1053,14 @@ impl MembershipFeatureSpec {
     ///
     /// Note that all the setters affecting `feature_spec` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::model::MembershipFeatureSpec;
+    /// use gkehub_configmanagement_v1::model::MembershipSpec;
+    /// let x = MembershipFeatureSpec::new().set_configmanagement(MembershipSpec::default()/* use setters */);
+    /// assert!(x.configmanagement().is_some());
+    /// ```
     pub fn set_configmanagement<
         T: std::convert::Into<std::boxed::Box<gkehub_configmanagement_v1::model::MembershipSpec>>,
     >(
@@ -901,6 +1112,13 @@ impl MembershipFeatureState {
     }
 
     /// Sets the value of [state][crate::model::MembershipFeatureState::state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::model::MembershipFeatureState;
+    /// use google_cloud_gkehub_v1::model::FeatureState;
+    /// let x = MembershipFeatureState::new().set_state(FeatureState::default()/* use setters */);
+    /// ```
     pub fn set_state<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::FeatureState>,
@@ -910,6 +1128,14 @@ impl MembershipFeatureState {
     }
 
     /// Sets or clears the value of [state][crate::model::MembershipFeatureState::state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::model::MembershipFeatureState;
+    /// use google_cloud_gkehub_v1::model::FeatureState;
+    /// let x = MembershipFeatureState::new().set_or_clear_state(Some(FeatureState::default()/* use setters */));
+    /// let x = MembershipFeatureState::new().set_or_clear_state(None::<FeatureState>);
+    /// ```
     pub fn set_or_clear_state<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::FeatureState>,
@@ -922,6 +1148,14 @@ impl MembershipFeatureState {
     ///
     /// Note that all the setters affecting `feature_state` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::model::MembershipFeatureState;
+    /// use google_cloud_gkehub_v1::model::membership_feature_state;
+    /// use gkehub_configmanagement_v1::model::MembershipState;
+    /// let x = MembershipFeatureState::new().set_feature_state(Some(membership_feature_state::FeatureState::Configmanagement(MembershipState::default().into())));
+    /// ```
     pub fn set_feature_state<
         T: std::convert::Into<
                 std::option::Option<crate::model::membership_feature_state::FeatureState>,
@@ -955,6 +1189,14 @@ impl MembershipFeatureState {
     ///
     /// Note that all the setters affecting `feature_state` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::model::MembershipFeatureState;
+    /// use gkehub_configmanagement_v1::model::MembershipState;
+    /// let x = MembershipFeatureState::new().set_configmanagement(MembershipState::default()/* use setters */);
+    /// assert!(x.configmanagement().is_some());
+    /// ```
     pub fn set_configmanagement<
         T: std::convert::Into<std::boxed::Box<gkehub_configmanagement_v1::model::MembershipState>>,
     >(
@@ -1067,12 +1309,27 @@ impl Membership {
     }
 
     /// Sets the value of [name][crate::model::Membership::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::model::Membership;
+    /// let x = Membership::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [labels][crate::model::Membership::labels].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::model::Membership;
+    /// let x = Membership::new().set_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -1085,12 +1342,25 @@ impl Membership {
     }
 
     /// Sets the value of [description][crate::model::Membership::description].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::model::Membership;
+    /// let x = Membership::new().set_description("example");
+    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [state][crate::model::Membership::state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::model::Membership;
+    /// use google_cloud_gkehub_v1::model::MembershipState;
+    /// let x = Membership::new().set_state(MembershipState::default()/* use setters */);
+    /// ```
     pub fn set_state<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::MembershipState>,
@@ -1100,6 +1370,14 @@ impl Membership {
     }
 
     /// Sets or clears the value of [state][crate::model::Membership::state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::model::Membership;
+    /// use google_cloud_gkehub_v1::model::MembershipState;
+    /// let x = Membership::new().set_or_clear_state(Some(MembershipState::default()/* use setters */));
+    /// let x = Membership::new().set_or_clear_state(None::<MembershipState>);
+    /// ```
     pub fn set_or_clear_state<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::MembershipState>,
@@ -1109,6 +1387,13 @@ impl Membership {
     }
 
     /// Sets the value of [create_time][crate::model::Membership::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::model::Membership;
+    /// use wkt::Timestamp;
+    /// let x = Membership::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1118,6 +1403,14 @@ impl Membership {
     }
 
     /// Sets or clears the value of [create_time][crate::model::Membership::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::model::Membership;
+    /// use wkt::Timestamp;
+    /// let x = Membership::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Membership::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1127,6 +1420,13 @@ impl Membership {
     }
 
     /// Sets the value of [update_time][crate::model::Membership::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::model::Membership;
+    /// use wkt::Timestamp;
+    /// let x = Membership::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1136,6 +1436,14 @@ impl Membership {
     }
 
     /// Sets or clears the value of [update_time][crate::model::Membership::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::model::Membership;
+    /// use wkt::Timestamp;
+    /// let x = Membership::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Membership::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1145,6 +1453,13 @@ impl Membership {
     }
 
     /// Sets the value of [delete_time][crate::model::Membership::delete_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::model::Membership;
+    /// use wkt::Timestamp;
+    /// let x = Membership::new().set_delete_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_delete_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1154,6 +1469,14 @@ impl Membership {
     }
 
     /// Sets or clears the value of [delete_time][crate::model::Membership::delete_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::model::Membership;
+    /// use wkt::Timestamp;
+    /// let x = Membership::new().set_or_clear_delete_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Membership::new().set_or_clear_delete_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_delete_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1163,12 +1486,25 @@ impl Membership {
     }
 
     /// Sets the value of [external_id][crate::model::Membership::external_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::model::Membership;
+    /// let x = Membership::new().set_external_id("example");
+    /// ```
     pub fn set_external_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.external_id = v.into();
         self
     }
 
     /// Sets the value of [last_connection_time][crate::model::Membership::last_connection_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::model::Membership;
+    /// use wkt::Timestamp;
+    /// let x = Membership::new().set_last_connection_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_last_connection_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1178,6 +1514,14 @@ impl Membership {
     }
 
     /// Sets or clears the value of [last_connection_time][crate::model::Membership::last_connection_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::model::Membership;
+    /// use wkt::Timestamp;
+    /// let x = Membership::new().set_or_clear_last_connection_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Membership::new().set_or_clear_last_connection_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_last_connection_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1187,12 +1531,25 @@ impl Membership {
     }
 
     /// Sets the value of [unique_id][crate::model::Membership::unique_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::model::Membership;
+    /// let x = Membership::new().set_unique_id("example");
+    /// ```
     pub fn set_unique_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.unique_id = v.into();
         self
     }
 
     /// Sets the value of [authority][crate::model::Membership::authority].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::model::Membership;
+    /// use google_cloud_gkehub_v1::model::Authority;
+    /// let x = Membership::new().set_authority(Authority::default()/* use setters */);
+    /// ```
     pub fn set_authority<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Authority>,
@@ -1202,6 +1559,14 @@ impl Membership {
     }
 
     /// Sets or clears the value of [authority][crate::model::Membership::authority].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::model::Membership;
+    /// use google_cloud_gkehub_v1::model::Authority;
+    /// let x = Membership::new().set_or_clear_authority(Some(Authority::default()/* use setters */));
+    /// let x = Membership::new().set_or_clear_authority(None::<Authority>);
+    /// ```
     pub fn set_or_clear_authority<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Authority>,
@@ -1211,6 +1576,13 @@ impl Membership {
     }
 
     /// Sets the value of [monitoring_config][crate::model::Membership::monitoring_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::model::Membership;
+    /// use google_cloud_gkehub_v1::model::MonitoringConfig;
+    /// let x = Membership::new().set_monitoring_config(MonitoringConfig::default()/* use setters */);
+    /// ```
     pub fn set_monitoring_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::MonitoringConfig>,
@@ -1220,6 +1592,14 @@ impl Membership {
     }
 
     /// Sets or clears the value of [monitoring_config][crate::model::Membership::monitoring_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::model::Membership;
+    /// use google_cloud_gkehub_v1::model::MonitoringConfig;
+    /// let x = Membership::new().set_or_clear_monitoring_config(Some(MonitoringConfig::default()/* use setters */));
+    /// let x = Membership::new().set_or_clear_monitoring_config(None::<MonitoringConfig>);
+    /// ```
     pub fn set_or_clear_monitoring_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::MonitoringConfig>,
@@ -1232,6 +1612,14 @@ impl Membership {
     ///
     /// Note that all the setters affecting `r#type` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::model::Membership;
+    /// use google_cloud_gkehub_v1::model::membership;
+    /// use google_cloud_gkehub_v1::model::MembershipEndpoint;
+    /// let x = Membership::new().set_type(Some(membership::Type::Endpoint(MembershipEndpoint::default().into())));
+    /// ```
     pub fn set_type<T: std::convert::Into<std::option::Option<crate::model::membership::Type>>>(
         mut self,
         v: T,
@@ -1258,6 +1646,14 @@ impl Membership {
     ///
     /// Note that all the setters affecting `r#type` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::model::Membership;
+    /// use google_cloud_gkehub_v1::model::MembershipEndpoint;
+    /// let x = Membership::new().set_endpoint(MembershipEndpoint::default()/* use setters */);
+    /// assert!(x.endpoint().is_some());
+    /// ```
     pub fn set_endpoint<
         T: std::convert::Into<std::boxed::Box<crate::model::MembershipEndpoint>>,
     >(
@@ -1323,6 +1719,13 @@ impl MembershipEndpoint {
     }
 
     /// Sets the value of [gke_cluster][crate::model::MembershipEndpoint::gke_cluster].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::model::MembershipEndpoint;
+    /// use google_cloud_gkehub_v1::model::GkeCluster;
+    /// let x = MembershipEndpoint::new().set_gke_cluster(GkeCluster::default()/* use setters */);
+    /// ```
     pub fn set_gke_cluster<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::GkeCluster>,
@@ -1332,6 +1735,14 @@ impl MembershipEndpoint {
     }
 
     /// Sets or clears the value of [gke_cluster][crate::model::MembershipEndpoint::gke_cluster].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::model::MembershipEndpoint;
+    /// use google_cloud_gkehub_v1::model::GkeCluster;
+    /// let x = MembershipEndpoint::new().set_or_clear_gke_cluster(Some(GkeCluster::default()/* use setters */));
+    /// let x = MembershipEndpoint::new().set_or_clear_gke_cluster(None::<GkeCluster>);
+    /// ```
     pub fn set_or_clear_gke_cluster<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::GkeCluster>,
@@ -1341,6 +1752,13 @@ impl MembershipEndpoint {
     }
 
     /// Sets the value of [kubernetes_metadata][crate::model::MembershipEndpoint::kubernetes_metadata].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::model::MembershipEndpoint;
+    /// use google_cloud_gkehub_v1::model::KubernetesMetadata;
+    /// let x = MembershipEndpoint::new().set_kubernetes_metadata(KubernetesMetadata::default()/* use setters */);
+    /// ```
     pub fn set_kubernetes_metadata<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::KubernetesMetadata>,
@@ -1350,6 +1768,14 @@ impl MembershipEndpoint {
     }
 
     /// Sets or clears the value of [kubernetes_metadata][crate::model::MembershipEndpoint::kubernetes_metadata].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::model::MembershipEndpoint;
+    /// use google_cloud_gkehub_v1::model::KubernetesMetadata;
+    /// let x = MembershipEndpoint::new().set_or_clear_kubernetes_metadata(Some(KubernetesMetadata::default()/* use setters */));
+    /// let x = MembershipEndpoint::new().set_or_clear_kubernetes_metadata(None::<KubernetesMetadata>);
+    /// ```
     pub fn set_or_clear_kubernetes_metadata<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::KubernetesMetadata>,
@@ -1359,6 +1785,13 @@ impl MembershipEndpoint {
     }
 
     /// Sets the value of [kubernetes_resource][crate::model::MembershipEndpoint::kubernetes_resource].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::model::MembershipEndpoint;
+    /// use google_cloud_gkehub_v1::model::KubernetesResource;
+    /// let x = MembershipEndpoint::new().set_kubernetes_resource(KubernetesResource::default()/* use setters */);
+    /// ```
     pub fn set_kubernetes_resource<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::KubernetesResource>,
@@ -1368,6 +1801,14 @@ impl MembershipEndpoint {
     }
 
     /// Sets or clears the value of [kubernetes_resource][crate::model::MembershipEndpoint::kubernetes_resource].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::model::MembershipEndpoint;
+    /// use google_cloud_gkehub_v1::model::KubernetesResource;
+    /// let x = MembershipEndpoint::new().set_or_clear_kubernetes_resource(Some(KubernetesResource::default()/* use setters */));
+    /// let x = MembershipEndpoint::new().set_or_clear_kubernetes_resource(None::<KubernetesResource>);
+    /// ```
     pub fn set_or_clear_kubernetes_resource<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::KubernetesResource>,
@@ -1377,6 +1818,12 @@ impl MembershipEndpoint {
     }
 
     /// Sets the value of [google_managed][crate::model::MembershipEndpoint::google_managed].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::model::MembershipEndpoint;
+    /// let x = MembershipEndpoint::new().set_google_managed(true);
+    /// ```
     pub fn set_google_managed<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.google_managed = v.into();
         self
@@ -1435,6 +1882,12 @@ impl KubernetesResource {
     }
 
     /// Sets the value of [membership_cr_manifest][crate::model::KubernetesResource::membership_cr_manifest].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::model::KubernetesResource;
+    /// let x = KubernetesResource::new().set_membership_cr_manifest("example");
+    /// ```
     pub fn set_membership_cr_manifest<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -1444,6 +1897,17 @@ impl KubernetesResource {
     }
 
     /// Sets the value of [membership_resources][crate::model::KubernetesResource::membership_resources].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::model::KubernetesResource;
+    /// use google_cloud_gkehub_v1::model::ResourceManifest;
+    /// let x = KubernetesResource::new()
+    ///     .set_membership_resources([
+    ///         ResourceManifest::default()/* use setters */,
+    ///         ResourceManifest::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_membership_resources<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1455,6 +1919,17 @@ impl KubernetesResource {
     }
 
     /// Sets the value of [connect_resources][crate::model::KubernetesResource::connect_resources].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::model::KubernetesResource;
+    /// use google_cloud_gkehub_v1::model::ResourceManifest;
+    /// let x = KubernetesResource::new()
+    ///     .set_connect_resources([
+    ///         ResourceManifest::default()/* use setters */,
+    ///         ResourceManifest::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_connect_resources<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1466,6 +1941,13 @@ impl KubernetesResource {
     }
 
     /// Sets the value of [resource_options][crate::model::KubernetesResource::resource_options].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::model::KubernetesResource;
+    /// use google_cloud_gkehub_v1::model::ResourceOptions;
+    /// let x = KubernetesResource::new().set_resource_options(ResourceOptions::default()/* use setters */);
+    /// ```
     pub fn set_resource_options<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ResourceOptions>,
@@ -1475,6 +1957,14 @@ impl KubernetesResource {
     }
 
     /// Sets or clears the value of [resource_options][crate::model::KubernetesResource::resource_options].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::model::KubernetesResource;
+    /// use google_cloud_gkehub_v1::model::ResourceOptions;
+    /// let x = KubernetesResource::new().set_or_clear_resource_options(Some(ResourceOptions::default()/* use setters */));
+    /// let x = KubernetesResource::new().set_or_clear_resource_options(None::<ResourceOptions>);
+    /// ```
     pub fn set_or_clear_resource_options<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ResourceOptions>,
@@ -1524,24 +2014,48 @@ impl ResourceOptions {
     }
 
     /// Sets the value of [connect_version][crate::model::ResourceOptions::connect_version].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::model::ResourceOptions;
+    /// let x = ResourceOptions::new().set_connect_version("example");
+    /// ```
     pub fn set_connect_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.connect_version = v.into();
         self
     }
 
     /// Sets the value of [v1beta1_crd][crate::model::ResourceOptions::v1beta1_crd].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::model::ResourceOptions;
+    /// let x = ResourceOptions::new().set_v1beta1_crd(true);
+    /// ```
     pub fn set_v1beta1_crd<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.v1beta1_crd = v.into();
         self
     }
 
     /// Sets the value of [k8s_version][crate::model::ResourceOptions::k8s_version].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::model::ResourceOptions;
+    /// let x = ResourceOptions::new().set_k8s_version("example");
+    /// ```
     pub fn set_k8s_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.k8s_version = v.into();
         self
     }
 
     /// Sets the value of [k8s_git_version][crate::model::ResourceOptions::k8s_git_version].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::model::ResourceOptions;
+    /// let x = ResourceOptions::new().set_k8s_git_version("example");
+    /// ```
     pub fn set_k8s_git_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.k8s_git_version = v.into();
         self
@@ -1578,12 +2092,24 @@ impl ResourceManifest {
     }
 
     /// Sets the value of [manifest][crate::model::ResourceManifest::manifest].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::model::ResourceManifest;
+    /// let x = ResourceManifest::new().set_manifest("example");
+    /// ```
     pub fn set_manifest<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.manifest = v.into();
         self
     }
 
     /// Sets the value of [cluster_scoped][crate::model::ResourceManifest::cluster_scoped].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::model::ResourceManifest;
+    /// let x = ResourceManifest::new().set_cluster_scoped(true);
+    /// ```
     pub fn set_cluster_scoped<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.cluster_scoped = v.into();
         self
@@ -1621,12 +2147,24 @@ impl GkeCluster {
     }
 
     /// Sets the value of [resource_link][crate::model::GkeCluster::resource_link].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::model::GkeCluster;
+    /// let x = GkeCluster::new().set_resource_link("example");
+    /// ```
     pub fn set_resource_link<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.resource_link = v.into();
         self
     }
 
     /// Sets the value of [cluster_missing][crate::model::GkeCluster::cluster_missing].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::model::GkeCluster;
+    /// let x = GkeCluster::new().set_cluster_missing(true);
+    /// ```
     pub fn set_cluster_missing<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.cluster_missing = v.into();
         self
@@ -1678,6 +2216,12 @@ impl KubernetesMetadata {
     }
 
     /// Sets the value of [kubernetes_api_server_version][crate::model::KubernetesMetadata::kubernetes_api_server_version].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::model::KubernetesMetadata;
+    /// let x = KubernetesMetadata::new().set_kubernetes_api_server_version("example");
+    /// ```
     pub fn set_kubernetes_api_server_version<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -1687,6 +2231,12 @@ impl KubernetesMetadata {
     }
 
     /// Sets the value of [node_provider_id][crate::model::KubernetesMetadata::node_provider_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::model::KubernetesMetadata;
+    /// let x = KubernetesMetadata::new().set_node_provider_id("example");
+    /// ```
     pub fn set_node_provider_id<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -1696,24 +2246,49 @@ impl KubernetesMetadata {
     }
 
     /// Sets the value of [node_count][crate::model::KubernetesMetadata::node_count].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::model::KubernetesMetadata;
+    /// let x = KubernetesMetadata::new().set_node_count(42);
+    /// ```
     pub fn set_node_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.node_count = v.into();
         self
     }
 
     /// Sets the value of [vcpu_count][crate::model::KubernetesMetadata::vcpu_count].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::model::KubernetesMetadata;
+    /// let x = KubernetesMetadata::new().set_vcpu_count(42);
+    /// ```
     pub fn set_vcpu_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.vcpu_count = v.into();
         self
     }
 
     /// Sets the value of [memory_mb][crate::model::KubernetesMetadata::memory_mb].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::model::KubernetesMetadata;
+    /// let x = KubernetesMetadata::new().set_memory_mb(42);
+    /// ```
     pub fn set_memory_mb<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.memory_mb = v.into();
         self
     }
 
     /// Sets the value of [update_time][crate::model::KubernetesMetadata::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::model::KubernetesMetadata;
+    /// use wkt::Timestamp;
+    /// let x = KubernetesMetadata::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1723,6 +2298,14 @@ impl KubernetesMetadata {
     }
 
     /// Sets or clears the value of [update_time][crate::model::KubernetesMetadata::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::model::KubernetesMetadata;
+    /// use wkt::Timestamp;
+    /// let x = KubernetesMetadata::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = KubernetesMetadata::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1777,24 +2360,48 @@ impl MonitoringConfig {
     }
 
     /// Sets the value of [project_id][crate::model::MonitoringConfig::project_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::model::MonitoringConfig;
+    /// let x = MonitoringConfig::new().set_project_id("example");
+    /// ```
     pub fn set_project_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project_id = v.into();
         self
     }
 
     /// Sets the value of [location][crate::model::MonitoringConfig::location].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::model::MonitoringConfig;
+    /// let x = MonitoringConfig::new().set_location("example");
+    /// ```
     pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.location = v.into();
         self
     }
 
     /// Sets the value of [cluster][crate::model::MonitoringConfig::cluster].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::model::MonitoringConfig;
+    /// let x = MonitoringConfig::new().set_cluster("example");
+    /// ```
     pub fn set_cluster<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.cluster = v.into();
         self
     }
 
     /// Sets the value of [kubernetes_metrics_prefix][crate::model::MonitoringConfig::kubernetes_metrics_prefix].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::model::MonitoringConfig;
+    /// let x = MonitoringConfig::new().set_kubernetes_metrics_prefix("example");
+    /// ```
     pub fn set_kubernetes_metrics_prefix<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -1804,6 +2411,12 @@ impl MonitoringConfig {
     }
 
     /// Sets the value of [cluster_hash][crate::model::MonitoringConfig::cluster_hash].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::model::MonitoringConfig;
+    /// let x = MonitoringConfig::new().set_cluster_hash("example");
+    /// ```
     pub fn set_cluster_hash<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.cluster_hash = v.into();
         self
@@ -1832,6 +2445,15 @@ impl MembershipState {
     }
 
     /// Sets the value of [code][crate::model::MembershipState::code].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::model::MembershipState;
+    /// use google_cloud_gkehub_v1::model::membership_state::Code;
+    /// let x0 = MembershipState::new().set_code(Code::Creating);
+    /// let x1 = MembershipState::new().set_code(Code::Ready);
+    /// let x2 = MembershipState::new().set_code(Code::Deleting);
+    /// ```
     pub fn set_code<T: std::convert::Into<crate::model::membership_state::Code>>(
         mut self,
         v: T,
@@ -2053,12 +2675,24 @@ impl Authority {
     }
 
     /// Sets the value of [issuer][crate::model::Authority::issuer].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::model::Authority;
+    /// let x = Authority::new().set_issuer("example");
+    /// ```
     pub fn set_issuer<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.issuer = v.into();
         self
     }
 
     /// Sets the value of [workload_identity_pool][crate::model::Authority::workload_identity_pool].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::model::Authority;
+    /// let x = Authority::new().set_workload_identity_pool("example");
+    /// ```
     pub fn set_workload_identity_pool<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -2068,6 +2702,12 @@ impl Authority {
     }
 
     /// Sets the value of [identity_provider][crate::model::Authority::identity_provider].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::model::Authority;
+    /// let x = Authority::new().set_identity_provider("example");
+    /// ```
     pub fn set_identity_provider<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -2077,6 +2717,12 @@ impl Authority {
     }
 
     /// Sets the value of [oidc_jwks][crate::model::Authority::oidc_jwks].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::model::Authority;
+    /// let x = Authority::new().set_oidc_jwks(bytes::Bytes::from_static(b"example"));
+    /// ```
     pub fn set_oidc_jwks<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.oidc_jwks = v.into();
         self
@@ -2144,30 +2790,60 @@ impl ListMembershipsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListMembershipsRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::model::ListMembershipsRequest;
+    /// let x = ListMembershipsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListMembershipsRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::model::ListMembershipsRequest;
+    /// let x = ListMembershipsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListMembershipsRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::model::ListMembershipsRequest;
+    /// let x = ListMembershipsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListMembershipsRequest::filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::model::ListMembershipsRequest;
+    /// let x = ListMembershipsRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListMembershipsRequest::order_by].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::model::ListMembershipsRequest;
+    /// let x = ListMembershipsRequest::new().set_order_by("example");
+    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
@@ -2204,6 +2880,17 @@ impl ListMembershipsResponse {
     }
 
     /// Sets the value of [resources][crate::model::ListMembershipsResponse::resources].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::model::ListMembershipsResponse;
+    /// use google_cloud_gkehub_v1::model::Membership;
+    /// let x = ListMembershipsResponse::new()
+    ///     .set_resources([
+    ///         Membership::default()/* use setters */,
+    ///         Membership::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_resources<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2215,12 +2902,24 @@ impl ListMembershipsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListMembershipsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::model::ListMembershipsResponse;
+    /// let x = ListMembershipsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListMembershipsResponse::unreachable].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::model::ListMembershipsResponse;
+    /// let x = ListMembershipsResponse::new().set_unreachable(["a", "b", "c"]);
+    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2269,6 +2968,12 @@ impl GetMembershipRequest {
     }
 
     /// Sets the value of [name][crate::model::GetMembershipRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::model::GetMembershipRequest;
+    /// let x = GetMembershipRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -2327,18 +3032,37 @@ impl CreateMembershipRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateMembershipRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::model::CreateMembershipRequest;
+    /// let x = CreateMembershipRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [membership_id][crate::model::CreateMembershipRequest::membership_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::model::CreateMembershipRequest;
+    /// let x = CreateMembershipRequest::new().set_membership_id("example");
+    /// ```
     pub fn set_membership_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.membership_id = v.into();
         self
     }
 
     /// Sets the value of [resource][crate::model::CreateMembershipRequest::resource].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::model::CreateMembershipRequest;
+    /// use google_cloud_gkehub_v1::model::Membership;
+    /// let x = CreateMembershipRequest::new().set_resource(Membership::default()/* use setters */);
+    /// ```
     pub fn set_resource<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Membership>,
@@ -2348,6 +3072,14 @@ impl CreateMembershipRequest {
     }
 
     /// Sets or clears the value of [resource][crate::model::CreateMembershipRequest::resource].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::model::CreateMembershipRequest;
+    /// use google_cloud_gkehub_v1::model::Membership;
+    /// let x = CreateMembershipRequest::new().set_or_clear_resource(Some(Membership::default()/* use setters */));
+    /// let x = CreateMembershipRequest::new().set_or_clear_resource(None::<Membership>);
+    /// ```
     pub fn set_or_clear_resource<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Membership>,
@@ -2357,6 +3089,12 @@ impl CreateMembershipRequest {
     }
 
     /// Sets the value of [request_id][crate::model::CreateMembershipRequest::request_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::model::CreateMembershipRequest;
+    /// let x = CreateMembershipRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -2406,18 +3144,36 @@ impl DeleteMembershipRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteMembershipRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::model::DeleteMembershipRequest;
+    /// let x = DeleteMembershipRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [request_id][crate::model::DeleteMembershipRequest::request_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::model::DeleteMembershipRequest;
+    /// let x = DeleteMembershipRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
     }
 
     /// Sets the value of [force][crate::model::DeleteMembershipRequest::force].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::model::DeleteMembershipRequest;
+    /// let x = DeleteMembershipRequest::new().set_force(true);
+    /// ```
     pub fn set_force<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.force = v.into();
         self
@@ -2475,12 +3231,25 @@ impl UpdateMembershipRequest {
     }
 
     /// Sets the value of [name][crate::model::UpdateMembershipRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::model::UpdateMembershipRequest;
+    /// let x = UpdateMembershipRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateMembershipRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::model::UpdateMembershipRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateMembershipRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -2490,6 +3259,14 @@ impl UpdateMembershipRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateMembershipRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::model::UpdateMembershipRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateMembershipRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateMembershipRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -2499,6 +3276,13 @@ impl UpdateMembershipRequest {
     }
 
     /// Sets the value of [resource][crate::model::UpdateMembershipRequest::resource].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::model::UpdateMembershipRequest;
+    /// use google_cloud_gkehub_v1::model::Membership;
+    /// let x = UpdateMembershipRequest::new().set_resource(Membership::default()/* use setters */);
+    /// ```
     pub fn set_resource<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Membership>,
@@ -2508,6 +3292,14 @@ impl UpdateMembershipRequest {
     }
 
     /// Sets or clears the value of [resource][crate::model::UpdateMembershipRequest::resource].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::model::UpdateMembershipRequest;
+    /// use google_cloud_gkehub_v1::model::Membership;
+    /// let x = UpdateMembershipRequest::new().set_or_clear_resource(Some(Membership::default()/* use setters */));
+    /// let x = UpdateMembershipRequest::new().set_or_clear_resource(None::<Membership>);
+    /// ```
     pub fn set_or_clear_resource<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Membership>,
@@ -2517,6 +3309,12 @@ impl UpdateMembershipRequest {
     }
 
     /// Sets the value of [request_id][crate::model::UpdateMembershipRequest::request_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::model::UpdateMembershipRequest;
+    /// let x = UpdateMembershipRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -2578,42 +3376,84 @@ impl GenerateConnectManifestRequest {
     }
 
     /// Sets the value of [name][crate::model::GenerateConnectManifestRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::model::GenerateConnectManifestRequest;
+    /// let x = GenerateConnectManifestRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [namespace][crate::model::GenerateConnectManifestRequest::namespace].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::model::GenerateConnectManifestRequest;
+    /// let x = GenerateConnectManifestRequest::new().set_namespace("example");
+    /// ```
     pub fn set_namespace<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.namespace = v.into();
         self
     }
 
     /// Sets the value of [proxy][crate::model::GenerateConnectManifestRequest::proxy].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::model::GenerateConnectManifestRequest;
+    /// let x = GenerateConnectManifestRequest::new().set_proxy(bytes::Bytes::from_static(b"example"));
+    /// ```
     pub fn set_proxy<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.proxy = v.into();
         self
     }
 
     /// Sets the value of [version][crate::model::GenerateConnectManifestRequest::version].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::model::GenerateConnectManifestRequest;
+    /// let x = GenerateConnectManifestRequest::new().set_version("example");
+    /// ```
     pub fn set_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.version = v.into();
         self
     }
 
     /// Sets the value of [is_upgrade][crate::model::GenerateConnectManifestRequest::is_upgrade].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::model::GenerateConnectManifestRequest;
+    /// let x = GenerateConnectManifestRequest::new().set_is_upgrade(true);
+    /// ```
     pub fn set_is_upgrade<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.is_upgrade = v.into();
         self
     }
 
     /// Sets the value of [registry][crate::model::GenerateConnectManifestRequest::registry].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::model::GenerateConnectManifestRequest;
+    /// let x = GenerateConnectManifestRequest::new().set_registry("example");
+    /// ```
     pub fn set_registry<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.registry = v.into();
         self
     }
 
     /// Sets the value of [image_pull_secret_content][crate::model::GenerateConnectManifestRequest::image_pull_secret_content].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::model::GenerateConnectManifestRequest;
+    /// let x = GenerateConnectManifestRequest::new().set_image_pull_secret_content(bytes::Bytes::from_static(b"example"));
+    /// ```
     pub fn set_image_pull_secret_content<T: std::convert::Into<::bytes::Bytes>>(
         mut self,
         v: T,
@@ -2647,6 +3487,17 @@ impl GenerateConnectManifestResponse {
     }
 
     /// Sets the value of [manifest][crate::model::GenerateConnectManifestResponse::manifest].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::model::GenerateConnectManifestResponse;
+    /// use google_cloud_gkehub_v1::model::ConnectAgentResource;
+    /// let x = GenerateConnectManifestResponse::new()
+    ///     .set_manifest([
+    ///         ConnectAgentResource::default()/* use setters */,
+    ///         ConnectAgentResource::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_manifest<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2684,6 +3535,13 @@ impl ConnectAgentResource {
     }
 
     /// Sets the value of [r#type][crate::model::ConnectAgentResource::type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::model::ConnectAgentResource;
+    /// use google_cloud_gkehub_v1::model::TypeMeta;
+    /// let x = ConnectAgentResource::new().set_type(TypeMeta::default()/* use setters */);
+    /// ```
     pub fn set_type<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::TypeMeta>,
@@ -2693,6 +3551,14 @@ impl ConnectAgentResource {
     }
 
     /// Sets or clears the value of [r#type][crate::model::ConnectAgentResource::type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::model::ConnectAgentResource;
+    /// use google_cloud_gkehub_v1::model::TypeMeta;
+    /// let x = ConnectAgentResource::new().set_or_clear_type(Some(TypeMeta::default()/* use setters */));
+    /// let x = ConnectAgentResource::new().set_or_clear_type(None::<TypeMeta>);
+    /// ```
     pub fn set_or_clear_type<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::TypeMeta>,
@@ -2702,6 +3568,12 @@ impl ConnectAgentResource {
     }
 
     /// Sets the value of [manifest][crate::model::ConnectAgentResource::manifest].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::model::ConnectAgentResource;
+    /// let x = ConnectAgentResource::new().set_manifest("example");
+    /// ```
     pub fn set_manifest<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.manifest = v.into();
         self
@@ -2734,12 +3606,24 @@ impl TypeMeta {
     }
 
     /// Sets the value of [kind][crate::model::TypeMeta::kind].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::model::TypeMeta;
+    /// let x = TypeMeta::new().set_kind("example");
+    /// ```
     pub fn set_kind<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.kind = v.into();
         self
     }
 
     /// Sets the value of [api_version][crate::model::TypeMeta::api_version].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::model::TypeMeta;
+    /// let x = TypeMeta::new().set_api_version("example");
+    /// ```
     pub fn set_api_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.api_version = v.into();
         self
@@ -2802,30 +3686,60 @@ impl ListFeaturesRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListFeaturesRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::model::ListFeaturesRequest;
+    /// let x = ListFeaturesRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListFeaturesRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::model::ListFeaturesRequest;
+    /// let x = ListFeaturesRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListFeaturesRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::model::ListFeaturesRequest;
+    /// let x = ListFeaturesRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListFeaturesRequest::filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::model::ListFeaturesRequest;
+    /// let x = ListFeaturesRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListFeaturesRequest::order_by].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::model::ListFeaturesRequest;
+    /// let x = ListFeaturesRequest::new().set_order_by("example");
+    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
@@ -2859,6 +3773,17 @@ impl ListFeaturesResponse {
     }
 
     /// Sets the value of [resources][crate::model::ListFeaturesResponse::resources].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::model::ListFeaturesResponse;
+    /// use google_cloud_gkehub_v1::model::Feature;
+    /// let x = ListFeaturesResponse::new()
+    ///     .set_resources([
+    ///         Feature::default()/* use setters */,
+    ///         Feature::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_resources<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2870,6 +3795,12 @@ impl ListFeaturesResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListFeaturesResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::model::ListFeaturesResponse;
+    /// let x = ListFeaturesResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -2913,6 +3844,12 @@ impl GetFeatureRequest {
     }
 
     /// Sets the value of [name][crate::model::GetFeatureRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::model::GetFeatureRequest;
+    /// let x = GetFeatureRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -2963,18 +3900,37 @@ impl CreateFeatureRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateFeatureRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::model::CreateFeatureRequest;
+    /// let x = CreateFeatureRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [feature_id][crate::model::CreateFeatureRequest::feature_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::model::CreateFeatureRequest;
+    /// let x = CreateFeatureRequest::new().set_feature_id("example");
+    /// ```
     pub fn set_feature_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.feature_id = v.into();
         self
     }
 
     /// Sets the value of [resource][crate::model::CreateFeatureRequest::resource].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::model::CreateFeatureRequest;
+    /// use google_cloud_gkehub_v1::model::Feature;
+    /// let x = CreateFeatureRequest::new().set_resource(Feature::default()/* use setters */);
+    /// ```
     pub fn set_resource<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Feature>,
@@ -2984,6 +3940,14 @@ impl CreateFeatureRequest {
     }
 
     /// Sets or clears the value of [resource][crate::model::CreateFeatureRequest::resource].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::model::CreateFeatureRequest;
+    /// use google_cloud_gkehub_v1::model::Feature;
+    /// let x = CreateFeatureRequest::new().set_or_clear_resource(Some(Feature::default()/* use setters */));
+    /// let x = CreateFeatureRequest::new().set_or_clear_resource(None::<Feature>);
+    /// ```
     pub fn set_or_clear_resource<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Feature>,
@@ -2993,6 +3957,12 @@ impl CreateFeatureRequest {
     }
 
     /// Sets the value of [request_id][crate::model::CreateFeatureRequest::request_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::model::CreateFeatureRequest;
+    /// let x = CreateFeatureRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -3042,18 +4012,36 @@ impl DeleteFeatureRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteFeatureRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::model::DeleteFeatureRequest;
+    /// let x = DeleteFeatureRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [force][crate::model::DeleteFeatureRequest::force].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::model::DeleteFeatureRequest;
+    /// let x = DeleteFeatureRequest::new().set_force(true);
+    /// ```
     pub fn set_force<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.force = v.into();
         self
     }
 
     /// Sets the value of [request_id][crate::model::DeleteFeatureRequest::request_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::model::DeleteFeatureRequest;
+    /// let x = DeleteFeatureRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -3111,12 +4099,25 @@ impl UpdateFeatureRequest {
     }
 
     /// Sets the value of [name][crate::model::UpdateFeatureRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::model::UpdateFeatureRequest;
+    /// let x = UpdateFeatureRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateFeatureRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::model::UpdateFeatureRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateFeatureRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -3126,6 +4127,14 @@ impl UpdateFeatureRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateFeatureRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::model::UpdateFeatureRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateFeatureRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateFeatureRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -3135,6 +4144,13 @@ impl UpdateFeatureRequest {
     }
 
     /// Sets the value of [resource][crate::model::UpdateFeatureRequest::resource].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::model::UpdateFeatureRequest;
+    /// use google_cloud_gkehub_v1::model::Feature;
+    /// let x = UpdateFeatureRequest::new().set_resource(Feature::default()/* use setters */);
+    /// ```
     pub fn set_resource<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Feature>,
@@ -3144,6 +4160,14 @@ impl UpdateFeatureRequest {
     }
 
     /// Sets or clears the value of [resource][crate::model::UpdateFeatureRequest::resource].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::model::UpdateFeatureRequest;
+    /// use google_cloud_gkehub_v1::model::Feature;
+    /// let x = UpdateFeatureRequest::new().set_or_clear_resource(Some(Feature::default()/* use setters */));
+    /// let x = UpdateFeatureRequest::new().set_or_clear_resource(None::<Feature>);
+    /// ```
     pub fn set_or_clear_resource<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Feature>,
@@ -3153,6 +4177,12 @@ impl UpdateFeatureRequest {
     }
 
     /// Sets the value of [request_id][crate::model::UpdateFeatureRequest::request_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::model::UpdateFeatureRequest;
+    /// let x = UpdateFeatureRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -3205,6 +4235,13 @@ impl OperationMetadata {
     }
 
     /// Sets the value of [create_time][crate::model::OperationMetadata::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::model::OperationMetadata;
+    /// use wkt::Timestamp;
+    /// let x = OperationMetadata::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3214,6 +4251,14 @@ impl OperationMetadata {
     }
 
     /// Sets or clears the value of [create_time][crate::model::OperationMetadata::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::model::OperationMetadata;
+    /// use wkt::Timestamp;
+    /// let x = OperationMetadata::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = OperationMetadata::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3223,6 +4268,13 @@ impl OperationMetadata {
     }
 
     /// Sets the value of [end_time][crate::model::OperationMetadata::end_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::model::OperationMetadata;
+    /// use wkt::Timestamp;
+    /// let x = OperationMetadata::new().set_end_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3232,6 +4284,14 @@ impl OperationMetadata {
     }
 
     /// Sets or clears the value of [end_time][crate::model::OperationMetadata::end_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::model::OperationMetadata;
+    /// use wkt::Timestamp;
+    /// let x = OperationMetadata::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
+    /// let x = OperationMetadata::new().set_or_clear_end_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3241,30 +4301,60 @@ impl OperationMetadata {
     }
 
     /// Sets the value of [target][crate::model::OperationMetadata::target].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::model::OperationMetadata;
+    /// let x = OperationMetadata::new().set_target("example");
+    /// ```
     pub fn set_target<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.target = v.into();
         self
     }
 
     /// Sets the value of [verb][crate::model::OperationMetadata::verb].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::model::OperationMetadata;
+    /// let x = OperationMetadata::new().set_verb("example");
+    /// ```
     pub fn set_verb<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.verb = v.into();
         self
     }
 
     /// Sets the value of [status_detail][crate::model::OperationMetadata::status_detail].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::model::OperationMetadata;
+    /// let x = OperationMetadata::new().set_status_detail("example");
+    /// ```
     pub fn set_status_detail<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.status_detail = v.into();
         self
     }
 
     /// Sets the value of [cancel_requested][crate::model::OperationMetadata::cancel_requested].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::model::OperationMetadata;
+    /// let x = OperationMetadata::new().set_cancel_requested(true);
+    /// ```
     pub fn set_cancel_requested<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.cancel_requested = v.into();
         self
     }
 
     /// Sets the value of [api_version][crate::model::OperationMetadata::api_version].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::model::OperationMetadata;
+    /// let x = OperationMetadata::new().set_api_version("example");
+    /// ```
     pub fn set_api_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.api_version = v.into();
         self

@@ -74,18 +74,41 @@ impl Contact {
     }
 
     /// Sets the value of [name][crate::model::Contact::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_essentialcontacts_v1::model::Contact;
+    /// let x = Contact::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [email][crate::model::Contact::email].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_essentialcontacts_v1::model::Contact;
+    /// let x = Contact::new().set_email("example");
+    /// ```
     pub fn set_email<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.email = v.into();
         self
     }
 
     /// Sets the value of [notification_category_subscriptions][crate::model::Contact::notification_category_subscriptions].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_essentialcontacts_v1::model::Contact;
+    /// use google_cloud_essentialcontacts_v1::model::NotificationCategory;
+    /// let x = Contact::new().set_notification_category_subscriptions([
+    ///     NotificationCategory::All,
+    ///     NotificationCategory::Suspension,
+    ///     NotificationCategory::Security,
+    /// ]);
+    /// ```
     pub fn set_notification_category_subscriptions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -97,12 +120,26 @@ impl Contact {
     }
 
     /// Sets the value of [language_tag][crate::model::Contact::language_tag].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_essentialcontacts_v1::model::Contact;
+    /// let x = Contact::new().set_language_tag("example");
+    /// ```
     pub fn set_language_tag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.language_tag = v.into();
         self
     }
 
     /// Sets the value of [validation_state][crate::model::Contact::validation_state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_essentialcontacts_v1::model::Contact;
+    /// use google_cloud_essentialcontacts_v1::model::ValidationState;
+    /// let x0 = Contact::new().set_validation_state(ValidationState::Valid);
+    /// let x1 = Contact::new().set_validation_state(ValidationState::Invalid);
+    /// ```
     pub fn set_validation_state<T: std::convert::Into<crate::model::ValidationState>>(
         mut self,
         v: T,
@@ -112,6 +149,13 @@ impl Contact {
     }
 
     /// Sets the value of [validate_time][crate::model::Contact::validate_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_essentialcontacts_v1::model::Contact;
+    /// use wkt::Timestamp;
+    /// let x = Contact::new().set_validate_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_validate_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -121,6 +165,14 @@ impl Contact {
     }
 
     /// Sets or clears the value of [validate_time][crate::model::Contact::validate_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_essentialcontacts_v1::model::Contact;
+    /// use wkt::Timestamp;
+    /// let x = Contact::new().set_or_clear_validate_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Contact::new().set_or_clear_validate_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_validate_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -166,18 +218,36 @@ impl ListContactsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListContactsRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_essentialcontacts_v1::model::ListContactsRequest;
+    /// let x = ListContactsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListContactsRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_essentialcontacts_v1::model::ListContactsRequest;
+    /// let x = ListContactsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListContactsRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_essentialcontacts_v1::model::ListContactsRequest;
+    /// let x = ListContactsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -212,6 +282,17 @@ impl ListContactsResponse {
     }
 
     /// Sets the value of [contacts][crate::model::ListContactsResponse::contacts].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_essentialcontacts_v1::model::ListContactsResponse;
+    /// use google_cloud_essentialcontacts_v1::model::Contact;
+    /// let x = ListContactsResponse::new()
+    ///     .set_contacts([
+    ///         Contact::default()/* use setters */,
+    ///         Contact::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_contacts<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -223,6 +304,12 @@ impl ListContactsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListContactsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_essentialcontacts_v1::model::ListContactsResponse;
+    /// let x = ListContactsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -268,6 +355,12 @@ impl GetContactRequest {
     }
 
     /// Sets the value of [name][crate::model::GetContactRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_essentialcontacts_v1::model::GetContactRequest;
+    /// let x = GetContactRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -299,6 +392,12 @@ impl DeleteContactRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteContactRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_essentialcontacts_v1::model::DeleteContactRequest;
+    /// let x = DeleteContactRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -333,12 +432,25 @@ impl CreateContactRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateContactRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_essentialcontacts_v1::model::CreateContactRequest;
+    /// let x = CreateContactRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [contact][crate::model::CreateContactRequest::contact].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_essentialcontacts_v1::model::CreateContactRequest;
+    /// use google_cloud_essentialcontacts_v1::model::Contact;
+    /// let x = CreateContactRequest::new().set_contact(Contact::default()/* use setters */);
+    /// ```
     pub fn set_contact<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Contact>,
@@ -348,6 +460,14 @@ impl CreateContactRequest {
     }
 
     /// Sets or clears the value of [contact][crate::model::CreateContactRequest::contact].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_essentialcontacts_v1::model::CreateContactRequest;
+    /// use google_cloud_essentialcontacts_v1::model::Contact;
+    /// let x = CreateContactRequest::new().set_or_clear_contact(Some(Contact::default()/* use setters */));
+    /// let x = CreateContactRequest::new().set_or_clear_contact(None::<Contact>);
+    /// ```
     pub fn set_or_clear_contact<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Contact>,
@@ -385,6 +505,13 @@ impl UpdateContactRequest {
     }
 
     /// Sets the value of [contact][crate::model::UpdateContactRequest::contact].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_essentialcontacts_v1::model::UpdateContactRequest;
+    /// use google_cloud_essentialcontacts_v1::model::Contact;
+    /// let x = UpdateContactRequest::new().set_contact(Contact::default()/* use setters */);
+    /// ```
     pub fn set_contact<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Contact>,
@@ -394,6 +521,14 @@ impl UpdateContactRequest {
     }
 
     /// Sets or clears the value of [contact][crate::model::UpdateContactRequest::contact].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_essentialcontacts_v1::model::UpdateContactRequest;
+    /// use google_cloud_essentialcontacts_v1::model::Contact;
+    /// let x = UpdateContactRequest::new().set_or_clear_contact(Some(Contact::default()/* use setters */));
+    /// let x = UpdateContactRequest::new().set_or_clear_contact(None::<Contact>);
+    /// ```
     pub fn set_or_clear_contact<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Contact>,
@@ -403,6 +538,13 @@ impl UpdateContactRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateContactRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_essentialcontacts_v1::model::UpdateContactRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateContactRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -412,6 +554,14 @@ impl UpdateContactRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateContactRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_essentialcontacts_v1::model::UpdateContactRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateContactRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateContactRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -462,12 +612,29 @@ impl ComputeContactsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ComputeContactsRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_essentialcontacts_v1::model::ComputeContactsRequest;
+    /// let x = ComputeContactsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [notification_categories][crate::model::ComputeContactsRequest::notification_categories].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_essentialcontacts_v1::model::ComputeContactsRequest;
+    /// use google_cloud_essentialcontacts_v1::model::NotificationCategory;
+    /// let x = ComputeContactsRequest::new().set_notification_categories([
+    ///     NotificationCategory::All,
+    ///     NotificationCategory::Suspension,
+    ///     NotificationCategory::Security,
+    /// ]);
+    /// ```
     pub fn set_notification_categories<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -479,12 +646,24 @@ impl ComputeContactsRequest {
     }
 
     /// Sets the value of [page_size][crate::model::ComputeContactsRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_essentialcontacts_v1::model::ComputeContactsRequest;
+    /// let x = ComputeContactsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ComputeContactsRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_essentialcontacts_v1::model::ComputeContactsRequest;
+    /// let x = ComputeContactsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -521,6 +700,17 @@ impl ComputeContactsResponse {
     }
 
     /// Sets the value of [contacts][crate::model::ComputeContactsResponse::contacts].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_essentialcontacts_v1::model::ComputeContactsResponse;
+    /// use google_cloud_essentialcontacts_v1::model::Contact;
+    /// let x = ComputeContactsResponse::new()
+    ///     .set_contacts([
+    ///         Contact::default()/* use setters */,
+    ///         Contact::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_contacts<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -532,6 +722,12 @@ impl ComputeContactsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ComputeContactsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_essentialcontacts_v1::model::ComputeContactsResponse;
+    /// let x = ComputeContactsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -588,6 +784,12 @@ impl SendTestMessageRequest {
     }
 
     /// Sets the value of [contacts][crate::model::SendTestMessageRequest::contacts].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_essentialcontacts_v1::model::SendTestMessageRequest;
+    /// let x = SendTestMessageRequest::new().set_contacts(["a", "b", "c"]);
+    /// ```
     pub fn set_contacts<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -599,12 +801,27 @@ impl SendTestMessageRequest {
     }
 
     /// Sets the value of [resource][crate::model::SendTestMessageRequest::resource].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_essentialcontacts_v1::model::SendTestMessageRequest;
+    /// let x = SendTestMessageRequest::new().set_resource("example");
+    /// ```
     pub fn set_resource<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.resource = v.into();
         self
     }
 
     /// Sets the value of [notification_category][crate::model::SendTestMessageRequest::notification_category].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_essentialcontacts_v1::model::SendTestMessageRequest;
+    /// use google_cloud_essentialcontacts_v1::model::NotificationCategory;
+    /// let x0 = SendTestMessageRequest::new().set_notification_category(NotificationCategory::All);
+    /// let x1 = SendTestMessageRequest::new().set_notification_category(NotificationCategory::Suspension);
+    /// let x2 = SendTestMessageRequest::new().set_notification_category(NotificationCategory::Security);
+    /// ```
     pub fn set_notification_category<T: std::convert::Into<crate::model::NotificationCategory>>(
         mut self,
         v: T,

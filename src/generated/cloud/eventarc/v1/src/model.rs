@@ -100,18 +100,37 @@ impl Channel {
     }
 
     /// Sets the value of [name][crate::model::Channel::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::Channel;
+    /// let x = Channel::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [uid][crate::model::Channel::uid].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::Channel;
+    /// let x = Channel::new().set_uid("example");
+    /// ```
     pub fn set_uid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.uid = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::Channel::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::Channel;
+    /// use wkt::Timestamp;
+    /// let x = Channel::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -121,6 +140,14 @@ impl Channel {
     }
 
     /// Sets or clears the value of [create_time][crate::model::Channel::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::Channel;
+    /// use wkt::Timestamp;
+    /// let x = Channel::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Channel::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -130,6 +157,13 @@ impl Channel {
     }
 
     /// Sets the value of [update_time][crate::model::Channel::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::Channel;
+    /// use wkt::Timestamp;
+    /// let x = Channel::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -139,6 +173,14 @@ impl Channel {
     }
 
     /// Sets or clears the value of [update_time][crate::model::Channel::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::Channel;
+    /// use wkt::Timestamp;
+    /// let x = Channel::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Channel::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -148,18 +190,39 @@ impl Channel {
     }
 
     /// Sets the value of [provider][crate::model::Channel::provider].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::Channel;
+    /// let x = Channel::new().set_provider("example");
+    /// ```
     pub fn set_provider<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.provider = v.into();
         self
     }
 
     /// Sets the value of [state][crate::model::Channel::state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::Channel;
+    /// use google_cloud_eventarc_v1::model::channel::State;
+    /// let x0 = Channel::new().set_state(State::Pending);
+    /// let x1 = Channel::new().set_state(State::Active);
+    /// let x2 = Channel::new().set_state(State::Inactive);
+    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::channel::State>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
     }
 
     /// Sets the value of [activation_token][crate::model::Channel::activation_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::Channel;
+    /// let x = Channel::new().set_activation_token("example");
+    /// ```
     pub fn set_activation_token<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -169,18 +232,39 @@ impl Channel {
     }
 
     /// Sets the value of [crypto_key_name][crate::model::Channel::crypto_key_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::Channel;
+    /// let x = Channel::new().set_crypto_key_name("example");
+    /// ```
     pub fn set_crypto_key_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.crypto_key_name = v.into();
         self
     }
 
     /// Sets the value of [satisfies_pzs][crate::model::Channel::satisfies_pzs].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::Channel;
+    /// let x = Channel::new().set_satisfies_pzs(true);
+    /// ```
     pub fn set_satisfies_pzs<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.satisfies_pzs = v.into();
         self
     }
 
     /// Sets the value of [labels][crate::model::Channel::labels].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::Channel;
+    /// let x = Channel::new().set_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -196,6 +280,13 @@ impl Channel {
     ///
     /// Note that all the setters affecting `transport` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::Channel;
+    /// use google_cloud_eventarc_v1::model::channel;
+    /// let x = Channel::new().set_transport(Some(channel::Transport::PubsubTopic("example".to_string())));
+    /// ```
     pub fn set_transport<
         T: std::convert::Into<std::option::Option<crate::model::channel::Transport>>,
     >(
@@ -222,6 +313,13 @@ impl Channel {
     ///
     /// Note that all the setters affecting `transport` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::Channel;
+    /// let x = Channel::new().set_pubsub_topic("example");
+    /// assert!(x.pubsub_topic().is_some());
+    /// ```
     pub fn set_pubsub_topic<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.transport =
             std::option::Option::Some(crate::model::channel::Transport::PubsubTopic(v.into()));
@@ -445,24 +543,49 @@ impl ChannelConnection {
     }
 
     /// Sets the value of [name][crate::model::ChannelConnection::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::ChannelConnection;
+    /// let x = ChannelConnection::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [uid][crate::model::ChannelConnection::uid].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::ChannelConnection;
+    /// let x = ChannelConnection::new().set_uid("example");
+    /// ```
     pub fn set_uid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.uid = v.into();
         self
     }
 
     /// Sets the value of [channel][crate::model::ChannelConnection::channel].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::ChannelConnection;
+    /// let x = ChannelConnection::new().set_channel("example");
+    /// ```
     pub fn set_channel<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.channel = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::ChannelConnection::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::ChannelConnection;
+    /// use wkt::Timestamp;
+    /// let x = ChannelConnection::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -472,6 +595,14 @@ impl ChannelConnection {
     }
 
     /// Sets or clears the value of [create_time][crate::model::ChannelConnection::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::ChannelConnection;
+    /// use wkt::Timestamp;
+    /// let x = ChannelConnection::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = ChannelConnection::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -481,6 +612,13 @@ impl ChannelConnection {
     }
 
     /// Sets the value of [update_time][crate::model::ChannelConnection::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::ChannelConnection;
+    /// use wkt::Timestamp;
+    /// let x = ChannelConnection::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -490,6 +628,14 @@ impl ChannelConnection {
     }
 
     /// Sets or clears the value of [update_time][crate::model::ChannelConnection::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::ChannelConnection;
+    /// use wkt::Timestamp;
+    /// let x = ChannelConnection::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = ChannelConnection::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -499,6 +645,12 @@ impl ChannelConnection {
     }
 
     /// Sets the value of [activation_token][crate::model::ChannelConnection::activation_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::ChannelConnection;
+    /// let x = ChannelConnection::new().set_activation_token("example");
+    /// ```
     pub fn set_activation_token<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -508,6 +660,15 @@ impl ChannelConnection {
     }
 
     /// Sets the value of [labels][crate::model::ChannelConnection::labels].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::ChannelConnection;
+    /// let x = ChannelConnection::new().set_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -550,18 +711,41 @@ impl Provider {
     }
 
     /// Sets the value of [name][crate::model::Provider::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::Provider;
+    /// let x = Provider::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [display_name][crate::model::Provider::display_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::Provider;
+    /// let x = Provider::new().set_display_name("example");
+    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
     }
 
     /// Sets the value of [event_types][crate::model::Provider::event_types].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::Provider;
+    /// use google_cloud_eventarc_v1::model::EventType;
+    /// let x = Provider::new()
+    ///     .set_event_types([
+    ///         EventType::default()/* use setters */,
+    ///         EventType::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_event_types<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -612,18 +796,41 @@ impl EventType {
     }
 
     /// Sets the value of [r#type][crate::model::EventType::type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::EventType;
+    /// let x = EventType::new().set_type("example");
+    /// ```
     pub fn set_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.r#type = v.into();
         self
     }
 
     /// Sets the value of [description][crate::model::EventType::description].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::EventType;
+    /// let x = EventType::new().set_description("example");
+    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [filtering_attributes][crate::model::EventType::filtering_attributes].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::EventType;
+    /// use google_cloud_eventarc_v1::model::FilteringAttribute;
+    /// let x = EventType::new()
+    ///     .set_filtering_attributes([
+    ///         FilteringAttribute::default()/* use setters */,
+    ///         FilteringAttribute::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_filtering_attributes<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -635,6 +842,12 @@ impl EventType {
     }
 
     /// Sets the value of [event_schema_uri][crate::model::EventType::event_schema_uri].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::EventType;
+    /// let x = EventType::new().set_event_schema_uri("example");
+    /// ```
     pub fn set_event_schema_uri<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -678,24 +891,48 @@ impl FilteringAttribute {
     }
 
     /// Sets the value of [attribute][crate::model::FilteringAttribute::attribute].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::FilteringAttribute;
+    /// let x = FilteringAttribute::new().set_attribute("example");
+    /// ```
     pub fn set_attribute<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.attribute = v.into();
         self
     }
 
     /// Sets the value of [description][crate::model::FilteringAttribute::description].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::FilteringAttribute;
+    /// let x = FilteringAttribute::new().set_description("example");
+    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [required][crate::model::FilteringAttribute::required].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::FilteringAttribute;
+    /// let x = FilteringAttribute::new().set_required(true);
+    /// ```
     pub fn set_required<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.required = v.into();
         self
     }
 
     /// Sets the value of [path_pattern_supported][crate::model::FilteringAttribute::path_pattern_supported].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::FilteringAttribute;
+    /// let x = FilteringAttribute::new().set_path_pattern_supported(true);
+    /// ```
     pub fn set_path_pattern_supported<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.path_pattern_supported = v.into();
         self
@@ -766,24 +1003,49 @@ impl Enrollment {
     }
 
     /// Sets the value of [name][crate::model::Enrollment::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::Enrollment;
+    /// let x = Enrollment::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [uid][crate::model::Enrollment::uid].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::Enrollment;
+    /// let x = Enrollment::new().set_uid("example");
+    /// ```
     pub fn set_uid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.uid = v.into();
         self
     }
 
     /// Sets the value of [etag][crate::model::Enrollment::etag].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::Enrollment;
+    /// let x = Enrollment::new().set_etag("example");
+    /// ```
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::Enrollment::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::Enrollment;
+    /// use wkt::Timestamp;
+    /// let x = Enrollment::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -793,6 +1055,14 @@ impl Enrollment {
     }
 
     /// Sets or clears the value of [create_time][crate::model::Enrollment::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::Enrollment;
+    /// use wkt::Timestamp;
+    /// let x = Enrollment::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Enrollment::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -802,6 +1072,13 @@ impl Enrollment {
     }
 
     /// Sets the value of [update_time][crate::model::Enrollment::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::Enrollment;
+    /// use wkt::Timestamp;
+    /// let x = Enrollment::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -811,6 +1088,14 @@ impl Enrollment {
     }
 
     /// Sets or clears the value of [update_time][crate::model::Enrollment::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::Enrollment;
+    /// use wkt::Timestamp;
+    /// let x = Enrollment::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Enrollment::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -820,6 +1105,15 @@ impl Enrollment {
     }
 
     /// Sets the value of [labels][crate::model::Enrollment::labels].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::Enrollment;
+    /// let x = Enrollment::new().set_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -832,6 +1126,15 @@ impl Enrollment {
     }
 
     /// Sets the value of [annotations][crate::model::Enrollment::annotations].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::Enrollment;
+    /// let x = Enrollment::new().set_annotations([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_annotations<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -844,24 +1147,48 @@ impl Enrollment {
     }
 
     /// Sets the value of [display_name][crate::model::Enrollment::display_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::Enrollment;
+    /// let x = Enrollment::new().set_display_name("example");
+    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
     }
 
     /// Sets the value of [cel_match][crate::model::Enrollment::cel_match].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::Enrollment;
+    /// let x = Enrollment::new().set_cel_match("example");
+    /// ```
     pub fn set_cel_match<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.cel_match = v.into();
         self
     }
 
     /// Sets the value of [message_bus][crate::model::Enrollment::message_bus].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::Enrollment;
+    /// let x = Enrollment::new().set_message_bus("example");
+    /// ```
     pub fn set_message_bus<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.message_bus = v.into();
         self
     }
 
     /// Sets the value of [destination][crate::model::Enrollment::destination].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::Enrollment;
+    /// let x = Enrollment::new().set_destination("example");
+    /// ```
     pub fn set_destination<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.destination = v.into();
         self
@@ -890,6 +1217,12 @@ impl GetTriggerRequest {
     }
 
     /// Sets the value of [name][crate::model::GetTriggerRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::GetTriggerRequest;
+    /// let x = GetTriggerRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -941,30 +1274,60 @@ impl ListTriggersRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListTriggersRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::ListTriggersRequest;
+    /// let x = ListTriggersRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListTriggersRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::ListTriggersRequest;
+    /// let x = ListTriggersRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListTriggersRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::ListTriggersRequest;
+    /// let x = ListTriggersRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListTriggersRequest::order_by].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::ListTriggersRequest;
+    /// let x = ListTriggersRequest::new().set_order_by("example");
+    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListTriggersRequest::filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::ListTriggersRequest;
+    /// let x = ListTriggersRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
@@ -1000,6 +1363,17 @@ impl ListTriggersResponse {
     }
 
     /// Sets the value of [triggers][crate::model::ListTriggersResponse::triggers].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::ListTriggersResponse;
+    /// use google_cloud_eventarc_v1::model::Trigger;
+    /// let x = ListTriggersResponse::new()
+    ///     .set_triggers([
+    ///         Trigger::default()/* use setters */,
+    ///         Trigger::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_triggers<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1011,12 +1385,24 @@ impl ListTriggersResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListTriggersResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::ListTriggersResponse;
+    /// let x = ListTriggersResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListTriggersResponse::unreachable].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::ListTriggersResponse;
+    /// let x = ListTriggersResponse::new().set_unreachable(["a", "b", "c"]);
+    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1074,12 +1460,25 @@ impl CreateTriggerRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateTriggerRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::CreateTriggerRequest;
+    /// let x = CreateTriggerRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [trigger][crate::model::CreateTriggerRequest::trigger].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::CreateTriggerRequest;
+    /// use google_cloud_eventarc_v1::model::Trigger;
+    /// let x = CreateTriggerRequest::new().set_trigger(Trigger::default()/* use setters */);
+    /// ```
     pub fn set_trigger<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Trigger>,
@@ -1089,6 +1488,14 @@ impl CreateTriggerRequest {
     }
 
     /// Sets or clears the value of [trigger][crate::model::CreateTriggerRequest::trigger].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::CreateTriggerRequest;
+    /// use google_cloud_eventarc_v1::model::Trigger;
+    /// let x = CreateTriggerRequest::new().set_or_clear_trigger(Some(Trigger::default()/* use setters */));
+    /// let x = CreateTriggerRequest::new().set_or_clear_trigger(None::<Trigger>);
+    /// ```
     pub fn set_or_clear_trigger<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Trigger>,
@@ -1098,12 +1505,24 @@ impl CreateTriggerRequest {
     }
 
     /// Sets the value of [trigger_id][crate::model::CreateTriggerRequest::trigger_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::CreateTriggerRequest;
+    /// let x = CreateTriggerRequest::new().set_trigger_id("example");
+    /// ```
     pub fn set_trigger_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.trigger_id = v.into();
         self
     }
 
     /// Sets the value of [validate_only][crate::model::CreateTriggerRequest::validate_only].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::CreateTriggerRequest;
+    /// let x = CreateTriggerRequest::new().set_validate_only(true);
+    /// ```
     pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.validate_only = v.into();
         self
@@ -1145,6 +1564,13 @@ impl UpdateTriggerRequest {
     }
 
     /// Sets the value of [trigger][crate::model::UpdateTriggerRequest::trigger].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::UpdateTriggerRequest;
+    /// use google_cloud_eventarc_v1::model::Trigger;
+    /// let x = UpdateTriggerRequest::new().set_trigger(Trigger::default()/* use setters */);
+    /// ```
     pub fn set_trigger<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Trigger>,
@@ -1154,6 +1580,14 @@ impl UpdateTriggerRequest {
     }
 
     /// Sets or clears the value of [trigger][crate::model::UpdateTriggerRequest::trigger].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::UpdateTriggerRequest;
+    /// use google_cloud_eventarc_v1::model::Trigger;
+    /// let x = UpdateTriggerRequest::new().set_or_clear_trigger(Some(Trigger::default()/* use setters */));
+    /// let x = UpdateTriggerRequest::new().set_or_clear_trigger(None::<Trigger>);
+    /// ```
     pub fn set_or_clear_trigger<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Trigger>,
@@ -1163,6 +1597,13 @@ impl UpdateTriggerRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateTriggerRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::UpdateTriggerRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateTriggerRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -1172,6 +1613,14 @@ impl UpdateTriggerRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateTriggerRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::UpdateTriggerRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateTriggerRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateTriggerRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -1181,12 +1630,24 @@ impl UpdateTriggerRequest {
     }
 
     /// Sets the value of [allow_missing][crate::model::UpdateTriggerRequest::allow_missing].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::UpdateTriggerRequest;
+    /// let x = UpdateTriggerRequest::new().set_allow_missing(true);
+    /// ```
     pub fn set_allow_missing<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.allow_missing = v.into();
         self
     }
 
     /// Sets the value of [validate_only][crate::model::UpdateTriggerRequest::validate_only].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::UpdateTriggerRequest;
+    /// let x = UpdateTriggerRequest::new().set_validate_only(true);
+    /// ```
     pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.validate_only = v.into();
         self
@@ -1227,24 +1688,48 @@ impl DeleteTriggerRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteTriggerRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::DeleteTriggerRequest;
+    /// let x = DeleteTriggerRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [etag][crate::model::DeleteTriggerRequest::etag].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::DeleteTriggerRequest;
+    /// let x = DeleteTriggerRequest::new().set_etag("example");
+    /// ```
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
     }
 
     /// Sets the value of [allow_missing][crate::model::DeleteTriggerRequest::allow_missing].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::DeleteTriggerRequest;
+    /// let x = DeleteTriggerRequest::new().set_allow_missing(true);
+    /// ```
     pub fn set_allow_missing<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.allow_missing = v.into();
         self
     }
 
     /// Sets the value of [validate_only][crate::model::DeleteTriggerRequest::validate_only].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::DeleteTriggerRequest;
+    /// let x = DeleteTriggerRequest::new().set_validate_only(true);
+    /// ```
     pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.validate_only = v.into();
         self
@@ -1273,6 +1758,12 @@ impl GetChannelRequest {
     }
 
     /// Sets the value of [name][crate::model::GetChannelRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::GetChannelRequest;
+    /// let x = GetChannelRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -1319,24 +1810,48 @@ impl ListChannelsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListChannelsRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::ListChannelsRequest;
+    /// let x = ListChannelsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListChannelsRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::ListChannelsRequest;
+    /// let x = ListChannelsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListChannelsRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::ListChannelsRequest;
+    /// let x = ListChannelsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListChannelsRequest::order_by].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::ListChannelsRequest;
+    /// let x = ListChannelsRequest::new().set_order_by("example");
+    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
@@ -1372,6 +1887,17 @@ impl ListChannelsResponse {
     }
 
     /// Sets the value of [channels][crate::model::ListChannelsResponse::channels].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::ListChannelsResponse;
+    /// use google_cloud_eventarc_v1::model::Channel;
+    /// let x = ListChannelsResponse::new()
+    ///     .set_channels([
+    ///         Channel::default()/* use setters */,
+    ///         Channel::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_channels<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1383,12 +1909,24 @@ impl ListChannelsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListChannelsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::ListChannelsResponse;
+    /// let x = ListChannelsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListChannelsResponse::unreachable].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::ListChannelsResponse;
+    /// let x = ListChannelsResponse::new().set_unreachable(["a", "b", "c"]);
+    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1446,12 +1984,25 @@ impl CreateChannelRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateChannelRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::CreateChannelRequest;
+    /// let x = CreateChannelRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [channel][crate::model::CreateChannelRequest::channel].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::CreateChannelRequest;
+    /// use google_cloud_eventarc_v1::model::Channel;
+    /// let x = CreateChannelRequest::new().set_channel(Channel::default()/* use setters */);
+    /// ```
     pub fn set_channel<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Channel>,
@@ -1461,6 +2012,14 @@ impl CreateChannelRequest {
     }
 
     /// Sets or clears the value of [channel][crate::model::CreateChannelRequest::channel].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::CreateChannelRequest;
+    /// use google_cloud_eventarc_v1::model::Channel;
+    /// let x = CreateChannelRequest::new().set_or_clear_channel(Some(Channel::default()/* use setters */));
+    /// let x = CreateChannelRequest::new().set_or_clear_channel(None::<Channel>);
+    /// ```
     pub fn set_or_clear_channel<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Channel>,
@@ -1470,12 +2029,24 @@ impl CreateChannelRequest {
     }
 
     /// Sets the value of [channel_id][crate::model::CreateChannelRequest::channel_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::CreateChannelRequest;
+    /// let x = CreateChannelRequest::new().set_channel_id("example");
+    /// ```
     pub fn set_channel_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.channel_id = v.into();
         self
     }
 
     /// Sets the value of [validate_only][crate::model::CreateChannelRequest::validate_only].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::CreateChannelRequest;
+    /// let x = CreateChannelRequest::new().set_validate_only(true);
+    /// ```
     pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.validate_only = v.into();
         self
@@ -1513,6 +2084,13 @@ impl UpdateChannelRequest {
     }
 
     /// Sets the value of [channel][crate::model::UpdateChannelRequest::channel].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::UpdateChannelRequest;
+    /// use google_cloud_eventarc_v1::model::Channel;
+    /// let x = UpdateChannelRequest::new().set_channel(Channel::default()/* use setters */);
+    /// ```
     pub fn set_channel<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Channel>,
@@ -1522,6 +2100,14 @@ impl UpdateChannelRequest {
     }
 
     /// Sets or clears the value of [channel][crate::model::UpdateChannelRequest::channel].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::UpdateChannelRequest;
+    /// use google_cloud_eventarc_v1::model::Channel;
+    /// let x = UpdateChannelRequest::new().set_or_clear_channel(Some(Channel::default()/* use setters */));
+    /// let x = UpdateChannelRequest::new().set_or_clear_channel(None::<Channel>);
+    /// ```
     pub fn set_or_clear_channel<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Channel>,
@@ -1531,6 +2117,13 @@ impl UpdateChannelRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateChannelRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::UpdateChannelRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateChannelRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -1540,6 +2133,14 @@ impl UpdateChannelRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateChannelRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::UpdateChannelRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateChannelRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateChannelRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -1549,6 +2150,12 @@ impl UpdateChannelRequest {
     }
 
     /// Sets the value of [validate_only][crate::model::UpdateChannelRequest::validate_only].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::UpdateChannelRequest;
+    /// let x = UpdateChannelRequest::new().set_validate_only(true);
+    /// ```
     pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.validate_only = v.into();
         self
@@ -1581,12 +2188,24 @@ impl DeleteChannelRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteChannelRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::DeleteChannelRequest;
+    /// let x = DeleteChannelRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [validate_only][crate::model::DeleteChannelRequest::validate_only].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::DeleteChannelRequest;
+    /// let x = DeleteChannelRequest::new().set_validate_only(true);
+    /// ```
     pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.validate_only = v.into();
         self
@@ -1615,6 +2234,12 @@ impl GetProviderRequest {
     }
 
     /// Sets the value of [name][crate::model::GetProviderRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::GetProviderRequest;
+    /// let x = GetProviderRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -1662,30 +2287,60 @@ impl ListProvidersRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListProvidersRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::ListProvidersRequest;
+    /// let x = ListProvidersRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListProvidersRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::ListProvidersRequest;
+    /// let x = ListProvidersRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListProvidersRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::ListProvidersRequest;
+    /// let x = ListProvidersRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListProvidersRequest::order_by].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::ListProvidersRequest;
+    /// let x = ListProvidersRequest::new().set_order_by("example");
+    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListProvidersRequest::filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::ListProvidersRequest;
+    /// let x = ListProvidersRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
@@ -1721,6 +2376,17 @@ impl ListProvidersResponse {
     }
 
     /// Sets the value of [providers][crate::model::ListProvidersResponse::providers].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::ListProvidersResponse;
+    /// use google_cloud_eventarc_v1::model::Provider;
+    /// let x = ListProvidersResponse::new()
+    ///     .set_providers([
+    ///         Provider::default()/* use setters */,
+    ///         Provider::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_providers<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1732,12 +2398,24 @@ impl ListProvidersResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListProvidersResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::ListProvidersResponse;
+    /// let x = ListProvidersResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListProvidersResponse::unreachable].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::ListProvidersResponse;
+    /// let x = ListProvidersResponse::new().set_unreachable(["a", "b", "c"]);
+    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1785,6 +2463,12 @@ impl GetChannelConnectionRequest {
     }
 
     /// Sets the value of [name][crate::model::GetChannelConnectionRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::GetChannelConnectionRequest;
+    /// let x = GetChannelConnectionRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -1825,18 +2509,36 @@ impl ListChannelConnectionsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListChannelConnectionsRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::ListChannelConnectionsRequest;
+    /// let x = ListChannelConnectionsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListChannelConnectionsRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::ListChannelConnectionsRequest;
+    /// let x = ListChannelConnectionsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListChannelConnectionsRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::ListChannelConnectionsRequest;
+    /// let x = ListChannelConnectionsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -1874,6 +2576,17 @@ impl ListChannelConnectionsResponse {
     }
 
     /// Sets the value of [channel_connections][crate::model::ListChannelConnectionsResponse::channel_connections].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::ListChannelConnectionsResponse;
+    /// use google_cloud_eventarc_v1::model::ChannelConnection;
+    /// let x = ListChannelConnectionsResponse::new()
+    ///     .set_channel_connections([
+    ///         ChannelConnection::default()/* use setters */,
+    ///         ChannelConnection::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_channel_connections<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1885,12 +2598,24 @@ impl ListChannelConnectionsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListChannelConnectionsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::ListChannelConnectionsResponse;
+    /// let x = ListChannelConnectionsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListChannelConnectionsResponse::unreachable].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::ListChannelConnectionsResponse;
+    /// let x = ListChannelConnectionsResponse::new().set_unreachable(["a", "b", "c"]);
+    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1944,12 +2669,25 @@ impl CreateChannelConnectionRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateChannelConnectionRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::CreateChannelConnectionRequest;
+    /// let x = CreateChannelConnectionRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [channel_connection][crate::model::CreateChannelConnectionRequest::channel_connection].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::CreateChannelConnectionRequest;
+    /// use google_cloud_eventarc_v1::model::ChannelConnection;
+    /// let x = CreateChannelConnectionRequest::new().set_channel_connection(ChannelConnection::default()/* use setters */);
+    /// ```
     pub fn set_channel_connection<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ChannelConnection>,
@@ -1959,6 +2697,14 @@ impl CreateChannelConnectionRequest {
     }
 
     /// Sets or clears the value of [channel_connection][crate::model::CreateChannelConnectionRequest::channel_connection].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::CreateChannelConnectionRequest;
+    /// use google_cloud_eventarc_v1::model::ChannelConnection;
+    /// let x = CreateChannelConnectionRequest::new().set_or_clear_channel_connection(Some(ChannelConnection::default()/* use setters */));
+    /// let x = CreateChannelConnectionRequest::new().set_or_clear_channel_connection(None::<ChannelConnection>);
+    /// ```
     pub fn set_or_clear_channel_connection<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ChannelConnection>,
@@ -1968,6 +2714,12 @@ impl CreateChannelConnectionRequest {
     }
 
     /// Sets the value of [channel_connection_id][crate::model::CreateChannelConnectionRequest::channel_connection_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::CreateChannelConnectionRequest;
+    /// let x = CreateChannelConnectionRequest::new().set_channel_connection_id("example");
+    /// ```
     pub fn set_channel_connection_id<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -1999,6 +2751,12 @@ impl DeleteChannelConnectionRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteChannelConnectionRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::DeleteChannelConnectionRequest;
+    /// let x = DeleteChannelConnectionRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -2032,6 +2790,13 @@ impl UpdateGoogleChannelConfigRequest {
     }
 
     /// Sets the value of [google_channel_config][crate::model::UpdateGoogleChannelConfigRequest::google_channel_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::UpdateGoogleChannelConfigRequest;
+    /// use google_cloud_eventarc_v1::model::GoogleChannelConfig;
+    /// let x = UpdateGoogleChannelConfigRequest::new().set_google_channel_config(GoogleChannelConfig::default()/* use setters */);
+    /// ```
     pub fn set_google_channel_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::GoogleChannelConfig>,
@@ -2041,6 +2806,14 @@ impl UpdateGoogleChannelConfigRequest {
     }
 
     /// Sets or clears the value of [google_channel_config][crate::model::UpdateGoogleChannelConfigRequest::google_channel_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::UpdateGoogleChannelConfigRequest;
+    /// use google_cloud_eventarc_v1::model::GoogleChannelConfig;
+    /// let x = UpdateGoogleChannelConfigRequest::new().set_or_clear_google_channel_config(Some(GoogleChannelConfig::default()/* use setters */));
+    /// let x = UpdateGoogleChannelConfigRequest::new().set_or_clear_google_channel_config(None::<GoogleChannelConfig>);
+    /// ```
     pub fn set_or_clear_google_channel_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::GoogleChannelConfig>,
@@ -2050,6 +2823,13 @@ impl UpdateGoogleChannelConfigRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateGoogleChannelConfigRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::UpdateGoogleChannelConfigRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateGoogleChannelConfigRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -2059,6 +2839,14 @@ impl UpdateGoogleChannelConfigRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateGoogleChannelConfigRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::UpdateGoogleChannelConfigRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateGoogleChannelConfigRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateGoogleChannelConfigRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -2090,6 +2878,12 @@ impl GetGoogleChannelConfigRequest {
     }
 
     /// Sets the value of [name][crate::model::GetGoogleChannelConfigRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::GetGoogleChannelConfigRequest;
+    /// let x = GetGoogleChannelConfigRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -2118,6 +2912,12 @@ impl GetMessageBusRequest {
     }
 
     /// Sets the value of [name][crate::model::GetMessageBusRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::GetMessageBusRequest;
+    /// let x = GetMessageBusRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -2168,30 +2968,60 @@ impl ListMessageBusesRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListMessageBusesRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::ListMessageBusesRequest;
+    /// let x = ListMessageBusesRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListMessageBusesRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::ListMessageBusesRequest;
+    /// let x = ListMessageBusesRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListMessageBusesRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::ListMessageBusesRequest;
+    /// let x = ListMessageBusesRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListMessageBusesRequest::order_by].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::ListMessageBusesRequest;
+    /// let x = ListMessageBusesRequest::new().set_order_by("example");
+    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListMessageBusesRequest::filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::ListMessageBusesRequest;
+    /// let x = ListMessageBusesRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
@@ -2227,6 +3057,17 @@ impl ListMessageBusesResponse {
     }
 
     /// Sets the value of [message_buses][crate::model::ListMessageBusesResponse::message_buses].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::ListMessageBusesResponse;
+    /// use google_cloud_eventarc_v1::model::MessageBus;
+    /// let x = ListMessageBusesResponse::new()
+    ///     .set_message_buses([
+    ///         MessageBus::default()/* use setters */,
+    ///         MessageBus::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_message_buses<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2238,12 +3079,24 @@ impl ListMessageBusesResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListMessageBusesResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::ListMessageBusesResponse;
+    /// let x = ListMessageBusesResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListMessageBusesResponse::unreachable].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::ListMessageBusesResponse;
+    /// let x = ListMessageBusesResponse::new().set_unreachable(["a", "b", "c"]);
+    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2303,18 +3156,36 @@ impl ListMessageBusEnrollmentsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListMessageBusEnrollmentsRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::ListMessageBusEnrollmentsRequest;
+    /// let x = ListMessageBusEnrollmentsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListMessageBusEnrollmentsRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::ListMessageBusEnrollmentsRequest;
+    /// let x = ListMessageBusEnrollmentsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListMessageBusEnrollmentsRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::ListMessageBusEnrollmentsRequest;
+    /// let x = ListMessageBusEnrollmentsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -2350,6 +3221,12 @@ impl ListMessageBusEnrollmentsResponse {
     }
 
     /// Sets the value of [enrollments][crate::model::ListMessageBusEnrollmentsResponse::enrollments].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::ListMessageBusEnrollmentsResponse;
+    /// let x = ListMessageBusEnrollmentsResponse::new().set_enrollments(["a", "b", "c"]);
+    /// ```
     pub fn set_enrollments<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2361,12 +3238,24 @@ impl ListMessageBusEnrollmentsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListMessageBusEnrollmentsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::ListMessageBusEnrollmentsResponse;
+    /// let x = ListMessageBusEnrollmentsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListMessageBusEnrollmentsResponse::unreachable].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::ListMessageBusEnrollmentsResponse;
+    /// let x = ListMessageBusEnrollmentsResponse::new().set_unreachable(["a", "b", "c"]);
+    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2411,12 +3300,25 @@ impl CreateMessageBusRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateMessageBusRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::CreateMessageBusRequest;
+    /// let x = CreateMessageBusRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [message_bus][crate::model::CreateMessageBusRequest::message_bus].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::CreateMessageBusRequest;
+    /// use google_cloud_eventarc_v1::model::MessageBus;
+    /// let x = CreateMessageBusRequest::new().set_message_bus(MessageBus::default()/* use setters */);
+    /// ```
     pub fn set_message_bus<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::MessageBus>,
@@ -2426,6 +3328,14 @@ impl CreateMessageBusRequest {
     }
 
     /// Sets or clears the value of [message_bus][crate::model::CreateMessageBusRequest::message_bus].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::CreateMessageBusRequest;
+    /// use google_cloud_eventarc_v1::model::MessageBus;
+    /// let x = CreateMessageBusRequest::new().set_or_clear_message_bus(Some(MessageBus::default()/* use setters */));
+    /// let x = CreateMessageBusRequest::new().set_or_clear_message_bus(None::<MessageBus>);
+    /// ```
     pub fn set_or_clear_message_bus<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::MessageBus>,
@@ -2435,12 +3345,24 @@ impl CreateMessageBusRequest {
     }
 
     /// Sets the value of [message_bus_id][crate::model::CreateMessageBusRequest::message_bus_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::CreateMessageBusRequest;
+    /// let x = CreateMessageBusRequest::new().set_message_bus_id("example");
+    /// ```
     pub fn set_message_bus_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.message_bus_id = v.into();
         self
     }
 
     /// Sets the value of [validate_only][crate::model::CreateMessageBusRequest::validate_only].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::CreateMessageBusRequest;
+    /// let x = CreateMessageBusRequest::new().set_validate_only(true);
+    /// ```
     pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.validate_only = v.into();
         self
@@ -2482,6 +3404,13 @@ impl UpdateMessageBusRequest {
     }
 
     /// Sets the value of [message_bus][crate::model::UpdateMessageBusRequest::message_bus].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::UpdateMessageBusRequest;
+    /// use google_cloud_eventarc_v1::model::MessageBus;
+    /// let x = UpdateMessageBusRequest::new().set_message_bus(MessageBus::default()/* use setters */);
+    /// ```
     pub fn set_message_bus<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::MessageBus>,
@@ -2491,6 +3420,14 @@ impl UpdateMessageBusRequest {
     }
 
     /// Sets or clears the value of [message_bus][crate::model::UpdateMessageBusRequest::message_bus].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::UpdateMessageBusRequest;
+    /// use google_cloud_eventarc_v1::model::MessageBus;
+    /// let x = UpdateMessageBusRequest::new().set_or_clear_message_bus(Some(MessageBus::default()/* use setters */));
+    /// let x = UpdateMessageBusRequest::new().set_or_clear_message_bus(None::<MessageBus>);
+    /// ```
     pub fn set_or_clear_message_bus<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::MessageBus>,
@@ -2500,6 +3437,13 @@ impl UpdateMessageBusRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateMessageBusRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::UpdateMessageBusRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateMessageBusRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -2509,6 +3453,14 @@ impl UpdateMessageBusRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateMessageBusRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::UpdateMessageBusRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateMessageBusRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateMessageBusRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -2518,12 +3470,24 @@ impl UpdateMessageBusRequest {
     }
 
     /// Sets the value of [allow_missing][crate::model::UpdateMessageBusRequest::allow_missing].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::UpdateMessageBusRequest;
+    /// let x = UpdateMessageBusRequest::new().set_allow_missing(true);
+    /// ```
     pub fn set_allow_missing<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.allow_missing = v.into();
         self
     }
 
     /// Sets the value of [validate_only][crate::model::UpdateMessageBusRequest::validate_only].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::UpdateMessageBusRequest;
+    /// let x = UpdateMessageBusRequest::new().set_validate_only(true);
+    /// ```
     pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.validate_only = v.into();
         self
@@ -2564,24 +3528,48 @@ impl DeleteMessageBusRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteMessageBusRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::DeleteMessageBusRequest;
+    /// let x = DeleteMessageBusRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [etag][crate::model::DeleteMessageBusRequest::etag].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::DeleteMessageBusRequest;
+    /// let x = DeleteMessageBusRequest::new().set_etag("example");
+    /// ```
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
     }
 
     /// Sets the value of [allow_missing][crate::model::DeleteMessageBusRequest::allow_missing].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::DeleteMessageBusRequest;
+    /// let x = DeleteMessageBusRequest::new().set_allow_missing(true);
+    /// ```
     pub fn set_allow_missing<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.allow_missing = v.into();
         self
     }
 
     /// Sets the value of [validate_only][crate::model::DeleteMessageBusRequest::validate_only].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::DeleteMessageBusRequest;
+    /// let x = DeleteMessageBusRequest::new().set_validate_only(true);
+    /// ```
     pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.validate_only = v.into();
         self
@@ -2610,6 +3598,12 @@ impl GetEnrollmentRequest {
     }
 
     /// Sets the value of [name][crate::model::GetEnrollmentRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::GetEnrollmentRequest;
+    /// let x = GetEnrollmentRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -2660,30 +3654,60 @@ impl ListEnrollmentsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListEnrollmentsRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::ListEnrollmentsRequest;
+    /// let x = ListEnrollmentsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListEnrollmentsRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::ListEnrollmentsRequest;
+    /// let x = ListEnrollmentsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListEnrollmentsRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::ListEnrollmentsRequest;
+    /// let x = ListEnrollmentsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListEnrollmentsRequest::order_by].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::ListEnrollmentsRequest;
+    /// let x = ListEnrollmentsRequest::new().set_order_by("example");
+    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListEnrollmentsRequest::filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::ListEnrollmentsRequest;
+    /// let x = ListEnrollmentsRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
@@ -2719,6 +3743,17 @@ impl ListEnrollmentsResponse {
     }
 
     /// Sets the value of [enrollments][crate::model::ListEnrollmentsResponse::enrollments].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::ListEnrollmentsResponse;
+    /// use google_cloud_eventarc_v1::model::Enrollment;
+    /// let x = ListEnrollmentsResponse::new()
+    ///     .set_enrollments([
+    ///         Enrollment::default()/* use setters */,
+    ///         Enrollment::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_enrollments<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2730,12 +3765,24 @@ impl ListEnrollmentsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListEnrollmentsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::ListEnrollmentsResponse;
+    /// let x = ListEnrollmentsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListEnrollmentsResponse::unreachable].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::ListEnrollmentsResponse;
+    /// let x = ListEnrollmentsResponse::new().set_unreachable(["a", "b", "c"]);
+    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2794,12 +3841,25 @@ impl CreateEnrollmentRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateEnrollmentRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::CreateEnrollmentRequest;
+    /// let x = CreateEnrollmentRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [enrollment][crate::model::CreateEnrollmentRequest::enrollment].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::CreateEnrollmentRequest;
+    /// use google_cloud_eventarc_v1::model::Enrollment;
+    /// let x = CreateEnrollmentRequest::new().set_enrollment(Enrollment::default()/* use setters */);
+    /// ```
     pub fn set_enrollment<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Enrollment>,
@@ -2809,6 +3869,14 @@ impl CreateEnrollmentRequest {
     }
 
     /// Sets or clears the value of [enrollment][crate::model::CreateEnrollmentRequest::enrollment].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::CreateEnrollmentRequest;
+    /// use google_cloud_eventarc_v1::model::Enrollment;
+    /// let x = CreateEnrollmentRequest::new().set_or_clear_enrollment(Some(Enrollment::default()/* use setters */));
+    /// let x = CreateEnrollmentRequest::new().set_or_clear_enrollment(None::<Enrollment>);
+    /// ```
     pub fn set_or_clear_enrollment<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Enrollment>,
@@ -2818,12 +3886,24 @@ impl CreateEnrollmentRequest {
     }
 
     /// Sets the value of [enrollment_id][crate::model::CreateEnrollmentRequest::enrollment_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::CreateEnrollmentRequest;
+    /// let x = CreateEnrollmentRequest::new().set_enrollment_id("example");
+    /// ```
     pub fn set_enrollment_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.enrollment_id = v.into();
         self
     }
 
     /// Sets the value of [validate_only][crate::model::CreateEnrollmentRequest::validate_only].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::CreateEnrollmentRequest;
+    /// let x = CreateEnrollmentRequest::new().set_validate_only(true);
+    /// ```
     pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.validate_only = v.into();
         self
@@ -2865,6 +3945,13 @@ impl UpdateEnrollmentRequest {
     }
 
     /// Sets the value of [enrollment][crate::model::UpdateEnrollmentRequest::enrollment].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::UpdateEnrollmentRequest;
+    /// use google_cloud_eventarc_v1::model::Enrollment;
+    /// let x = UpdateEnrollmentRequest::new().set_enrollment(Enrollment::default()/* use setters */);
+    /// ```
     pub fn set_enrollment<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Enrollment>,
@@ -2874,6 +3961,14 @@ impl UpdateEnrollmentRequest {
     }
 
     /// Sets or clears the value of [enrollment][crate::model::UpdateEnrollmentRequest::enrollment].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::UpdateEnrollmentRequest;
+    /// use google_cloud_eventarc_v1::model::Enrollment;
+    /// let x = UpdateEnrollmentRequest::new().set_or_clear_enrollment(Some(Enrollment::default()/* use setters */));
+    /// let x = UpdateEnrollmentRequest::new().set_or_clear_enrollment(None::<Enrollment>);
+    /// ```
     pub fn set_or_clear_enrollment<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Enrollment>,
@@ -2883,6 +3978,13 @@ impl UpdateEnrollmentRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateEnrollmentRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::UpdateEnrollmentRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateEnrollmentRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -2892,6 +3994,14 @@ impl UpdateEnrollmentRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateEnrollmentRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::UpdateEnrollmentRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateEnrollmentRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateEnrollmentRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -2901,12 +4011,24 @@ impl UpdateEnrollmentRequest {
     }
 
     /// Sets the value of [allow_missing][crate::model::UpdateEnrollmentRequest::allow_missing].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::UpdateEnrollmentRequest;
+    /// let x = UpdateEnrollmentRequest::new().set_allow_missing(true);
+    /// ```
     pub fn set_allow_missing<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.allow_missing = v.into();
         self
     }
 
     /// Sets the value of [validate_only][crate::model::UpdateEnrollmentRequest::validate_only].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::UpdateEnrollmentRequest;
+    /// let x = UpdateEnrollmentRequest::new().set_validate_only(true);
+    /// ```
     pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.validate_only = v.into();
         self
@@ -2947,24 +4069,48 @@ impl DeleteEnrollmentRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteEnrollmentRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::DeleteEnrollmentRequest;
+    /// let x = DeleteEnrollmentRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [etag][crate::model::DeleteEnrollmentRequest::etag].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::DeleteEnrollmentRequest;
+    /// let x = DeleteEnrollmentRequest::new().set_etag("example");
+    /// ```
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
     }
 
     /// Sets the value of [allow_missing][crate::model::DeleteEnrollmentRequest::allow_missing].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::DeleteEnrollmentRequest;
+    /// let x = DeleteEnrollmentRequest::new().set_allow_missing(true);
+    /// ```
     pub fn set_allow_missing<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.allow_missing = v.into();
         self
     }
 
     /// Sets the value of [validate_only][crate::model::DeleteEnrollmentRequest::validate_only].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::DeleteEnrollmentRequest;
+    /// let x = DeleteEnrollmentRequest::new().set_validate_only(true);
+    /// ```
     pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.validate_only = v.into();
         self
@@ -2993,6 +4139,12 @@ impl GetPipelineRequest {
     }
 
     /// Sets the value of [name][crate::model::GetPipelineRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::GetPipelineRequest;
+    /// let x = GetPipelineRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -3043,30 +4195,60 @@ impl ListPipelinesRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListPipelinesRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::ListPipelinesRequest;
+    /// let x = ListPipelinesRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListPipelinesRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::ListPipelinesRequest;
+    /// let x = ListPipelinesRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListPipelinesRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::ListPipelinesRequest;
+    /// let x = ListPipelinesRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListPipelinesRequest::order_by].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::ListPipelinesRequest;
+    /// let x = ListPipelinesRequest::new().set_order_by("example");
+    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListPipelinesRequest::filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::ListPipelinesRequest;
+    /// let x = ListPipelinesRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
@@ -3102,6 +4284,17 @@ impl ListPipelinesResponse {
     }
 
     /// Sets the value of [pipelines][crate::model::ListPipelinesResponse::pipelines].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::ListPipelinesResponse;
+    /// use google_cloud_eventarc_v1::model::Pipeline;
+    /// let x = ListPipelinesResponse::new()
+    ///     .set_pipelines([
+    ///         Pipeline::default()/* use setters */,
+    ///         Pipeline::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_pipelines<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3113,12 +4306,24 @@ impl ListPipelinesResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListPipelinesResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::ListPipelinesResponse;
+    /// let x = ListPipelinesResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListPipelinesResponse::unreachable].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::ListPipelinesResponse;
+    /// let x = ListPipelinesResponse::new().set_unreachable(["a", "b", "c"]);
+    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3177,12 +4382,25 @@ impl CreatePipelineRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreatePipelineRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::CreatePipelineRequest;
+    /// let x = CreatePipelineRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [pipeline][crate::model::CreatePipelineRequest::pipeline].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::CreatePipelineRequest;
+    /// use google_cloud_eventarc_v1::model::Pipeline;
+    /// let x = CreatePipelineRequest::new().set_pipeline(Pipeline::default()/* use setters */);
+    /// ```
     pub fn set_pipeline<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Pipeline>,
@@ -3192,6 +4410,14 @@ impl CreatePipelineRequest {
     }
 
     /// Sets or clears the value of [pipeline][crate::model::CreatePipelineRequest::pipeline].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::CreatePipelineRequest;
+    /// use google_cloud_eventarc_v1::model::Pipeline;
+    /// let x = CreatePipelineRequest::new().set_or_clear_pipeline(Some(Pipeline::default()/* use setters */));
+    /// let x = CreatePipelineRequest::new().set_or_clear_pipeline(None::<Pipeline>);
+    /// ```
     pub fn set_or_clear_pipeline<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Pipeline>,
@@ -3201,12 +4427,24 @@ impl CreatePipelineRequest {
     }
 
     /// Sets the value of [pipeline_id][crate::model::CreatePipelineRequest::pipeline_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::CreatePipelineRequest;
+    /// let x = CreatePipelineRequest::new().set_pipeline_id("example");
+    /// ```
     pub fn set_pipeline_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.pipeline_id = v.into();
         self
     }
 
     /// Sets the value of [validate_only][crate::model::CreatePipelineRequest::validate_only].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::CreatePipelineRequest;
+    /// let x = CreatePipelineRequest::new().set_validate_only(true);
+    /// ```
     pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.validate_only = v.into();
         self
@@ -3248,6 +4486,13 @@ impl UpdatePipelineRequest {
     }
 
     /// Sets the value of [pipeline][crate::model::UpdatePipelineRequest::pipeline].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::UpdatePipelineRequest;
+    /// use google_cloud_eventarc_v1::model::Pipeline;
+    /// let x = UpdatePipelineRequest::new().set_pipeline(Pipeline::default()/* use setters */);
+    /// ```
     pub fn set_pipeline<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Pipeline>,
@@ -3257,6 +4502,14 @@ impl UpdatePipelineRequest {
     }
 
     /// Sets or clears the value of [pipeline][crate::model::UpdatePipelineRequest::pipeline].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::UpdatePipelineRequest;
+    /// use google_cloud_eventarc_v1::model::Pipeline;
+    /// let x = UpdatePipelineRequest::new().set_or_clear_pipeline(Some(Pipeline::default()/* use setters */));
+    /// let x = UpdatePipelineRequest::new().set_or_clear_pipeline(None::<Pipeline>);
+    /// ```
     pub fn set_or_clear_pipeline<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Pipeline>,
@@ -3266,6 +4519,13 @@ impl UpdatePipelineRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdatePipelineRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::UpdatePipelineRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdatePipelineRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -3275,6 +4535,14 @@ impl UpdatePipelineRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdatePipelineRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::UpdatePipelineRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdatePipelineRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdatePipelineRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -3284,12 +4552,24 @@ impl UpdatePipelineRequest {
     }
 
     /// Sets the value of [allow_missing][crate::model::UpdatePipelineRequest::allow_missing].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::UpdatePipelineRequest;
+    /// let x = UpdatePipelineRequest::new().set_allow_missing(true);
+    /// ```
     pub fn set_allow_missing<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.allow_missing = v.into();
         self
     }
 
     /// Sets the value of [validate_only][crate::model::UpdatePipelineRequest::validate_only].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::UpdatePipelineRequest;
+    /// let x = UpdatePipelineRequest::new().set_validate_only(true);
+    /// ```
     pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.validate_only = v.into();
         self
@@ -3330,24 +4610,48 @@ impl DeletePipelineRequest {
     }
 
     /// Sets the value of [name][crate::model::DeletePipelineRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::DeletePipelineRequest;
+    /// let x = DeletePipelineRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [etag][crate::model::DeletePipelineRequest::etag].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::DeletePipelineRequest;
+    /// let x = DeletePipelineRequest::new().set_etag("example");
+    /// ```
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
     }
 
     /// Sets the value of [allow_missing][crate::model::DeletePipelineRequest::allow_missing].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::DeletePipelineRequest;
+    /// let x = DeletePipelineRequest::new().set_allow_missing(true);
+    /// ```
     pub fn set_allow_missing<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.allow_missing = v.into();
         self
     }
 
     /// Sets the value of [validate_only][crate::model::DeletePipelineRequest::validate_only].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::DeletePipelineRequest;
+    /// let x = DeletePipelineRequest::new().set_validate_only(true);
+    /// ```
     pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.validate_only = v.into();
         self
@@ -3376,6 +4680,12 @@ impl GetGoogleApiSourceRequest {
     }
 
     /// Sets the value of [name][crate::model::GetGoogleApiSourceRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::GetGoogleApiSourceRequest;
+    /// let x = GetGoogleApiSourceRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -3426,30 +4736,60 @@ impl ListGoogleApiSourcesRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListGoogleApiSourcesRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::ListGoogleApiSourcesRequest;
+    /// let x = ListGoogleApiSourcesRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListGoogleApiSourcesRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::ListGoogleApiSourcesRequest;
+    /// let x = ListGoogleApiSourcesRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListGoogleApiSourcesRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::ListGoogleApiSourcesRequest;
+    /// let x = ListGoogleApiSourcesRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListGoogleApiSourcesRequest::order_by].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::ListGoogleApiSourcesRequest;
+    /// let x = ListGoogleApiSourcesRequest::new().set_order_by("example");
+    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListGoogleApiSourcesRequest::filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::ListGoogleApiSourcesRequest;
+    /// let x = ListGoogleApiSourcesRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
@@ -3485,6 +4825,17 @@ impl ListGoogleApiSourcesResponse {
     }
 
     /// Sets the value of [google_api_sources][crate::model::ListGoogleApiSourcesResponse::google_api_sources].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::ListGoogleApiSourcesResponse;
+    /// use google_cloud_eventarc_v1::model::GoogleApiSource;
+    /// let x = ListGoogleApiSourcesResponse::new()
+    ///     .set_google_api_sources([
+    ///         GoogleApiSource::default()/* use setters */,
+    ///         GoogleApiSource::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_google_api_sources<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3496,12 +4847,24 @@ impl ListGoogleApiSourcesResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListGoogleApiSourcesResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::ListGoogleApiSourcesResponse;
+    /// let x = ListGoogleApiSourcesResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListGoogleApiSourcesResponse::unreachable].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::ListGoogleApiSourcesResponse;
+    /// let x = ListGoogleApiSourcesResponse::new().set_unreachable(["a", "b", "c"]);
+    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3560,12 +4923,25 @@ impl CreateGoogleApiSourceRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateGoogleApiSourceRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::CreateGoogleApiSourceRequest;
+    /// let x = CreateGoogleApiSourceRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [google_api_source][crate::model::CreateGoogleApiSourceRequest::google_api_source].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::CreateGoogleApiSourceRequest;
+    /// use google_cloud_eventarc_v1::model::GoogleApiSource;
+    /// let x = CreateGoogleApiSourceRequest::new().set_google_api_source(GoogleApiSource::default()/* use setters */);
+    /// ```
     pub fn set_google_api_source<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::GoogleApiSource>,
@@ -3575,6 +4951,14 @@ impl CreateGoogleApiSourceRequest {
     }
 
     /// Sets or clears the value of [google_api_source][crate::model::CreateGoogleApiSourceRequest::google_api_source].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::CreateGoogleApiSourceRequest;
+    /// use google_cloud_eventarc_v1::model::GoogleApiSource;
+    /// let x = CreateGoogleApiSourceRequest::new().set_or_clear_google_api_source(Some(GoogleApiSource::default()/* use setters */));
+    /// let x = CreateGoogleApiSourceRequest::new().set_or_clear_google_api_source(None::<GoogleApiSource>);
+    /// ```
     pub fn set_or_clear_google_api_source<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::GoogleApiSource>,
@@ -3584,6 +4968,12 @@ impl CreateGoogleApiSourceRequest {
     }
 
     /// Sets the value of [google_api_source_id][crate::model::CreateGoogleApiSourceRequest::google_api_source_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::CreateGoogleApiSourceRequest;
+    /// let x = CreateGoogleApiSourceRequest::new().set_google_api_source_id("example");
+    /// ```
     pub fn set_google_api_source_id<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -3593,6 +4983,12 @@ impl CreateGoogleApiSourceRequest {
     }
 
     /// Sets the value of [validate_only][crate::model::CreateGoogleApiSourceRequest::validate_only].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::CreateGoogleApiSourceRequest;
+    /// let x = CreateGoogleApiSourceRequest::new().set_validate_only(true);
+    /// ```
     pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.validate_only = v.into();
         self
@@ -3635,6 +5031,13 @@ impl UpdateGoogleApiSourceRequest {
     }
 
     /// Sets the value of [google_api_source][crate::model::UpdateGoogleApiSourceRequest::google_api_source].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::UpdateGoogleApiSourceRequest;
+    /// use google_cloud_eventarc_v1::model::GoogleApiSource;
+    /// let x = UpdateGoogleApiSourceRequest::new().set_google_api_source(GoogleApiSource::default()/* use setters */);
+    /// ```
     pub fn set_google_api_source<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::GoogleApiSource>,
@@ -3644,6 +5047,14 @@ impl UpdateGoogleApiSourceRequest {
     }
 
     /// Sets or clears the value of [google_api_source][crate::model::UpdateGoogleApiSourceRequest::google_api_source].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::UpdateGoogleApiSourceRequest;
+    /// use google_cloud_eventarc_v1::model::GoogleApiSource;
+    /// let x = UpdateGoogleApiSourceRequest::new().set_or_clear_google_api_source(Some(GoogleApiSource::default()/* use setters */));
+    /// let x = UpdateGoogleApiSourceRequest::new().set_or_clear_google_api_source(None::<GoogleApiSource>);
+    /// ```
     pub fn set_or_clear_google_api_source<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::GoogleApiSource>,
@@ -3653,6 +5064,13 @@ impl UpdateGoogleApiSourceRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateGoogleApiSourceRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::UpdateGoogleApiSourceRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateGoogleApiSourceRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -3662,6 +5080,14 @@ impl UpdateGoogleApiSourceRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateGoogleApiSourceRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::UpdateGoogleApiSourceRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateGoogleApiSourceRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateGoogleApiSourceRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -3671,12 +5097,24 @@ impl UpdateGoogleApiSourceRequest {
     }
 
     /// Sets the value of [allow_missing][crate::model::UpdateGoogleApiSourceRequest::allow_missing].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::UpdateGoogleApiSourceRequest;
+    /// let x = UpdateGoogleApiSourceRequest::new().set_allow_missing(true);
+    /// ```
     pub fn set_allow_missing<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.allow_missing = v.into();
         self
     }
 
     /// Sets the value of [validate_only][crate::model::UpdateGoogleApiSourceRequest::validate_only].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::UpdateGoogleApiSourceRequest;
+    /// let x = UpdateGoogleApiSourceRequest::new().set_validate_only(true);
+    /// ```
     pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.validate_only = v.into();
         self
@@ -3717,24 +5155,48 @@ impl DeleteGoogleApiSourceRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteGoogleApiSourceRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::DeleteGoogleApiSourceRequest;
+    /// let x = DeleteGoogleApiSourceRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [etag][crate::model::DeleteGoogleApiSourceRequest::etag].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::DeleteGoogleApiSourceRequest;
+    /// let x = DeleteGoogleApiSourceRequest::new().set_etag("example");
+    /// ```
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
     }
 
     /// Sets the value of [allow_missing][crate::model::DeleteGoogleApiSourceRequest::allow_missing].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::DeleteGoogleApiSourceRequest;
+    /// let x = DeleteGoogleApiSourceRequest::new().set_allow_missing(true);
+    /// ```
     pub fn set_allow_missing<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.allow_missing = v.into();
         self
     }
 
     /// Sets the value of [validate_only][crate::model::DeleteGoogleApiSourceRequest::validate_only].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::DeleteGoogleApiSourceRequest;
+    /// let x = DeleteGoogleApiSourceRequest::new().set_validate_only(true);
+    /// ```
     pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.validate_only = v.into();
         self
@@ -3787,6 +5249,13 @@ impl OperationMetadata {
     }
 
     /// Sets the value of [create_time][crate::model::OperationMetadata::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::OperationMetadata;
+    /// use wkt::Timestamp;
+    /// let x = OperationMetadata::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3796,6 +5265,14 @@ impl OperationMetadata {
     }
 
     /// Sets or clears the value of [create_time][crate::model::OperationMetadata::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::OperationMetadata;
+    /// use wkt::Timestamp;
+    /// let x = OperationMetadata::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = OperationMetadata::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3805,6 +5282,13 @@ impl OperationMetadata {
     }
 
     /// Sets the value of [end_time][crate::model::OperationMetadata::end_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::OperationMetadata;
+    /// use wkt::Timestamp;
+    /// let x = OperationMetadata::new().set_end_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3814,6 +5298,14 @@ impl OperationMetadata {
     }
 
     /// Sets or clears the value of [end_time][crate::model::OperationMetadata::end_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::OperationMetadata;
+    /// use wkt::Timestamp;
+    /// let x = OperationMetadata::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
+    /// let x = OperationMetadata::new().set_or_clear_end_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3823,30 +5315,60 @@ impl OperationMetadata {
     }
 
     /// Sets the value of [target][crate::model::OperationMetadata::target].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::OperationMetadata;
+    /// let x = OperationMetadata::new().set_target("example");
+    /// ```
     pub fn set_target<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.target = v.into();
         self
     }
 
     /// Sets the value of [verb][crate::model::OperationMetadata::verb].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::OperationMetadata;
+    /// let x = OperationMetadata::new().set_verb("example");
+    /// ```
     pub fn set_verb<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.verb = v.into();
         self
     }
 
     /// Sets the value of [status_message][crate::model::OperationMetadata::status_message].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::OperationMetadata;
+    /// let x = OperationMetadata::new().set_status_message("example");
+    /// ```
     pub fn set_status_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.status_message = v.into();
         self
     }
 
     /// Sets the value of [requested_cancellation][crate::model::OperationMetadata::requested_cancellation].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::OperationMetadata;
+    /// let x = OperationMetadata::new().set_requested_cancellation(true);
+    /// ```
     pub fn set_requested_cancellation<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.requested_cancellation = v.into();
         self
     }
 
     /// Sets the value of [api_version][crate::model::OperationMetadata::api_version].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::OperationMetadata;
+    /// let x = OperationMetadata::new().set_api_version("example");
+    /// ```
     pub fn set_api_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.api_version = v.into();
         self
@@ -3917,24 +5439,49 @@ impl GoogleApiSource {
     }
 
     /// Sets the value of [name][crate::model::GoogleApiSource::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::GoogleApiSource;
+    /// let x = GoogleApiSource::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [uid][crate::model::GoogleApiSource::uid].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::GoogleApiSource;
+    /// let x = GoogleApiSource::new().set_uid("example");
+    /// ```
     pub fn set_uid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.uid = v.into();
         self
     }
 
     /// Sets the value of [etag][crate::model::GoogleApiSource::etag].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::GoogleApiSource;
+    /// let x = GoogleApiSource::new().set_etag("example");
+    /// ```
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::GoogleApiSource::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::GoogleApiSource;
+    /// use wkt::Timestamp;
+    /// let x = GoogleApiSource::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3944,6 +5491,14 @@ impl GoogleApiSource {
     }
 
     /// Sets or clears the value of [create_time][crate::model::GoogleApiSource::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::GoogleApiSource;
+    /// use wkt::Timestamp;
+    /// let x = GoogleApiSource::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = GoogleApiSource::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3953,6 +5508,13 @@ impl GoogleApiSource {
     }
 
     /// Sets the value of [update_time][crate::model::GoogleApiSource::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::GoogleApiSource;
+    /// use wkt::Timestamp;
+    /// let x = GoogleApiSource::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3962,6 +5524,14 @@ impl GoogleApiSource {
     }
 
     /// Sets or clears the value of [update_time][crate::model::GoogleApiSource::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::GoogleApiSource;
+    /// use wkt::Timestamp;
+    /// let x = GoogleApiSource::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = GoogleApiSource::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3971,6 +5541,15 @@ impl GoogleApiSource {
     }
 
     /// Sets the value of [labels][crate::model::GoogleApiSource::labels].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::GoogleApiSource;
+    /// let x = GoogleApiSource::new().set_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -3983,6 +5562,15 @@ impl GoogleApiSource {
     }
 
     /// Sets the value of [annotations][crate::model::GoogleApiSource::annotations].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::GoogleApiSource;
+    /// let x = GoogleApiSource::new().set_annotations([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_annotations<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -3995,24 +5583,49 @@ impl GoogleApiSource {
     }
 
     /// Sets the value of [display_name][crate::model::GoogleApiSource::display_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::GoogleApiSource;
+    /// let x = GoogleApiSource::new().set_display_name("example");
+    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
     }
 
     /// Sets the value of [destination][crate::model::GoogleApiSource::destination].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::GoogleApiSource;
+    /// let x = GoogleApiSource::new().set_destination("example");
+    /// ```
     pub fn set_destination<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.destination = v.into();
         self
     }
 
     /// Sets the value of [crypto_key_name][crate::model::GoogleApiSource::crypto_key_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::GoogleApiSource;
+    /// let x = GoogleApiSource::new().set_crypto_key_name("example");
+    /// ```
     pub fn set_crypto_key_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.crypto_key_name = v.into();
         self
     }
 
     /// Sets the value of [logging_config][crate::model::GoogleApiSource::logging_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::GoogleApiSource;
+    /// use google_cloud_eventarc_v1::model::LoggingConfig;
+    /// let x = GoogleApiSource::new().set_logging_config(LoggingConfig::default()/* use setters */);
+    /// ```
     pub fn set_logging_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::LoggingConfig>,
@@ -4022,6 +5635,14 @@ impl GoogleApiSource {
     }
 
     /// Sets or clears the value of [logging_config][crate::model::GoogleApiSource::logging_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::GoogleApiSource;
+    /// use google_cloud_eventarc_v1::model::LoggingConfig;
+    /// let x = GoogleApiSource::new().set_or_clear_logging_config(Some(LoggingConfig::default()/* use setters */));
+    /// let x = GoogleApiSource::new().set_or_clear_logging_config(None::<LoggingConfig>);
+    /// ```
     pub fn set_or_clear_logging_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::LoggingConfig>,
@@ -4073,12 +5694,25 @@ impl GoogleChannelConfig {
     }
 
     /// Sets the value of [name][crate::model::GoogleChannelConfig::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::GoogleChannelConfig;
+    /// let x = GoogleChannelConfig::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [update_time][crate::model::GoogleChannelConfig::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::GoogleChannelConfig;
+    /// use wkt::Timestamp;
+    /// let x = GoogleChannelConfig::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4088,6 +5722,14 @@ impl GoogleChannelConfig {
     }
 
     /// Sets or clears the value of [update_time][crate::model::GoogleChannelConfig::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::GoogleChannelConfig;
+    /// use wkt::Timestamp;
+    /// let x = GoogleChannelConfig::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = GoogleChannelConfig::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4097,12 +5739,27 @@ impl GoogleChannelConfig {
     }
 
     /// Sets the value of [crypto_key_name][crate::model::GoogleChannelConfig::crypto_key_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::GoogleChannelConfig;
+    /// let x = GoogleChannelConfig::new().set_crypto_key_name("example");
+    /// ```
     pub fn set_crypto_key_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.crypto_key_name = v.into();
         self
     }
 
     /// Sets the value of [labels][crate::model::GoogleChannelConfig::labels].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::GoogleChannelConfig;
+    /// let x = GoogleChannelConfig::new().set_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -4140,6 +5797,15 @@ impl LoggingConfig {
     }
 
     /// Sets the value of [log_severity][crate::model::LoggingConfig::log_severity].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::LoggingConfig;
+    /// use google_cloud_eventarc_v1::model::logging_config::LogSeverity;
+    /// let x0 = LoggingConfig::new().set_log_severity(LogSeverity::None);
+    /// let x1 = LoggingConfig::new().set_log_severity(LogSeverity::Debug);
+    /// let x2 = LoggingConfig::new().set_log_severity(LogSeverity::Info);
+    /// ```
     pub fn set_log_severity<T: std::convert::Into<crate::model::logging_config::LogSeverity>>(
         mut self,
         v: T,
@@ -4406,24 +6072,49 @@ impl MessageBus {
     }
 
     /// Sets the value of [name][crate::model::MessageBus::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::MessageBus;
+    /// let x = MessageBus::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [uid][crate::model::MessageBus::uid].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::MessageBus;
+    /// let x = MessageBus::new().set_uid("example");
+    /// ```
     pub fn set_uid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.uid = v.into();
         self
     }
 
     /// Sets the value of [etag][crate::model::MessageBus::etag].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::MessageBus;
+    /// let x = MessageBus::new().set_etag("example");
+    /// ```
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::MessageBus::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::MessageBus;
+    /// use wkt::Timestamp;
+    /// let x = MessageBus::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4433,6 +6124,14 @@ impl MessageBus {
     }
 
     /// Sets or clears the value of [create_time][crate::model::MessageBus::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::MessageBus;
+    /// use wkt::Timestamp;
+    /// let x = MessageBus::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = MessageBus::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4442,6 +6141,13 @@ impl MessageBus {
     }
 
     /// Sets the value of [update_time][crate::model::MessageBus::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::MessageBus;
+    /// use wkt::Timestamp;
+    /// let x = MessageBus::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4451,6 +6157,14 @@ impl MessageBus {
     }
 
     /// Sets or clears the value of [update_time][crate::model::MessageBus::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::MessageBus;
+    /// use wkt::Timestamp;
+    /// let x = MessageBus::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = MessageBus::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4460,6 +6174,15 @@ impl MessageBus {
     }
 
     /// Sets the value of [labels][crate::model::MessageBus::labels].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::MessageBus;
+    /// let x = MessageBus::new().set_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -4472,6 +6195,15 @@ impl MessageBus {
     }
 
     /// Sets the value of [annotations][crate::model::MessageBus::annotations].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::MessageBus;
+    /// let x = MessageBus::new().set_annotations([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_annotations<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -4484,18 +6216,37 @@ impl MessageBus {
     }
 
     /// Sets the value of [display_name][crate::model::MessageBus::display_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::MessageBus;
+    /// let x = MessageBus::new().set_display_name("example");
+    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
     }
 
     /// Sets the value of [crypto_key_name][crate::model::MessageBus::crypto_key_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::MessageBus;
+    /// let x = MessageBus::new().set_crypto_key_name("example");
+    /// ```
     pub fn set_crypto_key_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.crypto_key_name = v.into();
         self
     }
 
     /// Sets the value of [logging_config][crate::model::MessageBus::logging_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::MessageBus;
+    /// use google_cloud_eventarc_v1::model::LoggingConfig;
+    /// let x = MessageBus::new().set_logging_config(LoggingConfig::default()/* use setters */);
+    /// ```
     pub fn set_logging_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::LoggingConfig>,
@@ -4505,6 +6256,14 @@ impl MessageBus {
     }
 
     /// Sets or clears the value of [logging_config][crate::model::MessageBus::logging_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::MessageBus;
+    /// use google_cloud_eventarc_v1::model::LoggingConfig;
+    /// let x = MessageBus::new().set_or_clear_logging_config(Some(LoggingConfig::default()/* use setters */));
+    /// let x = MessageBus::new().set_or_clear_logging_config(None::<LoggingConfig>);
+    /// ```
     pub fn set_or_clear_logging_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::LoggingConfig>,
@@ -4538,6 +6297,12 @@ impl NetworkConfig {
     }
 
     /// Sets the value of [network_attachment][crate::model::NetworkConfig::network_attachment].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::NetworkConfig;
+    /// let x = NetworkConfig::new().set_network_attachment("example");
+    /// ```
     pub fn set_network_attachment<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -4639,12 +6404,25 @@ impl Pipeline {
     }
 
     /// Sets the value of [name][crate::model::Pipeline::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::Pipeline;
+    /// let x = Pipeline::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::Pipeline::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::Pipeline;
+    /// use wkt::Timestamp;
+    /// let x = Pipeline::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4654,6 +6432,14 @@ impl Pipeline {
     }
 
     /// Sets or clears the value of [create_time][crate::model::Pipeline::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::Pipeline;
+    /// use wkt::Timestamp;
+    /// let x = Pipeline::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Pipeline::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4663,6 +6449,13 @@ impl Pipeline {
     }
 
     /// Sets the value of [update_time][crate::model::Pipeline::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::Pipeline;
+    /// use wkt::Timestamp;
+    /// let x = Pipeline::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4672,6 +6465,14 @@ impl Pipeline {
     }
 
     /// Sets or clears the value of [update_time][crate::model::Pipeline::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::Pipeline;
+    /// use wkt::Timestamp;
+    /// let x = Pipeline::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Pipeline::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4681,6 +6482,15 @@ impl Pipeline {
     }
 
     /// Sets the value of [labels][crate::model::Pipeline::labels].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::Pipeline;
+    /// let x = Pipeline::new().set_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -4693,12 +6503,27 @@ impl Pipeline {
     }
 
     /// Sets the value of [uid][crate::model::Pipeline::uid].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::Pipeline;
+    /// let x = Pipeline::new().set_uid("example");
+    /// ```
     pub fn set_uid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.uid = v.into();
         self
     }
 
     /// Sets the value of [annotations][crate::model::Pipeline::annotations].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::Pipeline;
+    /// let x = Pipeline::new().set_annotations([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_annotations<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -4711,12 +6536,29 @@ impl Pipeline {
     }
 
     /// Sets the value of [display_name][crate::model::Pipeline::display_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::Pipeline;
+    /// let x = Pipeline::new().set_display_name("example");
+    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
     }
 
     /// Sets the value of [destinations][crate::model::Pipeline::destinations].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::Pipeline;
+    /// use google_cloud_eventarc_v1::model::pipeline::Destination;
+    /// let x = Pipeline::new()
+    ///     .set_destinations([
+    ///         Destination::default()/* use setters */,
+    ///         Destination::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_destinations<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4728,6 +6570,17 @@ impl Pipeline {
     }
 
     /// Sets the value of [mediations][crate::model::Pipeline::mediations].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::Pipeline;
+    /// use google_cloud_eventarc_v1::model::pipeline::Mediation;
+    /// let x = Pipeline::new()
+    ///     .set_mediations([
+    ///         Mediation::default()/* use setters */,
+    ///         Mediation::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_mediations<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4739,12 +6592,25 @@ impl Pipeline {
     }
 
     /// Sets the value of [crypto_key_name][crate::model::Pipeline::crypto_key_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::Pipeline;
+    /// let x = Pipeline::new().set_crypto_key_name("example");
+    /// ```
     pub fn set_crypto_key_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.crypto_key_name = v.into();
         self
     }
 
     /// Sets the value of [input_payload_format][crate::model::Pipeline::input_payload_format].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::Pipeline;
+    /// use google_cloud_eventarc_v1::model::pipeline::MessagePayloadFormat;
+    /// let x = Pipeline::new().set_input_payload_format(MessagePayloadFormat::default()/* use setters */);
+    /// ```
     pub fn set_input_payload_format<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::pipeline::MessagePayloadFormat>,
@@ -4754,6 +6620,14 @@ impl Pipeline {
     }
 
     /// Sets or clears the value of [input_payload_format][crate::model::Pipeline::input_payload_format].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::Pipeline;
+    /// use google_cloud_eventarc_v1::model::pipeline::MessagePayloadFormat;
+    /// let x = Pipeline::new().set_or_clear_input_payload_format(Some(MessagePayloadFormat::default()/* use setters */));
+    /// let x = Pipeline::new().set_or_clear_input_payload_format(None::<MessagePayloadFormat>);
+    /// ```
     pub fn set_or_clear_input_payload_format<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::pipeline::MessagePayloadFormat>,
@@ -4763,6 +6637,13 @@ impl Pipeline {
     }
 
     /// Sets the value of [logging_config][crate::model::Pipeline::logging_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::Pipeline;
+    /// use google_cloud_eventarc_v1::model::LoggingConfig;
+    /// let x = Pipeline::new().set_logging_config(LoggingConfig::default()/* use setters */);
+    /// ```
     pub fn set_logging_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::LoggingConfig>,
@@ -4772,6 +6653,14 @@ impl Pipeline {
     }
 
     /// Sets or clears the value of [logging_config][crate::model::Pipeline::logging_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::Pipeline;
+    /// use google_cloud_eventarc_v1::model::LoggingConfig;
+    /// let x = Pipeline::new().set_or_clear_logging_config(Some(LoggingConfig::default()/* use setters */));
+    /// let x = Pipeline::new().set_or_clear_logging_config(None::<LoggingConfig>);
+    /// ```
     pub fn set_or_clear_logging_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::LoggingConfig>,
@@ -4781,6 +6670,13 @@ impl Pipeline {
     }
 
     /// Sets the value of [retry_policy][crate::model::Pipeline::retry_policy].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::Pipeline;
+    /// use google_cloud_eventarc_v1::model::pipeline::RetryPolicy;
+    /// let x = Pipeline::new().set_retry_policy(RetryPolicy::default()/* use setters */);
+    /// ```
     pub fn set_retry_policy<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::pipeline::RetryPolicy>,
@@ -4790,6 +6686,14 @@ impl Pipeline {
     }
 
     /// Sets or clears the value of [retry_policy][crate::model::Pipeline::retry_policy].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::Pipeline;
+    /// use google_cloud_eventarc_v1::model::pipeline::RetryPolicy;
+    /// let x = Pipeline::new().set_or_clear_retry_policy(Some(RetryPolicy::default()/* use setters */));
+    /// let x = Pipeline::new().set_or_clear_retry_policy(None::<RetryPolicy>);
+    /// ```
     pub fn set_or_clear_retry_policy<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::pipeline::RetryPolicy>,
@@ -4799,12 +6703,24 @@ impl Pipeline {
     }
 
     /// Sets the value of [etag][crate::model::Pipeline::etag].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::Pipeline;
+    /// let x = Pipeline::new().set_etag("example");
+    /// ```
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
     }
 
     /// Sets the value of [satisfies_pzs][crate::model::Pipeline::satisfies_pzs].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::Pipeline;
+    /// let x = Pipeline::new().set_satisfies_pzs(true);
+    /// ```
     pub fn set_satisfies_pzs<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.satisfies_pzs = v.into();
         self
@@ -4844,6 +6760,14 @@ pub mod pipeline {
         ///
         /// Note that all the setters affecting `kind` are mutually
         /// exclusive.
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_eventarc_v1::model::pipeline::MessagePayloadFormat;
+        /// use google_cloud_eventarc_v1::model::pipeline::message_payload_format;
+        /// use google_cloud_eventarc_v1::model::pipeline::message_payload_format::ProtobufFormat;
+        /// let x = MessagePayloadFormat::new().set_kind(Some(pipeline::message_payload_format::Kind::Protobuf(ProtobufFormat::default().into())));
+        /// ```
         pub fn set_kind<
             T: std::convert::Into<
                     std::option::Option<crate::model::pipeline::message_payload_format::Kind>,
@@ -4878,6 +6802,16 @@ pub mod pipeline {
         ///
         /// Note that all the setters affecting `kind` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_eventarc_v1::model::pipeline::MessagePayloadFormat;
+        /// use google_cloud_eventarc_v1::model::pipeline::message_payload_format::ProtobufFormat;
+        /// let x = MessagePayloadFormat::new().set_protobuf(ProtobufFormat::default()/* use setters */);
+        /// assert!(x.protobuf().is_some());
+        /// assert!(x.avro().is_none());
+        /// assert!(x.json().is_none());
+        /// ```
         pub fn set_protobuf<
             T: std::convert::Into<
                     std::boxed::Box<crate::model::pipeline::message_payload_format::ProtobufFormat>,
@@ -4914,6 +6848,16 @@ pub mod pipeline {
         ///
         /// Note that all the setters affecting `kind` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_eventarc_v1::model::pipeline::MessagePayloadFormat;
+        /// use google_cloud_eventarc_v1::model::pipeline::message_payload_format::AvroFormat;
+        /// let x = MessagePayloadFormat::new().set_avro(AvroFormat::default()/* use setters */);
+        /// assert!(x.avro().is_some());
+        /// assert!(x.protobuf().is_none());
+        /// assert!(x.json().is_none());
+        /// ```
         pub fn set_avro<
             T: std::convert::Into<
                     std::boxed::Box<crate::model::pipeline::message_payload_format::AvroFormat>,
@@ -4950,6 +6894,16 @@ pub mod pipeline {
         ///
         /// Note that all the setters affecting `kind` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_eventarc_v1::model::pipeline::MessagePayloadFormat;
+        /// use google_cloud_eventarc_v1::model::pipeline::message_payload_format::JsonFormat;
+        /// let x = MessagePayloadFormat::new().set_json(JsonFormat::default()/* use setters */);
+        /// assert!(x.json().is_some());
+        /// assert!(x.protobuf().is_none());
+        /// assert!(x.avro().is_none());
+        /// ```
         pub fn set_json<
             T: std::convert::Into<
                     std::boxed::Box<crate::model::pipeline::message_payload_format::JsonFormat>,
@@ -5011,6 +6965,12 @@ pub mod pipeline {
             }
 
             /// Sets the value of [schema_definition][crate::model::pipeline::message_payload_format::ProtobufFormat::schema_definition].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_eventarc_v1::model::pipeline::message_payload_format::ProtobufFormat;
+            /// let x = ProtobufFormat::new().set_schema_definition("example");
+            /// ```
             pub fn set_schema_definition<T: std::convert::Into<std::string::String>>(
                 mut self,
                 v: T,
@@ -5042,6 +7002,12 @@ pub mod pipeline {
             }
 
             /// Sets the value of [schema_definition][crate::model::pipeline::message_payload_format::AvroFormat::schema_definition].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_eventarc_v1::model::pipeline::message_payload_format::AvroFormat;
+            /// let x = AvroFormat::new().set_schema_definition("example");
+            /// ```
             pub fn set_schema_definition<T: std::convert::Into<std::string::String>>(
                 mut self,
                 v: T,
@@ -5111,6 +7077,13 @@ pub mod pipeline {
         }
 
         /// Sets the value of [network_config][crate::model::pipeline::Destination::network_config].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_eventarc_v1::model::pipeline::Destination;
+        /// use google_cloud_eventarc_v1::model::pipeline::destination::NetworkConfig;
+        /// let x = Destination::new().set_network_config(NetworkConfig::default()/* use setters */);
+        /// ```
         pub fn set_network_config<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::pipeline::destination::NetworkConfig>,
@@ -5120,6 +7093,14 @@ pub mod pipeline {
         }
 
         /// Sets or clears the value of [network_config][crate::model::pipeline::Destination::network_config].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_eventarc_v1::model::pipeline::Destination;
+        /// use google_cloud_eventarc_v1::model::pipeline::destination::NetworkConfig;
+        /// let x = Destination::new().set_or_clear_network_config(Some(NetworkConfig::default()/* use setters */));
+        /// let x = Destination::new().set_or_clear_network_config(None::<NetworkConfig>);
+        /// ```
         pub fn set_or_clear_network_config<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::pipeline::destination::NetworkConfig>,
@@ -5129,6 +7110,13 @@ pub mod pipeline {
         }
 
         /// Sets the value of [authentication_config][crate::model::pipeline::Destination::authentication_config].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_eventarc_v1::model::pipeline::Destination;
+        /// use google_cloud_eventarc_v1::model::pipeline::destination::AuthenticationConfig;
+        /// let x = Destination::new().set_authentication_config(AuthenticationConfig::default()/* use setters */);
+        /// ```
         pub fn set_authentication_config<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::pipeline::destination::AuthenticationConfig>,
@@ -5138,6 +7126,14 @@ pub mod pipeline {
         }
 
         /// Sets or clears the value of [authentication_config][crate::model::pipeline::Destination::authentication_config].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_eventarc_v1::model::pipeline::Destination;
+        /// use google_cloud_eventarc_v1::model::pipeline::destination::AuthenticationConfig;
+        /// let x = Destination::new().set_or_clear_authentication_config(Some(AuthenticationConfig::default()/* use setters */));
+        /// let x = Destination::new().set_or_clear_authentication_config(None::<AuthenticationConfig>);
+        /// ```
         pub fn set_or_clear_authentication_config<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::pipeline::destination::AuthenticationConfig>,
@@ -5147,6 +7143,13 @@ pub mod pipeline {
         }
 
         /// Sets the value of [output_payload_format][crate::model::pipeline::Destination::output_payload_format].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_eventarc_v1::model::pipeline::Destination;
+        /// use google_cloud_eventarc_v1::model::pipeline::MessagePayloadFormat;
+        /// let x = Destination::new().set_output_payload_format(MessagePayloadFormat::default()/* use setters */);
+        /// ```
         pub fn set_output_payload_format<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::pipeline::MessagePayloadFormat>,
@@ -5156,6 +7159,14 @@ pub mod pipeline {
         }
 
         /// Sets or clears the value of [output_payload_format][crate::model::pipeline::Destination::output_payload_format].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_eventarc_v1::model::pipeline::Destination;
+        /// use google_cloud_eventarc_v1::model::pipeline::MessagePayloadFormat;
+        /// let x = Destination::new().set_or_clear_output_payload_format(Some(MessagePayloadFormat::default()/* use setters */));
+        /// let x = Destination::new().set_or_clear_output_payload_format(None::<MessagePayloadFormat>);
+        /// ```
         pub fn set_or_clear_output_payload_format<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::pipeline::MessagePayloadFormat>,
@@ -5168,6 +7179,13 @@ pub mod pipeline {
         ///
         /// Note that all the setters affecting `destination_descriptor` are mutually
         /// exclusive.
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_eventarc_v1::model::pipeline::Destination;
+        /// use google_cloud_eventarc_v1::model::pipeline::destination;
+        /// let x = Destination::new().set_destination_descriptor(Some(pipeline::destination::DestinationDescriptor::Workflow("example".to_string())));
+        /// ```
         pub fn set_destination_descriptor<
             T: std::convert::Into<
                     std::option::Option<crate::model::pipeline::destination::DestinationDescriptor>,
@@ -5201,6 +7219,17 @@ pub mod pipeline {
         ///
         /// Note that all the setters affecting `destination_descriptor` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_eventarc_v1::model::pipeline::Destination;
+        /// use google_cloud_eventarc_v1::model::pipeline::destination::HttpEndpoint;
+        /// let x = Destination::new().set_http_endpoint(HttpEndpoint::default()/* use setters */);
+        /// assert!(x.http_endpoint().is_some());
+        /// assert!(x.workflow().is_none());
+        /// assert!(x.message_bus().is_none());
+        /// assert!(x.topic().is_none());
+        /// ```
         pub fn set_http_endpoint<
             T: std::convert::Into<std::boxed::Box<crate::model::pipeline::destination::HttpEndpoint>>,
         >(
@@ -5231,6 +7260,16 @@ pub mod pipeline {
         ///
         /// Note that all the setters affecting `destination_descriptor` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_eventarc_v1::model::pipeline::Destination;
+        /// let x = Destination::new().set_workflow("example");
+        /// assert!(x.workflow().is_some());
+        /// assert!(x.http_endpoint().is_none());
+        /// assert!(x.message_bus().is_none());
+        /// assert!(x.topic().is_none());
+        /// ```
         pub fn set_workflow<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.destination_descriptor = std::option::Option::Some(
                 crate::model::pipeline::destination::DestinationDescriptor::Workflow(v.into()),
@@ -5256,6 +7295,16 @@ pub mod pipeline {
         ///
         /// Note that all the setters affecting `destination_descriptor` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_eventarc_v1::model::pipeline::Destination;
+        /// let x = Destination::new().set_message_bus("example");
+        /// assert!(x.message_bus().is_some());
+        /// assert!(x.http_endpoint().is_none());
+        /// assert!(x.workflow().is_none());
+        /// assert!(x.topic().is_none());
+        /// ```
         pub fn set_message_bus<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.destination_descriptor = std::option::Option::Some(
                 crate::model::pipeline::destination::DestinationDescriptor::MessageBus(v.into()),
@@ -5281,6 +7330,16 @@ pub mod pipeline {
         ///
         /// Note that all the setters affecting `destination_descriptor` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_eventarc_v1::model::pipeline::Destination;
+        /// let x = Destination::new().set_topic("example");
+        /// assert!(x.topic().is_some());
+        /// assert!(x.http_endpoint().is_none());
+        /// assert!(x.workflow().is_none());
+        /// assert!(x.message_bus().is_none());
+        /// ```
         pub fn set_topic<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.destination_descriptor = std::option::Option::Some(
                 crate::model::pipeline::destination::DestinationDescriptor::Topic(v.into()),
@@ -5319,6 +7378,12 @@ pub mod pipeline {
             }
 
             /// Sets the value of [network_attachment][crate::model::pipeline::destination::NetworkConfig::network_attachment].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_eventarc_v1::model::pipeline::destination::NetworkConfig;
+            /// let x = NetworkConfig::new().set_network_attachment("example");
+            /// ```
             pub fn set_network_attachment<T: std::convert::Into<std::string::String>>(
                 mut self,
                 v: T,
@@ -5527,12 +7592,24 @@ pub mod pipeline {
             }
 
             /// Sets the value of [uri][crate::model::pipeline::destination::HttpEndpoint::uri].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_eventarc_v1::model::pipeline::destination::HttpEndpoint;
+            /// let x = HttpEndpoint::new().set_uri("example");
+            /// ```
             pub fn set_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
                 self.uri = v.into();
                 self
             }
 
             /// Sets the value of [message_binding_template][crate::model::pipeline::destination::HttpEndpoint::message_binding_template].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_eventarc_v1::model::pipeline::destination::HttpEndpoint;
+            /// let x = HttpEndpoint::new().set_message_binding_template("example");
+            /// ```
             pub fn set_message_binding_template<T: std::convert::Into<std::string::String>>(
                 mut self,
                 v: T,
@@ -5568,6 +7645,14 @@ pub mod pipeline {
             ///
             /// Note that all the setters affecting `authentication_method_descriptor` are mutually
             /// exclusive.
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_eventarc_v1::model::pipeline::destination::AuthenticationConfig;
+            /// use google_cloud_eventarc_v1::model::pipeline::destination::authentication_config;
+            /// use google_cloud_eventarc_v1::model::pipeline::destination::authentication_config::OidcToken;
+            /// let x = AuthenticationConfig::new().set_authentication_method_descriptor(Some(pipeline::destination::authentication_config::AuthenticationMethodDescriptor::GoogleOidc(OidcToken::default().into())));
+            /// ```
             pub fn set_authentication_method_descriptor<T: std::convert::Into<std::option::Option<crate::model::pipeline::destination::authentication_config::AuthenticationMethodDescriptor>>>(mut self, v: T) -> Self
             {
                 self.authentication_method_descriptor = v.into();
@@ -5596,6 +7681,15 @@ pub mod pipeline {
             ///
             /// Note that all the setters affecting `authentication_method_descriptor` are
             /// mutually exclusive.
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_eventarc_v1::model::pipeline::destination::AuthenticationConfig;
+            /// use google_cloud_eventarc_v1::model::pipeline::destination::authentication_config::OidcToken;
+            /// let x = AuthenticationConfig::new().set_google_oidc(OidcToken::default()/* use setters */);
+            /// assert!(x.google_oidc().is_some());
+            /// assert!(x.oauth_token().is_none());
+            /// ```
             pub fn set_google_oidc<
                 T: std::convert::Into<
                         std::boxed::Box<
@@ -5636,6 +7730,15 @@ pub mod pipeline {
             ///
             /// Note that all the setters affecting `authentication_method_descriptor` are
             /// mutually exclusive.
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_eventarc_v1::model::pipeline::destination::AuthenticationConfig;
+            /// use google_cloud_eventarc_v1::model::pipeline::destination::authentication_config::OAuthToken;
+            /// let x = AuthenticationConfig::new().set_oauth_token(OAuthToken::default()/* use setters */);
+            /// assert!(x.oauth_token().is_some());
+            /// assert!(x.google_oidc().is_none());
+            /// ```
             pub fn set_oauth_token<
                 T: std::convert::Into<
                         std::boxed::Box<
@@ -5696,6 +7799,12 @@ pub mod pipeline {
                 }
 
                 /// Sets the value of [service_account][crate::model::pipeline::destination::authentication_config::OidcToken::service_account].
+                ///
+                /// # Example
+                /// ```
+                /// # use google_cloud_eventarc_v1::model::pipeline::destination::authentication_config::OidcToken;
+                /// let x = OidcToken::new().set_service_account("example");
+                /// ```
                 pub fn set_service_account<T: std::convert::Into<std::string::String>>(
                     mut self,
                     v: T,
@@ -5705,6 +7814,12 @@ pub mod pipeline {
                 }
 
                 /// Sets the value of [audience][crate::model::pipeline::destination::authentication_config::OidcToken::audience].
+                ///
+                /// # Example
+                /// ```
+                /// # use google_cloud_eventarc_v1::model::pipeline::destination::authentication_config::OidcToken;
+                /// let x = OidcToken::new().set_audience("example");
+                /// ```
                 pub fn set_audience<T: std::convert::Into<std::string::String>>(
                     mut self,
                     v: T,
@@ -5751,6 +7866,12 @@ pub mod pipeline {
                 }
 
                 /// Sets the value of [service_account][crate::model::pipeline::destination::authentication_config::OAuthToken::service_account].
+                ///
+                /// # Example
+                /// ```
+                /// # use google_cloud_eventarc_v1::model::pipeline::destination::authentication_config::OAuthToken;
+                /// let x = OAuthToken::new().set_service_account("example");
+                /// ```
                 pub fn set_service_account<T: std::convert::Into<std::string::String>>(
                     mut self,
                     v: T,
@@ -5760,6 +7881,12 @@ pub mod pipeline {
                 }
 
                 /// Sets the value of [scope][crate::model::pipeline::destination::authentication_config::OAuthToken::scope].
+                ///
+                /// # Example
+                /// ```
+                /// # use google_cloud_eventarc_v1::model::pipeline::destination::authentication_config::OAuthToken;
+                /// let x = OAuthToken::new().set_scope("example");
+                /// ```
                 pub fn set_scope<T: std::convert::Into<std::string::String>>(
                     mut self,
                     v: T,
@@ -5848,6 +7975,14 @@ pub mod pipeline {
         ///
         /// Note that all the setters affecting `mediation_descriptor` are mutually
         /// exclusive.
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_eventarc_v1::model::pipeline::Mediation;
+        /// use google_cloud_eventarc_v1::model::pipeline::mediation;
+        /// use google_cloud_eventarc_v1::model::pipeline::mediation::Transformation;
+        /// let x = Mediation::new().set_mediation_descriptor(Some(pipeline::mediation::MediationDescriptor::Transformation(Transformation::default().into())));
+        /// ```
         pub fn set_mediation_descriptor<
             T: std::convert::Into<
                     std::option::Option<crate::model::pipeline::mediation::MediationDescriptor>,
@@ -5881,6 +8016,14 @@ pub mod pipeline {
         ///
         /// Note that all the setters affecting `mediation_descriptor` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_eventarc_v1::model::pipeline::Mediation;
+        /// use google_cloud_eventarc_v1::model::pipeline::mediation::Transformation;
+        /// let x = Mediation::new().set_transformation(Transformation::default()/* use setters */);
+        /// assert!(x.transformation().is_some());
+        /// ```
         pub fn set_transformation<
             T: std::convert::Into<std::boxed::Box<crate::model::pipeline::mediation::Transformation>>,
         >(
@@ -5997,6 +8140,12 @@ pub mod pipeline {
             }
 
             /// Sets the value of [transformation_template][crate::model::pipeline::mediation::Transformation::transformation_template].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_eventarc_v1::model::pipeline::mediation::Transformation;
+            /// let x = Transformation::new().set_transformation_template("example");
+            /// ```
             pub fn set_transformation_template<T: std::convert::Into<std::string::String>>(
                 mut self,
                 v: T,
@@ -6055,12 +8204,25 @@ pub mod pipeline {
         }
 
         /// Sets the value of [max_attempts][crate::model::pipeline::RetryPolicy::max_attempts].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_eventarc_v1::model::pipeline::RetryPolicy;
+        /// let x = RetryPolicy::new().set_max_attempts(42);
+        /// ```
         pub fn set_max_attempts<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.max_attempts = v.into();
             self
         }
 
         /// Sets the value of [min_retry_delay][crate::model::pipeline::RetryPolicy::min_retry_delay].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_eventarc_v1::model::pipeline::RetryPolicy;
+        /// use wkt::Duration;
+        /// let x = RetryPolicy::new().set_min_retry_delay(Duration::default()/* use setters */);
+        /// ```
         pub fn set_min_retry_delay<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
@@ -6070,6 +8232,14 @@ pub mod pipeline {
         }
 
         /// Sets or clears the value of [min_retry_delay][crate::model::pipeline::RetryPolicy::min_retry_delay].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_eventarc_v1::model::pipeline::RetryPolicy;
+        /// use wkt::Duration;
+        /// let x = RetryPolicy::new().set_or_clear_min_retry_delay(Some(Duration::default()/* use setters */));
+        /// let x = RetryPolicy::new().set_or_clear_min_retry_delay(None::<Duration>);
+        /// ```
         pub fn set_or_clear_min_retry_delay<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
@@ -6079,6 +8249,13 @@ pub mod pipeline {
         }
 
         /// Sets the value of [max_retry_delay][crate::model::pipeline::RetryPolicy::max_retry_delay].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_eventarc_v1::model::pipeline::RetryPolicy;
+        /// use wkt::Duration;
+        /// let x = RetryPolicy::new().set_max_retry_delay(Duration::default()/* use setters */);
+        /// ```
         pub fn set_max_retry_delay<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
@@ -6088,6 +8265,14 @@ pub mod pipeline {
         }
 
         /// Sets or clears the value of [max_retry_delay][crate::model::pipeline::RetryPolicy::max_retry_delay].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_eventarc_v1::model::pipeline::RetryPolicy;
+        /// use wkt::Duration;
+        /// let x = RetryPolicy::new().set_or_clear_max_retry_delay(Some(Duration::default()/* use setters */));
+        /// let x = RetryPolicy::new().set_or_clear_max_retry_delay(None::<Duration>);
+        /// ```
         pub fn set_or_clear_max_retry_delay<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
@@ -6183,18 +8368,37 @@ impl Trigger {
     }
 
     /// Sets the value of [name][crate::model::Trigger::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::Trigger;
+    /// let x = Trigger::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [uid][crate::model::Trigger::uid].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::Trigger;
+    /// let x = Trigger::new().set_uid("example");
+    /// ```
     pub fn set_uid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.uid = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::Trigger::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::Trigger;
+    /// use wkt::Timestamp;
+    /// let x = Trigger::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -6204,6 +8408,14 @@ impl Trigger {
     }
 
     /// Sets or clears the value of [create_time][crate::model::Trigger::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::Trigger;
+    /// use wkt::Timestamp;
+    /// let x = Trigger::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Trigger::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -6213,6 +8425,13 @@ impl Trigger {
     }
 
     /// Sets the value of [update_time][crate::model::Trigger::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::Trigger;
+    /// use wkt::Timestamp;
+    /// let x = Trigger::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -6222,6 +8441,14 @@ impl Trigger {
     }
 
     /// Sets or clears the value of [update_time][crate::model::Trigger::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::Trigger;
+    /// use wkt::Timestamp;
+    /// let x = Trigger::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Trigger::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -6231,6 +8458,17 @@ impl Trigger {
     }
 
     /// Sets the value of [event_filters][crate::model::Trigger::event_filters].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::Trigger;
+    /// use google_cloud_eventarc_v1::model::EventFilter;
+    /// let x = Trigger::new()
+    ///     .set_event_filters([
+    ///         EventFilter::default()/* use setters */,
+    ///         EventFilter::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_event_filters<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -6242,12 +8480,25 @@ impl Trigger {
     }
 
     /// Sets the value of [service_account][crate::model::Trigger::service_account].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::Trigger;
+    /// let x = Trigger::new().set_service_account("example");
+    /// ```
     pub fn set_service_account<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.service_account = v.into();
         self
     }
 
     /// Sets the value of [destination][crate::model::Trigger::destination].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::Trigger;
+    /// use google_cloud_eventarc_v1::model::Destination;
+    /// let x = Trigger::new().set_destination(Destination::default()/* use setters */);
+    /// ```
     pub fn set_destination<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Destination>,
@@ -6257,6 +8508,14 @@ impl Trigger {
     }
 
     /// Sets or clears the value of [destination][crate::model::Trigger::destination].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::Trigger;
+    /// use google_cloud_eventarc_v1::model::Destination;
+    /// let x = Trigger::new().set_or_clear_destination(Some(Destination::default()/* use setters */));
+    /// let x = Trigger::new().set_or_clear_destination(None::<Destination>);
+    /// ```
     pub fn set_or_clear_destination<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Destination>,
@@ -6266,6 +8525,13 @@ impl Trigger {
     }
 
     /// Sets the value of [transport][crate::model::Trigger::transport].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::Trigger;
+    /// use google_cloud_eventarc_v1::model::Transport;
+    /// let x = Trigger::new().set_transport(Transport::default()/* use setters */);
+    /// ```
     pub fn set_transport<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Transport>,
@@ -6275,6 +8541,14 @@ impl Trigger {
     }
 
     /// Sets or clears the value of [transport][crate::model::Trigger::transport].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::Trigger;
+    /// use google_cloud_eventarc_v1::model::Transport;
+    /// let x = Trigger::new().set_or_clear_transport(Some(Transport::default()/* use setters */));
+    /// let x = Trigger::new().set_or_clear_transport(None::<Transport>);
+    /// ```
     pub fn set_or_clear_transport<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Transport>,
@@ -6284,6 +8558,15 @@ impl Trigger {
     }
 
     /// Sets the value of [labels][crate::model::Trigger::labels].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::Trigger;
+    /// let x = Trigger::new().set_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -6296,12 +8579,28 @@ impl Trigger {
     }
 
     /// Sets the value of [channel][crate::model::Trigger::channel].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::Trigger;
+    /// let x = Trigger::new().set_channel("example");
+    /// ```
     pub fn set_channel<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.channel = v.into();
         self
     }
 
     /// Sets the value of [conditions][crate::model::Trigger::conditions].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::Trigger;
+    /// use google_cloud_eventarc_v1::model::StateCondition;
+    /// let x = Trigger::new().set_conditions([
+    ///     ("key0", StateCondition::default()/* use setters */),
+    ///     ("key1", StateCondition::default()/* use (different) setters */),
+    /// ]);
+    /// ```
     pub fn set_conditions<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -6314,6 +8613,12 @@ impl Trigger {
     }
 
     /// Sets the value of [event_data_content_type][crate::model::Trigger::event_data_content_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::Trigger;
+    /// let x = Trigger::new().set_event_data_content_type("example");
+    /// ```
     pub fn set_event_data_content_type<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -6323,12 +8628,24 @@ impl Trigger {
     }
 
     /// Sets the value of [satisfies_pzs][crate::model::Trigger::satisfies_pzs].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::Trigger;
+    /// let x = Trigger::new().set_satisfies_pzs(true);
+    /// ```
     pub fn set_satisfies_pzs<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.satisfies_pzs = v.into();
         self
     }
 
     /// Sets the value of [etag][crate::model::Trigger::etag].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::Trigger;
+    /// let x = Trigger::new().set_etag("example");
+    /// ```
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
@@ -6372,18 +8689,36 @@ impl EventFilter {
     }
 
     /// Sets the value of [attribute][crate::model::EventFilter::attribute].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::EventFilter;
+    /// let x = EventFilter::new().set_attribute("example");
+    /// ```
     pub fn set_attribute<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.attribute = v.into();
         self
     }
 
     /// Sets the value of [value][crate::model::EventFilter::value].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::EventFilter;
+    /// let x = EventFilter::new().set_value("example");
+    /// ```
     pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.value = v.into();
         self
     }
 
     /// Sets the value of [operator][crate::model::EventFilter::operator].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::EventFilter;
+    /// let x = EventFilter::new().set_operator("example");
+    /// ```
     pub fn set_operator<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.operator = v.into();
         self
@@ -6415,12 +8750,27 @@ impl StateCondition {
     }
 
     /// Sets the value of [code][crate::model::StateCondition::code].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::StateCondition;
+    /// use rpc::model::Code;
+    /// let x0 = StateCondition::new().set_code(Code::Cancelled);
+    /// let x1 = StateCondition::new().set_code(Code::Unknown);
+    /// let x2 = StateCondition::new().set_code(Code::InvalidArgument);
+    /// ```
     pub fn set_code<T: std::convert::Into<rpc::model::Code>>(mut self, v: T) -> Self {
         self.code = v.into();
         self
     }
 
     /// Sets the value of [message][crate::model::StateCondition::message].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::StateCondition;
+    /// let x = StateCondition::new().set_message("example");
+    /// ```
     pub fn set_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.message = v.into();
         self
@@ -6453,6 +8803,13 @@ impl Destination {
     }
 
     /// Sets the value of [network_config][crate::model::Destination::network_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::Destination;
+    /// use google_cloud_eventarc_v1::model::NetworkConfig;
+    /// let x = Destination::new().set_network_config(NetworkConfig::default()/* use setters */);
+    /// ```
     pub fn set_network_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::NetworkConfig>,
@@ -6462,6 +8819,14 @@ impl Destination {
     }
 
     /// Sets or clears the value of [network_config][crate::model::Destination::network_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::Destination;
+    /// use google_cloud_eventarc_v1::model::NetworkConfig;
+    /// let x = Destination::new().set_or_clear_network_config(Some(NetworkConfig::default()/* use setters */));
+    /// let x = Destination::new().set_or_clear_network_config(None::<NetworkConfig>);
+    /// ```
     pub fn set_or_clear_network_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::NetworkConfig>,
@@ -6474,6 +8839,13 @@ impl Destination {
     ///
     /// Note that all the setters affecting `descriptor` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::Destination;
+    /// use google_cloud_eventarc_v1::model::destination;
+    /// let x = Destination::new().set_descriptor(Some(destination::Descriptor::CloudFunction("example".to_string())));
+    /// ```
     pub fn set_descriptor<
         T: std::convert::Into<std::option::Option<crate::model::destination::Descriptor>>,
     >(
@@ -6500,6 +8872,18 @@ impl Destination {
     ///
     /// Note that all the setters affecting `descriptor` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::Destination;
+    /// use google_cloud_eventarc_v1::model::CloudRun;
+    /// let x = Destination::new().set_cloud_run(CloudRun::default()/* use setters */);
+    /// assert!(x.cloud_run().is_some());
+    /// assert!(x.cloud_function().is_none());
+    /// assert!(x.gke().is_none());
+    /// assert!(x.workflow().is_none());
+    /// assert!(x.http_endpoint().is_none());
+    /// ```
     pub fn set_cloud_run<T: std::convert::Into<std::boxed::Box<crate::model::CloudRun>>>(
         mut self,
         v: T,
@@ -6525,6 +8909,17 @@ impl Destination {
     ///
     /// Note that all the setters affecting `descriptor` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::Destination;
+    /// let x = Destination::new().set_cloud_function("example");
+    /// assert!(x.cloud_function().is_some());
+    /// assert!(x.cloud_run().is_none());
+    /// assert!(x.gke().is_none());
+    /// assert!(x.workflow().is_none());
+    /// assert!(x.http_endpoint().is_none());
+    /// ```
     pub fn set_cloud_function<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.descriptor = std::option::Option::Some(
             crate::model::destination::Descriptor::CloudFunction(v.into()),
@@ -6548,6 +8943,18 @@ impl Destination {
     ///
     /// Note that all the setters affecting `descriptor` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::Destination;
+    /// use google_cloud_eventarc_v1::model::Gke;
+    /// let x = Destination::new().set_gke(Gke::default()/* use setters */);
+    /// assert!(x.gke().is_some());
+    /// assert!(x.cloud_run().is_none());
+    /// assert!(x.cloud_function().is_none());
+    /// assert!(x.workflow().is_none());
+    /// assert!(x.http_endpoint().is_none());
+    /// ```
     pub fn set_gke<T: std::convert::Into<std::boxed::Box<crate::model::Gke>>>(
         mut self,
         v: T,
@@ -6573,6 +8980,17 @@ impl Destination {
     ///
     /// Note that all the setters affecting `descriptor` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::Destination;
+    /// let x = Destination::new().set_workflow("example");
+    /// assert!(x.workflow().is_some());
+    /// assert!(x.cloud_run().is_none());
+    /// assert!(x.cloud_function().is_none());
+    /// assert!(x.gke().is_none());
+    /// assert!(x.http_endpoint().is_none());
+    /// ```
     pub fn set_workflow<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.descriptor =
             std::option::Option::Some(crate::model::destination::Descriptor::Workflow(v.into()));
@@ -6597,6 +9015,18 @@ impl Destination {
     ///
     /// Note that all the setters affecting `descriptor` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::Destination;
+    /// use google_cloud_eventarc_v1::model::HttpEndpoint;
+    /// let x = Destination::new().set_http_endpoint(HttpEndpoint::default()/* use setters */);
+    /// assert!(x.http_endpoint().is_some());
+    /// assert!(x.cloud_run().is_none());
+    /// assert!(x.cloud_function().is_none());
+    /// assert!(x.gke().is_none());
+    /// assert!(x.workflow().is_none());
+    /// ```
     pub fn set_http_endpoint<T: std::convert::Into<std::boxed::Box<crate::model::HttpEndpoint>>>(
         mut self,
         v: T,
@@ -6665,6 +9095,14 @@ impl Transport {
     ///
     /// Note that all the setters affecting `intermediary` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::Transport;
+    /// use google_cloud_eventarc_v1::model::transport;
+    /// use google_cloud_eventarc_v1::model::Pubsub;
+    /// let x = Transport::new().set_intermediary(Some(transport::Intermediary::Pubsub(Pubsub::default().into())));
+    /// ```
     pub fn set_intermediary<
         T: std::convert::Into<std::option::Option<crate::model::transport::Intermediary>>,
     >(
@@ -6691,6 +9129,14 @@ impl Transport {
     ///
     /// Note that all the setters affecting `intermediary` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::Transport;
+    /// use google_cloud_eventarc_v1::model::Pubsub;
+    /// let x = Transport::new().set_pubsub(Pubsub::default()/* use setters */);
+    /// assert!(x.pubsub().is_some());
+    /// ```
     pub fn set_pubsub<T: std::convert::Into<std::boxed::Box<crate::model::Pubsub>>>(
         mut self,
         v: T,
@@ -6751,18 +9197,36 @@ impl CloudRun {
     }
 
     /// Sets the value of [service][crate::model::CloudRun::service].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::CloudRun;
+    /// let x = CloudRun::new().set_service("example");
+    /// ```
     pub fn set_service<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.service = v.into();
         self
     }
 
     /// Sets the value of [path][crate::model::CloudRun::path].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::CloudRun;
+    /// let x = CloudRun::new().set_path("example");
+    /// ```
     pub fn set_path<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.path = v.into();
         self
     }
 
     /// Sets the value of [region][crate::model::CloudRun::region].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::CloudRun;
+    /// let x = CloudRun::new().set_region("example");
+    /// ```
     pub fn set_region<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.region = v.into();
         self
@@ -6811,30 +9275,60 @@ impl Gke {
     }
 
     /// Sets the value of [cluster][crate::model::Gke::cluster].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::Gke;
+    /// let x = Gke::new().set_cluster("example");
+    /// ```
     pub fn set_cluster<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.cluster = v.into();
         self
     }
 
     /// Sets the value of [location][crate::model::Gke::location].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::Gke;
+    /// let x = Gke::new().set_location("example");
+    /// ```
     pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.location = v.into();
         self
     }
 
     /// Sets the value of [namespace][crate::model::Gke::namespace].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::Gke;
+    /// let x = Gke::new().set_namespace("example");
+    /// ```
     pub fn set_namespace<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.namespace = v.into();
         self
     }
 
     /// Sets the value of [service][crate::model::Gke::service].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::Gke;
+    /// let x = Gke::new().set_service("example");
+    /// ```
     pub fn set_service<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.service = v.into();
         self
     }
 
     /// Sets the value of [path][crate::model::Gke::path].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::Gke;
+    /// let x = Gke::new().set_path("example");
+    /// ```
     pub fn set_path<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.path = v.into();
         self
@@ -6874,12 +9368,24 @@ impl Pubsub {
     }
 
     /// Sets the value of [topic][crate::model::Pubsub::topic].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::Pubsub;
+    /// let x = Pubsub::new().set_topic("example");
+    /// ```
     pub fn set_topic<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.topic = v.into();
         self
     }
 
     /// Sets the value of [subscription][crate::model::Pubsub::subscription].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::Pubsub;
+    /// let x = Pubsub::new().set_subscription("example");
+    /// ```
     pub fn set_subscription<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.subscription = v.into();
         self
@@ -6915,6 +9421,12 @@ impl HttpEndpoint {
     }
 
     /// Sets the value of [uri][crate::model::HttpEndpoint::uri].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::model::HttpEndpoint;
+    /// let x = HttpEndpoint::new().set_uri("example");
+    /// ```
     pub fn set_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.uri = v.into();
         self

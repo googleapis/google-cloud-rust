@@ -112,6 +112,12 @@ impl ProductLevelConfig {
     }
 
     /// Sets the value of [ingestion_product_type][crate::model::ProductLevelConfig::ingestion_product_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::ProductLevelConfig;
+    /// let x = ProductLevelConfig::new().set_ingestion_product_type("example");
+    /// ```
     pub fn set_ingestion_product_type<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -121,6 +127,12 @@ impl ProductLevelConfig {
     }
 
     /// Sets the value of [merchant_center_product_id_field][crate::model::ProductLevelConfig::merchant_center_product_id_field].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::ProductLevelConfig;
+    /// let x = ProductLevelConfig::new().set_merchant_center_product_id_field("example");
+    /// ```
     pub fn set_merchant_center_product_id_field<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -262,18 +274,38 @@ impl CatalogAttribute {
     }
 
     /// Sets the value of [key][crate::model::CatalogAttribute::key].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::CatalogAttribute;
+    /// let x = CatalogAttribute::new().set_key("example");
+    /// ```
     pub fn set_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.key = v.into();
         self
     }
 
     /// Sets the value of [in_use][crate::model::CatalogAttribute::in_use].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::CatalogAttribute;
+    /// let x = CatalogAttribute::new().set_in_use(true);
+    /// ```
     pub fn set_in_use<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.in_use = v.into();
         self
     }
 
     /// Sets the value of [r#type][crate::model::CatalogAttribute::type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::CatalogAttribute;
+    /// use google_cloud_retail_v2::model::catalog_attribute::AttributeType;
+    /// let x0 = CatalogAttribute::new().set_type(AttributeType::Textual);
+    /// let x1 = CatalogAttribute::new().set_type(AttributeType::Numerical);
+    /// ```
     pub fn set_type<T: std::convert::Into<crate::model::catalog_attribute::AttributeType>>(
         mut self,
         v: T,
@@ -283,6 +315,14 @@ impl CatalogAttribute {
     }
 
     /// Sets the value of [indexable_option][crate::model::CatalogAttribute::indexable_option].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::CatalogAttribute;
+    /// use google_cloud_retail_v2::model::catalog_attribute::IndexableOption;
+    /// let x0 = CatalogAttribute::new().set_indexable_option(IndexableOption::IndexableEnabled);
+    /// let x1 = CatalogAttribute::new().set_indexable_option(IndexableOption::IndexableDisabled);
+    /// ```
     pub fn set_indexable_option<
         T: std::convert::Into<crate::model::catalog_attribute::IndexableOption>,
     >(
@@ -294,6 +334,14 @@ impl CatalogAttribute {
     }
 
     /// Sets the value of [dynamic_facetable_option][crate::model::CatalogAttribute::dynamic_facetable_option].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::CatalogAttribute;
+    /// use google_cloud_retail_v2::model::catalog_attribute::DynamicFacetableOption;
+    /// let x0 = CatalogAttribute::new().set_dynamic_facetable_option(DynamicFacetableOption::DynamicFacetableEnabled);
+    /// let x1 = CatalogAttribute::new().set_dynamic_facetable_option(DynamicFacetableOption::DynamicFacetableDisabled);
+    /// ```
     pub fn set_dynamic_facetable_option<
         T: std::convert::Into<crate::model::catalog_attribute::DynamicFacetableOption>,
     >(
@@ -305,6 +353,14 @@ impl CatalogAttribute {
     }
 
     /// Sets the value of [searchable_option][crate::model::CatalogAttribute::searchable_option].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::CatalogAttribute;
+    /// use google_cloud_retail_v2::model::catalog_attribute::SearchableOption;
+    /// let x0 = CatalogAttribute::new().set_searchable_option(SearchableOption::SearchableEnabled);
+    /// let x1 = CatalogAttribute::new().set_searchable_option(SearchableOption::SearchableDisabled);
+    /// ```
     pub fn set_searchable_option<
         T: std::convert::Into<crate::model::catalog_attribute::SearchableOption>,
     >(
@@ -316,6 +372,14 @@ impl CatalogAttribute {
     }
 
     /// Sets the value of [exact_searchable_option][crate::model::CatalogAttribute::exact_searchable_option].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::CatalogAttribute;
+    /// use google_cloud_retail_v2::model::catalog_attribute::ExactSearchableOption;
+    /// let x0 = CatalogAttribute::new().set_exact_searchable_option(ExactSearchableOption::ExactSearchableEnabled);
+    /// let x1 = CatalogAttribute::new().set_exact_searchable_option(ExactSearchableOption::ExactSearchableDisabled);
+    /// ```
     pub fn set_exact_searchable_option<
         T: std::convert::Into<crate::model::catalog_attribute::ExactSearchableOption>,
     >(
@@ -327,6 +391,14 @@ impl CatalogAttribute {
     }
 
     /// Sets the value of [retrievable_option][crate::model::CatalogAttribute::retrievable_option].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::CatalogAttribute;
+    /// use google_cloud_retail_v2::model::catalog_attribute::RetrievableOption;
+    /// let x0 = CatalogAttribute::new().set_retrievable_option(RetrievableOption::RetrievableEnabled);
+    /// let x1 = CatalogAttribute::new().set_retrievable_option(RetrievableOption::RetrievableDisabled);
+    /// ```
     pub fn set_retrievable_option<
         T: std::convert::Into<crate::model::catalog_attribute::RetrievableOption>,
     >(
@@ -338,6 +410,13 @@ impl CatalogAttribute {
     }
 
     /// Sets the value of [facet_config][crate::model::CatalogAttribute::facet_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::CatalogAttribute;
+    /// use google_cloud_retail_v2::model::catalog_attribute::FacetConfig;
+    /// let x = CatalogAttribute::new().set_facet_config(FacetConfig::default()/* use setters */);
+    /// ```
     pub fn set_facet_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::catalog_attribute::FacetConfig>,
@@ -347,6 +426,14 @@ impl CatalogAttribute {
     }
 
     /// Sets or clears the value of [facet_config][crate::model::CatalogAttribute::facet_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::CatalogAttribute;
+    /// use google_cloud_retail_v2::model::catalog_attribute::FacetConfig;
+    /// let x = CatalogAttribute::new().set_or_clear_facet_config(Some(FacetConfig::default()/* use setters */));
+    /// let x = CatalogAttribute::new().set_or_clear_facet_config(None::<FacetConfig>);
+    /// ```
     pub fn set_or_clear_facet_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::catalog_attribute::FacetConfig>,
@@ -429,6 +516,17 @@ pub mod catalog_attribute {
         }
 
         /// Sets the value of [facet_intervals][crate::model::catalog_attribute::FacetConfig::facet_intervals].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_retail_v2::model::catalog_attribute::FacetConfig;
+        /// use google_cloud_retail_v2::model::Interval;
+        /// let x = FacetConfig::new()
+        ///     .set_facet_intervals([
+        ///         Interval::default()/* use setters */,
+        ///         Interval::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
         pub fn set_facet_intervals<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -440,6 +538,17 @@ pub mod catalog_attribute {
         }
 
         /// Sets the value of [ignored_facet_values][crate::model::catalog_attribute::FacetConfig::ignored_facet_values].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_retail_v2::model::catalog_attribute::FacetConfig;
+        /// use google_cloud_retail_v2::model::catalog_attribute::facet_config::IgnoredFacetValues;
+        /// let x = FacetConfig::new()
+        ///     .set_ignored_facet_values([
+        ///         IgnoredFacetValues::default()/* use setters */,
+        ///         IgnoredFacetValues::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
         pub fn set_ignored_facet_values<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -453,6 +562,17 @@ pub mod catalog_attribute {
         }
 
         /// Sets the value of [merged_facet_values][crate::model::catalog_attribute::FacetConfig::merged_facet_values].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_retail_v2::model::catalog_attribute::FacetConfig;
+        /// use google_cloud_retail_v2::model::catalog_attribute::facet_config::MergedFacetValue;
+        /// let x = FacetConfig::new()
+        ///     .set_merged_facet_values([
+        ///         MergedFacetValue::default()/* use setters */,
+        ///         MergedFacetValue::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
         pub fn set_merged_facet_values<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -464,6 +584,13 @@ pub mod catalog_attribute {
         }
 
         /// Sets the value of [merged_facet][crate::model::catalog_attribute::FacetConfig::merged_facet].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_retail_v2::model::catalog_attribute::FacetConfig;
+        /// use google_cloud_retail_v2::model::catalog_attribute::facet_config::MergedFacet;
+        /// let x = FacetConfig::new().set_merged_facet(MergedFacet::default()/* use setters */);
+        /// ```
         pub fn set_merged_facet<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::catalog_attribute::facet_config::MergedFacet>,
@@ -473,6 +600,14 @@ pub mod catalog_attribute {
         }
 
         /// Sets or clears the value of [merged_facet][crate::model::catalog_attribute::FacetConfig::merged_facet].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_retail_v2::model::catalog_attribute::FacetConfig;
+        /// use google_cloud_retail_v2::model::catalog_attribute::facet_config::MergedFacet;
+        /// let x = FacetConfig::new().set_or_clear_merged_facet(Some(MergedFacet::default()/* use setters */));
+        /// let x = FacetConfig::new().set_or_clear_merged_facet(None::<MergedFacet>);
+        /// ```
         pub fn set_or_clear_merged_facet<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::catalog_attribute::facet_config::MergedFacet>,
@@ -482,6 +617,13 @@ pub mod catalog_attribute {
         }
 
         /// Sets the value of [rerank_config][crate::model::catalog_attribute::FacetConfig::rerank_config].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_retail_v2::model::catalog_attribute::FacetConfig;
+        /// use google_cloud_retail_v2::model::catalog_attribute::facet_config::RerankConfig;
+        /// let x = FacetConfig::new().set_rerank_config(RerankConfig::default()/* use setters */);
+        /// ```
         pub fn set_rerank_config<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::catalog_attribute::facet_config::RerankConfig>,
@@ -491,6 +633,14 @@ pub mod catalog_attribute {
         }
 
         /// Sets or clears the value of [rerank_config][crate::model::catalog_attribute::FacetConfig::rerank_config].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_retail_v2::model::catalog_attribute::FacetConfig;
+        /// use google_cloud_retail_v2::model::catalog_attribute::facet_config::RerankConfig;
+        /// let x = FacetConfig::new().set_or_clear_rerank_config(Some(RerankConfig::default()/* use setters */));
+        /// let x = FacetConfig::new().set_or_clear_rerank_config(None::<RerankConfig>);
+        /// ```
         pub fn set_or_clear_rerank_config<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::catalog_attribute::facet_config::RerankConfig>,
@@ -551,6 +701,12 @@ pub mod catalog_attribute {
             }
 
             /// Sets the value of [values][crate::model::catalog_attribute::facet_config::IgnoredFacetValues::values].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_retail_v2::model::catalog_attribute::facet_config::IgnoredFacetValues;
+            /// let x = IgnoredFacetValues::new().set_values(["a", "b", "c"]);
+            /// ```
             pub fn set_values<T, V>(mut self, v: T) -> Self
             where
                 T: std::iter::IntoIterator<Item = V>,
@@ -562,6 +718,13 @@ pub mod catalog_attribute {
             }
 
             /// Sets the value of [start_time][crate::model::catalog_attribute::facet_config::IgnoredFacetValues::start_time].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_retail_v2::model::catalog_attribute::facet_config::IgnoredFacetValues;
+            /// use wkt::Timestamp;
+            /// let x = IgnoredFacetValues::new().set_start_time(Timestamp::default()/* use setters */);
+            /// ```
             pub fn set_start_time<T>(mut self, v: T) -> Self
             where
                 T: std::convert::Into<wkt::Timestamp>,
@@ -571,6 +734,14 @@ pub mod catalog_attribute {
             }
 
             /// Sets or clears the value of [start_time][crate::model::catalog_attribute::facet_config::IgnoredFacetValues::start_time].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_retail_v2::model::catalog_attribute::facet_config::IgnoredFacetValues;
+            /// use wkt::Timestamp;
+            /// let x = IgnoredFacetValues::new().set_or_clear_start_time(Some(Timestamp::default()/* use setters */));
+            /// let x = IgnoredFacetValues::new().set_or_clear_start_time(None::<Timestamp>);
+            /// ```
             pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<wkt::Timestamp>,
@@ -580,6 +751,13 @@ pub mod catalog_attribute {
             }
 
             /// Sets the value of [end_time][crate::model::catalog_attribute::facet_config::IgnoredFacetValues::end_time].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_retail_v2::model::catalog_attribute::facet_config::IgnoredFacetValues;
+            /// use wkt::Timestamp;
+            /// let x = IgnoredFacetValues::new().set_end_time(Timestamp::default()/* use setters */);
+            /// ```
             pub fn set_end_time<T>(mut self, v: T) -> Self
             where
                 T: std::convert::Into<wkt::Timestamp>,
@@ -589,6 +767,14 @@ pub mod catalog_attribute {
             }
 
             /// Sets or clears the value of [end_time][crate::model::catalog_attribute::facet_config::IgnoredFacetValues::end_time].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_retail_v2::model::catalog_attribute::facet_config::IgnoredFacetValues;
+            /// use wkt::Timestamp;
+            /// let x = IgnoredFacetValues::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
+            /// let x = IgnoredFacetValues::new().set_or_clear_end_time(None::<Timestamp>);
+            /// ```
             pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<wkt::Timestamp>,
@@ -634,6 +820,12 @@ pub mod catalog_attribute {
             }
 
             /// Sets the value of [values][crate::model::catalog_attribute::facet_config::MergedFacetValue::values].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_retail_v2::model::catalog_attribute::facet_config::MergedFacetValue;
+            /// let x = MergedFacetValue::new().set_values(["a", "b", "c"]);
+            /// ```
             pub fn set_values<T, V>(mut self, v: T) -> Self
             where
                 T: std::iter::IntoIterator<Item = V>,
@@ -645,6 +837,12 @@ pub mod catalog_attribute {
             }
 
             /// Sets the value of [merged_value][crate::model::catalog_attribute::facet_config::MergedFacetValue::merged_value].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_retail_v2::model::catalog_attribute::facet_config::MergedFacetValue;
+            /// let x = MergedFacetValue::new().set_merged_value("example");
+            /// ```
             pub fn set_merged_value<T: std::convert::Into<std::string::String>>(
                 mut self,
                 v: T,
@@ -687,6 +885,12 @@ pub mod catalog_attribute {
             }
 
             /// Sets the value of [merged_facet_key][crate::model::catalog_attribute::facet_config::MergedFacet::merged_facet_key].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_retail_v2::model::catalog_attribute::facet_config::MergedFacet;
+            /// let x = MergedFacet::new().set_merged_facet_key("example");
+            /// ```
             pub fn set_merged_facet_key<T: std::convert::Into<std::string::String>>(
                 mut self,
                 v: T,
@@ -731,12 +935,24 @@ pub mod catalog_attribute {
             }
 
             /// Sets the value of [rerank_facet][crate::model::catalog_attribute::facet_config::RerankConfig::rerank_facet].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_retail_v2::model::catalog_attribute::facet_config::RerankConfig;
+            /// let x = RerankConfig::new().set_rerank_facet(true);
+            /// ```
             pub fn set_rerank_facet<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
                 self.rerank_facet = v.into();
                 self
             }
 
             /// Sets the value of [facet_values][crate::model::catalog_attribute::facet_config::RerankConfig::facet_values].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_retail_v2::model::catalog_attribute::facet_config::RerankConfig;
+            /// let x = RerankConfig::new().set_facet_values(["a", "b", "c"]);
+            /// ```
             pub fn set_facet_values<T, V>(mut self, v: T) -> Self
             where
                 T: std::iter::IntoIterator<Item = V>,
@@ -1601,12 +1817,28 @@ impl AttributesConfig {
     }
 
     /// Sets the value of [name][crate::model::AttributesConfig::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::AttributesConfig;
+    /// let x = AttributesConfig::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [catalog_attributes][crate::model::AttributesConfig::catalog_attributes].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::AttributesConfig;
+    /// use google_cloud_retail_v2::model::CatalogAttribute;
+    /// let x = AttributesConfig::new().set_catalog_attributes([
+    ///     ("key0", CatalogAttribute::default()/* use setters */),
+    ///     ("key1", CatalogAttribute::default()/* use (different) setters */),
+    /// ]);
+    /// ```
     pub fn set_catalog_attributes<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -1619,6 +1851,14 @@ impl AttributesConfig {
     }
 
     /// Sets the value of [attribute_config_level][crate::model::AttributesConfig::attribute_config_level].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::AttributesConfig;
+    /// use google_cloud_retail_v2::model::AttributeConfigLevel;
+    /// let x0 = AttributesConfig::new().set_attribute_config_level(AttributeConfigLevel::ProductLevelAttributeConfig);
+    /// let x1 = AttributesConfig::new().set_attribute_config_level(AttributeConfigLevel::CatalogLevelAttributeConfig);
+    /// ```
     pub fn set_attribute_config_level<T: std::convert::Into<crate::model::AttributeConfigLevel>>(
         mut self,
         v: T,
@@ -1717,36 +1957,73 @@ impl CompletionConfig {
     }
 
     /// Sets the value of [name][crate::model::CompletionConfig::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::CompletionConfig;
+    /// let x = CompletionConfig::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [matching_order][crate::model::CompletionConfig::matching_order].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::CompletionConfig;
+    /// let x = CompletionConfig::new().set_matching_order("example");
+    /// ```
     pub fn set_matching_order<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.matching_order = v.into();
         self
     }
 
     /// Sets the value of [max_suggestions][crate::model::CompletionConfig::max_suggestions].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::CompletionConfig;
+    /// let x = CompletionConfig::new().set_max_suggestions(42);
+    /// ```
     pub fn set_max_suggestions<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.max_suggestions = v.into();
         self
     }
 
     /// Sets the value of [min_prefix_length][crate::model::CompletionConfig::min_prefix_length].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::CompletionConfig;
+    /// let x = CompletionConfig::new().set_min_prefix_length(42);
+    /// ```
     pub fn set_min_prefix_length<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.min_prefix_length = v.into();
         self
     }
 
     /// Sets the value of [auto_learning][crate::model::CompletionConfig::auto_learning].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::CompletionConfig;
+    /// let x = CompletionConfig::new().set_auto_learning(true);
+    /// ```
     pub fn set_auto_learning<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.auto_learning = v.into();
         self
     }
 
     /// Sets the value of [suggestions_input_config][crate::model::CompletionConfig::suggestions_input_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::CompletionConfig;
+    /// use google_cloud_retail_v2::model::CompletionDataInputConfig;
+    /// let x = CompletionConfig::new().set_suggestions_input_config(CompletionDataInputConfig::default()/* use setters */);
+    /// ```
     pub fn set_suggestions_input_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::CompletionDataInputConfig>,
@@ -1756,6 +2033,14 @@ impl CompletionConfig {
     }
 
     /// Sets or clears the value of [suggestions_input_config][crate::model::CompletionConfig::suggestions_input_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::CompletionConfig;
+    /// use google_cloud_retail_v2::model::CompletionDataInputConfig;
+    /// let x = CompletionConfig::new().set_or_clear_suggestions_input_config(Some(CompletionDataInputConfig::default()/* use setters */));
+    /// let x = CompletionConfig::new().set_or_clear_suggestions_input_config(None::<CompletionDataInputConfig>);
+    /// ```
     pub fn set_or_clear_suggestions_input_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CompletionDataInputConfig>,
@@ -1765,6 +2050,12 @@ impl CompletionConfig {
     }
 
     /// Sets the value of [last_suggestions_import_operation][crate::model::CompletionConfig::last_suggestions_import_operation].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::CompletionConfig;
+    /// let x = CompletionConfig::new().set_last_suggestions_import_operation("example");
+    /// ```
     pub fn set_last_suggestions_import_operation<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -1774,6 +2065,13 @@ impl CompletionConfig {
     }
 
     /// Sets the value of [denylist_input_config][crate::model::CompletionConfig::denylist_input_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::CompletionConfig;
+    /// use google_cloud_retail_v2::model::CompletionDataInputConfig;
+    /// let x = CompletionConfig::new().set_denylist_input_config(CompletionDataInputConfig::default()/* use setters */);
+    /// ```
     pub fn set_denylist_input_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::CompletionDataInputConfig>,
@@ -1783,6 +2081,14 @@ impl CompletionConfig {
     }
 
     /// Sets or clears the value of [denylist_input_config][crate::model::CompletionConfig::denylist_input_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::CompletionConfig;
+    /// use google_cloud_retail_v2::model::CompletionDataInputConfig;
+    /// let x = CompletionConfig::new().set_or_clear_denylist_input_config(Some(CompletionDataInputConfig::default()/* use setters */));
+    /// let x = CompletionConfig::new().set_or_clear_denylist_input_config(None::<CompletionDataInputConfig>);
+    /// ```
     pub fn set_or_clear_denylist_input_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CompletionDataInputConfig>,
@@ -1792,6 +2098,12 @@ impl CompletionConfig {
     }
 
     /// Sets the value of [last_denylist_import_operation][crate::model::CompletionConfig::last_denylist_import_operation].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::CompletionConfig;
+    /// let x = CompletionConfig::new().set_last_denylist_import_operation("example");
+    /// ```
     pub fn set_last_denylist_import_operation<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -1801,6 +2113,13 @@ impl CompletionConfig {
     }
 
     /// Sets the value of [allowlist_input_config][crate::model::CompletionConfig::allowlist_input_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::CompletionConfig;
+    /// use google_cloud_retail_v2::model::CompletionDataInputConfig;
+    /// let x = CompletionConfig::new().set_allowlist_input_config(CompletionDataInputConfig::default()/* use setters */);
+    /// ```
     pub fn set_allowlist_input_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::CompletionDataInputConfig>,
@@ -1810,6 +2129,14 @@ impl CompletionConfig {
     }
 
     /// Sets or clears the value of [allowlist_input_config][crate::model::CompletionConfig::allowlist_input_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::CompletionConfig;
+    /// use google_cloud_retail_v2::model::CompletionDataInputConfig;
+    /// let x = CompletionConfig::new().set_or_clear_allowlist_input_config(Some(CompletionDataInputConfig::default()/* use setters */));
+    /// let x = CompletionConfig::new().set_or_clear_allowlist_input_config(None::<CompletionDataInputConfig>);
+    /// ```
     pub fn set_or_clear_allowlist_input_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CompletionDataInputConfig>,
@@ -1819,6 +2146,12 @@ impl CompletionConfig {
     }
 
     /// Sets the value of [last_allowlist_import_operation][crate::model::CompletionConfig::last_allowlist_import_operation].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::CompletionConfig;
+    /// let x = CompletionConfig::new().set_last_allowlist_import_operation("example");
+    /// ```
     pub fn set_last_allowlist_import_operation<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -1859,18 +2192,37 @@ impl Catalog {
     }
 
     /// Sets the value of [name][crate::model::Catalog::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::Catalog;
+    /// let x = Catalog::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [display_name][crate::model::Catalog::display_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::Catalog;
+    /// let x = Catalog::new().set_display_name("example");
+    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
     }
 
     /// Sets the value of [product_level_config][crate::model::Catalog::product_level_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::Catalog;
+    /// use google_cloud_retail_v2::model::ProductLevelConfig;
+    /// let x = Catalog::new().set_product_level_config(ProductLevelConfig::default()/* use setters */);
+    /// ```
     pub fn set_product_level_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ProductLevelConfig>,
@@ -1880,6 +2232,14 @@ impl Catalog {
     }
 
     /// Sets or clears the value of [product_level_config][crate::model::Catalog::product_level_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::Catalog;
+    /// use google_cloud_retail_v2::model::ProductLevelConfig;
+    /// let x = Catalog::new().set_or_clear_product_level_config(Some(ProductLevelConfig::default()/* use setters */));
+    /// let x = Catalog::new().set_or_clear_product_level_config(None::<ProductLevelConfig>);
+    /// ```
     pub fn set_or_clear_product_level_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ProductLevelConfig>,
@@ -1946,18 +2306,36 @@ impl ListCatalogsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListCatalogsRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::ListCatalogsRequest;
+    /// let x = ListCatalogsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListCatalogsRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::ListCatalogsRequest;
+    /// let x = ListCatalogsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListCatalogsRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::ListCatalogsRequest;
+    /// let x = ListCatalogsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -2000,6 +2378,17 @@ impl ListCatalogsResponse {
     }
 
     /// Sets the value of [catalogs][crate::model::ListCatalogsResponse::catalogs].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::ListCatalogsResponse;
+    /// use google_cloud_retail_v2::model::Catalog;
+    /// let x = ListCatalogsResponse::new()
+    ///     .set_catalogs([
+    ///         Catalog::default()/* use setters */,
+    ///         Catalog::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_catalogs<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2011,6 +2400,12 @@ impl ListCatalogsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListCatalogsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::ListCatalogsResponse;
+    /// let x = ListCatalogsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -2075,6 +2470,13 @@ impl UpdateCatalogRequest {
     }
 
     /// Sets the value of [catalog][crate::model::UpdateCatalogRequest::catalog].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::UpdateCatalogRequest;
+    /// use google_cloud_retail_v2::model::Catalog;
+    /// let x = UpdateCatalogRequest::new().set_catalog(Catalog::default()/* use setters */);
+    /// ```
     pub fn set_catalog<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Catalog>,
@@ -2084,6 +2486,14 @@ impl UpdateCatalogRequest {
     }
 
     /// Sets or clears the value of [catalog][crate::model::UpdateCatalogRequest::catalog].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::UpdateCatalogRequest;
+    /// use google_cloud_retail_v2::model::Catalog;
+    /// let x = UpdateCatalogRequest::new().set_or_clear_catalog(Some(Catalog::default()/* use setters */));
+    /// let x = UpdateCatalogRequest::new().set_or_clear_catalog(None::<Catalog>);
+    /// ```
     pub fn set_or_clear_catalog<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Catalog>,
@@ -2093,6 +2503,13 @@ impl UpdateCatalogRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateCatalogRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::UpdateCatalogRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateCatalogRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -2102,6 +2519,14 @@ impl UpdateCatalogRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateCatalogRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::UpdateCatalogRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateCatalogRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateCatalogRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -2163,24 +2588,48 @@ impl SetDefaultBranchRequest {
     }
 
     /// Sets the value of [catalog][crate::model::SetDefaultBranchRequest::catalog].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::SetDefaultBranchRequest;
+    /// let x = SetDefaultBranchRequest::new().set_catalog("example");
+    /// ```
     pub fn set_catalog<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.catalog = v.into();
         self
     }
 
     /// Sets the value of [branch_id][crate::model::SetDefaultBranchRequest::branch_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::SetDefaultBranchRequest;
+    /// let x = SetDefaultBranchRequest::new().set_branch_id("example");
+    /// ```
     pub fn set_branch_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.branch_id = v.into();
         self
     }
 
     /// Sets the value of [note][crate::model::SetDefaultBranchRequest::note].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::SetDefaultBranchRequest;
+    /// let x = SetDefaultBranchRequest::new().set_note("example");
+    /// ```
     pub fn set_note<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.note = v.into();
         self
     }
 
     /// Sets the value of [force][crate::model::SetDefaultBranchRequest::force].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::SetDefaultBranchRequest;
+    /// let x = SetDefaultBranchRequest::new().set_force(true);
+    /// ```
     pub fn set_force<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.force = v.into();
         self
@@ -2210,6 +2659,12 @@ impl GetDefaultBranchRequest {
     }
 
     /// Sets the value of [catalog][crate::model::GetDefaultBranchRequest::catalog].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::GetDefaultBranchRequest;
+    /// let x = GetDefaultBranchRequest::new().set_catalog("example");
+    /// ```
     pub fn set_catalog<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.catalog = v.into();
         self
@@ -2251,12 +2706,25 @@ impl GetDefaultBranchResponse {
     }
 
     /// Sets the value of [branch][crate::model::GetDefaultBranchResponse::branch].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::GetDefaultBranchResponse;
+    /// let x = GetDefaultBranchResponse::new().set_branch("example");
+    /// ```
     pub fn set_branch<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.branch = v.into();
         self
     }
 
     /// Sets the value of [set_time][crate::model::GetDefaultBranchResponse::set_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::GetDefaultBranchResponse;
+    /// use wkt::Timestamp;
+    /// let x = GetDefaultBranchResponse::new().set_set_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_set_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2266,6 +2734,14 @@ impl GetDefaultBranchResponse {
     }
 
     /// Sets or clears the value of [set_time][crate::model::GetDefaultBranchResponse::set_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::GetDefaultBranchResponse;
+    /// use wkt::Timestamp;
+    /// let x = GetDefaultBranchResponse::new().set_or_clear_set_time(Some(Timestamp::default()/* use setters */));
+    /// let x = GetDefaultBranchResponse::new().set_or_clear_set_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_set_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2275,6 +2751,12 @@ impl GetDefaultBranchResponse {
     }
 
     /// Sets the value of [note][crate::model::GetDefaultBranchResponse::note].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::GetDefaultBranchResponse;
+    /// let x = GetDefaultBranchResponse::new().set_note("example");
+    /// ```
     pub fn set_note<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.note = v.into();
         self
@@ -2308,6 +2790,12 @@ impl GetCompletionConfigRequest {
     }
 
     /// Sets the value of [name][crate::model::GetCompletionConfigRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::GetCompletionConfigRequest;
+    /// let x = GetCompletionConfigRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -2368,6 +2856,13 @@ impl UpdateCompletionConfigRequest {
     }
 
     /// Sets the value of [completion_config][crate::model::UpdateCompletionConfigRequest::completion_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::UpdateCompletionConfigRequest;
+    /// use google_cloud_retail_v2::model::CompletionConfig;
+    /// let x = UpdateCompletionConfigRequest::new().set_completion_config(CompletionConfig::default()/* use setters */);
+    /// ```
     pub fn set_completion_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::CompletionConfig>,
@@ -2377,6 +2872,14 @@ impl UpdateCompletionConfigRequest {
     }
 
     /// Sets or clears the value of [completion_config][crate::model::UpdateCompletionConfigRequest::completion_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::UpdateCompletionConfigRequest;
+    /// use google_cloud_retail_v2::model::CompletionConfig;
+    /// let x = UpdateCompletionConfigRequest::new().set_or_clear_completion_config(Some(CompletionConfig::default()/* use setters */));
+    /// let x = UpdateCompletionConfigRequest::new().set_or_clear_completion_config(None::<CompletionConfig>);
+    /// ```
     pub fn set_or_clear_completion_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CompletionConfig>,
@@ -2386,6 +2889,13 @@ impl UpdateCompletionConfigRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateCompletionConfigRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::UpdateCompletionConfigRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateCompletionConfigRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -2395,6 +2905,14 @@ impl UpdateCompletionConfigRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateCompletionConfigRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::UpdateCompletionConfigRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateCompletionConfigRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateCompletionConfigRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -2431,6 +2949,12 @@ impl GetAttributesConfigRequest {
     }
 
     /// Sets the value of [name][crate::model::GetAttributesConfigRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::GetAttributesConfigRequest;
+    /// let x = GetAttributesConfigRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -2478,6 +3002,13 @@ impl UpdateAttributesConfigRequest {
     }
 
     /// Sets the value of [attributes_config][crate::model::UpdateAttributesConfigRequest::attributes_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::UpdateAttributesConfigRequest;
+    /// use google_cloud_retail_v2::model::AttributesConfig;
+    /// let x = UpdateAttributesConfigRequest::new().set_attributes_config(AttributesConfig::default()/* use setters */);
+    /// ```
     pub fn set_attributes_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::AttributesConfig>,
@@ -2487,6 +3018,14 @@ impl UpdateAttributesConfigRequest {
     }
 
     /// Sets or clears the value of [attributes_config][crate::model::UpdateAttributesConfigRequest::attributes_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::UpdateAttributesConfigRequest;
+    /// use google_cloud_retail_v2::model::AttributesConfig;
+    /// let x = UpdateAttributesConfigRequest::new().set_or_clear_attributes_config(Some(AttributesConfig::default()/* use setters */));
+    /// let x = UpdateAttributesConfigRequest::new().set_or_clear_attributes_config(None::<AttributesConfig>);
+    /// ```
     pub fn set_or_clear_attributes_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AttributesConfig>,
@@ -2496,6 +3035,13 @@ impl UpdateAttributesConfigRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateAttributesConfigRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::UpdateAttributesConfigRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateAttributesConfigRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -2505,6 +3051,14 @@ impl UpdateAttributesConfigRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateAttributesConfigRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::UpdateAttributesConfigRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateAttributesConfigRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateAttributesConfigRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -2547,6 +3101,12 @@ impl AddCatalogAttributeRequest {
     }
 
     /// Sets the value of [attributes_config][crate::model::AddCatalogAttributeRequest::attributes_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::AddCatalogAttributeRequest;
+    /// let x = AddCatalogAttributeRequest::new().set_attributes_config("example");
+    /// ```
     pub fn set_attributes_config<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -2556,6 +3116,13 @@ impl AddCatalogAttributeRequest {
     }
 
     /// Sets the value of [catalog_attribute][crate::model::AddCatalogAttributeRequest::catalog_attribute].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::AddCatalogAttributeRequest;
+    /// use google_cloud_retail_v2::model::CatalogAttribute;
+    /// let x = AddCatalogAttributeRequest::new().set_catalog_attribute(CatalogAttribute::default()/* use setters */);
+    /// ```
     pub fn set_catalog_attribute<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::CatalogAttribute>,
@@ -2565,6 +3132,14 @@ impl AddCatalogAttributeRequest {
     }
 
     /// Sets or clears the value of [catalog_attribute][crate::model::AddCatalogAttributeRequest::catalog_attribute].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::AddCatalogAttributeRequest;
+    /// use google_cloud_retail_v2::model::CatalogAttribute;
+    /// let x = AddCatalogAttributeRequest::new().set_or_clear_catalog_attribute(Some(CatalogAttribute::default()/* use setters */));
+    /// let x = AddCatalogAttributeRequest::new().set_or_clear_catalog_attribute(None::<CatalogAttribute>);
+    /// ```
     pub fn set_or_clear_catalog_attribute<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CatalogAttribute>,
@@ -2607,6 +3182,12 @@ impl RemoveCatalogAttributeRequest {
     }
 
     /// Sets the value of [attributes_config][crate::model::RemoveCatalogAttributeRequest::attributes_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::RemoveCatalogAttributeRequest;
+    /// let x = RemoveCatalogAttributeRequest::new().set_attributes_config("example");
+    /// ```
     pub fn set_attributes_config<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -2616,6 +3197,12 @@ impl RemoveCatalogAttributeRequest {
     }
 
     /// Sets the value of [key][crate::model::RemoveCatalogAttributeRequest::key].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::RemoveCatalogAttributeRequest;
+    /// let x = RemoveCatalogAttributeRequest::new().set_key("example");
+    /// ```
     pub fn set_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.key = v.into();
         self
@@ -2667,6 +3254,12 @@ impl ReplaceCatalogAttributeRequest {
     }
 
     /// Sets the value of [attributes_config][crate::model::ReplaceCatalogAttributeRequest::attributes_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::ReplaceCatalogAttributeRequest;
+    /// let x = ReplaceCatalogAttributeRequest::new().set_attributes_config("example");
+    /// ```
     pub fn set_attributes_config<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -2676,6 +3269,13 @@ impl ReplaceCatalogAttributeRequest {
     }
 
     /// Sets the value of [catalog_attribute][crate::model::ReplaceCatalogAttributeRequest::catalog_attribute].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::ReplaceCatalogAttributeRequest;
+    /// use google_cloud_retail_v2::model::CatalogAttribute;
+    /// let x = ReplaceCatalogAttributeRequest::new().set_catalog_attribute(CatalogAttribute::default()/* use setters */);
+    /// ```
     pub fn set_catalog_attribute<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::CatalogAttribute>,
@@ -2685,6 +3285,14 @@ impl ReplaceCatalogAttributeRequest {
     }
 
     /// Sets or clears the value of [catalog_attribute][crate::model::ReplaceCatalogAttributeRequest::catalog_attribute].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::ReplaceCatalogAttributeRequest;
+    /// use google_cloud_retail_v2::model::CatalogAttribute;
+    /// let x = ReplaceCatalogAttributeRequest::new().set_or_clear_catalog_attribute(Some(CatalogAttribute::default()/* use setters */));
+    /// let x = ReplaceCatalogAttributeRequest::new().set_or_clear_catalog_attribute(None::<CatalogAttribute>);
+    /// ```
     pub fn set_or_clear_catalog_attribute<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CatalogAttribute>,
@@ -2694,6 +3302,13 @@ impl ReplaceCatalogAttributeRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::ReplaceCatalogAttributeRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::ReplaceCatalogAttributeRequest;
+    /// use wkt::FieldMask;
+    /// let x = ReplaceCatalogAttributeRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -2703,6 +3318,14 @@ impl ReplaceCatalogAttributeRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::ReplaceCatalogAttributeRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::ReplaceCatalogAttributeRequest;
+    /// use wkt::FieldMask;
+    /// let x = ReplaceCatalogAttributeRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = ReplaceCatalogAttributeRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -2754,6 +3377,17 @@ impl Condition {
     }
 
     /// Sets the value of [query_terms][crate::model::Condition::query_terms].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::Condition;
+    /// use google_cloud_retail_v2::model::condition::QueryTerm;
+    /// let x = Condition::new()
+    ///     .set_query_terms([
+    ///         QueryTerm::default()/* use setters */,
+    ///         QueryTerm::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_query_terms<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2765,6 +3399,17 @@ impl Condition {
     }
 
     /// Sets the value of [active_time_range][crate::model::Condition::active_time_range].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::Condition;
+    /// use google_cloud_retail_v2::model::condition::TimeRange;
+    /// let x = Condition::new()
+    ///     .set_active_time_range([
+    ///         TimeRange::default()/* use setters */,
+    ///         TimeRange::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_active_time_range<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2776,6 +3421,12 @@ impl Condition {
     }
 
     /// Sets the value of [page_categories][crate::model::Condition::page_categories].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::Condition;
+    /// let x = Condition::new().set_page_categories(["a", "b", "c"]);
+    /// ```
     pub fn set_page_categories<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2822,12 +3473,24 @@ pub mod condition {
         }
 
         /// Sets the value of [value][crate::model::condition::QueryTerm::value].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_retail_v2::model::condition::QueryTerm;
+        /// let x = QueryTerm::new().set_value("example");
+        /// ```
         pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.value = v.into();
             self
         }
 
         /// Sets the value of [full_match][crate::model::condition::QueryTerm::full_match].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_retail_v2::model::condition::QueryTerm;
+        /// let x = QueryTerm::new().set_full_match(true);
+        /// ```
         pub fn set_full_match<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.full_match = v.into();
             self
@@ -2860,6 +3523,13 @@ pub mod condition {
         }
 
         /// Sets the value of [start_time][crate::model::condition::TimeRange::start_time].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_retail_v2::model::condition::TimeRange;
+        /// use wkt::Timestamp;
+        /// let x = TimeRange::new().set_start_time(Timestamp::default()/* use setters */);
+        /// ```
         pub fn set_start_time<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -2869,6 +3539,14 @@ pub mod condition {
         }
 
         /// Sets or clears the value of [start_time][crate::model::condition::TimeRange::start_time].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_retail_v2::model::condition::TimeRange;
+        /// use wkt::Timestamp;
+        /// let x = TimeRange::new().set_or_clear_start_time(Some(Timestamp::default()/* use setters */));
+        /// let x = TimeRange::new().set_or_clear_start_time(None::<Timestamp>);
+        /// ```
         pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -2878,6 +3556,13 @@ pub mod condition {
         }
 
         /// Sets the value of [end_time][crate::model::condition::TimeRange::end_time].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_retail_v2::model::condition::TimeRange;
+        /// use wkt::Timestamp;
+        /// let x = TimeRange::new().set_end_time(Timestamp::default()/* use setters */);
+        /// ```
         pub fn set_end_time<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -2887,6 +3572,14 @@ pub mod condition {
         }
 
         /// Sets or clears the value of [end_time][crate::model::condition::TimeRange::end_time].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_retail_v2::model::condition::TimeRange;
+        /// use wkt::Timestamp;
+        /// let x = TimeRange::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
+        /// let x = TimeRange::new().set_or_clear_end_time(None::<Timestamp>);
+        /// ```
         pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -2931,6 +3624,13 @@ impl Rule {
     }
 
     /// Sets the value of [condition][crate::model::Rule::condition].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::Rule;
+    /// use google_cloud_retail_v2::model::Condition;
+    /// let x = Rule::new().set_condition(Condition::default()/* use setters */);
+    /// ```
     pub fn set_condition<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Condition>,
@@ -2940,6 +3640,14 @@ impl Rule {
     }
 
     /// Sets or clears the value of [condition][crate::model::Rule::condition].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::Rule;
+    /// use google_cloud_retail_v2::model::Condition;
+    /// let x = Rule::new().set_or_clear_condition(Some(Condition::default()/* use setters */));
+    /// let x = Rule::new().set_or_clear_condition(None::<Condition>);
+    /// ```
     pub fn set_or_clear_condition<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Condition>,
@@ -2952,6 +3660,14 @@ impl Rule {
     ///
     /// Note that all the setters affecting `action` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::Rule;
+    /// use google_cloud_retail_v2::model::rule;
+    /// use google_cloud_retail_v2::model::rule::BoostAction;
+    /// let x = Rule::new().set_action(Some(rule::Action::BoostAction(BoostAction::default().into())));
+    /// ```
     pub fn set_action<T: std::convert::Into<std::option::Option<crate::model::rule::Action>>>(
         mut self,
         v: T,
@@ -2978,6 +3694,24 @@ impl Rule {
     ///
     /// Note that all the setters affecting `action` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::Rule;
+    /// use google_cloud_retail_v2::model::rule::BoostAction;
+    /// let x = Rule::new().set_boost_action(BoostAction::default()/* use setters */);
+    /// assert!(x.boost_action().is_some());
+    /// assert!(x.redirect_action().is_none());
+    /// assert!(x.oneway_synonyms_action().is_none());
+    /// assert!(x.do_not_associate_action().is_none());
+    /// assert!(x.replacement_action().is_none());
+    /// assert!(x.ignore_action().is_none());
+    /// assert!(x.filter_action().is_none());
+    /// assert!(x.twoway_synonyms_action().is_none());
+    /// assert!(x.force_return_facet_action().is_none());
+    /// assert!(x.remove_facet_action().is_none());
+    /// assert!(x.pin_action().is_none());
+    /// ```
     pub fn set_boost_action<
         T: std::convert::Into<std::boxed::Box<crate::model::rule::BoostAction>>,
     >(
@@ -3006,6 +3740,24 @@ impl Rule {
     ///
     /// Note that all the setters affecting `action` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::Rule;
+    /// use google_cloud_retail_v2::model::rule::RedirectAction;
+    /// let x = Rule::new().set_redirect_action(RedirectAction::default()/* use setters */);
+    /// assert!(x.redirect_action().is_some());
+    /// assert!(x.boost_action().is_none());
+    /// assert!(x.oneway_synonyms_action().is_none());
+    /// assert!(x.do_not_associate_action().is_none());
+    /// assert!(x.replacement_action().is_none());
+    /// assert!(x.ignore_action().is_none());
+    /// assert!(x.filter_action().is_none());
+    /// assert!(x.twoway_synonyms_action().is_none());
+    /// assert!(x.force_return_facet_action().is_none());
+    /// assert!(x.remove_facet_action().is_none());
+    /// assert!(x.pin_action().is_none());
+    /// ```
     pub fn set_redirect_action<
         T: std::convert::Into<std::boxed::Box<crate::model::rule::RedirectAction>>,
     >(
@@ -3035,6 +3787,24 @@ impl Rule {
     ///
     /// Note that all the setters affecting `action` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::Rule;
+    /// use google_cloud_retail_v2::model::rule::OnewaySynonymsAction;
+    /// let x = Rule::new().set_oneway_synonyms_action(OnewaySynonymsAction::default()/* use setters */);
+    /// assert!(x.oneway_synonyms_action().is_some());
+    /// assert!(x.boost_action().is_none());
+    /// assert!(x.redirect_action().is_none());
+    /// assert!(x.do_not_associate_action().is_none());
+    /// assert!(x.replacement_action().is_none());
+    /// assert!(x.ignore_action().is_none());
+    /// assert!(x.filter_action().is_none());
+    /// assert!(x.twoway_synonyms_action().is_none());
+    /// assert!(x.force_return_facet_action().is_none());
+    /// assert!(x.remove_facet_action().is_none());
+    /// assert!(x.pin_action().is_none());
+    /// ```
     pub fn set_oneway_synonyms_action<
         T: std::convert::Into<std::boxed::Box<crate::model::rule::OnewaySynonymsAction>>,
     >(
@@ -3064,6 +3834,24 @@ impl Rule {
     ///
     /// Note that all the setters affecting `action` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::Rule;
+    /// use google_cloud_retail_v2::model::rule::DoNotAssociateAction;
+    /// let x = Rule::new().set_do_not_associate_action(DoNotAssociateAction::default()/* use setters */);
+    /// assert!(x.do_not_associate_action().is_some());
+    /// assert!(x.boost_action().is_none());
+    /// assert!(x.redirect_action().is_none());
+    /// assert!(x.oneway_synonyms_action().is_none());
+    /// assert!(x.replacement_action().is_none());
+    /// assert!(x.ignore_action().is_none());
+    /// assert!(x.filter_action().is_none());
+    /// assert!(x.twoway_synonyms_action().is_none());
+    /// assert!(x.force_return_facet_action().is_none());
+    /// assert!(x.remove_facet_action().is_none());
+    /// assert!(x.pin_action().is_none());
+    /// ```
     pub fn set_do_not_associate_action<
         T: std::convert::Into<std::boxed::Box<crate::model::rule::DoNotAssociateAction>>,
     >(
@@ -3093,6 +3881,24 @@ impl Rule {
     ///
     /// Note that all the setters affecting `action` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::Rule;
+    /// use google_cloud_retail_v2::model::rule::ReplacementAction;
+    /// let x = Rule::new().set_replacement_action(ReplacementAction::default()/* use setters */);
+    /// assert!(x.replacement_action().is_some());
+    /// assert!(x.boost_action().is_none());
+    /// assert!(x.redirect_action().is_none());
+    /// assert!(x.oneway_synonyms_action().is_none());
+    /// assert!(x.do_not_associate_action().is_none());
+    /// assert!(x.ignore_action().is_none());
+    /// assert!(x.filter_action().is_none());
+    /// assert!(x.twoway_synonyms_action().is_none());
+    /// assert!(x.force_return_facet_action().is_none());
+    /// assert!(x.remove_facet_action().is_none());
+    /// assert!(x.pin_action().is_none());
+    /// ```
     pub fn set_replacement_action<
         T: std::convert::Into<std::boxed::Box<crate::model::rule::ReplacementAction>>,
     >(
@@ -3122,6 +3928,24 @@ impl Rule {
     ///
     /// Note that all the setters affecting `action` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::Rule;
+    /// use google_cloud_retail_v2::model::rule::IgnoreAction;
+    /// let x = Rule::new().set_ignore_action(IgnoreAction::default()/* use setters */);
+    /// assert!(x.ignore_action().is_some());
+    /// assert!(x.boost_action().is_none());
+    /// assert!(x.redirect_action().is_none());
+    /// assert!(x.oneway_synonyms_action().is_none());
+    /// assert!(x.do_not_associate_action().is_none());
+    /// assert!(x.replacement_action().is_none());
+    /// assert!(x.filter_action().is_none());
+    /// assert!(x.twoway_synonyms_action().is_none());
+    /// assert!(x.force_return_facet_action().is_none());
+    /// assert!(x.remove_facet_action().is_none());
+    /// assert!(x.pin_action().is_none());
+    /// ```
     pub fn set_ignore_action<
         T: std::convert::Into<std::boxed::Box<crate::model::rule::IgnoreAction>>,
     >(
@@ -3150,6 +3974,24 @@ impl Rule {
     ///
     /// Note that all the setters affecting `action` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::Rule;
+    /// use google_cloud_retail_v2::model::rule::FilterAction;
+    /// let x = Rule::new().set_filter_action(FilterAction::default()/* use setters */);
+    /// assert!(x.filter_action().is_some());
+    /// assert!(x.boost_action().is_none());
+    /// assert!(x.redirect_action().is_none());
+    /// assert!(x.oneway_synonyms_action().is_none());
+    /// assert!(x.do_not_associate_action().is_none());
+    /// assert!(x.replacement_action().is_none());
+    /// assert!(x.ignore_action().is_none());
+    /// assert!(x.twoway_synonyms_action().is_none());
+    /// assert!(x.force_return_facet_action().is_none());
+    /// assert!(x.remove_facet_action().is_none());
+    /// assert!(x.pin_action().is_none());
+    /// ```
     pub fn set_filter_action<
         T: std::convert::Into<std::boxed::Box<crate::model::rule::FilterAction>>,
     >(
@@ -3178,6 +4020,24 @@ impl Rule {
     ///
     /// Note that all the setters affecting `action` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::Rule;
+    /// use google_cloud_retail_v2::model::rule::TwowaySynonymsAction;
+    /// let x = Rule::new().set_twoway_synonyms_action(TwowaySynonymsAction::default()/* use setters */);
+    /// assert!(x.twoway_synonyms_action().is_some());
+    /// assert!(x.boost_action().is_none());
+    /// assert!(x.redirect_action().is_none());
+    /// assert!(x.oneway_synonyms_action().is_none());
+    /// assert!(x.do_not_associate_action().is_none());
+    /// assert!(x.replacement_action().is_none());
+    /// assert!(x.ignore_action().is_none());
+    /// assert!(x.filter_action().is_none());
+    /// assert!(x.force_return_facet_action().is_none());
+    /// assert!(x.remove_facet_action().is_none());
+    /// assert!(x.pin_action().is_none());
+    /// ```
     pub fn set_twoway_synonyms_action<
         T: std::convert::Into<std::boxed::Box<crate::model::rule::TwowaySynonymsAction>>,
     >(
@@ -3207,6 +4067,24 @@ impl Rule {
     ///
     /// Note that all the setters affecting `action` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::Rule;
+    /// use google_cloud_retail_v2::model::rule::ForceReturnFacetAction;
+    /// let x = Rule::new().set_force_return_facet_action(ForceReturnFacetAction::default()/* use setters */);
+    /// assert!(x.force_return_facet_action().is_some());
+    /// assert!(x.boost_action().is_none());
+    /// assert!(x.redirect_action().is_none());
+    /// assert!(x.oneway_synonyms_action().is_none());
+    /// assert!(x.do_not_associate_action().is_none());
+    /// assert!(x.replacement_action().is_none());
+    /// assert!(x.ignore_action().is_none());
+    /// assert!(x.filter_action().is_none());
+    /// assert!(x.twoway_synonyms_action().is_none());
+    /// assert!(x.remove_facet_action().is_none());
+    /// assert!(x.pin_action().is_none());
+    /// ```
     pub fn set_force_return_facet_action<
         T: std::convert::Into<std::boxed::Box<crate::model::rule::ForceReturnFacetAction>>,
     >(
@@ -3236,6 +4114,24 @@ impl Rule {
     ///
     /// Note that all the setters affecting `action` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::Rule;
+    /// use google_cloud_retail_v2::model::rule::RemoveFacetAction;
+    /// let x = Rule::new().set_remove_facet_action(RemoveFacetAction::default()/* use setters */);
+    /// assert!(x.remove_facet_action().is_some());
+    /// assert!(x.boost_action().is_none());
+    /// assert!(x.redirect_action().is_none());
+    /// assert!(x.oneway_synonyms_action().is_none());
+    /// assert!(x.do_not_associate_action().is_none());
+    /// assert!(x.replacement_action().is_none());
+    /// assert!(x.ignore_action().is_none());
+    /// assert!(x.filter_action().is_none());
+    /// assert!(x.twoway_synonyms_action().is_none());
+    /// assert!(x.force_return_facet_action().is_none());
+    /// assert!(x.pin_action().is_none());
+    /// ```
     pub fn set_remove_facet_action<
         T: std::convert::Into<std::boxed::Box<crate::model::rule::RemoveFacetAction>>,
     >(
@@ -3265,6 +4161,24 @@ impl Rule {
     ///
     /// Note that all the setters affecting `action` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::Rule;
+    /// use google_cloud_retail_v2::model::rule::PinAction;
+    /// let x = Rule::new().set_pin_action(PinAction::default()/* use setters */);
+    /// assert!(x.pin_action().is_some());
+    /// assert!(x.boost_action().is_none());
+    /// assert!(x.redirect_action().is_none());
+    /// assert!(x.oneway_synonyms_action().is_none());
+    /// assert!(x.do_not_associate_action().is_none());
+    /// assert!(x.replacement_action().is_none());
+    /// assert!(x.ignore_action().is_none());
+    /// assert!(x.filter_action().is_none());
+    /// assert!(x.twoway_synonyms_action().is_none());
+    /// assert!(x.force_return_facet_action().is_none());
+    /// assert!(x.remove_facet_action().is_none());
+    /// ```
     pub fn set_pin_action<T: std::convert::Into<std::boxed::Box<crate::model::rule::PinAction>>>(
         mut self,
         v: T,
@@ -3335,12 +4249,24 @@ pub mod rule {
         }
 
         /// Sets the value of [boost][crate::model::rule::BoostAction::boost].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_retail_v2::model::rule::BoostAction;
+        /// let x = BoostAction::new().set_boost(42.0);
+        /// ```
         pub fn set_boost<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
             self.boost = v.into();
             self
         }
 
         /// Sets the value of [products_filter][crate::model::rule::BoostAction::products_filter].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_retail_v2::model::rule::BoostAction;
+        /// let x = BoostAction::new().set_products_filter("example");
+        /// ```
         pub fn set_products_filter<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -3405,6 +4331,12 @@ pub mod rule {
         }
 
         /// Sets the value of [filter][crate::model::rule::FilterAction::filter].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_retail_v2::model::rule::FilterAction;
+        /// let x = FilterAction::new().set_filter("example");
+        /// ```
         pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.filter = v.into();
             self
@@ -3441,6 +4373,12 @@ pub mod rule {
         }
 
         /// Sets the value of [redirect_uri][crate::model::rule::RedirectAction::redirect_uri].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_retail_v2::model::rule::RedirectAction;
+        /// let x = RedirectAction::new().set_redirect_uri("example");
+        /// ```
         pub fn set_redirect_uri<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -3478,6 +4416,12 @@ pub mod rule {
         }
 
         /// Sets the value of [synonyms][crate::model::rule::TwowaySynonymsAction::synonyms].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_retail_v2::model::rule::TwowaySynonymsAction;
+        /// let x = TwowaySynonymsAction::new().set_synonyms(["a", "b", "c"]);
+        /// ```
         pub fn set_synonyms<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -3526,6 +4470,12 @@ pub mod rule {
         }
 
         /// Sets the value of [query_terms][crate::model::rule::OnewaySynonymsAction::query_terms].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_retail_v2::model::rule::OnewaySynonymsAction;
+        /// let x = OnewaySynonymsAction::new().set_query_terms(["a", "b", "c"]);
+        /// ```
         pub fn set_query_terms<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -3537,6 +4487,12 @@ pub mod rule {
         }
 
         /// Sets the value of [synonyms][crate::model::rule::OnewaySynonymsAction::synonyms].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_retail_v2::model::rule::OnewaySynonymsAction;
+        /// let x = OnewaySynonymsAction::new().set_synonyms(["a", "b", "c"]);
+        /// ```
         pub fn set_synonyms<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -3548,6 +4504,12 @@ pub mod rule {
         }
 
         /// Sets the value of [oneway_terms][crate::model::rule::OnewaySynonymsAction::oneway_terms].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_retail_v2::model::rule::OnewaySynonymsAction;
+        /// let x = OnewaySynonymsAction::new().set_oneway_terms(["a", "b", "c"]);
+        /// ```
         pub fn set_oneway_terms<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -3592,6 +4554,12 @@ pub mod rule {
         }
 
         /// Sets the value of [query_terms][crate::model::rule::DoNotAssociateAction::query_terms].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_retail_v2::model::rule::DoNotAssociateAction;
+        /// let x = DoNotAssociateAction::new().set_query_terms(["a", "b", "c"]);
+        /// ```
         pub fn set_query_terms<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -3603,6 +4571,12 @@ pub mod rule {
         }
 
         /// Sets the value of [do_not_associate_terms][crate::model::rule::DoNotAssociateAction::do_not_associate_terms].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_retail_v2::model::rule::DoNotAssociateAction;
+        /// let x = DoNotAssociateAction::new().set_do_not_associate_terms(["a", "b", "c"]);
+        /// ```
         pub fn set_do_not_associate_terms<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -3614,6 +4588,12 @@ pub mod rule {
         }
 
         /// Sets the value of [terms][crate::model::rule::DoNotAssociateAction::terms].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_retail_v2::model::rule::DoNotAssociateAction;
+        /// let x = DoNotAssociateAction::new().set_terms(["a", "b", "c"]);
+        /// ```
         pub fn set_terms<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -3657,6 +4637,12 @@ pub mod rule {
         }
 
         /// Sets the value of [query_terms][crate::model::rule::ReplacementAction::query_terms].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_retail_v2::model::rule::ReplacementAction;
+        /// let x = ReplacementAction::new().set_query_terms(["a", "b", "c"]);
+        /// ```
         pub fn set_query_terms<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -3668,6 +4654,12 @@ pub mod rule {
         }
 
         /// Sets the value of [replacement_term][crate::model::rule::ReplacementAction::replacement_term].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_retail_v2::model::rule::ReplacementAction;
+        /// let x = ReplacementAction::new().set_replacement_term("example");
+        /// ```
         pub fn set_replacement_term<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -3677,6 +4669,12 @@ pub mod rule {
         }
 
         /// Sets the value of [term][crate::model::rule::ReplacementAction::term].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_retail_v2::model::rule::ReplacementAction;
+        /// let x = ReplacementAction::new().set_term("example");
+        /// ```
         pub fn set_term<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.term = v.into();
             self
@@ -3706,6 +4704,12 @@ pub mod rule {
         }
 
         /// Sets the value of [ignore_terms][crate::model::rule::IgnoreAction::ignore_terms].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_retail_v2::model::rule::IgnoreAction;
+        /// let x = IgnoreAction::new().set_ignore_terms(["a", "b", "c"]);
+        /// ```
         pub fn set_ignore_terms<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -3773,6 +4777,17 @@ pub mod rule {
         }
 
         /// Sets the value of [facet_position_adjustments][crate::model::rule::ForceReturnFacetAction::facet_position_adjustments].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_retail_v2::model::rule::ForceReturnFacetAction;
+        /// use google_cloud_retail_v2::model::rule::force_return_facet_action::FacetPositionAdjustment;
+        /// let x = ForceReturnFacetAction::new()
+        ///     .set_facet_position_adjustments([
+        ///         FacetPositionAdjustment::default()/* use setters */,
+        ///         FacetPositionAdjustment::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
         pub fn set_facet_position_adjustments<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -3820,6 +4835,12 @@ pub mod rule {
             }
 
             /// Sets the value of [attribute_name][crate::model::rule::force_return_facet_action::FacetPositionAdjustment::attribute_name].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_retail_v2::model::rule::force_return_facet_action::FacetPositionAdjustment;
+            /// let x = FacetPositionAdjustment::new().set_attribute_name("example");
+            /// ```
             pub fn set_attribute_name<T: std::convert::Into<std::string::String>>(
                 mut self,
                 v: T,
@@ -3829,6 +4850,12 @@ pub mod rule {
             }
 
             /// Sets the value of [position][crate::model::rule::force_return_facet_action::FacetPositionAdjustment::position].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_retail_v2::model::rule::force_return_facet_action::FacetPositionAdjustment;
+            /// let x = FacetPositionAdjustment::new().set_position(42);
+            /// ```
             pub fn set_position<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
                 self.position = v.into();
                 self
@@ -3882,6 +4909,12 @@ pub mod rule {
         }
 
         /// Sets the value of [attribute_names][crate::model::rule::RemoveFacetAction::attribute_names].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_retail_v2::model::rule::RemoveFacetAction;
+        /// let x = RemoveFacetAction::new().set_attribute_names(["a", "b", "c"]);
+        /// ```
         pub fn set_attribute_names<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -3955,6 +4988,15 @@ pub mod rule {
         }
 
         /// Sets the value of [pin_map][crate::model::rule::PinAction::pin_map].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_retail_v2::model::rule::PinAction;
+        /// let x = PinAction::new().set_pin_map([
+        ///     (0, "abc"),
+        ///     (1, "xyz"),
+        /// ]);
+        /// ```
         pub fn set_pin_map<T, K, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = (K, V)>,
@@ -4049,6 +5091,12 @@ impl Audience {
     }
 
     /// Sets the value of [genders][crate::model::Audience::genders].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::Audience;
+    /// let x = Audience::new().set_genders(["a", "b", "c"]);
+    /// ```
     pub fn set_genders<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4060,6 +5108,12 @@ impl Audience {
     }
 
     /// Sets the value of [age_groups][crate::model::Audience::age_groups].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::Audience;
+    /// let x = Audience::new().set_age_groups(["a", "b", "c"]);
+    /// ```
     pub fn set_age_groups<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4125,6 +5179,12 @@ impl ColorInfo {
     }
 
     /// Sets the value of [color_families][crate::model::ColorInfo::color_families].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::ColorInfo;
+    /// let x = ColorInfo::new().set_color_families(["a", "b", "c"]);
+    /// ```
     pub fn set_color_families<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4136,6 +5196,12 @@ impl ColorInfo {
     }
 
     /// Sets the value of [colors][crate::model::ColorInfo::colors].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::ColorInfo;
+    /// let x = ColorInfo::new().set_colors(["a", "b", "c"]);
+    /// ```
     pub fn set_colors<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4244,6 +5310,12 @@ impl CustomAttribute {
     }
 
     /// Sets the value of [text][crate::model::CustomAttribute::text].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::CustomAttribute;
+    /// let x = CustomAttribute::new().set_text(["a", "b", "c"]);
+    /// ```
     pub fn set_text<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4255,6 +5327,12 @@ impl CustomAttribute {
     }
 
     /// Sets the value of [numbers][crate::model::CustomAttribute::numbers].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::CustomAttribute;
+    /// let x = CustomAttribute::new().set_numbers([1.0, 2.0, 3.0]);
+    /// ```
     pub fn set_numbers<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4266,6 +5344,12 @@ impl CustomAttribute {
     }
 
     /// Sets the value of [searchable][crate::model::CustomAttribute::searchable].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::CustomAttribute;
+    /// let x = CustomAttribute::new().set_searchable(true);
+    /// ```
     #[deprecated]
     pub fn set_searchable<T>(mut self, v: T) -> Self
     where
@@ -4276,6 +5360,13 @@ impl CustomAttribute {
     }
 
     /// Sets or clears the value of [searchable][crate::model::CustomAttribute::searchable].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::CustomAttribute;
+    /// let x = CustomAttribute::new().set_or_clear_searchable(Some(false));
+    /// let x = CustomAttribute::new().set_or_clear_searchable(None::<bool>);
+    /// ```
     #[deprecated]
     pub fn set_or_clear_searchable<T>(mut self, v: std::option::Option<T>) -> Self
     where
@@ -4286,6 +5377,12 @@ impl CustomAttribute {
     }
 
     /// Sets the value of [indexable][crate::model::CustomAttribute::indexable].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::CustomAttribute;
+    /// let x = CustomAttribute::new().set_indexable(true);
+    /// ```
     #[deprecated]
     pub fn set_indexable<T>(mut self, v: T) -> Self
     where
@@ -4296,6 +5393,13 @@ impl CustomAttribute {
     }
 
     /// Sets or clears the value of [indexable][crate::model::CustomAttribute::indexable].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::CustomAttribute;
+    /// let x = CustomAttribute::new().set_or_clear_indexable(Some(false));
+    /// let x = CustomAttribute::new().set_or_clear_indexable(None::<bool>);
+    /// ```
     #[deprecated]
     pub fn set_or_clear_indexable<T>(mut self, v: std::option::Option<T>) -> Self
     where
@@ -4360,12 +5464,24 @@ impl FulfillmentInfo {
     }
 
     /// Sets the value of [r#type][crate::model::FulfillmentInfo::type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::FulfillmentInfo;
+    /// let x = FulfillmentInfo::new().set_type("example");
+    /// ```
     pub fn set_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.r#type = v.into();
         self
     }
 
     /// Sets the value of [place_ids][crate::model::FulfillmentInfo::place_ids].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::FulfillmentInfo;
+    /// let x = FulfillmentInfo::new().set_place_ids(["a", "b", "c"]);
+    /// ```
     pub fn set_place_ids<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4424,18 +5540,36 @@ impl Image {
     }
 
     /// Sets the value of [uri][crate::model::Image::uri].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::Image;
+    /// let x = Image::new().set_uri("example");
+    /// ```
     pub fn set_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.uri = v.into();
         self
     }
 
     /// Sets the value of [height][crate::model::Image::height].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::Image;
+    /// let x = Image::new().set_height(42);
+    /// ```
     pub fn set_height<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.height = v.into();
         self
     }
 
     /// Sets the value of [width][crate::model::Image::width].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::Image;
+    /// let x = Image::new().set_width(42);
+    /// ```
     pub fn set_width<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.width = v.into();
         self
@@ -4478,6 +5612,13 @@ impl Interval {
     ///
     /// Note that all the setters affecting `min` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::Interval;
+    /// use google_cloud_retail_v2::model::interval;
+    /// let x = Interval::new().set_min(Some(interval::Min::Minimum(42.0)));
+    /// ```
     pub fn set_min<T: std::convert::Into<std::option::Option<crate::model::interval::Min>>>(
         mut self,
         v: T,
@@ -4502,6 +5643,14 @@ impl Interval {
     ///
     /// Note that all the setters affecting `min` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::Interval;
+    /// let x = Interval::new().set_minimum(42.0);
+    /// assert!(x.minimum().is_some());
+    /// assert!(x.exclusive_minimum().is_none());
+    /// ```
     pub fn set_minimum<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
         self.min = std::option::Option::Some(crate::model::interval::Min::Minimum(v.into()));
         self
@@ -4523,6 +5672,14 @@ impl Interval {
     ///
     /// Note that all the setters affecting `min` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::Interval;
+    /// let x = Interval::new().set_exclusive_minimum(42.0);
+    /// assert!(x.exclusive_minimum().is_some());
+    /// assert!(x.minimum().is_none());
+    /// ```
     pub fn set_exclusive_minimum<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
         self.min =
             std::option::Option::Some(crate::model::interval::Min::ExclusiveMinimum(v.into()));
@@ -4533,6 +5690,13 @@ impl Interval {
     ///
     /// Note that all the setters affecting `max` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::Interval;
+    /// use google_cloud_retail_v2::model::interval;
+    /// let x = Interval::new().set_max(Some(interval::Max::Maximum(42.0)));
+    /// ```
     pub fn set_max<T: std::convert::Into<std::option::Option<crate::model::interval::Max>>>(
         mut self,
         v: T,
@@ -4557,6 +5721,14 @@ impl Interval {
     ///
     /// Note that all the setters affecting `max` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::Interval;
+    /// let x = Interval::new().set_maximum(42.0);
+    /// assert!(x.maximum().is_some());
+    /// assert!(x.exclusive_maximum().is_none());
+    /// ```
     pub fn set_maximum<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
         self.max = std::option::Option::Some(crate::model::interval::Max::Maximum(v.into()));
         self
@@ -4578,6 +5750,14 @@ impl Interval {
     ///
     /// Note that all the setters affecting `max` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::Interval;
+    /// let x = Interval::new().set_exclusive_maximum(42.0);
+    /// assert!(x.exclusive_maximum().is_some());
+    /// assert!(x.maximum().is_none());
+    /// ```
     pub fn set_exclusive_maximum<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
         self.max =
             std::option::Option::Some(crate::model::interval::Max::ExclusiveMaximum(v.into()));
@@ -4744,30 +5924,61 @@ impl PriceInfo {
     }
 
     /// Sets the value of [currency_code][crate::model::PriceInfo::currency_code].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::PriceInfo;
+    /// let x = PriceInfo::new().set_currency_code("example");
+    /// ```
     pub fn set_currency_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.currency_code = v.into();
         self
     }
 
     /// Sets the value of [price][crate::model::PriceInfo::price].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::PriceInfo;
+    /// let x = PriceInfo::new().set_price(42.0);
+    /// ```
     pub fn set_price<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
         self.price = v.into();
         self
     }
 
     /// Sets the value of [original_price][crate::model::PriceInfo::original_price].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::PriceInfo;
+    /// let x = PriceInfo::new().set_original_price(42.0);
+    /// ```
     pub fn set_original_price<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
         self.original_price = v.into();
         self
     }
 
     /// Sets the value of [cost][crate::model::PriceInfo::cost].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::PriceInfo;
+    /// let x = PriceInfo::new().set_cost(42.0);
+    /// ```
     pub fn set_cost<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
         self.cost = v.into();
         self
     }
 
     /// Sets the value of [price_effective_time][crate::model::PriceInfo::price_effective_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::PriceInfo;
+    /// use wkt::Timestamp;
+    /// let x = PriceInfo::new().set_price_effective_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_price_effective_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4777,6 +5988,14 @@ impl PriceInfo {
     }
 
     /// Sets or clears the value of [price_effective_time][crate::model::PriceInfo::price_effective_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::PriceInfo;
+    /// use wkt::Timestamp;
+    /// let x = PriceInfo::new().set_or_clear_price_effective_time(Some(Timestamp::default()/* use setters */));
+    /// let x = PriceInfo::new().set_or_clear_price_effective_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_price_effective_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4786,6 +6005,13 @@ impl PriceInfo {
     }
 
     /// Sets the value of [price_expire_time][crate::model::PriceInfo::price_expire_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::PriceInfo;
+    /// use wkt::Timestamp;
+    /// let x = PriceInfo::new().set_price_expire_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_price_expire_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4795,6 +6021,14 @@ impl PriceInfo {
     }
 
     /// Sets or clears the value of [price_expire_time][crate::model::PriceInfo::price_expire_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::PriceInfo;
+    /// use wkt::Timestamp;
+    /// let x = PriceInfo::new().set_or_clear_price_expire_time(Some(Timestamp::default()/* use setters */));
+    /// let x = PriceInfo::new().set_or_clear_price_expire_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_price_expire_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4804,6 +6038,13 @@ impl PriceInfo {
     }
 
     /// Sets the value of [price_range][crate::model::PriceInfo::price_range].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::PriceInfo;
+    /// use google_cloud_retail_v2::model::price_info::PriceRange;
+    /// let x = PriceInfo::new().set_price_range(PriceRange::default()/* use setters */);
+    /// ```
     pub fn set_price_range<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::price_info::PriceRange>,
@@ -4813,6 +6054,14 @@ impl PriceInfo {
     }
 
     /// Sets or clears the value of [price_range][crate::model::PriceInfo::price_range].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::PriceInfo;
+    /// use google_cloud_retail_v2::model::price_info::PriceRange;
+    /// let x = PriceInfo::new().set_or_clear_price_range(Some(PriceRange::default()/* use setters */));
+    /// let x = PriceInfo::new().set_or_clear_price_range(None::<PriceRange>);
+    /// ```
     pub fn set_or_clear_price_range<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::price_info::PriceRange>,
@@ -4877,6 +6126,13 @@ pub mod price_info {
         }
 
         /// Sets the value of [price][crate::model::price_info::PriceRange::price].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_retail_v2::model::price_info::PriceRange;
+        /// use google_cloud_retail_v2::model::Interval;
+        /// let x = PriceRange::new().set_price(Interval::default()/* use setters */);
+        /// ```
         pub fn set_price<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::Interval>,
@@ -4886,6 +6142,14 @@ pub mod price_info {
         }
 
         /// Sets or clears the value of [price][crate::model::price_info::PriceRange::price].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_retail_v2::model::price_info::PriceRange;
+        /// use google_cloud_retail_v2::model::Interval;
+        /// let x = PriceRange::new().set_or_clear_price(Some(Interval::default()/* use setters */));
+        /// let x = PriceRange::new().set_or_clear_price(None::<Interval>);
+        /// ```
         pub fn set_or_clear_price<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Interval>,
@@ -4895,6 +6159,13 @@ pub mod price_info {
         }
 
         /// Sets the value of [original_price][crate::model::price_info::PriceRange::original_price].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_retail_v2::model::price_info::PriceRange;
+        /// use google_cloud_retail_v2::model::Interval;
+        /// let x = PriceRange::new().set_original_price(Interval::default()/* use setters */);
+        /// ```
         pub fn set_original_price<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::Interval>,
@@ -4904,6 +6175,14 @@ pub mod price_info {
         }
 
         /// Sets or clears the value of [original_price][crate::model::price_info::PriceRange::original_price].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_retail_v2::model::price_info::PriceRange;
+        /// use google_cloud_retail_v2::model::Interval;
+        /// let x = PriceRange::new().set_or_clear_original_price(Some(Interval::default()/* use setters */));
+        /// let x = PriceRange::new().set_or_clear_original_price(None::<Interval>);
+        /// ```
         pub fn set_or_clear_original_price<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Interval>,
@@ -4963,18 +6242,36 @@ impl Rating {
     }
 
     /// Sets the value of [rating_count][crate::model::Rating::rating_count].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::Rating;
+    /// let x = Rating::new().set_rating_count(42);
+    /// ```
     pub fn set_rating_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.rating_count = v.into();
         self
     }
 
     /// Sets the value of [average_rating][crate::model::Rating::average_rating].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::Rating;
+    /// let x = Rating::new().set_average_rating(42.0);
+    /// ```
     pub fn set_average_rating<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
         self.average_rating = v.into();
         self
     }
 
     /// Sets the value of [rating_histogram][crate::model::Rating::rating_histogram].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::Rating;
+    /// let x = Rating::new().set_rating_histogram([1, 2, 3]);
+    /// ```
     pub fn set_rating_histogram<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -5070,24 +6367,48 @@ impl UserInfo {
     }
 
     /// Sets the value of [user_id][crate::model::UserInfo::user_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::UserInfo;
+    /// let x = UserInfo::new().set_user_id("example");
+    /// ```
     pub fn set_user_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.user_id = v.into();
         self
     }
 
     /// Sets the value of [ip_address][crate::model::UserInfo::ip_address].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::UserInfo;
+    /// let x = UserInfo::new().set_ip_address("example");
+    /// ```
     pub fn set_ip_address<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.ip_address = v.into();
         self
     }
 
     /// Sets the value of [user_agent][crate::model::UserInfo::user_agent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::UserInfo;
+    /// let x = UserInfo::new().set_user_agent("example");
+    /// ```
     pub fn set_user_agent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.user_agent = v.into();
         self
     }
 
     /// Sets the value of [direct_user_request][crate::model::UserInfo::direct_user_request].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::UserInfo;
+    /// let x = UserInfo::new().set_direct_user_request(true);
+    /// ```
     pub fn set_direct_user_request<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.direct_user_request = v.into();
         self
@@ -5167,12 +6488,25 @@ impl LocalInventory {
     }
 
     /// Sets the value of [place_id][crate::model::LocalInventory::place_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::LocalInventory;
+    /// let x = LocalInventory::new().set_place_id("example");
+    /// ```
     pub fn set_place_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.place_id = v.into();
         self
     }
 
     /// Sets the value of [price_info][crate::model::LocalInventory::price_info].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::LocalInventory;
+    /// use google_cloud_retail_v2::model::PriceInfo;
+    /// let x = LocalInventory::new().set_price_info(PriceInfo::default()/* use setters */);
+    /// ```
     pub fn set_price_info<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::PriceInfo>,
@@ -5182,6 +6516,14 @@ impl LocalInventory {
     }
 
     /// Sets or clears the value of [price_info][crate::model::LocalInventory::price_info].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::LocalInventory;
+    /// use google_cloud_retail_v2::model::PriceInfo;
+    /// let x = LocalInventory::new().set_or_clear_price_info(Some(PriceInfo::default()/* use setters */));
+    /// let x = LocalInventory::new().set_or_clear_price_info(None::<PriceInfo>);
+    /// ```
     pub fn set_or_clear_price_info<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::PriceInfo>,
@@ -5191,6 +6533,16 @@ impl LocalInventory {
     }
 
     /// Sets the value of [attributes][crate::model::LocalInventory::attributes].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::LocalInventory;
+    /// use google_cloud_retail_v2::model::CustomAttribute;
+    /// let x = LocalInventory::new().set_attributes([
+    ///     ("key0", CustomAttribute::default()/* use setters */),
+    ///     ("key1", CustomAttribute::default()/* use (different) setters */),
+    /// ]);
+    /// ```
     pub fn set_attributes<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -5203,6 +6555,12 @@ impl LocalInventory {
     }
 
     /// Sets the value of [fulfillment_types][crate::model::LocalInventory::fulfillment_types].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::LocalInventory;
+    /// let x = LocalInventory::new().set_fulfillment_types(["a", "b", "c"]);
+    /// ```
     pub fn set_fulfillment_types<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -5243,6 +6601,16 @@ impl PinControlMetadata {
     }
 
     /// Sets the value of [all_matched_pins][crate::model::PinControlMetadata::all_matched_pins].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::PinControlMetadata;
+    /// use google_cloud_retail_v2::model::pin_control_metadata::ProductPins;
+    /// let x = PinControlMetadata::new().set_all_matched_pins([
+    ///     (0, ProductPins::default()/* use setters */),
+    ///     (1, ProductPins::default()/* use (different) setters */),
+    /// ]);
+    /// ```
     pub fn set_all_matched_pins<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -5255,6 +6623,16 @@ impl PinControlMetadata {
     }
 
     /// Sets the value of [dropped_pins][crate::model::PinControlMetadata::dropped_pins].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::PinControlMetadata;
+    /// use google_cloud_retail_v2::model::pin_control_metadata::ProductPins;
+    /// let x = PinControlMetadata::new().set_dropped_pins([
+    ///     (0, ProductPins::default()/* use setters */),
+    ///     (1, ProductPins::default()/* use (different) setters */),
+    /// ]);
+    /// ```
     pub fn set_dropped_pins<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -5294,6 +6672,12 @@ pub mod pin_control_metadata {
         }
 
         /// Sets the value of [product_id][crate::model::pin_control_metadata::ProductPins::product_id].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_retail_v2::model::pin_control_metadata::ProductPins;
+        /// let x = ProductPins::new().set_product_id(["a", "b", "c"]);
+        /// ```
         pub fn set_product_id<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -5328,6 +6712,12 @@ impl StringList {
     }
 
     /// Sets the value of [values][crate::model::StringList::values].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::StringList;
+    /// let x = StringList::new().set_values(["a", "b", "c"]);
+    /// ```
     pub fn set_values<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -5361,6 +6751,12 @@ impl DoubleList {
     }
 
     /// Sets the value of [values][crate::model::DoubleList::values].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::DoubleList;
+    /// let x = DoubleList::new().set_values([1.0, 2.0, 3.0]);
+    /// ```
     pub fn set_values<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -5490,24 +6886,48 @@ impl CompleteQueryRequest {
     }
 
     /// Sets the value of [catalog][crate::model::CompleteQueryRequest::catalog].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::CompleteQueryRequest;
+    /// let x = CompleteQueryRequest::new().set_catalog("example");
+    /// ```
     pub fn set_catalog<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.catalog = v.into();
         self
     }
 
     /// Sets the value of [query][crate::model::CompleteQueryRequest::query].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::CompleteQueryRequest;
+    /// let x = CompleteQueryRequest::new().set_query("example");
+    /// ```
     pub fn set_query<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.query = v.into();
         self
     }
 
     /// Sets the value of [visitor_id][crate::model::CompleteQueryRequest::visitor_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::CompleteQueryRequest;
+    /// let x = CompleteQueryRequest::new().set_visitor_id("example");
+    /// ```
     pub fn set_visitor_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.visitor_id = v.into();
         self
     }
 
     /// Sets the value of [language_codes][crate::model::CompleteQueryRequest::language_codes].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::CompleteQueryRequest;
+    /// let x = CompleteQueryRequest::new().set_language_codes(["a", "b", "c"]);
+    /// ```
     pub fn set_language_codes<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -5519,30 +6939,60 @@ impl CompleteQueryRequest {
     }
 
     /// Sets the value of [device_type][crate::model::CompleteQueryRequest::device_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::CompleteQueryRequest;
+    /// let x = CompleteQueryRequest::new().set_device_type("example");
+    /// ```
     pub fn set_device_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.device_type = v.into();
         self
     }
 
     /// Sets the value of [dataset][crate::model::CompleteQueryRequest::dataset].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::CompleteQueryRequest;
+    /// let x = CompleteQueryRequest::new().set_dataset("example");
+    /// ```
     pub fn set_dataset<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.dataset = v.into();
         self
     }
 
     /// Sets the value of [max_suggestions][crate::model::CompleteQueryRequest::max_suggestions].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::CompleteQueryRequest;
+    /// let x = CompleteQueryRequest::new().set_max_suggestions(42);
+    /// ```
     pub fn set_max_suggestions<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.max_suggestions = v.into();
         self
     }
 
     /// Sets the value of [enable_attribute_suggestions][crate::model::CompleteQueryRequest::enable_attribute_suggestions].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::CompleteQueryRequest;
+    /// let x = CompleteQueryRequest::new().set_enable_attribute_suggestions(true);
+    /// ```
     pub fn set_enable_attribute_suggestions<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.enable_attribute_suggestions = v.into();
         self
     }
 
     /// Sets the value of [entity][crate::model::CompleteQueryRequest::entity].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::CompleteQueryRequest;
+    /// let x = CompleteQueryRequest::new().set_entity("example");
+    /// ```
     pub fn set_entity<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.entity = v.into();
         self
@@ -5624,6 +7074,17 @@ impl CompleteQueryResponse {
     }
 
     /// Sets the value of [completion_results][crate::model::CompleteQueryResponse::completion_results].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::CompleteQueryResponse;
+    /// use google_cloud_retail_v2::model::complete_query_response::CompletionResult;
+    /// let x = CompleteQueryResponse::new()
+    ///     .set_completion_results([
+    ///         CompletionResult::default()/* use setters */,
+    ///         CompletionResult::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_completion_results<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -5635,6 +7096,12 @@ impl CompleteQueryResponse {
     }
 
     /// Sets the value of [attribution_token][crate::model::CompleteQueryResponse::attribution_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::CompleteQueryResponse;
+    /// let x = CompleteQueryResponse::new().set_attribution_token("example");
+    /// ```
     pub fn set_attribution_token<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -5644,6 +7111,17 @@ impl CompleteQueryResponse {
     }
 
     /// Sets the value of [recent_search_results][crate::model::CompleteQueryResponse::recent_search_results].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::CompleteQueryResponse;
+    /// use google_cloud_retail_v2::model::complete_query_response::RecentSearchResult;
+    /// let x = CompleteQueryResponse::new()
+    ///     .set_recent_search_results([
+    ///         RecentSearchResult::default()/* use setters */,
+    ///         RecentSearchResult::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     #[deprecated]
     pub fn set_recent_search_results<T, V>(mut self, v: T) -> Self
     where
@@ -5656,6 +7134,16 @@ impl CompleteQueryResponse {
     }
 
     /// Sets the value of [attribute_results][crate::model::CompleteQueryResponse::attribute_results].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::CompleteQueryResponse;
+    /// use google_cloud_retail_v2::model::complete_query_response::AttributeResult;
+    /// let x = CompleteQueryResponse::new().set_attribute_results([
+    ///     ("key0", AttributeResult::default()/* use setters */),
+    ///     ("key1", AttributeResult::default()/* use (different) setters */),
+    /// ]);
+    /// ```
     pub fn set_attribute_results<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -5710,12 +7198,28 @@ pub mod complete_query_response {
         }
 
         /// Sets the value of [suggestion][crate::model::complete_query_response::CompletionResult::suggestion].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_retail_v2::model::complete_query_response::CompletionResult;
+        /// let x = CompletionResult::new().set_suggestion("example");
+        /// ```
         pub fn set_suggestion<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.suggestion = v.into();
             self
         }
 
         /// Sets the value of [attributes][crate::model::complete_query_response::CompletionResult::attributes].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_retail_v2::model::complete_query_response::CompletionResult;
+        /// use google_cloud_retail_v2::model::CustomAttribute;
+        /// let x = CompletionResult::new().set_attributes([
+        ///     ("key0", CustomAttribute::default()/* use setters */),
+        ///     ("key1", CustomAttribute::default()/* use (different) setters */),
+        /// ]);
+        /// ```
         pub fn set_attributes<T, K, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = (K, V)>,
@@ -5751,6 +7255,12 @@ pub mod complete_query_response {
         }
 
         /// Sets the value of [recent_search][crate::model::complete_query_response::RecentSearchResult::recent_search].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_retail_v2::model::complete_query_response::RecentSearchResult;
+        /// let x = RecentSearchResult::new().set_recent_search("example");
+        /// ```
         pub fn set_recent_search<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -5782,6 +7292,12 @@ pub mod complete_query_response {
         }
 
         /// Sets the value of [suggestions][crate::model::complete_query_response::AttributeResult::suggestions].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_retail_v2::model::complete_query_response::AttributeResult;
+        /// let x = AttributeResult::new().set_suggestions(["a", "b", "c"]);
+        /// ```
         pub fn set_suggestions<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -5867,18 +7383,36 @@ impl Control {
     }
 
     /// Sets the value of [name][crate::model::Control::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::Control;
+    /// let x = Control::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [display_name][crate::model::Control::display_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::Control;
+    /// let x = Control::new().set_display_name("example");
+    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
     }
 
     /// Sets the value of [associated_serving_config_ids][crate::model::Control::associated_serving_config_ids].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::Control;
+    /// let x = Control::new().set_associated_serving_config_ids(["a", "b", "c"]);
+    /// ```
     pub fn set_associated_serving_config_ids<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -5890,6 +7424,16 @@ impl Control {
     }
 
     /// Sets the value of [solution_types][crate::model::Control::solution_types].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::Control;
+    /// use google_cloud_retail_v2::model::SolutionType;
+    /// let x = Control::new().set_solution_types([
+    ///     SolutionType::Recommendation,
+    ///     SolutionType::Search,
+    /// ]);
+    /// ```
     pub fn set_solution_types<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -5901,6 +7445,16 @@ impl Control {
     }
 
     /// Sets the value of [search_solution_use_case][crate::model::Control::search_solution_use_case].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::Control;
+    /// use google_cloud_retail_v2::model::SearchSolutionUseCase;
+    /// let x = Control::new().set_search_solution_use_case([
+    ///     SearchSolutionUseCase::Search,
+    ///     SearchSolutionUseCase::Browse,
+    /// ]);
+    /// ```
     pub fn set_search_solution_use_case<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -5915,6 +7469,14 @@ impl Control {
     ///
     /// Note that all the setters affecting `control` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::Control;
+    /// use google_cloud_retail_v2::model::control;
+    /// use google_cloud_retail_v2::model::Rule;
+    /// let x = Control::new().set_control(Some(control::Control::Rule(Rule::default().into())));
+    /// ```
     pub fn set_control<
         T: std::convert::Into<std::option::Option<crate::model::control::Control>>,
     >(
@@ -5941,6 +7503,14 @@ impl Control {
     ///
     /// Note that all the setters affecting `control` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::Control;
+    /// use google_cloud_retail_v2::model::Rule;
+    /// let x = Control::new().set_rule(Rule::default()/* use setters */);
+    /// assert!(x.rule().is_some());
+    /// ```
     pub fn set_rule<T: std::convert::Into<std::boxed::Box<crate::model::Rule>>>(
         mut self,
         v: T,
@@ -6003,12 +7573,25 @@ impl CreateControlRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateControlRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::CreateControlRequest;
+    /// let x = CreateControlRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [control][crate::model::CreateControlRequest::control].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::CreateControlRequest;
+    /// use google_cloud_retail_v2::model::Control;
+    /// let x = CreateControlRequest::new().set_control(Control::default()/* use setters */);
+    /// ```
     pub fn set_control<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Control>,
@@ -6018,6 +7601,14 @@ impl CreateControlRequest {
     }
 
     /// Sets or clears the value of [control][crate::model::CreateControlRequest::control].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::CreateControlRequest;
+    /// use google_cloud_retail_v2::model::Control;
+    /// let x = CreateControlRequest::new().set_or_clear_control(Some(Control::default()/* use setters */));
+    /// let x = CreateControlRequest::new().set_or_clear_control(None::<Control>);
+    /// ```
     pub fn set_or_clear_control<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Control>,
@@ -6027,6 +7618,12 @@ impl CreateControlRequest {
     }
 
     /// Sets the value of [control_id][crate::model::CreateControlRequest::control_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::CreateControlRequest;
+    /// let x = CreateControlRequest::new().set_control_id("example");
+    /// ```
     pub fn set_control_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.control_id = v.into();
         self
@@ -6067,6 +7664,13 @@ impl UpdateControlRequest {
     }
 
     /// Sets the value of [control][crate::model::UpdateControlRequest::control].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::UpdateControlRequest;
+    /// use google_cloud_retail_v2::model::Control;
+    /// let x = UpdateControlRequest::new().set_control(Control::default()/* use setters */);
+    /// ```
     pub fn set_control<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Control>,
@@ -6076,6 +7680,14 @@ impl UpdateControlRequest {
     }
 
     /// Sets or clears the value of [control][crate::model::UpdateControlRequest::control].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::UpdateControlRequest;
+    /// use google_cloud_retail_v2::model::Control;
+    /// let x = UpdateControlRequest::new().set_or_clear_control(Some(Control::default()/* use setters */));
+    /// let x = UpdateControlRequest::new().set_or_clear_control(None::<Control>);
+    /// ```
     pub fn set_or_clear_control<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Control>,
@@ -6085,6 +7697,13 @@ impl UpdateControlRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateControlRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::UpdateControlRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateControlRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -6094,6 +7713,14 @@ impl UpdateControlRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateControlRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::UpdateControlRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateControlRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateControlRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -6126,6 +7753,12 @@ impl DeleteControlRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteControlRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::DeleteControlRequest;
+    /// let x = DeleteControlRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -6155,6 +7788,12 @@ impl GetControlRequest {
     }
 
     /// Sets the value of [name][crate::model::GetControlRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::GetControlRequest;
+    /// let x = GetControlRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -6202,24 +7841,48 @@ impl ListControlsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListControlsRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::ListControlsRequest;
+    /// let x = ListControlsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListControlsRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::ListControlsRequest;
+    /// let x = ListControlsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListControlsRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::ListControlsRequest;
+    /// let x = ListControlsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListControlsRequest::filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::ListControlsRequest;
+    /// let x = ListControlsRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
@@ -6251,6 +7914,17 @@ impl ListControlsResponse {
     }
 
     /// Sets the value of [controls][crate::model::ListControlsResponse::controls].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::ListControlsResponse;
+    /// use google_cloud_retail_v2::model::Control;
+    /// let x = ListControlsResponse::new()
+    ///     .set_controls([
+    ///         Control::default()/* use setters */,
+    ///         Control::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_controls<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -6262,6 +7936,12 @@ impl ListControlsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListControlsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::ListControlsResponse;
+    /// let x = ListControlsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -6399,24 +8079,48 @@ impl ConversationalSearchRequest {
     }
 
     /// Sets the value of [placement][crate::model::ConversationalSearchRequest::placement].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::ConversationalSearchRequest;
+    /// let x = ConversationalSearchRequest::new().set_placement("example");
+    /// ```
     pub fn set_placement<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.placement = v.into();
         self
     }
 
     /// Sets the value of [branch][crate::model::ConversationalSearchRequest::branch].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::ConversationalSearchRequest;
+    /// let x = ConversationalSearchRequest::new().set_branch("example");
+    /// ```
     pub fn set_branch<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.branch = v.into();
         self
     }
 
     /// Sets the value of [query][crate::model::ConversationalSearchRequest::query].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::ConversationalSearchRequest;
+    /// let x = ConversationalSearchRequest::new().set_query("example");
+    /// ```
     pub fn set_query<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.query = v.into();
         self
     }
 
     /// Sets the value of [page_categories][crate::model::ConversationalSearchRequest::page_categories].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::ConversationalSearchRequest;
+    /// let x = ConversationalSearchRequest::new().set_page_categories(["a", "b", "c"]);
+    /// ```
     pub fn set_page_categories<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -6428,12 +8132,25 @@ impl ConversationalSearchRequest {
     }
 
     /// Sets the value of [conversation_id][crate::model::ConversationalSearchRequest::conversation_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::ConversationalSearchRequest;
+    /// let x = ConversationalSearchRequest::new().set_conversation_id("example");
+    /// ```
     pub fn set_conversation_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.conversation_id = v.into();
         self
     }
 
     /// Sets the value of [search_params][crate::model::ConversationalSearchRequest::search_params].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::ConversationalSearchRequest;
+    /// use google_cloud_retail_v2::model::conversational_search_request::SearchParams;
+    /// let x = ConversationalSearchRequest::new().set_search_params(SearchParams::default()/* use setters */);
+    /// ```
     pub fn set_search_params<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::conversational_search_request::SearchParams>,
@@ -6443,6 +8160,14 @@ impl ConversationalSearchRequest {
     }
 
     /// Sets or clears the value of [search_params][crate::model::ConversationalSearchRequest::search_params].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::ConversationalSearchRequest;
+    /// use google_cloud_retail_v2::model::conversational_search_request::SearchParams;
+    /// let x = ConversationalSearchRequest::new().set_or_clear_search_params(Some(SearchParams::default()/* use setters */));
+    /// let x = ConversationalSearchRequest::new().set_or_clear_search_params(None::<SearchParams>);
+    /// ```
     pub fn set_or_clear_search_params<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::conversational_search_request::SearchParams>,
@@ -6452,12 +8177,25 @@ impl ConversationalSearchRequest {
     }
 
     /// Sets the value of [visitor_id][crate::model::ConversationalSearchRequest::visitor_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::ConversationalSearchRequest;
+    /// let x = ConversationalSearchRequest::new().set_visitor_id("example");
+    /// ```
     pub fn set_visitor_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.visitor_id = v.into();
         self
     }
 
     /// Sets the value of [user_info][crate::model::ConversationalSearchRequest::user_info].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::ConversationalSearchRequest;
+    /// use google_cloud_retail_v2::model::UserInfo;
+    /// let x = ConversationalSearchRequest::new().set_user_info(UserInfo::default()/* use setters */);
+    /// ```
     pub fn set_user_info<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::UserInfo>,
@@ -6467,6 +8205,14 @@ impl ConversationalSearchRequest {
     }
 
     /// Sets or clears the value of [user_info][crate::model::ConversationalSearchRequest::user_info].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::ConversationalSearchRequest;
+    /// use google_cloud_retail_v2::model::UserInfo;
+    /// let x = ConversationalSearchRequest::new().set_or_clear_user_info(Some(UserInfo::default()/* use setters */));
+    /// let x = ConversationalSearchRequest::new().set_or_clear_user_info(None::<UserInfo>);
+    /// ```
     pub fn set_or_clear_user_info<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::UserInfo>,
@@ -6476,6 +8222,13 @@ impl ConversationalSearchRequest {
     }
 
     /// Sets the value of [conversational_filtering_spec][crate::model::ConversationalSearchRequest::conversational_filtering_spec].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::ConversationalSearchRequest;
+    /// use google_cloud_retail_v2::model::conversational_search_request::ConversationalFilteringSpec;
+    /// let x = ConversationalSearchRequest::new().set_conversational_filtering_spec(ConversationalFilteringSpec::default()/* use setters */);
+    /// ```
     pub fn set_conversational_filtering_spec<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<
@@ -6487,6 +8240,14 @@ impl ConversationalSearchRequest {
     }
 
     /// Sets or clears the value of [conversational_filtering_spec][crate::model::ConversationalSearchRequest::conversational_filtering_spec].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::ConversationalSearchRequest;
+    /// use google_cloud_retail_v2::model::conversational_search_request::ConversationalFilteringSpec;
+    /// let x = ConversationalSearchRequest::new().set_or_clear_conversational_filtering_spec(Some(ConversationalFilteringSpec::default()/* use setters */));
+    /// let x = ConversationalSearchRequest::new().set_or_clear_conversational_filtering_spec(None::<ConversationalFilteringSpec>);
+    /// ```
     pub fn set_or_clear_conversational_filtering_spec<T>(
         mut self,
         v: std::option::Option<T>,
@@ -6501,6 +8262,15 @@ impl ConversationalSearchRequest {
     }
 
     /// Sets the value of [user_labels][crate::model::ConversationalSearchRequest::user_labels].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::ConversationalSearchRequest;
+    /// let x = ConversationalSearchRequest::new().set_user_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_user_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -6513,6 +8283,17 @@ impl ConversationalSearchRequest {
     }
 
     /// Sets the value of [safety_settings][crate::model::ConversationalSearchRequest::safety_settings].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::ConversationalSearchRequest;
+    /// use google_cloud_retail_v2::model::SafetySetting;
+    /// let x = ConversationalSearchRequest::new()
+    ///     .set_safety_settings([
+    ///         SafetySetting::default()/* use setters */,
+    ///         SafetySetting::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_safety_settings<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -6578,12 +8359,24 @@ pub mod conversational_search_request {
         }
 
         /// Sets the value of [filter][crate::model::conversational_search_request::SearchParams::filter].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_retail_v2::model::conversational_search_request::SearchParams;
+        /// let x = SearchParams::new().set_filter("example");
+        /// ```
         pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.filter = v.into();
             self
         }
 
         /// Sets the value of [canonical_filter][crate::model::conversational_search_request::SearchParams::canonical_filter].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_retail_v2::model::conversational_search_request::SearchParams;
+        /// let x = SearchParams::new().set_canonical_filter("example");
+        /// ```
         pub fn set_canonical_filter<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -6593,12 +8386,25 @@ pub mod conversational_search_request {
         }
 
         /// Sets the value of [sort_by][crate::model::conversational_search_request::SearchParams::sort_by].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_retail_v2::model::conversational_search_request::SearchParams;
+        /// let x = SearchParams::new().set_sort_by("example");
+        /// ```
         pub fn set_sort_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.sort_by = v.into();
             self
         }
 
         /// Sets the value of [boost_spec][crate::model::conversational_search_request::SearchParams::boost_spec].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_retail_v2::model::conversational_search_request::SearchParams;
+        /// use google_cloud_retail_v2::model::search_request::BoostSpec;
+        /// let x = SearchParams::new().set_boost_spec(BoostSpec::default()/* use setters */);
+        /// ```
         pub fn set_boost_spec<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::search_request::BoostSpec>,
@@ -6608,6 +8414,14 @@ pub mod conversational_search_request {
         }
 
         /// Sets or clears the value of [boost_spec][crate::model::conversational_search_request::SearchParams::boost_spec].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_retail_v2::model::conversational_search_request::SearchParams;
+        /// use google_cloud_retail_v2::model::search_request::BoostSpec;
+        /// let x = SearchParams::new().set_or_clear_boost_spec(Some(BoostSpec::default()/* use setters */));
+        /// let x = SearchParams::new().set_or_clear_boost_spec(None::<BoostSpec>);
+        /// ```
         pub fn set_or_clear_boost_spec<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::search_request::BoostSpec>,
@@ -6645,6 +8459,13 @@ pub mod conversational_search_request {
         ///
         /// Note that all the setters affecting `r#type` are mutually
         /// exclusive.
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_retail_v2::model::conversational_search_request::UserAnswer;
+        /// use google_cloud_retail_v2::model::conversational_search_request::user_answer;
+        /// let x = UserAnswer::new().set_type(Some(conversational_search_request::user_answer::Type::TextAnswer("example".to_string())));
+        /// ```
         pub fn set_type<
             T: std::convert::Into<
                     std::option::Option<
@@ -6677,6 +8498,14 @@ pub mod conversational_search_request {
         ///
         /// Note that all the setters affecting `r#type` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_retail_v2::model::conversational_search_request::UserAnswer;
+        /// let x = UserAnswer::new().set_text_answer("example");
+        /// assert!(x.text_answer().is_some());
+        /// assert!(x.selected_answer().is_none());
+        /// ```
         pub fn set_text_answer<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.r#type = std::option::Option::Some(
                 crate::model::conversational_search_request::user_answer::Type::TextAnswer(
@@ -6710,6 +8539,15 @@ pub mod conversational_search_request {
         ///
         /// Note that all the setters affecting `r#type` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_retail_v2::model::conversational_search_request::UserAnswer;
+        /// use google_cloud_retail_v2::model::conversational_search_request::user_answer::SelectedAnswer;
+        /// let x = UserAnswer::new().set_selected_answer(SelectedAnswer::default()/* use setters */);
+        /// assert!(x.selected_answer().is_some());
+        /// assert!(x.text_answer().is_none());
+        /// ```
         pub fn set_selected_answer<
             T: std::convert::Into<
                     std::boxed::Box<
@@ -6758,6 +8596,13 @@ pub mod conversational_search_request {
             }
 
             /// Sets the value of [product_attribute_value][crate::model::conversational_search_request::user_answer::SelectedAnswer::product_attribute_value].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_retail_v2::model::conversational_search_request::user_answer::SelectedAnswer;
+            /// use google_cloud_retail_v2::model::ProductAttributeValue;
+            /// let x = SelectedAnswer::new().set_product_attribute_value(ProductAttributeValue::default()/* use setters */);
+            /// ```
             pub fn set_product_attribute_value<T>(mut self, v: T) -> Self
             where
                 T: std::convert::Into<crate::model::ProductAttributeValue>,
@@ -6767,6 +8612,14 @@ pub mod conversational_search_request {
             }
 
             /// Sets or clears the value of [product_attribute_value][crate::model::conversational_search_request::user_answer::SelectedAnswer::product_attribute_value].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_retail_v2::model::conversational_search_request::user_answer::SelectedAnswer;
+            /// use google_cloud_retail_v2::model::ProductAttributeValue;
+            /// let x = SelectedAnswer::new().set_or_clear_product_attribute_value(Some(ProductAttributeValue::default()/* use setters */));
+            /// let x = SelectedAnswer::new().set_or_clear_product_attribute_value(None::<ProductAttributeValue>);
+            /// ```
             pub fn set_or_clear_product_attribute_value<T>(
                 mut self,
                 v: std::option::Option<T>,
@@ -6840,6 +8693,12 @@ pub mod conversational_search_request {
         }
 
         /// Sets the value of [enable_conversational_filtering][crate::model::conversational_search_request::ConversationalFilteringSpec::enable_conversational_filtering].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_retail_v2::model::conversational_search_request::ConversationalFilteringSpec;
+        /// let x = ConversationalFilteringSpec::new().set_enable_conversational_filtering(true);
+        /// ```
         #[deprecated]
         pub fn set_enable_conversational_filtering<T: std::convert::Into<bool>>(
             mut self,
@@ -6850,6 +8709,13 @@ pub mod conversational_search_request {
         }
 
         /// Sets the value of [user_answer][crate::model::conversational_search_request::ConversationalFilteringSpec::user_answer].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_retail_v2::model::conversational_search_request::ConversationalFilteringSpec;
+        /// use google_cloud_retail_v2::model::conversational_search_request::UserAnswer;
+        /// let x = ConversationalFilteringSpec::new().set_user_answer(UserAnswer::default()/* use setters */);
+        /// ```
         pub fn set_user_answer<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::conversational_search_request::UserAnswer>,
@@ -6859,6 +8725,14 @@ pub mod conversational_search_request {
         }
 
         /// Sets or clears the value of [user_answer][crate::model::conversational_search_request::ConversationalFilteringSpec::user_answer].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_retail_v2::model::conversational_search_request::ConversationalFilteringSpec;
+        /// use google_cloud_retail_v2::model::conversational_search_request::UserAnswer;
+        /// let x = ConversationalFilteringSpec::new().set_or_clear_user_answer(Some(UserAnswer::default()/* use setters */));
+        /// let x = ConversationalFilteringSpec::new().set_or_clear_user_answer(None::<UserAnswer>);
+        /// ```
         pub fn set_or_clear_user_answer<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::conversational_search_request::UserAnswer>,
@@ -6868,6 +8742,15 @@ pub mod conversational_search_request {
         }
 
         /// Sets the value of [conversational_filtering_mode][crate::model::conversational_search_request::ConversationalFilteringSpec::conversational_filtering_mode].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_retail_v2::model::conversational_search_request::ConversationalFilteringSpec;
+        /// use google_cloud_retail_v2::model::conversational_search_request::conversational_filtering_spec::Mode;
+        /// let x0 = ConversationalFilteringSpec::new().set_conversational_filtering_mode(Mode::Disabled);
+        /// let x1 = ConversationalFilteringSpec::new().set_conversational_filtering_mode(Mode::Enabled);
+        /// let x2 = ConversationalFilteringSpec::new().set_conversational_filtering_mode(Mode::ConversationalFilterOnly);
+        /// ```
         pub fn set_conversational_filtering_mode<T: std::convert::Into<crate::model::conversational_search_request::conversational_filtering_spec::Mode>>(mut self, v: T) -> Self{
             self.conversational_filtering_mode = v.into();
             self
@@ -7095,6 +8978,12 @@ impl ConversationalSearchResponse {
     }
 
     /// Sets the value of [user_query_types][crate::model::ConversationalSearchResponse::user_query_types].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::ConversationalSearchResponse;
+    /// let x = ConversationalSearchResponse::new().set_user_query_types(["a", "b", "c"]);
+    /// ```
     pub fn set_user_query_types<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -7106,6 +8995,12 @@ impl ConversationalSearchResponse {
     }
 
     /// Sets the value of [conversational_text_response][crate::model::ConversationalSearchResponse::conversational_text_response].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::ConversationalSearchResponse;
+    /// let x = ConversationalSearchResponse::new().set_conversational_text_response("example");
+    /// ```
     pub fn set_conversational_text_response<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -7115,6 +9010,13 @@ impl ConversationalSearchResponse {
     }
 
     /// Sets the value of [followup_question][crate::model::ConversationalSearchResponse::followup_question].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::ConversationalSearchResponse;
+    /// use google_cloud_retail_v2::model::conversational_search_response::FollowupQuestion;
+    /// let x = ConversationalSearchResponse::new().set_followup_question(FollowupQuestion::default()/* use setters */);
+    /// ```
     pub fn set_followup_question<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::conversational_search_response::FollowupQuestion>,
@@ -7124,6 +9026,14 @@ impl ConversationalSearchResponse {
     }
 
     /// Sets or clears the value of [followup_question][crate::model::ConversationalSearchResponse::followup_question].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::ConversationalSearchResponse;
+    /// use google_cloud_retail_v2::model::conversational_search_response::FollowupQuestion;
+    /// let x = ConversationalSearchResponse::new().set_or_clear_followup_question(Some(FollowupQuestion::default()/* use setters */));
+    /// let x = ConversationalSearchResponse::new().set_or_clear_followup_question(None::<FollowupQuestion>);
+    /// ```
     pub fn set_or_clear_followup_question<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::conversational_search_response::FollowupQuestion>,
@@ -7133,12 +9043,29 @@ impl ConversationalSearchResponse {
     }
 
     /// Sets the value of [conversation_id][crate::model::ConversationalSearchResponse::conversation_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::ConversationalSearchResponse;
+    /// let x = ConversationalSearchResponse::new().set_conversation_id("example");
+    /// ```
     pub fn set_conversation_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.conversation_id = v.into();
         self
     }
 
     /// Sets the value of [refined_search][crate::model::ConversationalSearchResponse::refined_search].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::ConversationalSearchResponse;
+    /// use google_cloud_retail_v2::model::conversational_search_response::RefinedSearch;
+    /// let x = ConversationalSearchResponse::new()
+    ///     .set_refined_search([
+    ///         RefinedSearch::default()/* use setters */,
+    ///         RefinedSearch::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_refined_search<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -7150,6 +9077,13 @@ impl ConversationalSearchResponse {
     }
 
     /// Sets the value of [conversational_filtering_result][crate::model::ConversationalSearchResponse::conversational_filtering_result].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::ConversationalSearchResponse;
+    /// use google_cloud_retail_v2::model::conversational_search_response::ConversationalFilteringResult;
+    /// let x = ConversationalSearchResponse::new().set_conversational_filtering_result(ConversationalFilteringResult::default()/* use setters */);
+    /// ```
     pub fn set_conversational_filtering_result<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<
@@ -7161,6 +9095,14 @@ impl ConversationalSearchResponse {
     }
 
     /// Sets or clears the value of [conversational_filtering_result][crate::model::ConversationalSearchResponse::conversational_filtering_result].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::ConversationalSearchResponse;
+    /// use google_cloud_retail_v2::model::conversational_search_response::ConversationalFilteringResult;
+    /// let x = ConversationalSearchResponse::new().set_or_clear_conversational_filtering_result(Some(ConversationalFilteringResult::default()/* use setters */));
+    /// let x = ConversationalSearchResponse::new().set_or_clear_conversational_filtering_result(None::<ConversationalFilteringResult>);
+    /// ```
     pub fn set_or_clear_conversational_filtering_result<T>(
         mut self,
         v: std::option::Option<T>,
@@ -7175,6 +9117,14 @@ impl ConversationalSearchResponse {
     }
 
     /// Sets the value of [state][crate::model::ConversationalSearchResponse::state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::ConversationalSearchResponse;
+    /// use google_cloud_retail_v2::model::conversational_search_response::State;
+    /// let x0 = ConversationalSearchResponse::new().set_state(State::Streaming);
+    /// let x1 = ConversationalSearchResponse::new().set_state(State::Succeeded);
+    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::conversational_search_response::State>>(
         mut self,
         v: T,
@@ -7216,6 +9166,12 @@ pub mod conversational_search_response {
         }
 
         /// Sets the value of [followup_question][crate::model::conversational_search_response::FollowupQuestion::followup_question].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_retail_v2::model::conversational_search_response::FollowupQuestion;
+        /// let x = FollowupQuestion::new().set_followup_question("example");
+        /// ```
         pub fn set_followup_question<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -7225,6 +9181,17 @@ pub mod conversational_search_response {
         }
 
         /// Sets the value of [suggested_answers][crate::model::conversational_search_response::FollowupQuestion::suggested_answers].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_retail_v2::model::conversational_search_response::FollowupQuestion;
+        /// use google_cloud_retail_v2::model::conversational_search_response::followup_question::SuggestedAnswer;
+        /// let x = FollowupQuestion::new()
+        ///     .set_suggested_answers([
+        ///         SuggestedAnswer::default()/* use setters */,
+        ///         SuggestedAnswer::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
         pub fn set_suggested_answers<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -7266,6 +9233,13 @@ pub mod conversational_search_response {
             }
 
             /// Sets the value of [product_attribute_value][crate::model::conversational_search_response::followup_question::SuggestedAnswer::product_attribute_value].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_retail_v2::model::conversational_search_response::followup_question::SuggestedAnswer;
+            /// use google_cloud_retail_v2::model::ProductAttributeValue;
+            /// let x = SuggestedAnswer::new().set_product_attribute_value(ProductAttributeValue::default()/* use setters */);
+            /// ```
             pub fn set_product_attribute_value<T>(mut self, v: T) -> Self
             where
                 T: std::convert::Into<crate::model::ProductAttributeValue>,
@@ -7275,6 +9249,14 @@ pub mod conversational_search_response {
             }
 
             /// Sets or clears the value of [product_attribute_value][crate::model::conversational_search_response::followup_question::SuggestedAnswer::product_attribute_value].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_retail_v2::model::conversational_search_response::followup_question::SuggestedAnswer;
+            /// use google_cloud_retail_v2::model::ProductAttributeValue;
+            /// let x = SuggestedAnswer::new().set_or_clear_product_attribute_value(Some(ProductAttributeValue::default()/* use setters */));
+            /// let x = SuggestedAnswer::new().set_or_clear_product_attribute_value(None::<ProductAttributeValue>);
+            /// ```
             pub fn set_or_clear_product_attribute_value<T>(
                 mut self,
                 v: std::option::Option<T>,
@@ -7312,6 +9294,12 @@ pub mod conversational_search_response {
         }
 
         /// Sets the value of [query][crate::model::conversational_search_response::RefinedSearch::query].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_retail_v2::model::conversational_search_response::RefinedSearch;
+        /// let x = RefinedSearch::new().set_query("example");
+        /// ```
         pub fn set_query<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.query = v.into();
             self
@@ -7351,6 +9339,13 @@ pub mod conversational_search_response {
         }
 
         /// Sets the value of [followup_question][crate::model::conversational_search_response::ConversationalFilteringResult::followup_question].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_retail_v2::model::conversational_search_response::ConversationalFilteringResult;
+        /// use google_cloud_retail_v2::model::conversational_search_response::FollowupQuestion;
+        /// let x = ConversationalFilteringResult::new().set_followup_question(FollowupQuestion::default()/* use setters */);
+        /// ```
         pub fn set_followup_question<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::conversational_search_response::FollowupQuestion>,
@@ -7360,6 +9355,14 @@ pub mod conversational_search_response {
         }
 
         /// Sets or clears the value of [followup_question][crate::model::conversational_search_response::ConversationalFilteringResult::followup_question].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_retail_v2::model::conversational_search_response::ConversationalFilteringResult;
+        /// use google_cloud_retail_v2::model::conversational_search_response::FollowupQuestion;
+        /// let x = ConversationalFilteringResult::new().set_or_clear_followup_question(Some(FollowupQuestion::default()/* use setters */));
+        /// let x = ConversationalFilteringResult::new().set_or_clear_followup_question(None::<FollowupQuestion>);
+        /// ```
         pub fn set_or_clear_followup_question<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::conversational_search_response::FollowupQuestion>,
@@ -7369,6 +9372,13 @@ pub mod conversational_search_response {
         }
 
         /// Sets the value of [additional_filter][crate::model::conversational_search_response::ConversationalFilteringResult::additional_filter].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_retail_v2::model::conversational_search_response::ConversationalFilteringResult;
+        /// use google_cloud_retail_v2::model::conversational_search_response::conversational_filtering_result::AdditionalFilter;
+        /// let x = ConversationalFilteringResult::new().set_additional_filter(AdditionalFilter::default()/* use setters */);
+        /// ```
         pub fn set_additional_filter<T>(mut self, v: T) -> Self
         where T: std::convert::Into<crate::model::conversational_search_response::conversational_filtering_result::AdditionalFilter>
         {
@@ -7377,6 +9387,14 @@ pub mod conversational_search_response {
         }
 
         /// Sets or clears the value of [additional_filter][crate::model::conversational_search_response::ConversationalFilteringResult::additional_filter].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_retail_v2::model::conversational_search_response::ConversationalFilteringResult;
+        /// use google_cloud_retail_v2::model::conversational_search_response::conversational_filtering_result::AdditionalFilter;
+        /// let x = ConversationalFilteringResult::new().set_or_clear_additional_filter(Some(AdditionalFilter::default()/* use setters */));
+        /// let x = ConversationalFilteringResult::new().set_or_clear_additional_filter(None::<AdditionalFilter>);
+        /// ```
         pub fn set_or_clear_additional_filter<T>(mut self, v: std::option::Option<T>) -> Self
         where T: std::convert::Into<crate::model::conversational_search_response::conversational_filtering_result::AdditionalFilter>
         {
@@ -7413,6 +9431,13 @@ pub mod conversational_search_response {
             }
 
             /// Sets the value of [product_attribute_value][crate::model::conversational_search_response::conversational_filtering_result::AdditionalFilter::product_attribute_value].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_retail_v2::model::conversational_search_response::conversational_filtering_result::AdditionalFilter;
+            /// use google_cloud_retail_v2::model::ProductAttributeValue;
+            /// let x = AdditionalFilter::new().set_product_attribute_value(ProductAttributeValue::default()/* use setters */);
+            /// ```
             pub fn set_product_attribute_value<T>(mut self, v: T) -> Self
             where
                 T: std::convert::Into<crate::model::ProductAttributeValue>,
@@ -7422,6 +9447,14 @@ pub mod conversational_search_response {
             }
 
             /// Sets or clears the value of [product_attribute_value][crate::model::conversational_search_response::conversational_filtering_result::AdditionalFilter::product_attribute_value].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_retail_v2::model::conversational_search_response::conversational_filtering_result::AdditionalFilter;
+            /// use google_cloud_retail_v2::model::ProductAttributeValue;
+            /// let x = AdditionalFilter::new().set_or_clear_product_attribute_value(Some(ProductAttributeValue::default()/* use setters */));
+            /// let x = AdditionalFilter::new().set_or_clear_product_attribute_value(None::<ProductAttributeValue>);
+            /// ```
             pub fn set_or_clear_product_attribute_value<T>(
                 mut self,
                 v: std::option::Option<T>,
@@ -7593,6 +9626,14 @@ impl OutputConfig {
     ///
     /// Note that all the setters affecting `destination` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::OutputConfig;
+    /// use google_cloud_retail_v2::model::output_config;
+    /// use google_cloud_retail_v2::model::output_config::GcsDestination;
+    /// let x = OutputConfig::new().set_destination(Some(output_config::Destination::GcsDestination(GcsDestination::default().into())));
+    /// ```
     pub fn set_destination<
         T: std::convert::Into<std::option::Option<crate::model::output_config::Destination>>,
     >(
@@ -7623,6 +9664,15 @@ impl OutputConfig {
     ///
     /// Note that all the setters affecting `destination` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::OutputConfig;
+    /// use google_cloud_retail_v2::model::output_config::GcsDestination;
+    /// let x = OutputConfig::new().set_gcs_destination(GcsDestination::default()/* use setters */);
+    /// assert!(x.gcs_destination().is_some());
+    /// assert!(x.bigquery_destination().is_none());
+    /// ```
     pub fn set_gcs_destination<
         T: std::convert::Into<std::boxed::Box<crate::model::output_config::GcsDestination>>,
     >(
@@ -7656,6 +9706,15 @@ impl OutputConfig {
     ///
     /// Note that all the setters affecting `destination` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::OutputConfig;
+    /// use google_cloud_retail_v2::model::output_config::BigQueryDestination;
+    /// let x = OutputConfig::new().set_bigquery_destination(BigQueryDestination::default()/* use setters */);
+    /// assert!(x.bigquery_destination().is_some());
+    /// assert!(x.gcs_destination().is_none());
+    /// ```
     pub fn set_bigquery_destination<
         T: std::convert::Into<std::boxed::Box<crate::model::output_config::BigQueryDestination>>,
     >(
@@ -7702,6 +9761,12 @@ pub mod output_config {
         }
 
         /// Sets the value of [output_uri_prefix][crate::model::output_config::GcsDestination::output_uri_prefix].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_retail_v2::model::output_config::GcsDestination;
+        /// let x = GcsDestination::new().set_output_uri_prefix("example");
+        /// ```
         pub fn set_output_uri_prefix<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -7742,12 +9807,24 @@ pub mod output_config {
         }
 
         /// Sets the value of [dataset_id][crate::model::output_config::BigQueryDestination::dataset_id].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_retail_v2::model::output_config::BigQueryDestination;
+        /// let x = BigQueryDestination::new().set_dataset_id("example");
+        /// ```
         pub fn set_dataset_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.dataset_id = v.into();
             self
         }
 
         /// Sets the value of [table_id_prefix][crate::model::output_config::BigQueryDestination::table_id_prefix].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_retail_v2::model::output_config::BigQueryDestination;
+        /// let x = BigQueryDestination::new().set_table_id_prefix("example");
+        /// ```
         pub fn set_table_id_prefix<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -7757,6 +9834,12 @@ pub mod output_config {
         }
 
         /// Sets the value of [table_type][crate::model::output_config::BigQueryDestination::table_type].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_retail_v2::model::output_config::BigQueryDestination;
+        /// let x = BigQueryDestination::new().set_table_type("example");
+        /// ```
         pub fn set_table_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.table_type = v.into();
             self
@@ -7799,6 +9882,13 @@ impl ExportErrorsConfig {
     ///
     /// Note that all the setters affecting `destination` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::ExportErrorsConfig;
+    /// use google_cloud_retail_v2::model::export_errors_config;
+    /// let x = ExportErrorsConfig::new().set_destination(Some(export_errors_config::Destination::GcsPrefix("example".to_string())));
+    /// ```
     pub fn set_destination<
         T: std::convert::Into<std::option::Option<crate::model::export_errors_config::Destination>>,
     >(
@@ -7827,6 +9917,13 @@ impl ExportErrorsConfig {
     ///
     /// Note that all the setters affecting `destination` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::ExportErrorsConfig;
+    /// let x = ExportErrorsConfig::new().set_gcs_prefix("example");
+    /// assert!(x.gcs_prefix().is_some());
+    /// ```
     pub fn set_gcs_prefix<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.destination = std::option::Option::Some(
             crate::model::export_errors_config::Destination::GcsPrefix(v.into()),
@@ -7897,12 +9994,25 @@ impl ExportAnalyticsMetricsRequest {
     }
 
     /// Sets the value of [catalog][crate::model::ExportAnalyticsMetricsRequest::catalog].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::ExportAnalyticsMetricsRequest;
+    /// let x = ExportAnalyticsMetricsRequest::new().set_catalog("example");
+    /// ```
     pub fn set_catalog<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.catalog = v.into();
         self
     }
 
     /// Sets the value of [output_config][crate::model::ExportAnalyticsMetricsRequest::output_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::ExportAnalyticsMetricsRequest;
+    /// use google_cloud_retail_v2::model::OutputConfig;
+    /// let x = ExportAnalyticsMetricsRequest::new().set_output_config(OutputConfig::default()/* use setters */);
+    /// ```
     pub fn set_output_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::OutputConfig>,
@@ -7912,6 +10022,14 @@ impl ExportAnalyticsMetricsRequest {
     }
 
     /// Sets or clears the value of [output_config][crate::model::ExportAnalyticsMetricsRequest::output_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::ExportAnalyticsMetricsRequest;
+    /// use google_cloud_retail_v2::model::OutputConfig;
+    /// let x = ExportAnalyticsMetricsRequest::new().set_or_clear_output_config(Some(OutputConfig::default()/* use setters */));
+    /// let x = ExportAnalyticsMetricsRequest::new().set_or_clear_output_config(None::<OutputConfig>);
+    /// ```
     pub fn set_or_clear_output_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::OutputConfig>,
@@ -7921,6 +10039,12 @@ impl ExportAnalyticsMetricsRequest {
     }
 
     /// Sets the value of [filter][crate::model::ExportAnalyticsMetricsRequest::filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::ExportAnalyticsMetricsRequest;
+    /// let x = ExportAnalyticsMetricsRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
@@ -7954,6 +10078,13 @@ impl ExportMetadata {
     }
 
     /// Sets the value of [create_time][crate::model::ExportMetadata::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::ExportMetadata;
+    /// use wkt::Timestamp;
+    /// let x = ExportMetadata::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -7963,6 +10094,14 @@ impl ExportMetadata {
     }
 
     /// Sets or clears the value of [create_time][crate::model::ExportMetadata::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::ExportMetadata;
+    /// use wkt::Timestamp;
+    /// let x = ExportMetadata::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = ExportMetadata::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -7972,6 +10111,13 @@ impl ExportMetadata {
     }
 
     /// Sets the value of [update_time][crate::model::ExportMetadata::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::ExportMetadata;
+    /// use wkt::Timestamp;
+    /// let x = ExportMetadata::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -7981,6 +10127,14 @@ impl ExportMetadata {
     }
 
     /// Sets or clears the value of [update_time][crate::model::ExportMetadata::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::ExportMetadata;
+    /// use wkt::Timestamp;
+    /// let x = ExportMetadata::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = ExportMetadata::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -8020,6 +10174,17 @@ impl ExportAnalyticsMetricsResponse {
     }
 
     /// Sets the value of [error_samples][crate::model::ExportAnalyticsMetricsResponse::error_samples].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::ExportAnalyticsMetricsResponse;
+    /// use rpc::model::Status;
+    /// let x = ExportAnalyticsMetricsResponse::new()
+    ///     .set_error_samples([
+    ///         Status::default()/* use setters */,
+    ///         Status::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_error_samples<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -8031,6 +10196,13 @@ impl ExportAnalyticsMetricsResponse {
     }
 
     /// Sets the value of [errors_config][crate::model::ExportAnalyticsMetricsResponse::errors_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::ExportAnalyticsMetricsResponse;
+    /// use google_cloud_retail_v2::model::ExportErrorsConfig;
+    /// let x = ExportAnalyticsMetricsResponse::new().set_errors_config(ExportErrorsConfig::default()/* use setters */);
+    /// ```
     pub fn set_errors_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ExportErrorsConfig>,
@@ -8040,6 +10212,14 @@ impl ExportAnalyticsMetricsResponse {
     }
 
     /// Sets or clears the value of [errors_config][crate::model::ExportAnalyticsMetricsResponse::errors_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::ExportAnalyticsMetricsResponse;
+    /// use google_cloud_retail_v2::model::ExportErrorsConfig;
+    /// let x = ExportAnalyticsMetricsResponse::new().set_or_clear_errors_config(Some(ExportErrorsConfig::default()/* use setters */));
+    /// let x = ExportAnalyticsMetricsResponse::new().set_or_clear_errors_config(None::<ExportErrorsConfig>);
+    /// ```
     pub fn set_or_clear_errors_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ExportErrorsConfig>,
@@ -8049,6 +10229,13 @@ impl ExportAnalyticsMetricsResponse {
     }
 
     /// Sets the value of [output_result][crate::model::ExportAnalyticsMetricsResponse::output_result].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::ExportAnalyticsMetricsResponse;
+    /// use google_cloud_retail_v2::model::OutputResult;
+    /// let x = ExportAnalyticsMetricsResponse::new().set_output_result(OutputResult::default()/* use setters */);
+    /// ```
     pub fn set_output_result<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::OutputResult>,
@@ -8058,6 +10245,14 @@ impl ExportAnalyticsMetricsResponse {
     }
 
     /// Sets or clears the value of [output_result][crate::model::ExportAnalyticsMetricsResponse::output_result].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::ExportAnalyticsMetricsResponse;
+    /// use google_cloud_retail_v2::model::OutputResult;
+    /// let x = ExportAnalyticsMetricsResponse::new().set_or_clear_output_result(Some(OutputResult::default()/* use setters */));
+    /// let x = ExportAnalyticsMetricsResponse::new().set_or_clear_output_result(None::<OutputResult>);
+    /// ```
     pub fn set_or_clear_output_result<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::OutputResult>,
@@ -8093,6 +10288,17 @@ impl OutputResult {
     }
 
     /// Sets the value of [bigquery_result][crate::model::OutputResult::bigquery_result].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::OutputResult;
+    /// use google_cloud_retail_v2::model::BigQueryOutputResult;
+    /// let x = OutputResult::new()
+    ///     .set_bigquery_result([
+    ///         BigQueryOutputResult::default()/* use setters */,
+    ///         BigQueryOutputResult::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_bigquery_result<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -8104,6 +10310,17 @@ impl OutputResult {
     }
 
     /// Sets the value of [gcs_result][crate::model::OutputResult::gcs_result].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::OutputResult;
+    /// use google_cloud_retail_v2::model::GcsOutputResult;
+    /// let x = OutputResult::new()
+    ///     .set_gcs_result([
+    ///         GcsOutputResult::default()/* use setters */,
+    ///         GcsOutputResult::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_gcs_result<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -8140,12 +10357,24 @@ impl BigQueryOutputResult {
     }
 
     /// Sets the value of [dataset_id][crate::model::BigQueryOutputResult::dataset_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::BigQueryOutputResult;
+    /// let x = BigQueryOutputResult::new().set_dataset_id("example");
+    /// ```
     pub fn set_dataset_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.dataset_id = v.into();
         self
     }
 
     /// Sets the value of [table_id][crate::model::BigQueryOutputResult::table_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::BigQueryOutputResult;
+    /// let x = BigQueryOutputResult::new().set_table_id("example");
+    /// ```
     pub fn set_table_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.table_id = v.into();
         self
@@ -8174,6 +10403,12 @@ impl GcsOutputResult {
     }
 
     /// Sets the value of [output_uri][crate::model::GcsOutputResult::output_uri].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::GcsOutputResult;
+    /// let x = GcsOutputResult::new().set_output_uri("example");
+    /// ```
     pub fn set_output_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.output_uri = v.into();
         self
@@ -8212,18 +10447,36 @@ impl GenerativeQuestionsFeatureConfig {
     }
 
     /// Sets the value of [catalog][crate::model::GenerativeQuestionsFeatureConfig::catalog].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::GenerativeQuestionsFeatureConfig;
+    /// let x = GenerativeQuestionsFeatureConfig::new().set_catalog("example");
+    /// ```
     pub fn set_catalog<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.catalog = v.into();
         self
     }
 
     /// Sets the value of [feature_enabled][crate::model::GenerativeQuestionsFeatureConfig::feature_enabled].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::GenerativeQuestionsFeatureConfig;
+    /// let x = GenerativeQuestionsFeatureConfig::new().set_feature_enabled(true);
+    /// ```
     pub fn set_feature_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.feature_enabled = v.into();
         self
     }
 
     /// Sets the value of [minimum_products][crate::model::GenerativeQuestionsFeatureConfig::minimum_products].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::GenerativeQuestionsFeatureConfig;
+    /// let x = GenerativeQuestionsFeatureConfig::new().set_minimum_products(42);
+    /// ```
     pub fn set_minimum_products<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.minimum_products = v.into();
         self
@@ -8273,18 +10526,36 @@ impl GenerativeQuestionConfig {
     }
 
     /// Sets the value of [catalog][crate::model::GenerativeQuestionConfig::catalog].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::GenerativeQuestionConfig;
+    /// let x = GenerativeQuestionConfig::new().set_catalog("example");
+    /// ```
     pub fn set_catalog<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.catalog = v.into();
         self
     }
 
     /// Sets the value of [facet][crate::model::GenerativeQuestionConfig::facet].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::GenerativeQuestionConfig;
+    /// let x = GenerativeQuestionConfig::new().set_facet("example");
+    /// ```
     pub fn set_facet<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.facet = v.into();
         self
     }
 
     /// Sets the value of [generated_question][crate::model::GenerativeQuestionConfig::generated_question].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::GenerativeQuestionConfig;
+    /// let x = GenerativeQuestionConfig::new().set_generated_question("example");
+    /// ```
     pub fn set_generated_question<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -8294,12 +10565,24 @@ impl GenerativeQuestionConfig {
     }
 
     /// Sets the value of [final_question][crate::model::GenerativeQuestionConfig::final_question].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::GenerativeQuestionConfig;
+    /// let x = GenerativeQuestionConfig::new().set_final_question("example");
+    /// ```
     pub fn set_final_question<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.final_question = v.into();
         self
     }
 
     /// Sets the value of [example_values][crate::model::GenerativeQuestionConfig::example_values].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::GenerativeQuestionConfig;
+    /// let x = GenerativeQuestionConfig::new().set_example_values(["a", "b", "c"]);
+    /// ```
     pub fn set_example_values<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -8311,12 +10594,24 @@ impl GenerativeQuestionConfig {
     }
 
     /// Sets the value of [frequency][crate::model::GenerativeQuestionConfig::frequency].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::GenerativeQuestionConfig;
+    /// let x = GenerativeQuestionConfig::new().set_frequency(42.0);
+    /// ```
     pub fn set_frequency<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
         self.frequency = v.into();
         self
     }
 
     /// Sets the value of [allowed_in_conversation][crate::model::GenerativeQuestionConfig::allowed_in_conversation].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::GenerativeQuestionConfig;
+    /// let x = GenerativeQuestionConfig::new().set_allowed_in_conversation(true);
+    /// ```
     pub fn set_allowed_in_conversation<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.allowed_in_conversation = v.into();
         self
@@ -8353,6 +10648,13 @@ impl UpdateGenerativeQuestionsFeatureConfigRequest {
     }
 
     /// Sets the value of [generative_questions_feature_config][crate::model::UpdateGenerativeQuestionsFeatureConfigRequest::generative_questions_feature_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::UpdateGenerativeQuestionsFeatureConfigRequest;
+    /// use google_cloud_retail_v2::model::GenerativeQuestionsFeatureConfig;
+    /// let x = UpdateGenerativeQuestionsFeatureConfigRequest::new().set_generative_questions_feature_config(GenerativeQuestionsFeatureConfig::default()/* use setters */);
+    /// ```
     pub fn set_generative_questions_feature_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::GenerativeQuestionsFeatureConfig>,
@@ -8362,6 +10664,14 @@ impl UpdateGenerativeQuestionsFeatureConfigRequest {
     }
 
     /// Sets or clears the value of [generative_questions_feature_config][crate::model::UpdateGenerativeQuestionsFeatureConfigRequest::generative_questions_feature_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::UpdateGenerativeQuestionsFeatureConfigRequest;
+    /// use google_cloud_retail_v2::model::GenerativeQuestionsFeatureConfig;
+    /// let x = UpdateGenerativeQuestionsFeatureConfigRequest::new().set_or_clear_generative_questions_feature_config(Some(GenerativeQuestionsFeatureConfig::default()/* use setters */));
+    /// let x = UpdateGenerativeQuestionsFeatureConfigRequest::new().set_or_clear_generative_questions_feature_config(None::<GenerativeQuestionsFeatureConfig>);
+    /// ```
     pub fn set_or_clear_generative_questions_feature_config<T>(
         mut self,
         v: std::option::Option<T>,
@@ -8374,6 +10684,13 @@ impl UpdateGenerativeQuestionsFeatureConfigRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateGenerativeQuestionsFeatureConfigRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::UpdateGenerativeQuestionsFeatureConfigRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateGenerativeQuestionsFeatureConfigRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -8383,6 +10700,14 @@ impl UpdateGenerativeQuestionsFeatureConfigRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateGenerativeQuestionsFeatureConfigRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::UpdateGenerativeQuestionsFeatureConfigRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateGenerativeQuestionsFeatureConfigRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateGenerativeQuestionsFeatureConfigRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -8415,6 +10740,12 @@ impl GetGenerativeQuestionsFeatureConfigRequest {
     }
 
     /// Sets the value of [catalog][crate::model::GetGenerativeQuestionsFeatureConfigRequest::catalog].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::GetGenerativeQuestionsFeatureConfigRequest;
+    /// let x = GetGenerativeQuestionsFeatureConfigRequest::new().set_catalog("example");
+    /// ```
     pub fn set_catalog<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.catalog = v.into();
         self
@@ -8444,6 +10775,12 @@ impl ListGenerativeQuestionConfigsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListGenerativeQuestionConfigsRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::ListGenerativeQuestionConfigsRequest;
+    /// let x = ListGenerativeQuestionConfigsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
@@ -8472,6 +10809,17 @@ impl ListGenerativeQuestionConfigsResponse {
     }
 
     /// Sets the value of [generative_question_configs][crate::model::ListGenerativeQuestionConfigsResponse::generative_question_configs].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::ListGenerativeQuestionConfigsResponse;
+    /// use google_cloud_retail_v2::model::GenerativeQuestionConfig;
+    /// let x = ListGenerativeQuestionConfigsResponse::new()
+    ///     .set_generative_question_configs([
+    ///         GenerativeQuestionConfig::default()/* use setters */,
+    ///         GenerativeQuestionConfig::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_generative_question_configs<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -8517,6 +10865,13 @@ impl UpdateGenerativeQuestionConfigRequest {
     }
 
     /// Sets the value of [generative_question_config][crate::model::UpdateGenerativeQuestionConfigRequest::generative_question_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::UpdateGenerativeQuestionConfigRequest;
+    /// use google_cloud_retail_v2::model::GenerativeQuestionConfig;
+    /// let x = UpdateGenerativeQuestionConfigRequest::new().set_generative_question_config(GenerativeQuestionConfig::default()/* use setters */);
+    /// ```
     pub fn set_generative_question_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::GenerativeQuestionConfig>,
@@ -8526,6 +10881,14 @@ impl UpdateGenerativeQuestionConfigRequest {
     }
 
     /// Sets or clears the value of [generative_question_config][crate::model::UpdateGenerativeQuestionConfigRequest::generative_question_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::UpdateGenerativeQuestionConfigRequest;
+    /// use google_cloud_retail_v2::model::GenerativeQuestionConfig;
+    /// let x = UpdateGenerativeQuestionConfigRequest::new().set_or_clear_generative_question_config(Some(GenerativeQuestionConfig::default()/* use setters */));
+    /// let x = UpdateGenerativeQuestionConfigRequest::new().set_or_clear_generative_question_config(None::<GenerativeQuestionConfig>);
+    /// ```
     pub fn set_or_clear_generative_question_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::GenerativeQuestionConfig>,
@@ -8535,6 +10898,13 @@ impl UpdateGenerativeQuestionConfigRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateGenerativeQuestionConfigRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::UpdateGenerativeQuestionConfigRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateGenerativeQuestionConfigRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -8544,6 +10914,14 @@ impl UpdateGenerativeQuestionConfigRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateGenerativeQuestionConfigRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::UpdateGenerativeQuestionConfigRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateGenerativeQuestionConfigRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateGenerativeQuestionConfigRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -8579,12 +10957,29 @@ impl BatchUpdateGenerativeQuestionConfigsRequest {
     }
 
     /// Sets the value of [parent][crate::model::BatchUpdateGenerativeQuestionConfigsRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::BatchUpdateGenerativeQuestionConfigsRequest;
+    /// let x = BatchUpdateGenerativeQuestionConfigsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [requests][crate::model::BatchUpdateGenerativeQuestionConfigsRequest::requests].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::BatchUpdateGenerativeQuestionConfigsRequest;
+    /// use google_cloud_retail_v2::model::UpdateGenerativeQuestionConfigRequest;
+    /// let x = BatchUpdateGenerativeQuestionConfigsRequest::new()
+    ///     .set_requests([
+    ///         UpdateGenerativeQuestionConfigRequest::default()/* use setters */,
+    ///         UpdateGenerativeQuestionConfigRequest::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_requests<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -8618,6 +11013,17 @@ impl BatchUpdateGenerativeQuestionConfigsResponse {
     }
 
     /// Sets the value of [generative_question_configs][crate::model::BatchUpdateGenerativeQuestionConfigsResponse::generative_question_configs].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::BatchUpdateGenerativeQuestionConfigsResponse;
+    /// use google_cloud_retail_v2::model::GenerativeQuestionConfig;
+    /// let x = BatchUpdateGenerativeQuestionConfigsResponse::new()
+    ///     .set_generative_question_configs([
+    ///         GenerativeQuestionConfig::default()/* use setters */,
+    ///         GenerativeQuestionConfig::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_generative_question_configs<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -8692,6 +11098,12 @@ impl GcsSource {
     }
 
     /// Sets the value of [input_uris][crate::model::GcsSource::input_uris].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::GcsSource;
+    /// let x = GcsSource::new().set_input_uris(["a", "b", "c"]);
+    /// ```
     pub fn set_input_uris<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -8703,6 +11115,12 @@ impl GcsSource {
     }
 
     /// Sets the value of [data_schema][crate::model::GcsSource::data_schema].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::GcsSource;
+    /// let x = GcsSource::new().set_data_schema("example");
+    /// ```
     pub fn set_data_schema<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.data_schema = v.into();
         self
@@ -8782,30 +11200,60 @@ impl BigQuerySource {
     }
 
     /// Sets the value of [project_id][crate::model::BigQuerySource::project_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::BigQuerySource;
+    /// let x = BigQuerySource::new().set_project_id("example");
+    /// ```
     pub fn set_project_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project_id = v.into();
         self
     }
 
     /// Sets the value of [dataset_id][crate::model::BigQuerySource::dataset_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::BigQuerySource;
+    /// let x = BigQuerySource::new().set_dataset_id("example");
+    /// ```
     pub fn set_dataset_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.dataset_id = v.into();
         self
     }
 
     /// Sets the value of [table_id][crate::model::BigQuerySource::table_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::BigQuerySource;
+    /// let x = BigQuerySource::new().set_table_id("example");
+    /// ```
     pub fn set_table_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.table_id = v.into();
         self
     }
 
     /// Sets the value of [gcs_staging_dir][crate::model::BigQuerySource::gcs_staging_dir].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::BigQuerySource;
+    /// let x = BigQuerySource::new().set_gcs_staging_dir("example");
+    /// ```
     pub fn set_gcs_staging_dir<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.gcs_staging_dir = v.into();
         self
     }
 
     /// Sets the value of [data_schema][crate::model::BigQuerySource::data_schema].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::BigQuerySource;
+    /// let x = BigQuerySource::new().set_data_schema("example");
+    /// ```
     pub fn set_data_schema<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.data_schema = v.into();
         self
@@ -8815,6 +11263,14 @@ impl BigQuerySource {
     ///
     /// Note that all the setters affecting `partition` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::BigQuerySource;
+    /// use google_cloud_retail_v2::model::big_query_source;
+    /// use gtype::model::Date;
+    /// let x = BigQuerySource::new().set_partition(Some(big_query_source::Partition::PartitionDate(Date::default().into())));
+    /// ```
     pub fn set_partition<
         T: std::convert::Into<std::option::Option<crate::model::big_query_source::Partition>>,
     >(
@@ -8843,6 +11299,14 @@ impl BigQuerySource {
     ///
     /// Note that all the setters affecting `partition` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::BigQuerySource;
+    /// use gtype::model::Date;
+    /// let x = BigQuerySource::new().set_partition_date(Date::default()/* use setters */);
+    /// assert!(x.partition_date().is_some());
+    /// ```
     pub fn set_partition_date<T: std::convert::Into<std::boxed::Box<gtype::model::Date>>>(
         mut self,
         v: T,
@@ -8895,6 +11359,17 @@ impl ProductInlineSource {
     }
 
     /// Sets the value of [products][crate::model::ProductInlineSource::products].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::ProductInlineSource;
+    /// use google_cloud_retail_v2::model::Product;
+    /// let x = ProductInlineSource::new()
+    ///     .set_products([
+    ///         Product::default()/* use setters */,
+    ///         Product::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_products<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -8928,6 +11403,17 @@ impl UserEventInlineSource {
     }
 
     /// Sets the value of [user_events][crate::model::UserEventInlineSource::user_events].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::UserEventInlineSource;
+    /// use google_cloud_retail_v2::model::UserEvent;
+    /// let x = UserEventInlineSource::new()
+    ///     .set_user_events([
+    ///         UserEvent::default()/* use setters */,
+    ///         UserEvent::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_user_events<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -8964,6 +11450,13 @@ impl ImportErrorsConfig {
     ///
     /// Note that all the setters affecting `destination` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::ImportErrorsConfig;
+    /// use google_cloud_retail_v2::model::import_errors_config;
+    /// let x = ImportErrorsConfig::new().set_destination(Some(import_errors_config::Destination::GcsPrefix("example".to_string())));
+    /// ```
     pub fn set_destination<
         T: std::convert::Into<std::option::Option<crate::model::import_errors_config::Destination>>,
     >(
@@ -8992,6 +11485,13 @@ impl ImportErrorsConfig {
     ///
     /// Note that all the setters affecting `destination` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::ImportErrorsConfig;
+    /// let x = ImportErrorsConfig::new().set_gcs_prefix("example");
+    /// assert!(x.gcs_prefix().is_some());
+    /// ```
     pub fn set_gcs_prefix<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.destination = std::option::Option::Some(
             crate::model::import_errors_config::Destination::GcsPrefix(v.into()),
@@ -9087,12 +11587,24 @@ impl ImportProductsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ImportProductsRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::ImportProductsRequest;
+    /// let x = ImportProductsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [request_id][crate::model::ImportProductsRequest::request_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::ImportProductsRequest;
+    /// let x = ImportProductsRequest::new().set_request_id("example");
+    /// ```
     #[deprecated]
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
@@ -9100,6 +11612,13 @@ impl ImportProductsRequest {
     }
 
     /// Sets the value of [input_config][crate::model::ImportProductsRequest::input_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::ImportProductsRequest;
+    /// use google_cloud_retail_v2::model::ProductInputConfig;
+    /// let x = ImportProductsRequest::new().set_input_config(ProductInputConfig::default()/* use setters */);
+    /// ```
     pub fn set_input_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ProductInputConfig>,
@@ -9109,6 +11628,14 @@ impl ImportProductsRequest {
     }
 
     /// Sets or clears the value of [input_config][crate::model::ImportProductsRequest::input_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::ImportProductsRequest;
+    /// use google_cloud_retail_v2::model::ProductInputConfig;
+    /// let x = ImportProductsRequest::new().set_or_clear_input_config(Some(ProductInputConfig::default()/* use setters */));
+    /// let x = ImportProductsRequest::new().set_or_clear_input_config(None::<ProductInputConfig>);
+    /// ```
     pub fn set_or_clear_input_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ProductInputConfig>,
@@ -9118,6 +11645,13 @@ impl ImportProductsRequest {
     }
 
     /// Sets the value of [errors_config][crate::model::ImportProductsRequest::errors_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::ImportProductsRequest;
+    /// use google_cloud_retail_v2::model::ImportErrorsConfig;
+    /// let x = ImportProductsRequest::new().set_errors_config(ImportErrorsConfig::default()/* use setters */);
+    /// ```
     pub fn set_errors_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ImportErrorsConfig>,
@@ -9127,6 +11661,14 @@ impl ImportProductsRequest {
     }
 
     /// Sets or clears the value of [errors_config][crate::model::ImportProductsRequest::errors_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::ImportProductsRequest;
+    /// use google_cloud_retail_v2::model::ImportErrorsConfig;
+    /// let x = ImportProductsRequest::new().set_or_clear_errors_config(Some(ImportErrorsConfig::default()/* use setters */));
+    /// let x = ImportProductsRequest::new().set_or_clear_errors_config(None::<ImportErrorsConfig>);
+    /// ```
     pub fn set_or_clear_errors_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ImportErrorsConfig>,
@@ -9136,6 +11678,13 @@ impl ImportProductsRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::ImportProductsRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::ImportProductsRequest;
+    /// use wkt::FieldMask;
+    /// let x = ImportProductsRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -9145,6 +11694,14 @@ impl ImportProductsRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::ImportProductsRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::ImportProductsRequest;
+    /// use wkt::FieldMask;
+    /// let x = ImportProductsRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = ImportProductsRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -9154,6 +11711,14 @@ impl ImportProductsRequest {
     }
 
     /// Sets the value of [reconciliation_mode][crate::model::ImportProductsRequest::reconciliation_mode].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::ImportProductsRequest;
+    /// use google_cloud_retail_v2::model::import_products_request::ReconciliationMode;
+    /// let x0 = ImportProductsRequest::new().set_reconciliation_mode(ReconciliationMode::Incremental);
+    /// let x1 = ImportProductsRequest::new().set_reconciliation_mode(ReconciliationMode::Full);
+    /// ```
     pub fn set_reconciliation_mode<
         T: std::convert::Into<crate::model::import_products_request::ReconciliationMode>,
     >(
@@ -9165,6 +11730,12 @@ impl ImportProductsRequest {
     }
 
     /// Sets the value of [notification_pubsub_topic][crate::model::ImportProductsRequest::notification_pubsub_topic].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::ImportProductsRequest;
+    /// let x = ImportProductsRequest::new().set_notification_pubsub_topic("example");
+    /// ```
     pub fn set_notification_pubsub_topic<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -9343,12 +11914,25 @@ impl ImportUserEventsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ImportUserEventsRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::ImportUserEventsRequest;
+    /// let x = ImportUserEventsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [input_config][crate::model::ImportUserEventsRequest::input_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::ImportUserEventsRequest;
+    /// use google_cloud_retail_v2::model::UserEventInputConfig;
+    /// let x = ImportUserEventsRequest::new().set_input_config(UserEventInputConfig::default()/* use setters */);
+    /// ```
     pub fn set_input_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::UserEventInputConfig>,
@@ -9358,6 +11942,14 @@ impl ImportUserEventsRequest {
     }
 
     /// Sets or clears the value of [input_config][crate::model::ImportUserEventsRequest::input_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::ImportUserEventsRequest;
+    /// use google_cloud_retail_v2::model::UserEventInputConfig;
+    /// let x = ImportUserEventsRequest::new().set_or_clear_input_config(Some(UserEventInputConfig::default()/* use setters */));
+    /// let x = ImportUserEventsRequest::new().set_or_clear_input_config(None::<UserEventInputConfig>);
+    /// ```
     pub fn set_or_clear_input_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::UserEventInputConfig>,
@@ -9367,6 +11959,13 @@ impl ImportUserEventsRequest {
     }
 
     /// Sets the value of [errors_config][crate::model::ImportUserEventsRequest::errors_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::ImportUserEventsRequest;
+    /// use google_cloud_retail_v2::model::ImportErrorsConfig;
+    /// let x = ImportUserEventsRequest::new().set_errors_config(ImportErrorsConfig::default()/* use setters */);
+    /// ```
     pub fn set_errors_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ImportErrorsConfig>,
@@ -9376,6 +11975,14 @@ impl ImportUserEventsRequest {
     }
 
     /// Sets or clears the value of [errors_config][crate::model::ImportUserEventsRequest::errors_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::ImportUserEventsRequest;
+    /// use google_cloud_retail_v2::model::ImportErrorsConfig;
+    /// let x = ImportUserEventsRequest::new().set_or_clear_errors_config(Some(ImportErrorsConfig::default()/* use setters */));
+    /// let x = ImportUserEventsRequest::new().set_or_clear_errors_config(None::<ImportErrorsConfig>);
+    /// ```
     pub fn set_or_clear_errors_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ImportErrorsConfig>,
@@ -9421,12 +12028,25 @@ impl ImportCompletionDataRequest {
     }
 
     /// Sets the value of [parent][crate::model::ImportCompletionDataRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::ImportCompletionDataRequest;
+    /// let x = ImportCompletionDataRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [input_config][crate::model::ImportCompletionDataRequest::input_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::ImportCompletionDataRequest;
+    /// use google_cloud_retail_v2::model::CompletionDataInputConfig;
+    /// let x = ImportCompletionDataRequest::new().set_input_config(CompletionDataInputConfig::default()/* use setters */);
+    /// ```
     pub fn set_input_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::CompletionDataInputConfig>,
@@ -9436,6 +12056,14 @@ impl ImportCompletionDataRequest {
     }
 
     /// Sets or clears the value of [input_config][crate::model::ImportCompletionDataRequest::input_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::ImportCompletionDataRequest;
+    /// use google_cloud_retail_v2::model::CompletionDataInputConfig;
+    /// let x = ImportCompletionDataRequest::new().set_or_clear_input_config(Some(CompletionDataInputConfig::default()/* use setters */));
+    /// let x = ImportCompletionDataRequest::new().set_or_clear_input_config(None::<CompletionDataInputConfig>);
+    /// ```
     pub fn set_or_clear_input_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CompletionDataInputConfig>,
@@ -9445,6 +12073,12 @@ impl ImportCompletionDataRequest {
     }
 
     /// Sets the value of [notification_pubsub_topic][crate::model::ImportCompletionDataRequest::notification_pubsub_topic].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::ImportCompletionDataRequest;
+    /// let x = ImportCompletionDataRequest::new().set_notification_pubsub_topic("example");
+    /// ```
     pub fn set_notification_pubsub_topic<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -9479,6 +12113,14 @@ impl ProductInputConfig {
     ///
     /// Note that all the setters affecting `source` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::ProductInputConfig;
+    /// use google_cloud_retail_v2::model::product_input_config;
+    /// use google_cloud_retail_v2::model::ProductInlineSource;
+    /// let x = ProductInputConfig::new().set_source(Some(product_input_config::Source::ProductInlineSource(ProductInlineSource::default().into())));
+    /// ```
     pub fn set_source<
         T: std::convert::Into<std::option::Option<crate::model::product_input_config::Source>>,
     >(
@@ -9509,6 +12151,16 @@ impl ProductInputConfig {
     ///
     /// Note that all the setters affecting `source` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::ProductInputConfig;
+    /// use google_cloud_retail_v2::model::ProductInlineSource;
+    /// let x = ProductInputConfig::new().set_product_inline_source(ProductInlineSource::default()/* use setters */);
+    /// assert!(x.product_inline_source().is_some());
+    /// assert!(x.gcs_source().is_none());
+    /// assert!(x.big_query_source().is_none());
+    /// ```
     pub fn set_product_inline_source<
         T: std::convert::Into<std::boxed::Box<crate::model::ProductInlineSource>>,
     >(
@@ -9539,6 +12191,16 @@ impl ProductInputConfig {
     ///
     /// Note that all the setters affecting `source` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::ProductInputConfig;
+    /// use google_cloud_retail_v2::model::GcsSource;
+    /// let x = ProductInputConfig::new().set_gcs_source(GcsSource::default()/* use setters */);
+    /// assert!(x.gcs_source().is_some());
+    /// assert!(x.product_inline_source().is_none());
+    /// assert!(x.big_query_source().is_none());
+    /// ```
     pub fn set_gcs_source<T: std::convert::Into<std::boxed::Box<crate::model::GcsSource>>>(
         mut self,
         v: T,
@@ -9569,6 +12231,16 @@ impl ProductInputConfig {
     ///
     /// Note that all the setters affecting `source` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::ProductInputConfig;
+    /// use google_cloud_retail_v2::model::BigQuerySource;
+    /// let x = ProductInputConfig::new().set_big_query_source(BigQuerySource::default()/* use setters */);
+    /// assert!(x.big_query_source().is_some());
+    /// assert!(x.product_inline_source().is_none());
+    /// assert!(x.gcs_source().is_none());
+    /// ```
     pub fn set_big_query_source<
         T: std::convert::Into<std::boxed::Box<crate::model::BigQuerySource>>,
     >(
@@ -9625,6 +12297,14 @@ impl UserEventInputConfig {
     ///
     /// Note that all the setters affecting `source` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::UserEventInputConfig;
+    /// use google_cloud_retail_v2::model::user_event_input_config;
+    /// use google_cloud_retail_v2::model::UserEventInlineSource;
+    /// let x = UserEventInputConfig::new().set_source(Some(user_event_input_config::Source::UserEventInlineSource(UserEventInlineSource::default().into())));
+    /// ```
     pub fn set_source<
         T: std::convert::Into<std::option::Option<crate::model::user_event_input_config::Source>>,
     >(
@@ -9655,6 +12335,16 @@ impl UserEventInputConfig {
     ///
     /// Note that all the setters affecting `source` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::UserEventInputConfig;
+    /// use google_cloud_retail_v2::model::UserEventInlineSource;
+    /// let x = UserEventInputConfig::new().set_user_event_inline_source(UserEventInlineSource::default()/* use setters */);
+    /// assert!(x.user_event_inline_source().is_some());
+    /// assert!(x.gcs_source().is_none());
+    /// assert!(x.big_query_source().is_none());
+    /// ```
     pub fn set_user_event_inline_source<
         T: std::convert::Into<std::boxed::Box<crate::model::UserEventInlineSource>>,
     >(
@@ -9685,6 +12375,16 @@ impl UserEventInputConfig {
     ///
     /// Note that all the setters affecting `source` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::UserEventInputConfig;
+    /// use google_cloud_retail_v2::model::GcsSource;
+    /// let x = UserEventInputConfig::new().set_gcs_source(GcsSource::default()/* use setters */);
+    /// assert!(x.gcs_source().is_some());
+    /// assert!(x.user_event_inline_source().is_none());
+    /// assert!(x.big_query_source().is_none());
+    /// ```
     pub fn set_gcs_source<T: std::convert::Into<std::boxed::Box<crate::model::GcsSource>>>(
         mut self,
         v: T,
@@ -9715,6 +12415,16 @@ impl UserEventInputConfig {
     ///
     /// Note that all the setters affecting `source` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::UserEventInputConfig;
+    /// use google_cloud_retail_v2::model::BigQuerySource;
+    /// let x = UserEventInputConfig::new().set_big_query_source(BigQuerySource::default()/* use setters */);
+    /// assert!(x.big_query_source().is_some());
+    /// assert!(x.user_event_inline_source().is_none());
+    /// assert!(x.gcs_source().is_none());
+    /// ```
     pub fn set_big_query_source<
         T: std::convert::Into<std::boxed::Box<crate::model::BigQuerySource>>,
     >(
@@ -9781,6 +12491,14 @@ impl CompletionDataInputConfig {
     ///
     /// Note that all the setters affecting `source` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::CompletionDataInputConfig;
+    /// use google_cloud_retail_v2::model::completion_data_input_config;
+    /// use google_cloud_retail_v2::model::BigQuerySource;
+    /// let x = CompletionDataInputConfig::new().set_source(Some(completion_data_input_config::Source::BigQuerySource(BigQuerySource::default().into())));
+    /// ```
     pub fn set_source<
         T: std::convert::Into<std::option::Option<crate::model::completion_data_input_config::Source>>,
     >(
@@ -9811,6 +12529,14 @@ impl CompletionDataInputConfig {
     ///
     /// Note that all the setters affecting `source` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::CompletionDataInputConfig;
+    /// use google_cloud_retail_v2::model::BigQuerySource;
+    /// let x = CompletionDataInputConfig::new().set_big_query_source(BigQuerySource::default()/* use setters */);
+    /// assert!(x.big_query_source().is_some());
+    /// ```
     pub fn set_big_query_source<
         T: std::convert::Into<std::boxed::Box<crate::model::BigQuerySource>>,
     >(
@@ -9898,6 +12624,13 @@ impl ImportMetadata {
     }
 
     /// Sets the value of [create_time][crate::model::ImportMetadata::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::ImportMetadata;
+    /// use wkt::Timestamp;
+    /// let x = ImportMetadata::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -9907,6 +12640,14 @@ impl ImportMetadata {
     }
 
     /// Sets or clears the value of [create_time][crate::model::ImportMetadata::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::ImportMetadata;
+    /// use wkt::Timestamp;
+    /// let x = ImportMetadata::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = ImportMetadata::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -9916,6 +12657,13 @@ impl ImportMetadata {
     }
 
     /// Sets the value of [update_time][crate::model::ImportMetadata::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::ImportMetadata;
+    /// use wkt::Timestamp;
+    /// let x = ImportMetadata::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -9925,6 +12673,14 @@ impl ImportMetadata {
     }
 
     /// Sets or clears the value of [update_time][crate::model::ImportMetadata::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::ImportMetadata;
+    /// use wkt::Timestamp;
+    /// let x = ImportMetadata::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = ImportMetadata::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -9934,18 +12690,36 @@ impl ImportMetadata {
     }
 
     /// Sets the value of [success_count][crate::model::ImportMetadata::success_count].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::ImportMetadata;
+    /// let x = ImportMetadata::new().set_success_count(42);
+    /// ```
     pub fn set_success_count<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.success_count = v.into();
         self
     }
 
     /// Sets the value of [failure_count][crate::model::ImportMetadata::failure_count].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::ImportMetadata;
+    /// let x = ImportMetadata::new().set_failure_count(42);
+    /// ```
     pub fn set_failure_count<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.failure_count = v.into();
         self
     }
 
     /// Sets the value of [request_id][crate::model::ImportMetadata::request_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::ImportMetadata;
+    /// let x = ImportMetadata::new().set_request_id("example");
+    /// ```
     #[deprecated]
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
@@ -9953,6 +12727,12 @@ impl ImportMetadata {
     }
 
     /// Sets the value of [notification_pubsub_topic][crate::model::ImportMetadata::notification_pubsub_topic].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::ImportMetadata;
+    /// let x = ImportMetadata::new().set_notification_pubsub_topic("example");
+    /// ```
     pub fn set_notification_pubsub_topic<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -9992,6 +12772,17 @@ impl ImportProductsResponse {
     }
 
     /// Sets the value of [error_samples][crate::model::ImportProductsResponse::error_samples].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::ImportProductsResponse;
+    /// use rpc::model::Status;
+    /// let x = ImportProductsResponse::new()
+    ///     .set_error_samples([
+    ///         Status::default()/* use setters */,
+    ///         Status::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_error_samples<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -10003,6 +12794,13 @@ impl ImportProductsResponse {
     }
 
     /// Sets the value of [errors_config][crate::model::ImportProductsResponse::errors_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::ImportProductsResponse;
+    /// use google_cloud_retail_v2::model::ImportErrorsConfig;
+    /// let x = ImportProductsResponse::new().set_errors_config(ImportErrorsConfig::default()/* use setters */);
+    /// ```
     pub fn set_errors_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ImportErrorsConfig>,
@@ -10012,6 +12810,14 @@ impl ImportProductsResponse {
     }
 
     /// Sets or clears the value of [errors_config][crate::model::ImportProductsResponse::errors_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::ImportProductsResponse;
+    /// use google_cloud_retail_v2::model::ImportErrorsConfig;
+    /// let x = ImportProductsResponse::new().set_or_clear_errors_config(Some(ImportErrorsConfig::default()/* use setters */));
+    /// let x = ImportProductsResponse::new().set_or_clear_errors_config(None::<ImportErrorsConfig>);
+    /// ```
     pub fn set_or_clear_errors_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ImportErrorsConfig>,
@@ -10052,6 +12858,17 @@ impl ImportUserEventsResponse {
     }
 
     /// Sets the value of [error_samples][crate::model::ImportUserEventsResponse::error_samples].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::ImportUserEventsResponse;
+    /// use rpc::model::Status;
+    /// let x = ImportUserEventsResponse::new()
+    ///     .set_error_samples([
+    ///         Status::default()/* use setters */,
+    ///         Status::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_error_samples<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -10063,6 +12880,13 @@ impl ImportUserEventsResponse {
     }
 
     /// Sets the value of [errors_config][crate::model::ImportUserEventsResponse::errors_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::ImportUserEventsResponse;
+    /// use google_cloud_retail_v2::model::ImportErrorsConfig;
+    /// let x = ImportUserEventsResponse::new().set_errors_config(ImportErrorsConfig::default()/* use setters */);
+    /// ```
     pub fn set_errors_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ImportErrorsConfig>,
@@ -10072,6 +12896,14 @@ impl ImportUserEventsResponse {
     }
 
     /// Sets or clears the value of [errors_config][crate::model::ImportUserEventsResponse::errors_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::ImportUserEventsResponse;
+    /// use google_cloud_retail_v2::model::ImportErrorsConfig;
+    /// let x = ImportUserEventsResponse::new().set_or_clear_errors_config(Some(ImportErrorsConfig::default()/* use setters */));
+    /// let x = ImportUserEventsResponse::new().set_or_clear_errors_config(None::<ImportErrorsConfig>);
+    /// ```
     pub fn set_or_clear_errors_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ImportErrorsConfig>,
@@ -10081,6 +12913,13 @@ impl ImportUserEventsResponse {
     }
 
     /// Sets the value of [import_summary][crate::model::ImportUserEventsResponse::import_summary].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::ImportUserEventsResponse;
+    /// use google_cloud_retail_v2::model::UserEventImportSummary;
+    /// let x = ImportUserEventsResponse::new().set_import_summary(UserEventImportSummary::default()/* use setters */);
+    /// ```
     pub fn set_import_summary<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::UserEventImportSummary>,
@@ -10090,6 +12929,14 @@ impl ImportUserEventsResponse {
     }
 
     /// Sets or clears the value of [import_summary][crate::model::ImportUserEventsResponse::import_summary].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::ImportUserEventsResponse;
+    /// use google_cloud_retail_v2::model::UserEventImportSummary;
+    /// let x = ImportUserEventsResponse::new().set_or_clear_import_summary(Some(UserEventImportSummary::default()/* use setters */));
+    /// let x = ImportUserEventsResponse::new().set_or_clear_import_summary(None::<UserEventImportSummary>);
+    /// ```
     pub fn set_or_clear_import_summary<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::UserEventImportSummary>,
@@ -10126,12 +12973,24 @@ impl UserEventImportSummary {
     }
 
     /// Sets the value of [joined_events_count][crate::model::UserEventImportSummary::joined_events_count].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::UserEventImportSummary;
+    /// let x = UserEventImportSummary::new().set_joined_events_count(42);
+    /// ```
     pub fn set_joined_events_count<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.joined_events_count = v.into();
         self
     }
 
     /// Sets the value of [unjoined_events_count][crate::model::UserEventImportSummary::unjoined_events_count].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::UserEventImportSummary;
+    /// let x = UserEventImportSummary::new().set_unjoined_events_count(42);
+    /// ```
     pub fn set_unjoined_events_count<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.unjoined_events_count = v.into();
         self
@@ -10165,6 +13024,17 @@ impl ImportCompletionDataResponse {
     }
 
     /// Sets the value of [error_samples][crate::model::ImportCompletionDataResponse::error_samples].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::ImportCompletionDataResponse;
+    /// use rpc::model::Status;
+    /// let x = ImportCompletionDataResponse::new()
+    ///     .set_error_samples([
+    ///         Status::default()/* use setters */,
+    ///         Status::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_error_samples<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -10321,18 +13191,38 @@ impl Model {
     }
 
     /// Sets the value of [name][crate::model::Model::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::Model;
+    /// let x = Model::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [display_name][crate::model::Model::display_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::Model;
+    /// let x = Model::new().set_display_name("example");
+    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
     }
 
     /// Sets the value of [training_state][crate::model::Model::training_state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::Model;
+    /// use google_cloud_retail_v2::model::model::TrainingState;
+    /// let x0 = Model::new().set_training_state(TrainingState::Paused);
+    /// let x1 = Model::new().set_training_state(TrainingState::Training);
+    /// ```
     pub fn set_training_state<T: std::convert::Into<crate::model::model::TrainingState>>(
         mut self,
         v: T,
@@ -10342,6 +13232,15 @@ impl Model {
     }
 
     /// Sets the value of [serving_state][crate::model::Model::serving_state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::Model;
+    /// use google_cloud_retail_v2::model::model::ServingState;
+    /// let x0 = Model::new().set_serving_state(ServingState::Inactive);
+    /// let x1 = Model::new().set_serving_state(ServingState::Active);
+    /// let x2 = Model::new().set_serving_state(ServingState::Tuned);
+    /// ```
     pub fn set_serving_state<T: std::convert::Into<crate::model::model::ServingState>>(
         mut self,
         v: T,
@@ -10351,6 +13250,13 @@ impl Model {
     }
 
     /// Sets the value of [create_time][crate::model::Model::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::Model;
+    /// use wkt::Timestamp;
+    /// let x = Model::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -10360,6 +13266,14 @@ impl Model {
     }
 
     /// Sets or clears the value of [create_time][crate::model::Model::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::Model;
+    /// use wkt::Timestamp;
+    /// let x = Model::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Model::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -10369,6 +13283,13 @@ impl Model {
     }
 
     /// Sets the value of [update_time][crate::model::Model::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::Model;
+    /// use wkt::Timestamp;
+    /// let x = Model::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -10378,6 +13299,14 @@ impl Model {
     }
 
     /// Sets or clears the value of [update_time][crate::model::Model::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::Model;
+    /// use wkt::Timestamp;
+    /// let x = Model::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Model::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -10387,12 +13316,24 @@ impl Model {
     }
 
     /// Sets the value of [r#type][crate::model::Model::type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::Model;
+    /// let x = Model::new().set_type("example");
+    /// ```
     pub fn set_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.r#type = v.into();
         self
     }
 
     /// Sets the value of [optimization_objective][crate::model::Model::optimization_objective].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::Model;
+    /// let x = Model::new().set_optimization_objective("example");
+    /// ```
     pub fn set_optimization_objective<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -10402,6 +13343,15 @@ impl Model {
     }
 
     /// Sets the value of [periodic_tuning_state][crate::model::Model::periodic_tuning_state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::Model;
+    /// use google_cloud_retail_v2::model::model::PeriodicTuningState;
+    /// let x0 = Model::new().set_periodic_tuning_state(PeriodicTuningState::PeriodicTuningDisabled);
+    /// let x1 = Model::new().set_periodic_tuning_state(PeriodicTuningState::AllTuningDisabled);
+    /// let x2 = Model::new().set_periodic_tuning_state(PeriodicTuningState::PeriodicTuningEnabled);
+    /// ```
     pub fn set_periodic_tuning_state<
         T: std::convert::Into<crate::model::model::PeriodicTuningState>,
     >(
@@ -10413,6 +13363,13 @@ impl Model {
     }
 
     /// Sets the value of [last_tune_time][crate::model::Model::last_tune_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::Model;
+    /// use wkt::Timestamp;
+    /// let x = Model::new().set_last_tune_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_last_tune_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -10422,6 +13379,14 @@ impl Model {
     }
 
     /// Sets or clears the value of [last_tune_time][crate::model::Model::last_tune_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::Model;
+    /// use wkt::Timestamp;
+    /// let x = Model::new().set_or_clear_last_tune_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Model::new().set_or_clear_last_tune_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_last_tune_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -10431,6 +13396,12 @@ impl Model {
     }
 
     /// Sets the value of [tuning_operation][crate::model::Model::tuning_operation].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::Model;
+    /// let x = Model::new().set_tuning_operation("example");
+    /// ```
     pub fn set_tuning_operation<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -10440,6 +13411,14 @@ impl Model {
     }
 
     /// Sets the value of [data_state][crate::model::Model::data_state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::Model;
+    /// use google_cloud_retail_v2::model::model::DataState;
+    /// let x0 = Model::new().set_data_state(DataState::DataOk);
+    /// let x1 = Model::new().set_data_state(DataState::DataError);
+    /// ```
     pub fn set_data_state<T: std::convert::Into<crate::model::model::DataState>>(
         mut self,
         v: T,
@@ -10449,6 +13428,14 @@ impl Model {
     }
 
     /// Sets the value of [filtering_option][crate::model::Model::filtering_option].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::Model;
+    /// use google_cloud_retail_v2::model::RecommendationsFilteringOption;
+    /// let x0 = Model::new().set_filtering_option(RecommendationsFilteringOption::RecommendationsFilteringDisabled);
+    /// let x1 = Model::new().set_filtering_option(RecommendationsFilteringOption::RecommendationsFilteringEnabled);
+    /// ```
     pub fn set_filtering_option<
         T: std::convert::Into<crate::model::RecommendationsFilteringOption>,
     >(
@@ -10460,6 +13447,17 @@ impl Model {
     }
 
     /// Sets the value of [serving_config_lists][crate::model::Model::serving_config_lists].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::Model;
+    /// use google_cloud_retail_v2::model::model::ServingConfigList;
+    /// let x = Model::new()
+    ///     .set_serving_config_lists([
+    ///         ServingConfigList::default()/* use setters */,
+    ///         ServingConfigList::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_serving_config_lists<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -10471,6 +13469,13 @@ impl Model {
     }
 
     /// Sets the value of [model_features_config][crate::model::Model::model_features_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::Model;
+    /// use google_cloud_retail_v2::model::model::ModelFeaturesConfig;
+    /// let x = Model::new().set_model_features_config(ModelFeaturesConfig::default()/* use setters */);
+    /// ```
     pub fn set_model_features_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::model::ModelFeaturesConfig>,
@@ -10480,6 +13485,14 @@ impl Model {
     }
 
     /// Sets or clears the value of [model_features_config][crate::model::Model::model_features_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::Model;
+    /// use google_cloud_retail_v2::model::model::ModelFeaturesConfig;
+    /// let x = Model::new().set_or_clear_model_features_config(Some(ModelFeaturesConfig::default()/* use setters */));
+    /// let x = Model::new().set_or_clear_model_features_config(None::<ModelFeaturesConfig>);
+    /// ```
     pub fn set_or_clear_model_features_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::model::ModelFeaturesConfig>,
@@ -10518,6 +13531,12 @@ pub mod model {
         }
 
         /// Sets the value of [serving_config_ids][crate::model::model::ServingConfigList::serving_config_ids].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_retail_v2::model::model::ServingConfigList;
+        /// let x = ServingConfigList::new().set_serving_config_ids(["a", "b", "c"]);
+        /// ```
         pub fn set_serving_config_ids<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -10556,6 +13575,14 @@ pub mod model {
         }
 
         /// Sets the value of [context_products_type][crate::model::model::FrequentlyBoughtTogetherFeaturesConfig::context_products_type].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_retail_v2::model::model::FrequentlyBoughtTogetherFeaturesConfig;
+        /// use google_cloud_retail_v2::model::model::ContextProductsType;
+        /// let x0 = FrequentlyBoughtTogetherFeaturesConfig::new().set_context_products_type(ContextProductsType::SingleContextProduct);
+        /// let x1 = FrequentlyBoughtTogetherFeaturesConfig::new().set_context_products_type(ContextProductsType::MultipleContextProducts);
+        /// ```
         pub fn set_context_products_type<
             T: std::convert::Into<crate::model::model::ContextProductsType>,
         >(
@@ -10592,6 +13619,14 @@ pub mod model {
         ///
         /// Note that all the setters affecting `type_dedicated_config` are mutually
         /// exclusive.
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_retail_v2::model::model::ModelFeaturesConfig;
+        /// use google_cloud_retail_v2::model::model::model_features_config;
+        /// use google_cloud_retail_v2::model::model::FrequentlyBoughtTogetherFeaturesConfig;
+        /// let x = ModelFeaturesConfig::new().set_type_dedicated_config(Some(model::model_features_config::TypeDedicatedConfig::FrequentlyBoughtTogetherConfig(FrequentlyBoughtTogetherFeaturesConfig::default().into())));
+        /// ```
         pub fn set_type_dedicated_config<
             T: std::convert::Into<
                     std::option::Option<
@@ -10626,6 +13661,14 @@ pub mod model {
         ///
         /// Note that all the setters affecting `type_dedicated_config` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_retail_v2::model::model::ModelFeaturesConfig;
+        /// use google_cloud_retail_v2::model::model::FrequentlyBoughtTogetherFeaturesConfig;
+        /// let x = ModelFeaturesConfig::new().set_frequently_bought_together_config(FrequentlyBoughtTogetherFeaturesConfig::default()/* use setters */);
+        /// assert!(x.frequently_bought_together_config().is_some());
+        /// ```
         pub fn set_frequently_bought_together_config<
             T: std::convert::Into<
                     std::boxed::Box<crate::model::model::FrequentlyBoughtTogetherFeaturesConfig>,
@@ -11390,12 +14433,25 @@ impl CreateModelRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateModelRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::CreateModelRequest;
+    /// let x = CreateModelRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [model][crate::model::CreateModelRequest::model].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::CreateModelRequest;
+    /// use google_cloud_retail_v2::model::Model;
+    /// let x = CreateModelRequest::new().set_model(Model::default()/* use setters */);
+    /// ```
     pub fn set_model<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Model>,
@@ -11405,6 +14461,14 @@ impl CreateModelRequest {
     }
 
     /// Sets or clears the value of [model][crate::model::CreateModelRequest::model].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::CreateModelRequest;
+    /// use google_cloud_retail_v2::model::Model;
+    /// let x = CreateModelRequest::new().set_or_clear_model(Some(Model::default()/* use setters */));
+    /// let x = CreateModelRequest::new().set_or_clear_model(None::<Model>);
+    /// ```
     pub fn set_or_clear_model<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Model>,
@@ -11414,6 +14478,12 @@ impl CreateModelRequest {
     }
 
     /// Sets the value of [dry_run][crate::model::CreateModelRequest::dry_run].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::CreateModelRequest;
+    /// let x = CreateModelRequest::new().set_dry_run(true);
+    /// ```
     pub fn set_dry_run<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.dry_run = v.into();
         self
@@ -11448,6 +14518,13 @@ impl UpdateModelRequest {
     }
 
     /// Sets the value of [model][crate::model::UpdateModelRequest::model].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::UpdateModelRequest;
+    /// use google_cloud_retail_v2::model::Model;
+    /// let x = UpdateModelRequest::new().set_model(Model::default()/* use setters */);
+    /// ```
     pub fn set_model<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Model>,
@@ -11457,6 +14534,14 @@ impl UpdateModelRequest {
     }
 
     /// Sets or clears the value of [model][crate::model::UpdateModelRequest::model].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::UpdateModelRequest;
+    /// use google_cloud_retail_v2::model::Model;
+    /// let x = UpdateModelRequest::new().set_or_clear_model(Some(Model::default()/* use setters */));
+    /// let x = UpdateModelRequest::new().set_or_clear_model(None::<Model>);
+    /// ```
     pub fn set_or_clear_model<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Model>,
@@ -11466,6 +14551,13 @@ impl UpdateModelRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateModelRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::UpdateModelRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateModelRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -11475,6 +14567,14 @@ impl UpdateModelRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateModelRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::UpdateModelRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateModelRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateModelRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -11510,6 +14610,12 @@ impl GetModelRequest {
     }
 
     /// Sets the value of [name][crate::model::GetModelRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::GetModelRequest;
+    /// let x = GetModelRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -11540,6 +14646,12 @@ impl PauseModelRequest {
     }
 
     /// Sets the value of [name][crate::model::PauseModelRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::PauseModelRequest;
+    /// let x = PauseModelRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -11570,6 +14682,12 @@ impl ResumeModelRequest {
     }
 
     /// Sets the value of [name][crate::model::ResumeModelRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::ResumeModelRequest;
+    /// let x = ResumeModelRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -11608,18 +14726,36 @@ impl ListModelsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListModelsRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::ListModelsRequest;
+    /// let x = ListModelsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListModelsRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::ListModelsRequest;
+    /// let x = ListModelsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListModelsRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::ListModelsRequest;
+    /// let x = ListModelsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -11652,6 +14788,12 @@ impl DeleteModelRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteModelRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::DeleteModelRequest;
+    /// let x = DeleteModelRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -11683,6 +14825,17 @@ impl ListModelsResponse {
     }
 
     /// Sets the value of [models][crate::model::ListModelsResponse::models].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::ListModelsResponse;
+    /// use google_cloud_retail_v2::model::Model;
+    /// let x = ListModelsResponse::new()
+    ///     .set_models([
+    ///         Model::default()/* use setters */,
+    ///         Model::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_models<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -11694,6 +14847,12 @@ impl ListModelsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListModelsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::ListModelsResponse;
+    /// let x = ListModelsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -11739,6 +14898,12 @@ impl TuneModelRequest {
     }
 
     /// Sets the value of [name][crate::model::TuneModelRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::TuneModelRequest;
+    /// let x = TuneModelRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -11769,6 +14934,12 @@ impl CreateModelMetadata {
     }
 
     /// Sets the value of [model][crate::model::CreateModelMetadata::model].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::CreateModelMetadata;
+    /// let x = CreateModelMetadata::new().set_model("example");
+    /// ```
     pub fn set_model<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.model = v.into();
         self
@@ -11799,6 +14970,12 @@ impl TuneModelMetadata {
     }
 
     /// Sets the value of [model][crate::model::TuneModelMetadata::model].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::TuneModelMetadata;
+    /// let x = TuneModelMetadata::new().set_model("example");
+    /// ```
     pub fn set_model<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.model = v.into();
         self
@@ -11984,12 +15161,25 @@ impl PredictRequest {
     }
 
     /// Sets the value of [placement][crate::model::PredictRequest::placement].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::PredictRequest;
+    /// let x = PredictRequest::new().set_placement("example");
+    /// ```
     pub fn set_placement<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.placement = v.into();
         self
     }
 
     /// Sets the value of [user_event][crate::model::PredictRequest::user_event].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::PredictRequest;
+    /// use google_cloud_retail_v2::model::UserEvent;
+    /// let x = PredictRequest::new().set_user_event(UserEvent::default()/* use setters */);
+    /// ```
     pub fn set_user_event<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::UserEvent>,
@@ -11999,6 +15189,14 @@ impl PredictRequest {
     }
 
     /// Sets or clears the value of [user_event][crate::model::PredictRequest::user_event].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::PredictRequest;
+    /// use google_cloud_retail_v2::model::UserEvent;
+    /// let x = PredictRequest::new().set_or_clear_user_event(Some(UserEvent::default()/* use setters */));
+    /// let x = PredictRequest::new().set_or_clear_user_event(None::<UserEvent>);
+    /// ```
     pub fn set_or_clear_user_event<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::UserEvent>,
@@ -12008,12 +15206,24 @@ impl PredictRequest {
     }
 
     /// Sets the value of [page_size][crate::model::PredictRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::PredictRequest;
+    /// let x = PredictRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::PredictRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::PredictRequest;
+    /// let x = PredictRequest::new().set_page_token("example");
+    /// ```
     #[deprecated]
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
@@ -12021,18 +15231,40 @@ impl PredictRequest {
     }
 
     /// Sets the value of [filter][crate::model::PredictRequest::filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::PredictRequest;
+    /// let x = PredictRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [validate_only][crate::model::PredictRequest::validate_only].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::PredictRequest;
+    /// let x = PredictRequest::new().set_validate_only(true);
+    /// ```
     pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.validate_only = v.into();
         self
     }
 
     /// Sets the value of [params][crate::model::PredictRequest::params].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::PredictRequest;
+    /// use wkt::Value;
+    /// let x = PredictRequest::new().set_params([
+    ///     ("key0", Value::default()/* use setters */),
+    ///     ("key1", Value::default()/* use (different) setters */),
+    /// ]);
+    /// ```
     pub fn set_params<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -12045,6 +15277,15 @@ impl PredictRequest {
     }
 
     /// Sets the value of [labels][crate::model::PredictRequest::labels].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::PredictRequest;
+    /// let x = PredictRequest::new().set_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -12094,6 +15335,17 @@ impl PredictResponse {
     }
 
     /// Sets the value of [results][crate::model::PredictResponse::results].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::PredictResponse;
+    /// use google_cloud_retail_v2::model::predict_response::PredictionResult;
+    /// let x = PredictResponse::new()
+    ///     .set_results([
+    ///         PredictionResult::default()/* use setters */,
+    ///         PredictionResult::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_results<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -12105,6 +15357,12 @@ impl PredictResponse {
     }
 
     /// Sets the value of [attribution_token][crate::model::PredictResponse::attribution_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::PredictResponse;
+    /// let x = PredictResponse::new().set_attribution_token("example");
+    /// ```
     pub fn set_attribution_token<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -12114,6 +15372,12 @@ impl PredictResponse {
     }
 
     /// Sets the value of [missing_ids][crate::model::PredictResponse::missing_ids].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::PredictResponse;
+    /// let x = PredictResponse::new().set_missing_ids(["a", "b", "c"]);
+    /// ```
     pub fn set_missing_ids<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -12125,6 +15389,12 @@ impl PredictResponse {
     }
 
     /// Sets the value of [validate_only][crate::model::PredictResponse::validate_only].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::PredictResponse;
+    /// let x = PredictResponse::new().set_validate_only(true);
+    /// ```
     pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.validate_only = v.into();
         self
@@ -12168,12 +15438,28 @@ pub mod predict_response {
         }
 
         /// Sets the value of [id][crate::model::predict_response::PredictionResult::id].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_retail_v2::model::predict_response::PredictionResult;
+        /// let x = PredictionResult::new().set_id("example");
+        /// ```
         pub fn set_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.id = v.into();
             self
         }
 
         /// Sets the value of [metadata][crate::model::predict_response::PredictionResult::metadata].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_retail_v2::model::predict_response::PredictionResult;
+        /// use wkt::Value;
+        /// let x = PredictionResult::new().set_metadata([
+        ///     ("key0", Value::default()/* use setters */),
+        ///     ("key1", Value::default()/* use (different) setters */),
+        /// ]);
+        /// ```
         pub fn set_metadata<T, K, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = (K, V)>,
@@ -12722,24 +16008,51 @@ impl Product {
     }
 
     /// Sets the value of [name][crate::model::Product::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::Product;
+    /// let x = Product::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [id][crate::model::Product::id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::Product;
+    /// let x = Product::new().set_id("example");
+    /// ```
     pub fn set_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.id = v.into();
         self
     }
 
     /// Sets the value of [r#type][crate::model::Product::type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::Product;
+    /// use google_cloud_retail_v2::model::product::Type;
+    /// let x0 = Product::new().set_type(Type::Primary);
+    /// let x1 = Product::new().set_type(Type::Variant);
+    /// let x2 = Product::new().set_type(Type::Collection);
+    /// ```
     pub fn set_type<T: std::convert::Into<crate::model::product::Type>>(mut self, v: T) -> Self {
         self.r#type = v.into();
         self
     }
 
     /// Sets the value of [primary_product_id][crate::model::Product::primary_product_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::Product;
+    /// let x = Product::new().set_primary_product_id("example");
+    /// ```
     pub fn set_primary_product_id<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -12749,6 +16062,12 @@ impl Product {
     }
 
     /// Sets the value of [collection_member_ids][crate::model::Product::collection_member_ids].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::Product;
+    /// let x = Product::new().set_collection_member_ids(["a", "b", "c"]);
+    /// ```
     pub fn set_collection_member_ids<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -12760,12 +16079,24 @@ impl Product {
     }
 
     /// Sets the value of [gtin][crate::model::Product::gtin].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::Product;
+    /// let x = Product::new().set_gtin("example");
+    /// ```
     pub fn set_gtin<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.gtin = v.into();
         self
     }
 
     /// Sets the value of [categories][crate::model::Product::categories].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::Product;
+    /// let x = Product::new().set_categories(["a", "b", "c"]);
+    /// ```
     pub fn set_categories<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -12777,12 +16108,24 @@ impl Product {
     }
 
     /// Sets the value of [title][crate::model::Product::title].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::Product;
+    /// let x = Product::new().set_title("example");
+    /// ```
     pub fn set_title<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.title = v.into();
         self
     }
 
     /// Sets the value of [brands][crate::model::Product::brands].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::Product;
+    /// let x = Product::new().set_brands(["a", "b", "c"]);
+    /// ```
     pub fn set_brands<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -12794,18 +16137,40 @@ impl Product {
     }
 
     /// Sets the value of [description][crate::model::Product::description].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::Product;
+    /// let x = Product::new().set_description("example");
+    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [language_code][crate::model::Product::language_code].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::Product;
+    /// let x = Product::new().set_language_code("example");
+    /// ```
     pub fn set_language_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.language_code = v.into();
         self
     }
 
     /// Sets the value of [attributes][crate::model::Product::attributes].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::Product;
+    /// use google_cloud_retail_v2::model::CustomAttribute;
+    /// let x = Product::new().set_attributes([
+    ///     ("key0", CustomAttribute::default()/* use setters */),
+    ///     ("key1", CustomAttribute::default()/* use (different) setters */),
+    /// ]);
+    /// ```
     pub fn set_attributes<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -12818,6 +16183,12 @@ impl Product {
     }
 
     /// Sets the value of [tags][crate::model::Product::tags].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::Product;
+    /// let x = Product::new().set_tags(["a", "b", "c"]);
+    /// ```
     pub fn set_tags<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -12829,6 +16200,13 @@ impl Product {
     }
 
     /// Sets the value of [price_info][crate::model::Product::price_info].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::Product;
+    /// use google_cloud_retail_v2::model::PriceInfo;
+    /// let x = Product::new().set_price_info(PriceInfo::default()/* use setters */);
+    /// ```
     pub fn set_price_info<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::PriceInfo>,
@@ -12838,6 +16216,14 @@ impl Product {
     }
 
     /// Sets or clears the value of [price_info][crate::model::Product::price_info].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::Product;
+    /// use google_cloud_retail_v2::model::PriceInfo;
+    /// let x = Product::new().set_or_clear_price_info(Some(PriceInfo::default()/* use setters */));
+    /// let x = Product::new().set_or_clear_price_info(None::<PriceInfo>);
+    /// ```
     pub fn set_or_clear_price_info<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::PriceInfo>,
@@ -12847,6 +16233,13 @@ impl Product {
     }
 
     /// Sets the value of [rating][crate::model::Product::rating].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::Product;
+    /// use google_cloud_retail_v2::model::Rating;
+    /// let x = Product::new().set_rating(Rating::default()/* use setters */);
+    /// ```
     pub fn set_rating<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Rating>,
@@ -12856,6 +16249,14 @@ impl Product {
     }
 
     /// Sets or clears the value of [rating][crate::model::Product::rating].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::Product;
+    /// use google_cloud_retail_v2::model::Rating;
+    /// let x = Product::new().set_or_clear_rating(Some(Rating::default()/* use setters */));
+    /// let x = Product::new().set_or_clear_rating(None::<Rating>);
+    /// ```
     pub fn set_or_clear_rating<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Rating>,
@@ -12865,6 +16266,13 @@ impl Product {
     }
 
     /// Sets the value of [available_time][crate::model::Product::available_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::Product;
+    /// use wkt::Timestamp;
+    /// let x = Product::new().set_available_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_available_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -12874,6 +16282,14 @@ impl Product {
     }
 
     /// Sets or clears the value of [available_time][crate::model::Product::available_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::Product;
+    /// use wkt::Timestamp;
+    /// let x = Product::new().set_or_clear_available_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Product::new().set_or_clear_available_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_available_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -12883,6 +16299,15 @@ impl Product {
     }
 
     /// Sets the value of [availability][crate::model::Product::availability].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::Product;
+    /// use google_cloud_retail_v2::model::product::Availability;
+    /// let x0 = Product::new().set_availability(Availability::InStock);
+    /// let x1 = Product::new().set_availability(Availability::OutOfStock);
+    /// let x2 = Product::new().set_availability(Availability::Preorder);
+    /// ```
     pub fn set_availability<T: std::convert::Into<crate::model::product::Availability>>(
         mut self,
         v: T,
@@ -12892,6 +16317,13 @@ impl Product {
     }
 
     /// Sets the value of [available_quantity][crate::model::Product::available_quantity].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::Product;
+    /// use wkt::Int32Value;
+    /// let x = Product::new().set_available_quantity(Int32Value::default()/* use setters */);
+    /// ```
     pub fn set_available_quantity<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Int32Value>,
@@ -12901,6 +16333,14 @@ impl Product {
     }
 
     /// Sets or clears the value of [available_quantity][crate::model::Product::available_quantity].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::Product;
+    /// use wkt::Int32Value;
+    /// let x = Product::new().set_or_clear_available_quantity(Some(Int32Value::default()/* use setters */));
+    /// let x = Product::new().set_or_clear_available_quantity(None::<Int32Value>);
+    /// ```
     pub fn set_or_clear_available_quantity<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Int32Value>,
@@ -12910,6 +16350,17 @@ impl Product {
     }
 
     /// Sets the value of [fulfillment_info][crate::model::Product::fulfillment_info].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::Product;
+    /// use google_cloud_retail_v2::model::FulfillmentInfo;
+    /// let x = Product::new()
+    ///     .set_fulfillment_info([
+    ///         FulfillmentInfo::default()/* use setters */,
+    ///         FulfillmentInfo::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_fulfillment_info<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -12921,12 +16372,29 @@ impl Product {
     }
 
     /// Sets the value of [uri][crate::model::Product::uri].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::Product;
+    /// let x = Product::new().set_uri("example");
+    /// ```
     pub fn set_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.uri = v.into();
         self
     }
 
     /// Sets the value of [images][crate::model::Product::images].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::Product;
+    /// use google_cloud_retail_v2::model::Image;
+    /// let x = Product::new()
+    ///     .set_images([
+    ///         Image::default()/* use setters */,
+    ///         Image::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_images<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -12938,6 +16406,13 @@ impl Product {
     }
 
     /// Sets the value of [audience][crate::model::Product::audience].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::Product;
+    /// use google_cloud_retail_v2::model::Audience;
+    /// let x = Product::new().set_audience(Audience::default()/* use setters */);
+    /// ```
     pub fn set_audience<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Audience>,
@@ -12947,6 +16422,14 @@ impl Product {
     }
 
     /// Sets or clears the value of [audience][crate::model::Product::audience].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::Product;
+    /// use google_cloud_retail_v2::model::Audience;
+    /// let x = Product::new().set_or_clear_audience(Some(Audience::default()/* use setters */));
+    /// let x = Product::new().set_or_clear_audience(None::<Audience>);
+    /// ```
     pub fn set_or_clear_audience<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Audience>,
@@ -12956,6 +16439,13 @@ impl Product {
     }
 
     /// Sets the value of [color_info][crate::model::Product::color_info].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::Product;
+    /// use google_cloud_retail_v2::model::ColorInfo;
+    /// let x = Product::new().set_color_info(ColorInfo::default()/* use setters */);
+    /// ```
     pub fn set_color_info<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ColorInfo>,
@@ -12965,6 +16455,14 @@ impl Product {
     }
 
     /// Sets or clears the value of [color_info][crate::model::Product::color_info].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::Product;
+    /// use google_cloud_retail_v2::model::ColorInfo;
+    /// let x = Product::new().set_or_clear_color_info(Some(ColorInfo::default()/* use setters */));
+    /// let x = Product::new().set_or_clear_color_info(None::<ColorInfo>);
+    /// ```
     pub fn set_or_clear_color_info<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ColorInfo>,
@@ -12974,6 +16472,12 @@ impl Product {
     }
 
     /// Sets the value of [sizes][crate::model::Product::sizes].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::Product;
+    /// let x = Product::new().set_sizes(["a", "b", "c"]);
+    /// ```
     pub fn set_sizes<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -12985,6 +16489,12 @@ impl Product {
     }
 
     /// Sets the value of [materials][crate::model::Product::materials].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::Product;
+    /// let x = Product::new().set_materials(["a", "b", "c"]);
+    /// ```
     pub fn set_materials<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -12996,6 +16506,12 @@ impl Product {
     }
 
     /// Sets the value of [patterns][crate::model::Product::patterns].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::Product;
+    /// let x = Product::new().set_patterns(["a", "b", "c"]);
+    /// ```
     pub fn set_patterns<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -13007,6 +16523,12 @@ impl Product {
     }
 
     /// Sets the value of [conditions][crate::model::Product::conditions].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::Product;
+    /// let x = Product::new().set_conditions(["a", "b", "c"]);
+    /// ```
     pub fn set_conditions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -13018,6 +16540,17 @@ impl Product {
     }
 
     /// Sets the value of [promotions][crate::model::Product::promotions].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::Product;
+    /// use google_cloud_retail_v2::model::Promotion;
+    /// let x = Product::new()
+    ///     .set_promotions([
+    ///         Promotion::default()/* use setters */,
+    ///         Promotion::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_promotions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -13029,6 +16562,13 @@ impl Product {
     }
 
     /// Sets the value of [publish_time][crate::model::Product::publish_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::Product;
+    /// use wkt::Timestamp;
+    /// let x = Product::new().set_publish_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_publish_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -13038,6 +16578,14 @@ impl Product {
     }
 
     /// Sets or clears the value of [publish_time][crate::model::Product::publish_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::Product;
+    /// use wkt::Timestamp;
+    /// let x = Product::new().set_or_clear_publish_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Product::new().set_or_clear_publish_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_publish_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -13047,6 +16595,13 @@ impl Product {
     }
 
     /// Sets the value of [retrievable_fields][crate::model::Product::retrievable_fields].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::Product;
+    /// use wkt::FieldMask;
+    /// let x = Product::new().set_retrievable_fields(FieldMask::default()/* use setters */);
+    /// ```
     #[deprecated]
     pub fn set_retrievable_fields<T>(mut self, v: T) -> Self
     where
@@ -13057,6 +16612,14 @@ impl Product {
     }
 
     /// Sets or clears the value of [retrievable_fields][crate::model::Product::retrievable_fields].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::Product;
+    /// use wkt::FieldMask;
+    /// let x = Product::new().set_or_clear_retrievable_fields(Some(FieldMask::default()/* use setters */));
+    /// let x = Product::new().set_or_clear_retrievable_fields(None::<FieldMask>);
+    /// ```
     #[deprecated]
     pub fn set_or_clear_retrievable_fields<T>(mut self, v: std::option::Option<T>) -> Self
     where
@@ -13067,6 +16630,17 @@ impl Product {
     }
 
     /// Sets the value of [variants][crate::model::Product::variants].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::Product;
+    /// use google_cloud_retail_v2::model::Product;
+    /// let x = Product::new()
+    ///     .set_variants([
+    ///         Product::default()/* use setters */,
+    ///         Product::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_variants<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -13078,6 +16652,17 @@ impl Product {
     }
 
     /// Sets the value of [local_inventories][crate::model::Product::local_inventories].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::Product;
+    /// use google_cloud_retail_v2::model::LocalInventory;
+    /// let x = Product::new()
+    ///     .set_local_inventories([
+    ///         LocalInventory::default()/* use setters */,
+    ///         LocalInventory::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_local_inventories<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -13092,6 +16677,14 @@ impl Product {
     ///
     /// Note that all the setters affecting `expiration` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::Product;
+    /// use google_cloud_retail_v2::model::product;
+    /// use wkt::Timestamp;
+    /// let x = Product::new().set_expiration(Some(product::Expiration::ExpireTime(Timestamp::default().into())));
+    /// ```
     pub fn set_expiration<
         T: std::convert::Into<std::option::Option<crate::model::product::Expiration>>,
     >(
@@ -13118,6 +16711,15 @@ impl Product {
     ///
     /// Note that all the setters affecting `expiration` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::Product;
+    /// use wkt::Timestamp;
+    /// let x = Product::new().set_expire_time(Timestamp::default()/* use setters */);
+    /// assert!(x.expire_time().is_some());
+    /// assert!(x.ttl().is_none());
+    /// ```
     pub fn set_expire_time<T: std::convert::Into<std::boxed::Box<wkt::Timestamp>>>(
         mut self,
         v: T,
@@ -13143,6 +16745,15 @@ impl Product {
     ///
     /// Note that all the setters affecting `expiration` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::Product;
+    /// use wkt::Duration;
+    /// let x = Product::new().set_ttl(Duration::default()/* use setters */);
+    /// assert!(x.ttl().is_some());
+    /// assert!(x.expire_time().is_none());
+    /// ```
     pub fn set_ttl<T: std::convert::Into<std::boxed::Box<wkt::Duration>>>(mut self, v: T) -> Self {
         self.expiration =
             std::option::Option::Some(crate::model::product::Expiration::Ttl(v.into()));
@@ -13605,12 +17216,25 @@ impl CreateProductRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateProductRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::CreateProductRequest;
+    /// let x = CreateProductRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [product][crate::model::CreateProductRequest::product].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::CreateProductRequest;
+    /// use google_cloud_retail_v2::model::Product;
+    /// let x = CreateProductRequest::new().set_product(Product::default()/* use setters */);
+    /// ```
     pub fn set_product<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Product>,
@@ -13620,6 +17244,14 @@ impl CreateProductRequest {
     }
 
     /// Sets or clears the value of [product][crate::model::CreateProductRequest::product].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::CreateProductRequest;
+    /// use google_cloud_retail_v2::model::Product;
+    /// let x = CreateProductRequest::new().set_or_clear_product(Some(Product::default()/* use setters */));
+    /// let x = CreateProductRequest::new().set_or_clear_product(None::<Product>);
+    /// ```
     pub fn set_or_clear_product<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Product>,
@@ -13629,6 +17261,12 @@ impl CreateProductRequest {
     }
 
     /// Sets the value of [product_id][crate::model::CreateProductRequest::product_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::CreateProductRequest;
+    /// let x = CreateProductRequest::new().set_product_id("example");
+    /// ```
     pub fn set_product_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.product_id = v.into();
         self
@@ -13672,6 +17310,12 @@ impl GetProductRequest {
     }
 
     /// Sets the value of [name][crate::model::GetProductRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::GetProductRequest;
+    /// let x = GetProductRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -13739,6 +17383,13 @@ impl UpdateProductRequest {
     }
 
     /// Sets the value of [product][crate::model::UpdateProductRequest::product].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::UpdateProductRequest;
+    /// use google_cloud_retail_v2::model::Product;
+    /// let x = UpdateProductRequest::new().set_product(Product::default()/* use setters */);
+    /// ```
     pub fn set_product<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Product>,
@@ -13748,6 +17399,14 @@ impl UpdateProductRequest {
     }
 
     /// Sets or clears the value of [product][crate::model::UpdateProductRequest::product].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::UpdateProductRequest;
+    /// use google_cloud_retail_v2::model::Product;
+    /// let x = UpdateProductRequest::new().set_or_clear_product(Some(Product::default()/* use setters */));
+    /// let x = UpdateProductRequest::new().set_or_clear_product(None::<Product>);
+    /// ```
     pub fn set_or_clear_product<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Product>,
@@ -13757,6 +17416,13 @@ impl UpdateProductRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateProductRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::UpdateProductRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateProductRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -13766,6 +17432,14 @@ impl UpdateProductRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateProductRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::UpdateProductRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateProductRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateProductRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -13775,6 +17449,12 @@ impl UpdateProductRequest {
     }
 
     /// Sets the value of [allow_missing][crate::model::UpdateProductRequest::allow_missing].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::UpdateProductRequest;
+    /// let x = UpdateProductRequest::new().set_allow_missing(true);
+    /// ```
     pub fn set_allow_missing<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.allow_missing = v.into();
         self
@@ -13832,6 +17512,12 @@ impl DeleteProductRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteProductRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::DeleteProductRequest;
+    /// let x = DeleteProductRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -13961,30 +17647,61 @@ impl ListProductsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListProductsRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::ListProductsRequest;
+    /// let x = ListProductsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListProductsRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::ListProductsRequest;
+    /// let x = ListProductsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListProductsRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::ListProductsRequest;
+    /// let x = ListProductsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListProductsRequest::filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::ListProductsRequest;
+    /// let x = ListProductsRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [read_mask][crate::model::ListProductsRequest::read_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::ListProductsRequest;
+    /// use wkt::FieldMask;
+    /// let x = ListProductsRequest::new().set_read_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_read_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -13994,6 +17711,14 @@ impl ListProductsRequest {
     }
 
     /// Sets or clears the value of [read_mask][crate::model::ListProductsRequest::read_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::ListProductsRequest;
+    /// use wkt::FieldMask;
+    /// let x = ListProductsRequest::new().set_or_clear_read_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = ListProductsRequest::new().set_or_clear_read_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_read_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -14039,6 +17764,17 @@ impl ListProductsResponse {
     }
 
     /// Sets the value of [products][crate::model::ListProductsResponse::products].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::ListProductsResponse;
+    /// use google_cloud_retail_v2::model::Product;
+    /// let x = ListProductsResponse::new()
+    ///     .set_products([
+    ///         Product::default()/* use setters */,
+    ///         Product::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_products<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -14050,6 +17786,12 @@ impl ListProductsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListProductsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::ListProductsResponse;
+    /// let x = ListProductsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -14192,6 +17934,13 @@ impl SetInventoryRequest {
     }
 
     /// Sets the value of [inventory][crate::model::SetInventoryRequest::inventory].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::SetInventoryRequest;
+    /// use google_cloud_retail_v2::model::Product;
+    /// let x = SetInventoryRequest::new().set_inventory(Product::default()/* use setters */);
+    /// ```
     pub fn set_inventory<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Product>,
@@ -14201,6 +17950,14 @@ impl SetInventoryRequest {
     }
 
     /// Sets or clears the value of [inventory][crate::model::SetInventoryRequest::inventory].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::SetInventoryRequest;
+    /// use google_cloud_retail_v2::model::Product;
+    /// let x = SetInventoryRequest::new().set_or_clear_inventory(Some(Product::default()/* use setters */));
+    /// let x = SetInventoryRequest::new().set_or_clear_inventory(None::<Product>);
+    /// ```
     pub fn set_or_clear_inventory<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Product>,
@@ -14210,6 +17967,13 @@ impl SetInventoryRequest {
     }
 
     /// Sets the value of [set_mask][crate::model::SetInventoryRequest::set_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::SetInventoryRequest;
+    /// use wkt::FieldMask;
+    /// let x = SetInventoryRequest::new().set_set_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_set_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -14219,6 +17983,14 @@ impl SetInventoryRequest {
     }
 
     /// Sets or clears the value of [set_mask][crate::model::SetInventoryRequest::set_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::SetInventoryRequest;
+    /// use wkt::FieldMask;
+    /// let x = SetInventoryRequest::new().set_or_clear_set_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = SetInventoryRequest::new().set_or_clear_set_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_set_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -14228,6 +18000,13 @@ impl SetInventoryRequest {
     }
 
     /// Sets the value of [set_time][crate::model::SetInventoryRequest::set_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::SetInventoryRequest;
+    /// use wkt::Timestamp;
+    /// let x = SetInventoryRequest::new().set_set_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_set_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -14237,6 +18016,14 @@ impl SetInventoryRequest {
     }
 
     /// Sets or clears the value of [set_time][crate::model::SetInventoryRequest::set_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::SetInventoryRequest;
+    /// use wkt::Timestamp;
+    /// let x = SetInventoryRequest::new().set_or_clear_set_time(Some(Timestamp::default()/* use setters */));
+    /// let x = SetInventoryRequest::new().set_or_clear_set_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_set_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -14246,6 +18033,12 @@ impl SetInventoryRequest {
     }
 
     /// Sets the value of [allow_missing][crate::model::SetInventoryRequest::allow_missing].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::SetInventoryRequest;
+    /// let x = SetInventoryRequest::new().set_allow_missing(true);
+    /// ```
     pub fn set_allow_missing<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.allow_missing = v.into();
         self
@@ -14392,18 +18185,36 @@ impl AddFulfillmentPlacesRequest {
     }
 
     /// Sets the value of [product][crate::model::AddFulfillmentPlacesRequest::product].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::AddFulfillmentPlacesRequest;
+    /// let x = AddFulfillmentPlacesRequest::new().set_product("example");
+    /// ```
     pub fn set_product<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.product = v.into();
         self
     }
 
     /// Sets the value of [r#type][crate::model::AddFulfillmentPlacesRequest::type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::AddFulfillmentPlacesRequest;
+    /// let x = AddFulfillmentPlacesRequest::new().set_type("example");
+    /// ```
     pub fn set_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.r#type = v.into();
         self
     }
 
     /// Sets the value of [place_ids][crate::model::AddFulfillmentPlacesRequest::place_ids].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::AddFulfillmentPlacesRequest;
+    /// let x = AddFulfillmentPlacesRequest::new().set_place_ids(["a", "b", "c"]);
+    /// ```
     pub fn set_place_ids<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -14415,6 +18226,13 @@ impl AddFulfillmentPlacesRequest {
     }
 
     /// Sets the value of [add_time][crate::model::AddFulfillmentPlacesRequest::add_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::AddFulfillmentPlacesRequest;
+    /// use wkt::Timestamp;
+    /// let x = AddFulfillmentPlacesRequest::new().set_add_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_add_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -14424,6 +18242,14 @@ impl AddFulfillmentPlacesRequest {
     }
 
     /// Sets or clears the value of [add_time][crate::model::AddFulfillmentPlacesRequest::add_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::AddFulfillmentPlacesRequest;
+    /// use wkt::Timestamp;
+    /// let x = AddFulfillmentPlacesRequest::new().set_or_clear_add_time(Some(Timestamp::default()/* use setters */));
+    /// let x = AddFulfillmentPlacesRequest::new().set_or_clear_add_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_add_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -14433,6 +18259,12 @@ impl AddFulfillmentPlacesRequest {
     }
 
     /// Sets the value of [allow_missing][crate::model::AddFulfillmentPlacesRequest::allow_missing].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::AddFulfillmentPlacesRequest;
+    /// let x = AddFulfillmentPlacesRequest::new().set_allow_missing(true);
+    /// ```
     pub fn set_allow_missing<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.allow_missing = v.into();
         self
@@ -14559,12 +18391,29 @@ impl AddLocalInventoriesRequest {
     }
 
     /// Sets the value of [product][crate::model::AddLocalInventoriesRequest::product].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::AddLocalInventoriesRequest;
+    /// let x = AddLocalInventoriesRequest::new().set_product("example");
+    /// ```
     pub fn set_product<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.product = v.into();
         self
     }
 
     /// Sets the value of [local_inventories][crate::model::AddLocalInventoriesRequest::local_inventories].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::AddLocalInventoriesRequest;
+    /// use google_cloud_retail_v2::model::LocalInventory;
+    /// let x = AddLocalInventoriesRequest::new()
+    ///     .set_local_inventories([
+    ///         LocalInventory::default()/* use setters */,
+    ///         LocalInventory::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_local_inventories<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -14576,6 +18425,13 @@ impl AddLocalInventoriesRequest {
     }
 
     /// Sets the value of [add_mask][crate::model::AddLocalInventoriesRequest::add_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::AddLocalInventoriesRequest;
+    /// use wkt::FieldMask;
+    /// let x = AddLocalInventoriesRequest::new().set_add_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_add_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -14585,6 +18441,14 @@ impl AddLocalInventoriesRequest {
     }
 
     /// Sets or clears the value of [add_mask][crate::model::AddLocalInventoriesRequest::add_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::AddLocalInventoriesRequest;
+    /// use wkt::FieldMask;
+    /// let x = AddLocalInventoriesRequest::new().set_or_clear_add_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = AddLocalInventoriesRequest::new().set_or_clear_add_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_add_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -14594,6 +18458,13 @@ impl AddLocalInventoriesRequest {
     }
 
     /// Sets the value of [add_time][crate::model::AddLocalInventoriesRequest::add_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::AddLocalInventoriesRequest;
+    /// use wkt::Timestamp;
+    /// let x = AddLocalInventoriesRequest::new().set_add_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_add_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -14603,6 +18474,14 @@ impl AddLocalInventoriesRequest {
     }
 
     /// Sets or clears the value of [add_time][crate::model::AddLocalInventoriesRequest::add_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::AddLocalInventoriesRequest;
+    /// use wkt::Timestamp;
+    /// let x = AddLocalInventoriesRequest::new().set_or_clear_add_time(Some(Timestamp::default()/* use setters */));
+    /// let x = AddLocalInventoriesRequest::new().set_or_clear_add_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_add_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -14612,6 +18491,12 @@ impl AddLocalInventoriesRequest {
     }
 
     /// Sets the value of [allow_missing][crate::model::AddLocalInventoriesRequest::allow_missing].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::AddLocalInventoriesRequest;
+    /// let x = AddLocalInventoriesRequest::new().set_allow_missing(true);
+    /// ```
     pub fn set_allow_missing<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.allow_missing = v.into();
         self
@@ -14721,12 +18606,24 @@ impl RemoveLocalInventoriesRequest {
     }
 
     /// Sets the value of [product][crate::model::RemoveLocalInventoriesRequest::product].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::RemoveLocalInventoriesRequest;
+    /// let x = RemoveLocalInventoriesRequest::new().set_product("example");
+    /// ```
     pub fn set_product<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.product = v.into();
         self
     }
 
     /// Sets the value of [place_ids][crate::model::RemoveLocalInventoriesRequest::place_ids].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::RemoveLocalInventoriesRequest;
+    /// let x = RemoveLocalInventoriesRequest::new().set_place_ids(["a", "b", "c"]);
+    /// ```
     pub fn set_place_ids<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -14738,6 +18635,13 @@ impl RemoveLocalInventoriesRequest {
     }
 
     /// Sets the value of [remove_time][crate::model::RemoveLocalInventoriesRequest::remove_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::RemoveLocalInventoriesRequest;
+    /// use wkt::Timestamp;
+    /// let x = RemoveLocalInventoriesRequest::new().set_remove_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_remove_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -14747,6 +18651,14 @@ impl RemoveLocalInventoriesRequest {
     }
 
     /// Sets or clears the value of [remove_time][crate::model::RemoveLocalInventoriesRequest::remove_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::RemoveLocalInventoriesRequest;
+    /// use wkt::Timestamp;
+    /// let x = RemoveLocalInventoriesRequest::new().set_or_clear_remove_time(Some(Timestamp::default()/* use setters */));
+    /// let x = RemoveLocalInventoriesRequest::new().set_or_clear_remove_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_remove_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -14756,6 +18668,12 @@ impl RemoveLocalInventoriesRequest {
     }
 
     /// Sets the value of [allow_missing][crate::model::RemoveLocalInventoriesRequest::allow_missing].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::RemoveLocalInventoriesRequest;
+    /// let x = RemoveLocalInventoriesRequest::new().set_allow_missing(true);
+    /// ```
     pub fn set_allow_missing<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.allow_missing = v.into();
         self
@@ -14899,18 +18817,36 @@ impl RemoveFulfillmentPlacesRequest {
     }
 
     /// Sets the value of [product][crate::model::RemoveFulfillmentPlacesRequest::product].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::RemoveFulfillmentPlacesRequest;
+    /// let x = RemoveFulfillmentPlacesRequest::new().set_product("example");
+    /// ```
     pub fn set_product<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.product = v.into();
         self
     }
 
     /// Sets the value of [r#type][crate::model::RemoveFulfillmentPlacesRequest::type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::RemoveFulfillmentPlacesRequest;
+    /// let x = RemoveFulfillmentPlacesRequest::new().set_type("example");
+    /// ```
     pub fn set_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.r#type = v.into();
         self
     }
 
     /// Sets the value of [place_ids][crate::model::RemoveFulfillmentPlacesRequest::place_ids].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::RemoveFulfillmentPlacesRequest;
+    /// let x = RemoveFulfillmentPlacesRequest::new().set_place_ids(["a", "b", "c"]);
+    /// ```
     pub fn set_place_ids<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -14922,6 +18858,13 @@ impl RemoveFulfillmentPlacesRequest {
     }
 
     /// Sets the value of [remove_time][crate::model::RemoveFulfillmentPlacesRequest::remove_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::RemoveFulfillmentPlacesRequest;
+    /// use wkt::Timestamp;
+    /// let x = RemoveFulfillmentPlacesRequest::new().set_remove_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_remove_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -14931,6 +18874,14 @@ impl RemoveFulfillmentPlacesRequest {
     }
 
     /// Sets or clears the value of [remove_time][crate::model::RemoveFulfillmentPlacesRequest::remove_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::RemoveFulfillmentPlacesRequest;
+    /// use wkt::Timestamp;
+    /// let x = RemoveFulfillmentPlacesRequest::new().set_or_clear_remove_time(Some(Timestamp::default()/* use setters */));
+    /// let x = RemoveFulfillmentPlacesRequest::new().set_or_clear_remove_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_remove_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -14940,6 +18891,12 @@ impl RemoveFulfillmentPlacesRequest {
     }
 
     /// Sets the value of [allow_missing][crate::model::RemoveFulfillmentPlacesRequest::allow_missing].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::RemoveFulfillmentPlacesRequest;
+    /// let x = RemoveFulfillmentPlacesRequest::new().set_allow_missing(true);
+    /// ```
     pub fn set_allow_missing<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.allow_missing = v.into();
         self
@@ -15024,6 +18981,12 @@ impl Promotion {
     }
 
     /// Sets the value of [promotion_id][crate::model::Promotion::promotion_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::Promotion;
+    /// let x = Promotion::new().set_promotion_id("example");
+    /// ```
     pub fn set_promotion_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.promotion_id = v.into();
         self
@@ -15083,6 +19046,13 @@ impl PurgeProductsMetadata {
     }
 
     /// Sets the value of [create_time][crate::model::PurgeProductsMetadata::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::PurgeProductsMetadata;
+    /// use wkt::Timestamp;
+    /// let x = PurgeProductsMetadata::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -15092,6 +19062,14 @@ impl PurgeProductsMetadata {
     }
 
     /// Sets or clears the value of [create_time][crate::model::PurgeProductsMetadata::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::PurgeProductsMetadata;
+    /// use wkt::Timestamp;
+    /// let x = PurgeProductsMetadata::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = PurgeProductsMetadata::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -15101,6 +19079,13 @@ impl PurgeProductsMetadata {
     }
 
     /// Sets the value of [update_time][crate::model::PurgeProductsMetadata::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::PurgeProductsMetadata;
+    /// use wkt::Timestamp;
+    /// let x = PurgeProductsMetadata::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -15110,6 +19095,14 @@ impl PurgeProductsMetadata {
     }
 
     /// Sets or clears the value of [update_time][crate::model::PurgeProductsMetadata::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::PurgeProductsMetadata;
+    /// use wkt::Timestamp;
+    /// let x = PurgeProductsMetadata::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = PurgeProductsMetadata::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -15119,12 +19112,24 @@ impl PurgeProductsMetadata {
     }
 
     /// Sets the value of [success_count][crate::model::PurgeProductsMetadata::success_count].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::PurgeProductsMetadata;
+    /// let x = PurgeProductsMetadata::new().set_success_count(42);
+    /// ```
     pub fn set_success_count<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.success_count = v.into();
         self
     }
 
     /// Sets the value of [failure_count][crate::model::PurgeProductsMetadata::failure_count].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::PurgeProductsMetadata;
+    /// let x = PurgeProductsMetadata::new().set_failure_count(42);
+    /// ```
     pub fn set_failure_count<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.failure_count = v.into();
         self
@@ -15205,18 +19210,36 @@ impl PurgeProductsRequest {
     }
 
     /// Sets the value of [parent][crate::model::PurgeProductsRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::PurgeProductsRequest;
+    /// let x = PurgeProductsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::PurgeProductsRequest::filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::PurgeProductsRequest;
+    /// let x = PurgeProductsRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [force][crate::model::PurgeProductsRequest::force].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::PurgeProductsRequest;
+    /// let x = PurgeProductsRequest::new().set_force(true);
+    /// ```
     pub fn set_force<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.force = v.into();
         self
@@ -15252,12 +19275,24 @@ impl PurgeProductsResponse {
     }
 
     /// Sets the value of [purge_count][crate::model::PurgeProductsResponse::purge_count].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::PurgeProductsResponse;
+    /// let x = PurgeProductsResponse::new().set_purge_count(42);
+    /// ```
     pub fn set_purge_count<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.purge_count = v.into();
         self
     }
 
     /// Sets the value of [purge_sample][crate::model::PurgeProductsResponse::purge_sample].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::PurgeProductsResponse;
+    /// let x = PurgeProductsResponse::new().set_purge_sample(["a", "b", "c"]);
+    /// ```
     pub fn set_purge_sample<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -15325,18 +19360,36 @@ impl PurgeUserEventsRequest {
     }
 
     /// Sets the value of [parent][crate::model::PurgeUserEventsRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::PurgeUserEventsRequest;
+    /// let x = PurgeUserEventsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::PurgeUserEventsRequest::filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::PurgeUserEventsRequest;
+    /// let x = PurgeUserEventsRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [force][crate::model::PurgeUserEventsRequest::force].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::PurgeUserEventsRequest;
+    /// let x = PurgeUserEventsRequest::new().set_force(true);
+    /// ```
     pub fn set_force<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.force = v.into();
         self
@@ -15367,6 +19420,12 @@ impl PurgeUserEventsResponse {
     }
 
     /// Sets the value of [purged_events_count][crate::model::PurgeUserEventsResponse::purged_events_count].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::PurgeUserEventsResponse;
+    /// let x = PurgeUserEventsResponse::new().set_purged_events_count(42);
+    /// ```
     pub fn set_purged_events_count<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.purged_events_count = v.into();
         self
@@ -15402,12 +19461,30 @@ impl SafetySetting {
     }
 
     /// Sets the value of [category][crate::model::SafetySetting::category].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::SafetySetting;
+    /// use google_cloud_retail_v2::model::HarmCategory;
+    /// let x0 = SafetySetting::new().set_category(HarmCategory::HateSpeech);
+    /// let x1 = SafetySetting::new().set_category(HarmCategory::DangerousContent);
+    /// let x2 = SafetySetting::new().set_category(HarmCategory::Harassment);
+    /// ```
     pub fn set_category<T: std::convert::Into<crate::model::HarmCategory>>(mut self, v: T) -> Self {
         self.category = v.into();
         self
     }
 
     /// Sets the value of [threshold][crate::model::SafetySetting::threshold].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::SafetySetting;
+    /// use google_cloud_retail_v2::model::safety_setting::HarmBlockThreshold;
+    /// let x0 = SafetySetting::new().set_threshold(HarmBlockThreshold::BlockLowAndAbove);
+    /// let x1 = SafetySetting::new().set_threshold(HarmBlockThreshold::BlockMediumAndAbove);
+    /// let x2 = SafetySetting::new().set_threshold(HarmBlockThreshold::BlockOnlyHigh);
+    /// ```
     pub fn set_threshold<
         T: std::convert::Into<crate::model::safety_setting::HarmBlockThreshold>,
     >(
@@ -15419,6 +19496,14 @@ impl SafetySetting {
     }
 
     /// Sets the value of [method][crate::model::SafetySetting::method].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::SafetySetting;
+    /// use google_cloud_retail_v2::model::safety_setting::HarmBlockMethod;
+    /// let x0 = SafetySetting::new().set_method(HarmBlockMethod::Severity);
+    /// let x1 = SafetySetting::new().set_method(HarmBlockMethod::Probability);
+    /// ```
     pub fn set_method<T: std::convert::Into<crate::model::safety_setting::HarmBlockMethod>>(
         mut self,
         v: T,
@@ -15746,12 +19831,24 @@ impl ProductAttributeValue {
     }
 
     /// Sets the value of [name][crate::model::ProductAttributeValue::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::ProductAttributeValue;
+    /// let x = ProductAttributeValue::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [value][crate::model::ProductAttributeValue::value].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::ProductAttributeValue;
+    /// let x = ProductAttributeValue::new().set_value("example");
+    /// ```
     pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.value = v.into();
         self
@@ -15783,12 +19880,25 @@ impl ProductAttributeInterval {
     }
 
     /// Sets the value of [name][crate::model::ProductAttributeInterval::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::ProductAttributeInterval;
+    /// let x = ProductAttributeInterval::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [interval][crate::model::ProductAttributeInterval::interval].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::ProductAttributeInterval;
+    /// use google_cloud_retail_v2::model::Interval;
+    /// let x = ProductAttributeInterval::new().set_interval(Interval::default()/* use setters */);
+    /// ```
     pub fn set_interval<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Interval>,
@@ -15798,6 +19908,14 @@ impl ProductAttributeInterval {
     }
 
     /// Sets or clears the value of [interval][crate::model::ProductAttributeInterval::interval].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::ProductAttributeInterval;
+    /// use google_cloud_retail_v2::model::Interval;
+    /// let x = ProductAttributeInterval::new().set_or_clear_interval(Some(Interval::default()/* use setters */));
+    /// let x = ProductAttributeInterval::new().set_or_clear_interval(None::<Interval>);
+    /// ```
     pub fn set_or_clear_interval<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Interval>,
@@ -15834,6 +19952,12 @@ impl Tile {
     }
 
     /// Sets the value of [representative_product_id][crate::model::Tile::representative_product_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::Tile;
+    /// let x = Tile::new().set_representative_product_id("example");
+    /// ```
     pub fn set_representative_product_id<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -15846,6 +19970,14 @@ impl Tile {
     ///
     /// Note that all the setters affecting `product_attribute` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::Tile;
+    /// use google_cloud_retail_v2::model::tile;
+    /// use google_cloud_retail_v2::model::ProductAttributeValue;
+    /// let x = Tile::new().set_product_attribute(Some(tile::ProductAttribute::ProductAttributeValue(ProductAttributeValue::default().into())));
+    /// ```
     pub fn set_product_attribute<
         T: std::convert::Into<std::option::Option<crate::model::tile::ProductAttribute>>,
     >(
@@ -15876,6 +20008,15 @@ impl Tile {
     ///
     /// Note that all the setters affecting `product_attribute` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::Tile;
+    /// use google_cloud_retail_v2::model::ProductAttributeValue;
+    /// let x = Tile::new().set_product_attribute_value(ProductAttributeValue::default()/* use setters */);
+    /// assert!(x.product_attribute_value().is_some());
+    /// assert!(x.product_attribute_interval().is_none());
+    /// ```
     pub fn set_product_attribute_value<
         T: std::convert::Into<std::boxed::Box<crate::model::ProductAttributeValue>>,
     >(
@@ -15908,6 +20049,15 @@ impl Tile {
     ///
     /// Note that all the setters affecting `product_attribute` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::Tile;
+    /// use google_cloud_retail_v2::model::ProductAttributeInterval;
+    /// let x = Tile::new().set_product_attribute_interval(ProductAttributeInterval::default()/* use setters */);
+    /// assert!(x.product_attribute_interval().is_some());
+    /// assert!(x.product_attribute_value().is_none());
+    /// ```
     pub fn set_product_attribute_interval<
         T: std::convert::Into<std::boxed::Box<crate::model::ProductAttributeInterval>>,
     >(
@@ -16312,30 +20462,61 @@ impl SearchRequest {
     }
 
     /// Sets the value of [placement][crate::model::SearchRequest::placement].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::SearchRequest;
+    /// let x = SearchRequest::new().set_placement("example");
+    /// ```
     pub fn set_placement<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.placement = v.into();
         self
     }
 
     /// Sets the value of [branch][crate::model::SearchRequest::branch].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::SearchRequest;
+    /// let x = SearchRequest::new().set_branch("example");
+    /// ```
     pub fn set_branch<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.branch = v.into();
         self
     }
 
     /// Sets the value of [query][crate::model::SearchRequest::query].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::SearchRequest;
+    /// let x = SearchRequest::new().set_query("example");
+    /// ```
     pub fn set_query<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.query = v.into();
         self
     }
 
     /// Sets the value of [visitor_id][crate::model::SearchRequest::visitor_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::SearchRequest;
+    /// let x = SearchRequest::new().set_visitor_id("example");
+    /// ```
     pub fn set_visitor_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.visitor_id = v.into();
         self
     }
 
     /// Sets the value of [user_info][crate::model::SearchRequest::user_info].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::SearchRequest;
+    /// use google_cloud_retail_v2::model::UserInfo;
+    /// let x = SearchRequest::new().set_user_info(UserInfo::default()/* use setters */);
+    /// ```
     pub fn set_user_info<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::UserInfo>,
@@ -16345,6 +20526,14 @@ impl SearchRequest {
     }
 
     /// Sets or clears the value of [user_info][crate::model::SearchRequest::user_info].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::SearchRequest;
+    /// use google_cloud_retail_v2::model::UserInfo;
+    /// let x = SearchRequest::new().set_or_clear_user_info(Some(UserInfo::default()/* use setters */));
+    /// let x = SearchRequest::new().set_or_clear_user_info(None::<UserInfo>);
+    /// ```
     pub fn set_or_clear_user_info<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::UserInfo>,
@@ -16354,30 +20543,60 @@ impl SearchRequest {
     }
 
     /// Sets the value of [page_size][crate::model::SearchRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::SearchRequest;
+    /// let x = SearchRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::SearchRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::SearchRequest;
+    /// let x = SearchRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [offset][crate::model::SearchRequest::offset].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::SearchRequest;
+    /// let x = SearchRequest::new().set_offset(42);
+    /// ```
     pub fn set_offset<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.offset = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::SearchRequest::filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::SearchRequest;
+    /// let x = SearchRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [canonical_filter][crate::model::SearchRequest::canonical_filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::SearchRequest;
+    /// let x = SearchRequest::new().set_canonical_filter("example");
+    /// ```
     pub fn set_canonical_filter<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -16387,12 +20606,29 @@ impl SearchRequest {
     }
 
     /// Sets the value of [order_by][crate::model::SearchRequest::order_by].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::SearchRequest;
+    /// let x = SearchRequest::new().set_order_by("example");
+    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
     }
 
     /// Sets the value of [facet_specs][crate::model::SearchRequest::facet_specs].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::SearchRequest;
+    /// use google_cloud_retail_v2::model::search_request::FacetSpec;
+    /// let x = SearchRequest::new()
+    ///     .set_facet_specs([
+    ///         FacetSpec::default()/* use setters */,
+    ///         FacetSpec::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_facet_specs<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -16404,6 +20640,13 @@ impl SearchRequest {
     }
 
     /// Sets the value of [dynamic_facet_spec][crate::model::SearchRequest::dynamic_facet_spec].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::SearchRequest;
+    /// use google_cloud_retail_v2::model::search_request::DynamicFacetSpec;
+    /// let x = SearchRequest::new().set_dynamic_facet_spec(DynamicFacetSpec::default()/* use setters */);
+    /// ```
     #[deprecated]
     pub fn set_dynamic_facet_spec<T>(mut self, v: T) -> Self
     where
@@ -16414,6 +20657,14 @@ impl SearchRequest {
     }
 
     /// Sets or clears the value of [dynamic_facet_spec][crate::model::SearchRequest::dynamic_facet_spec].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::SearchRequest;
+    /// use google_cloud_retail_v2::model::search_request::DynamicFacetSpec;
+    /// let x = SearchRequest::new().set_or_clear_dynamic_facet_spec(Some(DynamicFacetSpec::default()/* use setters */));
+    /// let x = SearchRequest::new().set_or_clear_dynamic_facet_spec(None::<DynamicFacetSpec>);
+    /// ```
     #[deprecated]
     pub fn set_or_clear_dynamic_facet_spec<T>(mut self, v: std::option::Option<T>) -> Self
     where
@@ -16424,6 +20675,13 @@ impl SearchRequest {
     }
 
     /// Sets the value of [boost_spec][crate::model::SearchRequest::boost_spec].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::SearchRequest;
+    /// use google_cloud_retail_v2::model::search_request::BoostSpec;
+    /// let x = SearchRequest::new().set_boost_spec(BoostSpec::default()/* use setters */);
+    /// ```
     pub fn set_boost_spec<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::search_request::BoostSpec>,
@@ -16433,6 +20691,14 @@ impl SearchRequest {
     }
 
     /// Sets or clears the value of [boost_spec][crate::model::SearchRequest::boost_spec].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::SearchRequest;
+    /// use google_cloud_retail_v2::model::search_request::BoostSpec;
+    /// let x = SearchRequest::new().set_or_clear_boost_spec(Some(BoostSpec::default()/* use setters */));
+    /// let x = SearchRequest::new().set_or_clear_boost_spec(None::<BoostSpec>);
+    /// ```
     pub fn set_or_clear_boost_spec<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::search_request::BoostSpec>,
@@ -16442,6 +20708,13 @@ impl SearchRequest {
     }
 
     /// Sets the value of [query_expansion_spec][crate::model::SearchRequest::query_expansion_spec].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::SearchRequest;
+    /// use google_cloud_retail_v2::model::search_request::QueryExpansionSpec;
+    /// let x = SearchRequest::new().set_query_expansion_spec(QueryExpansionSpec::default()/* use setters */);
+    /// ```
     pub fn set_query_expansion_spec<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::search_request::QueryExpansionSpec>,
@@ -16451,6 +20724,14 @@ impl SearchRequest {
     }
 
     /// Sets or clears the value of [query_expansion_spec][crate::model::SearchRequest::query_expansion_spec].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::SearchRequest;
+    /// use google_cloud_retail_v2::model::search_request::QueryExpansionSpec;
+    /// let x = SearchRequest::new().set_or_clear_query_expansion_spec(Some(QueryExpansionSpec::default()/* use setters */));
+    /// let x = SearchRequest::new().set_or_clear_query_expansion_spec(None::<QueryExpansionSpec>);
+    /// ```
     pub fn set_or_clear_query_expansion_spec<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::search_request::QueryExpansionSpec>,
@@ -16460,6 +20741,12 @@ impl SearchRequest {
     }
 
     /// Sets the value of [variant_rollup_keys][crate::model::SearchRequest::variant_rollup_keys].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::SearchRequest;
+    /// let x = SearchRequest::new().set_variant_rollup_keys(["a", "b", "c"]);
+    /// ```
     pub fn set_variant_rollup_keys<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -16471,6 +20758,12 @@ impl SearchRequest {
     }
 
     /// Sets the value of [page_categories][crate::model::SearchRequest::page_categories].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::SearchRequest;
+    /// let x = SearchRequest::new().set_page_categories(["a", "b", "c"]);
+    /// ```
     pub fn set_page_categories<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -16482,6 +20775,14 @@ impl SearchRequest {
     }
 
     /// Sets the value of [search_mode][crate::model::SearchRequest::search_mode].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::SearchRequest;
+    /// use google_cloud_retail_v2::model::search_request::SearchMode;
+    /// let x0 = SearchRequest::new().set_search_mode(SearchMode::ProductSearchOnly);
+    /// let x1 = SearchRequest::new().set_search_mode(SearchMode::FacetedSearchOnly);
+    /// ```
     pub fn set_search_mode<T: std::convert::Into<crate::model::search_request::SearchMode>>(
         mut self,
         v: T,
@@ -16491,6 +20792,13 @@ impl SearchRequest {
     }
 
     /// Sets the value of [personalization_spec][crate::model::SearchRequest::personalization_spec].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::SearchRequest;
+    /// use google_cloud_retail_v2::model::search_request::PersonalizationSpec;
+    /// let x = SearchRequest::new().set_personalization_spec(PersonalizationSpec::default()/* use setters */);
+    /// ```
     pub fn set_personalization_spec<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::search_request::PersonalizationSpec>,
@@ -16500,6 +20808,14 @@ impl SearchRequest {
     }
 
     /// Sets or clears the value of [personalization_spec][crate::model::SearchRequest::personalization_spec].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::SearchRequest;
+    /// use google_cloud_retail_v2::model::search_request::PersonalizationSpec;
+    /// let x = SearchRequest::new().set_or_clear_personalization_spec(Some(PersonalizationSpec::default()/* use setters */));
+    /// let x = SearchRequest::new().set_or_clear_personalization_spec(None::<PersonalizationSpec>);
+    /// ```
     pub fn set_or_clear_personalization_spec<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::search_request::PersonalizationSpec>,
@@ -16509,6 +20825,15 @@ impl SearchRequest {
     }
 
     /// Sets the value of [labels][crate::model::SearchRequest::labels].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::SearchRequest;
+    /// let x = SearchRequest::new().set_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -16521,6 +20846,13 @@ impl SearchRequest {
     }
 
     /// Sets the value of [spell_correction_spec][crate::model::SearchRequest::spell_correction_spec].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::SearchRequest;
+    /// use google_cloud_retail_v2::model::search_request::SpellCorrectionSpec;
+    /// let x = SearchRequest::new().set_spell_correction_spec(SpellCorrectionSpec::default()/* use setters */);
+    /// ```
     pub fn set_spell_correction_spec<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::search_request::SpellCorrectionSpec>,
@@ -16530,6 +20862,14 @@ impl SearchRequest {
     }
 
     /// Sets or clears the value of [spell_correction_spec][crate::model::SearchRequest::spell_correction_spec].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::SearchRequest;
+    /// use google_cloud_retail_v2::model::search_request::SpellCorrectionSpec;
+    /// let x = SearchRequest::new().set_or_clear_spell_correction_spec(Some(SpellCorrectionSpec::default()/* use setters */));
+    /// let x = SearchRequest::new().set_or_clear_spell_correction_spec(None::<SpellCorrectionSpec>);
+    /// ```
     pub fn set_or_clear_spell_correction_spec<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::search_request::SpellCorrectionSpec>,
@@ -16539,12 +20879,25 @@ impl SearchRequest {
     }
 
     /// Sets the value of [entity][crate::model::SearchRequest::entity].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::SearchRequest;
+    /// let x = SearchRequest::new().set_entity("example");
+    /// ```
     pub fn set_entity<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.entity = v.into();
         self
     }
 
     /// Sets the value of [conversational_search_spec][crate::model::SearchRequest::conversational_search_spec].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::SearchRequest;
+    /// use google_cloud_retail_v2::model::search_request::ConversationalSearchSpec;
+    /// let x = SearchRequest::new().set_conversational_search_spec(ConversationalSearchSpec::default()/* use setters */);
+    /// ```
     pub fn set_conversational_search_spec<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::search_request::ConversationalSearchSpec>,
@@ -16554,6 +20907,14 @@ impl SearchRequest {
     }
 
     /// Sets or clears the value of [conversational_search_spec][crate::model::SearchRequest::conversational_search_spec].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::SearchRequest;
+    /// use google_cloud_retail_v2::model::search_request::ConversationalSearchSpec;
+    /// let x = SearchRequest::new().set_or_clear_conversational_search_spec(Some(ConversationalSearchSpec::default()/* use setters */));
+    /// let x = SearchRequest::new().set_or_clear_conversational_search_spec(None::<ConversationalSearchSpec>);
+    /// ```
     pub fn set_or_clear_conversational_search_spec<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::search_request::ConversationalSearchSpec>,
@@ -16563,6 +20924,13 @@ impl SearchRequest {
     }
 
     /// Sets the value of [tile_navigation_spec][crate::model::SearchRequest::tile_navigation_spec].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::SearchRequest;
+    /// use google_cloud_retail_v2::model::search_request::TileNavigationSpec;
+    /// let x = SearchRequest::new().set_tile_navigation_spec(TileNavigationSpec::default()/* use setters */);
+    /// ```
     pub fn set_tile_navigation_spec<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::search_request::TileNavigationSpec>,
@@ -16572,6 +20940,14 @@ impl SearchRequest {
     }
 
     /// Sets or clears the value of [tile_navigation_spec][crate::model::SearchRequest::tile_navigation_spec].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::SearchRequest;
+    /// use google_cloud_retail_v2::model::search_request::TileNavigationSpec;
+    /// let x = SearchRequest::new().set_or_clear_tile_navigation_spec(Some(TileNavigationSpec::default()/* use setters */));
+    /// let x = SearchRequest::new().set_or_clear_tile_navigation_spec(None::<TileNavigationSpec>);
+    /// ```
     pub fn set_or_clear_tile_navigation_spec<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::search_request::TileNavigationSpec>,
@@ -16581,24 +20957,52 @@ impl SearchRequest {
     }
 
     /// Sets the value of [language_code][crate::model::SearchRequest::language_code].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::SearchRequest;
+    /// let x = SearchRequest::new().set_language_code("example");
+    /// ```
     pub fn set_language_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.language_code = v.into();
         self
     }
 
     /// Sets the value of [region_code][crate::model::SearchRequest::region_code].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::SearchRequest;
+    /// let x = SearchRequest::new().set_region_code("example");
+    /// ```
     pub fn set_region_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.region_code = v.into();
         self
     }
 
     /// Sets the value of [place_id][crate::model::SearchRequest::place_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::SearchRequest;
+    /// let x = SearchRequest::new().set_place_id("example");
+    /// ```
     pub fn set_place_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.place_id = v.into();
         self
     }
 
     /// Sets the value of [user_attributes][crate::model::SearchRequest::user_attributes].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::SearchRequest;
+    /// use google_cloud_retail_v2::model::StringList;
+    /// let x = SearchRequest::new().set_user_attributes([
+    ///     ("key0", StringList::default()/* use setters */),
+    ///     ("key1", StringList::default()/* use (different) setters */),
+    /// ]);
+    /// ```
     pub fn set_user_attributes<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -16707,6 +21111,13 @@ pub mod search_request {
         }
 
         /// Sets the value of [facet_key][crate::model::search_request::FacetSpec::facet_key].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_retail_v2::model::search_request::FacetSpec;
+        /// use google_cloud_retail_v2::model::search_request::facet_spec::FacetKey;
+        /// let x = FacetSpec::new().set_facet_key(FacetKey::default()/* use setters */);
+        /// ```
         pub fn set_facet_key<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::search_request::facet_spec::FacetKey>,
@@ -16716,6 +21127,14 @@ pub mod search_request {
         }
 
         /// Sets or clears the value of [facet_key][crate::model::search_request::FacetSpec::facet_key].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_retail_v2::model::search_request::FacetSpec;
+        /// use google_cloud_retail_v2::model::search_request::facet_spec::FacetKey;
+        /// let x = FacetSpec::new().set_or_clear_facet_key(Some(FacetKey::default()/* use setters */));
+        /// let x = FacetSpec::new().set_or_clear_facet_key(None::<FacetKey>);
+        /// ```
         pub fn set_or_clear_facet_key<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::search_request::facet_spec::FacetKey>,
@@ -16725,12 +21144,24 @@ pub mod search_request {
         }
 
         /// Sets the value of [limit][crate::model::search_request::FacetSpec::limit].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_retail_v2::model::search_request::FacetSpec;
+        /// let x = FacetSpec::new().set_limit(42);
+        /// ```
         pub fn set_limit<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.limit = v.into();
             self
         }
 
         /// Sets the value of [excluded_filter_keys][crate::model::search_request::FacetSpec::excluded_filter_keys].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_retail_v2::model::search_request::FacetSpec;
+        /// let x = FacetSpec::new().set_excluded_filter_keys(["a", "b", "c"]);
+        /// ```
         pub fn set_excluded_filter_keys<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -16742,6 +21173,12 @@ pub mod search_request {
         }
 
         /// Sets the value of [enable_dynamic_position][crate::model::search_request::FacetSpec::enable_dynamic_position].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_retail_v2::model::search_request::FacetSpec;
+        /// let x = FacetSpec::new().set_enable_dynamic_position(true);
+        /// ```
         pub fn set_enable_dynamic_position<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.enable_dynamic_position = v.into();
             self
@@ -16945,12 +21382,29 @@ pub mod search_request {
             }
 
             /// Sets the value of [key][crate::model::search_request::facet_spec::FacetKey::key].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_retail_v2::model::search_request::facet_spec::FacetKey;
+            /// let x = FacetKey::new().set_key("example");
+            /// ```
             pub fn set_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
                 self.key = v.into();
                 self
             }
 
             /// Sets the value of [intervals][crate::model::search_request::facet_spec::FacetKey::intervals].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_retail_v2::model::search_request::facet_spec::FacetKey;
+            /// use google_cloud_retail_v2::model::Interval;
+            /// let x = FacetKey::new()
+            ///     .set_intervals([
+            ///         Interval::default()/* use setters */,
+            ///         Interval::default()/* use (different) setters */,
+            ///     ]);
+            /// ```
             pub fn set_intervals<T, V>(mut self, v: T) -> Self
             where
                 T: std::iter::IntoIterator<Item = V>,
@@ -16962,6 +21416,12 @@ pub mod search_request {
             }
 
             /// Sets the value of [restricted_values][crate::model::search_request::facet_spec::FacetKey::restricted_values].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_retail_v2::model::search_request::facet_spec::FacetKey;
+            /// let x = FacetKey::new().set_restricted_values(["a", "b", "c"]);
+            /// ```
             pub fn set_restricted_values<T, V>(mut self, v: T) -> Self
             where
                 T: std::iter::IntoIterator<Item = V>,
@@ -16973,6 +21433,12 @@ pub mod search_request {
             }
 
             /// Sets the value of [prefixes][crate::model::search_request::facet_spec::FacetKey::prefixes].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_retail_v2::model::search_request::facet_spec::FacetKey;
+            /// let x = FacetKey::new().set_prefixes(["a", "b", "c"]);
+            /// ```
             pub fn set_prefixes<T, V>(mut self, v: T) -> Self
             where
                 T: std::iter::IntoIterator<Item = V>,
@@ -16984,6 +21450,12 @@ pub mod search_request {
             }
 
             /// Sets the value of [contains][crate::model::search_request::facet_spec::FacetKey::contains].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_retail_v2::model::search_request::facet_spec::FacetKey;
+            /// let x = FacetKey::new().set_contains(["a", "b", "c"]);
+            /// ```
             pub fn set_contains<T, V>(mut self, v: T) -> Self
             where
                 T: std::iter::IntoIterator<Item = V>,
@@ -16995,12 +21467,24 @@ pub mod search_request {
             }
 
             /// Sets the value of [case_insensitive][crate::model::search_request::facet_spec::FacetKey::case_insensitive].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_retail_v2::model::search_request::facet_spec::FacetKey;
+            /// let x = FacetKey::new().set_case_insensitive(true);
+            /// ```
             pub fn set_case_insensitive<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
                 self.case_insensitive = v.into();
                 self
             }
 
             /// Sets the value of [order_by][crate::model::search_request::facet_spec::FacetKey::order_by].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_retail_v2::model::search_request::facet_spec::FacetKey;
+            /// let x = FacetKey::new().set_order_by("example");
+            /// ```
             pub fn set_order_by<T: std::convert::Into<std::string::String>>(
                 mut self,
                 v: T,
@@ -17010,12 +21494,24 @@ pub mod search_request {
             }
 
             /// Sets the value of [query][crate::model::search_request::facet_spec::FacetKey::query].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_retail_v2::model::search_request::facet_spec::FacetKey;
+            /// let x = FacetKey::new().set_query("example");
+            /// ```
             pub fn set_query<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
                 self.query = v.into();
                 self
             }
 
             /// Sets the value of [return_min_max][crate::model::search_request::facet_spec::FacetKey::return_min_max].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_retail_v2::model::search_request::facet_spec::FacetKey;
+            /// let x = FacetKey::new().set_return_min_max(true);
+            /// ```
             pub fn set_return_min_max<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
                 self.return_min_max = v.into();
                 self
@@ -17050,6 +21546,14 @@ pub mod search_request {
         }
 
         /// Sets the value of [mode][crate::model::search_request::DynamicFacetSpec::mode].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_retail_v2::model::search_request::DynamicFacetSpec;
+        /// use google_cloud_retail_v2::model::search_request::dynamic_facet_spec::Mode;
+        /// let x0 = DynamicFacetSpec::new().set_mode(Mode::Disabled);
+        /// let x1 = DynamicFacetSpec::new().set_mode(Mode::Enabled);
+        /// ```
         pub fn set_mode<
             T: std::convert::Into<crate::model::search_request::dynamic_facet_spec::Mode>,
         >(
@@ -17238,6 +21742,17 @@ pub mod search_request {
         }
 
         /// Sets the value of [condition_boost_specs][crate::model::search_request::BoostSpec::condition_boost_specs].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_retail_v2::model::search_request::BoostSpec;
+        /// use google_cloud_retail_v2::model::search_request::boost_spec::ConditionBoostSpec;
+        /// let x = BoostSpec::new()
+        ///     .set_condition_boost_specs([
+        ///         ConditionBoostSpec::default()/* use setters */,
+        ///         ConditionBoostSpec::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
         pub fn set_condition_boost_specs<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -17249,6 +21764,12 @@ pub mod search_request {
         }
 
         /// Sets the value of [skip_boost_spec_validation][crate::model::search_request::BoostSpec::skip_boost_spec_validation].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_retail_v2::model::search_request::BoostSpec;
+        /// let x = BoostSpec::new().set_skip_boost_spec_validation(true);
+        /// ```
         pub fn set_skip_boost_spec_validation<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<bool>,
@@ -17258,6 +21779,13 @@ pub mod search_request {
         }
 
         /// Sets or clears the value of [skip_boost_spec_validation][crate::model::search_request::BoostSpec::skip_boost_spec_validation].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_retail_v2::model::search_request::BoostSpec;
+        /// let x = BoostSpec::new().set_or_clear_skip_boost_spec_validation(Some(false));
+        /// let x = BoostSpec::new().set_or_clear_skip_boost_spec_validation(None::<bool>);
+        /// ```
         pub fn set_or_clear_skip_boost_spec_validation<T>(
             mut self,
             v: std::option::Option<T>,
@@ -17329,6 +21857,12 @@ pub mod search_request {
             }
 
             /// Sets the value of [condition][crate::model::search_request::boost_spec::ConditionBoostSpec::condition].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_retail_v2::model::search_request::boost_spec::ConditionBoostSpec;
+            /// let x = ConditionBoostSpec::new().set_condition("example");
+            /// ```
             pub fn set_condition<T: std::convert::Into<std::string::String>>(
                 mut self,
                 v: T,
@@ -17338,6 +21872,12 @@ pub mod search_request {
             }
 
             /// Sets the value of [boost][crate::model::search_request::boost_spec::ConditionBoostSpec::boost].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_retail_v2::model::search_request::boost_spec::ConditionBoostSpec;
+            /// let x = ConditionBoostSpec::new().set_boost(42.0);
+            /// ```
             pub fn set_boost<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
                 self.boost = v.into();
                 self
@@ -17377,6 +21917,14 @@ pub mod search_request {
         }
 
         /// Sets the value of [condition][crate::model::search_request::QueryExpansionSpec::condition].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_retail_v2::model::search_request::QueryExpansionSpec;
+        /// use google_cloud_retail_v2::model::search_request::query_expansion_spec::Condition;
+        /// let x0 = QueryExpansionSpec::new().set_condition(Condition::Disabled);
+        /// let x1 = QueryExpansionSpec::new().set_condition(Condition::Auto);
+        /// ```
         pub fn set_condition<
             T: std::convert::Into<crate::model::search_request::query_expansion_spec::Condition>,
         >(
@@ -17388,6 +21936,12 @@ pub mod search_request {
         }
 
         /// Sets the value of [pin_unexpanded_results][crate::model::search_request::QueryExpansionSpec::pin_unexpanded_results].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_retail_v2::model::search_request::QueryExpansionSpec;
+        /// let x = QueryExpansionSpec::new().set_pin_unexpanded_results(true);
+        /// ```
         pub fn set_pin_unexpanded_results<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.pin_unexpanded_results = v.into();
             self
@@ -17568,6 +22122,14 @@ pub mod search_request {
         }
 
         /// Sets the value of [mode][crate::model::search_request::PersonalizationSpec::mode].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_retail_v2::model::search_request::PersonalizationSpec;
+        /// use google_cloud_retail_v2::model::search_request::personalization_spec::Mode;
+        /// let x0 = PersonalizationSpec::new().set_mode(Mode::Auto);
+        /// let x1 = PersonalizationSpec::new().set_mode(Mode::Disabled);
+        /// ```
         pub fn set_mode<
             T: std::convert::Into<crate::model::search_request::personalization_spec::Mode>,
         >(
@@ -17750,6 +22312,14 @@ pub mod search_request {
         }
 
         /// Sets the value of [mode][crate::model::search_request::SpellCorrectionSpec::mode].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_retail_v2::model::search_request::SpellCorrectionSpec;
+        /// use google_cloud_retail_v2::model::search_request::spell_correction_spec::Mode;
+        /// let x0 = SpellCorrectionSpec::new().set_mode(Mode::SuggestionOnly);
+        /// let x1 = SpellCorrectionSpec::new().set_mode(Mode::Auto);
+        /// ```
         pub fn set_mode<
             T: std::convert::Into<crate::model::search_request::spell_correction_spec::Mode>,
         >(
@@ -17951,6 +22521,12 @@ pub mod search_request {
         }
 
         /// Sets the value of [followup_conversation_requested][crate::model::search_request::ConversationalSearchSpec::followup_conversation_requested].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_retail_v2::model::search_request::ConversationalSearchSpec;
+        /// let x = ConversationalSearchSpec::new().set_followup_conversation_requested(true);
+        /// ```
         pub fn set_followup_conversation_requested<T: std::convert::Into<bool>>(
             mut self,
             v: T,
@@ -17960,6 +22536,12 @@ pub mod search_request {
         }
 
         /// Sets the value of [conversation_id][crate::model::search_request::ConversationalSearchSpec::conversation_id].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_retail_v2::model::search_request::ConversationalSearchSpec;
+        /// let x = ConversationalSearchSpec::new().set_conversation_id("example");
+        /// ```
         pub fn set_conversation_id<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -17969,6 +22551,13 @@ pub mod search_request {
         }
 
         /// Sets the value of [user_answer][crate::model::search_request::ConversationalSearchSpec::user_answer].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_retail_v2::model::search_request::ConversationalSearchSpec;
+        /// use google_cloud_retail_v2::model::search_request::conversational_search_spec::UserAnswer;
+        /// let x = ConversationalSearchSpec::new().set_user_answer(UserAnswer::default()/* use setters */);
+        /// ```
         pub fn set_user_answer<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<
@@ -17980,6 +22569,14 @@ pub mod search_request {
         }
 
         /// Sets or clears the value of [user_answer][crate::model::search_request::ConversationalSearchSpec::user_answer].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_retail_v2::model::search_request::ConversationalSearchSpec;
+        /// use google_cloud_retail_v2::model::search_request::conversational_search_spec::UserAnswer;
+        /// let x = ConversationalSearchSpec::new().set_or_clear_user_answer(Some(UserAnswer::default()/* use setters */));
+        /// let x = ConversationalSearchSpec::new().set_or_clear_user_answer(None::<UserAnswer>);
+        /// ```
         pub fn set_or_clear_user_answer<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<
@@ -18025,6 +22622,13 @@ pub mod search_request {
             ///
             /// Note that all the setters affecting `r#type` are mutually
             /// exclusive.
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_retail_v2::model::search_request::conversational_search_spec::UserAnswer;
+            /// use google_cloud_retail_v2::model::search_request::conversational_search_spec::user_answer;
+            /// let x = UserAnswer::new().set_type(Some(search_request::conversational_search_spec::user_answer::Type::TextAnswer("example".to_string())));
+            /// ```
             pub fn set_type<T: std::convert::Into<std::option::Option<crate::model::search_request::conversational_search_spec::user_answer::Type>>>(mut self, v: T) -> Self
             {
                 self.r#type = v.into();
@@ -18047,6 +22651,14 @@ pub mod search_request {
             ///
             /// Note that all the setters affecting `r#type` are
             /// mutually exclusive.
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_retail_v2::model::search_request::conversational_search_spec::UserAnswer;
+            /// let x = UserAnswer::new().set_text_answer("example");
+            /// assert!(x.text_answer().is_some());
+            /// assert!(x.selected_answer().is_none());
+            /// ```
             pub fn set_text_answer<T: std::convert::Into<std::string::String>>(
                 mut self,
                 v: T,
@@ -18075,6 +22687,15 @@ pub mod search_request {
             ///
             /// Note that all the setters affecting `r#type` are
             /// mutually exclusive.
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_retail_v2::model::search_request::conversational_search_spec::UserAnswer;
+            /// use google_cloud_retail_v2::model::search_request::conversational_search_spec::user_answer::SelectedAnswer;
+            /// let x = UserAnswer::new().set_selected_answer(SelectedAnswer::default()/* use setters */);
+            /// assert!(x.selected_answer().is_some());
+            /// assert!(x.text_answer().is_none());
+            /// ```
             pub fn set_selected_answer<T: std::convert::Into<std::boxed::Box<crate::model::search_request::conversational_search_spec::user_answer::SelectedAnswer>>>(mut self, v: T) -> Self{
                 self.r#type = std::option::Option::Some(
                     crate::model::search_request::conversational_search_spec::user_answer::Type::SelectedAnswer(
@@ -18119,6 +22740,17 @@ pub mod search_request {
                 }
 
                 /// Sets the value of [product_attribute_values][crate::model::search_request::conversational_search_spec::user_answer::SelectedAnswer::product_attribute_values].
+                ///
+                /// # Example
+                /// ```
+                /// # use google_cloud_retail_v2::model::search_request::conversational_search_spec::user_answer::SelectedAnswer;
+                /// use google_cloud_retail_v2::model::ProductAttributeValue;
+                /// let x = SelectedAnswer::new()
+                ///     .set_product_attribute_values([
+                ///         ProductAttributeValue::default()/* use setters */,
+                ///         ProductAttributeValue::default()/* use (different) setters */,
+                ///     ]);
+                /// ```
                 #[deprecated]
                 pub fn set_product_attribute_values<T, V>(mut self, v: T) -> Self
                 where
@@ -18131,6 +22763,13 @@ pub mod search_request {
                 }
 
                 /// Sets the value of [product_attribute_value][crate::model::search_request::conversational_search_spec::user_answer::SelectedAnswer::product_attribute_value].
+                ///
+                /// # Example
+                /// ```
+                /// # use google_cloud_retail_v2::model::search_request::conversational_search_spec::user_answer::SelectedAnswer;
+                /// use google_cloud_retail_v2::model::ProductAttributeValue;
+                /// let x = SelectedAnswer::new().set_product_attribute_value(ProductAttributeValue::default()/* use setters */);
+                /// ```
                 pub fn set_product_attribute_value<T>(mut self, v: T) -> Self
                 where
                     T: std::convert::Into<crate::model::ProductAttributeValue>,
@@ -18140,6 +22779,14 @@ pub mod search_request {
                 }
 
                 /// Sets or clears the value of [product_attribute_value][crate::model::search_request::conversational_search_spec::user_answer::SelectedAnswer::product_attribute_value].
+                ///
+                /// # Example
+                /// ```
+                /// # use google_cloud_retail_v2::model::search_request::conversational_search_spec::user_answer::SelectedAnswer;
+                /// use google_cloud_retail_v2::model::ProductAttributeValue;
+                /// let x = SelectedAnswer::new().set_or_clear_product_attribute_value(Some(ProductAttributeValue::default()/* use setters */));
+                /// let x = SelectedAnswer::new().set_or_clear_product_attribute_value(None::<ProductAttributeValue>);
+                /// ```
                 pub fn set_or_clear_product_attribute_value<T>(
                     mut self,
                     v: std::option::Option<T>,
@@ -18203,12 +22850,29 @@ pub mod search_request {
         }
 
         /// Sets the value of [tile_navigation_requested][crate::model::search_request::TileNavigationSpec::tile_navigation_requested].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_retail_v2::model::search_request::TileNavigationSpec;
+        /// let x = TileNavigationSpec::new().set_tile_navigation_requested(true);
+        /// ```
         pub fn set_tile_navigation_requested<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.tile_navigation_requested = v.into();
             self
         }
 
         /// Sets the value of [applied_tiles][crate::model::search_request::TileNavigationSpec::applied_tiles].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_retail_v2::model::search_request::TileNavigationSpec;
+        /// use google_cloud_retail_v2::model::Tile;
+        /// let x = TileNavigationSpec::new()
+        ///     .set_applied_tiles([
+        ///         Tile::default()/* use setters */,
+        ///         Tile::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
         pub fn set_applied_tiles<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -18498,6 +23162,17 @@ impl SearchResponse {
     }
 
     /// Sets the value of [results][crate::model::SearchResponse::results].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::SearchResponse;
+    /// use google_cloud_retail_v2::model::search_response::SearchResult;
+    /// let x = SearchResponse::new()
+    ///     .set_results([
+    ///         SearchResult::default()/* use setters */,
+    ///         SearchResult::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_results<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -18509,6 +23184,17 @@ impl SearchResponse {
     }
 
     /// Sets the value of [facets][crate::model::SearchResponse::facets].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::SearchResponse;
+    /// use google_cloud_retail_v2::model::search_response::Facet;
+    /// let x = SearchResponse::new()
+    ///     .set_facets([
+    ///         Facet::default()/* use setters */,
+    ///         Facet::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_facets<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -18520,18 +23206,36 @@ impl SearchResponse {
     }
 
     /// Sets the value of [total_size][crate::model::SearchResponse::total_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::SearchResponse;
+    /// let x = SearchResponse::new().set_total_size(42);
+    /// ```
     pub fn set_total_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.total_size = v.into();
         self
     }
 
     /// Sets the value of [corrected_query][crate::model::SearchResponse::corrected_query].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::SearchResponse;
+    /// let x = SearchResponse::new().set_corrected_query("example");
+    /// ```
     pub fn set_corrected_query<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.corrected_query = v.into();
         self
     }
 
     /// Sets the value of [attribution_token][crate::model::SearchResponse::attribution_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::SearchResponse;
+    /// let x = SearchResponse::new().set_attribution_token("example");
+    /// ```
     pub fn set_attribution_token<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -18541,12 +23245,25 @@ impl SearchResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::SearchResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::SearchResponse;
+    /// let x = SearchResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [query_expansion_info][crate::model::SearchResponse::query_expansion_info].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::SearchResponse;
+    /// use google_cloud_retail_v2::model::search_response::QueryExpansionInfo;
+    /// let x = SearchResponse::new().set_query_expansion_info(QueryExpansionInfo::default()/* use setters */);
+    /// ```
     pub fn set_query_expansion_info<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::search_response::QueryExpansionInfo>,
@@ -18556,6 +23273,14 @@ impl SearchResponse {
     }
 
     /// Sets or clears the value of [query_expansion_info][crate::model::SearchResponse::query_expansion_info].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::SearchResponse;
+    /// use google_cloud_retail_v2::model::search_response::QueryExpansionInfo;
+    /// let x = SearchResponse::new().set_or_clear_query_expansion_info(Some(QueryExpansionInfo::default()/* use setters */));
+    /// let x = SearchResponse::new().set_or_clear_query_expansion_info(None::<QueryExpansionInfo>);
+    /// ```
     pub fn set_or_clear_query_expansion_info<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::search_response::QueryExpansionInfo>,
@@ -18565,12 +23290,24 @@ impl SearchResponse {
     }
 
     /// Sets the value of [redirect_uri][crate::model::SearchResponse::redirect_uri].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::SearchResponse;
+    /// let x = SearchResponse::new().set_redirect_uri("example");
+    /// ```
     pub fn set_redirect_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.redirect_uri = v.into();
         self
     }
 
     /// Sets the value of [applied_controls][crate::model::SearchResponse::applied_controls].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::SearchResponse;
+    /// let x = SearchResponse::new().set_applied_controls(["a", "b", "c"]);
+    /// ```
     pub fn set_applied_controls<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -18582,6 +23319,13 @@ impl SearchResponse {
     }
 
     /// Sets the value of [pin_control_metadata][crate::model::SearchResponse::pin_control_metadata].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::SearchResponse;
+    /// use google_cloud_retail_v2::model::PinControlMetadata;
+    /// let x = SearchResponse::new().set_pin_control_metadata(PinControlMetadata::default()/* use setters */);
+    /// ```
     pub fn set_pin_control_metadata<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::PinControlMetadata>,
@@ -18591,6 +23335,14 @@ impl SearchResponse {
     }
 
     /// Sets or clears the value of [pin_control_metadata][crate::model::SearchResponse::pin_control_metadata].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::SearchResponse;
+    /// use google_cloud_retail_v2::model::PinControlMetadata;
+    /// let x = SearchResponse::new().set_or_clear_pin_control_metadata(Some(PinControlMetadata::default()/* use setters */));
+    /// let x = SearchResponse::new().set_or_clear_pin_control_metadata(None::<PinControlMetadata>);
+    /// ```
     pub fn set_or_clear_pin_control_metadata<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::PinControlMetadata>,
@@ -18600,6 +23352,17 @@ impl SearchResponse {
     }
 
     /// Sets the value of [invalid_condition_boost_specs][crate::model::SearchResponse::invalid_condition_boost_specs].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::SearchResponse;
+    /// use google_cloud_retail_v2::model::search_request::boost_spec::ConditionBoostSpec;
+    /// let x = SearchResponse::new()
+    ///     .set_invalid_condition_boost_specs([
+    ///         ConditionBoostSpec::default()/* use setters */,
+    ///         ConditionBoostSpec::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_invalid_condition_boost_specs<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -18611,6 +23374,17 @@ impl SearchResponse {
     }
 
     /// Sets the value of [experiment_info][crate::model::SearchResponse::experiment_info].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::SearchResponse;
+    /// use google_cloud_retail_v2::model::ExperimentInfo;
+    /// let x = SearchResponse::new()
+    ///     .set_experiment_info([
+    ///         ExperimentInfo::default()/* use setters */,
+    ///         ExperimentInfo::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_experiment_info<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -18622,6 +23396,13 @@ impl SearchResponse {
     }
 
     /// Sets the value of [conversational_search_result][crate::model::SearchResponse::conversational_search_result].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::SearchResponse;
+    /// use google_cloud_retail_v2::model::search_response::ConversationalSearchResult;
+    /// let x = SearchResponse::new().set_conversational_search_result(ConversationalSearchResult::default()/* use setters */);
+    /// ```
     pub fn set_conversational_search_result<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::search_response::ConversationalSearchResult>,
@@ -18631,6 +23412,14 @@ impl SearchResponse {
     }
 
     /// Sets or clears the value of [conversational_search_result][crate::model::SearchResponse::conversational_search_result].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::SearchResponse;
+    /// use google_cloud_retail_v2::model::search_response::ConversationalSearchResult;
+    /// let x = SearchResponse::new().set_or_clear_conversational_search_result(Some(ConversationalSearchResult::default()/* use setters */));
+    /// let x = SearchResponse::new().set_or_clear_conversational_search_result(None::<ConversationalSearchResult>);
+    /// ```
     pub fn set_or_clear_conversational_search_result<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::search_response::ConversationalSearchResult>,
@@ -18640,6 +23429,13 @@ impl SearchResponse {
     }
 
     /// Sets the value of [tile_navigation_result][crate::model::SearchResponse::tile_navigation_result].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::SearchResponse;
+    /// use google_cloud_retail_v2::model::search_response::TileNavigationResult;
+    /// let x = SearchResponse::new().set_tile_navigation_result(TileNavigationResult::default()/* use setters */);
+    /// ```
     pub fn set_tile_navigation_result<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::search_response::TileNavigationResult>,
@@ -18649,6 +23445,14 @@ impl SearchResponse {
     }
 
     /// Sets or clears the value of [tile_navigation_result][crate::model::SearchResponse::tile_navigation_result].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::SearchResponse;
+    /// use google_cloud_retail_v2::model::search_response::TileNavigationResult;
+    /// let x = SearchResponse::new().set_or_clear_tile_navigation_result(Some(TileNavigationResult::default()/* use setters */));
+    /// let x = SearchResponse::new().set_or_clear_tile_navigation_result(None::<TileNavigationResult>);
+    /// ```
     pub fn set_or_clear_tile_navigation_result<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::search_response::TileNavigationResult>,
@@ -18815,12 +23619,25 @@ pub mod search_response {
         }
 
         /// Sets the value of [id][crate::model::search_response::SearchResult::id].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_retail_v2::model::search_response::SearchResult;
+        /// let x = SearchResult::new().set_id("example");
+        /// ```
         pub fn set_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.id = v.into();
             self
         }
 
         /// Sets the value of [product][crate::model::search_response::SearchResult::product].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_retail_v2::model::search_response::SearchResult;
+        /// use google_cloud_retail_v2::model::Product;
+        /// let x = SearchResult::new().set_product(Product::default()/* use setters */);
+        /// ```
         pub fn set_product<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::Product>,
@@ -18830,6 +23647,14 @@ pub mod search_response {
         }
 
         /// Sets or clears the value of [product][crate::model::search_response::SearchResult::product].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_retail_v2::model::search_response::SearchResult;
+        /// use google_cloud_retail_v2::model::Product;
+        /// let x = SearchResult::new().set_or_clear_product(Some(Product::default()/* use setters */));
+        /// let x = SearchResult::new().set_or_clear_product(None::<Product>);
+        /// ```
         pub fn set_or_clear_product<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Product>,
@@ -18839,12 +23664,28 @@ pub mod search_response {
         }
 
         /// Sets the value of [matching_variant_count][crate::model::search_response::SearchResult::matching_variant_count].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_retail_v2::model::search_response::SearchResult;
+        /// let x = SearchResult::new().set_matching_variant_count(42);
+        /// ```
         pub fn set_matching_variant_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.matching_variant_count = v.into();
             self
         }
 
         /// Sets the value of [matching_variant_fields][crate::model::search_response::SearchResult::matching_variant_fields].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_retail_v2::model::search_response::SearchResult;
+        /// use wkt::FieldMask;
+        /// let x = SearchResult::new().set_matching_variant_fields([
+        ///     ("key0", FieldMask::default()/* use setters */),
+        ///     ("key1", FieldMask::default()/* use (different) setters */),
+        /// ]);
+        /// ```
         pub fn set_matching_variant_fields<T, K, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = (K, V)>,
@@ -18858,6 +23699,16 @@ pub mod search_response {
         }
 
         /// Sets the value of [variant_rollup_values][crate::model::search_response::SearchResult::variant_rollup_values].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_retail_v2::model::search_response::SearchResult;
+        /// use wkt::Value;
+        /// let x = SearchResult::new().set_variant_rollup_values([
+        ///     ("key0", Value::default()/* use setters */),
+        ///     ("key1", Value::default()/* use (different) setters */),
+        /// ]);
+        /// ```
         pub fn set_variant_rollup_values<T, K, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = (K, V)>,
@@ -18870,6 +23721,12 @@ pub mod search_response {
         }
 
         /// Sets the value of [personal_labels][crate::model::search_response::SearchResult::personal_labels].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_retail_v2::model::search_response::SearchResult;
+        /// let x = SearchResult::new().set_personal_labels(["a", "b", "c"]);
+        /// ```
         pub fn set_personal_labels<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -18881,6 +23738,16 @@ pub mod search_response {
         }
 
         /// Sets the value of [model_scores][crate::model::search_response::SearchResult::model_scores].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_retail_v2::model::search_response::SearchResult;
+        /// use google_cloud_retail_v2::model::DoubleList;
+        /// let x = SearchResult::new().set_model_scores([
+        ///     ("key0", DoubleList::default()/* use setters */),
+        ///     ("key1", DoubleList::default()/* use (different) setters */),
+        /// ]);
+        /// ```
         pub fn set_model_scores<T, K, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = (K, V)>,
@@ -18922,12 +23789,29 @@ pub mod search_response {
         }
 
         /// Sets the value of [key][crate::model::search_response::Facet::key].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_retail_v2::model::search_response::Facet;
+        /// let x = Facet::new().set_key("example");
+        /// ```
         pub fn set_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.key = v.into();
             self
         }
 
         /// Sets the value of [values][crate::model::search_response::Facet::values].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_retail_v2::model::search_response::Facet;
+        /// use google_cloud_retail_v2::model::search_response::facet::FacetValue;
+        /// let x = Facet::new()
+        ///     .set_values([
+        ///         FacetValue::default()/* use setters */,
+        ///         FacetValue::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
         pub fn set_values<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -18939,6 +23823,12 @@ pub mod search_response {
         }
 
         /// Sets the value of [dynamic_facet][crate::model::search_response::Facet::dynamic_facet].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_retail_v2::model::search_response::Facet;
+        /// let x = Facet::new().set_dynamic_facet(true);
+        /// ```
         pub fn set_dynamic_facet<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.dynamic_facet = v.into();
             self
@@ -18996,18 +23886,36 @@ pub mod search_response {
             }
 
             /// Sets the value of [count][crate::model::search_response::facet::FacetValue::count].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_retail_v2::model::search_response::facet::FacetValue;
+            /// let x = FacetValue::new().set_count(42);
+            /// ```
             pub fn set_count<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
                 self.count = v.into();
                 self
             }
 
             /// Sets the value of [min_value][crate::model::search_response::facet::FacetValue::min_value].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_retail_v2::model::search_response::facet::FacetValue;
+            /// let x = FacetValue::new().set_min_value(42.0);
+            /// ```
             pub fn set_min_value<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
                 self.min_value = v.into();
                 self
             }
 
             /// Sets the value of [max_value][crate::model::search_response::facet::FacetValue::max_value].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_retail_v2::model::search_response::facet::FacetValue;
+            /// let x = FacetValue::new().set_max_value(42.0);
+            /// ```
             pub fn set_max_value<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
                 self.max_value = v.into();
                 self
@@ -19017,6 +23925,13 @@ pub mod search_response {
             ///
             /// Note that all the setters affecting `facet_value` are mutually
             /// exclusive.
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_retail_v2::model::search_response::facet::FacetValue;
+            /// use google_cloud_retail_v2::model::search_response::facet::facet_value;
+            /// let x = FacetValue::new().set_facet_value(Some(search_response::facet::facet_value::FacetValue::Value("example".to_string())));
+            /// ```
             pub fn set_facet_value<
                 T: std::convert::Into<
                         std::option::Option<
@@ -19049,6 +23964,14 @@ pub mod search_response {
             ///
             /// Note that all the setters affecting `facet_value` are
             /// mutually exclusive.
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_retail_v2::model::search_response::facet::FacetValue;
+            /// let x = FacetValue::new().set_value("example");
+            /// assert!(x.value().is_some());
+            /// assert!(x.interval().is_none());
+            /// ```
             pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
                 self.facet_value = std::option::Option::Some(
                     crate::model::search_response::facet::facet_value::FacetValue::Value(v.into()),
@@ -19076,6 +23999,15 @@ pub mod search_response {
             ///
             /// Note that all the setters affecting `facet_value` are
             /// mutually exclusive.
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_retail_v2::model::search_response::facet::FacetValue;
+            /// use google_cloud_retail_v2::model::Interval;
+            /// let x = FacetValue::new().set_interval(Interval::default()/* use setters */);
+            /// assert!(x.interval().is_some());
+            /// assert!(x.value().is_none());
+            /// ```
             pub fn set_interval<T: std::convert::Into<std::boxed::Box<crate::model::Interval>>>(
                 mut self,
                 v: T,
@@ -19137,12 +24069,24 @@ pub mod search_response {
         }
 
         /// Sets the value of [expanded_query][crate::model::search_response::QueryExpansionInfo::expanded_query].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_retail_v2::model::search_response::QueryExpansionInfo;
+        /// let x = QueryExpansionInfo::new().set_expanded_query(true);
+        /// ```
         pub fn set_expanded_query<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.expanded_query = v.into();
             self
         }
 
         /// Sets the value of [pinned_result_count][crate::model::search_response::QueryExpansionInfo::pinned_result_count].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_retail_v2::model::search_response::QueryExpansionInfo;
+        /// let x = QueryExpansionInfo::new().set_pinned_result_count(42);
+        /// ```
         pub fn set_pinned_result_count<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
             self.pinned_result_count = v.into();
             self
@@ -19218,6 +24162,12 @@ pub mod search_response {
         }
 
         /// Sets the value of [conversation_id][crate::model::search_response::ConversationalSearchResult::conversation_id].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_retail_v2::model::search_response::ConversationalSearchResult;
+        /// let x = ConversationalSearchResult::new().set_conversation_id("example");
+        /// ```
         pub fn set_conversation_id<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -19227,6 +24177,12 @@ pub mod search_response {
         }
 
         /// Sets the value of [refined_query][crate::model::search_response::ConversationalSearchResult::refined_query].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_retail_v2::model::search_response::ConversationalSearchResult;
+        /// let x = ConversationalSearchResult::new().set_refined_query("example");
+        /// ```
         pub fn set_refined_query<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -19236,6 +24192,17 @@ pub mod search_response {
         }
 
         /// Sets the value of [additional_filters][crate::model::search_response::ConversationalSearchResult::additional_filters].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_retail_v2::model::search_response::ConversationalSearchResult;
+        /// use google_cloud_retail_v2::model::search_response::conversational_search_result::AdditionalFilter;
+        /// let x = ConversationalSearchResult::new()
+        ///     .set_additional_filters([
+        ///         AdditionalFilter::default()/* use setters */,
+        ///         AdditionalFilter::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
         #[deprecated]
         pub fn set_additional_filters<T, V>(mut self, v: T) -> Self
         where
@@ -19250,6 +24217,12 @@ pub mod search_response {
         }
 
         /// Sets the value of [followup_question][crate::model::search_response::ConversationalSearchResult::followup_question].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_retail_v2::model::search_response::ConversationalSearchResult;
+        /// let x = ConversationalSearchResult::new().set_followup_question("example");
+        /// ```
         pub fn set_followup_question<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -19259,6 +24232,17 @@ pub mod search_response {
         }
 
         /// Sets the value of [suggested_answers][crate::model::search_response::ConversationalSearchResult::suggested_answers].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_retail_v2::model::search_response::ConversationalSearchResult;
+        /// use google_cloud_retail_v2::model::search_response::conversational_search_result::SuggestedAnswer;
+        /// let x = ConversationalSearchResult::new()
+        ///     .set_suggested_answers([
+        ///         SuggestedAnswer::default()/* use setters */,
+        ///         SuggestedAnswer::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
         pub fn set_suggested_answers<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -19272,6 +24256,13 @@ pub mod search_response {
         }
 
         /// Sets the value of [additional_filter][crate::model::search_response::ConversationalSearchResult::additional_filter].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_retail_v2::model::search_response::ConversationalSearchResult;
+        /// use google_cloud_retail_v2::model::search_response::conversational_search_result::AdditionalFilter;
+        /// let x = ConversationalSearchResult::new().set_additional_filter(AdditionalFilter::default()/* use setters */);
+        /// ```
         pub fn set_additional_filter<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<
@@ -19283,6 +24274,14 @@ pub mod search_response {
         }
 
         /// Sets or clears the value of [additional_filter][crate::model::search_response::ConversationalSearchResult::additional_filter].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_retail_v2::model::search_response::ConversationalSearchResult;
+        /// use google_cloud_retail_v2::model::search_response::conversational_search_result::AdditionalFilter;
+        /// let x = ConversationalSearchResult::new().set_or_clear_additional_filter(Some(AdditionalFilter::default()/* use setters */));
+        /// let x = ConversationalSearchResult::new().set_or_clear_additional_filter(None::<AdditionalFilter>);
+        /// ```
         pub fn set_or_clear_additional_filter<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<
@@ -19322,6 +24321,13 @@ pub mod search_response {
             }
 
             /// Sets the value of [product_attribute_value][crate::model::search_response::conversational_search_result::SuggestedAnswer::product_attribute_value].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_retail_v2::model::search_response::conversational_search_result::SuggestedAnswer;
+            /// use google_cloud_retail_v2::model::ProductAttributeValue;
+            /// let x = SuggestedAnswer::new().set_product_attribute_value(ProductAttributeValue::default()/* use setters */);
+            /// ```
             pub fn set_product_attribute_value<T>(mut self, v: T) -> Self
             where
                 T: std::convert::Into<crate::model::ProductAttributeValue>,
@@ -19331,6 +24337,14 @@ pub mod search_response {
             }
 
             /// Sets or clears the value of [product_attribute_value][crate::model::search_response::conversational_search_result::SuggestedAnswer::product_attribute_value].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_retail_v2::model::search_response::conversational_search_result::SuggestedAnswer;
+            /// use google_cloud_retail_v2::model::ProductAttributeValue;
+            /// let x = SuggestedAnswer::new().set_or_clear_product_attribute_value(Some(ProductAttributeValue::default()/* use setters */));
+            /// let x = SuggestedAnswer::new().set_or_clear_product_attribute_value(None::<ProductAttributeValue>);
+            /// ```
             pub fn set_or_clear_product_attribute_value<T>(
                 mut self,
                 v: std::option::Option<T>,
@@ -19366,6 +24380,13 @@ pub mod search_response {
             }
 
             /// Sets the value of [product_attribute_value][crate::model::search_response::conversational_search_result::AdditionalFilter::product_attribute_value].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_retail_v2::model::search_response::conversational_search_result::AdditionalFilter;
+            /// use google_cloud_retail_v2::model::ProductAttributeValue;
+            /// let x = AdditionalFilter::new().set_product_attribute_value(ProductAttributeValue::default()/* use setters */);
+            /// ```
             pub fn set_product_attribute_value<T>(mut self, v: T) -> Self
             where
                 T: std::convert::Into<crate::model::ProductAttributeValue>,
@@ -19375,6 +24396,14 @@ pub mod search_response {
             }
 
             /// Sets or clears the value of [product_attribute_value][crate::model::search_response::conversational_search_result::AdditionalFilter::product_attribute_value].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_retail_v2::model::search_response::conversational_search_result::AdditionalFilter;
+            /// use google_cloud_retail_v2::model::ProductAttributeValue;
+            /// let x = AdditionalFilter::new().set_or_clear_product_attribute_value(Some(ProductAttributeValue::default()/* use setters */));
+            /// let x = AdditionalFilter::new().set_or_clear_product_attribute_value(None::<ProductAttributeValue>);
+            /// ```
             pub fn set_or_clear_product_attribute_value<T>(
                 mut self,
                 v: std::option::Option<T>,
@@ -19412,6 +24441,17 @@ pub mod search_response {
         }
 
         /// Sets the value of [tiles][crate::model::search_response::TileNavigationResult::tiles].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_retail_v2::model::search_response::TileNavigationResult;
+        /// use google_cloud_retail_v2::model::Tile;
+        /// let x = TileNavigationResult::new()
+        ///     .set_tiles([
+        ///         Tile::default()/* use setters */,
+        ///         Tile::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
         pub fn set_tiles<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -19451,6 +24491,12 @@ impl ExperimentInfo {
     }
 
     /// Sets the value of [experiment][crate::model::ExperimentInfo::experiment].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::ExperimentInfo;
+    /// let x = ExperimentInfo::new().set_experiment("example");
+    /// ```
     pub fn set_experiment<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.experiment = v.into();
         self
@@ -19460,6 +24506,14 @@ impl ExperimentInfo {
     ///
     /// Note that all the setters affecting `experiment_metadata` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::ExperimentInfo;
+    /// use google_cloud_retail_v2::model::experiment_info;
+    /// use google_cloud_retail_v2::model::experiment_info::ServingConfigExperiment;
+    /// let x = ExperimentInfo::new().set_experiment_metadata(Some(experiment_info::ExperimentMetadata::ServingConfigExperiment(ServingConfigExperiment::default().into())));
+    /// ```
     pub fn set_experiment_metadata<
         T: std::convert::Into<std::option::Option<crate::model::experiment_info::ExperimentMetadata>>,
     >(
@@ -19491,6 +24545,14 @@ impl ExperimentInfo {
     ///
     /// Note that all the setters affecting `experiment_metadata` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::ExperimentInfo;
+    /// use google_cloud_retail_v2::model::experiment_info::ServingConfigExperiment;
+    /// let x = ExperimentInfo::new().set_serving_config_experiment(ServingConfigExperiment::default()/* use setters */);
+    /// assert!(x.serving_config_experiment().is_some());
+    /// ```
     pub fn set_serving_config_experiment<
         T: std::convert::Into<std::boxed::Box<crate::model::experiment_info::ServingConfigExperiment>>,
     >(
@@ -19542,6 +24604,12 @@ pub mod experiment_info {
         }
 
         /// Sets the value of [original_serving_config][crate::model::experiment_info::ServingConfigExperiment::original_serving_config].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_retail_v2::model::experiment_info::ServingConfigExperiment;
+        /// let x = ServingConfigExperiment::new().set_original_serving_config("example");
+        /// ```
         pub fn set_original_serving_config<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -19551,6 +24619,12 @@ pub mod experiment_info {
         }
 
         /// Sets the value of [experiment_serving_config][crate::model::experiment_info::ServingConfigExperiment::experiment_serving_config].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_retail_v2::model::experiment_info::ServingConfigExperiment;
+        /// let x = ServingConfigExperiment::new().set_experiment_serving_config("example");
+        /// ```
         pub fn set_experiment_serving_config<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -19867,24 +24941,48 @@ impl ServingConfig {
     }
 
     /// Sets the value of [name][crate::model::ServingConfig::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::ServingConfig;
+    /// let x = ServingConfig::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [display_name][crate::model::ServingConfig::display_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::ServingConfig;
+    /// let x = ServingConfig::new().set_display_name("example");
+    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
     }
 
     /// Sets the value of [model_id][crate::model::ServingConfig::model_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::ServingConfig;
+    /// let x = ServingConfig::new().set_model_id("example");
+    /// ```
     pub fn set_model_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.model_id = v.into();
         self
     }
 
     /// Sets the value of [price_reranking_level][crate::model::ServingConfig::price_reranking_level].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::ServingConfig;
+    /// let x = ServingConfig::new().set_price_reranking_level("example");
+    /// ```
     pub fn set_price_reranking_level<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -19894,6 +24992,12 @@ impl ServingConfig {
     }
 
     /// Sets the value of [facet_control_ids][crate::model::ServingConfig::facet_control_ids].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::ServingConfig;
+    /// let x = ServingConfig::new().set_facet_control_ids(["a", "b", "c"]);
+    /// ```
     pub fn set_facet_control_ids<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -19905,6 +25009,13 @@ impl ServingConfig {
     }
 
     /// Sets the value of [dynamic_facet_spec][crate::model::ServingConfig::dynamic_facet_spec].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::ServingConfig;
+    /// use google_cloud_retail_v2::model::search_request::DynamicFacetSpec;
+    /// let x = ServingConfig::new().set_dynamic_facet_spec(DynamicFacetSpec::default()/* use setters */);
+    /// ```
     pub fn set_dynamic_facet_spec<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::search_request::DynamicFacetSpec>,
@@ -19914,6 +25025,14 @@ impl ServingConfig {
     }
 
     /// Sets or clears the value of [dynamic_facet_spec][crate::model::ServingConfig::dynamic_facet_spec].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::ServingConfig;
+    /// use google_cloud_retail_v2::model::search_request::DynamicFacetSpec;
+    /// let x = ServingConfig::new().set_or_clear_dynamic_facet_spec(Some(DynamicFacetSpec::default()/* use setters */));
+    /// let x = ServingConfig::new().set_or_clear_dynamic_facet_spec(None::<DynamicFacetSpec>);
+    /// ```
     pub fn set_or_clear_dynamic_facet_spec<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::search_request::DynamicFacetSpec>,
@@ -19923,6 +25042,12 @@ impl ServingConfig {
     }
 
     /// Sets the value of [boost_control_ids][crate::model::ServingConfig::boost_control_ids].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::ServingConfig;
+    /// let x = ServingConfig::new().set_boost_control_ids(["a", "b", "c"]);
+    /// ```
     pub fn set_boost_control_ids<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -19934,6 +25059,12 @@ impl ServingConfig {
     }
 
     /// Sets the value of [filter_control_ids][crate::model::ServingConfig::filter_control_ids].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::ServingConfig;
+    /// let x = ServingConfig::new().set_filter_control_ids(["a", "b", "c"]);
+    /// ```
     pub fn set_filter_control_ids<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -19945,6 +25076,12 @@ impl ServingConfig {
     }
 
     /// Sets the value of [redirect_control_ids][crate::model::ServingConfig::redirect_control_ids].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::ServingConfig;
+    /// let x = ServingConfig::new().set_redirect_control_ids(["a", "b", "c"]);
+    /// ```
     pub fn set_redirect_control_ids<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -19956,6 +25093,12 @@ impl ServingConfig {
     }
 
     /// Sets the value of [twoway_synonyms_control_ids][crate::model::ServingConfig::twoway_synonyms_control_ids].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::ServingConfig;
+    /// let x = ServingConfig::new().set_twoway_synonyms_control_ids(["a", "b", "c"]);
+    /// ```
     pub fn set_twoway_synonyms_control_ids<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -19967,6 +25110,12 @@ impl ServingConfig {
     }
 
     /// Sets the value of [oneway_synonyms_control_ids][crate::model::ServingConfig::oneway_synonyms_control_ids].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::ServingConfig;
+    /// let x = ServingConfig::new().set_oneway_synonyms_control_ids(["a", "b", "c"]);
+    /// ```
     pub fn set_oneway_synonyms_control_ids<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -19978,6 +25127,12 @@ impl ServingConfig {
     }
 
     /// Sets the value of [do_not_associate_control_ids][crate::model::ServingConfig::do_not_associate_control_ids].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::ServingConfig;
+    /// let x = ServingConfig::new().set_do_not_associate_control_ids(["a", "b", "c"]);
+    /// ```
     pub fn set_do_not_associate_control_ids<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -19989,6 +25144,12 @@ impl ServingConfig {
     }
 
     /// Sets the value of [replacement_control_ids][crate::model::ServingConfig::replacement_control_ids].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::ServingConfig;
+    /// let x = ServingConfig::new().set_replacement_control_ids(["a", "b", "c"]);
+    /// ```
     pub fn set_replacement_control_ids<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -20000,6 +25161,12 @@ impl ServingConfig {
     }
 
     /// Sets the value of [ignore_control_ids][crate::model::ServingConfig::ignore_control_ids].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::ServingConfig;
+    /// let x = ServingConfig::new().set_ignore_control_ids(["a", "b", "c"]);
+    /// ```
     pub fn set_ignore_control_ids<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -20011,12 +25178,26 @@ impl ServingConfig {
     }
 
     /// Sets the value of [diversity_level][crate::model::ServingConfig::diversity_level].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::ServingConfig;
+    /// let x = ServingConfig::new().set_diversity_level("example");
+    /// ```
     pub fn set_diversity_level<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.diversity_level = v.into();
         self
     }
 
     /// Sets the value of [diversity_type][crate::model::ServingConfig::diversity_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::ServingConfig;
+    /// use google_cloud_retail_v2::model::serving_config::DiversityType;
+    /// let x0 = ServingConfig::new().set_diversity_type(DiversityType::RuleBasedDiversity);
+    /// let x1 = ServingConfig::new().set_diversity_type(DiversityType::DataDrivenDiversity);
+    /// ```
     pub fn set_diversity_type<
         T: std::convert::Into<crate::model::serving_config::DiversityType>,
     >(
@@ -20028,6 +25209,12 @@ impl ServingConfig {
     }
 
     /// Sets the value of [enable_category_filter_level][crate::model::ServingConfig::enable_category_filter_level].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::ServingConfig;
+    /// let x = ServingConfig::new().set_enable_category_filter_level("example");
+    /// ```
     pub fn set_enable_category_filter_level<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -20037,12 +25224,25 @@ impl ServingConfig {
     }
 
     /// Sets the value of [ignore_recs_denylist][crate::model::ServingConfig::ignore_recs_denylist].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::ServingConfig;
+    /// let x = ServingConfig::new().set_ignore_recs_denylist(true);
+    /// ```
     pub fn set_ignore_recs_denylist<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.ignore_recs_denylist = v.into();
         self
     }
 
     /// Sets the value of [personalization_spec][crate::model::ServingConfig::personalization_spec].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::ServingConfig;
+    /// use google_cloud_retail_v2::model::search_request::PersonalizationSpec;
+    /// let x = ServingConfig::new().set_personalization_spec(PersonalizationSpec::default()/* use setters */);
+    /// ```
     pub fn set_personalization_spec<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::search_request::PersonalizationSpec>,
@@ -20052,6 +25252,14 @@ impl ServingConfig {
     }
 
     /// Sets or clears the value of [personalization_spec][crate::model::ServingConfig::personalization_spec].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::ServingConfig;
+    /// use google_cloud_retail_v2::model::search_request::PersonalizationSpec;
+    /// let x = ServingConfig::new().set_or_clear_personalization_spec(Some(PersonalizationSpec::default()/* use setters */));
+    /// let x = ServingConfig::new().set_or_clear_personalization_spec(None::<PersonalizationSpec>);
+    /// ```
     pub fn set_or_clear_personalization_spec<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::search_request::PersonalizationSpec>,
@@ -20061,6 +25269,16 @@ impl ServingConfig {
     }
 
     /// Sets the value of [solution_types][crate::model::ServingConfig::solution_types].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::ServingConfig;
+    /// use google_cloud_retail_v2::model::SolutionType;
+    /// let x = ServingConfig::new().set_solution_types([
+    ///     SolutionType::Recommendation,
+    ///     SolutionType::Search,
+    /// ]);
+    /// ```
     pub fn set_solution_types<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -20243,12 +25461,25 @@ impl CreateServingConfigRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateServingConfigRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::CreateServingConfigRequest;
+    /// let x = CreateServingConfigRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [serving_config][crate::model::CreateServingConfigRequest::serving_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::CreateServingConfigRequest;
+    /// use google_cloud_retail_v2::model::ServingConfig;
+    /// let x = CreateServingConfigRequest::new().set_serving_config(ServingConfig::default()/* use setters */);
+    /// ```
     pub fn set_serving_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ServingConfig>,
@@ -20258,6 +25489,14 @@ impl CreateServingConfigRequest {
     }
 
     /// Sets or clears the value of [serving_config][crate::model::CreateServingConfigRequest::serving_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::CreateServingConfigRequest;
+    /// use google_cloud_retail_v2::model::ServingConfig;
+    /// let x = CreateServingConfigRequest::new().set_or_clear_serving_config(Some(ServingConfig::default()/* use setters */));
+    /// let x = CreateServingConfigRequest::new().set_or_clear_serving_config(None::<ServingConfig>);
+    /// ```
     pub fn set_or_clear_serving_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ServingConfig>,
@@ -20267,6 +25506,12 @@ impl CreateServingConfigRequest {
     }
 
     /// Sets the value of [serving_config_id][crate::model::CreateServingConfigRequest::serving_config_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::CreateServingConfigRequest;
+    /// let x = CreateServingConfigRequest::new().set_serving_config_id("example");
+    /// ```
     pub fn set_serving_config_id<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -20310,6 +25555,13 @@ impl UpdateServingConfigRequest {
     }
 
     /// Sets the value of [serving_config][crate::model::UpdateServingConfigRequest::serving_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::UpdateServingConfigRequest;
+    /// use google_cloud_retail_v2::model::ServingConfig;
+    /// let x = UpdateServingConfigRequest::new().set_serving_config(ServingConfig::default()/* use setters */);
+    /// ```
     pub fn set_serving_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ServingConfig>,
@@ -20319,6 +25571,14 @@ impl UpdateServingConfigRequest {
     }
 
     /// Sets or clears the value of [serving_config][crate::model::UpdateServingConfigRequest::serving_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::UpdateServingConfigRequest;
+    /// use google_cloud_retail_v2::model::ServingConfig;
+    /// let x = UpdateServingConfigRequest::new().set_or_clear_serving_config(Some(ServingConfig::default()/* use setters */));
+    /// let x = UpdateServingConfigRequest::new().set_or_clear_serving_config(None::<ServingConfig>);
+    /// ```
     pub fn set_or_clear_serving_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ServingConfig>,
@@ -20328,6 +25588,13 @@ impl UpdateServingConfigRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateServingConfigRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::UpdateServingConfigRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateServingConfigRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -20337,6 +25604,14 @@ impl UpdateServingConfigRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateServingConfigRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::UpdateServingConfigRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateServingConfigRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateServingConfigRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -20369,6 +25644,12 @@ impl DeleteServingConfigRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteServingConfigRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::DeleteServingConfigRequest;
+    /// let x = DeleteServingConfigRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -20398,6 +25679,12 @@ impl GetServingConfigRequest {
     }
 
     /// Sets the value of [name][crate::model::GetServingConfigRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::GetServingConfigRequest;
+    /// let x = GetServingConfigRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -20436,18 +25723,36 @@ impl ListServingConfigsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListServingConfigsRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::ListServingConfigsRequest;
+    /// let x = ListServingConfigsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListServingConfigsRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::ListServingConfigsRequest;
+    /// let x = ListServingConfigsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListServingConfigsRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::ListServingConfigsRequest;
+    /// let x = ListServingConfigsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -20479,6 +25784,17 @@ impl ListServingConfigsResponse {
     }
 
     /// Sets the value of [serving_configs][crate::model::ListServingConfigsResponse::serving_configs].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::ListServingConfigsResponse;
+    /// use google_cloud_retail_v2::model::ServingConfig;
+    /// let x = ListServingConfigsResponse::new()
+    ///     .set_serving_configs([
+    ///         ServingConfig::default()/* use setters */,
+    ///         ServingConfig::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_serving_configs<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -20490,6 +25806,12 @@ impl ListServingConfigsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListServingConfigsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::ListServingConfigsResponse;
+    /// let x = ListServingConfigsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -20537,12 +25859,24 @@ impl AddControlRequest {
     }
 
     /// Sets the value of [serving_config][crate::model::AddControlRequest::serving_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::AddControlRequest;
+    /// let x = AddControlRequest::new().set_serving_config("example");
+    /// ```
     pub fn set_serving_config<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.serving_config = v.into();
         self
     }
 
     /// Sets the value of [control_id][crate::model::AddControlRequest::control_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::AddControlRequest;
+    /// let x = AddControlRequest::new().set_control_id("example");
+    /// ```
     pub fn set_control_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.control_id = v.into();
         self
@@ -20576,12 +25910,24 @@ impl RemoveControlRequest {
     }
 
     /// Sets the value of [serving_config][crate::model::RemoveControlRequest::serving_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::RemoveControlRequest;
+    /// let x = RemoveControlRequest::new().set_serving_config("example");
+    /// ```
     pub fn set_serving_config<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.serving_config = v.into();
         self
     }
 
     /// Sets the value of [control_id][crate::model::RemoveControlRequest::control_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::RemoveControlRequest;
+    /// let x = RemoveControlRequest::new().set_control_id("example");
+    /// ```
     pub fn set_control_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.control_id = v.into();
         self
@@ -20871,24 +26217,49 @@ impl UserEvent {
     }
 
     /// Sets the value of [event_type][crate::model::UserEvent::event_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::UserEvent;
+    /// let x = UserEvent::new().set_event_type("example");
+    /// ```
     pub fn set_event_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.event_type = v.into();
         self
     }
 
     /// Sets the value of [visitor_id][crate::model::UserEvent::visitor_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::UserEvent;
+    /// let x = UserEvent::new().set_visitor_id("example");
+    /// ```
     pub fn set_visitor_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.visitor_id = v.into();
         self
     }
 
     /// Sets the value of [session_id][crate::model::UserEvent::session_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::UserEvent;
+    /// let x = UserEvent::new().set_session_id("example");
+    /// ```
     pub fn set_session_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.session_id = v.into();
         self
     }
 
     /// Sets the value of [event_time][crate::model::UserEvent::event_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::UserEvent;
+    /// use wkt::Timestamp;
+    /// let x = UserEvent::new().set_event_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_event_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -20898,6 +26269,14 @@ impl UserEvent {
     }
 
     /// Sets or clears the value of [event_time][crate::model::UserEvent::event_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::UserEvent;
+    /// use wkt::Timestamp;
+    /// let x = UserEvent::new().set_or_clear_event_time(Some(Timestamp::default()/* use setters */));
+    /// let x = UserEvent::new().set_or_clear_event_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_event_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -20907,6 +26286,12 @@ impl UserEvent {
     }
 
     /// Sets the value of [experiment_ids][crate::model::UserEvent::experiment_ids].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::UserEvent;
+    /// let x = UserEvent::new().set_experiment_ids(["a", "b", "c"]);
+    /// ```
     pub fn set_experiment_ids<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -20918,6 +26303,12 @@ impl UserEvent {
     }
 
     /// Sets the value of [attribution_token][crate::model::UserEvent::attribution_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::UserEvent;
+    /// let x = UserEvent::new().set_attribution_token("example");
+    /// ```
     pub fn set_attribution_token<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -20927,6 +26318,17 @@ impl UserEvent {
     }
 
     /// Sets the value of [product_details][crate::model::UserEvent::product_details].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::UserEvent;
+    /// use google_cloud_retail_v2::model::ProductDetail;
+    /// let x = UserEvent::new()
+    ///     .set_product_details([
+    ///         ProductDetail::default()/* use setters */,
+    ///         ProductDetail::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_product_details<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -20938,6 +26340,13 @@ impl UserEvent {
     }
 
     /// Sets the value of [completion_detail][crate::model::UserEvent::completion_detail].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::UserEvent;
+    /// use google_cloud_retail_v2::model::CompletionDetail;
+    /// let x = UserEvent::new().set_completion_detail(CompletionDetail::default()/* use setters */);
+    /// ```
     pub fn set_completion_detail<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::CompletionDetail>,
@@ -20947,6 +26356,14 @@ impl UserEvent {
     }
 
     /// Sets or clears the value of [completion_detail][crate::model::UserEvent::completion_detail].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::UserEvent;
+    /// use google_cloud_retail_v2::model::CompletionDetail;
+    /// let x = UserEvent::new().set_or_clear_completion_detail(Some(CompletionDetail::default()/* use setters */));
+    /// let x = UserEvent::new().set_or_clear_completion_detail(None::<CompletionDetail>);
+    /// ```
     pub fn set_or_clear_completion_detail<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CompletionDetail>,
@@ -20956,6 +26373,16 @@ impl UserEvent {
     }
 
     /// Sets the value of [attributes][crate::model::UserEvent::attributes].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::UserEvent;
+    /// use google_cloud_retail_v2::model::CustomAttribute;
+    /// let x = UserEvent::new().set_attributes([
+    ///     ("key0", CustomAttribute::default()/* use setters */),
+    ///     ("key1", CustomAttribute::default()/* use (different) setters */),
+    /// ]);
+    /// ```
     pub fn set_attributes<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -20968,12 +26395,25 @@ impl UserEvent {
     }
 
     /// Sets the value of [cart_id][crate::model::UserEvent::cart_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::UserEvent;
+    /// let x = UserEvent::new().set_cart_id("example");
+    /// ```
     pub fn set_cart_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.cart_id = v.into();
         self
     }
 
     /// Sets the value of [purchase_transaction][crate::model::UserEvent::purchase_transaction].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::UserEvent;
+    /// use google_cloud_retail_v2::model::PurchaseTransaction;
+    /// let x = UserEvent::new().set_purchase_transaction(PurchaseTransaction::default()/* use setters */);
+    /// ```
     pub fn set_purchase_transaction<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::PurchaseTransaction>,
@@ -20983,6 +26423,14 @@ impl UserEvent {
     }
 
     /// Sets or clears the value of [purchase_transaction][crate::model::UserEvent::purchase_transaction].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::UserEvent;
+    /// use google_cloud_retail_v2::model::PurchaseTransaction;
+    /// let x = UserEvent::new().set_or_clear_purchase_transaction(Some(PurchaseTransaction::default()/* use setters */));
+    /// let x = UserEvent::new().set_or_clear_purchase_transaction(None::<PurchaseTransaction>);
+    /// ```
     pub fn set_or_clear_purchase_transaction<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::PurchaseTransaction>,
@@ -20992,30 +26440,60 @@ impl UserEvent {
     }
 
     /// Sets the value of [search_query][crate::model::UserEvent::search_query].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::UserEvent;
+    /// let x = UserEvent::new().set_search_query("example");
+    /// ```
     pub fn set_search_query<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.search_query = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::UserEvent::filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::UserEvent;
+    /// let x = UserEvent::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::UserEvent::order_by].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::UserEvent;
+    /// let x = UserEvent::new().set_order_by("example");
+    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
     }
 
     /// Sets the value of [offset][crate::model::UserEvent::offset].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::UserEvent;
+    /// let x = UserEvent::new().set_offset(42);
+    /// ```
     pub fn set_offset<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.offset = v.into();
         self
     }
 
     /// Sets the value of [page_categories][crate::model::UserEvent::page_categories].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::UserEvent;
+    /// let x = UserEvent::new().set_page_categories(["a", "b", "c"]);
+    /// ```
     pub fn set_page_categories<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -21027,6 +26505,13 @@ impl UserEvent {
     }
 
     /// Sets the value of [user_info][crate::model::UserEvent::user_info].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::UserEvent;
+    /// use google_cloud_retail_v2::model::UserInfo;
+    /// let x = UserEvent::new().set_user_info(UserInfo::default()/* use setters */);
+    /// ```
     pub fn set_user_info<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::UserInfo>,
@@ -21036,6 +26521,14 @@ impl UserEvent {
     }
 
     /// Sets or clears the value of [user_info][crate::model::UserEvent::user_info].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::UserEvent;
+    /// use google_cloud_retail_v2::model::UserInfo;
+    /// let x = UserEvent::new().set_or_clear_user_info(Some(UserInfo::default()/* use setters */));
+    /// let x = UserEvent::new().set_or_clear_user_info(None::<UserInfo>);
+    /// ```
     pub fn set_or_clear_user_info<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::UserInfo>,
@@ -21045,24 +26538,48 @@ impl UserEvent {
     }
 
     /// Sets the value of [uri][crate::model::UserEvent::uri].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::UserEvent;
+    /// let x = UserEvent::new().set_uri("example");
+    /// ```
     pub fn set_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.uri = v.into();
         self
     }
 
     /// Sets the value of [referrer_uri][crate::model::UserEvent::referrer_uri].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::UserEvent;
+    /// let x = UserEvent::new().set_referrer_uri("example");
+    /// ```
     pub fn set_referrer_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.referrer_uri = v.into();
         self
     }
 
     /// Sets the value of [page_view_id][crate::model::UserEvent::page_view_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::UserEvent;
+    /// let x = UserEvent::new().set_page_view_id("example");
+    /// ```
     pub fn set_page_view_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_view_id = v.into();
         self
     }
 
     /// Sets the value of [entity][crate::model::UserEvent::entity].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::UserEvent;
+    /// let x = UserEvent::new().set_entity("example");
+    /// ```
     pub fn set_entity<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.entity = v.into();
         self
@@ -21118,6 +26635,13 @@ impl ProductDetail {
     }
 
     /// Sets the value of [product][crate::model::ProductDetail::product].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::ProductDetail;
+    /// use google_cloud_retail_v2::model::Product;
+    /// let x = ProductDetail::new().set_product(Product::default()/* use setters */);
+    /// ```
     pub fn set_product<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Product>,
@@ -21127,6 +26651,14 @@ impl ProductDetail {
     }
 
     /// Sets or clears the value of [product][crate::model::ProductDetail::product].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::ProductDetail;
+    /// use google_cloud_retail_v2::model::Product;
+    /// let x = ProductDetail::new().set_or_clear_product(Some(Product::default()/* use setters */));
+    /// let x = ProductDetail::new().set_or_clear_product(None::<Product>);
+    /// ```
     pub fn set_or_clear_product<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Product>,
@@ -21136,6 +26668,13 @@ impl ProductDetail {
     }
 
     /// Sets the value of [quantity][crate::model::ProductDetail::quantity].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::ProductDetail;
+    /// use wkt::Int32Value;
+    /// let x = ProductDetail::new().set_quantity(Int32Value::default()/* use setters */);
+    /// ```
     pub fn set_quantity<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Int32Value>,
@@ -21145,6 +26684,14 @@ impl ProductDetail {
     }
 
     /// Sets or clears the value of [quantity][crate::model::ProductDetail::quantity].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::ProductDetail;
+    /// use wkt::Int32Value;
+    /// let x = ProductDetail::new().set_or_clear_quantity(Some(Int32Value::default()/* use setters */));
+    /// let x = ProductDetail::new().set_or_clear_quantity(None::<Int32Value>);
+    /// ```
     pub fn set_or_clear_quantity<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Int32Value>,
@@ -21193,6 +26740,12 @@ impl CompletionDetail {
     }
 
     /// Sets the value of [completion_attribution_token][crate::model::CompletionDetail::completion_attribution_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::CompletionDetail;
+    /// let x = CompletionDetail::new().set_completion_attribution_token("example");
+    /// ```
     pub fn set_completion_attribution_token<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -21202,6 +26755,12 @@ impl CompletionDetail {
     }
 
     /// Sets the value of [selected_suggestion][crate::model::CompletionDetail::selected_suggestion].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::CompletionDetail;
+    /// let x = CompletionDetail::new().set_selected_suggestion("example");
+    /// ```
     pub fn set_selected_suggestion<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -21211,6 +26770,12 @@ impl CompletionDetail {
     }
 
     /// Sets the value of [selected_position][crate::model::CompletionDetail::selected_position].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::CompletionDetail;
+    /// let x = CompletionDetail::new().set_selected_position(42);
+    /// ```
     pub fn set_selected_position<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.selected_position = v.into();
         self
@@ -21264,30 +26829,60 @@ impl PurchaseTransaction {
     }
 
     /// Sets the value of [id][crate::model::PurchaseTransaction::id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::PurchaseTransaction;
+    /// let x = PurchaseTransaction::new().set_id("example");
+    /// ```
     pub fn set_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.id = v.into();
         self
     }
 
     /// Sets the value of [revenue][crate::model::PurchaseTransaction::revenue].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::PurchaseTransaction;
+    /// let x = PurchaseTransaction::new().set_revenue(42.0);
+    /// ```
     pub fn set_revenue<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
         self.revenue = v.into();
         self
     }
 
     /// Sets the value of [tax][crate::model::PurchaseTransaction::tax].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::PurchaseTransaction;
+    /// let x = PurchaseTransaction::new().set_tax(42.0);
+    /// ```
     pub fn set_tax<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
         self.tax = v.into();
         self
     }
 
     /// Sets the value of [cost][crate::model::PurchaseTransaction::cost].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::PurchaseTransaction;
+    /// let x = PurchaseTransaction::new().set_cost(42.0);
+    /// ```
     pub fn set_cost<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
         self.cost = v.into();
         self
     }
 
     /// Sets the value of [currency_code][crate::model::PurchaseTransaction::currency_code].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::PurchaseTransaction;
+    /// let x = PurchaseTransaction::new().set_currency_code("example");
+    /// ```
     pub fn set_currency_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.currency_code = v.into();
         self
@@ -21326,12 +26921,25 @@ impl WriteUserEventRequest {
     }
 
     /// Sets the value of [parent][crate::model::WriteUserEventRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::WriteUserEventRequest;
+    /// let x = WriteUserEventRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [user_event][crate::model::WriteUserEventRequest::user_event].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::WriteUserEventRequest;
+    /// use google_cloud_retail_v2::model::UserEvent;
+    /// let x = WriteUserEventRequest::new().set_user_event(UserEvent::default()/* use setters */);
+    /// ```
     pub fn set_user_event<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::UserEvent>,
@@ -21341,6 +26949,14 @@ impl WriteUserEventRequest {
     }
 
     /// Sets or clears the value of [user_event][crate::model::WriteUserEventRequest::user_event].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::WriteUserEventRequest;
+    /// use google_cloud_retail_v2::model::UserEvent;
+    /// let x = WriteUserEventRequest::new().set_or_clear_user_event(Some(UserEvent::default()/* use setters */));
+    /// let x = WriteUserEventRequest::new().set_or_clear_user_event(None::<UserEvent>);
+    /// ```
     pub fn set_or_clear_user_event<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::UserEvent>,
@@ -21350,6 +26966,12 @@ impl WriteUserEventRequest {
     }
 
     /// Sets the value of [write_async][crate::model::WriteUserEventRequest::write_async].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::WriteUserEventRequest;
+    /// let x = WriteUserEventRequest::new().set_write_async(true);
+    /// ```
     pub fn set_write_async<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.write_async = v.into();
         self
@@ -21405,30 +27027,60 @@ impl CollectUserEventRequest {
     }
 
     /// Sets the value of [parent][crate::model::CollectUserEventRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::CollectUserEventRequest;
+    /// let x = CollectUserEventRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [user_event][crate::model::CollectUserEventRequest::user_event].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::CollectUserEventRequest;
+    /// let x = CollectUserEventRequest::new().set_user_event("example");
+    /// ```
     pub fn set_user_event<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.user_event = v.into();
         self
     }
 
     /// Sets the value of [uri][crate::model::CollectUserEventRequest::uri].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::CollectUserEventRequest;
+    /// let x = CollectUserEventRequest::new().set_uri("example");
+    /// ```
     pub fn set_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.uri = v.into();
         self
     }
 
     /// Sets the value of [ets][crate::model::CollectUserEventRequest::ets].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::CollectUserEventRequest;
+    /// let x = CollectUserEventRequest::new().set_ets(42);
+    /// ```
     pub fn set_ets<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.ets = v.into();
         self
     }
 
     /// Sets the value of [raw_json][crate::model::CollectUserEventRequest::raw_json].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::CollectUserEventRequest;
+    /// let x = CollectUserEventRequest::new().set_raw_json("example");
+    /// ```
     pub fn set_raw_json<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.raw_json = v.into();
         self
@@ -21438,6 +27090,13 @@ impl CollectUserEventRequest {
     ///
     /// Note that all the setters affecting `conversion_rule` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::CollectUserEventRequest;
+    /// use google_cloud_retail_v2::model::collect_user_event_request;
+    /// let x = CollectUserEventRequest::new().set_conversion_rule(Some(collect_user_event_request::ConversionRule::PrebuiltRule("example".to_string())));
+    /// ```
     pub fn set_conversion_rule<
         T: std::convert::Into<
                 std::option::Option<crate::model::collect_user_event_request::ConversionRule>,
@@ -21468,6 +27127,13 @@ impl CollectUserEventRequest {
     ///
     /// Note that all the setters affecting `conversion_rule` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::CollectUserEventRequest;
+    /// let x = CollectUserEventRequest::new().set_prebuilt_rule("example");
+    /// assert!(x.prebuilt_rule().is_some());
+    /// ```
     pub fn set_prebuilt_rule<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.conversion_rule = std::option::Option::Some(
             crate::model::collect_user_event_request::ConversionRule::PrebuiltRule(v.into()),
@@ -21521,12 +27187,26 @@ impl RejoinUserEventsRequest {
     }
 
     /// Sets the value of [parent][crate::model::RejoinUserEventsRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::RejoinUserEventsRequest;
+    /// let x = RejoinUserEventsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [user_event_rejoin_scope][crate::model::RejoinUserEventsRequest::user_event_rejoin_scope].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::RejoinUserEventsRequest;
+    /// use google_cloud_retail_v2::model::rejoin_user_events_request::UserEventRejoinScope;
+    /// let x0 = RejoinUserEventsRequest::new().set_user_event_rejoin_scope(UserEventRejoinScope::JoinedEvents);
+    /// let x1 = RejoinUserEventsRequest::new().set_user_event_rejoin_scope(UserEventRejoinScope::UnjoinedEvents);
+    /// ```
     pub fn set_user_event_rejoin_scope<
         T: std::convert::Into<crate::model::rejoin_user_events_request::UserEventRejoinScope>,
     >(
@@ -21707,6 +27387,12 @@ impl RejoinUserEventsResponse {
     }
 
     /// Sets the value of [rejoined_user_events_count][crate::model::RejoinUserEventsResponse::rejoined_user_events_count].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::model::RejoinUserEventsResponse;
+    /// let x = RejoinUserEventsResponse::new().set_rejoined_user_events_count(42);
+    /// ```
     pub fn set_rejoined_user_events_count<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.rejoined_user_events_count = v.into();
         self

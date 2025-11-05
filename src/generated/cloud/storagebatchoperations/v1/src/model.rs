@@ -66,30 +66,60 @@ impl ListJobsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListJobsRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storagebatchoperations_v1::model::ListJobsRequest;
+    /// let x = ListJobsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListJobsRequest::filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storagebatchoperations_v1::model::ListJobsRequest;
+    /// let x = ListJobsRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListJobsRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storagebatchoperations_v1::model::ListJobsRequest;
+    /// let x = ListJobsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListJobsRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storagebatchoperations_v1::model::ListJobsRequest;
+    /// let x = ListJobsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListJobsRequest::order_by].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storagebatchoperations_v1::model::ListJobsRequest;
+    /// let x = ListJobsRequest::new().set_order_by("example");
+    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
@@ -124,6 +154,17 @@ impl ListJobsResponse {
     }
 
     /// Sets the value of [jobs][crate::model::ListJobsResponse::jobs].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storagebatchoperations_v1::model::ListJobsResponse;
+    /// use google_cloud_storagebatchoperations_v1::model::Job;
+    /// let x = ListJobsResponse::new()
+    ///     .set_jobs([
+    ///         Job::default()/* use setters */,
+    ///         Job::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_jobs<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -135,12 +176,24 @@ impl ListJobsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListJobsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storagebatchoperations_v1::model::ListJobsResponse;
+    /// let x = ListJobsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListJobsResponse::unreachable].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storagebatchoperations_v1::model::ListJobsResponse;
+    /// let x = ListJobsResponse::new().set_unreachable(["a", "b", "c"]);
+    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -189,6 +242,12 @@ impl GetJobRequest {
     }
 
     /// Sets the value of [name][crate::model::GetJobRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storagebatchoperations_v1::model::GetJobRequest;
+    /// let x = GetJobRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -233,18 +292,37 @@ impl CreateJobRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateJobRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storagebatchoperations_v1::model::CreateJobRequest;
+    /// let x = CreateJobRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [job_id][crate::model::CreateJobRequest::job_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storagebatchoperations_v1::model::CreateJobRequest;
+    /// let x = CreateJobRequest::new().set_job_id("example");
+    /// ```
     pub fn set_job_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.job_id = v.into();
         self
     }
 
     /// Sets the value of [job][crate::model::CreateJobRequest::job].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storagebatchoperations_v1::model::CreateJobRequest;
+    /// use google_cloud_storagebatchoperations_v1::model::Job;
+    /// let x = CreateJobRequest::new().set_job(Job::default()/* use setters */);
+    /// ```
     pub fn set_job<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Job>,
@@ -254,6 +332,14 @@ impl CreateJobRequest {
     }
 
     /// Sets or clears the value of [job][crate::model::CreateJobRequest::job].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storagebatchoperations_v1::model::CreateJobRequest;
+    /// use google_cloud_storagebatchoperations_v1::model::Job;
+    /// let x = CreateJobRequest::new().set_or_clear_job(Some(Job::default()/* use setters */));
+    /// let x = CreateJobRequest::new().set_or_clear_job(None::<Job>);
+    /// ```
     pub fn set_or_clear_job<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Job>,
@@ -263,6 +349,12 @@ impl CreateJobRequest {
     }
 
     /// Sets the value of [request_id][crate::model::CreateJobRequest::request_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storagebatchoperations_v1::model::CreateJobRequest;
+    /// let x = CreateJobRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -299,12 +391,24 @@ impl CancelJobRequest {
     }
 
     /// Sets the value of [name][crate::model::CancelJobRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storagebatchoperations_v1::model::CancelJobRequest;
+    /// let x = CancelJobRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [request_id][crate::model::CancelJobRequest::request_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storagebatchoperations_v1::model::CancelJobRequest;
+    /// let x = CancelJobRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -341,12 +445,24 @@ impl DeleteJobRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteJobRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storagebatchoperations_v1::model::DeleteJobRequest;
+    /// let x = DeleteJobRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [request_id][crate::model::DeleteJobRequest::request_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storagebatchoperations_v1::model::DeleteJobRequest;
+    /// let x = DeleteJobRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -420,12 +536,25 @@ impl OperationMetadata {
     }
 
     /// Sets the value of [operation][crate::model::OperationMetadata::operation].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storagebatchoperations_v1::model::OperationMetadata;
+    /// let x = OperationMetadata::new().set_operation("example");
+    /// ```
     pub fn set_operation<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.operation = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::OperationMetadata::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storagebatchoperations_v1::model::OperationMetadata;
+    /// use wkt::Timestamp;
+    /// let x = OperationMetadata::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -435,6 +564,14 @@ impl OperationMetadata {
     }
 
     /// Sets or clears the value of [create_time][crate::model::OperationMetadata::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storagebatchoperations_v1::model::OperationMetadata;
+    /// use wkt::Timestamp;
+    /// let x = OperationMetadata::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = OperationMetadata::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -444,6 +581,13 @@ impl OperationMetadata {
     }
 
     /// Sets the value of [end_time][crate::model::OperationMetadata::end_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storagebatchoperations_v1::model::OperationMetadata;
+    /// use wkt::Timestamp;
+    /// let x = OperationMetadata::new().set_end_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -453,6 +597,14 @@ impl OperationMetadata {
     }
 
     /// Sets or clears the value of [end_time][crate::model::OperationMetadata::end_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storagebatchoperations_v1::model::OperationMetadata;
+    /// use wkt::Timestamp;
+    /// let x = OperationMetadata::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
+    /// let x = OperationMetadata::new().set_or_clear_end_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -462,18 +614,37 @@ impl OperationMetadata {
     }
 
     /// Sets the value of [requested_cancellation][crate::model::OperationMetadata::requested_cancellation].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storagebatchoperations_v1::model::OperationMetadata;
+    /// let x = OperationMetadata::new().set_requested_cancellation(true);
+    /// ```
     pub fn set_requested_cancellation<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.requested_cancellation = v.into();
         self
     }
 
     /// Sets the value of [api_version][crate::model::OperationMetadata::api_version].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storagebatchoperations_v1::model::OperationMetadata;
+    /// let x = OperationMetadata::new().set_api_version("example");
+    /// ```
     pub fn set_api_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.api_version = v.into();
         self
     }
 
     /// Sets the value of [job][crate::model::OperationMetadata::job].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storagebatchoperations_v1::model::OperationMetadata;
+    /// use google_cloud_storagebatchoperations_v1::model::Job;
+    /// let x = OperationMetadata::new().set_job(Job::default()/* use setters */);
+    /// ```
     pub fn set_job<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Job>,
@@ -483,6 +654,14 @@ impl OperationMetadata {
     }
 
     /// Sets or clears the value of [job][crate::model::OperationMetadata::job].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storagebatchoperations_v1::model::OperationMetadata;
+    /// use google_cloud_storagebatchoperations_v1::model::Job;
+    /// let x = OperationMetadata::new().set_or_clear_job(Some(Job::default()/* use setters */));
+    /// let x = OperationMetadata::new().set_or_clear_job(None::<Job>);
+    /// ```
     pub fn set_or_clear_job<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Job>,
@@ -549,18 +728,37 @@ impl Job {
     }
 
     /// Sets the value of [name][crate::model::Job::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storagebatchoperations_v1::model::Job;
+    /// let x = Job::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [description][crate::model::Job::description].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storagebatchoperations_v1::model::Job;
+    /// let x = Job::new().set_description("example");
+    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [logging_config][crate::model::Job::logging_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storagebatchoperations_v1::model::Job;
+    /// use google_cloud_storagebatchoperations_v1::model::LoggingConfig;
+    /// let x = Job::new().set_logging_config(LoggingConfig::default()/* use setters */);
+    /// ```
     pub fn set_logging_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::LoggingConfig>,
@@ -570,6 +768,14 @@ impl Job {
     }
 
     /// Sets or clears the value of [logging_config][crate::model::Job::logging_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storagebatchoperations_v1::model::Job;
+    /// use google_cloud_storagebatchoperations_v1::model::LoggingConfig;
+    /// let x = Job::new().set_or_clear_logging_config(Some(LoggingConfig::default()/* use setters */));
+    /// let x = Job::new().set_or_clear_logging_config(None::<LoggingConfig>);
+    /// ```
     pub fn set_or_clear_logging_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::LoggingConfig>,
@@ -579,6 +785,13 @@ impl Job {
     }
 
     /// Sets the value of [create_time][crate::model::Job::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storagebatchoperations_v1::model::Job;
+    /// use wkt::Timestamp;
+    /// let x = Job::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -588,6 +801,14 @@ impl Job {
     }
 
     /// Sets or clears the value of [create_time][crate::model::Job::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storagebatchoperations_v1::model::Job;
+    /// use wkt::Timestamp;
+    /// let x = Job::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Job::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -597,6 +818,13 @@ impl Job {
     }
 
     /// Sets the value of [schedule_time][crate::model::Job::schedule_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storagebatchoperations_v1::model::Job;
+    /// use wkt::Timestamp;
+    /// let x = Job::new().set_schedule_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_schedule_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -606,6 +834,14 @@ impl Job {
     }
 
     /// Sets or clears the value of [schedule_time][crate::model::Job::schedule_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storagebatchoperations_v1::model::Job;
+    /// use wkt::Timestamp;
+    /// let x = Job::new().set_or_clear_schedule_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Job::new().set_or_clear_schedule_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_schedule_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -615,6 +851,13 @@ impl Job {
     }
 
     /// Sets the value of [complete_time][crate::model::Job::complete_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storagebatchoperations_v1::model::Job;
+    /// use wkt::Timestamp;
+    /// let x = Job::new().set_complete_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_complete_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -624,6 +867,14 @@ impl Job {
     }
 
     /// Sets or clears the value of [complete_time][crate::model::Job::complete_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storagebatchoperations_v1::model::Job;
+    /// use wkt::Timestamp;
+    /// let x = Job::new().set_or_clear_complete_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Job::new().set_or_clear_complete_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_complete_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -633,6 +884,13 @@ impl Job {
     }
 
     /// Sets the value of [counters][crate::model::Job::counters].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storagebatchoperations_v1::model::Job;
+    /// use google_cloud_storagebatchoperations_v1::model::Counters;
+    /// let x = Job::new().set_counters(Counters::default()/* use setters */);
+    /// ```
     pub fn set_counters<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Counters>,
@@ -642,6 +900,14 @@ impl Job {
     }
 
     /// Sets or clears the value of [counters][crate::model::Job::counters].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storagebatchoperations_v1::model::Job;
+    /// use google_cloud_storagebatchoperations_v1::model::Counters;
+    /// let x = Job::new().set_or_clear_counters(Some(Counters::default()/* use setters */));
+    /// let x = Job::new().set_or_clear_counters(None::<Counters>);
+    /// ```
     pub fn set_or_clear_counters<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Counters>,
@@ -651,6 +917,17 @@ impl Job {
     }
 
     /// Sets the value of [error_summaries][crate::model::Job::error_summaries].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storagebatchoperations_v1::model::Job;
+    /// use google_cloud_storagebatchoperations_v1::model::ErrorSummary;
+    /// let x = Job::new()
+    ///     .set_error_summaries([
+    ///         ErrorSummary::default()/* use setters */,
+    ///         ErrorSummary::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_error_summaries<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -662,6 +939,15 @@ impl Job {
     }
 
     /// Sets the value of [state][crate::model::Job::state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storagebatchoperations_v1::model::Job;
+    /// use google_cloud_storagebatchoperations_v1::model::job::State;
+    /// let x0 = Job::new().set_state(State::Running);
+    /// let x1 = Job::new().set_state(State::Succeeded);
+    /// let x2 = Job::new().set_state(State::Canceled);
+    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::job::State>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
@@ -671,6 +957,14 @@ impl Job {
     ///
     /// Note that all the setters affecting `source` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storagebatchoperations_v1::model::Job;
+    /// use google_cloud_storagebatchoperations_v1::model::job;
+    /// use google_cloud_storagebatchoperations_v1::model::BucketList;
+    /// let x = Job::new().set_source(Some(job::Source::BucketList(BucketList::default().into())));
+    /// ```
     pub fn set_source<T: std::convert::Into<std::option::Option<crate::model::job::Source>>>(
         mut self,
         v: T,
@@ -695,6 +989,14 @@ impl Job {
     ///
     /// Note that all the setters affecting `source` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storagebatchoperations_v1::model::Job;
+    /// use google_cloud_storagebatchoperations_v1::model::BucketList;
+    /// let x = Job::new().set_bucket_list(BucketList::default()/* use setters */);
+    /// assert!(x.bucket_list().is_some());
+    /// ```
     pub fn set_bucket_list<T: std::convert::Into<std::boxed::Box<crate::model::BucketList>>>(
         mut self,
         v: T,
@@ -707,6 +1009,14 @@ impl Job {
     ///
     /// Note that all the setters affecting `transformation` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storagebatchoperations_v1::model::Job;
+    /// use google_cloud_storagebatchoperations_v1::model::job;
+    /// use google_cloud_storagebatchoperations_v1::model::PutObjectHold;
+    /// let x = Job::new().set_transformation(Some(job::Transformation::PutObjectHold(PutObjectHold::default().into())));
+    /// ```
     pub fn set_transformation<
         T: std::convert::Into<std::option::Option<crate::model::job::Transformation>>,
     >(
@@ -735,6 +1045,17 @@ impl Job {
     ///
     /// Note that all the setters affecting `transformation` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storagebatchoperations_v1::model::Job;
+    /// use google_cloud_storagebatchoperations_v1::model::PutObjectHold;
+    /// let x = Job::new().set_put_object_hold(PutObjectHold::default()/* use setters */);
+    /// assert!(x.put_object_hold().is_some());
+    /// assert!(x.delete_object().is_none());
+    /// assert!(x.put_metadata().is_none());
+    /// assert!(x.rewrite_object().is_none());
+    /// ```
     pub fn set_put_object_hold<
         T: std::convert::Into<std::boxed::Box<crate::model::PutObjectHold>>,
     >(
@@ -764,6 +1085,17 @@ impl Job {
     ///
     /// Note that all the setters affecting `transformation` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storagebatchoperations_v1::model::Job;
+    /// use google_cloud_storagebatchoperations_v1::model::DeleteObject;
+    /// let x = Job::new().set_delete_object(DeleteObject::default()/* use setters */);
+    /// assert!(x.delete_object().is_some());
+    /// assert!(x.put_object_hold().is_none());
+    /// assert!(x.put_metadata().is_none());
+    /// assert!(x.rewrite_object().is_none());
+    /// ```
     pub fn set_delete_object<T: std::convert::Into<std::boxed::Box<crate::model::DeleteObject>>>(
         mut self,
         v: T,
@@ -789,6 +1121,17 @@ impl Job {
     ///
     /// Note that all the setters affecting `transformation` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storagebatchoperations_v1::model::Job;
+    /// use google_cloud_storagebatchoperations_v1::model::PutMetadata;
+    /// let x = Job::new().set_put_metadata(PutMetadata::default()/* use setters */);
+    /// assert!(x.put_metadata().is_some());
+    /// assert!(x.put_object_hold().is_none());
+    /// assert!(x.delete_object().is_none());
+    /// assert!(x.rewrite_object().is_none());
+    /// ```
     pub fn set_put_metadata<T: std::convert::Into<std::boxed::Box<crate::model::PutMetadata>>>(
         mut self,
         v: T,
@@ -816,6 +1159,17 @@ impl Job {
     ///
     /// Note that all the setters affecting `transformation` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storagebatchoperations_v1::model::Job;
+    /// use google_cloud_storagebatchoperations_v1::model::RewriteObject;
+    /// let x = Job::new().set_rewrite_object(RewriteObject::default()/* use setters */);
+    /// assert!(x.rewrite_object().is_some());
+    /// assert!(x.put_object_hold().is_none());
+    /// assert!(x.delete_object().is_none());
+    /// assert!(x.put_metadata().is_none());
+    /// ```
     pub fn set_rewrite_object<
         T: std::convert::Into<std::boxed::Box<crate::model::RewriteObject>>,
     >(
@@ -1028,6 +1382,17 @@ impl BucketList {
     }
 
     /// Sets the value of [buckets][crate::model::BucketList::buckets].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storagebatchoperations_v1::model::BucketList;
+    /// use google_cloud_storagebatchoperations_v1::model::bucket_list::Bucket;
+    /// let x = BucketList::new()
+    ///     .set_buckets([
+    ///         Bucket::default()/* use setters */,
+    ///         Bucket::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_buckets<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1071,6 +1436,12 @@ pub mod bucket_list {
         }
 
         /// Sets the value of [bucket][crate::model::bucket_list::Bucket::bucket].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_storagebatchoperations_v1::model::bucket_list::Bucket;
+        /// let x = Bucket::new().set_bucket("example");
+        /// ```
         pub fn set_bucket<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.bucket = v.into();
             self
@@ -1080,6 +1451,14 @@ pub mod bucket_list {
         ///
         /// Note that all the setters affecting `object_configuration` are mutually
         /// exclusive.
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_storagebatchoperations_v1::model::bucket_list::Bucket;
+        /// use google_cloud_storagebatchoperations_v1::model::bucket_list::bucket;
+        /// use google_cloud_storagebatchoperations_v1::model::PrefixList;
+        /// let x = Bucket::new().set_object_configuration(Some(bucket_list::bucket::ObjectConfiguration::PrefixList(PrefixList::default().into())));
+        /// ```
         pub fn set_object_configuration<
             T: std::convert::Into<
                     std::option::Option<crate::model::bucket_list::bucket::ObjectConfiguration>,
@@ -1112,6 +1491,15 @@ pub mod bucket_list {
         ///
         /// Note that all the setters affecting `object_configuration` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_storagebatchoperations_v1::model::bucket_list::Bucket;
+        /// use google_cloud_storagebatchoperations_v1::model::PrefixList;
+        /// let x = Bucket::new().set_prefix_list(PrefixList::default()/* use setters */);
+        /// assert!(x.prefix_list().is_some());
+        /// assert!(x.manifest().is_none());
+        /// ```
         pub fn set_prefix_list<T: std::convert::Into<std::boxed::Box<crate::model::PrefixList>>>(
             mut self,
             v: T,
@@ -1140,6 +1528,15 @@ pub mod bucket_list {
         ///
         /// Note that all the setters affecting `object_configuration` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_storagebatchoperations_v1::model::bucket_list::Bucket;
+        /// use google_cloud_storagebatchoperations_v1::model::Manifest;
+        /// let x = Bucket::new().set_manifest(Manifest::default()/* use setters */);
+        /// assert!(x.manifest().is_some());
+        /// assert!(x.prefix_list().is_none());
+        /// ```
         pub fn set_manifest<T: std::convert::Into<std::boxed::Box<crate::model::Manifest>>>(
             mut self,
             v: T,
@@ -1202,6 +1599,12 @@ impl Manifest {
     }
 
     /// Sets the value of [manifest_location][crate::model::Manifest::manifest_location].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storagebatchoperations_v1::model::Manifest;
+    /// let x = Manifest::new().set_manifest_location("example");
+    /// ```
     pub fn set_manifest_location<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -1238,6 +1641,12 @@ impl PrefixList {
     }
 
     /// Sets the value of [included_object_prefixes][crate::model::PrefixList::included_object_prefixes].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storagebatchoperations_v1::model::PrefixList;
+    /// let x = PrefixList::new().set_included_object_prefixes(["a", "b", "c"]);
+    /// ```
     pub fn set_included_object_prefixes<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1277,6 +1686,14 @@ impl PutObjectHold {
     }
 
     /// Sets the value of [temporary_hold][crate::model::PutObjectHold::temporary_hold].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storagebatchoperations_v1::model::PutObjectHold;
+    /// use google_cloud_storagebatchoperations_v1::model::put_object_hold::HoldStatus;
+    /// let x0 = PutObjectHold::new().set_temporary_hold(HoldStatus::Set);
+    /// let x1 = PutObjectHold::new().set_temporary_hold(HoldStatus::Unset);
+    /// ```
     pub fn set_temporary_hold<T: std::convert::Into<crate::model::put_object_hold::HoldStatus>>(
         mut self,
         v: T,
@@ -1286,6 +1703,14 @@ impl PutObjectHold {
     }
 
     /// Sets the value of [event_based_hold][crate::model::PutObjectHold::event_based_hold].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storagebatchoperations_v1::model::PutObjectHold;
+    /// use google_cloud_storagebatchoperations_v1::model::put_object_hold::HoldStatus;
+    /// let x0 = PutObjectHold::new().set_event_based_hold(HoldStatus::Set);
+    /// let x1 = PutObjectHold::new().set_event_based_hold(HoldStatus::Unset);
+    /// ```
     pub fn set_event_based_hold<
         T: std::convert::Into<crate::model::put_object_hold::HoldStatus>,
     >(
@@ -1465,6 +1890,12 @@ impl DeleteObject {
     }
 
     /// Sets the value of [permanent_object_deletion_enabled][crate::model::DeleteObject::permanent_object_deletion_enabled].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storagebatchoperations_v1::model::DeleteObject;
+    /// let x = DeleteObject::new().set_permanent_object_deletion_enabled(true);
+    /// ```
     pub fn set_permanent_object_deletion_enabled<T: std::convert::Into<bool>>(
         mut self,
         v: T,
@@ -1504,6 +1935,12 @@ impl RewriteObject {
     }
 
     /// Sets the value of [kms_key][crate::model::RewriteObject::kms_key].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storagebatchoperations_v1::model::RewriteObject;
+    /// let x = RewriteObject::new().set_kms_key("example");
+    /// ```
     pub fn set_kms_key<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -1513,6 +1950,14 @@ impl RewriteObject {
     }
 
     /// Sets or clears the value of [kms_key][crate::model::RewriteObject::kms_key].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storagebatchoperations_v1::model::RewriteObject;
+    /// let x = RewriteObject::new().set_or_clear_kms_key("example");
+    /// let x = RewriteObject::new().set_or_clear_kms_key(Some("example"));
+    /// let x = RewriteObject::new().set_or_clear_kms_key(None::<String>);
+    /// ```
     pub fn set_or_clear_kms_key<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -1586,6 +2031,12 @@ impl PutMetadata {
     }
 
     /// Sets the value of [content_disposition][crate::model::PutMetadata::content_disposition].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storagebatchoperations_v1::model::PutMetadata;
+    /// let x = PutMetadata::new().set_content_disposition("example");
+    /// ```
     pub fn set_content_disposition<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -1595,6 +2046,14 @@ impl PutMetadata {
     }
 
     /// Sets or clears the value of [content_disposition][crate::model::PutMetadata::content_disposition].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storagebatchoperations_v1::model::PutMetadata;
+    /// let x = PutMetadata::new().set_or_clear_content_disposition("example");
+    /// let x = PutMetadata::new().set_or_clear_content_disposition(Some("example"));
+    /// let x = PutMetadata::new().set_or_clear_content_disposition(None::<String>);
+    /// ```
     pub fn set_or_clear_content_disposition<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -1604,6 +2063,12 @@ impl PutMetadata {
     }
 
     /// Sets the value of [content_encoding][crate::model::PutMetadata::content_encoding].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storagebatchoperations_v1::model::PutMetadata;
+    /// let x = PutMetadata::new().set_content_encoding("example");
+    /// ```
     pub fn set_content_encoding<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -1613,6 +2078,14 @@ impl PutMetadata {
     }
 
     /// Sets or clears the value of [content_encoding][crate::model::PutMetadata::content_encoding].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storagebatchoperations_v1::model::PutMetadata;
+    /// let x = PutMetadata::new().set_or_clear_content_encoding("example");
+    /// let x = PutMetadata::new().set_or_clear_content_encoding(Some("example"));
+    /// let x = PutMetadata::new().set_or_clear_content_encoding(None::<String>);
+    /// ```
     pub fn set_or_clear_content_encoding<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -1622,6 +2095,12 @@ impl PutMetadata {
     }
 
     /// Sets the value of [content_language][crate::model::PutMetadata::content_language].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storagebatchoperations_v1::model::PutMetadata;
+    /// let x = PutMetadata::new().set_content_language("example");
+    /// ```
     pub fn set_content_language<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -1631,6 +2110,14 @@ impl PutMetadata {
     }
 
     /// Sets or clears the value of [content_language][crate::model::PutMetadata::content_language].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storagebatchoperations_v1::model::PutMetadata;
+    /// let x = PutMetadata::new().set_or_clear_content_language("example");
+    /// let x = PutMetadata::new().set_or_clear_content_language(Some("example"));
+    /// let x = PutMetadata::new().set_or_clear_content_language(None::<String>);
+    /// ```
     pub fn set_or_clear_content_language<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -1640,6 +2127,12 @@ impl PutMetadata {
     }
 
     /// Sets the value of [content_type][crate::model::PutMetadata::content_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storagebatchoperations_v1::model::PutMetadata;
+    /// let x = PutMetadata::new().set_content_type("example");
+    /// ```
     pub fn set_content_type<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -1649,6 +2142,14 @@ impl PutMetadata {
     }
 
     /// Sets or clears the value of [content_type][crate::model::PutMetadata::content_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storagebatchoperations_v1::model::PutMetadata;
+    /// let x = PutMetadata::new().set_or_clear_content_type("example");
+    /// let x = PutMetadata::new().set_or_clear_content_type(Some("example"));
+    /// let x = PutMetadata::new().set_or_clear_content_type(None::<String>);
+    /// ```
     pub fn set_or_clear_content_type<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -1658,6 +2159,12 @@ impl PutMetadata {
     }
 
     /// Sets the value of [cache_control][crate::model::PutMetadata::cache_control].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storagebatchoperations_v1::model::PutMetadata;
+    /// let x = PutMetadata::new().set_cache_control("example");
+    /// ```
     pub fn set_cache_control<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -1667,6 +2174,14 @@ impl PutMetadata {
     }
 
     /// Sets or clears the value of [cache_control][crate::model::PutMetadata::cache_control].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storagebatchoperations_v1::model::PutMetadata;
+    /// let x = PutMetadata::new().set_or_clear_cache_control("example");
+    /// let x = PutMetadata::new().set_or_clear_cache_control(Some("example"));
+    /// let x = PutMetadata::new().set_or_clear_cache_control(None::<String>);
+    /// ```
     pub fn set_or_clear_cache_control<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -1676,6 +2191,12 @@ impl PutMetadata {
     }
 
     /// Sets the value of [custom_time][crate::model::PutMetadata::custom_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storagebatchoperations_v1::model::PutMetadata;
+    /// let x = PutMetadata::new().set_custom_time("example");
+    /// ```
     pub fn set_custom_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -1685,6 +2206,14 @@ impl PutMetadata {
     }
 
     /// Sets or clears the value of [custom_time][crate::model::PutMetadata::custom_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storagebatchoperations_v1::model::PutMetadata;
+    /// let x = PutMetadata::new().set_or_clear_custom_time("example");
+    /// let x = PutMetadata::new().set_or_clear_custom_time(Some("example"));
+    /// let x = PutMetadata::new().set_or_clear_custom_time(None::<String>);
+    /// ```
     pub fn set_or_clear_custom_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -1694,6 +2223,15 @@ impl PutMetadata {
     }
 
     /// Sets the value of [custom_metadata][crate::model::PutMetadata::custom_metadata].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storagebatchoperations_v1::model::PutMetadata;
+    /// let x = PutMetadata::new().set_custom_metadata([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_custom_metadata<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -1735,18 +2273,44 @@ impl ErrorSummary {
     }
 
     /// Sets the value of [error_code][crate::model::ErrorSummary::error_code].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storagebatchoperations_v1::model::ErrorSummary;
+    /// use rpc::model::Code;
+    /// let x0 = ErrorSummary::new().set_error_code(Code::Cancelled);
+    /// let x1 = ErrorSummary::new().set_error_code(Code::Unknown);
+    /// let x2 = ErrorSummary::new().set_error_code(Code::InvalidArgument);
+    /// ```
     pub fn set_error_code<T: std::convert::Into<rpc::model::Code>>(mut self, v: T) -> Self {
         self.error_code = v.into();
         self
     }
 
     /// Sets the value of [error_count][crate::model::ErrorSummary::error_count].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storagebatchoperations_v1::model::ErrorSummary;
+    /// let x = ErrorSummary::new().set_error_count(42);
+    /// ```
     pub fn set_error_count<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.error_count = v.into();
         self
     }
 
     /// Sets the value of [error_log_entries][crate::model::ErrorSummary::error_log_entries].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storagebatchoperations_v1::model::ErrorSummary;
+    /// use google_cloud_storagebatchoperations_v1::model::ErrorLogEntry;
+    /// let x = ErrorSummary::new()
+    ///     .set_error_log_entries([
+    ///         ErrorLogEntry::default()/* use setters */,
+    ///         ErrorLogEntry::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_error_log_entries<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1784,12 +2348,24 @@ impl ErrorLogEntry {
     }
 
     /// Sets the value of [object_uri][crate::model::ErrorLogEntry::object_uri].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storagebatchoperations_v1::model::ErrorLogEntry;
+    /// let x = ErrorLogEntry::new().set_object_uri("example");
+    /// ```
     pub fn set_object_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.object_uri = v.into();
         self
     }
 
     /// Sets the value of [error_details][crate::model::ErrorLogEntry::error_details].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storagebatchoperations_v1::model::ErrorLogEntry;
+    /// let x = ErrorLogEntry::new().set_error_details(["a", "b", "c"]);
+    /// ```
     pub fn set_error_details<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1829,18 +2405,36 @@ impl Counters {
     }
 
     /// Sets the value of [total_object_count][crate::model::Counters::total_object_count].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storagebatchoperations_v1::model::Counters;
+    /// let x = Counters::new().set_total_object_count(42);
+    /// ```
     pub fn set_total_object_count<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.total_object_count = v.into();
         self
     }
 
     /// Sets the value of [succeeded_object_count][crate::model::Counters::succeeded_object_count].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storagebatchoperations_v1::model::Counters;
+    /// let x = Counters::new().set_succeeded_object_count(42);
+    /// ```
     pub fn set_succeeded_object_count<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.succeeded_object_count = v.into();
         self
     }
 
     /// Sets the value of [failed_object_count][crate::model::Counters::failed_object_count].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storagebatchoperations_v1::model::Counters;
+    /// let x = Counters::new().set_failed_object_count(42);
+    /// ```
     pub fn set_failed_object_count<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.failed_object_count = v.into();
         self
@@ -1873,6 +2467,15 @@ impl LoggingConfig {
     }
 
     /// Sets the value of [log_actions][crate::model::LoggingConfig::log_actions].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storagebatchoperations_v1::model::LoggingConfig;
+    /// use google_cloud_storagebatchoperations_v1::model::logging_config::LoggableAction;
+    /// let x = LoggingConfig::new().set_log_actions([
+    ///     LoggableAction::Transform,
+    /// ]);
+    /// ```
     pub fn set_log_actions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1884,6 +2487,16 @@ impl LoggingConfig {
     }
 
     /// Sets the value of [log_action_states][crate::model::LoggingConfig::log_action_states].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storagebatchoperations_v1::model::LoggingConfig;
+    /// use google_cloud_storagebatchoperations_v1::model::logging_config::LoggableActionState;
+    /// let x = LoggingConfig::new().set_log_action_states([
+    ///     LoggableActionState::Succeeded,
+    ///     LoggableActionState::Failed,
+    /// ]);
+    /// ```
     pub fn set_log_action_states<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,

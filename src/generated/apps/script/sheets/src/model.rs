@@ -50,6 +50,13 @@ impl SheetsAddOnManifest {
     }
 
     /// Sets the value of [homepage_trigger][crate::model::SheetsAddOnManifest::homepage_trigger].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apps_script_type_sheets::model::SheetsAddOnManifest;
+    /// use apps_script_type::model::HomepageExtensionPoint;
+    /// let x = SheetsAddOnManifest::new().set_homepage_trigger(HomepageExtensionPoint::default()/* use setters */);
+    /// ```
     pub fn set_homepage_trigger<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<apps_script_type::model::HomepageExtensionPoint>,
@@ -59,6 +66,14 @@ impl SheetsAddOnManifest {
     }
 
     /// Sets or clears the value of [homepage_trigger][crate::model::SheetsAddOnManifest::homepage_trigger].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apps_script_type_sheets::model::SheetsAddOnManifest;
+    /// use apps_script_type::model::HomepageExtensionPoint;
+    /// let x = SheetsAddOnManifest::new().set_or_clear_homepage_trigger(Some(HomepageExtensionPoint::default()/* use setters */));
+    /// let x = SheetsAddOnManifest::new().set_or_clear_homepage_trigger(None::<HomepageExtensionPoint>);
+    /// ```
     pub fn set_or_clear_homepage_trigger<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<apps_script_type::model::HomepageExtensionPoint>,
@@ -68,6 +83,13 @@ impl SheetsAddOnManifest {
     }
 
     /// Sets the value of [on_file_scope_granted_trigger][crate::model::SheetsAddOnManifest::on_file_scope_granted_trigger].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apps_script_type_sheets::model::SheetsAddOnManifest;
+    /// use google_cloud_apps_script_type_sheets::model::SheetsExtensionPoint;
+    /// let x = SheetsAddOnManifest::new().set_on_file_scope_granted_trigger(SheetsExtensionPoint::default()/* use setters */);
+    /// ```
     pub fn set_on_file_scope_granted_trigger<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::SheetsExtensionPoint>,
@@ -77,6 +99,14 @@ impl SheetsAddOnManifest {
     }
 
     /// Sets or clears the value of [on_file_scope_granted_trigger][crate::model::SheetsAddOnManifest::on_file_scope_granted_trigger].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apps_script_type_sheets::model::SheetsAddOnManifest;
+    /// use google_cloud_apps_script_type_sheets::model::SheetsExtensionPoint;
+    /// let x = SheetsAddOnManifest::new().set_or_clear_on_file_scope_granted_trigger(Some(SheetsExtensionPoint::default()/* use setters */));
+    /// let x = SheetsAddOnManifest::new().set_or_clear_on_file_scope_granted_trigger(None::<SheetsExtensionPoint>);
+    /// ```
     pub fn set_or_clear_on_file_scope_granted_trigger<T>(
         mut self,
         v: std::option::Option<T>,
@@ -111,6 +141,12 @@ impl SheetsExtensionPoint {
     }
 
     /// Sets the value of [run_function][crate::model::SheetsExtensionPoint::run_function].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apps_script_type_sheets::model::SheetsExtensionPoint;
+    /// let x = SheetsExtensionPoint::new().set_run_function("example");
+    /// ```
     pub fn set_run_function<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.run_function = v.into();
         self

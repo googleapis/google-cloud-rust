@@ -111,30 +111,60 @@ impl ListPrivateCloudsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListPrivateCloudsRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::ListPrivateCloudsRequest;
+    /// let x = ListPrivateCloudsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListPrivateCloudsRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::ListPrivateCloudsRequest;
+    /// let x = ListPrivateCloudsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListPrivateCloudsRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::ListPrivateCloudsRequest;
+    /// let x = ListPrivateCloudsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListPrivateCloudsRequest::filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::ListPrivateCloudsRequest;
+    /// let x = ListPrivateCloudsRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListPrivateCloudsRequest::order_by].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::ListPrivateCloudsRequest;
+    /// let x = ListPrivateCloudsRequest::new().set_order_by("example");
+    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
@@ -174,6 +204,17 @@ impl ListPrivateCloudsResponse {
     }
 
     /// Sets the value of [private_clouds][crate::model::ListPrivateCloudsResponse::private_clouds].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::ListPrivateCloudsResponse;
+    /// use google_cloud_vmwareengine_v1::model::PrivateCloud;
+    /// let x = ListPrivateCloudsResponse::new()
+    ///     .set_private_clouds([
+    ///         PrivateCloud::default()/* use setters */,
+    ///         PrivateCloud::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_private_clouds<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -185,12 +226,24 @@ impl ListPrivateCloudsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListPrivateCloudsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::ListPrivateCloudsResponse;
+    /// let x = ListPrivateCloudsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListPrivateCloudsResponse::unreachable].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::ListPrivateCloudsResponse;
+    /// let x = ListPrivateCloudsResponse::new().set_unreachable(["a", "b", "c"]);
+    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -245,6 +298,12 @@ impl GetPrivateCloudRequest {
     }
 
     /// Sets the value of [name][crate::model::GetPrivateCloudRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::GetPrivateCloudRequest;
+    /// let x = GetPrivateCloudRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -304,12 +363,24 @@ impl CreatePrivateCloudRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreatePrivateCloudRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::CreatePrivateCloudRequest;
+    /// let x = CreatePrivateCloudRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [private_cloud_id][crate::model::CreatePrivateCloudRequest::private_cloud_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::CreatePrivateCloudRequest;
+    /// let x = CreatePrivateCloudRequest::new().set_private_cloud_id("example");
+    /// ```
     pub fn set_private_cloud_id<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -319,6 +390,13 @@ impl CreatePrivateCloudRequest {
     }
 
     /// Sets the value of [private_cloud][crate::model::CreatePrivateCloudRequest::private_cloud].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::CreatePrivateCloudRequest;
+    /// use google_cloud_vmwareengine_v1::model::PrivateCloud;
+    /// let x = CreatePrivateCloudRequest::new().set_private_cloud(PrivateCloud::default()/* use setters */);
+    /// ```
     pub fn set_private_cloud<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::PrivateCloud>,
@@ -328,6 +406,14 @@ impl CreatePrivateCloudRequest {
     }
 
     /// Sets or clears the value of [private_cloud][crate::model::CreatePrivateCloudRequest::private_cloud].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::CreatePrivateCloudRequest;
+    /// use google_cloud_vmwareengine_v1::model::PrivateCloud;
+    /// let x = CreatePrivateCloudRequest::new().set_or_clear_private_cloud(Some(PrivateCloud::default()/* use setters */));
+    /// let x = CreatePrivateCloudRequest::new().set_or_clear_private_cloud(None::<PrivateCloud>);
+    /// ```
     pub fn set_or_clear_private_cloud<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::PrivateCloud>,
@@ -337,12 +423,24 @@ impl CreatePrivateCloudRequest {
     }
 
     /// Sets the value of [request_id][crate::model::CreatePrivateCloudRequest::request_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::CreatePrivateCloudRequest;
+    /// let x = CreatePrivateCloudRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
     }
 
     /// Sets the value of [validate_only][crate::model::CreatePrivateCloudRequest::validate_only].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::CreatePrivateCloudRequest;
+    /// let x = CreatePrivateCloudRequest::new().set_validate_only(true);
+    /// ```
     pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.validate_only = v.into();
         self
@@ -385,6 +483,13 @@ impl UpdatePrivateCloudRequest {
     }
 
     /// Sets the value of [private_cloud][crate::model::UpdatePrivateCloudRequest::private_cloud].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::UpdatePrivateCloudRequest;
+    /// use google_cloud_vmwareengine_v1::model::PrivateCloud;
+    /// let x = UpdatePrivateCloudRequest::new().set_private_cloud(PrivateCloud::default()/* use setters */);
+    /// ```
     pub fn set_private_cloud<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::PrivateCloud>,
@@ -394,6 +499,14 @@ impl UpdatePrivateCloudRequest {
     }
 
     /// Sets or clears the value of [private_cloud][crate::model::UpdatePrivateCloudRequest::private_cloud].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::UpdatePrivateCloudRequest;
+    /// use google_cloud_vmwareengine_v1::model::PrivateCloud;
+    /// let x = UpdatePrivateCloudRequest::new().set_or_clear_private_cloud(Some(PrivateCloud::default()/* use setters */));
+    /// let x = UpdatePrivateCloudRequest::new().set_or_clear_private_cloud(None::<PrivateCloud>);
+    /// ```
     pub fn set_or_clear_private_cloud<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::PrivateCloud>,
@@ -403,6 +516,13 @@ impl UpdatePrivateCloudRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdatePrivateCloudRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::UpdatePrivateCloudRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdatePrivateCloudRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -412,6 +532,14 @@ impl UpdatePrivateCloudRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdatePrivateCloudRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::UpdatePrivateCloudRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdatePrivateCloudRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdatePrivateCloudRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -421,6 +549,12 @@ impl UpdatePrivateCloudRequest {
     }
 
     /// Sets the value of [request_id][crate::model::UpdatePrivateCloudRequest::request_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::UpdatePrivateCloudRequest;
+    /// let x = UpdatePrivateCloudRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -479,24 +613,48 @@ impl DeletePrivateCloudRequest {
     }
 
     /// Sets the value of [name][crate::model::DeletePrivateCloudRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::DeletePrivateCloudRequest;
+    /// let x = DeletePrivateCloudRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [request_id][crate::model::DeletePrivateCloudRequest::request_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::DeletePrivateCloudRequest;
+    /// let x = DeletePrivateCloudRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
     }
 
     /// Sets the value of [force][crate::model::DeletePrivateCloudRequest::force].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::DeletePrivateCloudRequest;
+    /// let x = DeletePrivateCloudRequest::new().set_force(true);
+    /// ```
     pub fn set_force<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.force = v.into();
         self
     }
 
     /// Sets the value of [delay_hours][crate::model::DeletePrivateCloudRequest::delay_hours].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::DeletePrivateCloudRequest;
+    /// let x = DeletePrivateCloudRequest::new().set_delay_hours(42);
+    /// ```
     pub fn set_delay_hours<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<i32>,
@@ -506,6 +664,13 @@ impl DeletePrivateCloudRequest {
     }
 
     /// Sets or clears the value of [delay_hours][crate::model::DeletePrivateCloudRequest::delay_hours].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::DeletePrivateCloudRequest;
+    /// let x = DeletePrivateCloudRequest::new().set_or_clear_delay_hours(Some(42));
+    /// let x = DeletePrivateCloudRequest::new().set_or_clear_delay_hours(None::<i32>);
+    /// ```
     pub fn set_or_clear_delay_hours<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i32>,
@@ -548,12 +713,24 @@ impl UndeletePrivateCloudRequest {
     }
 
     /// Sets the value of [name][crate::model::UndeletePrivateCloudRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::UndeletePrivateCloudRequest;
+    /// let x = UndeletePrivateCloudRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [request_id][crate::model::UndeletePrivateCloudRequest::request_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::UndeletePrivateCloudRequest;
+    /// let x = UndeletePrivateCloudRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -626,30 +803,60 @@ impl ListClustersRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListClustersRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::ListClustersRequest;
+    /// let x = ListClustersRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListClustersRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::ListClustersRequest;
+    /// let x = ListClustersRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListClustersRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::ListClustersRequest;
+    /// let x = ListClustersRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListClustersRequest::filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::ListClustersRequest;
+    /// let x = ListClustersRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListClustersRequest::order_by].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::ListClustersRequest;
+    /// let x = ListClustersRequest::new().set_order_by("example");
+    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
@@ -689,6 +896,17 @@ impl ListClustersResponse {
     }
 
     /// Sets the value of [clusters][crate::model::ListClustersResponse::clusters].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::ListClustersResponse;
+    /// use google_cloud_vmwareengine_v1::model::Cluster;
+    /// let x = ListClustersResponse::new()
+    ///     .set_clusters([
+    ///         Cluster::default()/* use setters */,
+    ///         Cluster::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_clusters<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -700,12 +918,24 @@ impl ListClustersResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListClustersResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::ListClustersResponse;
+    /// let x = ListClustersResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListClustersResponse::unreachable].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::ListClustersResponse;
+    /// let x = ListClustersResponse::new().set_unreachable(["a", "b", "c"]);
+    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -760,6 +990,12 @@ impl GetClusterRequest {
     }
 
     /// Sets the value of [name][crate::model::GetClusterRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::GetClusterRequest;
+    /// let x = GetClusterRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -819,18 +1055,37 @@ impl CreateClusterRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateClusterRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::CreateClusterRequest;
+    /// let x = CreateClusterRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [cluster_id][crate::model::CreateClusterRequest::cluster_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::CreateClusterRequest;
+    /// let x = CreateClusterRequest::new().set_cluster_id("example");
+    /// ```
     pub fn set_cluster_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.cluster_id = v.into();
         self
     }
 
     /// Sets the value of [cluster][crate::model::CreateClusterRequest::cluster].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::CreateClusterRequest;
+    /// use google_cloud_vmwareengine_v1::model::Cluster;
+    /// let x = CreateClusterRequest::new().set_cluster(Cluster::default()/* use setters */);
+    /// ```
     pub fn set_cluster<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Cluster>,
@@ -840,6 +1095,14 @@ impl CreateClusterRequest {
     }
 
     /// Sets or clears the value of [cluster][crate::model::CreateClusterRequest::cluster].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::CreateClusterRequest;
+    /// use google_cloud_vmwareengine_v1::model::Cluster;
+    /// let x = CreateClusterRequest::new().set_or_clear_cluster(Some(Cluster::default()/* use setters */));
+    /// let x = CreateClusterRequest::new().set_or_clear_cluster(None::<Cluster>);
+    /// ```
     pub fn set_or_clear_cluster<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Cluster>,
@@ -849,12 +1112,24 @@ impl CreateClusterRequest {
     }
 
     /// Sets the value of [request_id][crate::model::CreateClusterRequest::request_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::CreateClusterRequest;
+    /// let x = CreateClusterRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
     }
 
     /// Sets the value of [validate_only][crate::model::CreateClusterRequest::validate_only].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::CreateClusterRequest;
+    /// let x = CreateClusterRequest::new().set_validate_only(true);
+    /// ```
     pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.validate_only = v.into();
         self
@@ -901,6 +1176,13 @@ impl UpdateClusterRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateClusterRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::UpdateClusterRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateClusterRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -910,6 +1192,14 @@ impl UpdateClusterRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateClusterRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::UpdateClusterRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateClusterRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateClusterRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -919,6 +1209,13 @@ impl UpdateClusterRequest {
     }
 
     /// Sets the value of [cluster][crate::model::UpdateClusterRequest::cluster].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::UpdateClusterRequest;
+    /// use google_cloud_vmwareengine_v1::model::Cluster;
+    /// let x = UpdateClusterRequest::new().set_cluster(Cluster::default()/* use setters */);
+    /// ```
     pub fn set_cluster<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Cluster>,
@@ -928,6 +1225,14 @@ impl UpdateClusterRequest {
     }
 
     /// Sets or clears the value of [cluster][crate::model::UpdateClusterRequest::cluster].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::UpdateClusterRequest;
+    /// use google_cloud_vmwareengine_v1::model::Cluster;
+    /// let x = UpdateClusterRequest::new().set_or_clear_cluster(Some(Cluster::default()/* use setters */));
+    /// let x = UpdateClusterRequest::new().set_or_clear_cluster(None::<Cluster>);
+    /// ```
     pub fn set_or_clear_cluster<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Cluster>,
@@ -937,12 +1242,24 @@ impl UpdateClusterRequest {
     }
 
     /// Sets the value of [request_id][crate::model::UpdateClusterRequest::request_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::UpdateClusterRequest;
+    /// let x = UpdateClusterRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
     }
 
     /// Sets the value of [validate_only][crate::model::UpdateClusterRequest::validate_only].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::UpdateClusterRequest;
+    /// let x = UpdateClusterRequest::new().set_validate_only(true);
+    /// ```
     pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.validate_only = v.into();
         self
@@ -982,12 +1299,24 @@ impl DeleteClusterRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteClusterRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::DeleteClusterRequest;
+    /// let x = DeleteClusterRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [request_id][crate::model::DeleteClusterRequest::request_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::DeleteClusterRequest;
+    /// let x = DeleteClusterRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -1037,18 +1366,36 @@ impl ListNodesRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListNodesRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::ListNodesRequest;
+    /// let x = ListNodesRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListNodesRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::ListNodesRequest;
+    /// let x = ListNodesRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListNodesRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::ListNodesRequest;
+    /// let x = ListNodesRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -1084,6 +1431,17 @@ impl ListNodesResponse {
     }
 
     /// Sets the value of [nodes][crate::model::ListNodesResponse::nodes].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::ListNodesResponse;
+    /// use google_cloud_vmwareengine_v1::model::Node;
+    /// let x = ListNodesResponse::new()
+    ///     .set_nodes([
+    ///         Node::default()/* use setters */,
+    ///         Node::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_nodes<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1095,6 +1453,12 @@ impl ListNodesResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListNodesResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::ListNodesResponse;
+    /// let x = ListNodesResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -1142,6 +1506,12 @@ impl GetNodeRequest {
     }
 
     /// Sets the value of [name][crate::model::GetNodeRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::GetNodeRequest;
+    /// let x = GetNodeRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -1227,30 +1597,60 @@ impl ListExternalAddressesRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListExternalAddressesRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::ListExternalAddressesRequest;
+    /// let x = ListExternalAddressesRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListExternalAddressesRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::ListExternalAddressesRequest;
+    /// let x = ListExternalAddressesRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListExternalAddressesRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::ListExternalAddressesRequest;
+    /// let x = ListExternalAddressesRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListExternalAddressesRequest::filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::ListExternalAddressesRequest;
+    /// let x = ListExternalAddressesRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListExternalAddressesRequest::order_by].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::ListExternalAddressesRequest;
+    /// let x = ListExternalAddressesRequest::new().set_order_by("example");
+    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
@@ -1290,6 +1690,17 @@ impl ListExternalAddressesResponse {
     }
 
     /// Sets the value of [external_addresses][crate::model::ListExternalAddressesResponse::external_addresses].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::ListExternalAddressesResponse;
+    /// use google_cloud_vmwareengine_v1::model::ExternalAddress;
+    /// let x = ListExternalAddressesResponse::new()
+    ///     .set_external_addresses([
+    ///         ExternalAddress::default()/* use setters */,
+    ///         ExternalAddress::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_external_addresses<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1301,12 +1712,24 @@ impl ListExternalAddressesResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListExternalAddressesResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::ListExternalAddressesResponse;
+    /// let x = ListExternalAddressesResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListExternalAddressesResponse::unreachable].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::ListExternalAddressesResponse;
+    /// let x = ListExternalAddressesResponse::new().set_unreachable(["a", "b", "c"]);
+    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1376,18 +1799,36 @@ impl FetchNetworkPolicyExternalAddressesRequest {
     }
 
     /// Sets the value of [network_policy][crate::model::FetchNetworkPolicyExternalAddressesRequest::network_policy].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::FetchNetworkPolicyExternalAddressesRequest;
+    /// let x = FetchNetworkPolicyExternalAddressesRequest::new().set_network_policy("example");
+    /// ```
     pub fn set_network_policy<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.network_policy = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::FetchNetworkPolicyExternalAddressesRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::FetchNetworkPolicyExternalAddressesRequest;
+    /// let x = FetchNetworkPolicyExternalAddressesRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::FetchNetworkPolicyExternalAddressesRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::FetchNetworkPolicyExternalAddressesRequest;
+    /// let x = FetchNetworkPolicyExternalAddressesRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -1424,6 +1865,17 @@ impl FetchNetworkPolicyExternalAddressesResponse {
     }
 
     /// Sets the value of [external_addresses][crate::model::FetchNetworkPolicyExternalAddressesResponse::external_addresses].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::FetchNetworkPolicyExternalAddressesResponse;
+    /// use google_cloud_vmwareengine_v1::model::ExternalAddress;
+    /// let x = FetchNetworkPolicyExternalAddressesResponse::new()
+    ///     .set_external_addresses([
+    ///         ExternalAddress::default()/* use setters */,
+    ///         ExternalAddress::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_external_addresses<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1435,6 +1887,12 @@ impl FetchNetworkPolicyExternalAddressesResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::FetchNetworkPolicyExternalAddressesResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::FetchNetworkPolicyExternalAddressesResponse;
+    /// let x = FetchNetworkPolicyExternalAddressesResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -1484,6 +1942,12 @@ impl GetExternalAddressRequest {
     }
 
     /// Sets the value of [name][crate::model::GetExternalAddressRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::GetExternalAddressRequest;
+    /// let x = GetExternalAddressRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -1552,12 +2016,25 @@ impl CreateExternalAddressRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateExternalAddressRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::CreateExternalAddressRequest;
+    /// let x = CreateExternalAddressRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [external_address][crate::model::CreateExternalAddressRequest::external_address].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::CreateExternalAddressRequest;
+    /// use google_cloud_vmwareengine_v1::model::ExternalAddress;
+    /// let x = CreateExternalAddressRequest::new().set_external_address(ExternalAddress::default()/* use setters */);
+    /// ```
     pub fn set_external_address<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ExternalAddress>,
@@ -1567,6 +2044,14 @@ impl CreateExternalAddressRequest {
     }
 
     /// Sets or clears the value of [external_address][crate::model::CreateExternalAddressRequest::external_address].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::CreateExternalAddressRequest;
+    /// use google_cloud_vmwareengine_v1::model::ExternalAddress;
+    /// let x = CreateExternalAddressRequest::new().set_or_clear_external_address(Some(ExternalAddress::default()/* use setters */));
+    /// let x = CreateExternalAddressRequest::new().set_or_clear_external_address(None::<ExternalAddress>);
+    /// ```
     pub fn set_or_clear_external_address<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ExternalAddress>,
@@ -1576,6 +2061,12 @@ impl CreateExternalAddressRequest {
     }
 
     /// Sets the value of [external_address_id][crate::model::CreateExternalAddressRequest::external_address_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::CreateExternalAddressRequest;
+    /// let x = CreateExternalAddressRequest::new().set_external_address_id("example");
+    /// ```
     pub fn set_external_address_id<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -1585,6 +2076,12 @@ impl CreateExternalAddressRequest {
     }
 
     /// Sets the value of [request_id][crate::model::CreateExternalAddressRequest::request_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::CreateExternalAddressRequest;
+    /// let x = CreateExternalAddressRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -1639,6 +2136,13 @@ impl UpdateExternalAddressRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateExternalAddressRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::UpdateExternalAddressRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateExternalAddressRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -1648,6 +2152,14 @@ impl UpdateExternalAddressRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateExternalAddressRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::UpdateExternalAddressRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateExternalAddressRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateExternalAddressRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -1657,6 +2169,13 @@ impl UpdateExternalAddressRequest {
     }
 
     /// Sets the value of [external_address][crate::model::UpdateExternalAddressRequest::external_address].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::UpdateExternalAddressRequest;
+    /// use google_cloud_vmwareengine_v1::model::ExternalAddress;
+    /// let x = UpdateExternalAddressRequest::new().set_external_address(ExternalAddress::default()/* use setters */);
+    /// ```
     pub fn set_external_address<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ExternalAddress>,
@@ -1666,6 +2185,14 @@ impl UpdateExternalAddressRequest {
     }
 
     /// Sets or clears the value of [external_address][crate::model::UpdateExternalAddressRequest::external_address].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::UpdateExternalAddressRequest;
+    /// use google_cloud_vmwareengine_v1::model::ExternalAddress;
+    /// let x = UpdateExternalAddressRequest::new().set_or_clear_external_address(Some(ExternalAddress::default()/* use setters */));
+    /// let x = UpdateExternalAddressRequest::new().set_or_clear_external_address(None::<ExternalAddress>);
+    /// ```
     pub fn set_or_clear_external_address<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ExternalAddress>,
@@ -1675,6 +2202,12 @@ impl UpdateExternalAddressRequest {
     }
 
     /// Sets the value of [request_id][crate::model::UpdateExternalAddressRequest::request_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::UpdateExternalAddressRequest;
+    /// let x = UpdateExternalAddressRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -1726,12 +2259,24 @@ impl DeleteExternalAddressRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteExternalAddressRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::DeleteExternalAddressRequest;
+    /// let x = DeleteExternalAddressRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [request_id][crate::model::DeleteExternalAddressRequest::request_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::DeleteExternalAddressRequest;
+    /// let x = DeleteExternalAddressRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -1781,18 +2326,36 @@ impl ListSubnetsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListSubnetsRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::ListSubnetsRequest;
+    /// let x = ListSubnetsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListSubnetsRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::ListSubnetsRequest;
+    /// let x = ListSubnetsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListSubnetsRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::ListSubnetsRequest;
+    /// let x = ListSubnetsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -1832,6 +2395,17 @@ impl ListSubnetsResponse {
     }
 
     /// Sets the value of [subnets][crate::model::ListSubnetsResponse::subnets].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::ListSubnetsResponse;
+    /// use google_cloud_vmwareengine_v1::model::Subnet;
+    /// let x = ListSubnetsResponse::new()
+    ///     .set_subnets([
+    ///         Subnet::default()/* use setters */,
+    ///         Subnet::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_subnets<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1843,12 +2417,24 @@ impl ListSubnetsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListSubnetsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::ListSubnetsResponse;
+    /// let x = ListSubnetsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListSubnetsResponse::unreachable].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::ListSubnetsResponse;
+    /// let x = ListSubnetsResponse::new().set_unreachable(["a", "b", "c"]);
+    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1903,6 +2489,12 @@ impl GetSubnetRequest {
     }
 
     /// Sets the value of [name][crate::model::GetSubnetRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::GetSubnetRequest;
+    /// let x = GetSubnetRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -1941,6 +2533,13 @@ impl UpdateSubnetRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateSubnetRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::UpdateSubnetRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateSubnetRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -1950,6 +2549,14 @@ impl UpdateSubnetRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateSubnetRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::UpdateSubnetRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateSubnetRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateSubnetRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -1959,6 +2566,13 @@ impl UpdateSubnetRequest {
     }
 
     /// Sets the value of [subnet][crate::model::UpdateSubnetRequest::subnet].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::UpdateSubnetRequest;
+    /// use google_cloud_vmwareengine_v1::model::Subnet;
+    /// let x = UpdateSubnetRequest::new().set_subnet(Subnet::default()/* use setters */);
+    /// ```
     pub fn set_subnet<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Subnet>,
@@ -1968,6 +2582,14 @@ impl UpdateSubnetRequest {
     }
 
     /// Sets or clears the value of [subnet][crate::model::UpdateSubnetRequest::subnet].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::UpdateSubnetRequest;
+    /// use google_cloud_vmwareengine_v1::model::Subnet;
+    /// let x = UpdateSubnetRequest::new().set_or_clear_subnet(Some(Subnet::default()/* use setters */));
+    /// let x = UpdateSubnetRequest::new().set_or_clear_subnet(None::<Subnet>);
+    /// ```
     pub fn set_or_clear_subnet<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Subnet>,
@@ -2056,30 +2678,60 @@ impl ListExternalAccessRulesRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListExternalAccessRulesRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::ListExternalAccessRulesRequest;
+    /// let x = ListExternalAccessRulesRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListExternalAccessRulesRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::ListExternalAccessRulesRequest;
+    /// let x = ListExternalAccessRulesRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListExternalAccessRulesRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::ListExternalAccessRulesRequest;
+    /// let x = ListExternalAccessRulesRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListExternalAccessRulesRequest::filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::ListExternalAccessRulesRequest;
+    /// let x = ListExternalAccessRulesRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListExternalAccessRulesRequest::order_by].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::ListExternalAccessRulesRequest;
+    /// let x = ListExternalAccessRulesRequest::new().set_order_by("example");
+    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
@@ -2119,6 +2771,17 @@ impl ListExternalAccessRulesResponse {
     }
 
     /// Sets the value of [external_access_rules][crate::model::ListExternalAccessRulesResponse::external_access_rules].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::ListExternalAccessRulesResponse;
+    /// use google_cloud_vmwareengine_v1::model::ExternalAccessRule;
+    /// let x = ListExternalAccessRulesResponse::new()
+    ///     .set_external_access_rules([
+    ///         ExternalAccessRule::default()/* use setters */,
+    ///         ExternalAccessRule::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_external_access_rules<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2130,12 +2793,24 @@ impl ListExternalAccessRulesResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListExternalAccessRulesResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::ListExternalAccessRulesResponse;
+    /// let x = ListExternalAccessRulesResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListExternalAccessRulesResponse::unreachable].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::ListExternalAccessRulesResponse;
+    /// let x = ListExternalAccessRulesResponse::new().set_unreachable(["a", "b", "c"]);
+    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2190,6 +2865,12 @@ impl GetExternalAccessRuleRequest {
     }
 
     /// Sets the value of [name][crate::model::GetExternalAccessRuleRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::GetExternalAccessRuleRequest;
+    /// let x = GetExternalAccessRuleRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -2258,12 +2939,25 @@ impl CreateExternalAccessRuleRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateExternalAccessRuleRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::CreateExternalAccessRuleRequest;
+    /// let x = CreateExternalAccessRuleRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [external_access_rule][crate::model::CreateExternalAccessRuleRequest::external_access_rule].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::CreateExternalAccessRuleRequest;
+    /// use google_cloud_vmwareengine_v1::model::ExternalAccessRule;
+    /// let x = CreateExternalAccessRuleRequest::new().set_external_access_rule(ExternalAccessRule::default()/* use setters */);
+    /// ```
     pub fn set_external_access_rule<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ExternalAccessRule>,
@@ -2273,6 +2967,14 @@ impl CreateExternalAccessRuleRequest {
     }
 
     /// Sets or clears the value of [external_access_rule][crate::model::CreateExternalAccessRuleRequest::external_access_rule].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::CreateExternalAccessRuleRequest;
+    /// use google_cloud_vmwareengine_v1::model::ExternalAccessRule;
+    /// let x = CreateExternalAccessRuleRequest::new().set_or_clear_external_access_rule(Some(ExternalAccessRule::default()/* use setters */));
+    /// let x = CreateExternalAccessRuleRequest::new().set_or_clear_external_access_rule(None::<ExternalAccessRule>);
+    /// ```
     pub fn set_or_clear_external_access_rule<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ExternalAccessRule>,
@@ -2282,6 +2984,12 @@ impl CreateExternalAccessRuleRequest {
     }
 
     /// Sets the value of [external_access_rule_id][crate::model::CreateExternalAccessRuleRequest::external_access_rule_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::CreateExternalAccessRuleRequest;
+    /// let x = CreateExternalAccessRuleRequest::new().set_external_access_rule_id("example");
+    /// ```
     pub fn set_external_access_rule_id<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -2291,6 +2999,12 @@ impl CreateExternalAccessRuleRequest {
     }
 
     /// Sets the value of [request_id][crate::model::CreateExternalAccessRuleRequest::request_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::CreateExternalAccessRuleRequest;
+    /// let x = CreateExternalAccessRuleRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -2345,6 +3059,13 @@ impl UpdateExternalAccessRuleRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateExternalAccessRuleRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::UpdateExternalAccessRuleRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateExternalAccessRuleRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -2354,6 +3075,14 @@ impl UpdateExternalAccessRuleRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateExternalAccessRuleRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::UpdateExternalAccessRuleRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateExternalAccessRuleRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateExternalAccessRuleRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -2363,6 +3092,13 @@ impl UpdateExternalAccessRuleRequest {
     }
 
     /// Sets the value of [external_access_rule][crate::model::UpdateExternalAccessRuleRequest::external_access_rule].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::UpdateExternalAccessRuleRequest;
+    /// use google_cloud_vmwareengine_v1::model::ExternalAccessRule;
+    /// let x = UpdateExternalAccessRuleRequest::new().set_external_access_rule(ExternalAccessRule::default()/* use setters */);
+    /// ```
     pub fn set_external_access_rule<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ExternalAccessRule>,
@@ -2372,6 +3108,14 @@ impl UpdateExternalAccessRuleRequest {
     }
 
     /// Sets or clears the value of [external_access_rule][crate::model::UpdateExternalAccessRuleRequest::external_access_rule].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::UpdateExternalAccessRuleRequest;
+    /// use google_cloud_vmwareengine_v1::model::ExternalAccessRule;
+    /// let x = UpdateExternalAccessRuleRequest::new().set_or_clear_external_access_rule(Some(ExternalAccessRule::default()/* use setters */));
+    /// let x = UpdateExternalAccessRuleRequest::new().set_or_clear_external_access_rule(None::<ExternalAccessRule>);
+    /// ```
     pub fn set_or_clear_external_access_rule<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ExternalAccessRule>,
@@ -2381,6 +3125,12 @@ impl UpdateExternalAccessRuleRequest {
     }
 
     /// Sets the value of [request_id][crate::model::UpdateExternalAccessRuleRequest::request_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::UpdateExternalAccessRuleRequest;
+    /// let x = UpdateExternalAccessRuleRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -2432,12 +3182,24 @@ impl DeleteExternalAccessRuleRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteExternalAccessRuleRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::DeleteExternalAccessRuleRequest;
+    /// let x = DeleteExternalAccessRuleRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [request_id][crate::model::DeleteExternalAccessRuleRequest::request_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::DeleteExternalAccessRuleRequest;
+    /// let x = DeleteExternalAccessRuleRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -2524,30 +3286,60 @@ impl ListLoggingServersRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListLoggingServersRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::ListLoggingServersRequest;
+    /// let x = ListLoggingServersRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListLoggingServersRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::ListLoggingServersRequest;
+    /// let x = ListLoggingServersRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListLoggingServersRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::ListLoggingServersRequest;
+    /// let x = ListLoggingServersRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListLoggingServersRequest::filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::ListLoggingServersRequest;
+    /// let x = ListLoggingServersRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListLoggingServersRequest::order_by].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::ListLoggingServersRequest;
+    /// let x = ListLoggingServersRequest::new().set_order_by("example");
+    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
@@ -2587,6 +3379,17 @@ impl ListLoggingServersResponse {
     }
 
     /// Sets the value of [logging_servers][crate::model::ListLoggingServersResponse::logging_servers].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::ListLoggingServersResponse;
+    /// use google_cloud_vmwareengine_v1::model::LoggingServer;
+    /// let x = ListLoggingServersResponse::new()
+    ///     .set_logging_servers([
+    ///         LoggingServer::default()/* use setters */,
+    ///         LoggingServer::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_logging_servers<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2598,12 +3401,24 @@ impl ListLoggingServersResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListLoggingServersResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::ListLoggingServersResponse;
+    /// let x = ListLoggingServersResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListLoggingServersResponse::unreachable].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::ListLoggingServersResponse;
+    /// let x = ListLoggingServersResponse::new().set_unreachable(["a", "b", "c"]);
+    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2658,6 +3473,12 @@ impl GetLoggingServerRequest {
     }
 
     /// Sets the value of [name][crate::model::GetLoggingServerRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::GetLoggingServerRequest;
+    /// let x = GetLoggingServerRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -2726,12 +3547,25 @@ impl CreateLoggingServerRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateLoggingServerRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::CreateLoggingServerRequest;
+    /// let x = CreateLoggingServerRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [logging_server][crate::model::CreateLoggingServerRequest::logging_server].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::CreateLoggingServerRequest;
+    /// use google_cloud_vmwareengine_v1::model::LoggingServer;
+    /// let x = CreateLoggingServerRequest::new().set_logging_server(LoggingServer::default()/* use setters */);
+    /// ```
     pub fn set_logging_server<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::LoggingServer>,
@@ -2741,6 +3575,14 @@ impl CreateLoggingServerRequest {
     }
 
     /// Sets or clears the value of [logging_server][crate::model::CreateLoggingServerRequest::logging_server].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::CreateLoggingServerRequest;
+    /// use google_cloud_vmwareengine_v1::model::LoggingServer;
+    /// let x = CreateLoggingServerRequest::new().set_or_clear_logging_server(Some(LoggingServer::default()/* use setters */));
+    /// let x = CreateLoggingServerRequest::new().set_or_clear_logging_server(None::<LoggingServer>);
+    /// ```
     pub fn set_or_clear_logging_server<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::LoggingServer>,
@@ -2750,6 +3592,12 @@ impl CreateLoggingServerRequest {
     }
 
     /// Sets the value of [logging_server_id][crate::model::CreateLoggingServerRequest::logging_server_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::CreateLoggingServerRequest;
+    /// let x = CreateLoggingServerRequest::new().set_logging_server_id("example");
+    /// ```
     pub fn set_logging_server_id<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -2759,6 +3607,12 @@ impl CreateLoggingServerRequest {
     }
 
     /// Sets the value of [request_id][crate::model::CreateLoggingServerRequest::request_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::CreateLoggingServerRequest;
+    /// let x = CreateLoggingServerRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -2813,6 +3667,13 @@ impl UpdateLoggingServerRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateLoggingServerRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::UpdateLoggingServerRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateLoggingServerRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -2822,6 +3683,14 @@ impl UpdateLoggingServerRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateLoggingServerRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::UpdateLoggingServerRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateLoggingServerRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateLoggingServerRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -2831,6 +3700,13 @@ impl UpdateLoggingServerRequest {
     }
 
     /// Sets the value of [logging_server][crate::model::UpdateLoggingServerRequest::logging_server].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::UpdateLoggingServerRequest;
+    /// use google_cloud_vmwareengine_v1::model::LoggingServer;
+    /// let x = UpdateLoggingServerRequest::new().set_logging_server(LoggingServer::default()/* use setters */);
+    /// ```
     pub fn set_logging_server<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::LoggingServer>,
@@ -2840,6 +3716,14 @@ impl UpdateLoggingServerRequest {
     }
 
     /// Sets or clears the value of [logging_server][crate::model::UpdateLoggingServerRequest::logging_server].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::UpdateLoggingServerRequest;
+    /// use google_cloud_vmwareengine_v1::model::LoggingServer;
+    /// let x = UpdateLoggingServerRequest::new().set_or_clear_logging_server(Some(LoggingServer::default()/* use setters */));
+    /// let x = UpdateLoggingServerRequest::new().set_or_clear_logging_server(None::<LoggingServer>);
+    /// ```
     pub fn set_or_clear_logging_server<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::LoggingServer>,
@@ -2849,6 +3733,12 @@ impl UpdateLoggingServerRequest {
     }
 
     /// Sets the value of [request_id][crate::model::UpdateLoggingServerRequest::request_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::UpdateLoggingServerRequest;
+    /// let x = UpdateLoggingServerRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -2900,12 +3790,24 @@ impl DeleteLoggingServerRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteLoggingServerRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::DeleteLoggingServerRequest;
+    /// let x = DeleteLoggingServerRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [request_id][crate::model::DeleteLoggingServerRequest::request_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::DeleteLoggingServerRequest;
+    /// let x = DeleteLoggingServerRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -2959,6 +3861,13 @@ impl OperationMetadata {
     }
 
     /// Sets the value of [create_time][crate::model::OperationMetadata::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::OperationMetadata;
+    /// use wkt::Timestamp;
+    /// let x = OperationMetadata::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2968,6 +3877,14 @@ impl OperationMetadata {
     }
 
     /// Sets or clears the value of [create_time][crate::model::OperationMetadata::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::OperationMetadata;
+    /// use wkt::Timestamp;
+    /// let x = OperationMetadata::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = OperationMetadata::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2977,6 +3894,13 @@ impl OperationMetadata {
     }
 
     /// Sets the value of [end_time][crate::model::OperationMetadata::end_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::OperationMetadata;
+    /// use wkt::Timestamp;
+    /// let x = OperationMetadata::new().set_end_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2986,6 +3910,14 @@ impl OperationMetadata {
     }
 
     /// Sets or clears the value of [end_time][crate::model::OperationMetadata::end_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::OperationMetadata;
+    /// use wkt::Timestamp;
+    /// let x = OperationMetadata::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
+    /// let x = OperationMetadata::new().set_or_clear_end_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2995,30 +3927,60 @@ impl OperationMetadata {
     }
 
     /// Sets the value of [target][crate::model::OperationMetadata::target].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::OperationMetadata;
+    /// let x = OperationMetadata::new().set_target("example");
+    /// ```
     pub fn set_target<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.target = v.into();
         self
     }
 
     /// Sets the value of [verb][crate::model::OperationMetadata::verb].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::OperationMetadata;
+    /// let x = OperationMetadata::new().set_verb("example");
+    /// ```
     pub fn set_verb<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.verb = v.into();
         self
     }
 
     /// Sets the value of [status_message][crate::model::OperationMetadata::status_message].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::OperationMetadata;
+    /// let x = OperationMetadata::new().set_status_message("example");
+    /// ```
     pub fn set_status_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.status_message = v.into();
         self
     }
 
     /// Sets the value of [requested_cancellation][crate::model::OperationMetadata::requested_cancellation].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::OperationMetadata;
+    /// let x = OperationMetadata::new().set_requested_cancellation(true);
+    /// ```
     pub fn set_requested_cancellation<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.requested_cancellation = v.into();
         self
     }
 
     /// Sets the value of [api_version][crate::model::OperationMetadata::api_version].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::OperationMetadata;
+    /// let x = OperationMetadata::new().set_api_version("example");
+    /// ```
     pub fn set_api_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.api_version = v.into();
         self
@@ -3096,24 +4058,48 @@ impl ListNodeTypesRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListNodeTypesRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::ListNodeTypesRequest;
+    /// let x = ListNodeTypesRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListNodeTypesRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::ListNodeTypesRequest;
+    /// let x = ListNodeTypesRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListNodeTypesRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::ListNodeTypesRequest;
+    /// let x = ListNodeTypesRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListNodeTypesRequest::filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::ListNodeTypesRequest;
+    /// let x = ListNodeTypesRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
@@ -3153,6 +4139,17 @@ impl ListNodeTypesResponse {
     }
 
     /// Sets the value of [node_types][crate::model::ListNodeTypesResponse::node_types].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::ListNodeTypesResponse;
+    /// use google_cloud_vmwareengine_v1::model::NodeType;
+    /// let x = ListNodeTypesResponse::new()
+    ///     .set_node_types([
+    ///         NodeType::default()/* use setters */,
+    ///         NodeType::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_node_types<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3164,12 +4161,24 @@ impl ListNodeTypesResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListNodeTypesResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::ListNodeTypesResponse;
+    /// let x = ListNodeTypesResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListNodeTypesResponse::unreachable].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::ListNodeTypesResponse;
+    /// let x = ListNodeTypesResponse::new().set_unreachable(["a", "b", "c"]);
+    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3224,6 +4233,12 @@ impl GetNodeTypeRequest {
     }
 
     /// Sets the value of [name][crate::model::GetNodeTypeRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::GetNodeTypeRequest;
+    /// let x = GetNodeTypeRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -3260,6 +4275,12 @@ impl ShowNsxCredentialsRequest {
     }
 
     /// Sets the value of [private_cloud][crate::model::ShowNsxCredentialsRequest::private_cloud].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::ShowNsxCredentialsRequest;
+    /// let x = ShowNsxCredentialsRequest::new().set_private_cloud("example");
+    /// ```
     pub fn set_private_cloud<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.private_cloud = v.into();
         self
@@ -3308,12 +4329,24 @@ impl ShowVcenterCredentialsRequest {
     }
 
     /// Sets the value of [private_cloud][crate::model::ShowVcenterCredentialsRequest::private_cloud].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::ShowVcenterCredentialsRequest;
+    /// let x = ShowVcenterCredentialsRequest::new().set_private_cloud("example");
+    /// ```
     pub fn set_private_cloud<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.private_cloud = v.into();
         self
     }
 
     /// Sets the value of [username][crate::model::ShowVcenterCredentialsRequest::username].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::ShowVcenterCredentialsRequest;
+    /// let x = ShowVcenterCredentialsRequest::new().set_username("example");
+    /// ```
     pub fn set_username<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.username = v.into();
         self
@@ -3366,12 +4399,24 @@ impl ResetNsxCredentialsRequest {
     }
 
     /// Sets the value of [private_cloud][crate::model::ResetNsxCredentialsRequest::private_cloud].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::ResetNsxCredentialsRequest;
+    /// let x = ResetNsxCredentialsRequest::new().set_private_cloud("example");
+    /// ```
     pub fn set_private_cloud<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.private_cloud = v.into();
         self
     }
 
     /// Sets the value of [request_id][crate::model::ResetNsxCredentialsRequest::request_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::ResetNsxCredentialsRequest;
+    /// let x = ResetNsxCredentialsRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -3435,18 +4480,36 @@ impl ResetVcenterCredentialsRequest {
     }
 
     /// Sets the value of [private_cloud][crate::model::ResetVcenterCredentialsRequest::private_cloud].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::ResetVcenterCredentialsRequest;
+    /// let x = ResetVcenterCredentialsRequest::new().set_private_cloud("example");
+    /// ```
     pub fn set_private_cloud<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.private_cloud = v.into();
         self
     }
 
     /// Sets the value of [request_id][crate::model::ResetVcenterCredentialsRequest::request_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::ResetVcenterCredentialsRequest;
+    /// let x = ResetVcenterCredentialsRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
     }
 
     /// Sets the value of [username][crate::model::ResetVcenterCredentialsRequest::username].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::ResetVcenterCredentialsRequest;
+    /// let x = ResetVcenterCredentialsRequest::new().set_username("example");
+    /// ```
     pub fn set_username<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.username = v.into();
         self
@@ -3486,6 +4549,17 @@ impl ListHcxActivationKeysResponse {
     }
 
     /// Sets the value of [hcx_activation_keys][crate::model::ListHcxActivationKeysResponse::hcx_activation_keys].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::ListHcxActivationKeysResponse;
+    /// use google_cloud_vmwareengine_v1::model::HcxActivationKey;
+    /// let x = ListHcxActivationKeysResponse::new()
+    ///     .set_hcx_activation_keys([
+    ///         HcxActivationKey::default()/* use setters */,
+    ///         HcxActivationKey::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_hcx_activation_keys<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3497,12 +4571,24 @@ impl ListHcxActivationKeysResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListHcxActivationKeysResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::ListHcxActivationKeysResponse;
+    /// let x = ListHcxActivationKeysResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListHcxActivationKeysResponse::unreachable].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::ListHcxActivationKeysResponse;
+    /// let x = ListHcxActivationKeysResponse::new().set_unreachable(["a", "b", "c"]);
+    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3572,18 +4658,36 @@ impl ListHcxActivationKeysRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListHcxActivationKeysRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::ListHcxActivationKeysRequest;
+    /// let x = ListHcxActivationKeysRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListHcxActivationKeysRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::ListHcxActivationKeysRequest;
+    /// let x = ListHcxActivationKeysRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListHcxActivationKeysRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::ListHcxActivationKeysRequest;
+    /// let x = ListHcxActivationKeysRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -3616,6 +4720,12 @@ impl GetHcxActivationKeyRequest {
     }
 
     /// Sets the value of [name][crate::model::GetHcxActivationKeyRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::GetHcxActivationKeyRequest;
+    /// let x = GetHcxActivationKeyRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -3684,12 +4794,25 @@ impl CreateHcxActivationKeyRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateHcxActivationKeyRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::CreateHcxActivationKeyRequest;
+    /// let x = CreateHcxActivationKeyRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [hcx_activation_key][crate::model::CreateHcxActivationKeyRequest::hcx_activation_key].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::CreateHcxActivationKeyRequest;
+    /// use google_cloud_vmwareengine_v1::model::HcxActivationKey;
+    /// let x = CreateHcxActivationKeyRequest::new().set_hcx_activation_key(HcxActivationKey::default()/* use setters */);
+    /// ```
     pub fn set_hcx_activation_key<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::HcxActivationKey>,
@@ -3699,6 +4822,14 @@ impl CreateHcxActivationKeyRequest {
     }
 
     /// Sets or clears the value of [hcx_activation_key][crate::model::CreateHcxActivationKeyRequest::hcx_activation_key].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::CreateHcxActivationKeyRequest;
+    /// use google_cloud_vmwareengine_v1::model::HcxActivationKey;
+    /// let x = CreateHcxActivationKeyRequest::new().set_or_clear_hcx_activation_key(Some(HcxActivationKey::default()/* use setters */));
+    /// let x = CreateHcxActivationKeyRequest::new().set_or_clear_hcx_activation_key(None::<HcxActivationKey>);
+    /// ```
     pub fn set_or_clear_hcx_activation_key<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::HcxActivationKey>,
@@ -3708,6 +4839,12 @@ impl CreateHcxActivationKeyRequest {
     }
 
     /// Sets the value of [hcx_activation_key_id][crate::model::CreateHcxActivationKeyRequest::hcx_activation_key_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::CreateHcxActivationKeyRequest;
+    /// let x = CreateHcxActivationKeyRequest::new().set_hcx_activation_key_id("example");
+    /// ```
     pub fn set_hcx_activation_key_id<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -3717,6 +4854,12 @@ impl CreateHcxActivationKeyRequest {
     }
 
     /// Sets the value of [request_id][crate::model::CreateHcxActivationKeyRequest::request_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::CreateHcxActivationKeyRequest;
+    /// let x = CreateHcxActivationKeyRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -3752,6 +4895,12 @@ impl GetDnsForwardingRequest {
     }
 
     /// Sets the value of [name][crate::model::GetDnsForwardingRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::GetDnsForwardingRequest;
+    /// let x = GetDnsForwardingRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -3806,6 +4955,13 @@ impl UpdateDnsForwardingRequest {
     }
 
     /// Sets the value of [dns_forwarding][crate::model::UpdateDnsForwardingRequest::dns_forwarding].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::UpdateDnsForwardingRequest;
+    /// use google_cloud_vmwareengine_v1::model::DnsForwarding;
+    /// let x = UpdateDnsForwardingRequest::new().set_dns_forwarding(DnsForwarding::default()/* use setters */);
+    /// ```
     pub fn set_dns_forwarding<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::DnsForwarding>,
@@ -3815,6 +4971,14 @@ impl UpdateDnsForwardingRequest {
     }
 
     /// Sets or clears the value of [dns_forwarding][crate::model::UpdateDnsForwardingRequest::dns_forwarding].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::UpdateDnsForwardingRequest;
+    /// use google_cloud_vmwareengine_v1::model::DnsForwarding;
+    /// let x = UpdateDnsForwardingRequest::new().set_or_clear_dns_forwarding(Some(DnsForwarding::default()/* use setters */));
+    /// let x = UpdateDnsForwardingRequest::new().set_or_clear_dns_forwarding(None::<DnsForwarding>);
+    /// ```
     pub fn set_or_clear_dns_forwarding<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DnsForwarding>,
@@ -3824,6 +4988,13 @@ impl UpdateDnsForwardingRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateDnsForwardingRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::UpdateDnsForwardingRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateDnsForwardingRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -3833,6 +5004,14 @@ impl UpdateDnsForwardingRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateDnsForwardingRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::UpdateDnsForwardingRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateDnsForwardingRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateDnsForwardingRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -3842,6 +5021,12 @@ impl UpdateDnsForwardingRequest {
     }
 
     /// Sets the value of [request_id][crate::model::UpdateDnsForwardingRequest::request_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::UpdateDnsForwardingRequest;
+    /// let x = UpdateDnsForwardingRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -3909,12 +5094,24 @@ impl CreateNetworkPeeringRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateNetworkPeeringRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::CreateNetworkPeeringRequest;
+    /// let x = CreateNetworkPeeringRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [network_peering_id][crate::model::CreateNetworkPeeringRequest::network_peering_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::CreateNetworkPeeringRequest;
+    /// let x = CreateNetworkPeeringRequest::new().set_network_peering_id("example");
+    /// ```
     pub fn set_network_peering_id<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -3924,6 +5121,13 @@ impl CreateNetworkPeeringRequest {
     }
 
     /// Sets the value of [network_peering][crate::model::CreateNetworkPeeringRequest::network_peering].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::CreateNetworkPeeringRequest;
+    /// use google_cloud_vmwareengine_v1::model::NetworkPeering;
+    /// let x = CreateNetworkPeeringRequest::new().set_network_peering(NetworkPeering::default()/* use setters */);
+    /// ```
     pub fn set_network_peering<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::NetworkPeering>,
@@ -3933,6 +5137,14 @@ impl CreateNetworkPeeringRequest {
     }
 
     /// Sets or clears the value of [network_peering][crate::model::CreateNetworkPeeringRequest::network_peering].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::CreateNetworkPeeringRequest;
+    /// use google_cloud_vmwareengine_v1::model::NetworkPeering;
+    /// let x = CreateNetworkPeeringRequest::new().set_or_clear_network_peering(Some(NetworkPeering::default()/* use setters */));
+    /// let x = CreateNetworkPeeringRequest::new().set_or_clear_network_peering(None::<NetworkPeering>);
+    /// ```
     pub fn set_or_clear_network_peering<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::NetworkPeering>,
@@ -3942,6 +5154,12 @@ impl CreateNetworkPeeringRequest {
     }
 
     /// Sets the value of [request_id][crate::model::CreateNetworkPeeringRequest::request_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::CreateNetworkPeeringRequest;
+    /// let x = CreateNetworkPeeringRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -3993,12 +5211,24 @@ impl DeleteNetworkPeeringRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteNetworkPeeringRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::DeleteNetworkPeeringRequest;
+    /// let x = DeleteNetworkPeeringRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [request_id][crate::model::DeleteNetworkPeeringRequest::request_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::DeleteNetworkPeeringRequest;
+    /// let x = DeleteNetworkPeeringRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -4034,6 +5264,12 @@ impl GetNetworkPeeringRequest {
     }
 
     /// Sets the value of [name][crate::model::GetNetworkPeeringRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::GetNetworkPeeringRequest;
+    /// let x = GetNetworkPeeringRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -4117,30 +5353,60 @@ impl ListNetworkPeeringsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListNetworkPeeringsRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::ListNetworkPeeringsRequest;
+    /// let x = ListNetworkPeeringsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListNetworkPeeringsRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::ListNetworkPeeringsRequest;
+    /// let x = ListNetworkPeeringsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListNetworkPeeringsRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::ListNetworkPeeringsRequest;
+    /// let x = ListNetworkPeeringsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListNetworkPeeringsRequest::filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::ListNetworkPeeringsRequest;
+    /// let x = ListNetworkPeeringsRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListNetworkPeeringsRequest::order_by].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::ListNetworkPeeringsRequest;
+    /// let x = ListNetworkPeeringsRequest::new().set_order_by("example");
+    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
@@ -4195,6 +5461,13 @@ impl UpdateNetworkPeeringRequest {
     }
 
     /// Sets the value of [network_peering][crate::model::UpdateNetworkPeeringRequest::network_peering].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::UpdateNetworkPeeringRequest;
+    /// use google_cloud_vmwareengine_v1::model::NetworkPeering;
+    /// let x = UpdateNetworkPeeringRequest::new().set_network_peering(NetworkPeering::default()/* use setters */);
+    /// ```
     pub fn set_network_peering<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::NetworkPeering>,
@@ -4204,6 +5477,14 @@ impl UpdateNetworkPeeringRequest {
     }
 
     /// Sets or clears the value of [network_peering][crate::model::UpdateNetworkPeeringRequest::network_peering].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::UpdateNetworkPeeringRequest;
+    /// use google_cloud_vmwareengine_v1::model::NetworkPeering;
+    /// let x = UpdateNetworkPeeringRequest::new().set_or_clear_network_peering(Some(NetworkPeering::default()/* use setters */));
+    /// let x = UpdateNetworkPeeringRequest::new().set_or_clear_network_peering(None::<NetworkPeering>);
+    /// ```
     pub fn set_or_clear_network_peering<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::NetworkPeering>,
@@ -4213,6 +5494,13 @@ impl UpdateNetworkPeeringRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateNetworkPeeringRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::UpdateNetworkPeeringRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateNetworkPeeringRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -4222,6 +5510,14 @@ impl UpdateNetworkPeeringRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateNetworkPeeringRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::UpdateNetworkPeeringRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateNetworkPeeringRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateNetworkPeeringRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -4231,6 +5527,12 @@ impl UpdateNetworkPeeringRequest {
     }
 
     /// Sets the value of [request_id][crate::model::UpdateNetworkPeeringRequest::request_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::UpdateNetworkPeeringRequest;
+    /// let x = UpdateNetworkPeeringRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -4269,6 +5571,17 @@ impl ListNetworkPeeringsResponse {
     }
 
     /// Sets the value of [network_peerings][crate::model::ListNetworkPeeringsResponse::network_peerings].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::ListNetworkPeeringsResponse;
+    /// use google_cloud_vmwareengine_v1::model::NetworkPeering;
+    /// let x = ListNetworkPeeringsResponse::new()
+    ///     .set_network_peerings([
+    ///         NetworkPeering::default()/* use setters */,
+    ///         NetworkPeering::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_network_peerings<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4280,12 +5593,24 @@ impl ListNetworkPeeringsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListNetworkPeeringsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::ListNetworkPeeringsResponse;
+    /// let x = ListNetworkPeeringsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListNetworkPeeringsResponse::unreachable].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::ListNetworkPeeringsResponse;
+    /// let x = ListNetworkPeeringsResponse::new().set_unreachable(["a", "b", "c"]);
+    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4358,24 +5683,48 @@ impl ListPeeringRoutesRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListPeeringRoutesRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::ListPeeringRoutesRequest;
+    /// let x = ListPeeringRoutesRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListPeeringRoutesRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::ListPeeringRoutesRequest;
+    /// let x = ListPeeringRoutesRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListPeeringRoutesRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::ListPeeringRoutesRequest;
+    /// let x = ListPeeringRoutesRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListPeeringRoutesRequest::filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::ListPeeringRoutesRequest;
+    /// let x = ListPeeringRoutesRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
@@ -4411,6 +5760,17 @@ impl ListPeeringRoutesResponse {
     }
 
     /// Sets the value of [peering_routes][crate::model::ListPeeringRoutesResponse::peering_routes].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::ListPeeringRoutesResponse;
+    /// use google_cloud_vmwareengine_v1::model::PeeringRoute;
+    /// let x = ListPeeringRoutesResponse::new()
+    ///     .set_peering_routes([
+    ///         PeeringRoute::default()/* use setters */,
+    ///         PeeringRoute::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_peering_routes<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4422,6 +5782,12 @@ impl ListPeeringRoutesResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListPeeringRoutesResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::ListPeeringRoutesResponse;
+    /// let x = ListPeeringRoutesResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -4520,30 +5886,60 @@ impl ListNetworkPoliciesRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListNetworkPoliciesRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::ListNetworkPoliciesRequest;
+    /// let x = ListNetworkPoliciesRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListNetworkPoliciesRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::ListNetworkPoliciesRequest;
+    /// let x = ListNetworkPoliciesRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListNetworkPoliciesRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::ListNetworkPoliciesRequest;
+    /// let x = ListNetworkPoliciesRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListNetworkPoliciesRequest::filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::ListNetworkPoliciesRequest;
+    /// let x = ListNetworkPoliciesRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListNetworkPoliciesRequest::order_by].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::ListNetworkPoliciesRequest;
+    /// let x = ListNetworkPoliciesRequest::new().set_order_by("example");
+    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
@@ -4583,6 +5979,17 @@ impl ListNetworkPoliciesResponse {
     }
 
     /// Sets the value of [network_policies][crate::model::ListNetworkPoliciesResponse::network_policies].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::ListNetworkPoliciesResponse;
+    /// use google_cloud_vmwareengine_v1::model::NetworkPolicy;
+    /// let x = ListNetworkPoliciesResponse::new()
+    ///     .set_network_policies([
+    ///         NetworkPolicy::default()/* use setters */,
+    ///         NetworkPolicy::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_network_policies<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4594,12 +6001,24 @@ impl ListNetworkPoliciesResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListNetworkPoliciesResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::ListNetworkPoliciesResponse;
+    /// let x = ListNetworkPoliciesResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListNetworkPoliciesResponse::unreachable].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::ListNetworkPoliciesResponse;
+    /// let x = ListNetworkPoliciesResponse::new().set_unreachable(["a", "b", "c"]);
+    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4654,6 +6073,12 @@ impl GetNetworkPolicyRequest {
     }
 
     /// Sets the value of [name][crate::model::GetNetworkPolicyRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::GetNetworkPolicyRequest;
+    /// let x = GetNetworkPolicyRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -4708,6 +6133,13 @@ impl UpdateNetworkPolicyRequest {
     }
 
     /// Sets the value of [network_policy][crate::model::UpdateNetworkPolicyRequest::network_policy].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::UpdateNetworkPolicyRequest;
+    /// use google_cloud_vmwareengine_v1::model::NetworkPolicy;
+    /// let x = UpdateNetworkPolicyRequest::new().set_network_policy(NetworkPolicy::default()/* use setters */);
+    /// ```
     pub fn set_network_policy<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::NetworkPolicy>,
@@ -4717,6 +6149,14 @@ impl UpdateNetworkPolicyRequest {
     }
 
     /// Sets or clears the value of [network_policy][crate::model::UpdateNetworkPolicyRequest::network_policy].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::UpdateNetworkPolicyRequest;
+    /// use google_cloud_vmwareengine_v1::model::NetworkPolicy;
+    /// let x = UpdateNetworkPolicyRequest::new().set_or_clear_network_policy(Some(NetworkPolicy::default()/* use setters */));
+    /// let x = UpdateNetworkPolicyRequest::new().set_or_clear_network_policy(None::<NetworkPolicy>);
+    /// ```
     pub fn set_or_clear_network_policy<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::NetworkPolicy>,
@@ -4726,6 +6166,13 @@ impl UpdateNetworkPolicyRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateNetworkPolicyRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::UpdateNetworkPolicyRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateNetworkPolicyRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -4735,6 +6182,14 @@ impl UpdateNetworkPolicyRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateNetworkPolicyRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::UpdateNetworkPolicyRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateNetworkPolicyRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateNetworkPolicyRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -4744,6 +6199,12 @@ impl UpdateNetworkPolicyRequest {
     }
 
     /// Sets the value of [request_id][crate::model::UpdateNetworkPolicyRequest::request_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::UpdateNetworkPolicyRequest;
+    /// let x = UpdateNetworkPolicyRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -4813,12 +6274,24 @@ impl CreateNetworkPolicyRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateNetworkPolicyRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::CreateNetworkPolicyRequest;
+    /// let x = CreateNetworkPolicyRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [network_policy_id][crate::model::CreateNetworkPolicyRequest::network_policy_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::CreateNetworkPolicyRequest;
+    /// let x = CreateNetworkPolicyRequest::new().set_network_policy_id("example");
+    /// ```
     pub fn set_network_policy_id<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -4828,6 +6301,13 @@ impl CreateNetworkPolicyRequest {
     }
 
     /// Sets the value of [network_policy][crate::model::CreateNetworkPolicyRequest::network_policy].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::CreateNetworkPolicyRequest;
+    /// use google_cloud_vmwareengine_v1::model::NetworkPolicy;
+    /// let x = CreateNetworkPolicyRequest::new().set_network_policy(NetworkPolicy::default()/* use setters */);
+    /// ```
     pub fn set_network_policy<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::NetworkPolicy>,
@@ -4837,6 +6317,14 @@ impl CreateNetworkPolicyRequest {
     }
 
     /// Sets or clears the value of [network_policy][crate::model::CreateNetworkPolicyRequest::network_policy].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::CreateNetworkPolicyRequest;
+    /// use google_cloud_vmwareengine_v1::model::NetworkPolicy;
+    /// let x = CreateNetworkPolicyRequest::new().set_or_clear_network_policy(Some(NetworkPolicy::default()/* use setters */));
+    /// let x = CreateNetworkPolicyRequest::new().set_or_clear_network_policy(None::<NetworkPolicy>);
+    /// ```
     pub fn set_or_clear_network_policy<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::NetworkPolicy>,
@@ -4846,6 +6334,12 @@ impl CreateNetworkPolicyRequest {
     }
 
     /// Sets the value of [request_id][crate::model::CreateNetworkPolicyRequest::request_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::CreateNetworkPolicyRequest;
+    /// let x = CreateNetworkPolicyRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -4897,12 +6391,24 @@ impl DeleteNetworkPolicyRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteNetworkPolicyRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::DeleteNetworkPolicyRequest;
+    /// let x = DeleteNetworkPolicyRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [request_id][crate::model::DeleteNetworkPolicyRequest::request_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::DeleteNetworkPolicyRequest;
+    /// let x = DeleteNetworkPolicyRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -4989,30 +6495,60 @@ impl ListManagementDnsZoneBindingsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListManagementDnsZoneBindingsRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::ListManagementDnsZoneBindingsRequest;
+    /// let x = ListManagementDnsZoneBindingsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListManagementDnsZoneBindingsRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::ListManagementDnsZoneBindingsRequest;
+    /// let x = ListManagementDnsZoneBindingsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListManagementDnsZoneBindingsRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::ListManagementDnsZoneBindingsRequest;
+    /// let x = ListManagementDnsZoneBindingsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListManagementDnsZoneBindingsRequest::filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::ListManagementDnsZoneBindingsRequest;
+    /// let x = ListManagementDnsZoneBindingsRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListManagementDnsZoneBindingsRequest::order_by].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::ListManagementDnsZoneBindingsRequest;
+    /// let x = ListManagementDnsZoneBindingsRequest::new().set_order_by("example");
+    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
@@ -5052,6 +6588,17 @@ impl ListManagementDnsZoneBindingsResponse {
     }
 
     /// Sets the value of [management_dns_zone_bindings][crate::model::ListManagementDnsZoneBindingsResponse::management_dns_zone_bindings].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::ListManagementDnsZoneBindingsResponse;
+    /// use google_cloud_vmwareengine_v1::model::ManagementDnsZoneBinding;
+    /// let x = ListManagementDnsZoneBindingsResponse::new()
+    ///     .set_management_dns_zone_bindings([
+    ///         ManagementDnsZoneBinding::default()/* use setters */,
+    ///         ManagementDnsZoneBinding::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_management_dns_zone_bindings<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -5063,12 +6610,24 @@ impl ListManagementDnsZoneBindingsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListManagementDnsZoneBindingsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::ListManagementDnsZoneBindingsResponse;
+    /// let x = ListManagementDnsZoneBindingsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListManagementDnsZoneBindingsResponse::unreachable].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::ListManagementDnsZoneBindingsResponse;
+    /// let x = ListManagementDnsZoneBindingsResponse::new().set_unreachable(["a", "b", "c"]);
+    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -5123,6 +6682,12 @@ impl GetManagementDnsZoneBindingRequest {
     }
 
     /// Sets the value of [name][crate::model::GetManagementDnsZoneBindingRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::GetManagementDnsZoneBindingRequest;
+    /// let x = GetManagementDnsZoneBindingRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -5189,12 +6754,25 @@ impl CreateManagementDnsZoneBindingRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateManagementDnsZoneBindingRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::CreateManagementDnsZoneBindingRequest;
+    /// let x = CreateManagementDnsZoneBindingRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [management_dns_zone_binding][crate::model::CreateManagementDnsZoneBindingRequest::management_dns_zone_binding].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::CreateManagementDnsZoneBindingRequest;
+    /// use google_cloud_vmwareengine_v1::model::ManagementDnsZoneBinding;
+    /// let x = CreateManagementDnsZoneBindingRequest::new().set_management_dns_zone_binding(ManagementDnsZoneBinding::default()/* use setters */);
+    /// ```
     pub fn set_management_dns_zone_binding<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ManagementDnsZoneBinding>,
@@ -5204,6 +6782,14 @@ impl CreateManagementDnsZoneBindingRequest {
     }
 
     /// Sets or clears the value of [management_dns_zone_binding][crate::model::CreateManagementDnsZoneBindingRequest::management_dns_zone_binding].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::CreateManagementDnsZoneBindingRequest;
+    /// use google_cloud_vmwareengine_v1::model::ManagementDnsZoneBinding;
+    /// let x = CreateManagementDnsZoneBindingRequest::new().set_or_clear_management_dns_zone_binding(Some(ManagementDnsZoneBinding::default()/* use setters */));
+    /// let x = CreateManagementDnsZoneBindingRequest::new().set_or_clear_management_dns_zone_binding(None::<ManagementDnsZoneBinding>);
+    /// ```
     pub fn set_or_clear_management_dns_zone_binding<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ManagementDnsZoneBinding>,
@@ -5213,6 +6799,12 @@ impl CreateManagementDnsZoneBindingRequest {
     }
 
     /// Sets the value of [management_dns_zone_binding_id][crate::model::CreateManagementDnsZoneBindingRequest::management_dns_zone_binding_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::CreateManagementDnsZoneBindingRequest;
+    /// let x = CreateManagementDnsZoneBindingRequest::new().set_management_dns_zone_binding_id("example");
+    /// ```
     pub fn set_management_dns_zone_binding_id<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -5222,6 +6814,12 @@ impl CreateManagementDnsZoneBindingRequest {
     }
 
     /// Sets the value of [request_id][crate::model::CreateManagementDnsZoneBindingRequest::request_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::CreateManagementDnsZoneBindingRequest;
+    /// let x = CreateManagementDnsZoneBindingRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -5276,6 +6874,13 @@ impl UpdateManagementDnsZoneBindingRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateManagementDnsZoneBindingRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::UpdateManagementDnsZoneBindingRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateManagementDnsZoneBindingRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -5285,6 +6890,14 @@ impl UpdateManagementDnsZoneBindingRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateManagementDnsZoneBindingRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::UpdateManagementDnsZoneBindingRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateManagementDnsZoneBindingRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateManagementDnsZoneBindingRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -5294,6 +6907,13 @@ impl UpdateManagementDnsZoneBindingRequest {
     }
 
     /// Sets the value of [management_dns_zone_binding][crate::model::UpdateManagementDnsZoneBindingRequest::management_dns_zone_binding].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::UpdateManagementDnsZoneBindingRequest;
+    /// use google_cloud_vmwareengine_v1::model::ManagementDnsZoneBinding;
+    /// let x = UpdateManagementDnsZoneBindingRequest::new().set_management_dns_zone_binding(ManagementDnsZoneBinding::default()/* use setters */);
+    /// ```
     pub fn set_management_dns_zone_binding<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ManagementDnsZoneBinding>,
@@ -5303,6 +6923,14 @@ impl UpdateManagementDnsZoneBindingRequest {
     }
 
     /// Sets or clears the value of [management_dns_zone_binding][crate::model::UpdateManagementDnsZoneBindingRequest::management_dns_zone_binding].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::UpdateManagementDnsZoneBindingRequest;
+    /// use google_cloud_vmwareengine_v1::model::ManagementDnsZoneBinding;
+    /// let x = UpdateManagementDnsZoneBindingRequest::new().set_or_clear_management_dns_zone_binding(Some(ManagementDnsZoneBinding::default()/* use setters */));
+    /// let x = UpdateManagementDnsZoneBindingRequest::new().set_or_clear_management_dns_zone_binding(None::<ManagementDnsZoneBinding>);
+    /// ```
     pub fn set_or_clear_management_dns_zone_binding<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ManagementDnsZoneBinding>,
@@ -5312,6 +6940,12 @@ impl UpdateManagementDnsZoneBindingRequest {
     }
 
     /// Sets the value of [request_id][crate::model::UpdateManagementDnsZoneBindingRequest::request_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::UpdateManagementDnsZoneBindingRequest;
+    /// let x = UpdateManagementDnsZoneBindingRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -5363,12 +6997,24 @@ impl DeleteManagementDnsZoneBindingRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteManagementDnsZoneBindingRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::DeleteManagementDnsZoneBindingRequest;
+    /// let x = DeleteManagementDnsZoneBindingRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [request_id][crate::model::DeleteManagementDnsZoneBindingRequest::request_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::DeleteManagementDnsZoneBindingRequest;
+    /// let x = DeleteManagementDnsZoneBindingRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -5417,12 +7063,24 @@ impl RepairManagementDnsZoneBindingRequest {
     }
 
     /// Sets the value of [name][crate::model::RepairManagementDnsZoneBindingRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::RepairManagementDnsZoneBindingRequest;
+    /// let x = RepairManagementDnsZoneBindingRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [request_id][crate::model::RepairManagementDnsZoneBindingRequest::request_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::RepairManagementDnsZoneBindingRequest;
+    /// let x = RepairManagementDnsZoneBindingRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -5495,12 +7153,24 @@ impl CreateVmwareEngineNetworkRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateVmwareEngineNetworkRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::CreateVmwareEngineNetworkRequest;
+    /// let x = CreateVmwareEngineNetworkRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [vmware_engine_network_id][crate::model::CreateVmwareEngineNetworkRequest::vmware_engine_network_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::CreateVmwareEngineNetworkRequest;
+    /// let x = CreateVmwareEngineNetworkRequest::new().set_vmware_engine_network_id("example");
+    /// ```
     pub fn set_vmware_engine_network_id<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -5510,6 +7180,13 @@ impl CreateVmwareEngineNetworkRequest {
     }
 
     /// Sets the value of [vmware_engine_network][crate::model::CreateVmwareEngineNetworkRequest::vmware_engine_network].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::CreateVmwareEngineNetworkRequest;
+    /// use google_cloud_vmwareengine_v1::model::VmwareEngineNetwork;
+    /// let x = CreateVmwareEngineNetworkRequest::new().set_vmware_engine_network(VmwareEngineNetwork::default()/* use setters */);
+    /// ```
     pub fn set_vmware_engine_network<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::VmwareEngineNetwork>,
@@ -5519,6 +7196,14 @@ impl CreateVmwareEngineNetworkRequest {
     }
 
     /// Sets or clears the value of [vmware_engine_network][crate::model::CreateVmwareEngineNetworkRequest::vmware_engine_network].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::CreateVmwareEngineNetworkRequest;
+    /// use google_cloud_vmwareengine_v1::model::VmwareEngineNetwork;
+    /// let x = CreateVmwareEngineNetworkRequest::new().set_or_clear_vmware_engine_network(Some(VmwareEngineNetwork::default()/* use setters */));
+    /// let x = CreateVmwareEngineNetworkRequest::new().set_or_clear_vmware_engine_network(None::<VmwareEngineNetwork>);
+    /// ```
     pub fn set_or_clear_vmware_engine_network<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::VmwareEngineNetwork>,
@@ -5528,6 +7213,12 @@ impl CreateVmwareEngineNetworkRequest {
     }
 
     /// Sets the value of [request_id][crate::model::CreateVmwareEngineNetworkRequest::request_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::CreateVmwareEngineNetworkRequest;
+    /// let x = CreateVmwareEngineNetworkRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -5583,6 +7274,13 @@ impl UpdateVmwareEngineNetworkRequest {
     }
 
     /// Sets the value of [vmware_engine_network][crate::model::UpdateVmwareEngineNetworkRequest::vmware_engine_network].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::UpdateVmwareEngineNetworkRequest;
+    /// use google_cloud_vmwareengine_v1::model::VmwareEngineNetwork;
+    /// let x = UpdateVmwareEngineNetworkRequest::new().set_vmware_engine_network(VmwareEngineNetwork::default()/* use setters */);
+    /// ```
     pub fn set_vmware_engine_network<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::VmwareEngineNetwork>,
@@ -5592,6 +7290,14 @@ impl UpdateVmwareEngineNetworkRequest {
     }
 
     /// Sets or clears the value of [vmware_engine_network][crate::model::UpdateVmwareEngineNetworkRequest::vmware_engine_network].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::UpdateVmwareEngineNetworkRequest;
+    /// use google_cloud_vmwareengine_v1::model::VmwareEngineNetwork;
+    /// let x = UpdateVmwareEngineNetworkRequest::new().set_or_clear_vmware_engine_network(Some(VmwareEngineNetwork::default()/* use setters */));
+    /// let x = UpdateVmwareEngineNetworkRequest::new().set_or_clear_vmware_engine_network(None::<VmwareEngineNetwork>);
+    /// ```
     pub fn set_or_clear_vmware_engine_network<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::VmwareEngineNetwork>,
@@ -5601,6 +7307,13 @@ impl UpdateVmwareEngineNetworkRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateVmwareEngineNetworkRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::UpdateVmwareEngineNetworkRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateVmwareEngineNetworkRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -5610,6 +7323,14 @@ impl UpdateVmwareEngineNetworkRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateVmwareEngineNetworkRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::UpdateVmwareEngineNetworkRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateVmwareEngineNetworkRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateVmwareEngineNetworkRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -5619,6 +7340,12 @@ impl UpdateVmwareEngineNetworkRequest {
     }
 
     /// Sets the value of [request_id][crate::model::UpdateVmwareEngineNetworkRequest::request_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::UpdateVmwareEngineNetworkRequest;
+    /// let x = UpdateVmwareEngineNetworkRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -5676,18 +7403,36 @@ impl DeleteVmwareEngineNetworkRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteVmwareEngineNetworkRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::DeleteVmwareEngineNetworkRequest;
+    /// let x = DeleteVmwareEngineNetworkRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [request_id][crate::model::DeleteVmwareEngineNetworkRequest::request_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::DeleteVmwareEngineNetworkRequest;
+    /// let x = DeleteVmwareEngineNetworkRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
     }
 
     /// Sets the value of [etag][crate::model::DeleteVmwareEngineNetworkRequest::etag].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::DeleteVmwareEngineNetworkRequest;
+    /// let x = DeleteVmwareEngineNetworkRequest::new().set_etag("example");
+    /// ```
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
@@ -5723,6 +7468,12 @@ impl GetVmwareEngineNetworkRequest {
     }
 
     /// Sets the value of [name][crate::model::GetVmwareEngineNetworkRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::GetVmwareEngineNetworkRequest;
+    /// let x = GetVmwareEngineNetworkRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -5806,30 +7557,60 @@ impl ListVmwareEngineNetworksRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListVmwareEngineNetworksRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::ListVmwareEngineNetworksRequest;
+    /// let x = ListVmwareEngineNetworksRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListVmwareEngineNetworksRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::ListVmwareEngineNetworksRequest;
+    /// let x = ListVmwareEngineNetworksRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListVmwareEngineNetworksRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::ListVmwareEngineNetworksRequest;
+    /// let x = ListVmwareEngineNetworksRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListVmwareEngineNetworksRequest::filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::ListVmwareEngineNetworksRequest;
+    /// let x = ListVmwareEngineNetworksRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListVmwareEngineNetworksRequest::order_by].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::ListVmwareEngineNetworksRequest;
+    /// let x = ListVmwareEngineNetworksRequest::new().set_order_by("example");
+    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
@@ -5868,6 +7649,17 @@ impl ListVmwareEngineNetworksResponse {
     }
 
     /// Sets the value of [vmware_engine_networks][crate::model::ListVmwareEngineNetworksResponse::vmware_engine_networks].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::ListVmwareEngineNetworksResponse;
+    /// use google_cloud_vmwareengine_v1::model::VmwareEngineNetwork;
+    /// let x = ListVmwareEngineNetworksResponse::new()
+    ///     .set_vmware_engine_networks([
+    ///         VmwareEngineNetwork::default()/* use setters */,
+    ///         VmwareEngineNetwork::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_vmware_engine_networks<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -5879,12 +7671,24 @@ impl ListVmwareEngineNetworksResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListVmwareEngineNetworksResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::ListVmwareEngineNetworksResponse;
+    /// let x = ListVmwareEngineNetworksResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListVmwareEngineNetworksResponse::unreachable].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::ListVmwareEngineNetworksResponse;
+    /// let x = ListVmwareEngineNetworksResponse::new().set_unreachable(["a", "b", "c"]);
+    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -5971,12 +7775,24 @@ impl CreatePrivateConnectionRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreatePrivateConnectionRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::CreatePrivateConnectionRequest;
+    /// let x = CreatePrivateConnectionRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [private_connection_id][crate::model::CreatePrivateConnectionRequest::private_connection_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::CreatePrivateConnectionRequest;
+    /// let x = CreatePrivateConnectionRequest::new().set_private_connection_id("example");
+    /// ```
     pub fn set_private_connection_id<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -5986,6 +7802,13 @@ impl CreatePrivateConnectionRequest {
     }
 
     /// Sets the value of [private_connection][crate::model::CreatePrivateConnectionRequest::private_connection].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::CreatePrivateConnectionRequest;
+    /// use google_cloud_vmwareengine_v1::model::PrivateConnection;
+    /// let x = CreatePrivateConnectionRequest::new().set_private_connection(PrivateConnection::default()/* use setters */);
+    /// ```
     pub fn set_private_connection<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::PrivateConnection>,
@@ -5995,6 +7818,14 @@ impl CreatePrivateConnectionRequest {
     }
 
     /// Sets or clears the value of [private_connection][crate::model::CreatePrivateConnectionRequest::private_connection].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::CreatePrivateConnectionRequest;
+    /// use google_cloud_vmwareengine_v1::model::PrivateConnection;
+    /// let x = CreatePrivateConnectionRequest::new().set_or_clear_private_connection(Some(PrivateConnection::default()/* use setters */));
+    /// let x = CreatePrivateConnectionRequest::new().set_or_clear_private_connection(None::<PrivateConnection>);
+    /// ```
     pub fn set_or_clear_private_connection<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::PrivateConnection>,
@@ -6004,6 +7835,12 @@ impl CreatePrivateConnectionRequest {
     }
 
     /// Sets the value of [request_id][crate::model::CreatePrivateConnectionRequest::request_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::CreatePrivateConnectionRequest;
+    /// let x = CreatePrivateConnectionRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -6039,6 +7876,12 @@ impl GetPrivateConnectionRequest {
     }
 
     /// Sets the value of [name][crate::model::GetPrivateConnectionRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::GetPrivateConnectionRequest;
+    /// let x = GetPrivateConnectionRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -6122,30 +7965,60 @@ impl ListPrivateConnectionsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListPrivateConnectionsRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::ListPrivateConnectionsRequest;
+    /// let x = ListPrivateConnectionsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListPrivateConnectionsRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::ListPrivateConnectionsRequest;
+    /// let x = ListPrivateConnectionsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListPrivateConnectionsRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::ListPrivateConnectionsRequest;
+    /// let x = ListPrivateConnectionsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListPrivateConnectionsRequest::filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::ListPrivateConnectionsRequest;
+    /// let x = ListPrivateConnectionsRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListPrivateConnectionsRequest::order_by].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::ListPrivateConnectionsRequest;
+    /// let x = ListPrivateConnectionsRequest::new().set_order_by("example");
+    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
@@ -6184,6 +8057,17 @@ impl ListPrivateConnectionsResponse {
     }
 
     /// Sets the value of [private_connections][crate::model::ListPrivateConnectionsResponse::private_connections].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::ListPrivateConnectionsResponse;
+    /// use google_cloud_vmwareengine_v1::model::PrivateConnection;
+    /// let x = ListPrivateConnectionsResponse::new()
+    ///     .set_private_connections([
+    ///         PrivateConnection::default()/* use setters */,
+    ///         PrivateConnection::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_private_connections<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -6195,12 +8079,24 @@ impl ListPrivateConnectionsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListPrivateConnectionsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::ListPrivateConnectionsResponse;
+    /// let x = ListPrivateConnectionsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListPrivateConnectionsResponse::unreachable].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::ListPrivateConnectionsResponse;
+    /// let x = ListPrivateConnectionsResponse::new().set_unreachable(["a", "b", "c"]);
+    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -6274,6 +8170,13 @@ impl UpdatePrivateConnectionRequest {
     }
 
     /// Sets the value of [private_connection][crate::model::UpdatePrivateConnectionRequest::private_connection].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::UpdatePrivateConnectionRequest;
+    /// use google_cloud_vmwareengine_v1::model::PrivateConnection;
+    /// let x = UpdatePrivateConnectionRequest::new().set_private_connection(PrivateConnection::default()/* use setters */);
+    /// ```
     pub fn set_private_connection<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::PrivateConnection>,
@@ -6283,6 +8186,14 @@ impl UpdatePrivateConnectionRequest {
     }
 
     /// Sets or clears the value of [private_connection][crate::model::UpdatePrivateConnectionRequest::private_connection].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::UpdatePrivateConnectionRequest;
+    /// use google_cloud_vmwareengine_v1::model::PrivateConnection;
+    /// let x = UpdatePrivateConnectionRequest::new().set_or_clear_private_connection(Some(PrivateConnection::default()/* use setters */));
+    /// let x = UpdatePrivateConnectionRequest::new().set_or_clear_private_connection(None::<PrivateConnection>);
+    /// ```
     pub fn set_or_clear_private_connection<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::PrivateConnection>,
@@ -6292,6 +8203,13 @@ impl UpdatePrivateConnectionRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdatePrivateConnectionRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::UpdatePrivateConnectionRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdatePrivateConnectionRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -6301,6 +8219,14 @@ impl UpdatePrivateConnectionRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdatePrivateConnectionRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::UpdatePrivateConnectionRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdatePrivateConnectionRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdatePrivateConnectionRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -6310,6 +8236,12 @@ impl UpdatePrivateConnectionRequest {
     }
 
     /// Sets the value of [request_id][crate::model::UpdatePrivateConnectionRequest::request_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::UpdatePrivateConnectionRequest;
+    /// let x = UpdatePrivateConnectionRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -6361,12 +8293,24 @@ impl DeletePrivateConnectionRequest {
     }
 
     /// Sets the value of [name][crate::model::DeletePrivateConnectionRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::DeletePrivateConnectionRequest;
+    /// let x = DeletePrivateConnectionRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [request_id][crate::model::DeletePrivateConnectionRequest::request_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::DeletePrivateConnectionRequest;
+    /// let x = DeletePrivateConnectionRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -6413,18 +8357,36 @@ impl ListPrivateConnectionPeeringRoutesRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListPrivateConnectionPeeringRoutesRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::ListPrivateConnectionPeeringRoutesRequest;
+    /// let x = ListPrivateConnectionPeeringRoutesRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListPrivateConnectionPeeringRoutesRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::ListPrivateConnectionPeeringRoutesRequest;
+    /// let x = ListPrivateConnectionPeeringRoutesRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListPrivateConnectionPeeringRoutesRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::ListPrivateConnectionPeeringRoutesRequest;
+    /// let x = ListPrivateConnectionPeeringRoutesRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -6460,6 +8422,17 @@ impl ListPrivateConnectionPeeringRoutesResponse {
     }
 
     /// Sets the value of [peering_routes][crate::model::ListPrivateConnectionPeeringRoutesResponse::peering_routes].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::ListPrivateConnectionPeeringRoutesResponse;
+    /// use google_cloud_vmwareengine_v1::model::PeeringRoute;
+    /// let x = ListPrivateConnectionPeeringRoutesResponse::new()
+    ///     .set_peering_routes([
+    ///         PeeringRoute::default()/* use setters */,
+    ///         PeeringRoute::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_peering_routes<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -6471,6 +8444,12 @@ impl ListPrivateConnectionPeeringRoutesResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListPrivateConnectionPeeringRoutesResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::ListPrivateConnectionPeeringRoutesResponse;
+    /// let x = ListPrivateConnectionPeeringRoutesResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -6542,12 +8521,25 @@ impl GrantDnsBindPermissionRequest {
     }
 
     /// Sets the value of [name][crate::model::GrantDnsBindPermissionRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::GrantDnsBindPermissionRequest;
+    /// let x = GrantDnsBindPermissionRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [principal][crate::model::GrantDnsBindPermissionRequest::principal].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::GrantDnsBindPermissionRequest;
+    /// use google_cloud_vmwareengine_v1::model::Principal;
+    /// let x = GrantDnsBindPermissionRequest::new().set_principal(Principal::default()/* use setters */);
+    /// ```
     pub fn set_principal<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Principal>,
@@ -6557,6 +8549,14 @@ impl GrantDnsBindPermissionRequest {
     }
 
     /// Sets or clears the value of [principal][crate::model::GrantDnsBindPermissionRequest::principal].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::GrantDnsBindPermissionRequest;
+    /// use google_cloud_vmwareengine_v1::model::Principal;
+    /// let x = GrantDnsBindPermissionRequest::new().set_or_clear_principal(Some(Principal::default()/* use setters */));
+    /// let x = GrantDnsBindPermissionRequest::new().set_or_clear_principal(None::<Principal>);
+    /// ```
     pub fn set_or_clear_principal<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Principal>,
@@ -6566,6 +8566,12 @@ impl GrantDnsBindPermissionRequest {
     }
 
     /// Sets the value of [request_id][crate::model::GrantDnsBindPermissionRequest::request_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::GrantDnsBindPermissionRequest;
+    /// let x = GrantDnsBindPermissionRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -6623,12 +8629,25 @@ impl RevokeDnsBindPermissionRequest {
     }
 
     /// Sets the value of [name][crate::model::RevokeDnsBindPermissionRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::RevokeDnsBindPermissionRequest;
+    /// let x = RevokeDnsBindPermissionRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [principal][crate::model::RevokeDnsBindPermissionRequest::principal].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::RevokeDnsBindPermissionRequest;
+    /// use google_cloud_vmwareengine_v1::model::Principal;
+    /// let x = RevokeDnsBindPermissionRequest::new().set_principal(Principal::default()/* use setters */);
+    /// ```
     pub fn set_principal<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Principal>,
@@ -6638,6 +8657,14 @@ impl RevokeDnsBindPermissionRequest {
     }
 
     /// Sets or clears the value of [principal][crate::model::RevokeDnsBindPermissionRequest::principal].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::RevokeDnsBindPermissionRequest;
+    /// use google_cloud_vmwareengine_v1::model::Principal;
+    /// let x = RevokeDnsBindPermissionRequest::new().set_or_clear_principal(Some(Principal::default()/* use setters */));
+    /// let x = RevokeDnsBindPermissionRequest::new().set_or_clear_principal(None::<Principal>);
+    /// ```
     pub fn set_or_clear_principal<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Principal>,
@@ -6647,6 +8674,12 @@ impl RevokeDnsBindPermissionRequest {
     }
 
     /// Sets the value of [request_id][crate::model::RevokeDnsBindPermissionRequest::request_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::RevokeDnsBindPermissionRequest;
+    /// let x = RevokeDnsBindPermissionRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -6683,6 +8716,12 @@ impl GetDnsBindPermissionRequest {
     }
 
     /// Sets the value of [name][crate::model::GetDnsBindPermissionRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::GetDnsBindPermissionRequest;
+    /// let x = GetDnsBindPermissionRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -6739,12 +8778,24 @@ impl NetworkConfig {
     }
 
     /// Sets the value of [management_cidr][crate::model::NetworkConfig::management_cidr].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::NetworkConfig;
+    /// let x = NetworkConfig::new().set_management_cidr("example");
+    /// ```
     pub fn set_management_cidr<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.management_cidr = v.into();
         self
     }
 
     /// Sets the value of [vmware_engine_network][crate::model::NetworkConfig::vmware_engine_network].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::NetworkConfig;
+    /// let x = NetworkConfig::new().set_vmware_engine_network("example");
+    /// ```
     pub fn set_vmware_engine_network<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -6754,6 +8805,12 @@ impl NetworkConfig {
     }
 
     /// Sets the value of [vmware_engine_network_canonical][crate::model::NetworkConfig::vmware_engine_network_canonical].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::NetworkConfig;
+    /// let x = NetworkConfig::new().set_vmware_engine_network_canonical("example");
+    /// ```
     pub fn set_vmware_engine_network_canonical<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -6763,6 +8820,12 @@ impl NetworkConfig {
     }
 
     /// Sets the value of [management_ip_address_layout_version][crate::model::NetworkConfig::management_ip_address_layout_version].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::NetworkConfig;
+    /// let x = NetworkConfig::new().set_management_ip_address_layout_version(42);
+    /// ```
     pub fn set_management_ip_address_layout_version<T: std::convert::Into<i32>>(
         mut self,
         v: T,
@@ -6772,6 +8835,12 @@ impl NetworkConfig {
     }
 
     /// Sets the value of [dns_server_ip][crate::model::NetworkConfig::dns_server_ip].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::NetworkConfig;
+    /// let x = NetworkConfig::new().set_dns_server_ip("example");
+    /// ```
     pub fn set_dns_server_ip<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.dns_server_ip = v.into();
         self
@@ -6806,12 +8875,24 @@ impl NodeTypeConfig {
     }
 
     /// Sets the value of [node_count][crate::model::NodeTypeConfig::node_count].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::NodeTypeConfig;
+    /// let x = NodeTypeConfig::new().set_node_count(42);
+    /// ```
     pub fn set_node_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.node_count = v.into();
         self
     }
 
     /// Sets the value of [custom_core_count][crate::model::NodeTypeConfig::custom_core_count].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::NodeTypeConfig;
+    /// let x = NodeTypeConfig::new().set_custom_core_count(42);
+    /// ```
     pub fn set_custom_core_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.custom_core_count = v.into();
         self
@@ -6851,6 +8932,12 @@ impl StretchedClusterConfig {
     }
 
     /// Sets the value of [preferred_location][crate::model::StretchedClusterConfig::preferred_location].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::StretchedClusterConfig;
+    /// let x = StretchedClusterConfig::new().set_preferred_location("example");
+    /// ```
     pub fn set_preferred_location<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -6860,6 +8947,12 @@ impl StretchedClusterConfig {
     }
 
     /// Sets the value of [secondary_location][crate::model::StretchedClusterConfig::secondary_location].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::StretchedClusterConfig;
+    /// let x = StretchedClusterConfig::new().set_secondary_location("example");
+    /// ```
     pub fn set_secondary_location<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -6942,12 +9035,25 @@ impl PrivateCloud {
     }
 
     /// Sets the value of [name][crate::model::PrivateCloud::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::PrivateCloud;
+    /// let x = PrivateCloud::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::PrivateCloud::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::PrivateCloud;
+    /// use wkt::Timestamp;
+    /// let x = PrivateCloud::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -6957,6 +9063,14 @@ impl PrivateCloud {
     }
 
     /// Sets or clears the value of [create_time][crate::model::PrivateCloud::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::PrivateCloud;
+    /// use wkt::Timestamp;
+    /// let x = PrivateCloud::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = PrivateCloud::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -6966,6 +9080,13 @@ impl PrivateCloud {
     }
 
     /// Sets the value of [update_time][crate::model::PrivateCloud::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::PrivateCloud;
+    /// use wkt::Timestamp;
+    /// let x = PrivateCloud::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -6975,6 +9096,14 @@ impl PrivateCloud {
     }
 
     /// Sets or clears the value of [update_time][crate::model::PrivateCloud::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::PrivateCloud;
+    /// use wkt::Timestamp;
+    /// let x = PrivateCloud::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = PrivateCloud::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -6984,6 +9113,13 @@ impl PrivateCloud {
     }
 
     /// Sets the value of [delete_time][crate::model::PrivateCloud::delete_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::PrivateCloud;
+    /// use wkt::Timestamp;
+    /// let x = PrivateCloud::new().set_delete_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_delete_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -6993,6 +9129,14 @@ impl PrivateCloud {
     }
 
     /// Sets or clears the value of [delete_time][crate::model::PrivateCloud::delete_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::PrivateCloud;
+    /// use wkt::Timestamp;
+    /// let x = PrivateCloud::new().set_or_clear_delete_time(Some(Timestamp::default()/* use setters */));
+    /// let x = PrivateCloud::new().set_or_clear_delete_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_delete_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -7002,6 +9146,13 @@ impl PrivateCloud {
     }
 
     /// Sets the value of [expire_time][crate::model::PrivateCloud::expire_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::PrivateCloud;
+    /// use wkt::Timestamp;
+    /// let x = PrivateCloud::new().set_expire_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_expire_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -7011,6 +9162,14 @@ impl PrivateCloud {
     }
 
     /// Sets or clears the value of [expire_time][crate::model::PrivateCloud::expire_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::PrivateCloud;
+    /// use wkt::Timestamp;
+    /// let x = PrivateCloud::new().set_or_clear_expire_time(Some(Timestamp::default()/* use setters */));
+    /// let x = PrivateCloud::new().set_or_clear_expire_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_expire_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -7020,6 +9179,15 @@ impl PrivateCloud {
     }
 
     /// Sets the value of [state][crate::model::PrivateCloud::state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::PrivateCloud;
+    /// use google_cloud_vmwareengine_v1::model::private_cloud::State;
+    /// let x0 = PrivateCloud::new().set_state(State::Active);
+    /// let x1 = PrivateCloud::new().set_state(State::Creating);
+    /// let x2 = PrivateCloud::new().set_state(State::Updating);
+    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::private_cloud::State>>(
         mut self,
         v: T,
@@ -7029,6 +9197,13 @@ impl PrivateCloud {
     }
 
     /// Sets the value of [network_config][crate::model::PrivateCloud::network_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::PrivateCloud;
+    /// use google_cloud_vmwareengine_v1::model::NetworkConfig;
+    /// let x = PrivateCloud::new().set_network_config(NetworkConfig::default()/* use setters */);
+    /// ```
     pub fn set_network_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::NetworkConfig>,
@@ -7038,6 +9213,14 @@ impl PrivateCloud {
     }
 
     /// Sets or clears the value of [network_config][crate::model::PrivateCloud::network_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::PrivateCloud;
+    /// use google_cloud_vmwareengine_v1::model::NetworkConfig;
+    /// let x = PrivateCloud::new().set_or_clear_network_config(Some(NetworkConfig::default()/* use setters */));
+    /// let x = PrivateCloud::new().set_or_clear_network_config(None::<NetworkConfig>);
+    /// ```
     pub fn set_or_clear_network_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::NetworkConfig>,
@@ -7047,6 +9230,13 @@ impl PrivateCloud {
     }
 
     /// Sets the value of [management_cluster][crate::model::PrivateCloud::management_cluster].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::PrivateCloud;
+    /// use google_cloud_vmwareengine_v1::model::private_cloud::ManagementCluster;
+    /// let x = PrivateCloud::new().set_management_cluster(ManagementCluster::default()/* use setters */);
+    /// ```
     pub fn set_management_cluster<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::private_cloud::ManagementCluster>,
@@ -7056,6 +9246,14 @@ impl PrivateCloud {
     }
 
     /// Sets or clears the value of [management_cluster][crate::model::PrivateCloud::management_cluster].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::PrivateCloud;
+    /// use google_cloud_vmwareengine_v1::model::private_cloud::ManagementCluster;
+    /// let x = PrivateCloud::new().set_or_clear_management_cluster(Some(ManagementCluster::default()/* use setters */));
+    /// let x = PrivateCloud::new().set_or_clear_management_cluster(None::<ManagementCluster>);
+    /// ```
     pub fn set_or_clear_management_cluster<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::private_cloud::ManagementCluster>,
@@ -7065,12 +9263,25 @@ impl PrivateCloud {
     }
 
     /// Sets the value of [description][crate::model::PrivateCloud::description].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::PrivateCloud;
+    /// let x = PrivateCloud::new().set_description("example");
+    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [hcx][crate::model::PrivateCloud::hcx].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::PrivateCloud;
+    /// use google_cloud_vmwareengine_v1::model::Hcx;
+    /// let x = PrivateCloud::new().set_hcx(Hcx::default()/* use setters */);
+    /// ```
     pub fn set_hcx<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Hcx>,
@@ -7080,6 +9291,14 @@ impl PrivateCloud {
     }
 
     /// Sets or clears the value of [hcx][crate::model::PrivateCloud::hcx].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::PrivateCloud;
+    /// use google_cloud_vmwareengine_v1::model::Hcx;
+    /// let x = PrivateCloud::new().set_or_clear_hcx(Some(Hcx::default()/* use setters */));
+    /// let x = PrivateCloud::new().set_or_clear_hcx(None::<Hcx>);
+    /// ```
     pub fn set_or_clear_hcx<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Hcx>,
@@ -7089,6 +9308,13 @@ impl PrivateCloud {
     }
 
     /// Sets the value of [nsx][crate::model::PrivateCloud::nsx].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::PrivateCloud;
+    /// use google_cloud_vmwareengine_v1::model::Nsx;
+    /// let x = PrivateCloud::new().set_nsx(Nsx::default()/* use setters */);
+    /// ```
     pub fn set_nsx<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Nsx>,
@@ -7098,6 +9324,14 @@ impl PrivateCloud {
     }
 
     /// Sets or clears the value of [nsx][crate::model::PrivateCloud::nsx].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::PrivateCloud;
+    /// use google_cloud_vmwareengine_v1::model::Nsx;
+    /// let x = PrivateCloud::new().set_or_clear_nsx(Some(Nsx::default()/* use setters */));
+    /// let x = PrivateCloud::new().set_or_clear_nsx(None::<Nsx>);
+    /// ```
     pub fn set_or_clear_nsx<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Nsx>,
@@ -7107,6 +9341,13 @@ impl PrivateCloud {
     }
 
     /// Sets the value of [vcenter][crate::model::PrivateCloud::vcenter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::PrivateCloud;
+    /// use google_cloud_vmwareengine_v1::model::Vcenter;
+    /// let x = PrivateCloud::new().set_vcenter(Vcenter::default()/* use setters */);
+    /// ```
     pub fn set_vcenter<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Vcenter>,
@@ -7116,6 +9357,14 @@ impl PrivateCloud {
     }
 
     /// Sets or clears the value of [vcenter][crate::model::PrivateCloud::vcenter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::PrivateCloud;
+    /// use google_cloud_vmwareengine_v1::model::Vcenter;
+    /// let x = PrivateCloud::new().set_or_clear_vcenter(Some(Vcenter::default()/* use setters */));
+    /// let x = PrivateCloud::new().set_or_clear_vcenter(None::<Vcenter>);
+    /// ```
     pub fn set_or_clear_vcenter<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Vcenter>,
@@ -7125,12 +9374,26 @@ impl PrivateCloud {
     }
 
     /// Sets the value of [uid][crate::model::PrivateCloud::uid].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::PrivateCloud;
+    /// let x = PrivateCloud::new().set_uid("example");
+    /// ```
     pub fn set_uid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.uid = v.into();
         self
     }
 
     /// Sets the value of [r#type][crate::model::PrivateCloud::type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::PrivateCloud;
+    /// use google_cloud_vmwareengine_v1::model::private_cloud::Type;
+    /// let x0 = PrivateCloud::new().set_type(Type::TimeLimited);
+    /// let x1 = PrivateCloud::new().set_type(Type::Stretched);
+    /// ```
     pub fn set_type<T: std::convert::Into<crate::model::private_cloud::Type>>(
         mut self,
         v: T,
@@ -7184,12 +9447,28 @@ pub mod private_cloud {
         }
 
         /// Sets the value of [cluster_id][crate::model::private_cloud::ManagementCluster::cluster_id].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_vmwareengine_v1::model::private_cloud::ManagementCluster;
+        /// let x = ManagementCluster::new().set_cluster_id("example");
+        /// ```
         pub fn set_cluster_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.cluster_id = v.into();
             self
         }
 
         /// Sets the value of [node_type_configs][crate::model::private_cloud::ManagementCluster::node_type_configs].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_vmwareengine_v1::model::private_cloud::ManagementCluster;
+        /// use google_cloud_vmwareengine_v1::model::NodeTypeConfig;
+        /// let x = ManagementCluster::new().set_node_type_configs([
+        ///     ("key0", NodeTypeConfig::default()/* use setters */),
+        ///     ("key1", NodeTypeConfig::default()/* use (different) setters */),
+        /// ]);
+        /// ```
         pub fn set_node_type_configs<T, K, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = (K, V)>,
@@ -7202,6 +9481,13 @@ pub mod private_cloud {
         }
 
         /// Sets the value of [stretched_cluster_config][crate::model::private_cloud::ManagementCluster::stretched_cluster_config].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_vmwareengine_v1::model::private_cloud::ManagementCluster;
+        /// use google_cloud_vmwareengine_v1::model::StretchedClusterConfig;
+        /// let x = ManagementCluster::new().set_stretched_cluster_config(StretchedClusterConfig::default()/* use setters */);
+        /// ```
         pub fn set_stretched_cluster_config<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::StretchedClusterConfig>,
@@ -7211,6 +9497,14 @@ pub mod private_cloud {
         }
 
         /// Sets or clears the value of [stretched_cluster_config][crate::model::private_cloud::ManagementCluster::stretched_cluster_config].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_vmwareengine_v1::model::private_cloud::ManagementCluster;
+        /// use google_cloud_vmwareengine_v1::model::StretchedClusterConfig;
+        /// let x = ManagementCluster::new().set_or_clear_stretched_cluster_config(Some(StretchedClusterConfig::default()/* use setters */));
+        /// let x = ManagementCluster::new().set_or_clear_stretched_cluster_config(None::<StretchedClusterConfig>);
+        /// ```
         pub fn set_or_clear_stretched_cluster_config<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::StretchedClusterConfig>,
@@ -7574,12 +9868,25 @@ impl Cluster {
     }
 
     /// Sets the value of [name][crate::model::Cluster::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::Cluster;
+    /// let x = Cluster::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::Cluster::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::Cluster;
+    /// use wkt::Timestamp;
+    /// let x = Cluster::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -7589,6 +9896,14 @@ impl Cluster {
     }
 
     /// Sets or clears the value of [create_time][crate::model::Cluster::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::Cluster;
+    /// use wkt::Timestamp;
+    /// let x = Cluster::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Cluster::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -7598,6 +9913,13 @@ impl Cluster {
     }
 
     /// Sets the value of [update_time][crate::model::Cluster::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::Cluster;
+    /// use wkt::Timestamp;
+    /// let x = Cluster::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -7607,6 +9929,14 @@ impl Cluster {
     }
 
     /// Sets or clears the value of [update_time][crate::model::Cluster::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::Cluster;
+    /// use wkt::Timestamp;
+    /// let x = Cluster::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Cluster::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -7616,18 +9946,40 @@ impl Cluster {
     }
 
     /// Sets the value of [state][crate::model::Cluster::state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::Cluster;
+    /// use google_cloud_vmwareengine_v1::model::cluster::State;
+    /// let x0 = Cluster::new().set_state(State::Active);
+    /// let x1 = Cluster::new().set_state(State::Creating);
+    /// let x2 = Cluster::new().set_state(State::Updating);
+    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::cluster::State>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
     }
 
     /// Sets the value of [management][crate::model::Cluster::management].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::Cluster;
+    /// let x = Cluster::new().set_management(true);
+    /// ```
     pub fn set_management<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.management = v.into();
         self
     }
 
     /// Sets the value of [autoscaling_settings][crate::model::Cluster::autoscaling_settings].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::Cluster;
+    /// use google_cloud_vmwareengine_v1::model::AutoscalingSettings;
+    /// let x = Cluster::new().set_autoscaling_settings(AutoscalingSettings::default()/* use setters */);
+    /// ```
     pub fn set_autoscaling_settings<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::AutoscalingSettings>,
@@ -7637,6 +9989,14 @@ impl Cluster {
     }
 
     /// Sets or clears the value of [autoscaling_settings][crate::model::Cluster::autoscaling_settings].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::Cluster;
+    /// use google_cloud_vmwareengine_v1::model::AutoscalingSettings;
+    /// let x = Cluster::new().set_or_clear_autoscaling_settings(Some(AutoscalingSettings::default()/* use setters */));
+    /// let x = Cluster::new().set_or_clear_autoscaling_settings(None::<AutoscalingSettings>);
+    /// ```
     pub fn set_or_clear_autoscaling_settings<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AutoscalingSettings>,
@@ -7646,12 +10006,28 @@ impl Cluster {
     }
 
     /// Sets the value of [uid][crate::model::Cluster::uid].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::Cluster;
+    /// let x = Cluster::new().set_uid("example");
+    /// ```
     pub fn set_uid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.uid = v.into();
         self
     }
 
     /// Sets the value of [node_type_configs][crate::model::Cluster::node_type_configs].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::Cluster;
+    /// use google_cloud_vmwareengine_v1::model::NodeTypeConfig;
+    /// let x = Cluster::new().set_node_type_configs([
+    ///     ("key0", NodeTypeConfig::default()/* use setters */),
+    ///     ("key1", NodeTypeConfig::default()/* use (different) setters */),
+    /// ]);
+    /// ```
     pub fn set_node_type_configs<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -7664,6 +10040,13 @@ impl Cluster {
     }
 
     /// Sets the value of [stretched_cluster_config][crate::model::Cluster::stretched_cluster_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::Cluster;
+    /// use google_cloud_vmwareengine_v1::model::StretchedClusterConfig;
+    /// let x = Cluster::new().set_stretched_cluster_config(StretchedClusterConfig::default()/* use setters */);
+    /// ```
     pub fn set_stretched_cluster_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::StretchedClusterConfig>,
@@ -7673,6 +10056,14 @@ impl Cluster {
     }
 
     /// Sets or clears the value of [stretched_cluster_config][crate::model::Cluster::stretched_cluster_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::Cluster;
+    /// use google_cloud_vmwareengine_v1::model::StretchedClusterConfig;
+    /// let x = Cluster::new().set_or_clear_stretched_cluster_config(Some(StretchedClusterConfig::default()/* use setters */));
+    /// let x = Cluster::new().set_or_clear_stretched_cluster_config(None::<StretchedClusterConfig>);
+    /// ```
     pub fn set_or_clear_stretched_cluster_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::StretchedClusterConfig>,
@@ -7890,42 +10281,87 @@ impl Node {
     }
 
     /// Sets the value of [name][crate::model::Node::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::Node;
+    /// let x = Node::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [fqdn][crate::model::Node::fqdn].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::Node;
+    /// let x = Node::new().set_fqdn("example");
+    /// ```
     pub fn set_fqdn<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.fqdn = v.into();
         self
     }
 
     /// Sets the value of [internal_ip][crate::model::Node::internal_ip].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::Node;
+    /// let x = Node::new().set_internal_ip("example");
+    /// ```
     pub fn set_internal_ip<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.internal_ip = v.into();
         self
     }
 
     /// Sets the value of [node_type_id][crate::model::Node::node_type_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::Node;
+    /// let x = Node::new().set_node_type_id("example");
+    /// ```
     pub fn set_node_type_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.node_type_id = v.into();
         self
     }
 
     /// Sets the value of [version][crate::model::Node::version].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::Node;
+    /// let x = Node::new().set_version("example");
+    /// ```
     pub fn set_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.version = v.into();
         self
     }
 
     /// Sets the value of [custom_core_count][crate::model::Node::custom_core_count].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::Node;
+    /// let x = Node::new().set_custom_core_count(42);
+    /// ```
     pub fn set_custom_core_count<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.custom_core_count = v.into();
         self
     }
 
     /// Sets the value of [state][crate::model::Node::state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::Node;
+    /// use google_cloud_vmwareengine_v1::model::node::State;
+    /// let x0 = Node::new().set_state(State::Active);
+    /// let x1 = Node::new().set_state(State::Creating);
+    /// let x2 = Node::new().set_state(State::Failed);
+    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::node::State>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
@@ -8132,12 +10568,25 @@ impl ExternalAddress {
     }
 
     /// Sets the value of [name][crate::model::ExternalAddress::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::ExternalAddress;
+    /// let x = ExternalAddress::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::ExternalAddress::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::ExternalAddress;
+    /// use wkt::Timestamp;
+    /// let x = ExternalAddress::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -8147,6 +10596,14 @@ impl ExternalAddress {
     }
 
     /// Sets or clears the value of [create_time][crate::model::ExternalAddress::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::ExternalAddress;
+    /// use wkt::Timestamp;
+    /// let x = ExternalAddress::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = ExternalAddress::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -8156,6 +10613,13 @@ impl ExternalAddress {
     }
 
     /// Sets the value of [update_time][crate::model::ExternalAddress::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::ExternalAddress;
+    /// use wkt::Timestamp;
+    /// let x = ExternalAddress::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -8165,6 +10629,14 @@ impl ExternalAddress {
     }
 
     /// Sets or clears the value of [update_time][crate::model::ExternalAddress::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::ExternalAddress;
+    /// use wkt::Timestamp;
+    /// let x = ExternalAddress::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = ExternalAddress::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -8174,18 +10646,39 @@ impl ExternalAddress {
     }
 
     /// Sets the value of [internal_ip][crate::model::ExternalAddress::internal_ip].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::ExternalAddress;
+    /// let x = ExternalAddress::new().set_internal_ip("example");
+    /// ```
     pub fn set_internal_ip<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.internal_ip = v.into();
         self
     }
 
     /// Sets the value of [external_ip][crate::model::ExternalAddress::external_ip].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::ExternalAddress;
+    /// let x = ExternalAddress::new().set_external_ip("example");
+    /// ```
     pub fn set_external_ip<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.external_ip = v.into();
         self
     }
 
     /// Sets the value of [state][crate::model::ExternalAddress::state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::ExternalAddress;
+    /// use google_cloud_vmwareengine_v1::model::external_address::State;
+    /// let x0 = ExternalAddress::new().set_state(State::Active);
+    /// let x1 = ExternalAddress::new().set_state(State::Creating);
+    /// let x2 = ExternalAddress::new().set_state(State::Updating);
+    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::external_address::State>>(
         mut self,
         v: T,
@@ -8195,12 +10688,24 @@ impl ExternalAddress {
     }
 
     /// Sets the value of [uid][crate::model::ExternalAddress::uid].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::ExternalAddress;
+    /// let x = ExternalAddress::new().set_uid("example");
+    /// ```
     pub fn set_uid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.uid = v.into();
         self
     }
 
     /// Sets the value of [description][crate::model::ExternalAddress::description].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::ExternalAddress;
+    /// let x = ExternalAddress::new().set_description("example");
+    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
@@ -8403,36 +10908,75 @@ impl Subnet {
     }
 
     /// Sets the value of [name][crate::model::Subnet::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::Subnet;
+    /// let x = Subnet::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [ip_cidr_range][crate::model::Subnet::ip_cidr_range].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::Subnet;
+    /// let x = Subnet::new().set_ip_cidr_range("example");
+    /// ```
     pub fn set_ip_cidr_range<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.ip_cidr_range = v.into();
         self
     }
 
     /// Sets the value of [gateway_ip][crate::model::Subnet::gateway_ip].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::Subnet;
+    /// let x = Subnet::new().set_gateway_ip("example");
+    /// ```
     pub fn set_gateway_ip<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.gateway_ip = v.into();
         self
     }
 
     /// Sets the value of [r#type][crate::model::Subnet::type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::Subnet;
+    /// let x = Subnet::new().set_type("example");
+    /// ```
     pub fn set_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.r#type = v.into();
         self
     }
 
     /// Sets the value of [state][crate::model::Subnet::state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::Subnet;
+    /// use google_cloud_vmwareengine_v1::model::subnet::State;
+    /// let x0 = Subnet::new().set_state(State::Active);
+    /// let x1 = Subnet::new().set_state(State::Creating);
+    /// let x2 = Subnet::new().set_state(State::Updating);
+    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::subnet::State>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
     }
 
     /// Sets the value of [vlan_id][crate::model::Subnet::vlan_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::Subnet;
+    /// let x = Subnet::new().set_vlan_id(42);
+    /// ```
     pub fn set_vlan_id<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.vlan_id = v.into();
         self
@@ -8696,12 +11240,25 @@ impl ExternalAccessRule {
     }
 
     /// Sets the value of [name][crate::model::ExternalAccessRule::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::ExternalAccessRule;
+    /// let x = ExternalAccessRule::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::ExternalAccessRule::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::ExternalAccessRule;
+    /// use wkt::Timestamp;
+    /// let x = ExternalAccessRule::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -8711,6 +11268,14 @@ impl ExternalAccessRule {
     }
 
     /// Sets or clears the value of [create_time][crate::model::ExternalAccessRule::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::ExternalAccessRule;
+    /// use wkt::Timestamp;
+    /// let x = ExternalAccessRule::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = ExternalAccessRule::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -8720,6 +11285,13 @@ impl ExternalAccessRule {
     }
 
     /// Sets the value of [update_time][crate::model::ExternalAccessRule::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::ExternalAccessRule;
+    /// use wkt::Timestamp;
+    /// let x = ExternalAccessRule::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -8729,6 +11301,14 @@ impl ExternalAccessRule {
     }
 
     /// Sets or clears the value of [update_time][crate::model::ExternalAccessRule::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::ExternalAccessRule;
+    /// use wkt::Timestamp;
+    /// let x = ExternalAccessRule::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = ExternalAccessRule::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -8738,18 +11318,38 @@ impl ExternalAccessRule {
     }
 
     /// Sets the value of [description][crate::model::ExternalAccessRule::description].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::ExternalAccessRule;
+    /// let x = ExternalAccessRule::new().set_description("example");
+    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [priority][crate::model::ExternalAccessRule::priority].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::ExternalAccessRule;
+    /// let x = ExternalAccessRule::new().set_priority(42);
+    /// ```
     pub fn set_priority<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.priority = v.into();
         self
     }
 
     /// Sets the value of [action][crate::model::ExternalAccessRule::action].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::ExternalAccessRule;
+    /// use google_cloud_vmwareengine_v1::model::external_access_rule::Action;
+    /// let x0 = ExternalAccessRule::new().set_action(Action::Allow);
+    /// let x1 = ExternalAccessRule::new().set_action(Action::Deny);
+    /// ```
     pub fn set_action<T: std::convert::Into<crate::model::external_access_rule::Action>>(
         mut self,
         v: T,
@@ -8759,12 +11359,29 @@ impl ExternalAccessRule {
     }
 
     /// Sets the value of [ip_protocol][crate::model::ExternalAccessRule::ip_protocol].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::ExternalAccessRule;
+    /// let x = ExternalAccessRule::new().set_ip_protocol("example");
+    /// ```
     pub fn set_ip_protocol<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.ip_protocol = v.into();
         self
     }
 
     /// Sets the value of [source_ip_ranges][crate::model::ExternalAccessRule::source_ip_ranges].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::ExternalAccessRule;
+    /// use google_cloud_vmwareengine_v1::model::external_access_rule::IpRange;
+    /// let x = ExternalAccessRule::new()
+    ///     .set_source_ip_ranges([
+    ///         IpRange::default()/* use setters */,
+    ///         IpRange::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_source_ip_ranges<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -8776,6 +11393,12 @@ impl ExternalAccessRule {
     }
 
     /// Sets the value of [source_ports][crate::model::ExternalAccessRule::source_ports].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::ExternalAccessRule;
+    /// let x = ExternalAccessRule::new().set_source_ports(["a", "b", "c"]);
+    /// ```
     pub fn set_source_ports<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -8787,6 +11410,17 @@ impl ExternalAccessRule {
     }
 
     /// Sets the value of [destination_ip_ranges][crate::model::ExternalAccessRule::destination_ip_ranges].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::ExternalAccessRule;
+    /// use google_cloud_vmwareengine_v1::model::external_access_rule::IpRange;
+    /// let x = ExternalAccessRule::new()
+    ///     .set_destination_ip_ranges([
+    ///         IpRange::default()/* use setters */,
+    ///         IpRange::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_destination_ip_ranges<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -8798,6 +11432,12 @@ impl ExternalAccessRule {
     }
 
     /// Sets the value of [destination_ports][crate::model::ExternalAccessRule::destination_ports].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::ExternalAccessRule;
+    /// let x = ExternalAccessRule::new().set_destination_ports(["a", "b", "c"]);
+    /// ```
     pub fn set_destination_ports<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -8809,6 +11449,15 @@ impl ExternalAccessRule {
     }
 
     /// Sets the value of [state][crate::model::ExternalAccessRule::state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::ExternalAccessRule;
+    /// use google_cloud_vmwareengine_v1::model::external_access_rule::State;
+    /// let x0 = ExternalAccessRule::new().set_state(State::Active);
+    /// let x1 = ExternalAccessRule::new().set_state(State::Creating);
+    /// let x2 = ExternalAccessRule::new().set_state(State::Updating);
+    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::external_access_rule::State>>(
         mut self,
         v: T,
@@ -8818,6 +11467,12 @@ impl ExternalAccessRule {
     }
 
     /// Sets the value of [uid][crate::model::ExternalAccessRule::uid].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::ExternalAccessRule;
+    /// let x = ExternalAccessRule::new().set_uid("example");
+    /// ```
     pub fn set_uid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.uid = v.into();
         self
@@ -8853,6 +11508,13 @@ pub mod external_access_rule {
         ///
         /// Note that all the setters affecting `ip_range` are mutually
         /// exclusive.
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_vmwareengine_v1::model::external_access_rule::IpRange;
+        /// use google_cloud_vmwareengine_v1::model::external_access_rule::ip_range;
+        /// let x = IpRange::new().set_ip_range(Some(external_access_rule::ip_range::IpRange::IpAddress("example".to_string())));
+        /// ```
         pub fn set_ip_range<
             T: std::convert::Into<
                     std::option::Option<crate::model::external_access_rule::ip_range::IpRange>,
@@ -8883,6 +11545,15 @@ pub mod external_access_rule {
         ///
         /// Note that all the setters affecting `ip_range` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_vmwareengine_v1::model::external_access_rule::IpRange;
+        /// let x = IpRange::new().set_ip_address("example");
+        /// assert!(x.ip_address().is_some());
+        /// assert!(x.ip_address_range().is_none());
+        /// assert!(x.external_address().is_none());
+        /// ```
         pub fn set_ip_address<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.ip_range = std::option::Option::Some(
                 crate::model::external_access_rule::ip_range::IpRange::IpAddress(v.into()),
@@ -8908,6 +11579,15 @@ pub mod external_access_rule {
         ///
         /// Note that all the setters affecting `ip_range` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_vmwareengine_v1::model::external_access_rule::IpRange;
+        /// let x = IpRange::new().set_ip_address_range("example");
+        /// assert!(x.ip_address_range().is_some());
+        /// assert!(x.ip_address().is_none());
+        /// assert!(x.external_address().is_none());
+        /// ```
         pub fn set_ip_address_range<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -8936,6 +11616,15 @@ pub mod external_access_rule {
         ///
         /// Note that all the setters affecting `ip_range` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_vmwareengine_v1::model::external_access_rule::IpRange;
+        /// let x = IpRange::new().set_external_address("example");
+        /// assert!(x.external_address().is_some());
+        /// assert!(x.ip_address().is_none());
+        /// assert!(x.ip_address_range().is_none());
+        /// ```
         pub fn set_external_address<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -9298,12 +11987,25 @@ impl LoggingServer {
     }
 
     /// Sets the value of [name][crate::model::LoggingServer::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::LoggingServer;
+    /// let x = LoggingServer::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::LoggingServer::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::LoggingServer;
+    /// use wkt::Timestamp;
+    /// let x = LoggingServer::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -9313,6 +12015,14 @@ impl LoggingServer {
     }
 
     /// Sets or clears the value of [create_time][crate::model::LoggingServer::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::LoggingServer;
+    /// use wkt::Timestamp;
+    /// let x = LoggingServer::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = LoggingServer::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -9322,6 +12032,13 @@ impl LoggingServer {
     }
 
     /// Sets the value of [update_time][crate::model::LoggingServer::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::LoggingServer;
+    /// use wkt::Timestamp;
+    /// let x = LoggingServer::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -9331,6 +12048,14 @@ impl LoggingServer {
     }
 
     /// Sets or clears the value of [update_time][crate::model::LoggingServer::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::LoggingServer;
+    /// use wkt::Timestamp;
+    /// let x = LoggingServer::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = LoggingServer::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -9340,18 +12065,39 @@ impl LoggingServer {
     }
 
     /// Sets the value of [hostname][crate::model::LoggingServer::hostname].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::LoggingServer;
+    /// let x = LoggingServer::new().set_hostname("example");
+    /// ```
     pub fn set_hostname<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.hostname = v.into();
         self
     }
 
     /// Sets the value of [port][crate::model::LoggingServer::port].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::LoggingServer;
+    /// let x = LoggingServer::new().set_port(42);
+    /// ```
     pub fn set_port<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.port = v.into();
         self
     }
 
     /// Sets the value of [protocol][crate::model::LoggingServer::protocol].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::LoggingServer;
+    /// use google_cloud_vmwareengine_v1::model::logging_server::Protocol;
+    /// let x0 = LoggingServer::new().set_protocol(Protocol::Udp);
+    /// let x1 = LoggingServer::new().set_protocol(Protocol::Tcp);
+    /// let x2 = LoggingServer::new().set_protocol(Protocol::Tls);
+    /// ```
     pub fn set_protocol<T: std::convert::Into<crate::model::logging_server::Protocol>>(
         mut self,
         v: T,
@@ -9361,6 +12107,14 @@ impl LoggingServer {
     }
 
     /// Sets the value of [source_type][crate::model::LoggingServer::source_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::LoggingServer;
+    /// use google_cloud_vmwareengine_v1::model::logging_server::SourceType;
+    /// let x0 = LoggingServer::new().set_source_type(SourceType::Esxi);
+    /// let x1 = LoggingServer::new().set_source_type(SourceType::Vcsa);
+    /// ```
     pub fn set_source_type<T: std::convert::Into<crate::model::logging_server::SourceType>>(
         mut self,
         v: T,
@@ -9370,6 +12124,12 @@ impl LoggingServer {
     }
 
     /// Sets the value of [uid][crate::model::LoggingServer::uid].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::LoggingServer;
+    /// let x = LoggingServer::new().set_uid("example");
+    /// ```
     pub fn set_uid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.uid = v.into();
         self
@@ -9728,48 +12488,96 @@ impl NodeType {
     }
 
     /// Sets the value of [name][crate::model::NodeType::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::NodeType;
+    /// let x = NodeType::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [node_type_id][crate::model::NodeType::node_type_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::NodeType;
+    /// let x = NodeType::new().set_node_type_id("example");
+    /// ```
     pub fn set_node_type_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.node_type_id = v.into();
         self
     }
 
     /// Sets the value of [display_name][crate::model::NodeType::display_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::NodeType;
+    /// let x = NodeType::new().set_display_name("example");
+    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
     }
 
     /// Sets the value of [virtual_cpu_count][crate::model::NodeType::virtual_cpu_count].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::NodeType;
+    /// let x = NodeType::new().set_virtual_cpu_count(42);
+    /// ```
     pub fn set_virtual_cpu_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.virtual_cpu_count = v.into();
         self
     }
 
     /// Sets the value of [total_core_count][crate::model::NodeType::total_core_count].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::NodeType;
+    /// let x = NodeType::new().set_total_core_count(42);
+    /// ```
     pub fn set_total_core_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.total_core_count = v.into();
         self
     }
 
     /// Sets the value of [memory_gb][crate::model::NodeType::memory_gb].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::NodeType;
+    /// let x = NodeType::new().set_memory_gb(42);
+    /// ```
     pub fn set_memory_gb<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.memory_gb = v.into();
         self
     }
 
     /// Sets the value of [disk_size_gb][crate::model::NodeType::disk_size_gb].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::NodeType;
+    /// let x = NodeType::new().set_disk_size_gb(42);
+    /// ```
     pub fn set_disk_size_gb<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.disk_size_gb = v.into();
         self
     }
 
     /// Sets the value of [available_custom_core_counts][crate::model::NodeType::available_custom_core_counts].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::NodeType;
+    /// let x = NodeType::new().set_available_custom_core_counts([1, 2, 3]);
+    /// ```
     pub fn set_available_custom_core_counts<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -9781,12 +12589,26 @@ impl NodeType {
     }
 
     /// Sets the value of [kind][crate::model::NodeType::kind].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::NodeType;
+    /// use google_cloud_vmwareengine_v1::model::node_type::Kind;
+    /// let x0 = NodeType::new().set_kind(Kind::Standard);
+    /// let x1 = NodeType::new().set_kind(Kind::StorageOnly);
+    /// ```
     pub fn set_kind<T: std::convert::Into<crate::model::node_type::Kind>>(mut self, v: T) -> Self {
         self.kind = v.into();
         self
     }
 
     /// Sets the value of [families][crate::model::NodeType::families].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::NodeType;
+    /// let x = NodeType::new().set_families(["a", "b", "c"]);
+    /// ```
     pub fn set_families<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -9798,6 +12620,15 @@ impl NodeType {
     }
 
     /// Sets the value of [capabilities][crate::model::NodeType::capabilities].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::NodeType;
+    /// use google_cloud_vmwareengine_v1::model::node_type::Capability;
+    /// let x = NodeType::new().set_capabilities([
+    ///     Capability::StretchedClusters,
+    /// ]);
+    /// ```
     pub fn set_capabilities<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -10098,12 +12929,24 @@ impl Credentials {
     }
 
     /// Sets the value of [username][crate::model::Credentials::username].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::Credentials;
+    /// let x = Credentials::new().set_username("example");
+    /// ```
     pub fn set_username<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.username = v.into();
         self
     }
 
     /// Sets the value of [password][crate::model::Credentials::password].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::Credentials;
+    /// let x = Credentials::new().set_password("example");
+    /// ```
     pub fn set_password<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.password = v.into();
         self
@@ -10158,12 +13001,25 @@ impl HcxActivationKey {
     }
 
     /// Sets the value of [name][crate::model::HcxActivationKey::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::HcxActivationKey;
+    /// let x = HcxActivationKey::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::HcxActivationKey::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::HcxActivationKey;
+    /// use wkt::Timestamp;
+    /// let x = HcxActivationKey::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -10173,6 +13029,14 @@ impl HcxActivationKey {
     }
 
     /// Sets or clears the value of [create_time][crate::model::HcxActivationKey::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::HcxActivationKey;
+    /// use wkt::Timestamp;
+    /// let x = HcxActivationKey::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = HcxActivationKey::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -10182,6 +13046,15 @@ impl HcxActivationKey {
     }
 
     /// Sets the value of [state][crate::model::HcxActivationKey::state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::HcxActivationKey;
+    /// use google_cloud_vmwareengine_v1::model::hcx_activation_key::State;
+    /// let x0 = HcxActivationKey::new().set_state(State::Available);
+    /// let x1 = HcxActivationKey::new().set_state(State::Consumed);
+    /// let x2 = HcxActivationKey::new().set_state(State::Creating);
+    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::hcx_activation_key::State>>(
         mut self,
         v: T,
@@ -10191,12 +13064,24 @@ impl HcxActivationKey {
     }
 
     /// Sets the value of [activation_key][crate::model::HcxActivationKey::activation_key].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::HcxActivationKey;
+    /// let x = HcxActivationKey::new().set_activation_key("example");
+    /// ```
     pub fn set_activation_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.activation_key = v.into();
         self
     }
 
     /// Sets the value of [uid][crate::model::HcxActivationKey::uid].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::HcxActivationKey;
+    /// let x = HcxActivationKey::new().set_uid("example");
+    /// ```
     pub fn set_uid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.uid = v.into();
         self
@@ -10379,24 +13264,51 @@ impl Hcx {
     }
 
     /// Sets the value of [internal_ip][crate::model::Hcx::internal_ip].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::Hcx;
+    /// let x = Hcx::new().set_internal_ip("example");
+    /// ```
     pub fn set_internal_ip<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.internal_ip = v.into();
         self
     }
 
     /// Sets the value of [version][crate::model::Hcx::version].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::Hcx;
+    /// let x = Hcx::new().set_version("example");
+    /// ```
     pub fn set_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.version = v.into();
         self
     }
 
     /// Sets the value of [state][crate::model::Hcx::state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::Hcx;
+    /// use google_cloud_vmwareengine_v1::model::hcx::State;
+    /// let x0 = Hcx::new().set_state(State::Active);
+    /// let x1 = Hcx::new().set_state(State::Creating);
+    /// let x2 = Hcx::new().set_state(State::Activating);
+    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::hcx::State>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
     }
 
     /// Sets the value of [fqdn][crate::model::Hcx::fqdn].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::Hcx;
+    /// let x = Hcx::new().set_fqdn("example");
+    /// ```
     pub fn set_fqdn<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.fqdn = v.into();
         self
@@ -10579,24 +13491,50 @@ impl Nsx {
     }
 
     /// Sets the value of [internal_ip][crate::model::Nsx::internal_ip].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::Nsx;
+    /// let x = Nsx::new().set_internal_ip("example");
+    /// ```
     pub fn set_internal_ip<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.internal_ip = v.into();
         self
     }
 
     /// Sets the value of [version][crate::model::Nsx::version].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::Nsx;
+    /// let x = Nsx::new().set_version("example");
+    /// ```
     pub fn set_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.version = v.into();
         self
     }
 
     /// Sets the value of [state][crate::model::Nsx::state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::Nsx;
+    /// use google_cloud_vmwareengine_v1::model::nsx::State;
+    /// let x0 = Nsx::new().set_state(State::Active);
+    /// let x1 = Nsx::new().set_state(State::Creating);
+    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::nsx::State>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
     }
 
     /// Sets the value of [fqdn][crate::model::Nsx::fqdn].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::Nsx;
+    /// let x = Nsx::new().set_fqdn("example");
+    /// ```
     pub fn set_fqdn<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.fqdn = v.into();
         self
@@ -10772,24 +13710,50 @@ impl Vcenter {
     }
 
     /// Sets the value of [internal_ip][crate::model::Vcenter::internal_ip].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::Vcenter;
+    /// let x = Vcenter::new().set_internal_ip("example");
+    /// ```
     pub fn set_internal_ip<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.internal_ip = v.into();
         self
     }
 
     /// Sets the value of [version][crate::model::Vcenter::version].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::Vcenter;
+    /// let x = Vcenter::new().set_version("example");
+    /// ```
     pub fn set_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.version = v.into();
         self
     }
 
     /// Sets the value of [state][crate::model::Vcenter::state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::Vcenter;
+    /// use google_cloud_vmwareengine_v1::model::vcenter::State;
+    /// let x0 = Vcenter::new().set_state(State::Active);
+    /// let x1 = Vcenter::new().set_state(State::Creating);
+    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::vcenter::State>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
     }
 
     /// Sets the value of [fqdn][crate::model::Vcenter::fqdn].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::Vcenter;
+    /// let x = Vcenter::new().set_fqdn("example");
+    /// ```
     pub fn set_fqdn<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.fqdn = v.into();
         self
@@ -10986,6 +13950,16 @@ impl AutoscalingSettings {
     }
 
     /// Sets the value of [autoscaling_policies][crate::model::AutoscalingSettings::autoscaling_policies].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::AutoscalingSettings;
+    /// use google_cloud_vmwareengine_v1::model::autoscaling_settings::AutoscalingPolicy;
+    /// let x = AutoscalingSettings::new().set_autoscaling_policies([
+    ///     ("key0", AutoscalingPolicy::default()/* use setters */),
+    ///     ("key1", AutoscalingPolicy::default()/* use (different) setters */),
+    /// ]);
+    /// ```
     pub fn set_autoscaling_policies<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -10998,18 +13972,37 @@ impl AutoscalingSettings {
     }
 
     /// Sets the value of [min_cluster_node_count][crate::model::AutoscalingSettings::min_cluster_node_count].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::AutoscalingSettings;
+    /// let x = AutoscalingSettings::new().set_min_cluster_node_count(42);
+    /// ```
     pub fn set_min_cluster_node_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.min_cluster_node_count = v.into();
         self
     }
 
     /// Sets the value of [max_cluster_node_count][crate::model::AutoscalingSettings::max_cluster_node_count].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::AutoscalingSettings;
+    /// let x = AutoscalingSettings::new().set_max_cluster_node_count(42);
+    /// ```
     pub fn set_max_cluster_node_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.max_cluster_node_count = v.into();
         self
     }
 
     /// Sets the value of [cool_down_period][crate::model::AutoscalingSettings::cool_down_period].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::AutoscalingSettings;
+    /// use wkt::Duration;
+    /// let x = AutoscalingSettings::new().set_cool_down_period(Duration::default()/* use setters */);
+    /// ```
     pub fn set_cool_down_period<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -11019,6 +14012,14 @@ impl AutoscalingSettings {
     }
 
     /// Sets or clears the value of [cool_down_period][crate::model::AutoscalingSettings::cool_down_period].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::AutoscalingSettings;
+    /// use wkt::Duration;
+    /// let x = AutoscalingSettings::new().set_or_clear_cool_down_period(Some(Duration::default()/* use setters */));
+    /// let x = AutoscalingSettings::new().set_or_clear_cool_down_period(None::<Duration>);
+    /// ```
     pub fn set_or_clear_cool_down_period<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -11059,12 +14060,24 @@ pub mod autoscaling_settings {
         }
 
         /// Sets the value of [scale_out][crate::model::autoscaling_settings::Thresholds::scale_out].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_vmwareengine_v1::model::autoscaling_settings::Thresholds;
+        /// let x = Thresholds::new().set_scale_out(42);
+        /// ```
         pub fn set_scale_out<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.scale_out = v.into();
             self
         }
 
         /// Sets the value of [scale_in][crate::model::autoscaling_settings::Thresholds::scale_in].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_vmwareengine_v1::model::autoscaling_settings::Thresholds;
+        /// let x = Thresholds::new().set_scale_in(42);
+        /// ```
         pub fn set_scale_in<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.scale_in = v.into();
             self
@@ -11120,6 +14133,12 @@ pub mod autoscaling_settings {
         }
 
         /// Sets the value of [node_type_id][crate::model::autoscaling_settings::AutoscalingPolicy::node_type_id].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_vmwareengine_v1::model::autoscaling_settings::AutoscalingPolicy;
+        /// let x = AutoscalingPolicy::new().set_node_type_id("example");
+        /// ```
         pub fn set_node_type_id<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -11129,12 +14148,25 @@ pub mod autoscaling_settings {
         }
 
         /// Sets the value of [scale_out_size][crate::model::autoscaling_settings::AutoscalingPolicy::scale_out_size].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_vmwareengine_v1::model::autoscaling_settings::AutoscalingPolicy;
+        /// let x = AutoscalingPolicy::new().set_scale_out_size(42);
+        /// ```
         pub fn set_scale_out_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.scale_out_size = v.into();
             self
         }
 
         /// Sets the value of [cpu_thresholds][crate::model::autoscaling_settings::AutoscalingPolicy::cpu_thresholds].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_vmwareengine_v1::model::autoscaling_settings::AutoscalingPolicy;
+        /// use google_cloud_vmwareengine_v1::model::autoscaling_settings::Thresholds;
+        /// let x = AutoscalingPolicy::new().set_cpu_thresholds(Thresholds::default()/* use setters */);
+        /// ```
         pub fn set_cpu_thresholds<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::autoscaling_settings::Thresholds>,
@@ -11144,6 +14176,14 @@ pub mod autoscaling_settings {
         }
 
         /// Sets or clears the value of [cpu_thresholds][crate::model::autoscaling_settings::AutoscalingPolicy::cpu_thresholds].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_vmwareengine_v1::model::autoscaling_settings::AutoscalingPolicy;
+        /// use google_cloud_vmwareengine_v1::model::autoscaling_settings::Thresholds;
+        /// let x = AutoscalingPolicy::new().set_or_clear_cpu_thresholds(Some(Thresholds::default()/* use setters */));
+        /// let x = AutoscalingPolicy::new().set_or_clear_cpu_thresholds(None::<Thresholds>);
+        /// ```
         pub fn set_or_clear_cpu_thresholds<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::autoscaling_settings::Thresholds>,
@@ -11153,6 +14193,13 @@ pub mod autoscaling_settings {
         }
 
         /// Sets the value of [granted_memory_thresholds][crate::model::autoscaling_settings::AutoscalingPolicy::granted_memory_thresholds].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_vmwareengine_v1::model::autoscaling_settings::AutoscalingPolicy;
+        /// use google_cloud_vmwareengine_v1::model::autoscaling_settings::Thresholds;
+        /// let x = AutoscalingPolicy::new().set_granted_memory_thresholds(Thresholds::default()/* use setters */);
+        /// ```
         pub fn set_granted_memory_thresholds<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::autoscaling_settings::Thresholds>,
@@ -11162,6 +14209,14 @@ pub mod autoscaling_settings {
         }
 
         /// Sets or clears the value of [granted_memory_thresholds][crate::model::autoscaling_settings::AutoscalingPolicy::granted_memory_thresholds].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_vmwareengine_v1::model::autoscaling_settings::AutoscalingPolicy;
+        /// use google_cloud_vmwareengine_v1::model::autoscaling_settings::Thresholds;
+        /// let x = AutoscalingPolicy::new().set_or_clear_granted_memory_thresholds(Some(Thresholds::default()/* use setters */));
+        /// let x = AutoscalingPolicy::new().set_or_clear_granted_memory_thresholds(None::<Thresholds>);
+        /// ```
         pub fn set_or_clear_granted_memory_thresholds<T>(
             mut self,
             v: std::option::Option<T>,
@@ -11174,6 +14229,13 @@ pub mod autoscaling_settings {
         }
 
         /// Sets the value of [consumed_memory_thresholds][crate::model::autoscaling_settings::AutoscalingPolicy::consumed_memory_thresholds].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_vmwareengine_v1::model::autoscaling_settings::AutoscalingPolicy;
+        /// use google_cloud_vmwareengine_v1::model::autoscaling_settings::Thresholds;
+        /// let x = AutoscalingPolicy::new().set_consumed_memory_thresholds(Thresholds::default()/* use setters */);
+        /// ```
         pub fn set_consumed_memory_thresholds<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::autoscaling_settings::Thresholds>,
@@ -11183,6 +14245,14 @@ pub mod autoscaling_settings {
         }
 
         /// Sets or clears the value of [consumed_memory_thresholds][crate::model::autoscaling_settings::AutoscalingPolicy::consumed_memory_thresholds].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_vmwareengine_v1::model::autoscaling_settings::AutoscalingPolicy;
+        /// use google_cloud_vmwareengine_v1::model::autoscaling_settings::Thresholds;
+        /// let x = AutoscalingPolicy::new().set_or_clear_consumed_memory_thresholds(Some(Thresholds::default()/* use setters */));
+        /// let x = AutoscalingPolicy::new().set_or_clear_consumed_memory_thresholds(None::<Thresholds>);
+        /// ```
         pub fn set_or_clear_consumed_memory_thresholds<T>(
             mut self,
             v: std::option::Option<T>,
@@ -11195,6 +14265,13 @@ pub mod autoscaling_settings {
         }
 
         /// Sets the value of [storage_thresholds][crate::model::autoscaling_settings::AutoscalingPolicy::storage_thresholds].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_vmwareengine_v1::model::autoscaling_settings::AutoscalingPolicy;
+        /// use google_cloud_vmwareengine_v1::model::autoscaling_settings::Thresholds;
+        /// let x = AutoscalingPolicy::new().set_storage_thresholds(Thresholds::default()/* use setters */);
+        /// ```
         pub fn set_storage_thresholds<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::autoscaling_settings::Thresholds>,
@@ -11204,6 +14281,14 @@ pub mod autoscaling_settings {
         }
 
         /// Sets or clears the value of [storage_thresholds][crate::model::autoscaling_settings::AutoscalingPolicy::storage_thresholds].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_vmwareengine_v1::model::autoscaling_settings::AutoscalingPolicy;
+        /// use google_cloud_vmwareengine_v1::model::autoscaling_settings::Thresholds;
+        /// let x = AutoscalingPolicy::new().set_or_clear_storage_thresholds(Some(Thresholds::default()/* use setters */));
+        /// let x = AutoscalingPolicy::new().set_or_clear_storage_thresholds(None::<Thresholds>);
+        /// ```
         pub fn set_or_clear_storage_thresholds<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::autoscaling_settings::Thresholds>,
@@ -11251,12 +14336,25 @@ impl DnsForwarding {
     }
 
     /// Sets the value of [name][crate::model::DnsForwarding::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::DnsForwarding;
+    /// let x = DnsForwarding::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::DnsForwarding::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::DnsForwarding;
+    /// use wkt::Timestamp;
+    /// let x = DnsForwarding::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -11266,6 +14364,14 @@ impl DnsForwarding {
     }
 
     /// Sets or clears the value of [create_time][crate::model::DnsForwarding::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::DnsForwarding;
+    /// use wkt::Timestamp;
+    /// let x = DnsForwarding::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = DnsForwarding::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -11275,6 +14381,13 @@ impl DnsForwarding {
     }
 
     /// Sets the value of [update_time][crate::model::DnsForwarding::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::DnsForwarding;
+    /// use wkt::Timestamp;
+    /// let x = DnsForwarding::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -11284,6 +14397,14 @@ impl DnsForwarding {
     }
 
     /// Sets or clears the value of [update_time][crate::model::DnsForwarding::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::DnsForwarding;
+    /// use wkt::Timestamp;
+    /// let x = DnsForwarding::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = DnsForwarding::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -11293,6 +14414,17 @@ impl DnsForwarding {
     }
 
     /// Sets the value of [forwarding_rules][crate::model::DnsForwarding::forwarding_rules].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::DnsForwarding;
+    /// use google_cloud_vmwareengine_v1::model::dns_forwarding::ForwardingRule;
+    /// let x = DnsForwarding::new()
+    ///     .set_forwarding_rules([
+    ///         ForwardingRule::default()/* use setters */,
+    ///         ForwardingRule::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_forwarding_rules<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -11337,12 +14469,24 @@ pub mod dns_forwarding {
         }
 
         /// Sets the value of [domain][crate::model::dns_forwarding::ForwardingRule::domain].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_vmwareengine_v1::model::dns_forwarding::ForwardingRule;
+        /// let x = ForwardingRule::new().set_domain("example");
+        /// ```
         pub fn set_domain<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.domain = v.into();
             self
         }
 
         /// Sets the value of [name_servers][crate::model::dns_forwarding::ForwardingRule::name_servers].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_vmwareengine_v1::model::dns_forwarding::ForwardingRule;
+        /// let x = ForwardingRule::new().set_name_servers(["a", "b", "c"]);
+        /// ```
         pub fn set_name_servers<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -11454,12 +14598,25 @@ impl NetworkPeering {
     }
 
     /// Sets the value of [name][crate::model::NetworkPeering::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::NetworkPeering;
+    /// let x = NetworkPeering::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::NetworkPeering::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::NetworkPeering;
+    /// use wkt::Timestamp;
+    /// let x = NetworkPeering::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -11469,6 +14626,14 @@ impl NetworkPeering {
     }
 
     /// Sets or clears the value of [create_time][crate::model::NetworkPeering::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::NetworkPeering;
+    /// use wkt::Timestamp;
+    /// let x = NetworkPeering::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = NetworkPeering::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -11478,6 +14643,13 @@ impl NetworkPeering {
     }
 
     /// Sets the value of [update_time][crate::model::NetworkPeering::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::NetworkPeering;
+    /// use wkt::Timestamp;
+    /// let x = NetworkPeering::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -11487,6 +14659,14 @@ impl NetworkPeering {
     }
 
     /// Sets or clears the value of [update_time][crate::model::NetworkPeering::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::NetworkPeering;
+    /// use wkt::Timestamp;
+    /// let x = NetworkPeering::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = NetworkPeering::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -11496,12 +14676,24 @@ impl NetworkPeering {
     }
 
     /// Sets the value of [peer_network][crate::model::NetworkPeering::peer_network].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::NetworkPeering;
+    /// let x = NetworkPeering::new().set_peer_network("example");
+    /// ```
     pub fn set_peer_network<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.peer_network = v.into();
         self
     }
 
     /// Sets the value of [export_custom_routes][crate::model::NetworkPeering::export_custom_routes].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::NetworkPeering;
+    /// let x = NetworkPeering::new().set_export_custom_routes(true);
+    /// ```
     pub fn set_export_custom_routes<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<bool>,
@@ -11511,6 +14703,13 @@ impl NetworkPeering {
     }
 
     /// Sets or clears the value of [export_custom_routes][crate::model::NetworkPeering::export_custom_routes].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::NetworkPeering;
+    /// let x = NetworkPeering::new().set_or_clear_export_custom_routes(Some(false));
+    /// let x = NetworkPeering::new().set_or_clear_export_custom_routes(None::<bool>);
+    /// ```
     pub fn set_or_clear_export_custom_routes<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<bool>,
@@ -11520,6 +14719,12 @@ impl NetworkPeering {
     }
 
     /// Sets the value of [import_custom_routes][crate::model::NetworkPeering::import_custom_routes].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::NetworkPeering;
+    /// let x = NetworkPeering::new().set_import_custom_routes(true);
+    /// ```
     pub fn set_import_custom_routes<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<bool>,
@@ -11529,6 +14734,13 @@ impl NetworkPeering {
     }
 
     /// Sets or clears the value of [import_custom_routes][crate::model::NetworkPeering::import_custom_routes].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::NetworkPeering;
+    /// let x = NetworkPeering::new().set_or_clear_import_custom_routes(Some(false));
+    /// let x = NetworkPeering::new().set_or_clear_import_custom_routes(None::<bool>);
+    /// ```
     pub fn set_or_clear_import_custom_routes<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<bool>,
@@ -11538,6 +14750,12 @@ impl NetworkPeering {
     }
 
     /// Sets the value of [exchange_subnet_routes][crate::model::NetworkPeering::exchange_subnet_routes].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::NetworkPeering;
+    /// let x = NetworkPeering::new().set_exchange_subnet_routes(true);
+    /// ```
     pub fn set_exchange_subnet_routes<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<bool>,
@@ -11547,6 +14765,13 @@ impl NetworkPeering {
     }
 
     /// Sets or clears the value of [exchange_subnet_routes][crate::model::NetworkPeering::exchange_subnet_routes].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::NetworkPeering;
+    /// let x = NetworkPeering::new().set_or_clear_exchange_subnet_routes(Some(false));
+    /// let x = NetworkPeering::new().set_or_clear_exchange_subnet_routes(None::<bool>);
+    /// ```
     pub fn set_or_clear_exchange_subnet_routes<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<bool>,
@@ -11556,6 +14781,12 @@ impl NetworkPeering {
     }
 
     /// Sets the value of [export_custom_routes_with_public_ip][crate::model::NetworkPeering::export_custom_routes_with_public_ip].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::NetworkPeering;
+    /// let x = NetworkPeering::new().set_export_custom_routes_with_public_ip(true);
+    /// ```
     pub fn set_export_custom_routes_with_public_ip<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<bool>,
@@ -11565,6 +14796,13 @@ impl NetworkPeering {
     }
 
     /// Sets or clears the value of [export_custom_routes_with_public_ip][crate::model::NetworkPeering::export_custom_routes_with_public_ip].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::NetworkPeering;
+    /// let x = NetworkPeering::new().set_or_clear_export_custom_routes_with_public_ip(Some(false));
+    /// let x = NetworkPeering::new().set_or_clear_export_custom_routes_with_public_ip(None::<bool>);
+    /// ```
     pub fn set_or_clear_export_custom_routes_with_public_ip<T>(
         mut self,
         v: std::option::Option<T>,
@@ -11577,6 +14815,12 @@ impl NetworkPeering {
     }
 
     /// Sets the value of [import_custom_routes_with_public_ip][crate::model::NetworkPeering::import_custom_routes_with_public_ip].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::NetworkPeering;
+    /// let x = NetworkPeering::new().set_import_custom_routes_with_public_ip(true);
+    /// ```
     pub fn set_import_custom_routes_with_public_ip<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<bool>,
@@ -11586,6 +14830,13 @@ impl NetworkPeering {
     }
 
     /// Sets or clears the value of [import_custom_routes_with_public_ip][crate::model::NetworkPeering::import_custom_routes_with_public_ip].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::NetworkPeering;
+    /// let x = NetworkPeering::new().set_or_clear_import_custom_routes_with_public_ip(Some(false));
+    /// let x = NetworkPeering::new().set_or_clear_import_custom_routes_with_public_ip(None::<bool>);
+    /// ```
     pub fn set_or_clear_import_custom_routes_with_public_ip<T>(
         mut self,
         v: std::option::Option<T>,
@@ -11598,6 +14849,15 @@ impl NetworkPeering {
     }
 
     /// Sets the value of [state][crate::model::NetworkPeering::state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::NetworkPeering;
+    /// use google_cloud_vmwareengine_v1::model::network_peering::State;
+    /// let x0 = NetworkPeering::new().set_state(State::Inactive);
+    /// let x1 = NetworkPeering::new().set_state(State::Active);
+    /// let x2 = NetworkPeering::new().set_state(State::Creating);
+    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::network_peering::State>>(
         mut self,
         v: T,
@@ -11607,18 +14867,39 @@ impl NetworkPeering {
     }
 
     /// Sets the value of [state_details][crate::model::NetworkPeering::state_details].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::NetworkPeering;
+    /// let x = NetworkPeering::new().set_state_details("example");
+    /// ```
     pub fn set_state_details<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.state_details = v.into();
         self
     }
 
     /// Sets the value of [peer_mtu][crate::model::NetworkPeering::peer_mtu].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::NetworkPeering;
+    /// let x = NetworkPeering::new().set_peer_mtu(42);
+    /// ```
     pub fn set_peer_mtu<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.peer_mtu = v.into();
         self
     }
 
     /// Sets the value of [peer_network_type][crate::model::NetworkPeering::peer_network_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::NetworkPeering;
+    /// use google_cloud_vmwareengine_v1::model::network_peering::PeerNetworkType;
+    /// let x0 = NetworkPeering::new().set_peer_network_type(PeerNetworkType::Standard);
+    /// let x1 = NetworkPeering::new().set_peer_network_type(PeerNetworkType::VmwareEngineNetwork);
+    /// let x2 = NetworkPeering::new().set_peer_network_type(PeerNetworkType::PrivateServicesAccess);
+    /// ```
     pub fn set_peer_network_type<
         T: std::convert::Into<crate::model::network_peering::PeerNetworkType>,
     >(
@@ -11630,12 +14911,24 @@ impl NetworkPeering {
     }
 
     /// Sets the value of [uid][crate::model::NetworkPeering::uid].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::NetworkPeering;
+    /// let x = NetworkPeering::new().set_uid("example");
+    /// ```
     pub fn set_uid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.uid = v.into();
         self
     }
 
     /// Sets the value of [vmware_engine_network][crate::model::NetworkPeering::vmware_engine_network].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::NetworkPeering;
+    /// let x = NetworkPeering::new().set_vmware_engine_network("example");
+    /// ```
     pub fn set_vmware_engine_network<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -11645,6 +14938,12 @@ impl NetworkPeering {
     }
 
     /// Sets the value of [description][crate::model::NetworkPeering::description].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::NetworkPeering;
+    /// let x = NetworkPeering::new().set_description("example");
+    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
@@ -12024,12 +15323,27 @@ impl PeeringRoute {
     }
 
     /// Sets the value of [dest_range][crate::model::PeeringRoute::dest_range].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::PeeringRoute;
+    /// let x = PeeringRoute::new().set_dest_range("example");
+    /// ```
     pub fn set_dest_range<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.dest_range = v.into();
         self
     }
 
     /// Sets the value of [r#type][crate::model::PeeringRoute::type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::PeeringRoute;
+    /// use google_cloud_vmwareengine_v1::model::peering_route::Type;
+    /// let x0 = PeeringRoute::new().set_type(Type::DynamicPeeringRoute);
+    /// let x1 = PeeringRoute::new().set_type(Type::StaticPeeringRoute);
+    /// let x2 = PeeringRoute::new().set_type(Type::SubnetPeeringRoute);
+    /// ```
     pub fn set_type<T: std::convert::Into<crate::model::peering_route::Type>>(
         mut self,
         v: T,
@@ -12039,24 +15353,50 @@ impl PeeringRoute {
     }
 
     /// Sets the value of [next_hop_region][crate::model::PeeringRoute::next_hop_region].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::PeeringRoute;
+    /// let x = PeeringRoute::new().set_next_hop_region("example");
+    /// ```
     pub fn set_next_hop_region<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_hop_region = v.into();
         self
     }
 
     /// Sets the value of [priority][crate::model::PeeringRoute::priority].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::PeeringRoute;
+    /// let x = PeeringRoute::new().set_priority(42);
+    /// ```
     pub fn set_priority<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.priority = v.into();
         self
     }
 
     /// Sets the value of [imported][crate::model::PeeringRoute::imported].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::PeeringRoute;
+    /// let x = PeeringRoute::new().set_imported(true);
+    /// ```
     pub fn set_imported<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.imported = v.into();
         self
     }
 
     /// Sets the value of [direction][crate::model::PeeringRoute::direction].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::PeeringRoute;
+    /// use google_cloud_vmwareengine_v1::model::peering_route::Direction;
+    /// let x0 = PeeringRoute::new().set_direction(Direction::Incoming);
+    /// let x1 = PeeringRoute::new().set_direction(Direction::Outgoing);
+    /// ```
     pub fn set_direction<T: std::convert::Into<crate::model::peering_route::Direction>>(
         mut self,
         v: T,
@@ -12411,12 +15751,25 @@ impl NetworkPolicy {
     }
 
     /// Sets the value of [name][crate::model::NetworkPolicy::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::NetworkPolicy;
+    /// let x = NetworkPolicy::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::NetworkPolicy::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::NetworkPolicy;
+    /// use wkt::Timestamp;
+    /// let x = NetworkPolicy::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -12426,6 +15779,14 @@ impl NetworkPolicy {
     }
 
     /// Sets or clears the value of [create_time][crate::model::NetworkPolicy::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::NetworkPolicy;
+    /// use wkt::Timestamp;
+    /// let x = NetworkPolicy::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = NetworkPolicy::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -12435,6 +15796,13 @@ impl NetworkPolicy {
     }
 
     /// Sets the value of [update_time][crate::model::NetworkPolicy::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::NetworkPolicy;
+    /// use wkt::Timestamp;
+    /// let x = NetworkPolicy::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -12444,6 +15812,14 @@ impl NetworkPolicy {
     }
 
     /// Sets or clears the value of [update_time][crate::model::NetworkPolicy::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::NetworkPolicy;
+    /// use wkt::Timestamp;
+    /// let x = NetworkPolicy::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = NetworkPolicy::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -12453,6 +15829,13 @@ impl NetworkPolicy {
     }
 
     /// Sets the value of [internet_access][crate::model::NetworkPolicy::internet_access].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::NetworkPolicy;
+    /// use google_cloud_vmwareengine_v1::model::network_policy::NetworkService;
+    /// let x = NetworkPolicy::new().set_internet_access(NetworkService::default()/* use setters */);
+    /// ```
     pub fn set_internet_access<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::network_policy::NetworkService>,
@@ -12462,6 +15845,14 @@ impl NetworkPolicy {
     }
 
     /// Sets or clears the value of [internet_access][crate::model::NetworkPolicy::internet_access].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::NetworkPolicy;
+    /// use google_cloud_vmwareengine_v1::model::network_policy::NetworkService;
+    /// let x = NetworkPolicy::new().set_or_clear_internet_access(Some(NetworkService::default()/* use setters */));
+    /// let x = NetworkPolicy::new().set_or_clear_internet_access(None::<NetworkService>);
+    /// ```
     pub fn set_or_clear_internet_access<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::network_policy::NetworkService>,
@@ -12471,6 +15862,13 @@ impl NetworkPolicy {
     }
 
     /// Sets the value of [external_ip][crate::model::NetworkPolicy::external_ip].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::NetworkPolicy;
+    /// use google_cloud_vmwareengine_v1::model::network_policy::NetworkService;
+    /// let x = NetworkPolicy::new().set_external_ip(NetworkService::default()/* use setters */);
+    /// ```
     pub fn set_external_ip<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::network_policy::NetworkService>,
@@ -12480,6 +15878,14 @@ impl NetworkPolicy {
     }
 
     /// Sets or clears the value of [external_ip][crate::model::NetworkPolicy::external_ip].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::NetworkPolicy;
+    /// use google_cloud_vmwareengine_v1::model::network_policy::NetworkService;
+    /// let x = NetworkPolicy::new().set_or_clear_external_ip(Some(NetworkService::default()/* use setters */));
+    /// let x = NetworkPolicy::new().set_or_clear_external_ip(None::<NetworkService>);
+    /// ```
     pub fn set_or_clear_external_ip<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::network_policy::NetworkService>,
@@ -12489,6 +15895,12 @@ impl NetworkPolicy {
     }
 
     /// Sets the value of [edge_services_cidr][crate::model::NetworkPolicy::edge_services_cidr].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::NetworkPolicy;
+    /// let x = NetworkPolicy::new().set_edge_services_cidr("example");
+    /// ```
     pub fn set_edge_services_cidr<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -12498,12 +15910,24 @@ impl NetworkPolicy {
     }
 
     /// Sets the value of [uid][crate::model::NetworkPolicy::uid].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::NetworkPolicy;
+    /// let x = NetworkPolicy::new().set_uid("example");
+    /// ```
     pub fn set_uid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.uid = v.into();
         self
     }
 
     /// Sets the value of [vmware_engine_network][crate::model::NetworkPolicy::vmware_engine_network].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::NetworkPolicy;
+    /// let x = NetworkPolicy::new().set_vmware_engine_network("example");
+    /// ```
     pub fn set_vmware_engine_network<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -12513,12 +15937,24 @@ impl NetworkPolicy {
     }
 
     /// Sets the value of [description][crate::model::NetworkPolicy::description].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::NetworkPolicy;
+    /// let x = NetworkPolicy::new().set_description("example");
+    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [vmware_engine_network_canonical][crate::model::NetworkPolicy::vmware_engine_network_canonical].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::NetworkPolicy;
+    /// let x = NetworkPolicy::new().set_vmware_engine_network_canonical("example");
+    /// ```
     pub fn set_vmware_engine_network_canonical<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -12563,12 +15999,27 @@ pub mod network_policy {
         }
 
         /// Sets the value of [enabled][crate::model::network_policy::NetworkService::enabled].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_vmwareengine_v1::model::network_policy::NetworkService;
+        /// let x = NetworkService::new().set_enabled(true);
+        /// ```
         pub fn set_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.enabled = v.into();
             self
         }
 
         /// Sets the value of [state][crate::model::network_policy::NetworkService::state].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_vmwareengine_v1::model::network_policy::NetworkService;
+        /// use google_cloud_vmwareengine_v1::model::network_policy::network_service::State;
+        /// let x0 = NetworkService::new().set_state(State::Unprovisioned);
+        /// let x1 = NetworkService::new().set_state(State::Reconciling);
+        /// let x2 = NetworkService::new().set_state(State::Active);
+        /// ```
         pub fn set_state<
             T: std::convert::Into<crate::model::network_policy::network_service::State>,
         >(
@@ -12780,12 +16231,25 @@ impl ManagementDnsZoneBinding {
     }
 
     /// Sets the value of [name][crate::model::ManagementDnsZoneBinding::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::ManagementDnsZoneBinding;
+    /// let x = ManagementDnsZoneBinding::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::ManagementDnsZoneBinding::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::ManagementDnsZoneBinding;
+    /// use wkt::Timestamp;
+    /// let x = ManagementDnsZoneBinding::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -12795,6 +16259,14 @@ impl ManagementDnsZoneBinding {
     }
 
     /// Sets or clears the value of [create_time][crate::model::ManagementDnsZoneBinding::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::ManagementDnsZoneBinding;
+    /// use wkt::Timestamp;
+    /// let x = ManagementDnsZoneBinding::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = ManagementDnsZoneBinding::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -12804,6 +16276,13 @@ impl ManagementDnsZoneBinding {
     }
 
     /// Sets the value of [update_time][crate::model::ManagementDnsZoneBinding::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::ManagementDnsZoneBinding;
+    /// use wkt::Timestamp;
+    /// let x = ManagementDnsZoneBinding::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -12813,6 +16292,14 @@ impl ManagementDnsZoneBinding {
     }
 
     /// Sets or clears the value of [update_time][crate::model::ManagementDnsZoneBinding::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::ManagementDnsZoneBinding;
+    /// use wkt::Timestamp;
+    /// let x = ManagementDnsZoneBinding::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = ManagementDnsZoneBinding::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -12822,6 +16309,15 @@ impl ManagementDnsZoneBinding {
     }
 
     /// Sets the value of [state][crate::model::ManagementDnsZoneBinding::state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::ManagementDnsZoneBinding;
+    /// use google_cloud_vmwareengine_v1::model::management_dns_zone_binding::State;
+    /// let x0 = ManagementDnsZoneBinding::new().set_state(State::Active);
+    /// let x1 = ManagementDnsZoneBinding::new().set_state(State::Creating);
+    /// let x2 = ManagementDnsZoneBinding::new().set_state(State::Updating);
+    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::management_dns_zone_binding::State>>(
         mut self,
         v: T,
@@ -12831,12 +16327,24 @@ impl ManagementDnsZoneBinding {
     }
 
     /// Sets the value of [description][crate::model::ManagementDnsZoneBinding::description].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::ManagementDnsZoneBinding;
+    /// let x = ManagementDnsZoneBinding::new().set_description("example");
+    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [uid][crate::model::ManagementDnsZoneBinding::uid].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::ManagementDnsZoneBinding;
+    /// let x = ManagementDnsZoneBinding::new().set_uid("example");
+    /// ```
     pub fn set_uid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.uid = v.into();
         self
@@ -12846,6 +16354,13 @@ impl ManagementDnsZoneBinding {
     ///
     /// Note that all the setters affecting `bind_network` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::ManagementDnsZoneBinding;
+    /// use google_cloud_vmwareengine_v1::model::management_dns_zone_binding;
+    /// let x = ManagementDnsZoneBinding::new().set_bind_network(Some(management_dns_zone_binding::BindNetwork::VpcNetwork("example".to_string())));
+    /// ```
     pub fn set_bind_network<
         T: std::convert::Into<
                 std::option::Option<crate::model::management_dns_zone_binding::BindNetwork>,
@@ -12876,6 +16391,14 @@ impl ManagementDnsZoneBinding {
     ///
     /// Note that all the setters affecting `bind_network` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::ManagementDnsZoneBinding;
+    /// let x = ManagementDnsZoneBinding::new().set_vpc_network("example");
+    /// assert!(x.vpc_network().is_some());
+    /// assert!(x.vmware_engine_network().is_none());
+    /// ```
     pub fn set_vpc_network<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.bind_network = std::option::Option::Some(
             crate::model::management_dns_zone_binding::BindNetwork::VpcNetwork(v.into()),
@@ -12901,6 +16424,14 @@ impl ManagementDnsZoneBinding {
     ///
     /// Note that all the setters affecting `bind_network` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::ManagementDnsZoneBinding;
+    /// let x = ManagementDnsZoneBinding::new().set_vmware_engine_network("example");
+    /// assert!(x.vmware_engine_network().is_some());
+    /// assert!(x.vpc_network().is_none());
+    /// ```
     pub fn set_vmware_engine_network<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -13146,12 +16677,25 @@ impl VmwareEngineNetwork {
     }
 
     /// Sets the value of [name][crate::model::VmwareEngineNetwork::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::VmwareEngineNetwork;
+    /// let x = VmwareEngineNetwork::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::VmwareEngineNetwork::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::VmwareEngineNetwork;
+    /// use wkt::Timestamp;
+    /// let x = VmwareEngineNetwork::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -13161,6 +16705,14 @@ impl VmwareEngineNetwork {
     }
 
     /// Sets or clears the value of [create_time][crate::model::VmwareEngineNetwork::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::VmwareEngineNetwork;
+    /// use wkt::Timestamp;
+    /// let x = VmwareEngineNetwork::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = VmwareEngineNetwork::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -13170,6 +16722,13 @@ impl VmwareEngineNetwork {
     }
 
     /// Sets the value of [update_time][crate::model::VmwareEngineNetwork::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::VmwareEngineNetwork;
+    /// use wkt::Timestamp;
+    /// let x = VmwareEngineNetwork::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -13179,6 +16738,14 @@ impl VmwareEngineNetwork {
     }
 
     /// Sets or clears the value of [update_time][crate::model::VmwareEngineNetwork::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::VmwareEngineNetwork;
+    /// use wkt::Timestamp;
+    /// let x = VmwareEngineNetwork::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = VmwareEngineNetwork::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -13188,12 +16755,29 @@ impl VmwareEngineNetwork {
     }
 
     /// Sets the value of [description][crate::model::VmwareEngineNetwork::description].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::VmwareEngineNetwork;
+    /// let x = VmwareEngineNetwork::new().set_description("example");
+    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [vpc_networks][crate::model::VmwareEngineNetwork::vpc_networks].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::VmwareEngineNetwork;
+    /// use google_cloud_vmwareengine_v1::model::vmware_engine_network::VpcNetwork;
+    /// let x = VmwareEngineNetwork::new()
+    ///     .set_vpc_networks([
+    ///         VpcNetwork::default()/* use setters */,
+    ///         VpcNetwork::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_vpc_networks<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -13205,6 +16789,15 @@ impl VmwareEngineNetwork {
     }
 
     /// Sets the value of [state][crate::model::VmwareEngineNetwork::state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::VmwareEngineNetwork;
+    /// use google_cloud_vmwareengine_v1::model::vmware_engine_network::State;
+    /// let x0 = VmwareEngineNetwork::new().set_state(State::Creating);
+    /// let x1 = VmwareEngineNetwork::new().set_state(State::Active);
+    /// let x2 = VmwareEngineNetwork::new().set_state(State::Updating);
+    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::vmware_engine_network::State>>(
         mut self,
         v: T,
@@ -13214,6 +16807,14 @@ impl VmwareEngineNetwork {
     }
 
     /// Sets the value of [r#type][crate::model::VmwareEngineNetwork::type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::VmwareEngineNetwork;
+    /// use google_cloud_vmwareengine_v1::model::vmware_engine_network::Type;
+    /// let x0 = VmwareEngineNetwork::new().set_type(Type::Legacy);
+    /// let x1 = VmwareEngineNetwork::new().set_type(Type::Standard);
+    /// ```
     pub fn set_type<T: std::convert::Into<crate::model::vmware_engine_network::Type>>(
         mut self,
         v: T,
@@ -13223,12 +16824,24 @@ impl VmwareEngineNetwork {
     }
 
     /// Sets the value of [uid][crate::model::VmwareEngineNetwork::uid].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::VmwareEngineNetwork;
+    /// let x = VmwareEngineNetwork::new().set_uid("example");
+    /// ```
     pub fn set_uid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.uid = v.into();
         self
     }
 
     /// Sets the value of [etag][crate::model::VmwareEngineNetwork::etag].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::VmwareEngineNetwork;
+    /// let x = VmwareEngineNetwork::new().set_etag("example");
+    /// ```
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
@@ -13269,6 +16882,15 @@ pub mod vmware_engine_network {
         }
 
         /// Sets the value of [r#type][crate::model::vmware_engine_network::VpcNetwork::type].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_vmwareengine_v1::model::vmware_engine_network::VpcNetwork;
+        /// use google_cloud_vmwareengine_v1::model::vmware_engine_network::vpc_network::Type;
+        /// let x0 = VpcNetwork::new().set_type(Type::Intranet);
+        /// let x1 = VpcNetwork::new().set_type(Type::Internet);
+        /// let x2 = VpcNetwork::new().set_type(Type::GoogleCloud);
+        /// ```
         pub fn set_type<
             T: std::convert::Into<crate::model::vmware_engine_network::vpc_network::Type>,
         >(
@@ -13280,6 +16902,12 @@ pub mod vmware_engine_network {
         }
 
         /// Sets the value of [network][crate::model::vmware_engine_network::VpcNetwork::network].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_vmwareengine_v1::model::vmware_engine_network::VpcNetwork;
+        /// let x = VpcNetwork::new().set_network("example");
+        /// ```
         pub fn set_network<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.network = v.into();
             self
@@ -13806,12 +17434,25 @@ impl PrivateConnection {
     }
 
     /// Sets the value of [name][crate::model::PrivateConnection::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::PrivateConnection;
+    /// let x = PrivateConnection::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::PrivateConnection::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::PrivateConnection;
+    /// use wkt::Timestamp;
+    /// let x = PrivateConnection::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -13821,6 +17462,14 @@ impl PrivateConnection {
     }
 
     /// Sets or clears the value of [create_time][crate::model::PrivateConnection::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::PrivateConnection;
+    /// use wkt::Timestamp;
+    /// let x = PrivateConnection::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = PrivateConnection::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -13830,6 +17479,13 @@ impl PrivateConnection {
     }
 
     /// Sets the value of [update_time][crate::model::PrivateConnection::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::PrivateConnection;
+    /// use wkt::Timestamp;
+    /// let x = PrivateConnection::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -13839,6 +17495,14 @@ impl PrivateConnection {
     }
 
     /// Sets or clears the value of [update_time][crate::model::PrivateConnection::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::PrivateConnection;
+    /// use wkt::Timestamp;
+    /// let x = PrivateConnection::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = PrivateConnection::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -13848,12 +17512,27 @@ impl PrivateConnection {
     }
 
     /// Sets the value of [description][crate::model::PrivateConnection::description].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::PrivateConnection;
+    /// let x = PrivateConnection::new().set_description("example");
+    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [state][crate::model::PrivateConnection::state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::PrivateConnection;
+    /// use google_cloud_vmwareengine_v1::model::private_connection::State;
+    /// let x0 = PrivateConnection::new().set_state(State::Creating);
+    /// let x1 = PrivateConnection::new().set_state(State::Active);
+    /// let x2 = PrivateConnection::new().set_state(State::Updating);
+    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::private_connection::State>>(
         mut self,
         v: T,
@@ -13863,6 +17542,12 @@ impl PrivateConnection {
     }
 
     /// Sets the value of [vmware_engine_network][crate::model::PrivateConnection::vmware_engine_network].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::PrivateConnection;
+    /// let x = PrivateConnection::new().set_vmware_engine_network("example");
+    /// ```
     pub fn set_vmware_engine_network<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -13872,6 +17557,12 @@ impl PrivateConnection {
     }
 
     /// Sets the value of [vmware_engine_network_canonical][crate::model::PrivateConnection::vmware_engine_network_canonical].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::PrivateConnection;
+    /// let x = PrivateConnection::new().set_vmware_engine_network_canonical("example");
+    /// ```
     pub fn set_vmware_engine_network_canonical<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -13881,6 +17572,15 @@ impl PrivateConnection {
     }
 
     /// Sets the value of [r#type][crate::model::PrivateConnection::type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::PrivateConnection;
+    /// use google_cloud_vmwareengine_v1::model::private_connection::Type;
+    /// let x0 = PrivateConnection::new().set_type(Type::PrivateServiceAccess);
+    /// let x1 = PrivateConnection::new().set_type(Type::NetappCloudVolumes);
+    /// let x2 = PrivateConnection::new().set_type(Type::DellPowerscale);
+    /// ```
     pub fn set_type<T: std::convert::Into<crate::model::private_connection::Type>>(
         mut self,
         v: T,
@@ -13890,12 +17590,26 @@ impl PrivateConnection {
     }
 
     /// Sets the value of [peering_id][crate::model::PrivateConnection::peering_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::PrivateConnection;
+    /// let x = PrivateConnection::new().set_peering_id("example");
+    /// ```
     pub fn set_peering_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.peering_id = v.into();
         self
     }
 
     /// Sets the value of [routing_mode][crate::model::PrivateConnection::routing_mode].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::PrivateConnection;
+    /// use google_cloud_vmwareengine_v1::model::private_connection::RoutingMode;
+    /// let x0 = PrivateConnection::new().set_routing_mode(RoutingMode::Global);
+    /// let x1 = PrivateConnection::new().set_routing_mode(RoutingMode::Regional);
+    /// ```
     pub fn set_routing_mode<
         T: std::convert::Into<crate::model::private_connection::RoutingMode>,
     >(
@@ -13907,18 +17621,38 @@ impl PrivateConnection {
     }
 
     /// Sets the value of [uid][crate::model::PrivateConnection::uid].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::PrivateConnection;
+    /// let x = PrivateConnection::new().set_uid("example");
+    /// ```
     pub fn set_uid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.uid = v.into();
         self
     }
 
     /// Sets the value of [service_network][crate::model::PrivateConnection::service_network].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::PrivateConnection;
+    /// let x = PrivateConnection::new().set_service_network("example");
+    /// ```
     pub fn set_service_network<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.service_network = v.into();
         self
     }
 
     /// Sets the value of [peering_state][crate::model::PrivateConnection::peering_state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::PrivateConnection;
+    /// use google_cloud_vmwareengine_v1::model::private_connection::PeeringState;
+    /// let x0 = PrivateConnection::new().set_peering_state(PeeringState::PeeringActive);
+    /// let x1 = PrivateConnection::new().set_peering_state(PeeringState::PeeringInactive);
+    /// ```
     pub fn set_peering_state<
         T: std::convert::Into<crate::model::private_connection::PeeringState>,
     >(
@@ -14536,6 +18270,15 @@ impl LocationMetadata {
     }
 
     /// Sets the value of [capabilities][crate::model::LocationMetadata::capabilities].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::LocationMetadata;
+    /// use google_cloud_vmwareengine_v1::model::location_metadata::Capability;
+    /// let x = LocationMetadata::new().set_capabilities([
+    ///     Capability::StretchedClusters,
+    /// ]);
+    /// ```
     pub fn set_capabilities<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -14712,12 +18455,29 @@ impl DnsBindPermission {
     }
 
     /// Sets the value of [name][crate::model::DnsBindPermission::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::DnsBindPermission;
+    /// let x = DnsBindPermission::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [principals][crate::model::DnsBindPermission::principals].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::DnsBindPermission;
+    /// use google_cloud_vmwareengine_v1::model::Principal;
+    /// let x = DnsBindPermission::new()
+    ///     .set_principals([
+    ///         Principal::default()/* use setters */,
+    ///         Principal::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_principals<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -14757,6 +18517,13 @@ impl Principal {
     ///
     /// Note that all the setters affecting `principal` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::Principal;
+    /// use google_cloud_vmwareengine_v1::model::principal;
+    /// let x = Principal::new().set_principal(Some(principal::Principal::User("example".to_string())));
+    /// ```
     pub fn set_principal<
         T: std::convert::Into<std::option::Option<crate::model::principal::Principal>>,
     >(
@@ -14783,6 +18550,14 @@ impl Principal {
     ///
     /// Note that all the setters affecting `principal` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::Principal;
+    /// let x = Principal::new().set_user("example");
+    /// assert!(x.user().is_some());
+    /// assert!(x.service_account().is_none());
+    /// ```
     pub fn set_user<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.principal =
             std::option::Option::Some(crate::model::principal::Principal::User(v.into()));
@@ -14805,6 +18580,14 @@ impl Principal {
     ///
     /// Note that all the setters affecting `principal` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::model::Principal;
+    /// let x = Principal::new().set_service_account("example");
+    /// assert!(x.service_account().is_some());
+    /// assert!(x.user().is_none());
+    /// ```
     pub fn set_service_account<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.principal =
             std::option::Option::Some(crate::model::principal::Principal::ServiceAccount(v.into()));

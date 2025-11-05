@@ -44,18 +44,36 @@ impl TestStatus {
     }
 
     /// Sets the value of [name][crate::generated::gapic::model::TestStatus::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_conformance::model::TestStatus;
+    /// let x = TestStatus::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [failure_message][crate::generated::gapic::model::TestStatus::failure_message].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_conformance::model::TestStatus;
+    /// let x = TestStatus::new().set_failure_message("example");
+    /// ```
     pub fn set_failure_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.failure_message = v.into();
         self
     }
 
     /// Sets the value of [matched_name][crate::generated::gapic::model::TestStatus::matched_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_conformance::model::TestStatus;
+    /// let x = TestStatus::new().set_matched_name("example");
+    /// ```
     pub fn set_matched_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.matched_name = v.into();
         self
@@ -85,6 +103,17 @@ impl FailureSet {
     }
 
     /// Sets the value of [test][crate::generated::gapic::model::FailureSet::test].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_conformance::model::FailureSet;
+    /// use google_cloud_conformance::model::TestStatus;
+    /// let x = FailureSet::new()
+    ///     .set_test([
+    ///         TestStatus::default()/* use setters */,
+    ///         TestStatus::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_test<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -148,6 +177,15 @@ impl ConformanceRequest {
     }
 
     /// Sets the value of [requested_output_format][crate::generated::gapic::model::ConformanceRequest::requested_output_format].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_conformance::model::ConformanceRequest;
+    /// use google_cloud_conformance::model::WireFormat;
+    /// let x0 = ConformanceRequest::new().set_requested_output_format(WireFormat::Protobuf);
+    /// let x1 = ConformanceRequest::new().set_requested_output_format(WireFormat::Json);
+    /// let x2 = ConformanceRequest::new().set_requested_output_format(WireFormat::Jspb);
+    /// ```
     pub fn set_requested_output_format<
         T: std::convert::Into<crate::generated::gapic::model::WireFormat>,
     >(
@@ -159,12 +197,27 @@ impl ConformanceRequest {
     }
 
     /// Sets the value of [message_type][crate::generated::gapic::model::ConformanceRequest::message_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_conformance::model::ConformanceRequest;
+    /// let x = ConformanceRequest::new().set_message_type("example");
+    /// ```
     pub fn set_message_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.message_type = v.into();
         self
     }
 
     /// Sets the value of [test_category][crate::generated::gapic::model::ConformanceRequest::test_category].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_conformance::model::ConformanceRequest;
+    /// use google_cloud_conformance::model::TestCategory;
+    /// let x0 = ConformanceRequest::new().set_test_category(TestCategory::BinaryTest);
+    /// let x1 = ConformanceRequest::new().set_test_category(TestCategory::JsonTest);
+    /// let x2 = ConformanceRequest::new().set_test_category(TestCategory::JsonIgnoreUnknownParsingTest);
+    /// ```
     pub fn set_test_category<
         T: std::convert::Into<crate::generated::gapic::model::TestCategory>,
     >(
@@ -176,6 +229,13 @@ impl ConformanceRequest {
     }
 
     /// Sets the value of [jspb_encoding_options][crate::generated::gapic::model::ConformanceRequest::jspb_encoding_options].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_conformance::model::ConformanceRequest;
+    /// use google_cloud_conformance::model::JspbEncodingConfig;
+    /// let x = ConformanceRequest::new().set_jspb_encoding_options(JspbEncodingConfig::default()/* use setters */);
+    /// ```
     pub fn set_jspb_encoding_options<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::generated::gapic::model::JspbEncodingConfig>,
@@ -185,6 +245,14 @@ impl ConformanceRequest {
     }
 
     /// Sets or clears the value of [jspb_encoding_options][crate::generated::gapic::model::ConformanceRequest::jspb_encoding_options].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_conformance::model::ConformanceRequest;
+    /// use google_cloud_conformance::model::JspbEncodingConfig;
+    /// let x = ConformanceRequest::new().set_or_clear_jspb_encoding_options(Some(JspbEncodingConfig::default()/* use setters */));
+    /// let x = ConformanceRequest::new().set_or_clear_jspb_encoding_options(None::<JspbEncodingConfig>);
+    /// ```
     pub fn set_or_clear_jspb_encoding_options<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::generated::gapic::model::JspbEncodingConfig>,
@@ -194,6 +262,12 @@ impl ConformanceRequest {
     }
 
     /// Sets the value of [print_unknown_fields][crate::generated::gapic::model::ConformanceRequest::print_unknown_fields].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_conformance::model::ConformanceRequest;
+    /// let x = ConformanceRequest::new().set_print_unknown_fields(true);
+    /// ```
     pub fn set_print_unknown_fields<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.print_unknown_fields = v.into();
         self
@@ -203,6 +277,13 @@ impl ConformanceRequest {
     ///
     /// Note that all the setters affecting `payload` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_conformance::model::ConformanceRequest;
+    /// use google_cloud_conformance::model::conformance_request;
+    /// let x = ConformanceRequest::new().set_payload(Some(conformance_request::Payload::ProtobufPayload(bytes::Bytes::from_static(b"example"))));
+    /// ```
     pub fn set_payload<
         T: std::convert::Into<
                 std::option::Option<crate::generated::gapic::model::conformance_request::Payload>,
@@ -233,6 +314,16 @@ impl ConformanceRequest {
     ///
     /// Note that all the setters affecting `payload` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_conformance::model::ConformanceRequest;
+    /// let x = ConformanceRequest::new().set_protobuf_payload(bytes::Bytes::from_static(b"example"));
+    /// assert!(x.protobuf_payload().is_some());
+    /// assert!(x.json_payload().is_none());
+    /// assert!(x.jspb_payload().is_none());
+    /// assert!(x.text_payload().is_none());
+    /// ```
     pub fn set_protobuf_payload<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.payload = std::option::Option::Some(
             crate::generated::gapic::model::conformance_request::Payload::ProtobufPayload(v.into()),
@@ -258,6 +349,16 @@ impl ConformanceRequest {
     ///
     /// Note that all the setters affecting `payload` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_conformance::model::ConformanceRequest;
+    /// let x = ConformanceRequest::new().set_json_payload("example");
+    /// assert!(x.json_payload().is_some());
+    /// assert!(x.protobuf_payload().is_none());
+    /// assert!(x.jspb_payload().is_none());
+    /// assert!(x.text_payload().is_none());
+    /// ```
     pub fn set_json_payload<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.payload = std::option::Option::Some(
             crate::generated::gapic::model::conformance_request::Payload::JsonPayload(v.into()),
@@ -283,6 +384,16 @@ impl ConformanceRequest {
     ///
     /// Note that all the setters affecting `payload` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_conformance::model::ConformanceRequest;
+    /// let x = ConformanceRequest::new().set_jspb_payload("example");
+    /// assert!(x.jspb_payload().is_some());
+    /// assert!(x.protobuf_payload().is_none());
+    /// assert!(x.json_payload().is_none());
+    /// assert!(x.text_payload().is_none());
+    /// ```
     pub fn set_jspb_payload<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.payload = std::option::Option::Some(
             crate::generated::gapic::model::conformance_request::Payload::JspbPayload(v.into()),
@@ -308,6 +419,16 @@ impl ConformanceRequest {
     ///
     /// Note that all the setters affecting `payload` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_conformance::model::ConformanceRequest;
+    /// let x = ConformanceRequest::new().set_text_payload("example");
+    /// assert!(x.text_payload().is_some());
+    /// assert!(x.protobuf_payload().is_none());
+    /// assert!(x.json_payload().is_none());
+    /// assert!(x.jspb_payload().is_none());
+    /// ```
     pub fn set_text_payload<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.payload = std::option::Option::Some(
             crate::generated::gapic::model::conformance_request::Payload::TextPayload(v.into()),
@@ -378,6 +499,13 @@ impl ConformanceResponse {
     ///
     /// Note that all the setters affecting `result` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_conformance::model::ConformanceResponse;
+    /// use google_cloud_conformance::model::conformance_response;
+    /// let x = ConformanceResponse::new().set_result(Some(conformance_response::Result::ParseError("example".to_string())));
+    /// ```
     pub fn set_result<
         T: std::convert::Into<
                 std::option::Option<crate::generated::gapic::model::conformance_response::Result>,
@@ -408,6 +536,21 @@ impl ConformanceResponse {
     ///
     /// Note that all the setters affecting `result` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_conformance::model::ConformanceResponse;
+    /// let x = ConformanceResponse::new().set_parse_error("example");
+    /// assert!(x.parse_error().is_some());
+    /// assert!(x.serialize_error().is_none());
+    /// assert!(x.timeout_error().is_none());
+    /// assert!(x.runtime_error().is_none());
+    /// assert!(x.protobuf_payload().is_none());
+    /// assert!(x.json_payload().is_none());
+    /// assert!(x.skipped().is_none());
+    /// assert!(x.jspb_payload().is_none());
+    /// assert!(x.text_payload().is_none());
+    /// ```
     pub fn set_parse_error<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.result = std::option::Option::Some(
             crate::generated::gapic::model::conformance_response::Result::ParseError(v.into()),
@@ -433,6 +576,21 @@ impl ConformanceResponse {
     ///
     /// Note that all the setters affecting `result` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_conformance::model::ConformanceResponse;
+    /// let x = ConformanceResponse::new().set_serialize_error("example");
+    /// assert!(x.serialize_error().is_some());
+    /// assert!(x.parse_error().is_none());
+    /// assert!(x.timeout_error().is_none());
+    /// assert!(x.runtime_error().is_none());
+    /// assert!(x.protobuf_payload().is_none());
+    /// assert!(x.json_payload().is_none());
+    /// assert!(x.skipped().is_none());
+    /// assert!(x.jspb_payload().is_none());
+    /// assert!(x.text_payload().is_none());
+    /// ```
     pub fn set_serialize_error<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.result = std::option::Option::Some(
             crate::generated::gapic::model::conformance_response::Result::SerializeError(v.into()),
@@ -458,6 +616,21 @@ impl ConformanceResponse {
     ///
     /// Note that all the setters affecting `result` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_conformance::model::ConformanceResponse;
+    /// let x = ConformanceResponse::new().set_timeout_error("example");
+    /// assert!(x.timeout_error().is_some());
+    /// assert!(x.parse_error().is_none());
+    /// assert!(x.serialize_error().is_none());
+    /// assert!(x.runtime_error().is_none());
+    /// assert!(x.protobuf_payload().is_none());
+    /// assert!(x.json_payload().is_none());
+    /// assert!(x.skipped().is_none());
+    /// assert!(x.jspb_payload().is_none());
+    /// assert!(x.text_payload().is_none());
+    /// ```
     pub fn set_timeout_error<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.result = std::option::Option::Some(
             crate::generated::gapic::model::conformance_response::Result::TimeoutError(v.into()),
@@ -483,6 +656,21 @@ impl ConformanceResponse {
     ///
     /// Note that all the setters affecting `result` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_conformance::model::ConformanceResponse;
+    /// let x = ConformanceResponse::new().set_runtime_error("example");
+    /// assert!(x.runtime_error().is_some());
+    /// assert!(x.parse_error().is_none());
+    /// assert!(x.serialize_error().is_none());
+    /// assert!(x.timeout_error().is_none());
+    /// assert!(x.protobuf_payload().is_none());
+    /// assert!(x.json_payload().is_none());
+    /// assert!(x.skipped().is_none());
+    /// assert!(x.jspb_payload().is_none());
+    /// assert!(x.text_payload().is_none());
+    /// ```
     pub fn set_runtime_error<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.result = std::option::Option::Some(
             crate::generated::gapic::model::conformance_response::Result::RuntimeError(v.into()),
@@ -508,6 +696,21 @@ impl ConformanceResponse {
     ///
     /// Note that all the setters affecting `result` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_conformance::model::ConformanceResponse;
+    /// let x = ConformanceResponse::new().set_protobuf_payload(bytes::Bytes::from_static(b"example"));
+    /// assert!(x.protobuf_payload().is_some());
+    /// assert!(x.parse_error().is_none());
+    /// assert!(x.serialize_error().is_none());
+    /// assert!(x.timeout_error().is_none());
+    /// assert!(x.runtime_error().is_none());
+    /// assert!(x.json_payload().is_none());
+    /// assert!(x.skipped().is_none());
+    /// assert!(x.jspb_payload().is_none());
+    /// assert!(x.text_payload().is_none());
+    /// ```
     pub fn set_protobuf_payload<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.result = std::option::Option::Some(
             crate::generated::gapic::model::conformance_response::Result::ProtobufPayload(v.into()),
@@ -533,6 +736,21 @@ impl ConformanceResponse {
     ///
     /// Note that all the setters affecting `result` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_conformance::model::ConformanceResponse;
+    /// let x = ConformanceResponse::new().set_json_payload("example");
+    /// assert!(x.json_payload().is_some());
+    /// assert!(x.parse_error().is_none());
+    /// assert!(x.serialize_error().is_none());
+    /// assert!(x.timeout_error().is_none());
+    /// assert!(x.runtime_error().is_none());
+    /// assert!(x.protobuf_payload().is_none());
+    /// assert!(x.skipped().is_none());
+    /// assert!(x.jspb_payload().is_none());
+    /// assert!(x.text_payload().is_none());
+    /// ```
     pub fn set_json_payload<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.result = std::option::Option::Some(
             crate::generated::gapic::model::conformance_response::Result::JsonPayload(v.into()),
@@ -558,6 +776,21 @@ impl ConformanceResponse {
     ///
     /// Note that all the setters affecting `result` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_conformance::model::ConformanceResponse;
+    /// let x = ConformanceResponse::new().set_skipped("example");
+    /// assert!(x.skipped().is_some());
+    /// assert!(x.parse_error().is_none());
+    /// assert!(x.serialize_error().is_none());
+    /// assert!(x.timeout_error().is_none());
+    /// assert!(x.runtime_error().is_none());
+    /// assert!(x.protobuf_payload().is_none());
+    /// assert!(x.json_payload().is_none());
+    /// assert!(x.jspb_payload().is_none());
+    /// assert!(x.text_payload().is_none());
+    /// ```
     pub fn set_skipped<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.result = std::option::Option::Some(
             crate::generated::gapic::model::conformance_response::Result::Skipped(v.into()),
@@ -583,6 +816,21 @@ impl ConformanceResponse {
     ///
     /// Note that all the setters affecting `result` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_conformance::model::ConformanceResponse;
+    /// let x = ConformanceResponse::new().set_jspb_payload("example");
+    /// assert!(x.jspb_payload().is_some());
+    /// assert!(x.parse_error().is_none());
+    /// assert!(x.serialize_error().is_none());
+    /// assert!(x.timeout_error().is_none());
+    /// assert!(x.runtime_error().is_none());
+    /// assert!(x.protobuf_payload().is_none());
+    /// assert!(x.json_payload().is_none());
+    /// assert!(x.skipped().is_none());
+    /// assert!(x.text_payload().is_none());
+    /// ```
     pub fn set_jspb_payload<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.result = std::option::Option::Some(
             crate::generated::gapic::model::conformance_response::Result::JspbPayload(v.into()),
@@ -608,6 +856,21 @@ impl ConformanceResponse {
     ///
     /// Note that all the setters affecting `result` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_conformance::model::ConformanceResponse;
+    /// let x = ConformanceResponse::new().set_text_payload("example");
+    /// assert!(x.text_payload().is_some());
+    /// assert!(x.parse_error().is_none());
+    /// assert!(x.serialize_error().is_none());
+    /// assert!(x.timeout_error().is_none());
+    /// assert!(x.runtime_error().is_none());
+    /// assert!(x.protobuf_payload().is_none());
+    /// assert!(x.json_payload().is_none());
+    /// assert!(x.skipped().is_none());
+    /// assert!(x.jspb_payload().is_none());
+    /// ```
     pub fn set_text_payload<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.result = std::option::Option::Some(
             crate::generated::gapic::model::conformance_response::Result::TextPayload(v.into()),
@@ -722,6 +985,12 @@ impl JspbEncodingConfig {
     }
 
     /// Sets the value of [use_jspb_array_any_format][crate::generated::gapic::model::JspbEncodingConfig::use_jspb_array_any_format].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_conformance::model::JspbEncodingConfig;
+    /// let x = JspbEncodingConfig::new().set_use_jspb_array_any_format(true);
+    /// ```
     pub fn set_use_jspb_array_any_format<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.use_jspb_array_any_format = v.into();
         self

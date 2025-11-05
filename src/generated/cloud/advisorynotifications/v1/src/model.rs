@@ -66,12 +66,25 @@ impl Notification {
     }
 
     /// Sets the value of [name][crate::model::Notification::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_advisorynotifications_v1::model::Notification;
+    /// let x = Notification::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [subject][crate::model::Notification::subject].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_advisorynotifications_v1::model::Notification;
+    /// use google_cloud_advisorynotifications_v1::model::Subject;
+    /// let x = Notification::new().set_subject(Subject::default()/* use setters */);
+    /// ```
     pub fn set_subject<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Subject>,
@@ -81,6 +94,14 @@ impl Notification {
     }
 
     /// Sets or clears the value of [subject][crate::model::Notification::subject].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_advisorynotifications_v1::model::Notification;
+    /// use google_cloud_advisorynotifications_v1::model::Subject;
+    /// let x = Notification::new().set_or_clear_subject(Some(Subject::default()/* use setters */));
+    /// let x = Notification::new().set_or_clear_subject(None::<Subject>);
+    /// ```
     pub fn set_or_clear_subject<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Subject>,
@@ -90,6 +111,17 @@ impl Notification {
     }
 
     /// Sets the value of [messages][crate::model::Notification::messages].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_advisorynotifications_v1::model::Notification;
+    /// use google_cloud_advisorynotifications_v1::model::Message;
+    /// let x = Notification::new()
+    ///     .set_messages([
+    ///         Message::default()/* use setters */,
+    ///         Message::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_messages<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -101,6 +133,13 @@ impl Notification {
     }
 
     /// Sets the value of [create_time][crate::model::Notification::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_advisorynotifications_v1::model::Notification;
+    /// use wkt::Timestamp;
+    /// let x = Notification::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -110,6 +149,14 @@ impl Notification {
     }
 
     /// Sets or clears the value of [create_time][crate::model::Notification::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_advisorynotifications_v1::model::Notification;
+    /// use wkt::Timestamp;
+    /// let x = Notification::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Notification::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -119,6 +166,15 @@ impl Notification {
     }
 
     /// Sets the value of [notification_type][crate::model::Notification::notification_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_advisorynotifications_v1::model::Notification;
+    /// use google_cloud_advisorynotifications_v1::model::NotificationType;
+    /// let x0 = Notification::new().set_notification_type(NotificationType::SecurityPrivacyAdvisory);
+    /// let x1 = Notification::new().set_notification_type(NotificationType::SensitiveActions);
+    /// let x2 = Notification::new().set_notification_type(NotificationType::SecurityMsa);
+    /// ```
     pub fn set_notification_type<T: std::convert::Into<crate::model::NotificationType>>(
         mut self,
         v: T,
@@ -156,18 +212,39 @@ impl Text {
     }
 
     /// Sets the value of [en_text][crate::model::Text::en_text].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_advisorynotifications_v1::model::Text;
+    /// let x = Text::new().set_en_text("example");
+    /// ```
     pub fn set_en_text<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.en_text = v.into();
         self
     }
 
     /// Sets the value of [localized_text][crate::model::Text::localized_text].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_advisorynotifications_v1::model::Text;
+    /// let x = Text::new().set_localized_text("example");
+    /// ```
     pub fn set_localized_text<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.localized_text = v.into();
         self
     }
 
     /// Sets the value of [localization_state][crate::model::Text::localization_state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_advisorynotifications_v1::model::Text;
+    /// use google_cloud_advisorynotifications_v1::model::LocalizationState;
+    /// let x0 = Text::new().set_localization_state(LocalizationState::NotApplicable);
+    /// let x1 = Text::new().set_localization_state(LocalizationState::Pending);
+    /// let x2 = Text::new().set_localization_state(LocalizationState::Completed);
+    /// ```
     pub fn set_localization_state<T: std::convert::Into<crate::model::LocalizationState>>(
         mut self,
         v: T,
@@ -199,6 +276,13 @@ impl Subject {
     }
 
     /// Sets the value of [text][crate::model::Subject::text].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_advisorynotifications_v1::model::Subject;
+    /// use google_cloud_advisorynotifications_v1::model::Text;
+    /// let x = Subject::new().set_text(Text::default()/* use setters */);
+    /// ```
     pub fn set_text<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Text>,
@@ -208,6 +292,14 @@ impl Subject {
     }
 
     /// Sets or clears the value of [text][crate::model::Subject::text].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_advisorynotifications_v1::model::Subject;
+    /// use google_cloud_advisorynotifications_v1::model::Text;
+    /// let x = Subject::new().set_or_clear_text(Some(Text::default()/* use setters */));
+    /// let x = Subject::new().set_or_clear_text(None::<Text>);
+    /// ```
     pub fn set_or_clear_text<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Text>,
@@ -248,6 +340,13 @@ impl Message {
     }
 
     /// Sets the value of [body][crate::model::Message::body].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_advisorynotifications_v1::model::Message;
+    /// use google_cloud_advisorynotifications_v1::model::message::Body;
+    /// let x = Message::new().set_body(Body::default()/* use setters */);
+    /// ```
     pub fn set_body<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::message::Body>,
@@ -257,6 +356,14 @@ impl Message {
     }
 
     /// Sets or clears the value of [body][crate::model::Message::body].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_advisorynotifications_v1::model::Message;
+    /// use google_cloud_advisorynotifications_v1::model::message::Body;
+    /// let x = Message::new().set_or_clear_body(Some(Body::default()/* use setters */));
+    /// let x = Message::new().set_or_clear_body(None::<Body>);
+    /// ```
     pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::message::Body>,
@@ -266,6 +373,17 @@ impl Message {
     }
 
     /// Sets the value of [attachments][crate::model::Message::attachments].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_advisorynotifications_v1::model::Message;
+    /// use google_cloud_advisorynotifications_v1::model::Attachment;
+    /// let x = Message::new()
+    ///     .set_attachments([
+    ///         Attachment::default()/* use setters */,
+    ///         Attachment::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_attachments<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -277,6 +395,13 @@ impl Message {
     }
 
     /// Sets the value of [create_time][crate::model::Message::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_advisorynotifications_v1::model::Message;
+    /// use wkt::Timestamp;
+    /// let x = Message::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -286,6 +411,14 @@ impl Message {
     }
 
     /// Sets or clears the value of [create_time][crate::model::Message::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_advisorynotifications_v1::model::Message;
+    /// use wkt::Timestamp;
+    /// let x = Message::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Message::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -295,6 +428,13 @@ impl Message {
     }
 
     /// Sets the value of [localization_time][crate::model::Message::localization_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_advisorynotifications_v1::model::Message;
+    /// use wkt::Timestamp;
+    /// let x = Message::new().set_localization_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_localization_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -304,6 +444,14 @@ impl Message {
     }
 
     /// Sets or clears the value of [localization_time][crate::model::Message::localization_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_advisorynotifications_v1::model::Message;
+    /// use wkt::Timestamp;
+    /// let x = Message::new().set_or_clear_localization_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Message::new().set_or_clear_localization_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_localization_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -340,6 +488,13 @@ pub mod message {
         }
 
         /// Sets the value of [text][crate::model::message::Body::text].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_advisorynotifications_v1::model::message::Body;
+        /// use google_cloud_advisorynotifications_v1::model::Text;
+        /// let x = Body::new().set_text(Text::default()/* use setters */);
+        /// ```
         pub fn set_text<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::Text>,
@@ -349,6 +504,14 @@ pub mod message {
         }
 
         /// Sets or clears the value of [text][crate::model::message::Body::text].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_advisorynotifications_v1::model::message::Body;
+        /// use google_cloud_advisorynotifications_v1::model::Text;
+        /// let x = Body::new().set_or_clear_text(Some(Text::default()/* use setters */));
+        /// let x = Body::new().set_or_clear_text(None::<Text>);
+        /// ```
         pub fn set_or_clear_text<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Text>,
@@ -384,6 +547,12 @@ impl Attachment {
     }
 
     /// Sets the value of [display_name][crate::model::Attachment::display_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_advisorynotifications_v1::model::Attachment;
+    /// let x = Attachment::new().set_display_name("example");
+    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
@@ -393,6 +562,14 @@ impl Attachment {
     ///
     /// Note that all the setters affecting `data` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_advisorynotifications_v1::model::Attachment;
+    /// use google_cloud_advisorynotifications_v1::model::attachment;
+    /// use google_cloud_advisorynotifications_v1::model::Csv;
+    /// let x = Attachment::new().set_data(Some(attachment::Data::Csv(Csv::default().into())));
+    /// ```
     pub fn set_data<T: std::convert::Into<std::option::Option<crate::model::attachment::Data>>>(
         mut self,
         v: T,
@@ -417,6 +594,14 @@ impl Attachment {
     ///
     /// Note that all the setters affecting `data` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_advisorynotifications_v1::model::Attachment;
+    /// use google_cloud_advisorynotifications_v1::model::Csv;
+    /// let x = Attachment::new().set_csv(Csv::default()/* use setters */);
+    /// assert!(x.csv().is_some());
+    /// ```
     pub fn set_csv<T: std::convert::Into<std::boxed::Box<crate::model::Csv>>>(
         mut self,
         v: T,
@@ -467,6 +652,12 @@ impl Csv {
     }
 
     /// Sets the value of [headers][crate::model::Csv::headers].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_advisorynotifications_v1::model::Csv;
+    /// let x = Csv::new().set_headers(["a", "b", "c"]);
+    /// ```
     pub fn set_headers<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -478,6 +669,17 @@ impl Csv {
     }
 
     /// Sets the value of [data_rows][crate::model::Csv::data_rows].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_advisorynotifications_v1::model::Csv;
+    /// use google_cloud_advisorynotifications_v1::model::csv::CsvRow;
+    /// let x = Csv::new()
+    ///     .set_data_rows([
+    ///         CsvRow::default()/* use setters */,
+    ///         CsvRow::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_data_rows<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -517,6 +719,12 @@ pub mod csv {
         }
 
         /// Sets the value of [entries][crate::model::csv::CsvRow::entries].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_advisorynotifications_v1::model::csv::CsvRow;
+        /// let x = CsvRow::new().set_entries(["a", "b", "c"]);
+        /// ```
         pub fn set_entries<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -575,30 +783,62 @@ impl ListNotificationsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListNotificationsRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_advisorynotifications_v1::model::ListNotificationsRequest;
+    /// let x = ListNotificationsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListNotificationsRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_advisorynotifications_v1::model::ListNotificationsRequest;
+    /// let x = ListNotificationsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListNotificationsRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_advisorynotifications_v1::model::ListNotificationsRequest;
+    /// let x = ListNotificationsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [view][crate::model::ListNotificationsRequest::view].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_advisorynotifications_v1::model::ListNotificationsRequest;
+    /// use google_cloud_advisorynotifications_v1::model::NotificationView;
+    /// let x0 = ListNotificationsRequest::new().set_view(NotificationView::Basic);
+    /// let x1 = ListNotificationsRequest::new().set_view(NotificationView::Full);
+    /// ```
     pub fn set_view<T: std::convert::Into<crate::model::NotificationView>>(mut self, v: T) -> Self {
         self.view = v.into();
         self
     }
 
     /// Sets the value of [language_code][crate::model::ListNotificationsRequest::language_code].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_advisorynotifications_v1::model::ListNotificationsRequest;
+    /// let x = ListNotificationsRequest::new().set_language_code("example");
+    /// ```
     pub fn set_language_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.language_code = v.into();
         self
@@ -634,6 +874,17 @@ impl ListNotificationsResponse {
     }
 
     /// Sets the value of [notifications][crate::model::ListNotificationsResponse::notifications].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_advisorynotifications_v1::model::ListNotificationsResponse;
+    /// use google_cloud_advisorynotifications_v1::model::Notification;
+    /// let x = ListNotificationsResponse::new()
+    ///     .set_notifications([
+    ///         Notification::default()/* use setters */,
+    ///         Notification::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_notifications<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -645,12 +896,24 @@ impl ListNotificationsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListNotificationsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_advisorynotifications_v1::model::ListNotificationsResponse;
+    /// let x = ListNotificationsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [total_size][crate::model::ListNotificationsResponse::total_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_advisorynotifications_v1::model::ListNotificationsResponse;
+    /// let x = ListNotificationsResponse::new().set_total_size(42);
+    /// ```
     pub fn set_total_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.total_size = v.into();
         self
@@ -703,12 +966,24 @@ impl GetNotificationRequest {
     }
 
     /// Sets the value of [name][crate::model::GetNotificationRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_advisorynotifications_v1::model::GetNotificationRequest;
+    /// let x = GetNotificationRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [language_code][crate::model::GetNotificationRequest::language_code].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_advisorynotifications_v1::model::GetNotificationRequest;
+    /// let x = GetNotificationRequest::new().set_language_code("example");
+    /// ```
     pub fn set_language_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.language_code = v.into();
         self
@@ -752,12 +1027,28 @@ impl Settings {
     }
 
     /// Sets the value of [name][crate::model::Settings::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_advisorynotifications_v1::model::Settings;
+    /// let x = Settings::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [notification_settings][crate::model::Settings::notification_settings].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_advisorynotifications_v1::model::Settings;
+    /// use google_cloud_advisorynotifications_v1::model::NotificationSettings;
+    /// let x = Settings::new().set_notification_settings([
+    ///     ("key0", NotificationSettings::default()/* use setters */),
+    ///     ("key1", NotificationSettings::default()/* use (different) setters */),
+    /// ]);
+    /// ```
     pub fn set_notification_settings<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -770,6 +1061,12 @@ impl Settings {
     }
 
     /// Sets the value of [etag][crate::model::Settings::etag].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_advisorynotifications_v1::model::Settings;
+    /// let x = Settings::new().set_etag("example");
+    /// ```
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
@@ -798,6 +1095,12 @@ impl NotificationSettings {
     }
 
     /// Sets the value of [enabled][crate::model::NotificationSettings::enabled].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_advisorynotifications_v1::model::NotificationSettings;
+    /// let x = NotificationSettings::new().set_enabled(true);
+    /// ```
     pub fn set_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.enabled = v.into();
         self
@@ -829,6 +1132,12 @@ impl GetSettingsRequest {
     }
 
     /// Sets the value of [name][crate::model::GetSettingsRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_advisorynotifications_v1::model::GetSettingsRequest;
+    /// let x = GetSettingsRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -857,6 +1166,13 @@ impl UpdateSettingsRequest {
     }
 
     /// Sets the value of [settings][crate::model::UpdateSettingsRequest::settings].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_advisorynotifications_v1::model::UpdateSettingsRequest;
+    /// use google_cloud_advisorynotifications_v1::model::Settings;
+    /// let x = UpdateSettingsRequest::new().set_settings(Settings::default()/* use setters */);
+    /// ```
     pub fn set_settings<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Settings>,
@@ -866,6 +1182,14 @@ impl UpdateSettingsRequest {
     }
 
     /// Sets or clears the value of [settings][crate::model::UpdateSettingsRequest::settings].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_advisorynotifications_v1::model::UpdateSettingsRequest;
+    /// use google_cloud_advisorynotifications_v1::model::Settings;
+    /// let x = UpdateSettingsRequest::new().set_or_clear_settings(Some(Settings::default()/* use setters */));
+    /// let x = UpdateSettingsRequest::new().set_or_clear_settings(None::<Settings>);
+    /// ```
     pub fn set_or_clear_settings<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Settings>,

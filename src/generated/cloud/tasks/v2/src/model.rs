@@ -98,24 +98,48 @@ impl ListQueuesRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListQueuesRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tasks_v2::model::ListQueuesRequest;
+    /// let x = ListQueuesRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListQueuesRequest::filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tasks_v2::model::ListQueuesRequest;
+    /// let x = ListQueuesRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListQueuesRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tasks_v2::model::ListQueuesRequest;
+    /// let x = ListQueuesRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListQueuesRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tasks_v2::model::ListQueuesRequest;
+    /// let x = ListQueuesRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -161,6 +185,17 @@ impl ListQueuesResponse {
     }
 
     /// Sets the value of [queues][crate::model::ListQueuesResponse::queues].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tasks_v2::model::ListQueuesResponse;
+    /// use google_cloud_tasks_v2::model::Queue;
+    /// let x = ListQueuesResponse::new()
+    ///     .set_queues([
+    ///         Queue::default()/* use setters */,
+    ///         Queue::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_queues<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -172,6 +207,12 @@ impl ListQueuesResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListQueuesResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tasks_v2::model::ListQueuesResponse;
+    /// let x = ListQueuesResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -217,6 +258,12 @@ impl GetQueueRequest {
     }
 
     /// Sets the value of [name][crate::model::GetQueueRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tasks_v2::model::GetQueueRequest;
+    /// let x = GetQueueRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -261,12 +308,25 @@ impl CreateQueueRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateQueueRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tasks_v2::model::CreateQueueRequest;
+    /// let x = CreateQueueRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [queue][crate::model::CreateQueueRequest::queue].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tasks_v2::model::CreateQueueRequest;
+    /// use google_cloud_tasks_v2::model::Queue;
+    /// let x = CreateQueueRequest::new().set_queue(Queue::default()/* use setters */);
+    /// ```
     pub fn set_queue<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Queue>,
@@ -276,6 +336,14 @@ impl CreateQueueRequest {
     }
 
     /// Sets or clears the value of [queue][crate::model::CreateQueueRequest::queue].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tasks_v2::model::CreateQueueRequest;
+    /// use google_cloud_tasks_v2::model::Queue;
+    /// let x = CreateQueueRequest::new().set_or_clear_queue(Some(Queue::default()/* use setters */));
+    /// let x = CreateQueueRequest::new().set_or_clear_queue(None::<Queue>);
+    /// ```
     pub fn set_or_clear_queue<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Queue>,
@@ -323,6 +391,13 @@ impl UpdateQueueRequest {
     }
 
     /// Sets the value of [queue][crate::model::UpdateQueueRequest::queue].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tasks_v2::model::UpdateQueueRequest;
+    /// use google_cloud_tasks_v2::model::Queue;
+    /// let x = UpdateQueueRequest::new().set_queue(Queue::default()/* use setters */);
+    /// ```
     pub fn set_queue<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Queue>,
@@ -332,6 +407,14 @@ impl UpdateQueueRequest {
     }
 
     /// Sets or clears the value of [queue][crate::model::UpdateQueueRequest::queue].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tasks_v2::model::UpdateQueueRequest;
+    /// use google_cloud_tasks_v2::model::Queue;
+    /// let x = UpdateQueueRequest::new().set_or_clear_queue(Some(Queue::default()/* use setters */));
+    /// let x = UpdateQueueRequest::new().set_or_clear_queue(None::<Queue>);
+    /// ```
     pub fn set_or_clear_queue<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Queue>,
@@ -341,6 +424,13 @@ impl UpdateQueueRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateQueueRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tasks_v2::model::UpdateQueueRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateQueueRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -350,6 +440,14 @@ impl UpdateQueueRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateQueueRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tasks_v2::model::UpdateQueueRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateQueueRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateQueueRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -385,6 +483,12 @@ impl DeleteQueueRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteQueueRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tasks_v2::model::DeleteQueueRequest;
+    /// let x = DeleteQueueRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -417,6 +521,12 @@ impl PurgeQueueRequest {
     }
 
     /// Sets the value of [name][crate::model::PurgeQueueRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tasks_v2::model::PurgeQueueRequest;
+    /// let x = PurgeQueueRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -449,6 +559,12 @@ impl PauseQueueRequest {
     }
 
     /// Sets the value of [name][crate::model::PauseQueueRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tasks_v2::model::PauseQueueRequest;
+    /// let x = PauseQueueRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -481,6 +597,12 @@ impl ResumeQueueRequest {
     }
 
     /// Sets the value of [name][crate::model::ResumeQueueRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tasks_v2::model::ResumeQueueRequest;
+    /// let x = ResumeQueueRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -557,12 +679,26 @@ impl ListTasksRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListTasksRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tasks_v2::model::ListTasksRequest;
+    /// let x = ListTasksRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [response_view][crate::model::ListTasksRequest::response_view].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tasks_v2::model::ListTasksRequest;
+    /// use google_cloud_tasks_v2::model::task::View;
+    /// let x0 = ListTasksRequest::new().set_response_view(View::Basic);
+    /// let x1 = ListTasksRequest::new().set_response_view(View::Full);
+    /// ```
     pub fn set_response_view<T: std::convert::Into<crate::model::task::View>>(
         mut self,
         v: T,
@@ -572,12 +708,24 @@ impl ListTasksRequest {
     }
 
     /// Sets the value of [page_size][crate::model::ListTasksRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tasks_v2::model::ListTasksRequest;
+    /// let x = ListTasksRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListTasksRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tasks_v2::model::ListTasksRequest;
+    /// let x = ListTasksRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -621,6 +769,17 @@ impl ListTasksResponse {
     }
 
     /// Sets the value of [tasks][crate::model::ListTasksResponse::tasks].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tasks_v2::model::ListTasksResponse;
+    /// use google_cloud_tasks_v2::model::Task;
+    /// let x = ListTasksResponse::new()
+    ///     .set_tasks([
+    ///         Task::default()/* use setters */,
+    ///         Task::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_tasks<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -632,6 +791,12 @@ impl ListTasksResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListTasksResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tasks_v2::model::ListTasksResponse;
+    /// let x = ListTasksResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -696,12 +861,26 @@ impl GetTaskRequest {
     }
 
     /// Sets the value of [name][crate::model::GetTaskRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tasks_v2::model::GetTaskRequest;
+    /// let x = GetTaskRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [response_view][crate::model::GetTaskRequest::response_view].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tasks_v2::model::GetTaskRequest;
+    /// use google_cloud_tasks_v2::model::task::View;
+    /// let x0 = GetTaskRequest::new().set_response_view(View::Basic);
+    /// let x1 = GetTaskRequest::new().set_response_view(View::Full);
+    /// ```
     pub fn set_response_view<T: std::convert::Into<crate::model::task::View>>(
         mut self,
         v: T,
@@ -796,12 +975,25 @@ impl CreateTaskRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateTaskRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tasks_v2::model::CreateTaskRequest;
+    /// let x = CreateTaskRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [task][crate::model::CreateTaskRequest::task].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tasks_v2::model::CreateTaskRequest;
+    /// use google_cloud_tasks_v2::model::Task;
+    /// let x = CreateTaskRequest::new().set_task(Task::default()/* use setters */);
+    /// ```
     pub fn set_task<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Task>,
@@ -811,6 +1003,14 @@ impl CreateTaskRequest {
     }
 
     /// Sets or clears the value of [task][crate::model::CreateTaskRequest::task].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tasks_v2::model::CreateTaskRequest;
+    /// use google_cloud_tasks_v2::model::Task;
+    /// let x = CreateTaskRequest::new().set_or_clear_task(Some(Task::default()/* use setters */));
+    /// let x = CreateTaskRequest::new().set_or_clear_task(None::<Task>);
+    /// ```
     pub fn set_or_clear_task<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Task>,
@@ -820,6 +1020,14 @@ impl CreateTaskRequest {
     }
 
     /// Sets the value of [response_view][crate::model::CreateTaskRequest::response_view].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tasks_v2::model::CreateTaskRequest;
+    /// use google_cloud_tasks_v2::model::task::View;
+    /// let x0 = CreateTaskRequest::new().set_response_view(View::Basic);
+    /// let x1 = CreateTaskRequest::new().set_response_view(View::Full);
+    /// ```
     pub fn set_response_view<T: std::convert::Into<crate::model::task::View>>(
         mut self,
         v: T,
@@ -855,6 +1063,12 @@ impl DeleteTaskRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteTaskRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tasks_v2::model::DeleteTaskRequest;
+    /// let x = DeleteTaskRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -905,12 +1119,26 @@ impl RunTaskRequest {
     }
 
     /// Sets the value of [name][crate::model::RunTaskRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tasks_v2::model::RunTaskRequest;
+    /// let x = RunTaskRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [response_view][crate::model::RunTaskRequest::response_view].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tasks_v2::model::RunTaskRequest;
+    /// use google_cloud_tasks_v2::model::task::View;
+    /// let x0 = RunTaskRequest::new().set_response_view(View::Basic);
+    /// let x1 = RunTaskRequest::new().set_response_view(View::Full);
+    /// ```
     pub fn set_response_view<T: std::convert::Into<crate::model::task::View>>(
         mut self,
         v: T,
@@ -1064,12 +1292,25 @@ impl Queue {
     }
 
     /// Sets the value of [name][crate::model::Queue::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tasks_v2::model::Queue;
+    /// let x = Queue::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [app_engine_routing_override][crate::model::Queue::app_engine_routing_override].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tasks_v2::model::Queue;
+    /// use google_cloud_tasks_v2::model::AppEngineRouting;
+    /// let x = Queue::new().set_app_engine_routing_override(AppEngineRouting::default()/* use setters */);
+    /// ```
     pub fn set_app_engine_routing_override<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::AppEngineRouting>,
@@ -1079,6 +1320,14 @@ impl Queue {
     }
 
     /// Sets or clears the value of [app_engine_routing_override][crate::model::Queue::app_engine_routing_override].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tasks_v2::model::Queue;
+    /// use google_cloud_tasks_v2::model::AppEngineRouting;
+    /// let x = Queue::new().set_or_clear_app_engine_routing_override(Some(AppEngineRouting::default()/* use setters */));
+    /// let x = Queue::new().set_or_clear_app_engine_routing_override(None::<AppEngineRouting>);
+    /// ```
     pub fn set_or_clear_app_engine_routing_override<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AppEngineRouting>,
@@ -1088,6 +1337,13 @@ impl Queue {
     }
 
     /// Sets the value of [rate_limits][crate::model::Queue::rate_limits].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tasks_v2::model::Queue;
+    /// use google_cloud_tasks_v2::model::RateLimits;
+    /// let x = Queue::new().set_rate_limits(RateLimits::default()/* use setters */);
+    /// ```
     pub fn set_rate_limits<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::RateLimits>,
@@ -1097,6 +1353,14 @@ impl Queue {
     }
 
     /// Sets or clears the value of [rate_limits][crate::model::Queue::rate_limits].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tasks_v2::model::Queue;
+    /// use google_cloud_tasks_v2::model::RateLimits;
+    /// let x = Queue::new().set_or_clear_rate_limits(Some(RateLimits::default()/* use setters */));
+    /// let x = Queue::new().set_or_clear_rate_limits(None::<RateLimits>);
+    /// ```
     pub fn set_or_clear_rate_limits<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::RateLimits>,
@@ -1106,6 +1370,13 @@ impl Queue {
     }
 
     /// Sets the value of [retry_config][crate::model::Queue::retry_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tasks_v2::model::Queue;
+    /// use google_cloud_tasks_v2::model::RetryConfig;
+    /// let x = Queue::new().set_retry_config(RetryConfig::default()/* use setters */);
+    /// ```
     pub fn set_retry_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::RetryConfig>,
@@ -1115,6 +1386,14 @@ impl Queue {
     }
 
     /// Sets or clears the value of [retry_config][crate::model::Queue::retry_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tasks_v2::model::Queue;
+    /// use google_cloud_tasks_v2::model::RetryConfig;
+    /// let x = Queue::new().set_or_clear_retry_config(Some(RetryConfig::default()/* use setters */));
+    /// let x = Queue::new().set_or_clear_retry_config(None::<RetryConfig>);
+    /// ```
     pub fn set_or_clear_retry_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::RetryConfig>,
@@ -1124,12 +1403,28 @@ impl Queue {
     }
 
     /// Sets the value of [state][crate::model::Queue::state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tasks_v2::model::Queue;
+    /// use google_cloud_tasks_v2::model::queue::State;
+    /// let x0 = Queue::new().set_state(State::Running);
+    /// let x1 = Queue::new().set_state(State::Paused);
+    /// let x2 = Queue::new().set_state(State::Disabled);
+    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::queue::State>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
     }
 
     /// Sets the value of [purge_time][crate::model::Queue::purge_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tasks_v2::model::Queue;
+    /// use wkt::Timestamp;
+    /// let x = Queue::new().set_purge_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_purge_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1139,6 +1434,14 @@ impl Queue {
     }
 
     /// Sets or clears the value of [purge_time][crate::model::Queue::purge_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tasks_v2::model::Queue;
+    /// use wkt::Timestamp;
+    /// let x = Queue::new().set_or_clear_purge_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Queue::new().set_or_clear_purge_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_purge_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1148,6 +1451,13 @@ impl Queue {
     }
 
     /// Sets the value of [stackdriver_logging_config][crate::model::Queue::stackdriver_logging_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tasks_v2::model::Queue;
+    /// use google_cloud_tasks_v2::model::StackdriverLoggingConfig;
+    /// let x = Queue::new().set_stackdriver_logging_config(StackdriverLoggingConfig::default()/* use setters */);
+    /// ```
     pub fn set_stackdriver_logging_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::StackdriverLoggingConfig>,
@@ -1157,6 +1467,14 @@ impl Queue {
     }
 
     /// Sets or clears the value of [stackdriver_logging_config][crate::model::Queue::stackdriver_logging_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tasks_v2::model::Queue;
+    /// use google_cloud_tasks_v2::model::StackdriverLoggingConfig;
+    /// let x = Queue::new().set_or_clear_stackdriver_logging_config(Some(StackdriverLoggingConfig::default()/* use setters */));
+    /// let x = Queue::new().set_or_clear_stackdriver_logging_config(None::<StackdriverLoggingConfig>);
+    /// ```
     pub fn set_or_clear_stackdriver_logging_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::StackdriverLoggingConfig>,
@@ -1428,18 +1746,36 @@ impl RateLimits {
     }
 
     /// Sets the value of [max_dispatches_per_second][crate::model::RateLimits::max_dispatches_per_second].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tasks_v2::model::RateLimits;
+    /// let x = RateLimits::new().set_max_dispatches_per_second(42.0);
+    /// ```
     pub fn set_max_dispatches_per_second<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
         self.max_dispatches_per_second = v.into();
         self
     }
 
     /// Sets the value of [max_burst_size][crate::model::RateLimits::max_burst_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tasks_v2::model::RateLimits;
+    /// let x = RateLimits::new().set_max_burst_size(42);
+    /// ```
     pub fn set_max_burst_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.max_burst_size = v.into();
         self
     }
 
     /// Sets the value of [max_concurrent_dispatches][crate::model::RateLimits::max_concurrent_dispatches].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tasks_v2::model::RateLimits;
+    /// let x = RateLimits::new().set_max_concurrent_dispatches(42);
+    /// ```
     pub fn set_max_concurrent_dispatches<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.max_concurrent_dispatches = v.into();
         self
@@ -1580,12 +1916,25 @@ impl RetryConfig {
     }
 
     /// Sets the value of [max_attempts][crate::model::RetryConfig::max_attempts].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tasks_v2::model::RetryConfig;
+    /// let x = RetryConfig::new().set_max_attempts(42);
+    /// ```
     pub fn set_max_attempts<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.max_attempts = v.into();
         self
     }
 
     /// Sets the value of [max_retry_duration][crate::model::RetryConfig::max_retry_duration].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tasks_v2::model::RetryConfig;
+    /// use wkt::Duration;
+    /// let x = RetryConfig::new().set_max_retry_duration(Duration::default()/* use setters */);
+    /// ```
     pub fn set_max_retry_duration<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -1595,6 +1944,14 @@ impl RetryConfig {
     }
 
     /// Sets or clears the value of [max_retry_duration][crate::model::RetryConfig::max_retry_duration].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tasks_v2::model::RetryConfig;
+    /// use wkt::Duration;
+    /// let x = RetryConfig::new().set_or_clear_max_retry_duration(Some(Duration::default()/* use setters */));
+    /// let x = RetryConfig::new().set_or_clear_max_retry_duration(None::<Duration>);
+    /// ```
     pub fn set_or_clear_max_retry_duration<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -1604,6 +1961,13 @@ impl RetryConfig {
     }
 
     /// Sets the value of [min_backoff][crate::model::RetryConfig::min_backoff].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tasks_v2::model::RetryConfig;
+    /// use wkt::Duration;
+    /// let x = RetryConfig::new().set_min_backoff(Duration::default()/* use setters */);
+    /// ```
     pub fn set_min_backoff<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -1613,6 +1977,14 @@ impl RetryConfig {
     }
 
     /// Sets or clears the value of [min_backoff][crate::model::RetryConfig::min_backoff].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tasks_v2::model::RetryConfig;
+    /// use wkt::Duration;
+    /// let x = RetryConfig::new().set_or_clear_min_backoff(Some(Duration::default()/* use setters */));
+    /// let x = RetryConfig::new().set_or_clear_min_backoff(None::<Duration>);
+    /// ```
     pub fn set_or_clear_min_backoff<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -1622,6 +1994,13 @@ impl RetryConfig {
     }
 
     /// Sets the value of [max_backoff][crate::model::RetryConfig::max_backoff].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tasks_v2::model::RetryConfig;
+    /// use wkt::Duration;
+    /// let x = RetryConfig::new().set_max_backoff(Duration::default()/* use setters */);
+    /// ```
     pub fn set_max_backoff<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -1631,6 +2010,14 @@ impl RetryConfig {
     }
 
     /// Sets or clears the value of [max_backoff][crate::model::RetryConfig::max_backoff].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tasks_v2::model::RetryConfig;
+    /// use wkt::Duration;
+    /// let x = RetryConfig::new().set_or_clear_max_backoff(Some(Duration::default()/* use setters */));
+    /// let x = RetryConfig::new().set_or_clear_max_backoff(None::<Duration>);
+    /// ```
     pub fn set_or_clear_max_backoff<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -1640,6 +2027,12 @@ impl RetryConfig {
     }
 
     /// Sets the value of [max_doublings][crate::model::RetryConfig::max_doublings].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tasks_v2::model::RetryConfig;
+    /// let x = RetryConfig::new().set_max_doublings(42);
+    /// ```
     pub fn set_max_doublings<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.max_doublings = v.into();
         self
@@ -1672,6 +2065,12 @@ impl StackdriverLoggingConfig {
     }
 
     /// Sets the value of [sampling_ratio][crate::model::StackdriverLoggingConfig::sampling_ratio].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tasks_v2::model::StackdriverLoggingConfig;
+    /// let x = StackdriverLoggingConfig::new().set_sampling_ratio(42.0);
+    /// ```
     pub fn set_sampling_ratio<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
         self.sampling_ratio = v.into();
         self
@@ -1799,12 +2198,27 @@ impl HttpRequest {
     }
 
     /// Sets the value of [url][crate::model::HttpRequest::url].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tasks_v2::model::HttpRequest;
+    /// let x = HttpRequest::new().set_url("example");
+    /// ```
     pub fn set_url<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.url = v.into();
         self
     }
 
     /// Sets the value of [http_method][crate::model::HttpRequest::http_method].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tasks_v2::model::HttpRequest;
+    /// use google_cloud_tasks_v2::model::HttpMethod;
+    /// let x0 = HttpRequest::new().set_http_method(HttpMethod::Post);
+    /// let x1 = HttpRequest::new().set_http_method(HttpMethod::Get);
+    /// let x2 = HttpRequest::new().set_http_method(HttpMethod::Head);
+    /// ```
     pub fn set_http_method<T: std::convert::Into<crate::model::HttpMethod>>(
         mut self,
         v: T,
@@ -1814,6 +2228,15 @@ impl HttpRequest {
     }
 
     /// Sets the value of [headers][crate::model::HttpRequest::headers].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tasks_v2::model::HttpRequest;
+    /// let x = HttpRequest::new().set_headers([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_headers<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -1826,6 +2249,12 @@ impl HttpRequest {
     }
 
     /// Sets the value of [body][crate::model::HttpRequest::body].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tasks_v2::model::HttpRequest;
+    /// let x = HttpRequest::new().set_body(bytes::Bytes::from_static(b"example"));
+    /// ```
     pub fn set_body<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.body = v.into();
         self
@@ -1835,6 +2264,14 @@ impl HttpRequest {
     ///
     /// Note that all the setters affecting `authorization_header` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tasks_v2::model::HttpRequest;
+    /// use google_cloud_tasks_v2::model::http_request;
+    /// use google_cloud_tasks_v2::model::OAuthToken;
+    /// let x = HttpRequest::new().set_authorization_header(Some(http_request::AuthorizationHeader::OauthToken(OAuthToken::default().into())));
+    /// ```
     pub fn set_authorization_header<
         T: std::convert::Into<std::option::Option<crate::model::http_request::AuthorizationHeader>>,
     >(
@@ -1863,6 +2300,15 @@ impl HttpRequest {
     ///
     /// Note that all the setters affecting `authorization_header` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tasks_v2::model::HttpRequest;
+    /// use google_cloud_tasks_v2::model::OAuthToken;
+    /// let x = HttpRequest::new().set_oauth_token(OAuthToken::default()/* use setters */);
+    /// assert!(x.oauth_token().is_some());
+    /// assert!(x.oidc_token().is_none());
+    /// ```
     pub fn set_oauth_token<T: std::convert::Into<std::boxed::Box<crate::model::OAuthToken>>>(
         mut self,
         v: T,
@@ -1891,6 +2337,15 @@ impl HttpRequest {
     ///
     /// Note that all the setters affecting `authorization_header` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tasks_v2::model::HttpRequest;
+    /// use google_cloud_tasks_v2::model::OidcToken;
+    /// let x = HttpRequest::new().set_oidc_token(OidcToken::default()/* use setters */);
+    /// assert!(x.oidc_token().is_some());
+    /// assert!(x.oauth_token().is_none());
+    /// ```
     pub fn set_oidc_token<T: std::convert::Into<std::boxed::Box<crate::model::OidcToken>>>(
         mut self,
         v: T,
@@ -2115,6 +2570,15 @@ impl AppEngineHttpRequest {
     }
 
     /// Sets the value of [http_method][crate::model::AppEngineHttpRequest::http_method].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tasks_v2::model::AppEngineHttpRequest;
+    /// use google_cloud_tasks_v2::model::HttpMethod;
+    /// let x0 = AppEngineHttpRequest::new().set_http_method(HttpMethod::Post);
+    /// let x1 = AppEngineHttpRequest::new().set_http_method(HttpMethod::Get);
+    /// let x2 = AppEngineHttpRequest::new().set_http_method(HttpMethod::Head);
+    /// ```
     pub fn set_http_method<T: std::convert::Into<crate::model::HttpMethod>>(
         mut self,
         v: T,
@@ -2124,6 +2588,13 @@ impl AppEngineHttpRequest {
     }
 
     /// Sets the value of [app_engine_routing][crate::model::AppEngineHttpRequest::app_engine_routing].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tasks_v2::model::AppEngineHttpRequest;
+    /// use google_cloud_tasks_v2::model::AppEngineRouting;
+    /// let x = AppEngineHttpRequest::new().set_app_engine_routing(AppEngineRouting::default()/* use setters */);
+    /// ```
     pub fn set_app_engine_routing<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::AppEngineRouting>,
@@ -2133,6 +2604,14 @@ impl AppEngineHttpRequest {
     }
 
     /// Sets or clears the value of [app_engine_routing][crate::model::AppEngineHttpRequest::app_engine_routing].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tasks_v2::model::AppEngineHttpRequest;
+    /// use google_cloud_tasks_v2::model::AppEngineRouting;
+    /// let x = AppEngineHttpRequest::new().set_or_clear_app_engine_routing(Some(AppEngineRouting::default()/* use setters */));
+    /// let x = AppEngineHttpRequest::new().set_or_clear_app_engine_routing(None::<AppEngineRouting>);
+    /// ```
     pub fn set_or_clear_app_engine_routing<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AppEngineRouting>,
@@ -2142,12 +2621,27 @@ impl AppEngineHttpRequest {
     }
 
     /// Sets the value of [relative_uri][crate::model::AppEngineHttpRequest::relative_uri].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tasks_v2::model::AppEngineHttpRequest;
+    /// let x = AppEngineHttpRequest::new().set_relative_uri("example");
+    /// ```
     pub fn set_relative_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.relative_uri = v.into();
         self
     }
 
     /// Sets the value of [headers][crate::model::AppEngineHttpRequest::headers].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tasks_v2::model::AppEngineHttpRequest;
+    /// let x = AppEngineHttpRequest::new().set_headers([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_headers<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -2160,6 +2654,12 @@ impl AppEngineHttpRequest {
     }
 
     /// Sets the value of [body][crate::model::AppEngineHttpRequest::body].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tasks_v2::model::AppEngineHttpRequest;
+    /// let x = AppEngineHttpRequest::new().set_body(bytes::Bytes::from_static(b"example"));
+    /// ```
     pub fn set_body<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.body = v.into();
         self
@@ -2288,24 +2788,48 @@ impl AppEngineRouting {
     }
 
     /// Sets the value of [service][crate::model::AppEngineRouting::service].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tasks_v2::model::AppEngineRouting;
+    /// let x = AppEngineRouting::new().set_service("example");
+    /// ```
     pub fn set_service<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.service = v.into();
         self
     }
 
     /// Sets the value of [version][crate::model::AppEngineRouting::version].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tasks_v2::model::AppEngineRouting;
+    /// let x = AppEngineRouting::new().set_version("example");
+    /// ```
     pub fn set_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.version = v.into();
         self
     }
 
     /// Sets the value of [instance][crate::model::AppEngineRouting::instance].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tasks_v2::model::AppEngineRouting;
+    /// let x = AppEngineRouting::new().set_instance("example");
+    /// ```
     pub fn set_instance<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.instance = v.into();
         self
     }
 
     /// Sets the value of [host][crate::model::AppEngineRouting::host].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tasks_v2::model::AppEngineRouting;
+    /// let x = AppEngineRouting::new().set_host("example");
+    /// ```
     pub fn set_host<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.host = v.into();
         self
@@ -2346,6 +2870,12 @@ impl OAuthToken {
     }
 
     /// Sets the value of [service_account_email][crate::model::OAuthToken::service_account_email].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tasks_v2::model::OAuthToken;
+    /// let x = OAuthToken::new().set_service_account_email("example");
+    /// ```
     pub fn set_service_account_email<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -2355,6 +2885,12 @@ impl OAuthToken {
     }
 
     /// Sets the value of [scope][crate::model::OAuthToken::scope].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tasks_v2::model::OAuthToken;
+    /// let x = OAuthToken::new().set_scope("example");
+    /// ```
     pub fn set_scope<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.scope = v.into();
         self
@@ -2396,6 +2932,12 @@ impl OidcToken {
     }
 
     /// Sets the value of [service_account_email][crate::model::OidcToken::service_account_email].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tasks_v2::model::OidcToken;
+    /// let x = OidcToken::new().set_service_account_email("example");
+    /// ```
     pub fn set_service_account_email<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -2405,6 +2947,12 @@ impl OidcToken {
     }
 
     /// Sets the value of [audience][crate::model::OidcToken::audience].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tasks_v2::model::OidcToken;
+    /// let x = OidcToken::new().set_audience("example");
+    /// ```
     pub fn set_audience<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.audience = v.into();
         self
@@ -2536,12 +3084,25 @@ impl Task {
     }
 
     /// Sets the value of [name][crate::model::Task::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tasks_v2::model::Task;
+    /// let x = Task::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [schedule_time][crate::model::Task::schedule_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tasks_v2::model::Task;
+    /// use wkt::Timestamp;
+    /// let x = Task::new().set_schedule_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_schedule_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2551,6 +3112,14 @@ impl Task {
     }
 
     /// Sets or clears the value of [schedule_time][crate::model::Task::schedule_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tasks_v2::model::Task;
+    /// use wkt::Timestamp;
+    /// let x = Task::new().set_or_clear_schedule_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Task::new().set_or_clear_schedule_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_schedule_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2560,6 +3129,13 @@ impl Task {
     }
 
     /// Sets the value of [create_time][crate::model::Task::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tasks_v2::model::Task;
+    /// use wkt::Timestamp;
+    /// let x = Task::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2569,6 +3145,14 @@ impl Task {
     }
 
     /// Sets or clears the value of [create_time][crate::model::Task::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tasks_v2::model::Task;
+    /// use wkt::Timestamp;
+    /// let x = Task::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Task::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2578,6 +3162,13 @@ impl Task {
     }
 
     /// Sets the value of [dispatch_deadline][crate::model::Task::dispatch_deadline].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tasks_v2::model::Task;
+    /// use wkt::Duration;
+    /// let x = Task::new().set_dispatch_deadline(Duration::default()/* use setters */);
+    /// ```
     pub fn set_dispatch_deadline<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -2587,6 +3178,14 @@ impl Task {
     }
 
     /// Sets or clears the value of [dispatch_deadline][crate::model::Task::dispatch_deadline].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tasks_v2::model::Task;
+    /// use wkt::Duration;
+    /// let x = Task::new().set_or_clear_dispatch_deadline(Some(Duration::default()/* use setters */));
+    /// let x = Task::new().set_or_clear_dispatch_deadline(None::<Duration>);
+    /// ```
     pub fn set_or_clear_dispatch_deadline<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -2596,18 +3195,37 @@ impl Task {
     }
 
     /// Sets the value of [dispatch_count][crate::model::Task::dispatch_count].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tasks_v2::model::Task;
+    /// let x = Task::new().set_dispatch_count(42);
+    /// ```
     pub fn set_dispatch_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.dispatch_count = v.into();
         self
     }
 
     /// Sets the value of [response_count][crate::model::Task::response_count].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tasks_v2::model::Task;
+    /// let x = Task::new().set_response_count(42);
+    /// ```
     pub fn set_response_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.response_count = v.into();
         self
     }
 
     /// Sets the value of [first_attempt][crate::model::Task::first_attempt].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tasks_v2::model::Task;
+    /// use google_cloud_tasks_v2::model::Attempt;
+    /// let x = Task::new().set_first_attempt(Attempt::default()/* use setters */);
+    /// ```
     pub fn set_first_attempt<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Attempt>,
@@ -2617,6 +3235,14 @@ impl Task {
     }
 
     /// Sets or clears the value of [first_attempt][crate::model::Task::first_attempt].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tasks_v2::model::Task;
+    /// use google_cloud_tasks_v2::model::Attempt;
+    /// let x = Task::new().set_or_clear_first_attempt(Some(Attempt::default()/* use setters */));
+    /// let x = Task::new().set_or_clear_first_attempt(None::<Attempt>);
+    /// ```
     pub fn set_or_clear_first_attempt<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Attempt>,
@@ -2626,6 +3252,13 @@ impl Task {
     }
 
     /// Sets the value of [last_attempt][crate::model::Task::last_attempt].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tasks_v2::model::Task;
+    /// use google_cloud_tasks_v2::model::Attempt;
+    /// let x = Task::new().set_last_attempt(Attempt::default()/* use setters */);
+    /// ```
     pub fn set_last_attempt<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Attempt>,
@@ -2635,6 +3268,14 @@ impl Task {
     }
 
     /// Sets or clears the value of [last_attempt][crate::model::Task::last_attempt].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tasks_v2::model::Task;
+    /// use google_cloud_tasks_v2::model::Attempt;
+    /// let x = Task::new().set_or_clear_last_attempt(Some(Attempt::default()/* use setters */));
+    /// let x = Task::new().set_or_clear_last_attempt(None::<Attempt>);
+    /// ```
     pub fn set_or_clear_last_attempt<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Attempt>,
@@ -2644,6 +3285,14 @@ impl Task {
     }
 
     /// Sets the value of [view][crate::model::Task::view].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tasks_v2::model::Task;
+    /// use google_cloud_tasks_v2::model::task::View;
+    /// let x0 = Task::new().set_view(View::Basic);
+    /// let x1 = Task::new().set_view(View::Full);
+    /// ```
     pub fn set_view<T: std::convert::Into<crate::model::task::View>>(mut self, v: T) -> Self {
         self.view = v.into();
         self
@@ -2653,6 +3302,14 @@ impl Task {
     ///
     /// Note that all the setters affecting `message_type` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tasks_v2::model::Task;
+    /// use google_cloud_tasks_v2::model::task;
+    /// use google_cloud_tasks_v2::model::AppEngineHttpRequest;
+    /// let x = Task::new().set_message_type(Some(task::MessageType::AppEngineHttpRequest(AppEngineHttpRequest::default().into())));
+    /// ```
     pub fn set_message_type<
         T: std::convert::Into<std::option::Option<crate::model::task::MessageType>>,
     >(
@@ -2683,6 +3340,15 @@ impl Task {
     ///
     /// Note that all the setters affecting `message_type` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tasks_v2::model::Task;
+    /// use google_cloud_tasks_v2::model::AppEngineHttpRequest;
+    /// let x = Task::new().set_app_engine_http_request(AppEngineHttpRequest::default()/* use setters */);
+    /// assert!(x.app_engine_http_request().is_some());
+    /// assert!(x.http_request().is_none());
+    /// ```
     pub fn set_app_engine_http_request<
         T: std::convert::Into<std::boxed::Box<crate::model::AppEngineHttpRequest>>,
     >(
@@ -2711,6 +3377,15 @@ impl Task {
     ///
     /// Note that all the setters affecting `message_type` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tasks_v2::model::Task;
+    /// use google_cloud_tasks_v2::model::HttpRequest;
+    /// let x = Task::new().set_http_request(HttpRequest::default()/* use setters */);
+    /// assert!(x.http_request().is_some());
+    /// assert!(x.app_engine_http_request().is_none());
+    /// ```
     pub fn set_http_request<T: std::convert::Into<std::boxed::Box<crate::model::HttpRequest>>>(
         mut self,
         v: T,
@@ -2944,6 +3619,13 @@ impl Attempt {
     }
 
     /// Sets the value of [schedule_time][crate::model::Attempt::schedule_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tasks_v2::model::Attempt;
+    /// use wkt::Timestamp;
+    /// let x = Attempt::new().set_schedule_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_schedule_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2953,6 +3635,14 @@ impl Attempt {
     }
 
     /// Sets or clears the value of [schedule_time][crate::model::Attempt::schedule_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tasks_v2::model::Attempt;
+    /// use wkt::Timestamp;
+    /// let x = Attempt::new().set_or_clear_schedule_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Attempt::new().set_or_clear_schedule_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_schedule_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2962,6 +3652,13 @@ impl Attempt {
     }
 
     /// Sets the value of [dispatch_time][crate::model::Attempt::dispatch_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tasks_v2::model::Attempt;
+    /// use wkt::Timestamp;
+    /// let x = Attempt::new().set_dispatch_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_dispatch_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2971,6 +3668,14 @@ impl Attempt {
     }
 
     /// Sets or clears the value of [dispatch_time][crate::model::Attempt::dispatch_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tasks_v2::model::Attempt;
+    /// use wkt::Timestamp;
+    /// let x = Attempt::new().set_or_clear_dispatch_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Attempt::new().set_or_clear_dispatch_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_dispatch_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2980,6 +3685,13 @@ impl Attempt {
     }
 
     /// Sets the value of [response_time][crate::model::Attempt::response_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tasks_v2::model::Attempt;
+    /// use wkt::Timestamp;
+    /// let x = Attempt::new().set_response_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_response_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2989,6 +3701,14 @@ impl Attempt {
     }
 
     /// Sets or clears the value of [response_time][crate::model::Attempt::response_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tasks_v2::model::Attempt;
+    /// use wkt::Timestamp;
+    /// let x = Attempt::new().set_or_clear_response_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Attempt::new().set_or_clear_response_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_response_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2998,6 +3718,13 @@ impl Attempt {
     }
 
     /// Sets the value of [response_status][crate::model::Attempt::response_status].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tasks_v2::model::Attempt;
+    /// use rpc::model::Status;
+    /// let x = Attempt::new().set_response_status(Status::default()/* use setters */);
+    /// ```
     pub fn set_response_status<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<rpc::model::Status>,
@@ -3007,6 +3734,14 @@ impl Attempt {
     }
 
     /// Sets or clears the value of [response_status][crate::model::Attempt::response_status].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tasks_v2::model::Attempt;
+    /// use rpc::model::Status;
+    /// let x = Attempt::new().set_or_clear_response_status(Some(Status::default()/* use setters */));
+    /// let x = Attempt::new().set_or_clear_response_status(None::<Status>);
+    /// ```
     pub fn set_or_clear_response_status<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<rpc::model::Status>,

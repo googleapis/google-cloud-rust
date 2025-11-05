@@ -20,7 +20,8 @@ roots        = 'protobuf-src'
 include-list = "api.proto,source_context.proto,type.proto,descriptor.proto"
 
 [codec]
-copyright-year        = '2025'
-template-override     = 'templates/mod'
-module-path           = 'crate'
-package-name-override = 'google-cloud-wkt'
+copyright-year          = '2025'
+template-override       = 'templates/mod'
+module-path             = 'crate'
+package-name-override   = 'google-cloud-wkt'
+generate-setter-samples = 'false'

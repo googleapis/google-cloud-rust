@@ -59,12 +59,25 @@ impl CreateProfileRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateProfileRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_profiler_v2::model::CreateProfileRequest;
+    /// let x = CreateProfileRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [deployment][crate::model::CreateProfileRequest::deployment].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_profiler_v2::model::CreateProfileRequest;
+    /// use google_cloud_profiler_v2::model::Deployment;
+    /// let x = CreateProfileRequest::new().set_deployment(Deployment::default()/* use setters */);
+    /// ```
     pub fn set_deployment<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Deployment>,
@@ -74,6 +87,14 @@ impl CreateProfileRequest {
     }
 
     /// Sets or clears the value of [deployment][crate::model::CreateProfileRequest::deployment].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_profiler_v2::model::CreateProfileRequest;
+    /// use google_cloud_profiler_v2::model::Deployment;
+    /// let x = CreateProfileRequest::new().set_or_clear_deployment(Some(Deployment::default()/* use setters */));
+    /// let x = CreateProfileRequest::new().set_or_clear_deployment(None::<Deployment>);
+    /// ```
     pub fn set_or_clear_deployment<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Deployment>,
@@ -83,6 +104,17 @@ impl CreateProfileRequest {
     }
 
     /// Sets the value of [profile_type][crate::model::CreateProfileRequest::profile_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_profiler_v2::model::CreateProfileRequest;
+    /// use google_cloud_profiler_v2::model::ProfileType;
+    /// let x = CreateProfileRequest::new().set_profile_type([
+    ///     ProfileType::Cpu,
+    ///     ProfileType::Wall,
+    ///     ProfileType::Heap,
+    /// ]);
+    /// ```
     pub fn set_profile_type<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -120,12 +152,25 @@ impl CreateOfflineProfileRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateOfflineProfileRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_profiler_v2::model::CreateOfflineProfileRequest;
+    /// let x = CreateOfflineProfileRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [profile][crate::model::CreateOfflineProfileRequest::profile].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_profiler_v2::model::CreateOfflineProfileRequest;
+    /// use google_cloud_profiler_v2::model::Profile;
+    /// let x = CreateOfflineProfileRequest::new().set_profile(Profile::default()/* use setters */);
+    /// ```
     pub fn set_profile<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Profile>,
@@ -135,6 +180,14 @@ impl CreateOfflineProfileRequest {
     }
 
     /// Sets or clears the value of [profile][crate::model::CreateOfflineProfileRequest::profile].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_profiler_v2::model::CreateOfflineProfileRequest;
+    /// use google_cloud_profiler_v2::model::Profile;
+    /// let x = CreateOfflineProfileRequest::new().set_or_clear_profile(Some(Profile::default()/* use setters */));
+    /// let x = CreateOfflineProfileRequest::new().set_or_clear_profile(None::<Profile>);
+    /// ```
     pub fn set_or_clear_profile<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Profile>,
@@ -172,6 +225,13 @@ impl UpdateProfileRequest {
     }
 
     /// Sets the value of [profile][crate::model::UpdateProfileRequest::profile].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_profiler_v2::model::UpdateProfileRequest;
+    /// use google_cloud_profiler_v2::model::Profile;
+    /// let x = UpdateProfileRequest::new().set_profile(Profile::default()/* use setters */);
+    /// ```
     pub fn set_profile<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Profile>,
@@ -181,6 +241,14 @@ impl UpdateProfileRequest {
     }
 
     /// Sets or clears the value of [profile][crate::model::UpdateProfileRequest::profile].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_profiler_v2::model::UpdateProfileRequest;
+    /// use google_cloud_profiler_v2::model::Profile;
+    /// let x = UpdateProfileRequest::new().set_or_clear_profile(Some(Profile::default()/* use setters */));
+    /// let x = UpdateProfileRequest::new().set_or_clear_profile(None::<Profile>);
+    /// ```
     pub fn set_or_clear_profile<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Profile>,
@@ -190,6 +258,13 @@ impl UpdateProfileRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateProfileRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_profiler_v2::model::UpdateProfileRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateProfileRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -199,6 +274,14 @@ impl UpdateProfileRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateProfileRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_profiler_v2::model::UpdateProfileRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateProfileRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateProfileRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -259,12 +342,27 @@ impl Profile {
     }
 
     /// Sets the value of [name][crate::model::Profile::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_profiler_v2::model::Profile;
+    /// let x = Profile::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [profile_type][crate::model::Profile::profile_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_profiler_v2::model::Profile;
+    /// use google_cloud_profiler_v2::model::ProfileType;
+    /// let x0 = Profile::new().set_profile_type(ProfileType::Cpu);
+    /// let x1 = Profile::new().set_profile_type(ProfileType::Wall);
+    /// let x2 = Profile::new().set_profile_type(ProfileType::Heap);
+    /// ```
     pub fn set_profile_type<T: std::convert::Into<crate::model::ProfileType>>(
         mut self,
         v: T,
@@ -274,6 +372,13 @@ impl Profile {
     }
 
     /// Sets the value of [deployment][crate::model::Profile::deployment].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_profiler_v2::model::Profile;
+    /// use google_cloud_profiler_v2::model::Deployment;
+    /// let x = Profile::new().set_deployment(Deployment::default()/* use setters */);
+    /// ```
     pub fn set_deployment<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Deployment>,
@@ -283,6 +388,14 @@ impl Profile {
     }
 
     /// Sets or clears the value of [deployment][crate::model::Profile::deployment].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_profiler_v2::model::Profile;
+    /// use google_cloud_profiler_v2::model::Deployment;
+    /// let x = Profile::new().set_or_clear_deployment(Some(Deployment::default()/* use setters */));
+    /// let x = Profile::new().set_or_clear_deployment(None::<Deployment>);
+    /// ```
     pub fn set_or_clear_deployment<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Deployment>,
@@ -292,6 +405,13 @@ impl Profile {
     }
 
     /// Sets the value of [duration][crate::model::Profile::duration].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_profiler_v2::model::Profile;
+    /// use wkt::Duration;
+    /// let x = Profile::new().set_duration(Duration::default()/* use setters */);
+    /// ```
     pub fn set_duration<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -301,6 +421,14 @@ impl Profile {
     }
 
     /// Sets or clears the value of [duration][crate::model::Profile::duration].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_profiler_v2::model::Profile;
+    /// use wkt::Duration;
+    /// let x = Profile::new().set_or_clear_duration(Some(Duration::default()/* use setters */));
+    /// let x = Profile::new().set_or_clear_duration(None::<Duration>);
+    /// ```
     pub fn set_or_clear_duration<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -310,12 +438,27 @@ impl Profile {
     }
 
     /// Sets the value of [profile_bytes][crate::model::Profile::profile_bytes].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_profiler_v2::model::Profile;
+    /// let x = Profile::new().set_profile_bytes(bytes::Bytes::from_static(b"example"));
+    /// ```
     pub fn set_profile_bytes<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.profile_bytes = v.into();
         self
     }
 
     /// Sets the value of [labels][crate::model::Profile::labels].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_profiler_v2::model::Profile;
+    /// let x = Profile::new().set_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -328,6 +471,13 @@ impl Profile {
     }
 
     /// Sets the value of [start_time][crate::model::Profile::start_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_profiler_v2::model::Profile;
+    /// use wkt::Timestamp;
+    /// let x = Profile::new().set_start_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_start_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -337,6 +487,14 @@ impl Profile {
     }
 
     /// Sets or clears the value of [start_time][crate::model::Profile::start_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_profiler_v2::model::Profile;
+    /// use wkt::Timestamp;
+    /// let x = Profile::new().set_or_clear_start_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Profile::new().set_or_clear_start_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -393,18 +551,39 @@ impl Deployment {
     }
 
     /// Sets the value of [project_id][crate::model::Deployment::project_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_profiler_v2::model::Deployment;
+    /// let x = Deployment::new().set_project_id("example");
+    /// ```
     pub fn set_project_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project_id = v.into();
         self
     }
 
     /// Sets the value of [target][crate::model::Deployment::target].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_profiler_v2::model::Deployment;
+    /// let x = Deployment::new().set_target("example");
+    /// ```
     pub fn set_target<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.target = v.into();
         self
     }
 
     /// Sets the value of [labels][crate::model::Deployment::labels].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_profiler_v2::model::Deployment;
+    /// let x = Deployment::new().set_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -451,18 +630,36 @@ impl ListProfilesRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListProfilesRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_profiler_v2::model::ListProfilesRequest;
+    /// let x = ListProfilesRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListProfilesRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_profiler_v2::model::ListProfilesRequest;
+    /// let x = ListProfilesRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListProfilesRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_profiler_v2::model::ListProfilesRequest;
+    /// let x = ListProfilesRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -502,6 +699,17 @@ impl ListProfilesResponse {
     }
 
     /// Sets the value of [profiles][crate::model::ListProfilesResponse::profiles].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_profiler_v2::model::ListProfilesResponse;
+    /// use google_cloud_profiler_v2::model::Profile;
+    /// let x = ListProfilesResponse::new()
+    ///     .set_profiles([
+    ///         Profile::default()/* use setters */,
+    ///         Profile::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_profiles<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -513,12 +721,24 @@ impl ListProfilesResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListProfilesResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_profiler_v2::model::ListProfilesResponse;
+    /// let x = ListProfilesResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [skipped_profiles][crate::model::ListProfilesResponse::skipped_profiles].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_profiler_v2::model::ListProfilesResponse;
+    /// let x = ListProfilesResponse::new().set_skipped_profiles(42);
+    /// ```
     pub fn set_skipped_profiles<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.skipped_profiles = v.into();
         self

@@ -208,12 +208,26 @@ impl CertificateAuthority {
     }
 
     /// Sets the value of [name][crate::model::CertificateAuthority::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::CertificateAuthority;
+    /// let x = CertificateAuthority::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [r#type][crate::model::CertificateAuthority::type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::CertificateAuthority;
+    /// use google_cloud_security_privateca_v1::model::certificate_authority::Type;
+    /// let x0 = CertificateAuthority::new().set_type(Type::SelfSigned);
+    /// let x1 = CertificateAuthority::new().set_type(Type::Subordinate);
+    /// ```
     pub fn set_type<T: std::convert::Into<crate::model::certificate_authority::Type>>(
         mut self,
         v: T,
@@ -223,6 +237,13 @@ impl CertificateAuthority {
     }
 
     /// Sets the value of [config][crate::model::CertificateAuthority::config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::CertificateAuthority;
+    /// use google_cloud_security_privateca_v1::model::CertificateConfig;
+    /// let x = CertificateAuthority::new().set_config(CertificateConfig::default()/* use setters */);
+    /// ```
     pub fn set_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::CertificateConfig>,
@@ -232,6 +253,14 @@ impl CertificateAuthority {
     }
 
     /// Sets or clears the value of [config][crate::model::CertificateAuthority::config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::CertificateAuthority;
+    /// use google_cloud_security_privateca_v1::model::CertificateConfig;
+    /// let x = CertificateAuthority::new().set_or_clear_config(Some(CertificateConfig::default()/* use setters */));
+    /// let x = CertificateAuthority::new().set_or_clear_config(None::<CertificateConfig>);
+    /// ```
     pub fn set_or_clear_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CertificateConfig>,
@@ -241,6 +270,13 @@ impl CertificateAuthority {
     }
 
     /// Sets the value of [lifetime][crate::model::CertificateAuthority::lifetime].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::CertificateAuthority;
+    /// use wkt::Duration;
+    /// let x = CertificateAuthority::new().set_lifetime(Duration::default()/* use setters */);
+    /// ```
     pub fn set_lifetime<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -250,6 +286,14 @@ impl CertificateAuthority {
     }
 
     /// Sets or clears the value of [lifetime][crate::model::CertificateAuthority::lifetime].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::CertificateAuthority;
+    /// use wkt::Duration;
+    /// let x = CertificateAuthority::new().set_or_clear_lifetime(Some(Duration::default()/* use setters */));
+    /// let x = CertificateAuthority::new().set_or_clear_lifetime(None::<Duration>);
+    /// ```
     pub fn set_or_clear_lifetime<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -259,6 +303,13 @@ impl CertificateAuthority {
     }
 
     /// Sets the value of [key_spec][crate::model::CertificateAuthority::key_spec].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::CertificateAuthority;
+    /// use google_cloud_security_privateca_v1::model::certificate_authority::KeyVersionSpec;
+    /// let x = CertificateAuthority::new().set_key_spec(KeyVersionSpec::default()/* use setters */);
+    /// ```
     pub fn set_key_spec<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::certificate_authority::KeyVersionSpec>,
@@ -268,6 +319,14 @@ impl CertificateAuthority {
     }
 
     /// Sets or clears the value of [key_spec][crate::model::CertificateAuthority::key_spec].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::CertificateAuthority;
+    /// use google_cloud_security_privateca_v1::model::certificate_authority::KeyVersionSpec;
+    /// let x = CertificateAuthority::new().set_or_clear_key_spec(Some(KeyVersionSpec::default()/* use setters */));
+    /// let x = CertificateAuthority::new().set_or_clear_key_spec(None::<KeyVersionSpec>);
+    /// ```
     pub fn set_or_clear_key_spec<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::certificate_authority::KeyVersionSpec>,
@@ -277,6 +336,13 @@ impl CertificateAuthority {
     }
 
     /// Sets the value of [subordinate_config][crate::model::CertificateAuthority::subordinate_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::CertificateAuthority;
+    /// use google_cloud_security_privateca_v1::model::SubordinateConfig;
+    /// let x = CertificateAuthority::new().set_subordinate_config(SubordinateConfig::default()/* use setters */);
+    /// ```
     pub fn set_subordinate_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::SubordinateConfig>,
@@ -286,6 +352,14 @@ impl CertificateAuthority {
     }
 
     /// Sets or clears the value of [subordinate_config][crate::model::CertificateAuthority::subordinate_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::CertificateAuthority;
+    /// use google_cloud_security_privateca_v1::model::SubordinateConfig;
+    /// let x = CertificateAuthority::new().set_or_clear_subordinate_config(Some(SubordinateConfig::default()/* use setters */));
+    /// let x = CertificateAuthority::new().set_or_clear_subordinate_config(None::<SubordinateConfig>);
+    /// ```
     pub fn set_or_clear_subordinate_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::SubordinateConfig>,
@@ -295,12 +369,29 @@ impl CertificateAuthority {
     }
 
     /// Sets the value of [tier][crate::model::CertificateAuthority::tier].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::CertificateAuthority;
+    /// use google_cloud_security_privateca_v1::model::ca_pool::Tier;
+    /// let x0 = CertificateAuthority::new().set_tier(Tier::Enterprise);
+    /// let x1 = CertificateAuthority::new().set_tier(Tier::Devops);
+    /// ```
     pub fn set_tier<T: std::convert::Into<crate::model::ca_pool::Tier>>(mut self, v: T) -> Self {
         self.tier = v.into();
         self
     }
 
     /// Sets the value of [state][crate::model::CertificateAuthority::state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::CertificateAuthority;
+    /// use google_cloud_security_privateca_v1::model::certificate_authority::State;
+    /// let x0 = CertificateAuthority::new().set_state(State::Enabled);
+    /// let x1 = CertificateAuthority::new().set_state(State::Disabled);
+    /// let x2 = CertificateAuthority::new().set_state(State::Staged);
+    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::certificate_authority::State>>(
         mut self,
         v: T,
@@ -310,6 +401,12 @@ impl CertificateAuthority {
     }
 
     /// Sets the value of [pem_ca_certificates][crate::model::CertificateAuthority::pem_ca_certificates].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::CertificateAuthority;
+    /// let x = CertificateAuthority::new().set_pem_ca_certificates(["a", "b", "c"]);
+    /// ```
     pub fn set_pem_ca_certificates<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -321,6 +418,17 @@ impl CertificateAuthority {
     }
 
     /// Sets the value of [ca_certificate_descriptions][crate::model::CertificateAuthority::ca_certificate_descriptions].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::CertificateAuthority;
+    /// use google_cloud_security_privateca_v1::model::CertificateDescription;
+    /// let x = CertificateAuthority::new()
+    ///     .set_ca_certificate_descriptions([
+    ///         CertificateDescription::default()/* use setters */,
+    ///         CertificateDescription::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_ca_certificate_descriptions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -332,12 +440,25 @@ impl CertificateAuthority {
     }
 
     /// Sets the value of [gcs_bucket][crate::model::CertificateAuthority::gcs_bucket].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::CertificateAuthority;
+    /// let x = CertificateAuthority::new().set_gcs_bucket("example");
+    /// ```
     pub fn set_gcs_bucket<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.gcs_bucket = v.into();
         self
     }
 
     /// Sets the value of [access_urls][crate::model::CertificateAuthority::access_urls].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::CertificateAuthority;
+    /// use google_cloud_security_privateca_v1::model::certificate_authority::AccessUrls;
+    /// let x = CertificateAuthority::new().set_access_urls(AccessUrls::default()/* use setters */);
+    /// ```
     pub fn set_access_urls<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::certificate_authority::AccessUrls>,
@@ -347,6 +468,14 @@ impl CertificateAuthority {
     }
 
     /// Sets or clears the value of [access_urls][crate::model::CertificateAuthority::access_urls].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::CertificateAuthority;
+    /// use google_cloud_security_privateca_v1::model::certificate_authority::AccessUrls;
+    /// let x = CertificateAuthority::new().set_or_clear_access_urls(Some(AccessUrls::default()/* use setters */));
+    /// let x = CertificateAuthority::new().set_or_clear_access_urls(None::<AccessUrls>);
+    /// ```
     pub fn set_or_clear_access_urls<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::certificate_authority::AccessUrls>,
@@ -356,6 +485,13 @@ impl CertificateAuthority {
     }
 
     /// Sets the value of [create_time][crate::model::CertificateAuthority::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::CertificateAuthority;
+    /// use wkt::Timestamp;
+    /// let x = CertificateAuthority::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -365,6 +501,14 @@ impl CertificateAuthority {
     }
 
     /// Sets or clears the value of [create_time][crate::model::CertificateAuthority::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::CertificateAuthority;
+    /// use wkt::Timestamp;
+    /// let x = CertificateAuthority::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = CertificateAuthority::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -374,6 +518,13 @@ impl CertificateAuthority {
     }
 
     /// Sets the value of [update_time][crate::model::CertificateAuthority::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::CertificateAuthority;
+    /// use wkt::Timestamp;
+    /// let x = CertificateAuthority::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -383,6 +534,14 @@ impl CertificateAuthority {
     }
 
     /// Sets or clears the value of [update_time][crate::model::CertificateAuthority::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::CertificateAuthority;
+    /// use wkt::Timestamp;
+    /// let x = CertificateAuthority::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = CertificateAuthority::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -392,6 +551,13 @@ impl CertificateAuthority {
     }
 
     /// Sets the value of [delete_time][crate::model::CertificateAuthority::delete_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::CertificateAuthority;
+    /// use wkt::Timestamp;
+    /// let x = CertificateAuthority::new().set_delete_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_delete_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -401,6 +567,14 @@ impl CertificateAuthority {
     }
 
     /// Sets or clears the value of [delete_time][crate::model::CertificateAuthority::delete_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::CertificateAuthority;
+    /// use wkt::Timestamp;
+    /// let x = CertificateAuthority::new().set_or_clear_delete_time(Some(Timestamp::default()/* use setters */));
+    /// let x = CertificateAuthority::new().set_or_clear_delete_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_delete_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -410,6 +584,13 @@ impl CertificateAuthority {
     }
 
     /// Sets the value of [expire_time][crate::model::CertificateAuthority::expire_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::CertificateAuthority;
+    /// use wkt::Timestamp;
+    /// let x = CertificateAuthority::new().set_expire_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_expire_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -419,6 +600,14 @@ impl CertificateAuthority {
     }
 
     /// Sets or clears the value of [expire_time][crate::model::CertificateAuthority::expire_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::CertificateAuthority;
+    /// use wkt::Timestamp;
+    /// let x = CertificateAuthority::new().set_or_clear_expire_time(Some(Timestamp::default()/* use setters */));
+    /// let x = CertificateAuthority::new().set_or_clear_expire_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_expire_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -428,6 +617,15 @@ impl CertificateAuthority {
     }
 
     /// Sets the value of [labels][crate::model::CertificateAuthority::labels].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::CertificateAuthority;
+    /// let x = CertificateAuthority::new().set_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -440,6 +638,13 @@ impl CertificateAuthority {
     }
 
     /// Sets the value of [user_defined_access_urls][crate::model::CertificateAuthority::user_defined_access_urls].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::CertificateAuthority;
+    /// use google_cloud_security_privateca_v1::model::certificate_authority::UserDefinedAccessUrls;
+    /// let x = CertificateAuthority::new().set_user_defined_access_urls(UserDefinedAccessUrls::default()/* use setters */);
+    /// ```
     pub fn set_user_defined_access_urls<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::certificate_authority::UserDefinedAccessUrls>,
@@ -449,6 +654,14 @@ impl CertificateAuthority {
     }
 
     /// Sets or clears the value of [user_defined_access_urls][crate::model::CertificateAuthority::user_defined_access_urls].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::CertificateAuthority;
+    /// use google_cloud_security_privateca_v1::model::certificate_authority::UserDefinedAccessUrls;
+    /// let x = CertificateAuthority::new().set_or_clear_user_defined_access_urls(Some(UserDefinedAccessUrls::default()/* use setters */));
+    /// let x = CertificateAuthority::new().set_or_clear_user_defined_access_urls(None::<UserDefinedAccessUrls>);
+    /// ```
     pub fn set_or_clear_user_defined_access_urls<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::certificate_authority::UserDefinedAccessUrls>,
@@ -458,12 +671,24 @@ impl CertificateAuthority {
     }
 
     /// Sets the value of [satisfies_pzs][crate::model::CertificateAuthority::satisfies_pzs].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::CertificateAuthority;
+    /// let x = CertificateAuthority::new().set_satisfies_pzs(true);
+    /// ```
     pub fn set_satisfies_pzs<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.satisfies_pzs = v.into();
         self
     }
 
     /// Sets the value of [satisfies_pzi][crate::model::CertificateAuthority::satisfies_pzi].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::CertificateAuthority;
+    /// let x = CertificateAuthority::new().set_satisfies_pzi(true);
+    /// ```
     pub fn set_satisfies_pzi<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.satisfies_pzi = v.into();
         self
@@ -514,6 +739,12 @@ pub mod certificate_authority {
         }
 
         /// Sets the value of [ca_certificate_access_url][crate::model::certificate_authority::AccessUrls::ca_certificate_access_url].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_security_privateca_v1::model::certificate_authority::AccessUrls;
+        /// let x = AccessUrls::new().set_ca_certificate_access_url("example");
+        /// ```
         pub fn set_ca_certificate_access_url<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -523,6 +754,12 @@ pub mod certificate_authority {
         }
 
         /// Sets the value of [crl_access_urls][crate::model::certificate_authority::AccessUrls::crl_access_urls].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_security_privateca_v1::model::certificate_authority::AccessUrls;
+        /// let x = AccessUrls::new().set_crl_access_urls(["a", "b", "c"]);
+        /// ```
         pub fn set_crl_access_urls<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -563,6 +800,13 @@ pub mod certificate_authority {
         ///
         /// Note that all the setters affecting `key_version` are mutually
         /// exclusive.
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_security_privateca_v1::model::certificate_authority::KeyVersionSpec;
+        /// use google_cloud_security_privateca_v1::model::certificate_authority::key_version_spec;
+        /// let x = KeyVersionSpec::new().set_key_version(Some(certificate_authority::key_version_spec::KeyVersion::CloudKmsKeyVersion("example".to_string())));
+        /// ```
         pub fn set_key_version<
             T: std::convert::Into<
                     std::option::Option<
@@ -593,6 +837,14 @@ pub mod certificate_authority {
         ///
         /// Note that all the setters affecting `key_version` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_security_privateca_v1::model::certificate_authority::KeyVersionSpec;
+        /// let x = KeyVersionSpec::new().set_cloud_kms_key_version("example");
+        /// assert!(x.cloud_kms_key_version().is_some());
+        /// assert!(x.algorithm().is_none());
+        /// ```
         pub fn set_cloud_kms_key_version<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -625,6 +877,17 @@ pub mod certificate_authority {
         ///
         /// Note that all the setters affecting `key_version` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_security_privateca_v1::model::certificate_authority::KeyVersionSpec;
+        /// use google_cloud_security_privateca_v1::model::certificate_authority::SignHashAlgorithm;
+        /// let x0 = KeyVersionSpec::new().set_algorithm(SignHashAlgorithm::RsaPss2048Sha256);
+        /// let x1 = KeyVersionSpec::new().set_algorithm(SignHashAlgorithm::RsaPss3072Sha256);
+        /// let x2 = KeyVersionSpec::new().set_algorithm(SignHashAlgorithm::RsaPss4096Sha256);
+        /// assert!(x.algorithm().is_some());
+        /// assert!(x.cloud_kms_key_version().is_none());
+        /// ```
         pub fn set_algorithm<
             T: std::convert::Into<crate::model::certificate_authority::SignHashAlgorithm>,
         >(
@@ -703,6 +966,12 @@ pub mod certificate_authority {
         }
 
         /// Sets the value of [aia_issuing_certificate_urls][crate::model::certificate_authority::UserDefinedAccessUrls::aia_issuing_certificate_urls].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_security_privateca_v1::model::certificate_authority::UserDefinedAccessUrls;
+        /// let x = UserDefinedAccessUrls::new().set_aia_issuing_certificate_urls(["a", "b", "c"]);
+        /// ```
         pub fn set_aia_issuing_certificate_urls<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -714,6 +983,12 @@ pub mod certificate_authority {
         }
 
         /// Sets the value of [crl_access_urls][crate::model::certificate_authority::UserDefinedAccessUrls::crl_access_urls].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_security_privateca_v1::model::certificate_authority::UserDefinedAccessUrls;
+        /// let x = UserDefinedAccessUrls::new().set_crl_access_urls(["a", "b", "c"]);
+        /// ```
         pub fn set_crl_access_urls<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -1313,18 +1588,39 @@ impl CaPool {
     }
 
     /// Sets the value of [name][crate::model::CaPool::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::CaPool;
+    /// let x = CaPool::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [tier][crate::model::CaPool::tier].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::CaPool;
+    /// use google_cloud_security_privateca_v1::model::ca_pool::Tier;
+    /// let x0 = CaPool::new().set_tier(Tier::Enterprise);
+    /// let x1 = CaPool::new().set_tier(Tier::Devops);
+    /// ```
     pub fn set_tier<T: std::convert::Into<crate::model::ca_pool::Tier>>(mut self, v: T) -> Self {
         self.tier = v.into();
         self
     }
 
     /// Sets the value of [issuance_policy][crate::model::CaPool::issuance_policy].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::CaPool;
+    /// use google_cloud_security_privateca_v1::model::ca_pool::IssuancePolicy;
+    /// let x = CaPool::new().set_issuance_policy(IssuancePolicy::default()/* use setters */);
+    /// ```
     pub fn set_issuance_policy<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ca_pool::IssuancePolicy>,
@@ -1334,6 +1630,14 @@ impl CaPool {
     }
 
     /// Sets or clears the value of [issuance_policy][crate::model::CaPool::issuance_policy].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::CaPool;
+    /// use google_cloud_security_privateca_v1::model::ca_pool::IssuancePolicy;
+    /// let x = CaPool::new().set_or_clear_issuance_policy(Some(IssuancePolicy::default()/* use setters */));
+    /// let x = CaPool::new().set_or_clear_issuance_policy(None::<IssuancePolicy>);
+    /// ```
     pub fn set_or_clear_issuance_policy<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ca_pool::IssuancePolicy>,
@@ -1343,6 +1647,13 @@ impl CaPool {
     }
 
     /// Sets the value of [publishing_options][crate::model::CaPool::publishing_options].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::CaPool;
+    /// use google_cloud_security_privateca_v1::model::ca_pool::PublishingOptions;
+    /// let x = CaPool::new().set_publishing_options(PublishingOptions::default()/* use setters */);
+    /// ```
     pub fn set_publishing_options<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ca_pool::PublishingOptions>,
@@ -1352,6 +1663,14 @@ impl CaPool {
     }
 
     /// Sets or clears the value of [publishing_options][crate::model::CaPool::publishing_options].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::CaPool;
+    /// use google_cloud_security_privateca_v1::model::ca_pool::PublishingOptions;
+    /// let x = CaPool::new().set_or_clear_publishing_options(Some(PublishingOptions::default()/* use setters */));
+    /// let x = CaPool::new().set_or_clear_publishing_options(None::<PublishingOptions>);
+    /// ```
     pub fn set_or_clear_publishing_options<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ca_pool::PublishingOptions>,
@@ -1361,6 +1680,15 @@ impl CaPool {
     }
 
     /// Sets the value of [labels][crate::model::CaPool::labels].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::CaPool;
+    /// let x = CaPool::new().set_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -1441,18 +1769,38 @@ pub mod ca_pool {
         }
 
         /// Sets the value of [publish_ca_cert][crate::model::ca_pool::PublishingOptions::publish_ca_cert].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_security_privateca_v1::model::ca_pool::PublishingOptions;
+        /// let x = PublishingOptions::new().set_publish_ca_cert(true);
+        /// ```
         pub fn set_publish_ca_cert<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.publish_ca_cert = v.into();
             self
         }
 
         /// Sets the value of [publish_crl][crate::model::ca_pool::PublishingOptions::publish_crl].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_security_privateca_v1::model::ca_pool::PublishingOptions;
+        /// let x = PublishingOptions::new().set_publish_crl(true);
+        /// ```
         pub fn set_publish_crl<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.publish_crl = v.into();
             self
         }
 
         /// Sets the value of [encoding_format][crate::model::ca_pool::PublishingOptions::encoding_format].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_security_privateca_v1::model::ca_pool::PublishingOptions;
+        /// use google_cloud_security_privateca_v1::model::ca_pool::publishing_options::EncodingFormat;
+        /// let x0 = PublishingOptions::new().set_encoding_format(EncodingFormat::Pem);
+        /// let x1 = PublishingOptions::new().set_encoding_format(EncodingFormat::Der);
+        /// ```
         pub fn set_encoding_format<
             T: std::convert::Into<crate::model::ca_pool::publishing_options::EncodingFormat>,
         >(
@@ -1729,6 +2077,17 @@ pub mod ca_pool {
         }
 
         /// Sets the value of [allowed_key_types][crate::model::ca_pool::IssuancePolicy::allowed_key_types].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_security_privateca_v1::model::ca_pool::IssuancePolicy;
+        /// use google_cloud_security_privateca_v1::model::ca_pool::issuance_policy::AllowedKeyType;
+        /// let x = IssuancePolicy::new()
+        ///     .set_allowed_key_types([
+        ///         AllowedKeyType::default()/* use setters */,
+        ///         AllowedKeyType::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
         pub fn set_allowed_key_types<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -1740,6 +2099,13 @@ pub mod ca_pool {
         }
 
         /// Sets the value of [backdate_duration][crate::model::ca_pool::IssuancePolicy::backdate_duration].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_security_privateca_v1::model::ca_pool::IssuancePolicy;
+        /// use wkt::Duration;
+        /// let x = IssuancePolicy::new().set_backdate_duration(Duration::default()/* use setters */);
+        /// ```
         pub fn set_backdate_duration<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
@@ -1749,6 +2115,14 @@ pub mod ca_pool {
         }
 
         /// Sets or clears the value of [backdate_duration][crate::model::ca_pool::IssuancePolicy::backdate_duration].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_security_privateca_v1::model::ca_pool::IssuancePolicy;
+        /// use wkt::Duration;
+        /// let x = IssuancePolicy::new().set_or_clear_backdate_duration(Some(Duration::default()/* use setters */));
+        /// let x = IssuancePolicy::new().set_or_clear_backdate_duration(None::<Duration>);
+        /// ```
         pub fn set_or_clear_backdate_duration<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
@@ -1758,6 +2132,13 @@ pub mod ca_pool {
         }
 
         /// Sets the value of [maximum_lifetime][crate::model::ca_pool::IssuancePolicy::maximum_lifetime].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_security_privateca_v1::model::ca_pool::IssuancePolicy;
+        /// use wkt::Duration;
+        /// let x = IssuancePolicy::new().set_maximum_lifetime(Duration::default()/* use setters */);
+        /// ```
         pub fn set_maximum_lifetime<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
@@ -1767,6 +2148,14 @@ pub mod ca_pool {
         }
 
         /// Sets or clears the value of [maximum_lifetime][crate::model::ca_pool::IssuancePolicy::maximum_lifetime].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_security_privateca_v1::model::ca_pool::IssuancePolicy;
+        /// use wkt::Duration;
+        /// let x = IssuancePolicy::new().set_or_clear_maximum_lifetime(Some(Duration::default()/* use setters */));
+        /// let x = IssuancePolicy::new().set_or_clear_maximum_lifetime(None::<Duration>);
+        /// ```
         pub fn set_or_clear_maximum_lifetime<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
@@ -1776,6 +2165,13 @@ pub mod ca_pool {
         }
 
         /// Sets the value of [allowed_issuance_modes][crate::model::ca_pool::IssuancePolicy::allowed_issuance_modes].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_security_privateca_v1::model::ca_pool::IssuancePolicy;
+        /// use google_cloud_security_privateca_v1::model::ca_pool::issuance_policy::IssuanceModes;
+        /// let x = IssuancePolicy::new().set_allowed_issuance_modes(IssuanceModes::default()/* use setters */);
+        /// ```
         pub fn set_allowed_issuance_modes<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::ca_pool::issuance_policy::IssuanceModes>,
@@ -1785,6 +2181,14 @@ pub mod ca_pool {
         }
 
         /// Sets or clears the value of [allowed_issuance_modes][crate::model::ca_pool::IssuancePolicy::allowed_issuance_modes].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_security_privateca_v1::model::ca_pool::IssuancePolicy;
+        /// use google_cloud_security_privateca_v1::model::ca_pool::issuance_policy::IssuanceModes;
+        /// let x = IssuancePolicy::new().set_or_clear_allowed_issuance_modes(Some(IssuanceModes::default()/* use setters */));
+        /// let x = IssuancePolicy::new().set_or_clear_allowed_issuance_modes(None::<IssuanceModes>);
+        /// ```
         pub fn set_or_clear_allowed_issuance_modes<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::ca_pool::issuance_policy::IssuanceModes>,
@@ -1794,6 +2198,13 @@ pub mod ca_pool {
         }
 
         /// Sets the value of [baseline_values][crate::model::ca_pool::IssuancePolicy::baseline_values].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_security_privateca_v1::model::ca_pool::IssuancePolicy;
+        /// use google_cloud_security_privateca_v1::model::X509Parameters;
+        /// let x = IssuancePolicy::new().set_baseline_values(X509Parameters::default()/* use setters */);
+        /// ```
         pub fn set_baseline_values<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::X509Parameters>,
@@ -1803,6 +2214,14 @@ pub mod ca_pool {
         }
 
         /// Sets or clears the value of [baseline_values][crate::model::ca_pool::IssuancePolicy::baseline_values].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_security_privateca_v1::model::ca_pool::IssuancePolicy;
+        /// use google_cloud_security_privateca_v1::model::X509Parameters;
+        /// let x = IssuancePolicy::new().set_or_clear_baseline_values(Some(X509Parameters::default()/* use setters */));
+        /// let x = IssuancePolicy::new().set_or_clear_baseline_values(None::<X509Parameters>);
+        /// ```
         pub fn set_or_clear_baseline_values<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::X509Parameters>,
@@ -1812,6 +2231,13 @@ pub mod ca_pool {
         }
 
         /// Sets the value of [identity_constraints][crate::model::ca_pool::IssuancePolicy::identity_constraints].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_security_privateca_v1::model::ca_pool::IssuancePolicy;
+        /// use google_cloud_security_privateca_v1::model::CertificateIdentityConstraints;
+        /// let x = IssuancePolicy::new().set_identity_constraints(CertificateIdentityConstraints::default()/* use setters */);
+        /// ```
         pub fn set_identity_constraints<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::CertificateIdentityConstraints>,
@@ -1821,6 +2247,14 @@ pub mod ca_pool {
         }
 
         /// Sets or clears the value of [identity_constraints][crate::model::ca_pool::IssuancePolicy::identity_constraints].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_security_privateca_v1::model::ca_pool::IssuancePolicy;
+        /// use google_cloud_security_privateca_v1::model::CertificateIdentityConstraints;
+        /// let x = IssuancePolicy::new().set_or_clear_identity_constraints(Some(CertificateIdentityConstraints::default()/* use setters */));
+        /// let x = IssuancePolicy::new().set_or_clear_identity_constraints(None::<CertificateIdentityConstraints>);
+        /// ```
         pub fn set_or_clear_identity_constraints<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::CertificateIdentityConstraints>,
@@ -1830,6 +2264,13 @@ pub mod ca_pool {
         }
 
         /// Sets the value of [passthrough_extensions][crate::model::ca_pool::IssuancePolicy::passthrough_extensions].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_security_privateca_v1::model::ca_pool::IssuancePolicy;
+        /// use google_cloud_security_privateca_v1::model::CertificateExtensionConstraints;
+        /// let x = IssuancePolicy::new().set_passthrough_extensions(CertificateExtensionConstraints::default()/* use setters */);
+        /// ```
         pub fn set_passthrough_extensions<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::CertificateExtensionConstraints>,
@@ -1839,6 +2280,14 @@ pub mod ca_pool {
         }
 
         /// Sets or clears the value of [passthrough_extensions][crate::model::ca_pool::IssuancePolicy::passthrough_extensions].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_security_privateca_v1::model::ca_pool::IssuancePolicy;
+        /// use google_cloud_security_privateca_v1::model::CertificateExtensionConstraints;
+        /// let x = IssuancePolicy::new().set_or_clear_passthrough_extensions(Some(CertificateExtensionConstraints::default()/* use setters */));
+        /// let x = IssuancePolicy::new().set_or_clear_passthrough_extensions(None::<CertificateExtensionConstraints>);
+        /// ```
         pub fn set_or_clear_passthrough_extensions<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::CertificateExtensionConstraints>,
@@ -1888,6 +2337,14 @@ pub mod ca_pool {
             ///
             /// Note that all the setters affecting `key_type` are mutually
             /// exclusive.
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_security_privateca_v1::model::ca_pool::issuance_policy::AllowedKeyType;
+            /// use google_cloud_security_privateca_v1::model::ca_pool::issuance_policy::allowed_key_type;
+            /// use google_cloud_security_privateca_v1::model::ca_pool::issuance_policy::allowed_key_type::RsaKeyType;
+            /// let x = AllowedKeyType::new().set_key_type(Some(ca_pool::issuance_policy::allowed_key_type::KeyType::Rsa(RsaKeyType::default().into())));
+            /// ```
             pub fn set_key_type<
                 T: std::convert::Into<
                         std::option::Option<
@@ -1926,6 +2383,15 @@ pub mod ca_pool {
             ///
             /// Note that all the setters affecting `key_type` are
             /// mutually exclusive.
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_security_privateca_v1::model::ca_pool::issuance_policy::AllowedKeyType;
+            /// use google_cloud_security_privateca_v1::model::ca_pool::issuance_policy::allowed_key_type::RsaKeyType;
+            /// let x = AllowedKeyType::new().set_rsa(RsaKeyType::default()/* use setters */);
+            /// assert!(x.rsa().is_some());
+            /// assert!(x.elliptic_curve().is_none());
+            /// ```
             pub fn set_rsa<
                 T: std::convert::Into<
                         std::boxed::Box<
@@ -1966,6 +2432,15 @@ pub mod ca_pool {
             ///
             /// Note that all the setters affecting `key_type` are
             /// mutually exclusive.
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_security_privateca_v1::model::ca_pool::issuance_policy::AllowedKeyType;
+            /// use google_cloud_security_privateca_v1::model::ca_pool::issuance_policy::allowed_key_type::EcKeyType;
+            /// let x = AllowedKeyType::new().set_elliptic_curve(EcKeyType::default()/* use setters */);
+            /// assert!(x.elliptic_curve().is_some());
+            /// assert!(x.rsa().is_none());
+            /// ```
             pub fn set_elliptic_curve<
                 T: std::convert::Into<
                         std::boxed::Box<
@@ -2024,12 +2499,24 @@ pub mod ca_pool {
                 }
 
                 /// Sets the value of [min_modulus_size][crate::model::ca_pool::issuance_policy::allowed_key_type::RsaKeyType::min_modulus_size].
+                ///
+                /// # Example
+                /// ```
+                /// # use google_cloud_security_privateca_v1::model::ca_pool::issuance_policy::allowed_key_type::RsaKeyType;
+                /// let x = RsaKeyType::new().set_min_modulus_size(42);
+                /// ```
                 pub fn set_min_modulus_size<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
                     self.min_modulus_size = v.into();
                     self
                 }
 
                 /// Sets the value of [max_modulus_size][crate::model::ca_pool::issuance_policy::allowed_key_type::RsaKeyType::max_modulus_size].
+                ///
+                /// # Example
+                /// ```
+                /// # use google_cloud_security_privateca_v1::model::ca_pool::issuance_policy::allowed_key_type::RsaKeyType;
+                /// let x = RsaKeyType::new().set_max_modulus_size(42);
+                /// ```
                 pub fn set_max_modulus_size<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
                     self.max_modulus_size = v.into();
                     self
@@ -2065,6 +2552,15 @@ pub mod ca_pool {
                 }
 
                 /// Sets the value of [signature_algorithm][crate::model::ca_pool::issuance_policy::allowed_key_type::EcKeyType::signature_algorithm].
+                ///
+                /// # Example
+                /// ```
+                /// # use google_cloud_security_privateca_v1::model::ca_pool::issuance_policy::allowed_key_type::EcKeyType;
+                /// use google_cloud_security_privateca_v1::model::ca_pool::issuance_policy::allowed_key_type::ec_key_type::EcSignatureAlgorithm;
+                /// let x0 = EcKeyType::new().set_signature_algorithm(EcSignatureAlgorithm::EcdsaP256);
+                /// let x1 = EcKeyType::new().set_signature_algorithm(EcSignatureAlgorithm::EcdsaP384);
+                /// let x2 = EcKeyType::new().set_signature_algorithm(EcSignatureAlgorithm::Eddsa25519);
+                /// ```
                 pub fn set_signature_algorithm<T: std::convert::Into<crate::model::ca_pool::issuance_policy::allowed_key_type::ec_key_type::EcSignatureAlgorithm>>(mut self, v: T) -> Self{
                     self.signature_algorithm = v.into();
                     self
@@ -2289,6 +2785,12 @@ pub mod ca_pool {
             }
 
             /// Sets the value of [allow_csr_based_issuance][crate::model::ca_pool::issuance_policy::IssuanceModes::allow_csr_based_issuance].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_security_privateca_v1::model::ca_pool::issuance_policy::IssuanceModes;
+            /// let x = IssuanceModes::new().set_allow_csr_based_issuance(true);
+            /// ```
             pub fn set_allow_csr_based_issuance<T: std::convert::Into<bool>>(
                 mut self,
                 v: T,
@@ -2298,6 +2800,12 @@ pub mod ca_pool {
             }
 
             /// Sets the value of [allow_config_based_issuance][crate::model::ca_pool::issuance_policy::IssuanceModes::allow_config_based_issuance].
+            ///
+            /// # Example
+            /// ```
+            /// # use google_cloud_security_privateca_v1::model::ca_pool::issuance_policy::IssuanceModes;
+            /// let x = IssuanceModes::new().set_allow_config_based_issuance(true);
+            /// ```
             pub fn set_allow_config_based_issuance<T: std::convert::Into<bool>>(
                 mut self,
                 v: T,
@@ -2523,18 +3031,41 @@ impl CertificateRevocationList {
     }
 
     /// Sets the value of [name][crate::model::CertificateRevocationList::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::CertificateRevocationList;
+    /// let x = CertificateRevocationList::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [sequence_number][crate::model::CertificateRevocationList::sequence_number].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::CertificateRevocationList;
+    /// let x = CertificateRevocationList::new().set_sequence_number(42);
+    /// ```
     pub fn set_sequence_number<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.sequence_number = v.into();
         self
     }
 
     /// Sets the value of [revoked_certificates][crate::model::CertificateRevocationList::revoked_certificates].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::CertificateRevocationList;
+    /// use google_cloud_security_privateca_v1::model::certificate_revocation_list::RevokedCertificate;
+    /// let x = CertificateRevocationList::new()
+    ///     .set_revoked_certificates([
+    ///         RevokedCertificate::default()/* use setters */,
+    ///         RevokedCertificate::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_revoked_certificates<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2546,18 +3077,38 @@ impl CertificateRevocationList {
     }
 
     /// Sets the value of [pem_crl][crate::model::CertificateRevocationList::pem_crl].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::CertificateRevocationList;
+    /// let x = CertificateRevocationList::new().set_pem_crl("example");
+    /// ```
     pub fn set_pem_crl<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.pem_crl = v.into();
         self
     }
 
     /// Sets the value of [access_url][crate::model::CertificateRevocationList::access_url].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::CertificateRevocationList;
+    /// let x = CertificateRevocationList::new().set_access_url("example");
+    /// ```
     pub fn set_access_url<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.access_url = v.into();
         self
     }
 
     /// Sets the value of [state][crate::model::CertificateRevocationList::state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::CertificateRevocationList;
+    /// use google_cloud_security_privateca_v1::model::certificate_revocation_list::State;
+    /// let x0 = CertificateRevocationList::new().set_state(State::Active);
+    /// let x1 = CertificateRevocationList::new().set_state(State::Superseded);
+    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::certificate_revocation_list::State>>(
         mut self,
         v: T,
@@ -2567,6 +3118,13 @@ impl CertificateRevocationList {
     }
 
     /// Sets the value of [create_time][crate::model::CertificateRevocationList::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::CertificateRevocationList;
+    /// use wkt::Timestamp;
+    /// let x = CertificateRevocationList::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2576,6 +3134,14 @@ impl CertificateRevocationList {
     }
 
     /// Sets or clears the value of [create_time][crate::model::CertificateRevocationList::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::CertificateRevocationList;
+    /// use wkt::Timestamp;
+    /// let x = CertificateRevocationList::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = CertificateRevocationList::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2585,6 +3151,13 @@ impl CertificateRevocationList {
     }
 
     /// Sets the value of [update_time][crate::model::CertificateRevocationList::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::CertificateRevocationList;
+    /// use wkt::Timestamp;
+    /// let x = CertificateRevocationList::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2594,6 +3167,14 @@ impl CertificateRevocationList {
     }
 
     /// Sets or clears the value of [update_time][crate::model::CertificateRevocationList::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::CertificateRevocationList;
+    /// use wkt::Timestamp;
+    /// let x = CertificateRevocationList::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = CertificateRevocationList::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2603,12 +3184,27 @@ impl CertificateRevocationList {
     }
 
     /// Sets the value of [revision_id][crate::model::CertificateRevocationList::revision_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::CertificateRevocationList;
+    /// let x = CertificateRevocationList::new().set_revision_id("example");
+    /// ```
     pub fn set_revision_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.revision_id = v.into();
         self
     }
 
     /// Sets the value of [labels][crate::model::CertificateRevocationList::labels].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::CertificateRevocationList;
+    /// let x = CertificateRevocationList::new().set_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -2668,12 +3264,24 @@ pub mod certificate_revocation_list {
         }
 
         /// Sets the value of [certificate][crate::model::certificate_revocation_list::RevokedCertificate::certificate].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_security_privateca_v1::model::certificate_revocation_list::RevokedCertificate;
+        /// let x = RevokedCertificate::new().set_certificate("example");
+        /// ```
         pub fn set_certificate<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.certificate = v.into();
             self
         }
 
         /// Sets the value of [hex_serial_number][crate::model::certificate_revocation_list::RevokedCertificate::hex_serial_number].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_security_privateca_v1::model::certificate_revocation_list::RevokedCertificate;
+        /// let x = RevokedCertificate::new().set_hex_serial_number("example");
+        /// ```
         pub fn set_hex_serial_number<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -2683,6 +3291,15 @@ pub mod certificate_revocation_list {
         }
 
         /// Sets the value of [revocation_reason][crate::model::certificate_revocation_list::RevokedCertificate::revocation_reason].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_security_privateca_v1::model::certificate_revocation_list::RevokedCertificate;
+        /// use google_cloud_security_privateca_v1::model::RevocationReason;
+        /// let x0 = RevokedCertificate::new().set_revocation_reason(RevocationReason::KeyCompromise);
+        /// let x1 = RevokedCertificate::new().set_revocation_reason(RevocationReason::CertificateAuthorityCompromise);
+        /// let x2 = RevokedCertificate::new().set_revocation_reason(RevocationReason::AffiliationChanged);
+        /// ```
         pub fn set_revocation_reason<T: std::convert::Into<crate::model::RevocationReason>>(
             mut self,
             v: T,
@@ -2938,12 +3555,24 @@ impl Certificate {
     }
 
     /// Sets the value of [name][crate::model::Certificate::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::Certificate;
+    /// let x = Certificate::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [issuer_certificate_authority][crate::model::Certificate::issuer_certificate_authority].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::Certificate;
+    /// let x = Certificate::new().set_issuer_certificate_authority("example");
+    /// ```
     pub fn set_issuer_certificate_authority<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -2953,6 +3582,13 @@ impl Certificate {
     }
 
     /// Sets the value of [lifetime][crate::model::Certificate::lifetime].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::Certificate;
+    /// use wkt::Duration;
+    /// let x = Certificate::new().set_lifetime(Duration::default()/* use setters */);
+    /// ```
     pub fn set_lifetime<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -2962,6 +3598,14 @@ impl Certificate {
     }
 
     /// Sets or clears the value of [lifetime][crate::model::Certificate::lifetime].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::Certificate;
+    /// use wkt::Duration;
+    /// let x = Certificate::new().set_or_clear_lifetime(Some(Duration::default()/* use setters */));
+    /// let x = Certificate::new().set_or_clear_lifetime(None::<Duration>);
+    /// ```
     pub fn set_or_clear_lifetime<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -2971,6 +3615,12 @@ impl Certificate {
     }
 
     /// Sets the value of [certificate_template][crate::model::Certificate::certificate_template].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::Certificate;
+    /// let x = Certificate::new().set_certificate_template("example");
+    /// ```
     pub fn set_certificate_template<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -2980,6 +3630,15 @@ impl Certificate {
     }
 
     /// Sets the value of [subject_mode][crate::model::Certificate::subject_mode].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::Certificate;
+    /// use google_cloud_security_privateca_v1::model::SubjectRequestMode;
+    /// let x0 = Certificate::new().set_subject_mode(SubjectRequestMode::Default);
+    /// let x1 = Certificate::new().set_subject_mode(SubjectRequestMode::RdnSequence);
+    /// let x2 = Certificate::new().set_subject_mode(SubjectRequestMode::ReflectedSpiffe);
+    /// ```
     pub fn set_subject_mode<T: std::convert::Into<crate::model::SubjectRequestMode>>(
         mut self,
         v: T,
@@ -2989,6 +3648,13 @@ impl Certificate {
     }
 
     /// Sets the value of [revocation_details][crate::model::Certificate::revocation_details].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::Certificate;
+    /// use google_cloud_security_privateca_v1::model::certificate::RevocationDetails;
+    /// let x = Certificate::new().set_revocation_details(RevocationDetails::default()/* use setters */);
+    /// ```
     pub fn set_revocation_details<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::certificate::RevocationDetails>,
@@ -2998,6 +3664,14 @@ impl Certificate {
     }
 
     /// Sets or clears the value of [revocation_details][crate::model::Certificate::revocation_details].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::Certificate;
+    /// use google_cloud_security_privateca_v1::model::certificate::RevocationDetails;
+    /// let x = Certificate::new().set_or_clear_revocation_details(Some(RevocationDetails::default()/* use setters */));
+    /// let x = Certificate::new().set_or_clear_revocation_details(None::<RevocationDetails>);
+    /// ```
     pub fn set_or_clear_revocation_details<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::certificate::RevocationDetails>,
@@ -3007,12 +3681,25 @@ impl Certificate {
     }
 
     /// Sets the value of [pem_certificate][crate::model::Certificate::pem_certificate].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::Certificate;
+    /// let x = Certificate::new().set_pem_certificate("example");
+    /// ```
     pub fn set_pem_certificate<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.pem_certificate = v.into();
         self
     }
 
     /// Sets the value of [certificate_description][crate::model::Certificate::certificate_description].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::Certificate;
+    /// use google_cloud_security_privateca_v1::model::CertificateDescription;
+    /// let x = Certificate::new().set_certificate_description(CertificateDescription::default()/* use setters */);
+    /// ```
     pub fn set_certificate_description<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::CertificateDescription>,
@@ -3022,6 +3709,14 @@ impl Certificate {
     }
 
     /// Sets or clears the value of [certificate_description][crate::model::Certificate::certificate_description].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::Certificate;
+    /// use google_cloud_security_privateca_v1::model::CertificateDescription;
+    /// let x = Certificate::new().set_or_clear_certificate_description(Some(CertificateDescription::default()/* use setters */));
+    /// let x = Certificate::new().set_or_clear_certificate_description(None::<CertificateDescription>);
+    /// ```
     pub fn set_or_clear_certificate_description<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CertificateDescription>,
@@ -3031,6 +3726,12 @@ impl Certificate {
     }
 
     /// Sets the value of [pem_certificate_chain][crate::model::Certificate::pem_certificate_chain].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::Certificate;
+    /// let x = Certificate::new().set_pem_certificate_chain(["a", "b", "c"]);
+    /// ```
     pub fn set_pem_certificate_chain<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3042,6 +3743,13 @@ impl Certificate {
     }
 
     /// Sets the value of [create_time][crate::model::Certificate::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::Certificate;
+    /// use wkt::Timestamp;
+    /// let x = Certificate::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3051,6 +3759,14 @@ impl Certificate {
     }
 
     /// Sets or clears the value of [create_time][crate::model::Certificate::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::Certificate;
+    /// use wkt::Timestamp;
+    /// let x = Certificate::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Certificate::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3060,6 +3776,13 @@ impl Certificate {
     }
 
     /// Sets the value of [update_time][crate::model::Certificate::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::Certificate;
+    /// use wkt::Timestamp;
+    /// let x = Certificate::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3069,6 +3792,14 @@ impl Certificate {
     }
 
     /// Sets or clears the value of [update_time][crate::model::Certificate::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::Certificate;
+    /// use wkt::Timestamp;
+    /// let x = Certificate::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Certificate::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3078,6 +3809,15 @@ impl Certificate {
     }
 
     /// Sets the value of [labels][crate::model::Certificate::labels].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::Certificate;
+    /// let x = Certificate::new().set_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -3093,6 +3833,13 @@ impl Certificate {
     ///
     /// Note that all the setters affecting `certificate_config` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::Certificate;
+    /// use google_cloud_security_privateca_v1::model::certificate;
+    /// let x = Certificate::new().set_certificate_config(Some(certificate::CertificateConfig::PemCsr("example".to_string())));
+    /// ```
     pub fn set_certificate_config<
         T: std::convert::Into<std::option::Option<crate::model::certificate::CertificateConfig>>,
     >(
@@ -3119,6 +3866,14 @@ impl Certificate {
     ///
     /// Note that all the setters affecting `certificate_config` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::Certificate;
+    /// let x = Certificate::new().set_pem_csr("example");
+    /// assert!(x.pem_csr().is_some());
+    /// assert!(x.config().is_none());
+    /// ```
     pub fn set_pem_csr<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.certificate_config = std::option::Option::Some(
             crate::model::certificate::CertificateConfig::PemCsr(v.into()),
@@ -3142,6 +3897,15 @@ impl Certificate {
     ///
     /// Note that all the setters affecting `certificate_config` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::Certificate;
+    /// use google_cloud_security_privateca_v1::model::CertificateConfig;
+    /// let x = Certificate::new().set_config(CertificateConfig::default()/* use setters */);
+    /// assert!(x.config().is_some());
+    /// assert!(x.pem_csr().is_none());
+    /// ```
     pub fn set_config<T: std::convert::Into<std::boxed::Box<crate::model::CertificateConfig>>>(
         mut self,
         v: T,
@@ -3194,6 +3958,15 @@ pub mod certificate {
         }
 
         /// Sets the value of [revocation_state][crate::model::certificate::RevocationDetails::revocation_state].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_security_privateca_v1::model::certificate::RevocationDetails;
+        /// use google_cloud_security_privateca_v1::model::RevocationReason;
+        /// let x0 = RevocationDetails::new().set_revocation_state(RevocationReason::KeyCompromise);
+        /// let x1 = RevocationDetails::new().set_revocation_state(RevocationReason::CertificateAuthorityCompromise);
+        /// let x2 = RevocationDetails::new().set_revocation_state(RevocationReason::AffiliationChanged);
+        /// ```
         pub fn set_revocation_state<T: std::convert::Into<crate::model::RevocationReason>>(
             mut self,
             v: T,
@@ -3203,6 +3976,13 @@ pub mod certificate {
         }
 
         /// Sets the value of [revocation_time][crate::model::certificate::RevocationDetails::revocation_time].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_security_privateca_v1::model::certificate::RevocationDetails;
+        /// use wkt::Timestamp;
+        /// let x = RevocationDetails::new().set_revocation_time(Timestamp::default()/* use setters */);
+        /// ```
         pub fn set_revocation_time<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -3212,6 +3992,14 @@ pub mod certificate {
         }
 
         /// Sets or clears the value of [revocation_time][crate::model::certificate::RevocationDetails::revocation_time].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_security_privateca_v1::model::certificate::RevocationDetails;
+        /// use wkt::Timestamp;
+        /// let x = RevocationDetails::new().set_or_clear_revocation_time(Some(Timestamp::default()/* use setters */));
+        /// let x = RevocationDetails::new().set_or_clear_revocation_time(None::<Timestamp>);
+        /// ```
         pub fn set_or_clear_revocation_time<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -3357,12 +4145,25 @@ impl CertificateTemplate {
     }
 
     /// Sets the value of [name][crate::model::CertificateTemplate::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::CertificateTemplate;
+    /// let x = CertificateTemplate::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [maximum_lifetime][crate::model::CertificateTemplate::maximum_lifetime].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::CertificateTemplate;
+    /// use wkt::Duration;
+    /// let x = CertificateTemplate::new().set_maximum_lifetime(Duration::default()/* use setters */);
+    /// ```
     pub fn set_maximum_lifetime<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -3372,6 +4173,14 @@ impl CertificateTemplate {
     }
 
     /// Sets or clears the value of [maximum_lifetime][crate::model::CertificateTemplate::maximum_lifetime].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::CertificateTemplate;
+    /// use wkt::Duration;
+    /// let x = CertificateTemplate::new().set_or_clear_maximum_lifetime(Some(Duration::default()/* use setters */));
+    /// let x = CertificateTemplate::new().set_or_clear_maximum_lifetime(None::<Duration>);
+    /// ```
     pub fn set_or_clear_maximum_lifetime<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -3381,6 +4190,13 @@ impl CertificateTemplate {
     }
 
     /// Sets the value of [predefined_values][crate::model::CertificateTemplate::predefined_values].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::CertificateTemplate;
+    /// use google_cloud_security_privateca_v1::model::X509Parameters;
+    /// let x = CertificateTemplate::new().set_predefined_values(X509Parameters::default()/* use setters */);
+    /// ```
     pub fn set_predefined_values<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::X509Parameters>,
@@ -3390,6 +4206,14 @@ impl CertificateTemplate {
     }
 
     /// Sets or clears the value of [predefined_values][crate::model::CertificateTemplate::predefined_values].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::CertificateTemplate;
+    /// use google_cloud_security_privateca_v1::model::X509Parameters;
+    /// let x = CertificateTemplate::new().set_or_clear_predefined_values(Some(X509Parameters::default()/* use setters */));
+    /// let x = CertificateTemplate::new().set_or_clear_predefined_values(None::<X509Parameters>);
+    /// ```
     pub fn set_or_clear_predefined_values<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::X509Parameters>,
@@ -3399,6 +4223,13 @@ impl CertificateTemplate {
     }
 
     /// Sets the value of [identity_constraints][crate::model::CertificateTemplate::identity_constraints].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::CertificateTemplate;
+    /// use google_cloud_security_privateca_v1::model::CertificateIdentityConstraints;
+    /// let x = CertificateTemplate::new().set_identity_constraints(CertificateIdentityConstraints::default()/* use setters */);
+    /// ```
     pub fn set_identity_constraints<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::CertificateIdentityConstraints>,
@@ -3408,6 +4239,14 @@ impl CertificateTemplate {
     }
 
     /// Sets or clears the value of [identity_constraints][crate::model::CertificateTemplate::identity_constraints].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::CertificateTemplate;
+    /// use google_cloud_security_privateca_v1::model::CertificateIdentityConstraints;
+    /// let x = CertificateTemplate::new().set_or_clear_identity_constraints(Some(CertificateIdentityConstraints::default()/* use setters */));
+    /// let x = CertificateTemplate::new().set_or_clear_identity_constraints(None::<CertificateIdentityConstraints>);
+    /// ```
     pub fn set_or_clear_identity_constraints<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CertificateIdentityConstraints>,
@@ -3417,6 +4256,13 @@ impl CertificateTemplate {
     }
 
     /// Sets the value of [passthrough_extensions][crate::model::CertificateTemplate::passthrough_extensions].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::CertificateTemplate;
+    /// use google_cloud_security_privateca_v1::model::CertificateExtensionConstraints;
+    /// let x = CertificateTemplate::new().set_passthrough_extensions(CertificateExtensionConstraints::default()/* use setters */);
+    /// ```
     pub fn set_passthrough_extensions<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::CertificateExtensionConstraints>,
@@ -3426,6 +4272,14 @@ impl CertificateTemplate {
     }
 
     /// Sets or clears the value of [passthrough_extensions][crate::model::CertificateTemplate::passthrough_extensions].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::CertificateTemplate;
+    /// use google_cloud_security_privateca_v1::model::CertificateExtensionConstraints;
+    /// let x = CertificateTemplate::new().set_or_clear_passthrough_extensions(Some(CertificateExtensionConstraints::default()/* use setters */));
+    /// let x = CertificateTemplate::new().set_or_clear_passthrough_extensions(None::<CertificateExtensionConstraints>);
+    /// ```
     pub fn set_or_clear_passthrough_extensions<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CertificateExtensionConstraints>,
@@ -3435,12 +4289,25 @@ impl CertificateTemplate {
     }
 
     /// Sets the value of [description][crate::model::CertificateTemplate::description].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::CertificateTemplate;
+    /// let x = CertificateTemplate::new().set_description("example");
+    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::CertificateTemplate::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::CertificateTemplate;
+    /// use wkt::Timestamp;
+    /// let x = CertificateTemplate::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3450,6 +4317,14 @@ impl CertificateTemplate {
     }
 
     /// Sets or clears the value of [create_time][crate::model::CertificateTemplate::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::CertificateTemplate;
+    /// use wkt::Timestamp;
+    /// let x = CertificateTemplate::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = CertificateTemplate::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3459,6 +4334,13 @@ impl CertificateTemplate {
     }
 
     /// Sets the value of [update_time][crate::model::CertificateTemplate::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::CertificateTemplate;
+    /// use wkt::Timestamp;
+    /// let x = CertificateTemplate::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3468,6 +4350,14 @@ impl CertificateTemplate {
     }
 
     /// Sets or clears the value of [update_time][crate::model::CertificateTemplate::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::CertificateTemplate;
+    /// use wkt::Timestamp;
+    /// let x = CertificateTemplate::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = CertificateTemplate::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3477,6 +4367,15 @@ impl CertificateTemplate {
     }
 
     /// Sets the value of [labels][crate::model::CertificateTemplate::labels].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::CertificateTemplate;
+    /// let x = CertificateTemplate::new().set_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -3541,6 +4440,13 @@ impl X509Parameters {
     }
 
     /// Sets the value of [key_usage][crate::model::X509Parameters::key_usage].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::X509Parameters;
+    /// use google_cloud_security_privateca_v1::model::KeyUsage;
+    /// let x = X509Parameters::new().set_key_usage(KeyUsage::default()/* use setters */);
+    /// ```
     pub fn set_key_usage<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::KeyUsage>,
@@ -3550,6 +4456,14 @@ impl X509Parameters {
     }
 
     /// Sets or clears the value of [key_usage][crate::model::X509Parameters::key_usage].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::X509Parameters;
+    /// use google_cloud_security_privateca_v1::model::KeyUsage;
+    /// let x = X509Parameters::new().set_or_clear_key_usage(Some(KeyUsage::default()/* use setters */));
+    /// let x = X509Parameters::new().set_or_clear_key_usage(None::<KeyUsage>);
+    /// ```
     pub fn set_or_clear_key_usage<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::KeyUsage>,
@@ -3559,6 +4473,13 @@ impl X509Parameters {
     }
 
     /// Sets the value of [ca_options][crate::model::X509Parameters::ca_options].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::X509Parameters;
+    /// use google_cloud_security_privateca_v1::model::x_509_parameters::CaOptions;
+    /// let x = X509Parameters::new().set_ca_options(CaOptions::default()/* use setters */);
+    /// ```
     pub fn set_ca_options<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::x_509_parameters::CaOptions>,
@@ -3568,6 +4489,14 @@ impl X509Parameters {
     }
 
     /// Sets or clears the value of [ca_options][crate::model::X509Parameters::ca_options].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::X509Parameters;
+    /// use google_cloud_security_privateca_v1::model::x_509_parameters::CaOptions;
+    /// let x = X509Parameters::new().set_or_clear_ca_options(Some(CaOptions::default()/* use setters */));
+    /// let x = X509Parameters::new().set_or_clear_ca_options(None::<CaOptions>);
+    /// ```
     pub fn set_or_clear_ca_options<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::x_509_parameters::CaOptions>,
@@ -3577,6 +4506,17 @@ impl X509Parameters {
     }
 
     /// Sets the value of [policy_ids][crate::model::X509Parameters::policy_ids].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::X509Parameters;
+    /// use google_cloud_security_privateca_v1::model::ObjectId;
+    /// let x = X509Parameters::new()
+    ///     .set_policy_ids([
+    ///         ObjectId::default()/* use setters */,
+    ///         ObjectId::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_policy_ids<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3588,6 +4528,12 @@ impl X509Parameters {
     }
 
     /// Sets the value of [aia_ocsp_servers][crate::model::X509Parameters::aia_ocsp_servers].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::X509Parameters;
+    /// let x = X509Parameters::new().set_aia_ocsp_servers(["a", "b", "c"]);
+    /// ```
     pub fn set_aia_ocsp_servers<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3599,6 +4545,13 @@ impl X509Parameters {
     }
 
     /// Sets the value of [name_constraints][crate::model::X509Parameters::name_constraints].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::X509Parameters;
+    /// use google_cloud_security_privateca_v1::model::x_509_parameters::NameConstraints;
+    /// let x = X509Parameters::new().set_name_constraints(NameConstraints::default()/* use setters */);
+    /// ```
     pub fn set_name_constraints<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::x_509_parameters::NameConstraints>,
@@ -3608,6 +4561,14 @@ impl X509Parameters {
     }
 
     /// Sets or clears the value of [name_constraints][crate::model::X509Parameters::name_constraints].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::X509Parameters;
+    /// use google_cloud_security_privateca_v1::model::x_509_parameters::NameConstraints;
+    /// let x = X509Parameters::new().set_or_clear_name_constraints(Some(NameConstraints::default()/* use setters */));
+    /// let x = X509Parameters::new().set_or_clear_name_constraints(None::<NameConstraints>);
+    /// ```
     pub fn set_or_clear_name_constraints<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::x_509_parameters::NameConstraints>,
@@ -3617,6 +4578,17 @@ impl X509Parameters {
     }
 
     /// Sets the value of [additional_extensions][crate::model::X509Parameters::additional_extensions].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::X509Parameters;
+    /// use google_cloud_security_privateca_v1::model::X509Extension;
+    /// let x = X509Parameters::new()
+    ///     .set_additional_extensions([
+    ///         X509Extension::default()/* use setters */,
+    ///         X509Extension::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_additional_extensions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3665,6 +4637,12 @@ pub mod x_509_parameters {
         }
 
         /// Sets the value of [is_ca][crate::model::x_509_parameters::CaOptions::is_ca].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_security_privateca_v1::model::x_509_parameters::CaOptions;
+        /// let x = CaOptions::new().set_is_ca(true);
+        /// ```
         pub fn set_is_ca<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<bool>,
@@ -3674,6 +4652,13 @@ pub mod x_509_parameters {
         }
 
         /// Sets or clears the value of [is_ca][crate::model::x_509_parameters::CaOptions::is_ca].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_security_privateca_v1::model::x_509_parameters::CaOptions;
+        /// let x = CaOptions::new().set_or_clear_is_ca(Some(false));
+        /// let x = CaOptions::new().set_or_clear_is_ca(None::<bool>);
+        /// ```
         pub fn set_or_clear_is_ca<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<bool>,
@@ -3683,6 +4668,12 @@ pub mod x_509_parameters {
         }
 
         /// Sets the value of [max_issuer_path_length][crate::model::x_509_parameters::CaOptions::max_issuer_path_length].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_security_privateca_v1::model::x_509_parameters::CaOptions;
+        /// let x = CaOptions::new().set_max_issuer_path_length(42);
+        /// ```
         pub fn set_max_issuer_path_length<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<i32>,
@@ -3692,6 +4683,13 @@ pub mod x_509_parameters {
         }
 
         /// Sets or clears the value of [max_issuer_path_length][crate::model::x_509_parameters::CaOptions::max_issuer_path_length].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_security_privateca_v1::model::x_509_parameters::CaOptions;
+        /// let x = CaOptions::new().set_or_clear_max_issuer_path_length(Some(42));
+        /// let x = CaOptions::new().set_or_clear_max_issuer_path_length(None::<i32>);
+        /// ```
         pub fn set_or_clear_max_issuer_path_length<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<i32>,
@@ -3772,12 +4770,24 @@ pub mod x_509_parameters {
         }
 
         /// Sets the value of [critical][crate::model::x_509_parameters::NameConstraints::critical].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_security_privateca_v1::model::x_509_parameters::NameConstraints;
+        /// let x = NameConstraints::new().set_critical(true);
+        /// ```
         pub fn set_critical<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.critical = v.into();
             self
         }
 
         /// Sets the value of [permitted_dns_names][crate::model::x_509_parameters::NameConstraints::permitted_dns_names].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_security_privateca_v1::model::x_509_parameters::NameConstraints;
+        /// let x = NameConstraints::new().set_permitted_dns_names(["a", "b", "c"]);
+        /// ```
         pub fn set_permitted_dns_names<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -3789,6 +4799,12 @@ pub mod x_509_parameters {
         }
 
         /// Sets the value of [excluded_dns_names][crate::model::x_509_parameters::NameConstraints::excluded_dns_names].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_security_privateca_v1::model::x_509_parameters::NameConstraints;
+        /// let x = NameConstraints::new().set_excluded_dns_names(["a", "b", "c"]);
+        /// ```
         pub fn set_excluded_dns_names<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -3800,6 +4816,12 @@ pub mod x_509_parameters {
         }
 
         /// Sets the value of [permitted_ip_ranges][crate::model::x_509_parameters::NameConstraints::permitted_ip_ranges].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_security_privateca_v1::model::x_509_parameters::NameConstraints;
+        /// let x = NameConstraints::new().set_permitted_ip_ranges(["a", "b", "c"]);
+        /// ```
         pub fn set_permitted_ip_ranges<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -3811,6 +4833,12 @@ pub mod x_509_parameters {
         }
 
         /// Sets the value of [excluded_ip_ranges][crate::model::x_509_parameters::NameConstraints::excluded_ip_ranges].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_security_privateca_v1::model::x_509_parameters::NameConstraints;
+        /// let x = NameConstraints::new().set_excluded_ip_ranges(["a", "b", "c"]);
+        /// ```
         pub fn set_excluded_ip_ranges<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -3822,6 +4850,12 @@ pub mod x_509_parameters {
         }
 
         /// Sets the value of [permitted_email_addresses][crate::model::x_509_parameters::NameConstraints::permitted_email_addresses].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_security_privateca_v1::model::x_509_parameters::NameConstraints;
+        /// let x = NameConstraints::new().set_permitted_email_addresses(["a", "b", "c"]);
+        /// ```
         pub fn set_permitted_email_addresses<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -3833,6 +4867,12 @@ pub mod x_509_parameters {
         }
 
         /// Sets the value of [excluded_email_addresses][crate::model::x_509_parameters::NameConstraints::excluded_email_addresses].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_security_privateca_v1::model::x_509_parameters::NameConstraints;
+        /// let x = NameConstraints::new().set_excluded_email_addresses(["a", "b", "c"]);
+        /// ```
         pub fn set_excluded_email_addresses<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -3844,6 +4884,12 @@ pub mod x_509_parameters {
         }
 
         /// Sets the value of [permitted_uris][crate::model::x_509_parameters::NameConstraints::permitted_uris].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_security_privateca_v1::model::x_509_parameters::NameConstraints;
+        /// let x = NameConstraints::new().set_permitted_uris(["a", "b", "c"]);
+        /// ```
         pub fn set_permitted_uris<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -3855,6 +4901,12 @@ pub mod x_509_parameters {
         }
 
         /// Sets the value of [excluded_uris][crate::model::x_509_parameters::NameConstraints::excluded_uris].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_security_privateca_v1::model::x_509_parameters::NameConstraints;
+        /// let x = NameConstraints::new().set_excluded_uris(["a", "b", "c"]);
+        /// ```
         pub fn set_excluded_uris<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -3897,6 +4949,13 @@ impl SubordinateConfig {
     ///
     /// Note that all the setters affecting `subordinate_config` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::SubordinateConfig;
+    /// use google_cloud_security_privateca_v1::model::subordinate_config;
+    /// let x = SubordinateConfig::new().set_subordinate_config(Some(subordinate_config::SubordinateConfig::CertificateAuthority("example".to_string())));
+    /// ```
     pub fn set_subordinate_config<
         T: std::convert::Into<
                 std::option::Option<crate::model::subordinate_config::SubordinateConfig>,
@@ -3927,6 +4986,14 @@ impl SubordinateConfig {
     ///
     /// Note that all the setters affecting `subordinate_config` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::SubordinateConfig;
+    /// let x = SubordinateConfig::new().set_certificate_authority("example");
+    /// assert!(x.certificate_authority().is_some());
+    /// assert!(x.pem_issuer_chain().is_none());
+    /// ```
     pub fn set_certificate_authority<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -3959,6 +5026,15 @@ impl SubordinateConfig {
     ///
     /// Note that all the setters affecting `subordinate_config` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::SubordinateConfig;
+    /// use google_cloud_security_privateca_v1::model::subordinate_config::SubordinateConfigChain;
+    /// let x = SubordinateConfig::new().set_pem_issuer_chain(SubordinateConfigChain::default()/* use setters */);
+    /// assert!(x.pem_issuer_chain().is_some());
+    /// assert!(x.certificate_authority().is_none());
+    /// ```
     pub fn set_pem_issuer_chain<
         T: std::convert::Into<
                 std::boxed::Box<crate::model::subordinate_config::SubordinateConfigChain>,
@@ -4002,6 +5078,12 @@ pub mod subordinate_config {
         }
 
         /// Sets the value of [pem_certificates][crate::model::subordinate_config::SubordinateConfigChain::pem_certificates].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_security_privateca_v1::model::subordinate_config::SubordinateConfigChain;
+        /// let x = SubordinateConfigChain::new().set_pem_certificates(["a", "b", "c"]);
+        /// ```
         pub fn set_pem_certificates<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -4064,12 +5146,25 @@ impl PublicKey {
     }
 
     /// Sets the value of [key][crate::model::PublicKey::key].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::PublicKey;
+    /// let x = PublicKey::new().set_key(bytes::Bytes::from_static(b"example"));
+    /// ```
     pub fn set_key<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.key = v.into();
         self
     }
 
     /// Sets the value of [format][crate::model::PublicKey::format].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::PublicKey;
+    /// use google_cloud_security_privateca_v1::model::public_key::KeyFormat;
+    /// let x0 = PublicKey::new().set_format(KeyFormat::Pem);
+    /// ```
     pub fn set_format<T: std::convert::Into<crate::model::public_key::KeyFormat>>(
         mut self,
         v: T,
@@ -4273,6 +5368,13 @@ impl CertificateConfig {
     }
 
     /// Sets the value of [subject_config][crate::model::CertificateConfig::subject_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::CertificateConfig;
+    /// use google_cloud_security_privateca_v1::model::certificate_config::SubjectConfig;
+    /// let x = CertificateConfig::new().set_subject_config(SubjectConfig::default()/* use setters */);
+    /// ```
     pub fn set_subject_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::certificate_config::SubjectConfig>,
@@ -4282,6 +5384,14 @@ impl CertificateConfig {
     }
 
     /// Sets or clears the value of [subject_config][crate::model::CertificateConfig::subject_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::CertificateConfig;
+    /// use google_cloud_security_privateca_v1::model::certificate_config::SubjectConfig;
+    /// let x = CertificateConfig::new().set_or_clear_subject_config(Some(SubjectConfig::default()/* use setters */));
+    /// let x = CertificateConfig::new().set_or_clear_subject_config(None::<SubjectConfig>);
+    /// ```
     pub fn set_or_clear_subject_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::certificate_config::SubjectConfig>,
@@ -4291,6 +5401,13 @@ impl CertificateConfig {
     }
 
     /// Sets the value of [x509_config][crate::model::CertificateConfig::x509_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::CertificateConfig;
+    /// use google_cloud_security_privateca_v1::model::X509Parameters;
+    /// let x = CertificateConfig::new().set_x509_config(X509Parameters::default()/* use setters */);
+    /// ```
     pub fn set_x509_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::X509Parameters>,
@@ -4300,6 +5417,14 @@ impl CertificateConfig {
     }
 
     /// Sets or clears the value of [x509_config][crate::model::CertificateConfig::x509_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::CertificateConfig;
+    /// use google_cloud_security_privateca_v1::model::X509Parameters;
+    /// let x = CertificateConfig::new().set_or_clear_x509_config(Some(X509Parameters::default()/* use setters */));
+    /// let x = CertificateConfig::new().set_or_clear_x509_config(None::<X509Parameters>);
+    /// ```
     pub fn set_or_clear_x509_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::X509Parameters>,
@@ -4309,6 +5434,13 @@ impl CertificateConfig {
     }
 
     /// Sets the value of [public_key][crate::model::CertificateConfig::public_key].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::CertificateConfig;
+    /// use google_cloud_security_privateca_v1::model::PublicKey;
+    /// let x = CertificateConfig::new().set_public_key(PublicKey::default()/* use setters */);
+    /// ```
     pub fn set_public_key<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::PublicKey>,
@@ -4318,6 +5450,14 @@ impl CertificateConfig {
     }
 
     /// Sets or clears the value of [public_key][crate::model::CertificateConfig::public_key].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::CertificateConfig;
+    /// use google_cloud_security_privateca_v1::model::PublicKey;
+    /// let x = CertificateConfig::new().set_or_clear_public_key(Some(PublicKey::default()/* use setters */));
+    /// let x = CertificateConfig::new().set_or_clear_public_key(None::<PublicKey>);
+    /// ```
     pub fn set_or_clear_public_key<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::PublicKey>,
@@ -4327,6 +5467,13 @@ impl CertificateConfig {
     }
 
     /// Sets the value of [subject_key_id][crate::model::CertificateConfig::subject_key_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::CertificateConfig;
+    /// use google_cloud_security_privateca_v1::model::certificate_config::KeyId;
+    /// let x = CertificateConfig::new().set_subject_key_id(KeyId::default()/* use setters */);
+    /// ```
     pub fn set_subject_key_id<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::certificate_config::KeyId>,
@@ -4336,6 +5483,14 @@ impl CertificateConfig {
     }
 
     /// Sets or clears the value of [subject_key_id][crate::model::CertificateConfig::subject_key_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::CertificateConfig;
+    /// use google_cloud_security_privateca_v1::model::certificate_config::KeyId;
+    /// let x = CertificateConfig::new().set_or_clear_subject_key_id(Some(KeyId::default()/* use setters */));
+    /// let x = CertificateConfig::new().set_or_clear_subject_key_id(None::<KeyId>);
+    /// ```
     pub fn set_or_clear_subject_key_id<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::certificate_config::KeyId>,
@@ -4377,6 +5532,13 @@ pub mod certificate_config {
         }
 
         /// Sets the value of [subject][crate::model::certificate_config::SubjectConfig::subject].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_security_privateca_v1::model::certificate_config::SubjectConfig;
+        /// use google_cloud_security_privateca_v1::model::Subject;
+        /// let x = SubjectConfig::new().set_subject(Subject::default()/* use setters */);
+        /// ```
         pub fn set_subject<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::Subject>,
@@ -4386,6 +5548,14 @@ pub mod certificate_config {
         }
 
         /// Sets or clears the value of [subject][crate::model::certificate_config::SubjectConfig::subject].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_security_privateca_v1::model::certificate_config::SubjectConfig;
+        /// use google_cloud_security_privateca_v1::model::Subject;
+        /// let x = SubjectConfig::new().set_or_clear_subject(Some(Subject::default()/* use setters */));
+        /// let x = SubjectConfig::new().set_or_clear_subject(None::<Subject>);
+        /// ```
         pub fn set_or_clear_subject<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Subject>,
@@ -4395,6 +5565,13 @@ pub mod certificate_config {
         }
 
         /// Sets the value of [subject_alt_name][crate::model::certificate_config::SubjectConfig::subject_alt_name].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_security_privateca_v1::model::certificate_config::SubjectConfig;
+        /// use google_cloud_security_privateca_v1::model::SubjectAltNames;
+        /// let x = SubjectConfig::new().set_subject_alt_name(SubjectAltNames::default()/* use setters */);
+        /// ```
         pub fn set_subject_alt_name<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::SubjectAltNames>,
@@ -4404,6 +5581,14 @@ pub mod certificate_config {
         }
 
         /// Sets or clears the value of [subject_alt_name][crate::model::certificate_config::SubjectConfig::subject_alt_name].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_security_privateca_v1::model::certificate_config::SubjectConfig;
+        /// use google_cloud_security_privateca_v1::model::SubjectAltNames;
+        /// let x = SubjectConfig::new().set_or_clear_subject_alt_name(Some(SubjectAltNames::default()/* use setters */));
+        /// let x = SubjectConfig::new().set_or_clear_subject_alt_name(None::<SubjectAltNames>);
+        /// ```
         pub fn set_or_clear_subject_alt_name<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::SubjectAltNames>,
@@ -4437,6 +5622,12 @@ pub mod certificate_config {
         }
 
         /// Sets the value of [key_id][crate::model::certificate_config::KeyId::key_id].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_security_privateca_v1::model::certificate_config::KeyId;
+        /// let x = KeyId::new().set_key_id("example");
+        /// ```
         pub fn set_key_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.key_id = v.into();
             self
@@ -4506,6 +5697,13 @@ impl CertificateDescription {
     }
 
     /// Sets the value of [subject_description][crate::model::CertificateDescription::subject_description].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::CertificateDescription;
+    /// use google_cloud_security_privateca_v1::model::certificate_description::SubjectDescription;
+    /// let x = CertificateDescription::new().set_subject_description(SubjectDescription::default()/* use setters */);
+    /// ```
     pub fn set_subject_description<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::certificate_description::SubjectDescription>,
@@ -4515,6 +5713,14 @@ impl CertificateDescription {
     }
 
     /// Sets or clears the value of [subject_description][crate::model::CertificateDescription::subject_description].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::CertificateDescription;
+    /// use google_cloud_security_privateca_v1::model::certificate_description::SubjectDescription;
+    /// let x = CertificateDescription::new().set_or_clear_subject_description(Some(SubjectDescription::default()/* use setters */));
+    /// let x = CertificateDescription::new().set_or_clear_subject_description(None::<SubjectDescription>);
+    /// ```
     pub fn set_or_clear_subject_description<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::certificate_description::SubjectDescription>,
@@ -4524,6 +5730,13 @@ impl CertificateDescription {
     }
 
     /// Sets the value of [x509_description][crate::model::CertificateDescription::x509_description].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::CertificateDescription;
+    /// use google_cloud_security_privateca_v1::model::X509Parameters;
+    /// let x = CertificateDescription::new().set_x509_description(X509Parameters::default()/* use setters */);
+    /// ```
     pub fn set_x509_description<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::X509Parameters>,
@@ -4533,6 +5746,14 @@ impl CertificateDescription {
     }
 
     /// Sets or clears the value of [x509_description][crate::model::CertificateDescription::x509_description].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::CertificateDescription;
+    /// use google_cloud_security_privateca_v1::model::X509Parameters;
+    /// let x = CertificateDescription::new().set_or_clear_x509_description(Some(X509Parameters::default()/* use setters */));
+    /// let x = CertificateDescription::new().set_or_clear_x509_description(None::<X509Parameters>);
+    /// ```
     pub fn set_or_clear_x509_description<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::X509Parameters>,
@@ -4542,6 +5763,13 @@ impl CertificateDescription {
     }
 
     /// Sets the value of [public_key][crate::model::CertificateDescription::public_key].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::CertificateDescription;
+    /// use google_cloud_security_privateca_v1::model::PublicKey;
+    /// let x = CertificateDescription::new().set_public_key(PublicKey::default()/* use setters */);
+    /// ```
     pub fn set_public_key<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::PublicKey>,
@@ -4551,6 +5779,14 @@ impl CertificateDescription {
     }
 
     /// Sets or clears the value of [public_key][crate::model::CertificateDescription::public_key].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::CertificateDescription;
+    /// use google_cloud_security_privateca_v1::model::PublicKey;
+    /// let x = CertificateDescription::new().set_or_clear_public_key(Some(PublicKey::default()/* use setters */));
+    /// let x = CertificateDescription::new().set_or_clear_public_key(None::<PublicKey>);
+    /// ```
     pub fn set_or_clear_public_key<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::PublicKey>,
@@ -4560,6 +5796,13 @@ impl CertificateDescription {
     }
 
     /// Sets the value of [subject_key_id][crate::model::CertificateDescription::subject_key_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::CertificateDescription;
+    /// use google_cloud_security_privateca_v1::model::certificate_description::KeyId;
+    /// let x = CertificateDescription::new().set_subject_key_id(KeyId::default()/* use setters */);
+    /// ```
     pub fn set_subject_key_id<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::certificate_description::KeyId>,
@@ -4569,6 +5812,14 @@ impl CertificateDescription {
     }
 
     /// Sets or clears the value of [subject_key_id][crate::model::CertificateDescription::subject_key_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::CertificateDescription;
+    /// use google_cloud_security_privateca_v1::model::certificate_description::KeyId;
+    /// let x = CertificateDescription::new().set_or_clear_subject_key_id(Some(KeyId::default()/* use setters */));
+    /// let x = CertificateDescription::new().set_or_clear_subject_key_id(None::<KeyId>);
+    /// ```
     pub fn set_or_clear_subject_key_id<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::certificate_description::KeyId>,
@@ -4578,6 +5829,13 @@ impl CertificateDescription {
     }
 
     /// Sets the value of [authority_key_id][crate::model::CertificateDescription::authority_key_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::CertificateDescription;
+    /// use google_cloud_security_privateca_v1::model::certificate_description::KeyId;
+    /// let x = CertificateDescription::new().set_authority_key_id(KeyId::default()/* use setters */);
+    /// ```
     pub fn set_authority_key_id<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::certificate_description::KeyId>,
@@ -4587,6 +5845,14 @@ impl CertificateDescription {
     }
 
     /// Sets or clears the value of [authority_key_id][crate::model::CertificateDescription::authority_key_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::CertificateDescription;
+    /// use google_cloud_security_privateca_v1::model::certificate_description::KeyId;
+    /// let x = CertificateDescription::new().set_or_clear_authority_key_id(Some(KeyId::default()/* use setters */));
+    /// let x = CertificateDescription::new().set_or_clear_authority_key_id(None::<KeyId>);
+    /// ```
     pub fn set_or_clear_authority_key_id<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::certificate_description::KeyId>,
@@ -4596,6 +5862,12 @@ impl CertificateDescription {
     }
 
     /// Sets the value of [crl_distribution_points][crate::model::CertificateDescription::crl_distribution_points].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::CertificateDescription;
+    /// let x = CertificateDescription::new().set_crl_distribution_points(["a", "b", "c"]);
+    /// ```
     pub fn set_crl_distribution_points<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4607,6 +5879,12 @@ impl CertificateDescription {
     }
 
     /// Sets the value of [aia_issuing_certificate_urls][crate::model::CertificateDescription::aia_issuing_certificate_urls].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::CertificateDescription;
+    /// let x = CertificateDescription::new().set_aia_issuing_certificate_urls(["a", "b", "c"]);
+    /// ```
     pub fn set_aia_issuing_certificate_urls<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4618,6 +5896,13 @@ impl CertificateDescription {
     }
 
     /// Sets the value of [cert_fingerprint][crate::model::CertificateDescription::cert_fingerprint].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::CertificateDescription;
+    /// use google_cloud_security_privateca_v1::model::certificate_description::CertificateFingerprint;
+    /// let x = CertificateDescription::new().set_cert_fingerprint(CertificateFingerprint::default()/* use setters */);
+    /// ```
     pub fn set_cert_fingerprint<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::certificate_description::CertificateFingerprint>,
@@ -4627,6 +5912,14 @@ impl CertificateDescription {
     }
 
     /// Sets or clears the value of [cert_fingerprint][crate::model::CertificateDescription::cert_fingerprint].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::CertificateDescription;
+    /// use google_cloud_security_privateca_v1::model::certificate_description::CertificateFingerprint;
+    /// let x = CertificateDescription::new().set_or_clear_cert_fingerprint(Some(CertificateFingerprint::default()/* use setters */));
+    /// let x = CertificateDescription::new().set_or_clear_cert_fingerprint(None::<CertificateFingerprint>);
+    /// ```
     pub fn set_or_clear_cert_fingerprint<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::certificate_description::CertificateFingerprint>,
@@ -4636,6 +5929,12 @@ impl CertificateDescription {
     }
 
     /// Sets the value of [tbs_certificate_digest][crate::model::CertificateDescription::tbs_certificate_digest].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::CertificateDescription;
+    /// let x = CertificateDescription::new().set_tbs_certificate_digest("example");
+    /// ```
     pub fn set_tbs_certificate_digest<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -4692,6 +5991,13 @@ pub mod certificate_description {
         }
 
         /// Sets the value of [subject][crate::model::certificate_description::SubjectDescription::subject].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_security_privateca_v1::model::certificate_description::SubjectDescription;
+        /// use google_cloud_security_privateca_v1::model::Subject;
+        /// let x = SubjectDescription::new().set_subject(Subject::default()/* use setters */);
+        /// ```
         pub fn set_subject<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::Subject>,
@@ -4701,6 +6007,14 @@ pub mod certificate_description {
         }
 
         /// Sets or clears the value of [subject][crate::model::certificate_description::SubjectDescription::subject].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_security_privateca_v1::model::certificate_description::SubjectDescription;
+        /// use google_cloud_security_privateca_v1::model::Subject;
+        /// let x = SubjectDescription::new().set_or_clear_subject(Some(Subject::default()/* use setters */));
+        /// let x = SubjectDescription::new().set_or_clear_subject(None::<Subject>);
+        /// ```
         pub fn set_or_clear_subject<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Subject>,
@@ -4710,6 +6024,13 @@ pub mod certificate_description {
         }
 
         /// Sets the value of [subject_alt_name][crate::model::certificate_description::SubjectDescription::subject_alt_name].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_security_privateca_v1::model::certificate_description::SubjectDescription;
+        /// use google_cloud_security_privateca_v1::model::SubjectAltNames;
+        /// let x = SubjectDescription::new().set_subject_alt_name(SubjectAltNames::default()/* use setters */);
+        /// ```
         pub fn set_subject_alt_name<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::SubjectAltNames>,
@@ -4719,6 +6040,14 @@ pub mod certificate_description {
         }
 
         /// Sets or clears the value of [subject_alt_name][crate::model::certificate_description::SubjectDescription::subject_alt_name].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_security_privateca_v1::model::certificate_description::SubjectDescription;
+        /// use google_cloud_security_privateca_v1::model::SubjectAltNames;
+        /// let x = SubjectDescription::new().set_or_clear_subject_alt_name(Some(SubjectAltNames::default()/* use setters */));
+        /// let x = SubjectDescription::new().set_or_clear_subject_alt_name(None::<SubjectAltNames>);
+        /// ```
         pub fn set_or_clear_subject_alt_name<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::SubjectAltNames>,
@@ -4728,6 +6057,12 @@ pub mod certificate_description {
         }
 
         /// Sets the value of [hex_serial_number][crate::model::certificate_description::SubjectDescription::hex_serial_number].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_security_privateca_v1::model::certificate_description::SubjectDescription;
+        /// let x = SubjectDescription::new().set_hex_serial_number("example");
+        /// ```
         pub fn set_hex_serial_number<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -4737,6 +6072,13 @@ pub mod certificate_description {
         }
 
         /// Sets the value of [lifetime][crate::model::certificate_description::SubjectDescription::lifetime].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_security_privateca_v1::model::certificate_description::SubjectDescription;
+        /// use wkt::Duration;
+        /// let x = SubjectDescription::new().set_lifetime(Duration::default()/* use setters */);
+        /// ```
         pub fn set_lifetime<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
@@ -4746,6 +6088,14 @@ pub mod certificate_description {
         }
 
         /// Sets or clears the value of [lifetime][crate::model::certificate_description::SubjectDescription::lifetime].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_security_privateca_v1::model::certificate_description::SubjectDescription;
+        /// use wkt::Duration;
+        /// let x = SubjectDescription::new().set_or_clear_lifetime(Some(Duration::default()/* use setters */));
+        /// let x = SubjectDescription::new().set_or_clear_lifetime(None::<Duration>);
+        /// ```
         pub fn set_or_clear_lifetime<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
@@ -4755,6 +6105,13 @@ pub mod certificate_description {
         }
 
         /// Sets the value of [not_before_time][crate::model::certificate_description::SubjectDescription::not_before_time].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_security_privateca_v1::model::certificate_description::SubjectDescription;
+        /// use wkt::Timestamp;
+        /// let x = SubjectDescription::new().set_not_before_time(Timestamp::default()/* use setters */);
+        /// ```
         pub fn set_not_before_time<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -4764,6 +6121,14 @@ pub mod certificate_description {
         }
 
         /// Sets or clears the value of [not_before_time][crate::model::certificate_description::SubjectDescription::not_before_time].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_security_privateca_v1::model::certificate_description::SubjectDescription;
+        /// use wkt::Timestamp;
+        /// let x = SubjectDescription::new().set_or_clear_not_before_time(Some(Timestamp::default()/* use setters */));
+        /// let x = SubjectDescription::new().set_or_clear_not_before_time(None::<Timestamp>);
+        /// ```
         pub fn set_or_clear_not_before_time<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -4773,6 +6138,13 @@ pub mod certificate_description {
         }
 
         /// Sets the value of [not_after_time][crate::model::certificate_description::SubjectDescription::not_after_time].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_security_privateca_v1::model::certificate_description::SubjectDescription;
+        /// use wkt::Timestamp;
+        /// let x = SubjectDescription::new().set_not_after_time(Timestamp::default()/* use setters */);
+        /// ```
         pub fn set_not_after_time<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -4782,6 +6154,14 @@ pub mod certificate_description {
         }
 
         /// Sets or clears the value of [not_after_time][crate::model::certificate_description::SubjectDescription::not_after_time].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_security_privateca_v1::model::certificate_description::SubjectDescription;
+        /// use wkt::Timestamp;
+        /// let x = SubjectDescription::new().set_or_clear_not_after_time(Some(Timestamp::default()/* use setters */));
+        /// let x = SubjectDescription::new().set_or_clear_not_after_time(None::<Timestamp>);
+        /// ```
         pub fn set_or_clear_not_after_time<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -4815,6 +6195,12 @@ pub mod certificate_description {
         }
 
         /// Sets the value of [key_id][crate::model::certificate_description::KeyId::key_id].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_security_privateca_v1::model::certificate_description::KeyId;
+        /// let x = KeyId::new().set_key_id("example");
+        /// ```
         pub fn set_key_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.key_id = v.into();
             self
@@ -4843,6 +6229,12 @@ pub mod certificate_description {
         }
 
         /// Sets the value of [sha256_hash][crate::model::certificate_description::CertificateFingerprint::sha256_hash].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_security_privateca_v1::model::certificate_description::CertificateFingerprint;
+        /// let x = CertificateFingerprint::new().set_sha256_hash("example");
+        /// ```
         pub fn set_sha256_hash<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.sha256_hash = v.into();
             self
@@ -4877,6 +6269,12 @@ impl ObjectId {
     }
 
     /// Sets the value of [object_id_path][crate::model::ObjectId::object_id_path].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::ObjectId;
+    /// let x = ObjectId::new().set_object_id_path([1, 2, 3]);
+    /// ```
     pub fn set_object_id_path<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4922,6 +6320,13 @@ impl X509Extension {
     }
 
     /// Sets the value of [object_id][crate::model::X509Extension::object_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::X509Extension;
+    /// use google_cloud_security_privateca_v1::model::ObjectId;
+    /// let x = X509Extension::new().set_object_id(ObjectId::default()/* use setters */);
+    /// ```
     pub fn set_object_id<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ObjectId>,
@@ -4931,6 +6336,14 @@ impl X509Extension {
     }
 
     /// Sets or clears the value of [object_id][crate::model::X509Extension::object_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::X509Extension;
+    /// use google_cloud_security_privateca_v1::model::ObjectId;
+    /// let x = X509Extension::new().set_or_clear_object_id(Some(ObjectId::default()/* use setters */));
+    /// let x = X509Extension::new().set_or_clear_object_id(None::<ObjectId>);
+    /// ```
     pub fn set_or_clear_object_id<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ObjectId>,
@@ -4940,12 +6353,24 @@ impl X509Extension {
     }
 
     /// Sets the value of [critical][crate::model::X509Extension::critical].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::X509Extension;
+    /// let x = X509Extension::new().set_critical(true);
+    /// ```
     pub fn set_critical<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.critical = v.into();
         self
     }
 
     /// Sets the value of [value][crate::model::X509Extension::value].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::X509Extension;
+    /// let x = X509Extension::new().set_value(bytes::Bytes::from_static(b"example"));
+    /// ```
     pub fn set_value<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.value = v.into();
         self
@@ -4987,6 +6412,13 @@ impl KeyUsage {
     }
 
     /// Sets the value of [base_key_usage][crate::model::KeyUsage::base_key_usage].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::KeyUsage;
+    /// use google_cloud_security_privateca_v1::model::key_usage::KeyUsageOptions;
+    /// let x = KeyUsage::new().set_base_key_usage(KeyUsageOptions::default()/* use setters */);
+    /// ```
     pub fn set_base_key_usage<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::key_usage::KeyUsageOptions>,
@@ -4996,6 +6428,14 @@ impl KeyUsage {
     }
 
     /// Sets or clears the value of [base_key_usage][crate::model::KeyUsage::base_key_usage].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::KeyUsage;
+    /// use google_cloud_security_privateca_v1::model::key_usage::KeyUsageOptions;
+    /// let x = KeyUsage::new().set_or_clear_base_key_usage(Some(KeyUsageOptions::default()/* use setters */));
+    /// let x = KeyUsage::new().set_or_clear_base_key_usage(None::<KeyUsageOptions>);
+    /// ```
     pub fn set_or_clear_base_key_usage<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::key_usage::KeyUsageOptions>,
@@ -5005,6 +6445,13 @@ impl KeyUsage {
     }
 
     /// Sets the value of [extended_key_usage][crate::model::KeyUsage::extended_key_usage].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::KeyUsage;
+    /// use google_cloud_security_privateca_v1::model::key_usage::ExtendedKeyUsageOptions;
+    /// let x = KeyUsage::new().set_extended_key_usage(ExtendedKeyUsageOptions::default()/* use setters */);
+    /// ```
     pub fn set_extended_key_usage<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::key_usage::ExtendedKeyUsageOptions>,
@@ -5014,6 +6461,14 @@ impl KeyUsage {
     }
 
     /// Sets or clears the value of [extended_key_usage][crate::model::KeyUsage::extended_key_usage].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::KeyUsage;
+    /// use google_cloud_security_privateca_v1::model::key_usage::ExtendedKeyUsageOptions;
+    /// let x = KeyUsage::new().set_or_clear_extended_key_usage(Some(ExtendedKeyUsageOptions::default()/* use setters */));
+    /// let x = KeyUsage::new().set_or_clear_extended_key_usage(None::<ExtendedKeyUsageOptions>);
+    /// ```
     pub fn set_or_clear_extended_key_usage<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::key_usage::ExtendedKeyUsageOptions>,
@@ -5023,6 +6478,17 @@ impl KeyUsage {
     }
 
     /// Sets the value of [unknown_extended_key_usages][crate::model::KeyUsage::unknown_extended_key_usages].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::KeyUsage;
+    /// use google_cloud_security_privateca_v1::model::ObjectId;
+    /// let x = KeyUsage::new()
+    ///     .set_unknown_extended_key_usages([
+    ///         ObjectId::default()/* use setters */,
+    ///         ObjectId::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_unknown_extended_key_usages<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -5090,54 +6556,108 @@ pub mod key_usage {
         }
 
         /// Sets the value of [digital_signature][crate::model::key_usage::KeyUsageOptions::digital_signature].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_security_privateca_v1::model::key_usage::KeyUsageOptions;
+        /// let x = KeyUsageOptions::new().set_digital_signature(true);
+        /// ```
         pub fn set_digital_signature<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.digital_signature = v.into();
             self
         }
 
         /// Sets the value of [content_commitment][crate::model::key_usage::KeyUsageOptions::content_commitment].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_security_privateca_v1::model::key_usage::KeyUsageOptions;
+        /// let x = KeyUsageOptions::new().set_content_commitment(true);
+        /// ```
         pub fn set_content_commitment<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.content_commitment = v.into();
             self
         }
 
         /// Sets the value of [key_encipherment][crate::model::key_usage::KeyUsageOptions::key_encipherment].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_security_privateca_v1::model::key_usage::KeyUsageOptions;
+        /// let x = KeyUsageOptions::new().set_key_encipherment(true);
+        /// ```
         pub fn set_key_encipherment<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.key_encipherment = v.into();
             self
         }
 
         /// Sets the value of [data_encipherment][crate::model::key_usage::KeyUsageOptions::data_encipherment].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_security_privateca_v1::model::key_usage::KeyUsageOptions;
+        /// let x = KeyUsageOptions::new().set_data_encipherment(true);
+        /// ```
         pub fn set_data_encipherment<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.data_encipherment = v.into();
             self
         }
 
         /// Sets the value of [key_agreement][crate::model::key_usage::KeyUsageOptions::key_agreement].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_security_privateca_v1::model::key_usage::KeyUsageOptions;
+        /// let x = KeyUsageOptions::new().set_key_agreement(true);
+        /// ```
         pub fn set_key_agreement<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.key_agreement = v.into();
             self
         }
 
         /// Sets the value of [cert_sign][crate::model::key_usage::KeyUsageOptions::cert_sign].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_security_privateca_v1::model::key_usage::KeyUsageOptions;
+        /// let x = KeyUsageOptions::new().set_cert_sign(true);
+        /// ```
         pub fn set_cert_sign<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.cert_sign = v.into();
             self
         }
 
         /// Sets the value of [crl_sign][crate::model::key_usage::KeyUsageOptions::crl_sign].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_security_privateca_v1::model::key_usage::KeyUsageOptions;
+        /// let x = KeyUsageOptions::new().set_crl_sign(true);
+        /// ```
         pub fn set_crl_sign<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.crl_sign = v.into();
             self
         }
 
         /// Sets the value of [encipher_only][crate::model::key_usage::KeyUsageOptions::encipher_only].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_security_privateca_v1::model::key_usage::KeyUsageOptions;
+        /// let x = KeyUsageOptions::new().set_encipher_only(true);
+        /// ```
         pub fn set_encipher_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.encipher_only = v.into();
             self
         }
 
         /// Sets the value of [decipher_only][crate::model::key_usage::KeyUsageOptions::decipher_only].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_security_privateca_v1::model::key_usage::KeyUsageOptions;
+        /// let x = KeyUsageOptions::new().set_decipher_only(true);
+        /// ```
         pub fn set_decipher_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.decipher_only = v.into();
             self
@@ -5191,36 +6711,72 @@ pub mod key_usage {
         }
 
         /// Sets the value of [server_auth][crate::model::key_usage::ExtendedKeyUsageOptions::server_auth].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_security_privateca_v1::model::key_usage::ExtendedKeyUsageOptions;
+        /// let x = ExtendedKeyUsageOptions::new().set_server_auth(true);
+        /// ```
         pub fn set_server_auth<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.server_auth = v.into();
             self
         }
 
         /// Sets the value of [client_auth][crate::model::key_usage::ExtendedKeyUsageOptions::client_auth].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_security_privateca_v1::model::key_usage::ExtendedKeyUsageOptions;
+        /// let x = ExtendedKeyUsageOptions::new().set_client_auth(true);
+        /// ```
         pub fn set_client_auth<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.client_auth = v.into();
             self
         }
 
         /// Sets the value of [code_signing][crate::model::key_usage::ExtendedKeyUsageOptions::code_signing].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_security_privateca_v1::model::key_usage::ExtendedKeyUsageOptions;
+        /// let x = ExtendedKeyUsageOptions::new().set_code_signing(true);
+        /// ```
         pub fn set_code_signing<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.code_signing = v.into();
             self
         }
 
         /// Sets the value of [email_protection][crate::model::key_usage::ExtendedKeyUsageOptions::email_protection].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_security_privateca_v1::model::key_usage::ExtendedKeyUsageOptions;
+        /// let x = ExtendedKeyUsageOptions::new().set_email_protection(true);
+        /// ```
         pub fn set_email_protection<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.email_protection = v.into();
             self
         }
 
         /// Sets the value of [time_stamping][crate::model::key_usage::ExtendedKeyUsageOptions::time_stamping].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_security_privateca_v1::model::key_usage::ExtendedKeyUsageOptions;
+        /// let x = ExtendedKeyUsageOptions::new().set_time_stamping(true);
+        /// ```
         pub fn set_time_stamping<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.time_stamping = v.into();
             self
         }
 
         /// Sets the value of [ocsp_signing][crate::model::key_usage::ExtendedKeyUsageOptions::ocsp_signing].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_security_privateca_v1::model::key_usage::ExtendedKeyUsageOptions;
+        /// let x = ExtendedKeyUsageOptions::new().set_ocsp_signing(true);
+        /// ```
         pub fn set_ocsp_signing<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.ocsp_signing = v.into();
             self
@@ -5257,6 +6813,12 @@ impl AttributeTypeAndValue {
     }
 
     /// Sets the value of [value][crate::model::AttributeTypeAndValue::value].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::AttributeTypeAndValue;
+    /// let x = AttributeTypeAndValue::new().set_value("example");
+    /// ```
     pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.value = v.into();
         self
@@ -5266,6 +6828,16 @@ impl AttributeTypeAndValue {
     ///
     /// Note that all the setters affecting `attribute_type` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::AttributeTypeAndValue;
+    /// use google_cloud_security_privateca_v1::model::attribute_type_and_value;
+    /// use google_cloud_security_privateca_v1::model::AttributeType;
+    /// let x0 = AttributeTypeAndValue::new().set_attribute_type(Some(attribute_type_and_value::AttributeType::Type(AttributeType::CommonName)));
+    /// let x1 = AttributeTypeAndValue::new().set_attribute_type(Some(attribute_type_and_value::AttributeType::Type(AttributeType::CountryCode)));
+    /// let x2 = AttributeTypeAndValue::new().set_attribute_type(Some(attribute_type_and_value::AttributeType::Type(AttributeType::Organization)));
+    /// ```
     pub fn set_attribute_type<
         T: std::convert::Into<
                 std::option::Option<crate::model::attribute_type_and_value::AttributeType>,
@@ -5296,6 +6868,17 @@ impl AttributeTypeAndValue {
     ///
     /// Note that all the setters affecting `attribute_type` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::AttributeTypeAndValue;
+    /// use google_cloud_security_privateca_v1::model::AttributeType;
+    /// let x0 = AttributeTypeAndValue::new().set_type(AttributeType::CommonName);
+    /// let x1 = AttributeTypeAndValue::new().set_type(AttributeType::CountryCode);
+    /// let x2 = AttributeTypeAndValue::new().set_type(AttributeType::Organization);
+    /// assert!(x.r#type().is_some());
+    /// assert!(x.object_id().is_none());
+    /// ```
     pub fn set_type<T: std::convert::Into<crate::model::AttributeType>>(mut self, v: T) -> Self {
         self.attribute_type = std::option::Option::Some(
             crate::model::attribute_type_and_value::AttributeType::Type(v.into()),
@@ -5321,6 +6904,15 @@ impl AttributeTypeAndValue {
     ///
     /// Note that all the setters affecting `attribute_type` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::AttributeTypeAndValue;
+    /// use google_cloud_security_privateca_v1::model::ObjectId;
+    /// let x = AttributeTypeAndValue::new().set_object_id(ObjectId::default()/* use setters */);
+    /// assert!(x.object_id().is_some());
+    /// assert!(x.r#type().is_none());
+    /// ```
     pub fn set_object_id<T: std::convert::Into<std::boxed::Box<crate::model::ObjectId>>>(
         mut self,
         v: T,
@@ -5374,6 +6966,17 @@ impl RelativeDistinguishedName {
     }
 
     /// Sets the value of [attributes][crate::model::RelativeDistinguishedName::attributes].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::RelativeDistinguishedName;
+    /// use google_cloud_security_privateca_v1::model::AttributeTypeAndValue;
+    /// let x = RelativeDistinguishedName::new()
+    ///     .set_attributes([
+    ///         AttributeTypeAndValue::default()/* use setters */,
+    ///         AttributeTypeAndValue::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_attributes<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -5434,24 +7037,48 @@ impl Subject {
     }
 
     /// Sets the value of [common_name][crate::model::Subject::common_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::Subject;
+    /// let x = Subject::new().set_common_name("example");
+    /// ```
     pub fn set_common_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.common_name = v.into();
         self
     }
 
     /// Sets the value of [country_code][crate::model::Subject::country_code].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::Subject;
+    /// let x = Subject::new().set_country_code("example");
+    /// ```
     pub fn set_country_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.country_code = v.into();
         self
     }
 
     /// Sets the value of [organization][crate::model::Subject::organization].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::Subject;
+    /// let x = Subject::new().set_organization("example");
+    /// ```
     pub fn set_organization<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.organization = v.into();
         self
     }
 
     /// Sets the value of [organizational_unit][crate::model::Subject::organizational_unit].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::Subject;
+    /// let x = Subject::new().set_organizational_unit("example");
+    /// ```
     pub fn set_organizational_unit<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -5461,30 +7088,65 @@ impl Subject {
     }
 
     /// Sets the value of [locality][crate::model::Subject::locality].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::Subject;
+    /// let x = Subject::new().set_locality("example");
+    /// ```
     pub fn set_locality<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.locality = v.into();
         self
     }
 
     /// Sets the value of [province][crate::model::Subject::province].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::Subject;
+    /// let x = Subject::new().set_province("example");
+    /// ```
     pub fn set_province<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.province = v.into();
         self
     }
 
     /// Sets the value of [street_address][crate::model::Subject::street_address].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::Subject;
+    /// let x = Subject::new().set_street_address("example");
+    /// ```
     pub fn set_street_address<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.street_address = v.into();
         self
     }
 
     /// Sets the value of [postal_code][crate::model::Subject::postal_code].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::Subject;
+    /// let x = Subject::new().set_postal_code("example");
+    /// ```
     pub fn set_postal_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.postal_code = v.into();
         self
     }
 
     /// Sets the value of [rdn_sequence][crate::model::Subject::rdn_sequence].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::Subject;
+    /// use google_cloud_security_privateca_v1::model::RelativeDistinguishedName;
+    /// let x = Subject::new()
+    ///     .set_rdn_sequence([
+    ///         RelativeDistinguishedName::default()/* use setters */,
+    ///         RelativeDistinguishedName::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_rdn_sequence<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -5537,6 +7199,12 @@ impl SubjectAltNames {
     }
 
     /// Sets the value of [dns_names][crate::model::SubjectAltNames::dns_names].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::SubjectAltNames;
+    /// let x = SubjectAltNames::new().set_dns_names(["a", "b", "c"]);
+    /// ```
     pub fn set_dns_names<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -5548,6 +7216,12 @@ impl SubjectAltNames {
     }
 
     /// Sets the value of [uris][crate::model::SubjectAltNames::uris].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::SubjectAltNames;
+    /// let x = SubjectAltNames::new().set_uris(["a", "b", "c"]);
+    /// ```
     pub fn set_uris<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -5559,6 +7233,12 @@ impl SubjectAltNames {
     }
 
     /// Sets the value of [email_addresses][crate::model::SubjectAltNames::email_addresses].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::SubjectAltNames;
+    /// let x = SubjectAltNames::new().set_email_addresses(["a", "b", "c"]);
+    /// ```
     pub fn set_email_addresses<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -5570,6 +7250,12 @@ impl SubjectAltNames {
     }
 
     /// Sets the value of [ip_addresses][crate::model::SubjectAltNames::ip_addresses].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::SubjectAltNames;
+    /// let x = SubjectAltNames::new().set_ip_addresses(["a", "b", "c"]);
+    /// ```
     pub fn set_ip_addresses<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -5581,6 +7267,17 @@ impl SubjectAltNames {
     }
 
     /// Sets the value of [custom_sans][crate::model::SubjectAltNames::custom_sans].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::SubjectAltNames;
+    /// use google_cloud_security_privateca_v1::model::X509Extension;
+    /// let x = SubjectAltNames::new()
+    ///     .set_custom_sans([
+    ///         X509Extension::default()/* use setters */,
+    ///         X509Extension::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_custom_sans<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -5643,6 +7340,13 @@ impl CertificateIdentityConstraints {
     }
 
     /// Sets the value of [cel_expression][crate::model::CertificateIdentityConstraints::cel_expression].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::CertificateIdentityConstraints;
+    /// use gtype::model::Expr;
+    /// let x = CertificateIdentityConstraints::new().set_cel_expression(Expr::default()/* use setters */);
+    /// ```
     pub fn set_cel_expression<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<gtype::model::Expr>,
@@ -5652,6 +7356,14 @@ impl CertificateIdentityConstraints {
     }
 
     /// Sets or clears the value of [cel_expression][crate::model::CertificateIdentityConstraints::cel_expression].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::CertificateIdentityConstraints;
+    /// use gtype::model::Expr;
+    /// let x = CertificateIdentityConstraints::new().set_or_clear_cel_expression(Some(Expr::default()/* use setters */));
+    /// let x = CertificateIdentityConstraints::new().set_or_clear_cel_expression(None::<Expr>);
+    /// ```
     pub fn set_or_clear_cel_expression<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<gtype::model::Expr>,
@@ -5661,6 +7373,12 @@ impl CertificateIdentityConstraints {
     }
 
     /// Sets the value of [allow_subject_passthrough][crate::model::CertificateIdentityConstraints::allow_subject_passthrough].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::CertificateIdentityConstraints;
+    /// let x = CertificateIdentityConstraints::new().set_allow_subject_passthrough(true);
+    /// ```
     pub fn set_allow_subject_passthrough<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<bool>,
@@ -5670,6 +7388,13 @@ impl CertificateIdentityConstraints {
     }
 
     /// Sets or clears the value of [allow_subject_passthrough][crate::model::CertificateIdentityConstraints::allow_subject_passthrough].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::CertificateIdentityConstraints;
+    /// let x = CertificateIdentityConstraints::new().set_or_clear_allow_subject_passthrough(Some(false));
+    /// let x = CertificateIdentityConstraints::new().set_or_clear_allow_subject_passthrough(None::<bool>);
+    /// ```
     pub fn set_or_clear_allow_subject_passthrough<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<bool>,
@@ -5679,6 +7404,12 @@ impl CertificateIdentityConstraints {
     }
 
     /// Sets the value of [allow_subject_alt_names_passthrough][crate::model::CertificateIdentityConstraints::allow_subject_alt_names_passthrough].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::CertificateIdentityConstraints;
+    /// let x = CertificateIdentityConstraints::new().set_allow_subject_alt_names_passthrough(true);
+    /// ```
     pub fn set_allow_subject_alt_names_passthrough<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<bool>,
@@ -5688,6 +7419,13 @@ impl CertificateIdentityConstraints {
     }
 
     /// Sets or clears the value of [allow_subject_alt_names_passthrough][crate::model::CertificateIdentityConstraints::allow_subject_alt_names_passthrough].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::CertificateIdentityConstraints;
+    /// let x = CertificateIdentityConstraints::new().set_or_clear_allow_subject_alt_names_passthrough(Some(false));
+    /// let x = CertificateIdentityConstraints::new().set_or_clear_allow_subject_alt_names_passthrough(None::<bool>);
+    /// ```
     pub fn set_or_clear_allow_subject_alt_names_passthrough<T>(
         mut self,
         v: std::option::Option<T>,
@@ -5737,6 +7475,17 @@ impl CertificateExtensionConstraints {
     }
 
     /// Sets the value of [known_extensions][crate::model::CertificateExtensionConstraints::known_extensions].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::CertificateExtensionConstraints;
+    /// use google_cloud_security_privateca_v1::model::certificate_extension_constraints::KnownCertificateExtension;
+    /// let x = CertificateExtensionConstraints::new().set_known_extensions([
+    ///     KnownCertificateExtension::BaseKeyUsage,
+    ///     KnownCertificateExtension::ExtendedKeyUsage,
+    ///     KnownCertificateExtension::CaOptions,
+    /// ]);
+    /// ```
     pub fn set_known_extensions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -5750,6 +7499,17 @@ impl CertificateExtensionConstraints {
     }
 
     /// Sets the value of [additional_extensions][crate::model::CertificateExtensionConstraints::additional_extensions].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::CertificateExtensionConstraints;
+    /// use google_cloud_security_privateca_v1::model::ObjectId;
+    /// let x = CertificateExtensionConstraints::new()
+    ///     .set_additional_extensions([
+    ///         ObjectId::default()/* use setters */,
+    ///         ObjectId::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_additional_extensions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -6077,18 +7837,37 @@ impl CreateCertificateRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateCertificateRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::CreateCertificateRequest;
+    /// let x = CreateCertificateRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [certificate_id][crate::model::CreateCertificateRequest::certificate_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::CreateCertificateRequest;
+    /// let x = CreateCertificateRequest::new().set_certificate_id("example");
+    /// ```
     pub fn set_certificate_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.certificate_id = v.into();
         self
     }
 
     /// Sets the value of [certificate][crate::model::CreateCertificateRequest::certificate].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::CreateCertificateRequest;
+    /// use google_cloud_security_privateca_v1::model::Certificate;
+    /// let x = CreateCertificateRequest::new().set_certificate(Certificate::default()/* use setters */);
+    /// ```
     pub fn set_certificate<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Certificate>,
@@ -6098,6 +7877,14 @@ impl CreateCertificateRequest {
     }
 
     /// Sets or clears the value of [certificate][crate::model::CreateCertificateRequest::certificate].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::CreateCertificateRequest;
+    /// use google_cloud_security_privateca_v1::model::Certificate;
+    /// let x = CreateCertificateRequest::new().set_or_clear_certificate(Some(Certificate::default()/* use setters */));
+    /// let x = CreateCertificateRequest::new().set_or_clear_certificate(None::<Certificate>);
+    /// ```
     pub fn set_or_clear_certificate<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Certificate>,
@@ -6107,18 +7894,36 @@ impl CreateCertificateRequest {
     }
 
     /// Sets the value of [request_id][crate::model::CreateCertificateRequest::request_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::CreateCertificateRequest;
+    /// let x = CreateCertificateRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
     }
 
     /// Sets the value of [validate_only][crate::model::CreateCertificateRequest::validate_only].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::CreateCertificateRequest;
+    /// let x = CreateCertificateRequest::new().set_validate_only(true);
+    /// ```
     pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.validate_only = v.into();
         self
     }
 
     /// Sets the value of [issuing_certificate_authority_id][crate::model::CreateCertificateRequest::issuing_certificate_authority_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::CreateCertificateRequest;
+    /// let x = CreateCertificateRequest::new().set_issuing_certificate_authority_id("example");
+    /// ```
     pub fn set_issuing_certificate_authority_id<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -6158,6 +7963,12 @@ impl GetCertificateRequest {
     }
 
     /// Sets the value of [name][crate::model::GetCertificateRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::GetCertificateRequest;
+    /// let x = GetCertificateRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -6222,30 +8033,60 @@ impl ListCertificatesRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListCertificatesRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::ListCertificatesRequest;
+    /// let x = ListCertificatesRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListCertificatesRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::ListCertificatesRequest;
+    /// let x = ListCertificatesRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListCertificatesRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::ListCertificatesRequest;
+    /// let x = ListCertificatesRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListCertificatesRequest::filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::ListCertificatesRequest;
+    /// let x = ListCertificatesRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListCertificatesRequest::order_by].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::ListCertificatesRequest;
+    /// let x = ListCertificatesRequest::new().set_order_by("example");
+    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
@@ -6289,6 +8130,17 @@ impl ListCertificatesResponse {
     }
 
     /// Sets the value of [certificates][crate::model::ListCertificatesResponse::certificates].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::ListCertificatesResponse;
+    /// use google_cloud_security_privateca_v1::model::Certificate;
+    /// let x = ListCertificatesResponse::new()
+    ///     .set_certificates([
+    ///         Certificate::default()/* use setters */,
+    ///         Certificate::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_certificates<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -6300,12 +8152,24 @@ impl ListCertificatesResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListCertificatesResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::ListCertificatesResponse;
+    /// let x = ListCertificatesResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListCertificatesResponse::unreachable].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::ListCertificatesResponse;
+    /// let x = ListCertificatesResponse::new().set_unreachable(["a", "b", "c"]);
+    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -6382,12 +8246,27 @@ impl RevokeCertificateRequest {
     }
 
     /// Sets the value of [name][crate::model::RevokeCertificateRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::RevokeCertificateRequest;
+    /// let x = RevokeCertificateRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [reason][crate::model::RevokeCertificateRequest::reason].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::RevokeCertificateRequest;
+    /// use google_cloud_security_privateca_v1::model::RevocationReason;
+    /// let x0 = RevokeCertificateRequest::new().set_reason(RevocationReason::KeyCompromise);
+    /// let x1 = RevokeCertificateRequest::new().set_reason(RevocationReason::CertificateAuthorityCompromise);
+    /// let x2 = RevokeCertificateRequest::new().set_reason(RevocationReason::AffiliationChanged);
+    /// ```
     pub fn set_reason<T: std::convert::Into<crate::model::RevocationReason>>(
         mut self,
         v: T,
@@ -6397,6 +8276,12 @@ impl RevokeCertificateRequest {
     }
 
     /// Sets the value of [request_id][crate::model::RevokeCertificateRequest::request_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::RevokeCertificateRequest;
+    /// let x = RevokeCertificateRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -6449,6 +8334,13 @@ impl UpdateCertificateRequest {
     }
 
     /// Sets the value of [certificate][crate::model::UpdateCertificateRequest::certificate].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::UpdateCertificateRequest;
+    /// use google_cloud_security_privateca_v1::model::Certificate;
+    /// let x = UpdateCertificateRequest::new().set_certificate(Certificate::default()/* use setters */);
+    /// ```
     pub fn set_certificate<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Certificate>,
@@ -6458,6 +8350,14 @@ impl UpdateCertificateRequest {
     }
 
     /// Sets or clears the value of [certificate][crate::model::UpdateCertificateRequest::certificate].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::UpdateCertificateRequest;
+    /// use google_cloud_security_privateca_v1::model::Certificate;
+    /// let x = UpdateCertificateRequest::new().set_or_clear_certificate(Some(Certificate::default()/* use setters */));
+    /// let x = UpdateCertificateRequest::new().set_or_clear_certificate(None::<Certificate>);
+    /// ```
     pub fn set_or_clear_certificate<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Certificate>,
@@ -6467,6 +8367,13 @@ impl UpdateCertificateRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateCertificateRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::UpdateCertificateRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateCertificateRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -6476,6 +8383,14 @@ impl UpdateCertificateRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateCertificateRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::UpdateCertificateRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateCertificateRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateCertificateRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -6485,6 +8400,12 @@ impl UpdateCertificateRequest {
     }
 
     /// Sets the value of [request_id][crate::model::UpdateCertificateRequest::request_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::UpdateCertificateRequest;
+    /// let x = UpdateCertificateRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -6545,12 +8466,24 @@ impl ActivateCertificateAuthorityRequest {
     }
 
     /// Sets the value of [name][crate::model::ActivateCertificateAuthorityRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::ActivateCertificateAuthorityRequest;
+    /// let x = ActivateCertificateAuthorityRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [pem_ca_certificate][crate::model::ActivateCertificateAuthorityRequest::pem_ca_certificate].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::ActivateCertificateAuthorityRequest;
+    /// let x = ActivateCertificateAuthorityRequest::new().set_pem_ca_certificate("example");
+    /// ```
     pub fn set_pem_ca_certificate<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -6560,6 +8493,13 @@ impl ActivateCertificateAuthorityRequest {
     }
 
     /// Sets the value of [subordinate_config][crate::model::ActivateCertificateAuthorityRequest::subordinate_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::ActivateCertificateAuthorityRequest;
+    /// use google_cloud_security_privateca_v1::model::SubordinateConfig;
+    /// let x = ActivateCertificateAuthorityRequest::new().set_subordinate_config(SubordinateConfig::default()/* use setters */);
+    /// ```
     pub fn set_subordinate_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::SubordinateConfig>,
@@ -6569,6 +8509,14 @@ impl ActivateCertificateAuthorityRequest {
     }
 
     /// Sets or clears the value of [subordinate_config][crate::model::ActivateCertificateAuthorityRequest::subordinate_config].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::ActivateCertificateAuthorityRequest;
+    /// use google_cloud_security_privateca_v1::model::SubordinateConfig;
+    /// let x = ActivateCertificateAuthorityRequest::new().set_or_clear_subordinate_config(Some(SubordinateConfig::default()/* use setters */));
+    /// let x = ActivateCertificateAuthorityRequest::new().set_or_clear_subordinate_config(None::<SubordinateConfig>);
+    /// ```
     pub fn set_or_clear_subordinate_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::SubordinateConfig>,
@@ -6578,6 +8526,12 @@ impl ActivateCertificateAuthorityRequest {
     }
 
     /// Sets the value of [request_id][crate::model::ActivateCertificateAuthorityRequest::request_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::ActivateCertificateAuthorityRequest;
+    /// let x = ActivateCertificateAuthorityRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -6641,12 +8595,24 @@ impl CreateCertificateAuthorityRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateCertificateAuthorityRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::CreateCertificateAuthorityRequest;
+    /// let x = CreateCertificateAuthorityRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [certificate_authority_id][crate::model::CreateCertificateAuthorityRequest::certificate_authority_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::CreateCertificateAuthorityRequest;
+    /// let x = CreateCertificateAuthorityRequest::new().set_certificate_authority_id("example");
+    /// ```
     pub fn set_certificate_authority_id<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -6656,6 +8622,13 @@ impl CreateCertificateAuthorityRequest {
     }
 
     /// Sets the value of [certificate_authority][crate::model::CreateCertificateAuthorityRequest::certificate_authority].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::CreateCertificateAuthorityRequest;
+    /// use google_cloud_security_privateca_v1::model::CertificateAuthority;
+    /// let x = CreateCertificateAuthorityRequest::new().set_certificate_authority(CertificateAuthority::default()/* use setters */);
+    /// ```
     pub fn set_certificate_authority<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::CertificateAuthority>,
@@ -6665,6 +8638,14 @@ impl CreateCertificateAuthorityRequest {
     }
 
     /// Sets or clears the value of [certificate_authority][crate::model::CreateCertificateAuthorityRequest::certificate_authority].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::CreateCertificateAuthorityRequest;
+    /// use google_cloud_security_privateca_v1::model::CertificateAuthority;
+    /// let x = CreateCertificateAuthorityRequest::new().set_or_clear_certificate_authority(Some(CertificateAuthority::default()/* use setters */));
+    /// let x = CreateCertificateAuthorityRequest::new().set_or_clear_certificate_authority(None::<CertificateAuthority>);
+    /// ```
     pub fn set_or_clear_certificate_authority<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CertificateAuthority>,
@@ -6674,6 +8655,12 @@ impl CreateCertificateAuthorityRequest {
     }
 
     /// Sets the value of [request_id][crate::model::CreateCertificateAuthorityRequest::request_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::CreateCertificateAuthorityRequest;
+    /// let x = CreateCertificateAuthorityRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -6730,18 +8717,36 @@ impl DisableCertificateAuthorityRequest {
     }
 
     /// Sets the value of [name][crate::model::DisableCertificateAuthorityRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::DisableCertificateAuthorityRequest;
+    /// let x = DisableCertificateAuthorityRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [request_id][crate::model::DisableCertificateAuthorityRequest::request_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::DisableCertificateAuthorityRequest;
+    /// let x = DisableCertificateAuthorityRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
     }
 
     /// Sets the value of [ignore_dependent_resources][crate::model::DisableCertificateAuthorityRequest::ignore_dependent_resources].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::DisableCertificateAuthorityRequest;
+    /// let x = DisableCertificateAuthorityRequest::new().set_ignore_dependent_resources(true);
+    /// ```
     pub fn set_ignore_dependent_resources<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.ignore_dependent_resources = v.into();
         self
@@ -6792,12 +8797,24 @@ impl EnableCertificateAuthorityRequest {
     }
 
     /// Sets the value of [name][crate::model::EnableCertificateAuthorityRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::EnableCertificateAuthorityRequest;
+    /// let x = EnableCertificateAuthorityRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [request_id][crate::model::EnableCertificateAuthorityRequest::request_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::EnableCertificateAuthorityRequest;
+    /// let x = EnableCertificateAuthorityRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -6833,6 +8850,12 @@ impl FetchCertificateAuthorityCsrRequest {
     }
 
     /// Sets the value of [name][crate::model::FetchCertificateAuthorityCsrRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::FetchCertificateAuthorityCsrRequest;
+    /// let x = FetchCertificateAuthorityCsrRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -6864,6 +8887,12 @@ impl FetchCertificateAuthorityCsrResponse {
     }
 
     /// Sets the value of [pem_csr][crate::model::FetchCertificateAuthorityCsrResponse::pem_csr].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::FetchCertificateAuthorityCsrResponse;
+    /// let x = FetchCertificateAuthorityCsrResponse::new().set_pem_csr("example");
+    /// ```
     pub fn set_pem_csr<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.pem_csr = v.into();
         self
@@ -6901,6 +8930,12 @@ impl GetCertificateAuthorityRequest {
     }
 
     /// Sets the value of [name][crate::model::GetCertificateAuthorityRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::GetCertificateAuthorityRequest;
+    /// let x = GetCertificateAuthorityRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -6963,30 +8998,60 @@ impl ListCertificateAuthoritiesRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListCertificateAuthoritiesRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::ListCertificateAuthoritiesRequest;
+    /// let x = ListCertificateAuthoritiesRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListCertificateAuthoritiesRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::ListCertificateAuthoritiesRequest;
+    /// let x = ListCertificateAuthoritiesRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListCertificateAuthoritiesRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::ListCertificateAuthoritiesRequest;
+    /// let x = ListCertificateAuthoritiesRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListCertificateAuthoritiesRequest::filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::ListCertificateAuthoritiesRequest;
+    /// let x = ListCertificateAuthoritiesRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListCertificateAuthoritiesRequest::order_by].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::ListCertificateAuthoritiesRequest;
+    /// let x = ListCertificateAuthoritiesRequest::new().set_order_by("example");
+    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
@@ -7031,6 +9096,17 @@ impl ListCertificateAuthoritiesResponse {
     }
 
     /// Sets the value of [certificate_authorities][crate::model::ListCertificateAuthoritiesResponse::certificate_authorities].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::ListCertificateAuthoritiesResponse;
+    /// use google_cloud_security_privateca_v1::model::CertificateAuthority;
+    /// let x = ListCertificateAuthoritiesResponse::new()
+    ///     .set_certificate_authorities([
+    ///         CertificateAuthority::default()/* use setters */,
+    ///         CertificateAuthority::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_certificate_authorities<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -7042,12 +9118,24 @@ impl ListCertificateAuthoritiesResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListCertificateAuthoritiesResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::ListCertificateAuthoritiesResponse;
+    /// let x = ListCertificateAuthoritiesResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListCertificateAuthoritiesResponse::unreachable].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::ListCertificateAuthoritiesResponse;
+    /// let x = ListCertificateAuthoritiesResponse::new().set_unreachable(["a", "b", "c"]);
+    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -7117,12 +9205,24 @@ impl UndeleteCertificateAuthorityRequest {
     }
 
     /// Sets the value of [name][crate::model::UndeleteCertificateAuthorityRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::UndeleteCertificateAuthorityRequest;
+    /// let x = UndeleteCertificateAuthorityRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [request_id][crate::model::UndeleteCertificateAuthorityRequest::request_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::UndeleteCertificateAuthorityRequest;
+    /// let x = UndeleteCertificateAuthorityRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -7188,30 +9288,60 @@ impl DeleteCertificateAuthorityRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteCertificateAuthorityRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::DeleteCertificateAuthorityRequest;
+    /// let x = DeleteCertificateAuthorityRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [request_id][crate::model::DeleteCertificateAuthorityRequest::request_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::DeleteCertificateAuthorityRequest;
+    /// let x = DeleteCertificateAuthorityRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
     }
 
     /// Sets the value of [ignore_active_certificates][crate::model::DeleteCertificateAuthorityRequest::ignore_active_certificates].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::DeleteCertificateAuthorityRequest;
+    /// let x = DeleteCertificateAuthorityRequest::new().set_ignore_active_certificates(true);
+    /// ```
     pub fn set_ignore_active_certificates<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.ignore_active_certificates = v.into();
         self
     }
 
     /// Sets the value of [skip_grace_period][crate::model::DeleteCertificateAuthorityRequest::skip_grace_period].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::DeleteCertificateAuthorityRequest;
+    /// let x = DeleteCertificateAuthorityRequest::new().set_skip_grace_period(true);
+    /// ```
     pub fn set_skip_grace_period<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.skip_grace_period = v.into();
         self
     }
 
     /// Sets the value of [ignore_dependent_resources][crate::model::DeleteCertificateAuthorityRequest::ignore_dependent_resources].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::DeleteCertificateAuthorityRequest;
+    /// let x = DeleteCertificateAuthorityRequest::new().set_ignore_dependent_resources(true);
+    /// ```
     pub fn set_ignore_dependent_resources<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.ignore_dependent_resources = v.into();
         self
@@ -7265,6 +9395,13 @@ impl UpdateCertificateAuthorityRequest {
     }
 
     /// Sets the value of [certificate_authority][crate::model::UpdateCertificateAuthorityRequest::certificate_authority].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::UpdateCertificateAuthorityRequest;
+    /// use google_cloud_security_privateca_v1::model::CertificateAuthority;
+    /// let x = UpdateCertificateAuthorityRequest::new().set_certificate_authority(CertificateAuthority::default()/* use setters */);
+    /// ```
     pub fn set_certificate_authority<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::CertificateAuthority>,
@@ -7274,6 +9411,14 @@ impl UpdateCertificateAuthorityRequest {
     }
 
     /// Sets or clears the value of [certificate_authority][crate::model::UpdateCertificateAuthorityRequest::certificate_authority].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::UpdateCertificateAuthorityRequest;
+    /// use google_cloud_security_privateca_v1::model::CertificateAuthority;
+    /// let x = UpdateCertificateAuthorityRequest::new().set_or_clear_certificate_authority(Some(CertificateAuthority::default()/* use setters */));
+    /// let x = UpdateCertificateAuthorityRequest::new().set_or_clear_certificate_authority(None::<CertificateAuthority>);
+    /// ```
     pub fn set_or_clear_certificate_authority<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CertificateAuthority>,
@@ -7283,6 +9428,13 @@ impl UpdateCertificateAuthorityRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateCertificateAuthorityRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::UpdateCertificateAuthorityRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateCertificateAuthorityRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -7292,6 +9444,14 @@ impl UpdateCertificateAuthorityRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateCertificateAuthorityRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::UpdateCertificateAuthorityRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateCertificateAuthorityRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateCertificateAuthorityRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -7301,6 +9461,12 @@ impl UpdateCertificateAuthorityRequest {
     }
 
     /// Sets the value of [request_id][crate::model::UpdateCertificateAuthorityRequest::request_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::UpdateCertificateAuthorityRequest;
+    /// let x = UpdateCertificateAuthorityRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -7361,18 +9527,37 @@ impl CreateCaPoolRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateCaPoolRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::CreateCaPoolRequest;
+    /// let x = CreateCaPoolRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [ca_pool_id][crate::model::CreateCaPoolRequest::ca_pool_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::CreateCaPoolRequest;
+    /// let x = CreateCaPoolRequest::new().set_ca_pool_id("example");
+    /// ```
     pub fn set_ca_pool_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.ca_pool_id = v.into();
         self
     }
 
     /// Sets the value of [ca_pool][crate::model::CreateCaPoolRequest::ca_pool].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::CreateCaPoolRequest;
+    /// use google_cloud_security_privateca_v1::model::CaPool;
+    /// let x = CreateCaPoolRequest::new().set_ca_pool(CaPool::default()/* use setters */);
+    /// ```
     pub fn set_ca_pool<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::CaPool>,
@@ -7382,6 +9567,14 @@ impl CreateCaPoolRequest {
     }
 
     /// Sets or clears the value of [ca_pool][crate::model::CreateCaPoolRequest::ca_pool].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::CreateCaPoolRequest;
+    /// use google_cloud_security_privateca_v1::model::CaPool;
+    /// let x = CreateCaPoolRequest::new().set_or_clear_ca_pool(Some(CaPool::default()/* use setters */));
+    /// let x = CreateCaPoolRequest::new().set_or_clear_ca_pool(None::<CaPool>);
+    /// ```
     pub fn set_or_clear_ca_pool<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CaPool>,
@@ -7391,6 +9584,12 @@ impl CreateCaPoolRequest {
     }
 
     /// Sets the value of [request_id][crate::model::CreateCaPoolRequest::request_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::CreateCaPoolRequest;
+    /// let x = CreateCaPoolRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -7443,6 +9642,13 @@ impl UpdateCaPoolRequest {
     }
 
     /// Sets the value of [ca_pool][crate::model::UpdateCaPoolRequest::ca_pool].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::UpdateCaPoolRequest;
+    /// use google_cloud_security_privateca_v1::model::CaPool;
+    /// let x = UpdateCaPoolRequest::new().set_ca_pool(CaPool::default()/* use setters */);
+    /// ```
     pub fn set_ca_pool<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::CaPool>,
@@ -7452,6 +9658,14 @@ impl UpdateCaPoolRequest {
     }
 
     /// Sets or clears the value of [ca_pool][crate::model::UpdateCaPoolRequest::ca_pool].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::UpdateCaPoolRequest;
+    /// use google_cloud_security_privateca_v1::model::CaPool;
+    /// let x = UpdateCaPoolRequest::new().set_or_clear_ca_pool(Some(CaPool::default()/* use setters */));
+    /// let x = UpdateCaPoolRequest::new().set_or_clear_ca_pool(None::<CaPool>);
+    /// ```
     pub fn set_or_clear_ca_pool<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CaPool>,
@@ -7461,6 +9675,13 @@ impl UpdateCaPoolRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateCaPoolRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::UpdateCaPoolRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateCaPoolRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -7470,6 +9691,14 @@ impl UpdateCaPoolRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateCaPoolRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::UpdateCaPoolRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateCaPoolRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateCaPoolRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -7479,6 +9708,12 @@ impl UpdateCaPoolRequest {
     }
 
     /// Sets the value of [request_id][crate::model::UpdateCaPoolRequest::request_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::UpdateCaPoolRequest;
+    /// let x = UpdateCaPoolRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -7535,18 +9770,36 @@ impl DeleteCaPoolRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteCaPoolRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::DeleteCaPoolRequest;
+    /// let x = DeleteCaPoolRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [request_id][crate::model::DeleteCaPoolRequest::request_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::DeleteCaPoolRequest;
+    /// let x = DeleteCaPoolRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
     }
 
     /// Sets the value of [ignore_dependent_resources][crate::model::DeleteCaPoolRequest::ignore_dependent_resources].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::DeleteCaPoolRequest;
+    /// let x = DeleteCaPoolRequest::new().set_ignore_dependent_resources(true);
+    /// ```
     pub fn set_ignore_dependent_resources<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.ignore_dependent_resources = v.into();
         self
@@ -7597,12 +9850,24 @@ impl FetchCaCertsRequest {
     }
 
     /// Sets the value of [ca_pool][crate::model::FetchCaCertsRequest::ca_pool].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::FetchCaCertsRequest;
+    /// let x = FetchCaCertsRequest::new().set_ca_pool("example");
+    /// ```
     pub fn set_ca_pool<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.ca_pool = v.into();
         self
     }
 
     /// Sets the value of [request_id][crate::model::FetchCaCertsRequest::request_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::FetchCaCertsRequest;
+    /// let x = FetchCaCertsRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -7638,6 +9903,17 @@ impl FetchCaCertsResponse {
     }
 
     /// Sets the value of [ca_certs][crate::model::FetchCaCertsResponse::ca_certs].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::FetchCaCertsResponse;
+    /// use google_cloud_security_privateca_v1::model::fetch_ca_certs_response::CertChain;
+    /// let x = FetchCaCertsResponse::new()
+    ///     .set_ca_certs([
+    ///         CertChain::default()/* use setters */,
+    ///         CertChain::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_ca_certs<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -7675,6 +9951,12 @@ pub mod fetch_ca_certs_response {
         }
 
         /// Sets the value of [certificates][crate::model::fetch_ca_certs_response::CertChain::certificates].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_security_privateca_v1::model::fetch_ca_certs_response::CertChain;
+        /// let x = CertChain::new().set_certificates(["a", "b", "c"]);
+        /// ```
         pub fn set_certificates<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -7716,6 +9998,12 @@ impl GetCaPoolRequest {
     }
 
     /// Sets the value of [name][crate::model::GetCaPoolRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::GetCaPoolRequest;
+    /// let x = GetCaPoolRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -7775,30 +10063,60 @@ impl ListCaPoolsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListCaPoolsRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::ListCaPoolsRequest;
+    /// let x = ListCaPoolsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListCaPoolsRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::ListCaPoolsRequest;
+    /// let x = ListCaPoolsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListCaPoolsRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::ListCaPoolsRequest;
+    /// let x = ListCaPoolsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListCaPoolsRequest::filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::ListCaPoolsRequest;
+    /// let x = ListCaPoolsRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListCaPoolsRequest::order_by].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::ListCaPoolsRequest;
+    /// let x = ListCaPoolsRequest::new().set_order_by("example");
+    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
@@ -7842,6 +10160,17 @@ impl ListCaPoolsResponse {
     }
 
     /// Sets the value of [ca_pools][crate::model::ListCaPoolsResponse::ca_pools].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::ListCaPoolsResponse;
+    /// use google_cloud_security_privateca_v1::model::CaPool;
+    /// let x = ListCaPoolsResponse::new()
+    ///     .set_ca_pools([
+    ///         CaPool::default()/* use setters */,
+    ///         CaPool::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_ca_pools<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -7853,12 +10182,24 @@ impl ListCaPoolsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListCaPoolsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::ListCaPoolsResponse;
+    /// let x = ListCaPoolsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListCaPoolsResponse::unreachable].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::ListCaPoolsResponse;
+    /// let x = ListCaPoolsResponse::new().set_unreachable(["a", "b", "c"]);
+    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -7916,6 +10257,12 @@ impl GetCertificateRevocationListRequest {
     }
 
     /// Sets the value of [name][crate::model::GetCertificateRevocationListRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::GetCertificateRevocationListRequest;
+    /// let x = GetCertificateRevocationListRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -7976,30 +10323,60 @@ impl ListCertificateRevocationListsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListCertificateRevocationListsRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::ListCertificateRevocationListsRequest;
+    /// let x = ListCertificateRevocationListsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListCertificateRevocationListsRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::ListCertificateRevocationListsRequest;
+    /// let x = ListCertificateRevocationListsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListCertificateRevocationListsRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::ListCertificateRevocationListsRequest;
+    /// let x = ListCertificateRevocationListsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListCertificateRevocationListsRequest::filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::ListCertificateRevocationListsRequest;
+    /// let x = ListCertificateRevocationListsRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListCertificateRevocationListsRequest::order_by].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::ListCertificateRevocationListsRequest;
+    /// let x = ListCertificateRevocationListsRequest::new().set_order_by("example");
+    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
@@ -8044,6 +10421,17 @@ impl ListCertificateRevocationListsResponse {
     }
 
     /// Sets the value of [certificate_revocation_lists][crate::model::ListCertificateRevocationListsResponse::certificate_revocation_lists].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::ListCertificateRevocationListsResponse;
+    /// use google_cloud_security_privateca_v1::model::CertificateRevocationList;
+    /// let x = ListCertificateRevocationListsResponse::new()
+    ///     .set_certificate_revocation_lists([
+    ///         CertificateRevocationList::default()/* use setters */,
+    ///         CertificateRevocationList::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_certificate_revocation_lists<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -8055,12 +10443,24 @@ impl ListCertificateRevocationListsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListCertificateRevocationListsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::ListCertificateRevocationListsResponse;
+    /// let x = ListCertificateRevocationListsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListCertificateRevocationListsResponse::unreachable].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::ListCertificateRevocationListsResponse;
+    /// let x = ListCertificateRevocationListsResponse::new().set_unreachable(["a", "b", "c"]);
+    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -8133,6 +10533,13 @@ impl UpdateCertificateRevocationListRequest {
     }
 
     /// Sets the value of [certificate_revocation_list][crate::model::UpdateCertificateRevocationListRequest::certificate_revocation_list].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::UpdateCertificateRevocationListRequest;
+    /// use google_cloud_security_privateca_v1::model::CertificateRevocationList;
+    /// let x = UpdateCertificateRevocationListRequest::new().set_certificate_revocation_list(CertificateRevocationList::default()/* use setters */);
+    /// ```
     pub fn set_certificate_revocation_list<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::CertificateRevocationList>,
@@ -8142,6 +10549,14 @@ impl UpdateCertificateRevocationListRequest {
     }
 
     /// Sets or clears the value of [certificate_revocation_list][crate::model::UpdateCertificateRevocationListRequest::certificate_revocation_list].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::UpdateCertificateRevocationListRequest;
+    /// use google_cloud_security_privateca_v1::model::CertificateRevocationList;
+    /// let x = UpdateCertificateRevocationListRequest::new().set_or_clear_certificate_revocation_list(Some(CertificateRevocationList::default()/* use setters */));
+    /// let x = UpdateCertificateRevocationListRequest::new().set_or_clear_certificate_revocation_list(None::<CertificateRevocationList>);
+    /// ```
     pub fn set_or_clear_certificate_revocation_list<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CertificateRevocationList>,
@@ -8151,6 +10566,13 @@ impl UpdateCertificateRevocationListRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateCertificateRevocationListRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::UpdateCertificateRevocationListRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateCertificateRevocationListRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -8160,6 +10582,14 @@ impl UpdateCertificateRevocationListRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateCertificateRevocationListRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::UpdateCertificateRevocationListRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateCertificateRevocationListRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateCertificateRevocationListRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -8169,6 +10599,12 @@ impl UpdateCertificateRevocationListRequest {
     }
 
     /// Sets the value of [request_id][crate::model::UpdateCertificateRevocationListRequest::request_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::UpdateCertificateRevocationListRequest;
+    /// let x = UpdateCertificateRevocationListRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -8230,12 +10666,24 @@ impl CreateCertificateTemplateRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateCertificateTemplateRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::CreateCertificateTemplateRequest;
+    /// let x = CreateCertificateTemplateRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [certificate_template_id][crate::model::CreateCertificateTemplateRequest::certificate_template_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::CreateCertificateTemplateRequest;
+    /// let x = CreateCertificateTemplateRequest::new().set_certificate_template_id("example");
+    /// ```
     pub fn set_certificate_template_id<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -8245,6 +10693,13 @@ impl CreateCertificateTemplateRequest {
     }
 
     /// Sets the value of [certificate_template][crate::model::CreateCertificateTemplateRequest::certificate_template].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::CreateCertificateTemplateRequest;
+    /// use google_cloud_security_privateca_v1::model::CertificateTemplate;
+    /// let x = CreateCertificateTemplateRequest::new().set_certificate_template(CertificateTemplate::default()/* use setters */);
+    /// ```
     pub fn set_certificate_template<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::CertificateTemplate>,
@@ -8254,6 +10709,14 @@ impl CreateCertificateTemplateRequest {
     }
 
     /// Sets or clears the value of [certificate_template][crate::model::CreateCertificateTemplateRequest::certificate_template].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::CreateCertificateTemplateRequest;
+    /// use google_cloud_security_privateca_v1::model::CertificateTemplate;
+    /// let x = CreateCertificateTemplateRequest::new().set_or_clear_certificate_template(Some(CertificateTemplate::default()/* use setters */));
+    /// let x = CreateCertificateTemplateRequest::new().set_or_clear_certificate_template(None::<CertificateTemplate>);
+    /// ```
     pub fn set_or_clear_certificate_template<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CertificateTemplate>,
@@ -8263,6 +10726,12 @@ impl CreateCertificateTemplateRequest {
     }
 
     /// Sets the value of [request_id][crate::model::CreateCertificateTemplateRequest::request_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::CreateCertificateTemplateRequest;
+    /// let x = CreateCertificateTemplateRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -8313,12 +10782,24 @@ impl DeleteCertificateTemplateRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteCertificateTemplateRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::DeleteCertificateTemplateRequest;
+    /// let x = DeleteCertificateTemplateRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [request_id][crate::model::DeleteCertificateTemplateRequest::request_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::DeleteCertificateTemplateRequest;
+    /// let x = DeleteCertificateTemplateRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -8356,6 +10837,12 @@ impl GetCertificateTemplateRequest {
     }
 
     /// Sets the value of [name][crate::model::GetCertificateTemplateRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::GetCertificateTemplateRequest;
+    /// let x = GetCertificateTemplateRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -8416,30 +10903,60 @@ impl ListCertificateTemplatesRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListCertificateTemplatesRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::ListCertificateTemplatesRequest;
+    /// let x = ListCertificateTemplatesRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListCertificateTemplatesRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::ListCertificateTemplatesRequest;
+    /// let x = ListCertificateTemplatesRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListCertificateTemplatesRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::ListCertificateTemplatesRequest;
+    /// let x = ListCertificateTemplatesRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListCertificateTemplatesRequest::filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::ListCertificateTemplatesRequest;
+    /// let x = ListCertificateTemplatesRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListCertificateTemplatesRequest::order_by].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::ListCertificateTemplatesRequest;
+    /// let x = ListCertificateTemplatesRequest::new().set_order_by("example");
+    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
@@ -8484,6 +11001,17 @@ impl ListCertificateTemplatesResponse {
     }
 
     /// Sets the value of [certificate_templates][crate::model::ListCertificateTemplatesResponse::certificate_templates].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::ListCertificateTemplatesResponse;
+    /// use google_cloud_security_privateca_v1::model::CertificateTemplate;
+    /// let x = ListCertificateTemplatesResponse::new()
+    ///     .set_certificate_templates([
+    ///         CertificateTemplate::default()/* use setters */,
+    ///         CertificateTemplate::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_certificate_templates<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -8495,12 +11023,24 @@ impl ListCertificateTemplatesResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListCertificateTemplatesResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::ListCertificateTemplatesResponse;
+    /// let x = ListCertificateTemplatesResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListCertificateTemplatesResponse::unreachable].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::ListCertificateTemplatesResponse;
+    /// let x = ListCertificateTemplatesResponse::new().set_unreachable(["a", "b", "c"]);
+    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -8573,6 +11113,13 @@ impl UpdateCertificateTemplateRequest {
     }
 
     /// Sets the value of [certificate_template][crate::model::UpdateCertificateTemplateRequest::certificate_template].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::UpdateCertificateTemplateRequest;
+    /// use google_cloud_security_privateca_v1::model::CertificateTemplate;
+    /// let x = UpdateCertificateTemplateRequest::new().set_certificate_template(CertificateTemplate::default()/* use setters */);
+    /// ```
     pub fn set_certificate_template<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::CertificateTemplate>,
@@ -8582,6 +11129,14 @@ impl UpdateCertificateTemplateRequest {
     }
 
     /// Sets or clears the value of [certificate_template][crate::model::UpdateCertificateTemplateRequest::certificate_template].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::UpdateCertificateTemplateRequest;
+    /// use google_cloud_security_privateca_v1::model::CertificateTemplate;
+    /// let x = UpdateCertificateTemplateRequest::new().set_or_clear_certificate_template(Some(CertificateTemplate::default()/* use setters */));
+    /// let x = UpdateCertificateTemplateRequest::new().set_or_clear_certificate_template(None::<CertificateTemplate>);
+    /// ```
     pub fn set_or_clear_certificate_template<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CertificateTemplate>,
@@ -8591,6 +11146,13 @@ impl UpdateCertificateTemplateRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateCertificateTemplateRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::UpdateCertificateTemplateRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateCertificateTemplateRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -8600,6 +11162,14 @@ impl UpdateCertificateTemplateRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateCertificateTemplateRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::UpdateCertificateTemplateRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateCertificateTemplateRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateCertificateTemplateRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -8609,6 +11179,12 @@ impl UpdateCertificateTemplateRequest {
     }
 
     /// Sets the value of [request_id][crate::model::UpdateCertificateTemplateRequest::request_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::UpdateCertificateTemplateRequest;
+    /// let x = UpdateCertificateTemplateRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -8663,6 +11239,13 @@ impl OperationMetadata {
     }
 
     /// Sets the value of [create_time][crate::model::OperationMetadata::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::OperationMetadata;
+    /// use wkt::Timestamp;
+    /// let x = OperationMetadata::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -8672,6 +11255,14 @@ impl OperationMetadata {
     }
 
     /// Sets or clears the value of [create_time][crate::model::OperationMetadata::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::OperationMetadata;
+    /// use wkt::Timestamp;
+    /// let x = OperationMetadata::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = OperationMetadata::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -8681,6 +11272,13 @@ impl OperationMetadata {
     }
 
     /// Sets the value of [end_time][crate::model::OperationMetadata::end_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::OperationMetadata;
+    /// use wkt::Timestamp;
+    /// let x = OperationMetadata::new().set_end_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -8690,6 +11288,14 @@ impl OperationMetadata {
     }
 
     /// Sets or clears the value of [end_time][crate::model::OperationMetadata::end_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::OperationMetadata;
+    /// use wkt::Timestamp;
+    /// let x = OperationMetadata::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
+    /// let x = OperationMetadata::new().set_or_clear_end_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -8699,30 +11305,60 @@ impl OperationMetadata {
     }
 
     /// Sets the value of [target][crate::model::OperationMetadata::target].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::OperationMetadata;
+    /// let x = OperationMetadata::new().set_target("example");
+    /// ```
     pub fn set_target<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.target = v.into();
         self
     }
 
     /// Sets the value of [verb][crate::model::OperationMetadata::verb].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::OperationMetadata;
+    /// let x = OperationMetadata::new().set_verb("example");
+    /// ```
     pub fn set_verb<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.verb = v.into();
         self
     }
 
     /// Sets the value of [status_message][crate::model::OperationMetadata::status_message].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::OperationMetadata;
+    /// let x = OperationMetadata::new().set_status_message("example");
+    /// ```
     pub fn set_status_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.status_message = v.into();
         self
     }
 
     /// Sets the value of [requested_cancellation][crate::model::OperationMetadata::requested_cancellation].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::OperationMetadata;
+    /// let x = OperationMetadata::new().set_requested_cancellation(true);
+    /// ```
     pub fn set_requested_cancellation<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.requested_cancellation = v.into();
         self
     }
 
     /// Sets the value of [api_version][crate::model::OperationMetadata::api_version].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::model::OperationMetadata;
+    /// let x = OperationMetadata::new().set_api_version("example");
+    /// ```
     pub fn set_api_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.api_version = v.into();
         self

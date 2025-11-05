@@ -62,12 +62,25 @@ impl MembershipState {
     }
 
     /// Sets the value of [cluster_name][crate::model::MembershipState::cluster_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_configmanagement_v1::model::MembershipState;
+    /// let x = MembershipState::new().set_cluster_name("example");
+    /// ```
     pub fn set_cluster_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.cluster_name = v.into();
         self
     }
 
     /// Sets the value of [membership_spec][crate::model::MembershipState::membership_spec].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_configmanagement_v1::model::MembershipState;
+    /// use google_cloud_gkehub_configmanagement_v1::model::MembershipSpec;
+    /// let x = MembershipState::new().set_membership_spec(MembershipSpec::default()/* use setters */);
+    /// ```
     pub fn set_membership_spec<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::MembershipSpec>,
@@ -77,6 +90,14 @@ impl MembershipState {
     }
 
     /// Sets or clears the value of [membership_spec][crate::model::MembershipState::membership_spec].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_configmanagement_v1::model::MembershipState;
+    /// use google_cloud_gkehub_configmanagement_v1::model::MembershipSpec;
+    /// let x = MembershipState::new().set_or_clear_membership_spec(Some(MembershipSpec::default()/* use setters */));
+    /// let x = MembershipState::new().set_or_clear_membership_spec(None::<MembershipSpec>);
+    /// ```
     pub fn set_or_clear_membership_spec<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::MembershipSpec>,
@@ -86,6 +107,13 @@ impl MembershipState {
     }
 
     /// Sets the value of [operator_state][crate::model::MembershipState::operator_state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_configmanagement_v1::model::MembershipState;
+    /// use google_cloud_gkehub_configmanagement_v1::model::OperatorState;
+    /// let x = MembershipState::new().set_operator_state(OperatorState::default()/* use setters */);
+    /// ```
     pub fn set_operator_state<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::OperatorState>,
@@ -95,6 +123,14 @@ impl MembershipState {
     }
 
     /// Sets or clears the value of [operator_state][crate::model::MembershipState::operator_state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_configmanagement_v1::model::MembershipState;
+    /// use google_cloud_gkehub_configmanagement_v1::model::OperatorState;
+    /// let x = MembershipState::new().set_or_clear_operator_state(Some(OperatorState::default()/* use setters */));
+    /// let x = MembershipState::new().set_or_clear_operator_state(None::<OperatorState>);
+    /// ```
     pub fn set_or_clear_operator_state<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::OperatorState>,
@@ -104,6 +140,13 @@ impl MembershipState {
     }
 
     /// Sets the value of [config_sync_state][crate::model::MembershipState::config_sync_state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_configmanagement_v1::model::MembershipState;
+    /// use google_cloud_gkehub_configmanagement_v1::model::ConfigSyncState;
+    /// let x = MembershipState::new().set_config_sync_state(ConfigSyncState::default()/* use setters */);
+    /// ```
     pub fn set_config_sync_state<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ConfigSyncState>,
@@ -113,6 +156,14 @@ impl MembershipState {
     }
 
     /// Sets or clears the value of [config_sync_state][crate::model::MembershipState::config_sync_state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_configmanagement_v1::model::MembershipState;
+    /// use google_cloud_gkehub_configmanagement_v1::model::ConfigSyncState;
+    /// let x = MembershipState::new().set_or_clear_config_sync_state(Some(ConfigSyncState::default()/* use setters */));
+    /// let x = MembershipState::new().set_or_clear_config_sync_state(None::<ConfigSyncState>);
+    /// ```
     pub fn set_or_clear_config_sync_state<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ConfigSyncState>,
@@ -122,6 +173,13 @@ impl MembershipState {
     }
 
     /// Sets the value of [policy_controller_state][crate::model::MembershipState::policy_controller_state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_configmanagement_v1::model::MembershipState;
+    /// use google_cloud_gkehub_configmanagement_v1::model::PolicyControllerState;
+    /// let x = MembershipState::new().set_policy_controller_state(PolicyControllerState::default()/* use setters */);
+    /// ```
     pub fn set_policy_controller_state<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::PolicyControllerState>,
@@ -131,6 +189,14 @@ impl MembershipState {
     }
 
     /// Sets or clears the value of [policy_controller_state][crate::model::MembershipState::policy_controller_state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_configmanagement_v1::model::MembershipState;
+    /// use google_cloud_gkehub_configmanagement_v1::model::PolicyControllerState;
+    /// let x = MembershipState::new().set_or_clear_policy_controller_state(Some(PolicyControllerState::default()/* use setters */));
+    /// let x = MembershipState::new().set_or_clear_policy_controller_state(None::<PolicyControllerState>);
+    /// ```
     pub fn set_or_clear_policy_controller_state<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::PolicyControllerState>,
@@ -140,6 +206,13 @@ impl MembershipState {
     }
 
     /// Sets the value of [hierarchy_controller_state][crate::model::MembershipState::hierarchy_controller_state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_configmanagement_v1::model::MembershipState;
+    /// use google_cloud_gkehub_configmanagement_v1::model::HierarchyControllerState;
+    /// let x = MembershipState::new().set_hierarchy_controller_state(HierarchyControllerState::default()/* use setters */);
+    /// ```
     pub fn set_hierarchy_controller_state<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::HierarchyControllerState>,
@@ -149,6 +222,14 @@ impl MembershipState {
     }
 
     /// Sets or clears the value of [hierarchy_controller_state][crate::model::MembershipState::hierarchy_controller_state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_configmanagement_v1::model::MembershipState;
+    /// use google_cloud_gkehub_configmanagement_v1::model::HierarchyControllerState;
+    /// let x = MembershipState::new().set_or_clear_hierarchy_controller_state(Some(HierarchyControllerState::default()/* use setters */));
+    /// let x = MembershipState::new().set_or_clear_hierarchy_controller_state(None::<HierarchyControllerState>);
+    /// ```
     pub fn set_or_clear_hierarchy_controller_state<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::HierarchyControllerState>,
@@ -202,6 +283,13 @@ impl MembershipSpec {
     }
 
     /// Sets the value of [config_sync][crate::model::MembershipSpec::config_sync].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_configmanagement_v1::model::MembershipSpec;
+    /// use google_cloud_gkehub_configmanagement_v1::model::ConfigSync;
+    /// let x = MembershipSpec::new().set_config_sync(ConfigSync::default()/* use setters */);
+    /// ```
     pub fn set_config_sync<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ConfigSync>,
@@ -211,6 +299,14 @@ impl MembershipSpec {
     }
 
     /// Sets or clears the value of [config_sync][crate::model::MembershipSpec::config_sync].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_configmanagement_v1::model::MembershipSpec;
+    /// use google_cloud_gkehub_configmanagement_v1::model::ConfigSync;
+    /// let x = MembershipSpec::new().set_or_clear_config_sync(Some(ConfigSync::default()/* use setters */));
+    /// let x = MembershipSpec::new().set_or_clear_config_sync(None::<ConfigSync>);
+    /// ```
     pub fn set_or_clear_config_sync<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ConfigSync>,
@@ -220,6 +316,13 @@ impl MembershipSpec {
     }
 
     /// Sets the value of [policy_controller][crate::model::MembershipSpec::policy_controller].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_configmanagement_v1::model::MembershipSpec;
+    /// use google_cloud_gkehub_configmanagement_v1::model::PolicyController;
+    /// let x = MembershipSpec::new().set_policy_controller(PolicyController::default()/* use setters */);
+    /// ```
     pub fn set_policy_controller<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::PolicyController>,
@@ -229,6 +332,14 @@ impl MembershipSpec {
     }
 
     /// Sets or clears the value of [policy_controller][crate::model::MembershipSpec::policy_controller].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_configmanagement_v1::model::MembershipSpec;
+    /// use google_cloud_gkehub_configmanagement_v1::model::PolicyController;
+    /// let x = MembershipSpec::new().set_or_clear_policy_controller(Some(PolicyController::default()/* use setters */));
+    /// let x = MembershipSpec::new().set_or_clear_policy_controller(None::<PolicyController>);
+    /// ```
     pub fn set_or_clear_policy_controller<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::PolicyController>,
@@ -238,6 +349,13 @@ impl MembershipSpec {
     }
 
     /// Sets the value of [hierarchy_controller][crate::model::MembershipSpec::hierarchy_controller].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_configmanagement_v1::model::MembershipSpec;
+    /// use google_cloud_gkehub_configmanagement_v1::model::HierarchyControllerConfig;
+    /// let x = MembershipSpec::new().set_hierarchy_controller(HierarchyControllerConfig::default()/* use setters */);
+    /// ```
     pub fn set_hierarchy_controller<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::HierarchyControllerConfig>,
@@ -247,6 +365,14 @@ impl MembershipSpec {
     }
 
     /// Sets or clears the value of [hierarchy_controller][crate::model::MembershipSpec::hierarchy_controller].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_configmanagement_v1::model::MembershipSpec;
+    /// use google_cloud_gkehub_configmanagement_v1::model::HierarchyControllerConfig;
+    /// let x = MembershipSpec::new().set_or_clear_hierarchy_controller(Some(HierarchyControllerConfig::default()/* use setters */));
+    /// let x = MembershipSpec::new().set_or_clear_hierarchy_controller(None::<HierarchyControllerConfig>);
+    /// ```
     pub fn set_or_clear_hierarchy_controller<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::HierarchyControllerConfig>,
@@ -256,18 +382,38 @@ impl MembershipSpec {
     }
 
     /// Sets the value of [version][crate::model::MembershipSpec::version].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_configmanagement_v1::model::MembershipSpec;
+    /// let x = MembershipSpec::new().set_version("example");
+    /// ```
     pub fn set_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.version = v.into();
         self
     }
 
     /// Sets the value of [cluster][crate::model::MembershipSpec::cluster].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_configmanagement_v1::model::MembershipSpec;
+    /// let x = MembershipSpec::new().set_cluster("example");
+    /// ```
     pub fn set_cluster<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.cluster = v.into();
         self
     }
 
     /// Sets the value of [management][crate::model::MembershipSpec::management].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_configmanagement_v1::model::MembershipSpec;
+    /// use google_cloud_gkehub_configmanagement_v1::model::membership_spec::Management;
+    /// let x0 = MembershipSpec::new().set_management(Management::Automatic);
+    /// let x1 = MembershipSpec::new().set_management(Management::Manual);
+    /// ```
     pub fn set_management<T: std::convert::Into<crate::model::membership_spec::Management>>(
         mut self,
         v: T,
@@ -466,6 +612,13 @@ impl ConfigSync {
     }
 
     /// Sets the value of [git][crate::model::ConfigSync::git].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_configmanagement_v1::model::ConfigSync;
+    /// use google_cloud_gkehub_configmanagement_v1::model::GitConfig;
+    /// let x = ConfigSync::new().set_git(GitConfig::default()/* use setters */);
+    /// ```
     pub fn set_git<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::GitConfig>,
@@ -475,6 +628,14 @@ impl ConfigSync {
     }
 
     /// Sets or clears the value of [git][crate::model::ConfigSync::git].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_configmanagement_v1::model::ConfigSync;
+    /// use google_cloud_gkehub_configmanagement_v1::model::GitConfig;
+    /// let x = ConfigSync::new().set_or_clear_git(Some(GitConfig::default()/* use setters */));
+    /// let x = ConfigSync::new().set_or_clear_git(None::<GitConfig>);
+    /// ```
     pub fn set_or_clear_git<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::GitConfig>,
@@ -484,12 +645,24 @@ impl ConfigSync {
     }
 
     /// Sets the value of [source_format][crate::model::ConfigSync::source_format].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_configmanagement_v1::model::ConfigSync;
+    /// let x = ConfigSync::new().set_source_format("example");
+    /// ```
     pub fn set_source_format<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.source_format = v.into();
         self
     }
 
     /// Sets the value of [enabled][crate::model::ConfigSync::enabled].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_configmanagement_v1::model::ConfigSync;
+    /// let x = ConfigSync::new().set_enabled(true);
+    /// ```
     pub fn set_enabled<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<bool>,
@@ -499,6 +672,13 @@ impl ConfigSync {
     }
 
     /// Sets or clears the value of [enabled][crate::model::ConfigSync::enabled].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_configmanagement_v1::model::ConfigSync;
+    /// let x = ConfigSync::new().set_or_clear_enabled(Some(false));
+    /// let x = ConfigSync::new().set_or_clear_enabled(None::<bool>);
+    /// ```
     pub fn set_or_clear_enabled<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<bool>,
@@ -508,12 +688,25 @@ impl ConfigSync {
     }
 
     /// Sets the value of [prevent_drift][crate::model::ConfigSync::prevent_drift].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_configmanagement_v1::model::ConfigSync;
+    /// let x = ConfigSync::new().set_prevent_drift(true);
+    /// ```
     pub fn set_prevent_drift<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.prevent_drift = v.into();
         self
     }
 
     /// Sets the value of [oci][crate::model::ConfigSync::oci].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_configmanagement_v1::model::ConfigSync;
+    /// use google_cloud_gkehub_configmanagement_v1::model::OciConfig;
+    /// let x = ConfigSync::new().set_oci(OciConfig::default()/* use setters */);
+    /// ```
     pub fn set_oci<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::OciConfig>,
@@ -523,6 +716,14 @@ impl ConfigSync {
     }
 
     /// Sets or clears the value of [oci][crate::model::ConfigSync::oci].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_configmanagement_v1::model::ConfigSync;
+    /// use google_cloud_gkehub_configmanagement_v1::model::OciConfig;
+    /// let x = ConfigSync::new().set_or_clear_oci(Some(OciConfig::default()/* use setters */));
+    /// let x = ConfigSync::new().set_or_clear_oci(None::<OciConfig>);
+    /// ```
     pub fn set_or_clear_oci<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::OciConfig>,
@@ -532,6 +733,12 @@ impl ConfigSync {
     }
 
     /// Sets the value of [metrics_gcp_service_account_email][crate::model::ConfigSync::metrics_gcp_service_account_email].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_configmanagement_v1::model::ConfigSync;
+    /// let x = ConfigSync::new().set_metrics_gcp_service_account_email("example");
+    /// ```
     pub fn set_metrics_gcp_service_account_email<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -588,48 +795,96 @@ impl GitConfig {
     }
 
     /// Sets the value of [sync_repo][crate::model::GitConfig::sync_repo].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_configmanagement_v1::model::GitConfig;
+    /// let x = GitConfig::new().set_sync_repo("example");
+    /// ```
     pub fn set_sync_repo<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.sync_repo = v.into();
         self
     }
 
     /// Sets the value of [sync_branch][crate::model::GitConfig::sync_branch].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_configmanagement_v1::model::GitConfig;
+    /// let x = GitConfig::new().set_sync_branch("example");
+    /// ```
     pub fn set_sync_branch<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.sync_branch = v.into();
         self
     }
 
     /// Sets the value of [policy_dir][crate::model::GitConfig::policy_dir].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_configmanagement_v1::model::GitConfig;
+    /// let x = GitConfig::new().set_policy_dir("example");
+    /// ```
     pub fn set_policy_dir<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.policy_dir = v.into();
         self
     }
 
     /// Sets the value of [sync_wait_secs][crate::model::GitConfig::sync_wait_secs].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_configmanagement_v1::model::GitConfig;
+    /// let x = GitConfig::new().set_sync_wait_secs(42);
+    /// ```
     pub fn set_sync_wait_secs<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.sync_wait_secs = v.into();
         self
     }
 
     /// Sets the value of [sync_rev][crate::model::GitConfig::sync_rev].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_configmanagement_v1::model::GitConfig;
+    /// let x = GitConfig::new().set_sync_rev("example");
+    /// ```
     pub fn set_sync_rev<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.sync_rev = v.into();
         self
     }
 
     /// Sets the value of [secret_type][crate::model::GitConfig::secret_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_configmanagement_v1::model::GitConfig;
+    /// let x = GitConfig::new().set_secret_type("example");
+    /// ```
     pub fn set_secret_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.secret_type = v.into();
         self
     }
 
     /// Sets the value of [https_proxy][crate::model::GitConfig::https_proxy].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_configmanagement_v1::model::GitConfig;
+    /// let x = GitConfig::new().set_https_proxy("example");
+    /// ```
     pub fn set_https_proxy<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.https_proxy = v.into();
         self
     }
 
     /// Sets the value of [gcp_service_account_email][crate::model::GitConfig::gcp_service_account_email].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_configmanagement_v1::model::GitConfig;
+    /// let x = GitConfig::new().set_gcp_service_account_email("example");
+    /// ```
     pub fn set_gcp_service_account_email<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -676,30 +931,60 @@ impl OciConfig {
     }
 
     /// Sets the value of [sync_repo][crate::model::OciConfig::sync_repo].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_configmanagement_v1::model::OciConfig;
+    /// let x = OciConfig::new().set_sync_repo("example");
+    /// ```
     pub fn set_sync_repo<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.sync_repo = v.into();
         self
     }
 
     /// Sets the value of [policy_dir][crate::model::OciConfig::policy_dir].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_configmanagement_v1::model::OciConfig;
+    /// let x = OciConfig::new().set_policy_dir("example");
+    /// ```
     pub fn set_policy_dir<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.policy_dir = v.into();
         self
     }
 
     /// Sets the value of [sync_wait_secs][crate::model::OciConfig::sync_wait_secs].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_configmanagement_v1::model::OciConfig;
+    /// let x = OciConfig::new().set_sync_wait_secs(42);
+    /// ```
     pub fn set_sync_wait_secs<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.sync_wait_secs = v.into();
         self
     }
 
     /// Sets the value of [secret_type][crate::model::OciConfig::secret_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_configmanagement_v1::model::OciConfig;
+    /// let x = OciConfig::new().set_secret_type("example");
+    /// ```
     pub fn set_secret_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.secret_type = v.into();
         self
     }
 
     /// Sets the value of [gcp_service_account_email][crate::model::OciConfig::gcp_service_account_email].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_configmanagement_v1::model::OciConfig;
+    /// let x = OciConfig::new().set_gcp_service_account_email("example");
+    /// ```
     pub fn set_gcp_service_account_email<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -751,12 +1036,24 @@ impl PolicyController {
     }
 
     /// Sets the value of [enabled][crate::model::PolicyController::enabled].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_configmanagement_v1::model::PolicyController;
+    /// let x = PolicyController::new().set_enabled(true);
+    /// ```
     pub fn set_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.enabled = v.into();
         self
     }
 
     /// Sets the value of [template_library_installed][crate::model::PolicyController::template_library_installed].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_configmanagement_v1::model::PolicyController;
+    /// let x = PolicyController::new().set_template_library_installed(true);
+    /// ```
     pub fn set_template_library_installed<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<bool>,
@@ -766,6 +1063,13 @@ impl PolicyController {
     }
 
     /// Sets or clears the value of [template_library_installed][crate::model::PolicyController::template_library_installed].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_configmanagement_v1::model::PolicyController;
+    /// let x = PolicyController::new().set_or_clear_template_library_installed(Some(false));
+    /// let x = PolicyController::new().set_or_clear_template_library_installed(None::<bool>);
+    /// ```
     pub fn set_or_clear_template_library_installed<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<bool>,
@@ -775,6 +1079,12 @@ impl PolicyController {
     }
 
     /// Sets the value of [audit_interval_seconds][crate::model::PolicyController::audit_interval_seconds].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_configmanagement_v1::model::PolicyController;
+    /// let x = PolicyController::new().set_audit_interval_seconds(42);
+    /// ```
     pub fn set_audit_interval_seconds<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<i64>,
@@ -784,6 +1094,13 @@ impl PolicyController {
     }
 
     /// Sets or clears the value of [audit_interval_seconds][crate::model::PolicyController::audit_interval_seconds].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_configmanagement_v1::model::PolicyController;
+    /// let x = PolicyController::new().set_or_clear_audit_interval_seconds(Some(42));
+    /// let x = PolicyController::new().set_or_clear_audit_interval_seconds(None::<i32>);
+    /// ```
     pub fn set_or_clear_audit_interval_seconds<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i64>,
@@ -793,6 +1110,12 @@ impl PolicyController {
     }
 
     /// Sets the value of [exemptable_namespaces][crate::model::PolicyController::exemptable_namespaces].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_configmanagement_v1::model::PolicyController;
+    /// let x = PolicyController::new().set_exemptable_namespaces(["a", "b", "c"]);
+    /// ```
     pub fn set_exemptable_namespaces<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -804,12 +1127,24 @@ impl PolicyController {
     }
 
     /// Sets the value of [referential_rules_enabled][crate::model::PolicyController::referential_rules_enabled].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_configmanagement_v1::model::PolicyController;
+    /// let x = PolicyController::new().set_referential_rules_enabled(true);
+    /// ```
     pub fn set_referential_rules_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.referential_rules_enabled = v.into();
         self
     }
 
     /// Sets the value of [log_denies_enabled][crate::model::PolicyController::log_denies_enabled].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_configmanagement_v1::model::PolicyController;
+    /// let x = PolicyController::new().set_log_denies_enabled(true);
+    /// ```
     pub fn set_log_denies_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.log_denies_enabled = v.into();
         self
@@ -844,18 +1179,36 @@ impl HierarchyControllerConfig {
     }
 
     /// Sets the value of [enabled][crate::model::HierarchyControllerConfig::enabled].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_configmanagement_v1::model::HierarchyControllerConfig;
+    /// let x = HierarchyControllerConfig::new().set_enabled(true);
+    /// ```
     pub fn set_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.enabled = v.into();
         self
     }
 
     /// Sets the value of [enable_pod_tree_labels][crate::model::HierarchyControllerConfig::enable_pod_tree_labels].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_configmanagement_v1::model::HierarchyControllerConfig;
+    /// let x = HierarchyControllerConfig::new().set_enable_pod_tree_labels(true);
+    /// ```
     pub fn set_enable_pod_tree_labels<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.enable_pod_tree_labels = v.into();
         self
     }
 
     /// Sets the value of [enable_hierarchical_resource_quota][crate::model::HierarchyControllerConfig::enable_hierarchical_resource_quota].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_configmanagement_v1::model::HierarchyControllerConfig;
+    /// let x = HierarchyControllerConfig::new().set_enable_hierarchical_resource_quota(true);
+    /// ```
     pub fn set_enable_hierarchical_resource_quota<T: std::convert::Into<bool>>(
         mut self,
         v: T,
@@ -890,12 +1243,30 @@ impl HierarchyControllerDeploymentState {
     }
 
     /// Sets the value of [hnc][crate::model::HierarchyControllerDeploymentState::hnc].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_configmanagement_v1::model::HierarchyControllerDeploymentState;
+    /// use google_cloud_gkehub_configmanagement_v1::model::DeploymentState;
+    /// let x0 = HierarchyControllerDeploymentState::new().set_hnc(DeploymentState::NotInstalled);
+    /// let x1 = HierarchyControllerDeploymentState::new().set_hnc(DeploymentState::Installed);
+    /// let x2 = HierarchyControllerDeploymentState::new().set_hnc(DeploymentState::Error);
+    /// ```
     pub fn set_hnc<T: std::convert::Into<crate::model::DeploymentState>>(mut self, v: T) -> Self {
         self.hnc = v.into();
         self
     }
 
     /// Sets the value of [extension][crate::model::HierarchyControllerDeploymentState::extension].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_configmanagement_v1::model::HierarchyControllerDeploymentState;
+    /// use google_cloud_gkehub_configmanagement_v1::model::DeploymentState;
+    /// let x0 = HierarchyControllerDeploymentState::new().set_extension(DeploymentState::NotInstalled);
+    /// let x1 = HierarchyControllerDeploymentState::new().set_extension(DeploymentState::Installed);
+    /// let x2 = HierarchyControllerDeploymentState::new().set_extension(DeploymentState::Error);
+    /// ```
     pub fn set_extension<T: std::convert::Into<crate::model::DeploymentState>>(
         mut self,
         v: T,
@@ -930,12 +1301,24 @@ impl HierarchyControllerVersion {
     }
 
     /// Sets the value of [hnc][crate::model::HierarchyControllerVersion::hnc].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_configmanagement_v1::model::HierarchyControllerVersion;
+    /// let x = HierarchyControllerVersion::new().set_hnc("example");
+    /// ```
     pub fn set_hnc<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.hnc = v.into();
         self
     }
 
     /// Sets the value of [extension][crate::model::HierarchyControllerVersion::extension].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_configmanagement_v1::model::HierarchyControllerVersion;
+    /// let x = HierarchyControllerVersion::new().set_extension("example");
+    /// ```
     pub fn set_extension<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.extension = v.into();
         self
@@ -967,6 +1350,13 @@ impl HierarchyControllerState {
     }
 
     /// Sets the value of [version][crate::model::HierarchyControllerState::version].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_configmanagement_v1::model::HierarchyControllerState;
+    /// use google_cloud_gkehub_configmanagement_v1::model::HierarchyControllerVersion;
+    /// let x = HierarchyControllerState::new().set_version(HierarchyControllerVersion::default()/* use setters */);
+    /// ```
     pub fn set_version<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::HierarchyControllerVersion>,
@@ -976,6 +1366,14 @@ impl HierarchyControllerState {
     }
 
     /// Sets or clears the value of [version][crate::model::HierarchyControllerState::version].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_configmanagement_v1::model::HierarchyControllerState;
+    /// use google_cloud_gkehub_configmanagement_v1::model::HierarchyControllerVersion;
+    /// let x = HierarchyControllerState::new().set_or_clear_version(Some(HierarchyControllerVersion::default()/* use setters */));
+    /// let x = HierarchyControllerState::new().set_or_clear_version(None::<HierarchyControllerVersion>);
+    /// ```
     pub fn set_or_clear_version<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::HierarchyControllerVersion>,
@@ -985,6 +1383,13 @@ impl HierarchyControllerState {
     }
 
     /// Sets the value of [state][crate::model::HierarchyControllerState::state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_configmanagement_v1::model::HierarchyControllerState;
+    /// use google_cloud_gkehub_configmanagement_v1::model::HierarchyControllerDeploymentState;
+    /// let x = HierarchyControllerState::new().set_state(HierarchyControllerDeploymentState::default()/* use setters */);
+    /// ```
     pub fn set_state<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::HierarchyControllerDeploymentState>,
@@ -994,6 +1399,14 @@ impl HierarchyControllerState {
     }
 
     /// Sets or clears the value of [state][crate::model::HierarchyControllerState::state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_configmanagement_v1::model::HierarchyControllerState;
+    /// use google_cloud_gkehub_configmanagement_v1::model::HierarchyControllerDeploymentState;
+    /// let x = HierarchyControllerState::new().set_or_clear_state(Some(HierarchyControllerDeploymentState::default()/* use setters */));
+    /// let x = HierarchyControllerState::new().set_or_clear_state(None::<HierarchyControllerDeploymentState>);
+    /// ```
     pub fn set_or_clear_state<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::HierarchyControllerDeploymentState>,
@@ -1031,12 +1444,27 @@ impl OperatorState {
     }
 
     /// Sets the value of [version][crate::model::OperatorState::version].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_configmanagement_v1::model::OperatorState;
+    /// let x = OperatorState::new().set_version("example");
+    /// ```
     pub fn set_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.version = v.into();
         self
     }
 
     /// Sets the value of [deployment_state][crate::model::OperatorState::deployment_state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_configmanagement_v1::model::OperatorState;
+    /// use google_cloud_gkehub_configmanagement_v1::model::DeploymentState;
+    /// let x0 = OperatorState::new().set_deployment_state(DeploymentState::NotInstalled);
+    /// let x1 = OperatorState::new().set_deployment_state(DeploymentState::Installed);
+    /// let x2 = OperatorState::new().set_deployment_state(DeploymentState::Error);
+    /// ```
     pub fn set_deployment_state<T: std::convert::Into<crate::model::DeploymentState>>(
         mut self,
         v: T,
@@ -1046,6 +1474,17 @@ impl OperatorState {
     }
 
     /// Sets the value of [errors][crate::model::OperatorState::errors].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_configmanagement_v1::model::OperatorState;
+    /// use google_cloud_gkehub_configmanagement_v1::model::InstallError;
+    /// let x = OperatorState::new()
+    ///     .set_errors([
+    ///         InstallError::default()/* use setters */,
+    ///         InstallError::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_errors<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1079,6 +1518,12 @@ impl InstallError {
     }
 
     /// Sets the value of [error_message][crate::model::InstallError::error_message].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_configmanagement_v1::model::InstallError;
+    /// let x = InstallError::new().set_error_message("example");
+    /// ```
     pub fn set_error_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.error_message = v.into();
         self
@@ -1127,6 +1572,13 @@ impl ConfigSyncState {
     }
 
     /// Sets the value of [version][crate::model::ConfigSyncState::version].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_configmanagement_v1::model::ConfigSyncState;
+    /// use google_cloud_gkehub_configmanagement_v1::model::ConfigSyncVersion;
+    /// let x = ConfigSyncState::new().set_version(ConfigSyncVersion::default()/* use setters */);
+    /// ```
     pub fn set_version<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ConfigSyncVersion>,
@@ -1136,6 +1588,14 @@ impl ConfigSyncState {
     }
 
     /// Sets or clears the value of [version][crate::model::ConfigSyncState::version].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_configmanagement_v1::model::ConfigSyncState;
+    /// use google_cloud_gkehub_configmanagement_v1::model::ConfigSyncVersion;
+    /// let x = ConfigSyncState::new().set_or_clear_version(Some(ConfigSyncVersion::default()/* use setters */));
+    /// let x = ConfigSyncState::new().set_or_clear_version(None::<ConfigSyncVersion>);
+    /// ```
     pub fn set_or_clear_version<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ConfigSyncVersion>,
@@ -1145,6 +1605,13 @@ impl ConfigSyncState {
     }
 
     /// Sets the value of [deployment_state][crate::model::ConfigSyncState::deployment_state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_configmanagement_v1::model::ConfigSyncState;
+    /// use google_cloud_gkehub_configmanagement_v1::model::ConfigSyncDeploymentState;
+    /// let x = ConfigSyncState::new().set_deployment_state(ConfigSyncDeploymentState::default()/* use setters */);
+    /// ```
     pub fn set_deployment_state<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ConfigSyncDeploymentState>,
@@ -1154,6 +1621,14 @@ impl ConfigSyncState {
     }
 
     /// Sets or clears the value of [deployment_state][crate::model::ConfigSyncState::deployment_state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_configmanagement_v1::model::ConfigSyncState;
+    /// use google_cloud_gkehub_configmanagement_v1::model::ConfigSyncDeploymentState;
+    /// let x = ConfigSyncState::new().set_or_clear_deployment_state(Some(ConfigSyncDeploymentState::default()/* use setters */));
+    /// let x = ConfigSyncState::new().set_or_clear_deployment_state(None::<ConfigSyncDeploymentState>);
+    /// ```
     pub fn set_or_clear_deployment_state<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ConfigSyncDeploymentState>,
@@ -1163,6 +1638,13 @@ impl ConfigSyncState {
     }
 
     /// Sets the value of [sync_state][crate::model::ConfigSyncState::sync_state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_configmanagement_v1::model::ConfigSyncState;
+    /// use google_cloud_gkehub_configmanagement_v1::model::SyncState;
+    /// let x = ConfigSyncState::new().set_sync_state(SyncState::default()/* use setters */);
+    /// ```
     pub fn set_sync_state<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::SyncState>,
@@ -1172,6 +1654,14 @@ impl ConfigSyncState {
     }
 
     /// Sets or clears the value of [sync_state][crate::model::ConfigSyncState::sync_state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_configmanagement_v1::model::ConfigSyncState;
+    /// use google_cloud_gkehub_configmanagement_v1::model::SyncState;
+    /// let x = ConfigSyncState::new().set_or_clear_sync_state(Some(SyncState::default()/* use setters */));
+    /// let x = ConfigSyncState::new().set_or_clear_sync_state(None::<SyncState>);
+    /// ```
     pub fn set_or_clear_sync_state<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::SyncState>,
@@ -1181,6 +1671,17 @@ impl ConfigSyncState {
     }
 
     /// Sets the value of [errors][crate::model::ConfigSyncState::errors].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_configmanagement_v1::model::ConfigSyncState;
+    /// use google_cloud_gkehub_configmanagement_v1::model::ConfigSyncError;
+    /// let x = ConfigSyncState::new()
+    ///     .set_errors([
+    ///         ConfigSyncError::default()/* use setters */,
+    ///         ConfigSyncError::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_errors<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1192,6 +1693,15 @@ impl ConfigSyncState {
     }
 
     /// Sets the value of [rootsync_crd][crate::model::ConfigSyncState::rootsync_crd].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_configmanagement_v1::model::ConfigSyncState;
+    /// use google_cloud_gkehub_configmanagement_v1::model::config_sync_state::CRDState;
+    /// let x0 = ConfigSyncState::new().set_rootsync_crd(CRDState::NotInstalled);
+    /// let x1 = ConfigSyncState::new().set_rootsync_crd(CRDState::Installed);
+    /// let x2 = ConfigSyncState::new().set_rootsync_crd(CRDState::Terminating);
+    /// ```
     pub fn set_rootsync_crd<T: std::convert::Into<crate::model::config_sync_state::CRDState>>(
         mut self,
         v: T,
@@ -1201,6 +1711,15 @@ impl ConfigSyncState {
     }
 
     /// Sets the value of [reposync_crd][crate::model::ConfigSyncState::reposync_crd].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_configmanagement_v1::model::ConfigSyncState;
+    /// use google_cloud_gkehub_configmanagement_v1::model::config_sync_state::CRDState;
+    /// let x0 = ConfigSyncState::new().set_reposync_crd(CRDState::NotInstalled);
+    /// let x1 = ConfigSyncState::new().set_reposync_crd(CRDState::Installed);
+    /// let x2 = ConfigSyncState::new().set_reposync_crd(CRDState::Terminating);
+    /// ```
     pub fn set_reposync_crd<T: std::convert::Into<crate::model::config_sync_state::CRDState>>(
         mut self,
         v: T,
@@ -1210,6 +1729,15 @@ impl ConfigSyncState {
     }
 
     /// Sets the value of [state][crate::model::ConfigSyncState::state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_configmanagement_v1::model::ConfigSyncState;
+    /// use google_cloud_gkehub_configmanagement_v1::model::config_sync_state::State;
+    /// let x0 = ConfigSyncState::new().set_state(State::ConfigSyncNotInstalled);
+    /// let x1 = ConfigSyncState::new().set_state(State::ConfigSyncInstalled);
+    /// let x2 = ConfigSyncState::new().set_state(State::ConfigSyncError);
+    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::config_sync_state::State>>(
         mut self,
         v: T,
@@ -1540,6 +2068,12 @@ impl ConfigSyncError {
     }
 
     /// Sets the value of [error_message][crate::model::ConfigSyncError::error_message].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_configmanagement_v1::model::ConfigSyncError;
+    /// let x = ConfigSyncError::new().set_error_message("example");
+    /// ```
     pub fn set_error_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.error_message = v.into();
         self
@@ -1586,30 +2120,60 @@ impl ConfigSyncVersion {
     }
 
     /// Sets the value of [importer][crate::model::ConfigSyncVersion::importer].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_configmanagement_v1::model::ConfigSyncVersion;
+    /// let x = ConfigSyncVersion::new().set_importer("example");
+    /// ```
     pub fn set_importer<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.importer = v.into();
         self
     }
 
     /// Sets the value of [syncer][crate::model::ConfigSyncVersion::syncer].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_configmanagement_v1::model::ConfigSyncVersion;
+    /// let x = ConfigSyncVersion::new().set_syncer("example");
+    /// ```
     pub fn set_syncer<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.syncer = v.into();
         self
     }
 
     /// Sets the value of [git_sync][crate::model::ConfigSyncVersion::git_sync].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_configmanagement_v1::model::ConfigSyncVersion;
+    /// let x = ConfigSyncVersion::new().set_git_sync("example");
+    /// ```
     pub fn set_git_sync<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.git_sync = v.into();
         self
     }
 
     /// Sets the value of [monitor][crate::model::ConfigSyncVersion::monitor].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_configmanagement_v1::model::ConfigSyncVersion;
+    /// let x = ConfigSyncVersion::new().set_monitor("example");
+    /// ```
     pub fn set_monitor<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.monitor = v.into();
         self
     }
 
     /// Sets the value of [reconciler_manager][crate::model::ConfigSyncVersion::reconciler_manager].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_configmanagement_v1::model::ConfigSyncVersion;
+    /// let x = ConfigSyncVersion::new().set_reconciler_manager("example");
+    /// ```
     pub fn set_reconciler_manager<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -1619,12 +2183,24 @@ impl ConfigSyncVersion {
     }
 
     /// Sets the value of [root_reconciler][crate::model::ConfigSyncVersion::root_reconciler].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_configmanagement_v1::model::ConfigSyncVersion;
+    /// let x = ConfigSyncVersion::new().set_root_reconciler("example");
+    /// ```
     pub fn set_root_reconciler<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.root_reconciler = v.into();
         self
     }
 
     /// Sets the value of [admission_webhook][crate::model::ConfigSyncVersion::admission_webhook].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_configmanagement_v1::model::ConfigSyncVersion;
+    /// let x = ConfigSyncVersion::new().set_admission_webhook("example");
+    /// ```
     pub fn set_admission_webhook<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -1674,6 +2250,15 @@ impl ConfigSyncDeploymentState {
     }
 
     /// Sets the value of [importer][crate::model::ConfigSyncDeploymentState::importer].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_configmanagement_v1::model::ConfigSyncDeploymentState;
+    /// use google_cloud_gkehub_configmanagement_v1::model::DeploymentState;
+    /// let x0 = ConfigSyncDeploymentState::new().set_importer(DeploymentState::NotInstalled);
+    /// let x1 = ConfigSyncDeploymentState::new().set_importer(DeploymentState::Installed);
+    /// let x2 = ConfigSyncDeploymentState::new().set_importer(DeploymentState::Error);
+    /// ```
     pub fn set_importer<T: std::convert::Into<crate::model::DeploymentState>>(
         mut self,
         v: T,
@@ -1683,6 +2268,15 @@ impl ConfigSyncDeploymentState {
     }
 
     /// Sets the value of [syncer][crate::model::ConfigSyncDeploymentState::syncer].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_configmanagement_v1::model::ConfigSyncDeploymentState;
+    /// use google_cloud_gkehub_configmanagement_v1::model::DeploymentState;
+    /// let x0 = ConfigSyncDeploymentState::new().set_syncer(DeploymentState::NotInstalled);
+    /// let x1 = ConfigSyncDeploymentState::new().set_syncer(DeploymentState::Installed);
+    /// let x2 = ConfigSyncDeploymentState::new().set_syncer(DeploymentState::Error);
+    /// ```
     pub fn set_syncer<T: std::convert::Into<crate::model::DeploymentState>>(
         mut self,
         v: T,
@@ -1692,6 +2286,15 @@ impl ConfigSyncDeploymentState {
     }
 
     /// Sets the value of [git_sync][crate::model::ConfigSyncDeploymentState::git_sync].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_configmanagement_v1::model::ConfigSyncDeploymentState;
+    /// use google_cloud_gkehub_configmanagement_v1::model::DeploymentState;
+    /// let x0 = ConfigSyncDeploymentState::new().set_git_sync(DeploymentState::NotInstalled);
+    /// let x1 = ConfigSyncDeploymentState::new().set_git_sync(DeploymentState::Installed);
+    /// let x2 = ConfigSyncDeploymentState::new().set_git_sync(DeploymentState::Error);
+    /// ```
     pub fn set_git_sync<T: std::convert::Into<crate::model::DeploymentState>>(
         mut self,
         v: T,
@@ -1701,6 +2304,15 @@ impl ConfigSyncDeploymentState {
     }
 
     /// Sets the value of [monitor][crate::model::ConfigSyncDeploymentState::monitor].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_configmanagement_v1::model::ConfigSyncDeploymentState;
+    /// use google_cloud_gkehub_configmanagement_v1::model::DeploymentState;
+    /// let x0 = ConfigSyncDeploymentState::new().set_monitor(DeploymentState::NotInstalled);
+    /// let x1 = ConfigSyncDeploymentState::new().set_monitor(DeploymentState::Installed);
+    /// let x2 = ConfigSyncDeploymentState::new().set_monitor(DeploymentState::Error);
+    /// ```
     pub fn set_monitor<T: std::convert::Into<crate::model::DeploymentState>>(
         mut self,
         v: T,
@@ -1710,6 +2322,15 @@ impl ConfigSyncDeploymentState {
     }
 
     /// Sets the value of [reconciler_manager][crate::model::ConfigSyncDeploymentState::reconciler_manager].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_configmanagement_v1::model::ConfigSyncDeploymentState;
+    /// use google_cloud_gkehub_configmanagement_v1::model::DeploymentState;
+    /// let x0 = ConfigSyncDeploymentState::new().set_reconciler_manager(DeploymentState::NotInstalled);
+    /// let x1 = ConfigSyncDeploymentState::new().set_reconciler_manager(DeploymentState::Installed);
+    /// let x2 = ConfigSyncDeploymentState::new().set_reconciler_manager(DeploymentState::Error);
+    /// ```
     pub fn set_reconciler_manager<T: std::convert::Into<crate::model::DeploymentState>>(
         mut self,
         v: T,
@@ -1719,6 +2340,15 @@ impl ConfigSyncDeploymentState {
     }
 
     /// Sets the value of [root_reconciler][crate::model::ConfigSyncDeploymentState::root_reconciler].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_configmanagement_v1::model::ConfigSyncDeploymentState;
+    /// use google_cloud_gkehub_configmanagement_v1::model::DeploymentState;
+    /// let x0 = ConfigSyncDeploymentState::new().set_root_reconciler(DeploymentState::NotInstalled);
+    /// let x1 = ConfigSyncDeploymentState::new().set_root_reconciler(DeploymentState::Installed);
+    /// let x2 = ConfigSyncDeploymentState::new().set_root_reconciler(DeploymentState::Error);
+    /// ```
     pub fn set_root_reconciler<T: std::convert::Into<crate::model::DeploymentState>>(
         mut self,
         v: T,
@@ -1728,6 +2358,15 @@ impl ConfigSyncDeploymentState {
     }
 
     /// Sets the value of [admission_webhook][crate::model::ConfigSyncDeploymentState::admission_webhook].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_configmanagement_v1::model::ConfigSyncDeploymentState;
+    /// use google_cloud_gkehub_configmanagement_v1::model::DeploymentState;
+    /// let x0 = ConfigSyncDeploymentState::new().set_admission_webhook(DeploymentState::NotInstalled);
+    /// let x1 = ConfigSyncDeploymentState::new().set_admission_webhook(DeploymentState::Installed);
+    /// let x2 = ConfigSyncDeploymentState::new().set_admission_webhook(DeploymentState::Error);
+    /// ```
     pub fn set_admission_webhook<T: std::convert::Into<crate::model::DeploymentState>>(
         mut self,
         v: T,
@@ -1782,24 +2421,48 @@ impl SyncState {
     }
 
     /// Sets the value of [source_token][crate::model::SyncState::source_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_configmanagement_v1::model::SyncState;
+    /// let x = SyncState::new().set_source_token("example");
+    /// ```
     pub fn set_source_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.source_token = v.into();
         self
     }
 
     /// Sets the value of [import_token][crate::model::SyncState::import_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_configmanagement_v1::model::SyncState;
+    /// let x = SyncState::new().set_import_token("example");
+    /// ```
     pub fn set_import_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.import_token = v.into();
         self
     }
 
     /// Sets the value of [sync_token][crate::model::SyncState::sync_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_configmanagement_v1::model::SyncState;
+    /// let x = SyncState::new().set_sync_token("example");
+    /// ```
     pub fn set_sync_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.sync_token = v.into();
         self
     }
 
     /// Sets the value of [last_sync][crate::model::SyncState::last_sync].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_configmanagement_v1::model::SyncState;
+    /// let x = SyncState::new().set_last_sync("example");
+    /// ```
     #[deprecated]
     pub fn set_last_sync<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.last_sync = v.into();
@@ -1807,6 +2470,13 @@ impl SyncState {
     }
 
     /// Sets the value of [last_sync_time][crate::model::SyncState::last_sync_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_configmanagement_v1::model::SyncState;
+    /// use wkt::Timestamp;
+    /// let x = SyncState::new().set_last_sync_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_last_sync_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1816,6 +2486,14 @@ impl SyncState {
     }
 
     /// Sets or clears the value of [last_sync_time][crate::model::SyncState::last_sync_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_configmanagement_v1::model::SyncState;
+    /// use wkt::Timestamp;
+    /// let x = SyncState::new().set_or_clear_last_sync_time(Some(Timestamp::default()/* use setters */));
+    /// let x = SyncState::new().set_or_clear_last_sync_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_last_sync_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1825,6 +2503,15 @@ impl SyncState {
     }
 
     /// Sets the value of [code][crate::model::SyncState::code].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_configmanagement_v1::model::SyncState;
+    /// use google_cloud_gkehub_configmanagement_v1::model::sync_state::SyncCode;
+    /// let x0 = SyncState::new().set_code(SyncCode::Synced);
+    /// let x1 = SyncState::new().set_code(SyncCode::Pending);
+    /// let x2 = SyncState::new().set_code(SyncCode::Error);
+    /// ```
     pub fn set_code<T: std::convert::Into<crate::model::sync_state::SyncCode>>(
         mut self,
         v: T,
@@ -1834,6 +2521,17 @@ impl SyncState {
     }
 
     /// Sets the value of [errors][crate::model::SyncState::errors].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_configmanagement_v1::model::SyncState;
+    /// use google_cloud_gkehub_configmanagement_v1::model::SyncError;
+    /// let x = SyncState::new()
+    ///     .set_errors([
+    ///         SyncError::default()/* use setters */,
+    ///         SyncError::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_errors<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2046,18 +2744,41 @@ impl SyncError {
     }
 
     /// Sets the value of [code][crate::model::SyncError::code].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_configmanagement_v1::model::SyncError;
+    /// let x = SyncError::new().set_code("example");
+    /// ```
     pub fn set_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.code = v.into();
         self
     }
 
     /// Sets the value of [error_message][crate::model::SyncError::error_message].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_configmanagement_v1::model::SyncError;
+    /// let x = SyncError::new().set_error_message("example");
+    /// ```
     pub fn set_error_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.error_message = v.into();
         self
     }
 
     /// Sets the value of [error_resources][crate::model::SyncError::error_resources].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_configmanagement_v1::model::SyncError;
+    /// use google_cloud_gkehub_configmanagement_v1::model::ErrorResource;
+    /// let x = SyncError::new()
+    ///     .set_error_resources([
+    ///         ErrorResource::default()/* use setters */,
+    ///         ErrorResource::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_error_resources<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2100,18 +2821,36 @@ impl ErrorResource {
     }
 
     /// Sets the value of [source_path][crate::model::ErrorResource::source_path].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_configmanagement_v1::model::ErrorResource;
+    /// let x = ErrorResource::new().set_source_path("example");
+    /// ```
     pub fn set_source_path<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.source_path = v.into();
         self
     }
 
     /// Sets the value of [resource_name][crate::model::ErrorResource::resource_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_configmanagement_v1::model::ErrorResource;
+    /// let x = ErrorResource::new().set_resource_name("example");
+    /// ```
     pub fn set_resource_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.resource_name = v.into();
         self
     }
 
     /// Sets the value of [resource_namespace][crate::model::ErrorResource::resource_namespace].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_configmanagement_v1::model::ErrorResource;
+    /// let x = ErrorResource::new().set_resource_namespace("example");
+    /// ```
     pub fn set_resource_namespace<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -2121,6 +2860,13 @@ impl ErrorResource {
     }
 
     /// Sets the value of [resource_gvk][crate::model::ErrorResource::resource_gvk].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_configmanagement_v1::model::ErrorResource;
+    /// use google_cloud_gkehub_configmanagement_v1::model::GroupVersionKind;
+    /// let x = ErrorResource::new().set_resource_gvk(GroupVersionKind::default()/* use setters */);
+    /// ```
     pub fn set_resource_gvk<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::GroupVersionKind>,
@@ -2130,6 +2876,14 @@ impl ErrorResource {
     }
 
     /// Sets or clears the value of [resource_gvk][crate::model::ErrorResource::resource_gvk].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_configmanagement_v1::model::ErrorResource;
+    /// use google_cloud_gkehub_configmanagement_v1::model::GroupVersionKind;
+    /// let x = ErrorResource::new().set_or_clear_resource_gvk(Some(GroupVersionKind::default()/* use setters */));
+    /// let x = ErrorResource::new().set_or_clear_resource_gvk(None::<GroupVersionKind>);
+    /// ```
     pub fn set_or_clear_resource_gvk<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::GroupVersionKind>,
@@ -2167,18 +2921,36 @@ impl GroupVersionKind {
     }
 
     /// Sets the value of [group][crate::model::GroupVersionKind::group].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_configmanagement_v1::model::GroupVersionKind;
+    /// let x = GroupVersionKind::new().set_group("example");
+    /// ```
     pub fn set_group<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.group = v.into();
         self
     }
 
     /// Sets the value of [version][crate::model::GroupVersionKind::version].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_configmanagement_v1::model::GroupVersionKind;
+    /// let x = GroupVersionKind::new().set_version("example");
+    /// ```
     pub fn set_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.version = v.into();
         self
     }
 
     /// Sets the value of [kind][crate::model::GroupVersionKind::kind].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_configmanagement_v1::model::GroupVersionKind;
+    /// let x = GroupVersionKind::new().set_kind("example");
+    /// ```
     pub fn set_kind<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.kind = v.into();
         self
@@ -2210,6 +2982,13 @@ impl PolicyControllerState {
     }
 
     /// Sets the value of [version][crate::model::PolicyControllerState::version].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_configmanagement_v1::model::PolicyControllerState;
+    /// use google_cloud_gkehub_configmanagement_v1::model::PolicyControllerVersion;
+    /// let x = PolicyControllerState::new().set_version(PolicyControllerVersion::default()/* use setters */);
+    /// ```
     pub fn set_version<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::PolicyControllerVersion>,
@@ -2219,6 +2998,14 @@ impl PolicyControllerState {
     }
 
     /// Sets or clears the value of [version][crate::model::PolicyControllerState::version].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_configmanagement_v1::model::PolicyControllerState;
+    /// use google_cloud_gkehub_configmanagement_v1::model::PolicyControllerVersion;
+    /// let x = PolicyControllerState::new().set_or_clear_version(Some(PolicyControllerVersion::default()/* use setters */));
+    /// let x = PolicyControllerState::new().set_or_clear_version(None::<PolicyControllerVersion>);
+    /// ```
     pub fn set_or_clear_version<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::PolicyControllerVersion>,
@@ -2228,6 +3015,13 @@ impl PolicyControllerState {
     }
 
     /// Sets the value of [deployment_state][crate::model::PolicyControllerState::deployment_state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_configmanagement_v1::model::PolicyControllerState;
+    /// use google_cloud_gkehub_configmanagement_v1::model::GatekeeperDeploymentState;
+    /// let x = PolicyControllerState::new().set_deployment_state(GatekeeperDeploymentState::default()/* use setters */);
+    /// ```
     pub fn set_deployment_state<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::GatekeeperDeploymentState>,
@@ -2237,6 +3031,14 @@ impl PolicyControllerState {
     }
 
     /// Sets or clears the value of [deployment_state][crate::model::PolicyControllerState::deployment_state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_configmanagement_v1::model::PolicyControllerState;
+    /// use google_cloud_gkehub_configmanagement_v1::model::GatekeeperDeploymentState;
+    /// let x = PolicyControllerState::new().set_or_clear_deployment_state(Some(GatekeeperDeploymentState::default()/* use setters */));
+    /// let x = PolicyControllerState::new().set_or_clear_deployment_state(None::<GatekeeperDeploymentState>);
+    /// ```
     pub fn set_or_clear_deployment_state<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::GatekeeperDeploymentState>,
@@ -2269,6 +3071,12 @@ impl PolicyControllerVersion {
     }
 
     /// Sets the value of [version][crate::model::PolicyControllerVersion::version].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_configmanagement_v1::model::PolicyControllerVersion;
+    /// let x = PolicyControllerVersion::new().set_version("example");
+    /// ```
     pub fn set_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.version = v.into();
         self
@@ -2300,6 +3108,15 @@ impl GatekeeperDeploymentState {
     }
 
     /// Sets the value of [gatekeeper_controller_manager_state][crate::model::GatekeeperDeploymentState::gatekeeper_controller_manager_state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_configmanagement_v1::model::GatekeeperDeploymentState;
+    /// use google_cloud_gkehub_configmanagement_v1::model::DeploymentState;
+    /// let x0 = GatekeeperDeploymentState::new().set_gatekeeper_controller_manager_state(DeploymentState::NotInstalled);
+    /// let x1 = GatekeeperDeploymentState::new().set_gatekeeper_controller_manager_state(DeploymentState::Installed);
+    /// let x2 = GatekeeperDeploymentState::new().set_gatekeeper_controller_manager_state(DeploymentState::Error);
+    /// ```
     pub fn set_gatekeeper_controller_manager_state<
         T: std::convert::Into<crate::model::DeploymentState>,
     >(
@@ -2311,6 +3128,15 @@ impl GatekeeperDeploymentState {
     }
 
     /// Sets the value of [gatekeeper_audit][crate::model::GatekeeperDeploymentState::gatekeeper_audit].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_configmanagement_v1::model::GatekeeperDeploymentState;
+    /// use google_cloud_gkehub_configmanagement_v1::model::DeploymentState;
+    /// let x0 = GatekeeperDeploymentState::new().set_gatekeeper_audit(DeploymentState::NotInstalled);
+    /// let x1 = GatekeeperDeploymentState::new().set_gatekeeper_audit(DeploymentState::Installed);
+    /// let x2 = GatekeeperDeploymentState::new().set_gatekeeper_audit(DeploymentState::Error);
+    /// ```
     pub fn set_gatekeeper_audit<T: std::convert::Into<crate::model::DeploymentState>>(
         mut self,
         v: T,

@@ -69,12 +69,25 @@ impl Zone {
     }
 
     /// Sets the value of [name][crate::model::Zone::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::model::Zone;
+    /// let x = Zone::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::Zone::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::model::Zone;
+    /// use wkt::Timestamp;
+    /// let x = Zone::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -84,6 +97,14 @@ impl Zone {
     }
 
     /// Sets or clears the value of [create_time][crate::model::Zone::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::model::Zone;
+    /// use wkt::Timestamp;
+    /// let x = Zone::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Zone::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -93,6 +114,13 @@ impl Zone {
     }
 
     /// Sets the value of [update_time][crate::model::Zone::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::model::Zone;
+    /// use wkt::Timestamp;
+    /// let x = Zone::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -102,6 +130,14 @@ impl Zone {
     }
 
     /// Sets or clears the value of [update_time][crate::model::Zone::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::model::Zone;
+    /// use wkt::Timestamp;
+    /// let x = Zone::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Zone::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -111,6 +147,15 @@ impl Zone {
     }
 
     /// Sets the value of [labels][crate::model::Zone::labels].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::model::Zone;
+    /// let x = Zone::new().set_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     #[deprecated]
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
@@ -124,6 +169,12 @@ impl Zone {
     }
 
     /// Sets the value of [layout_name][crate::model::Zone::layout_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::model::Zone;
+    /// let x = Zone::new().set_layout_name("example");
+    /// ```
     #[deprecated]
     pub fn set_layout_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.layout_name = v.into();
@@ -171,12 +222,25 @@ impl Network {
     }
 
     /// Sets the value of [name][crate::model::Network::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::model::Network;
+    /// let x = Network::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::Network::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::model::Network;
+    /// use wkt::Timestamp;
+    /// let x = Network::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -186,6 +250,14 @@ impl Network {
     }
 
     /// Sets or clears the value of [create_time][crate::model::Network::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::model::Network;
+    /// use wkt::Timestamp;
+    /// let x = Network::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Network::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -195,6 +267,13 @@ impl Network {
     }
 
     /// Sets the value of [update_time][crate::model::Network::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::model::Network;
+    /// use wkt::Timestamp;
+    /// let x = Network::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -204,6 +283,14 @@ impl Network {
     }
 
     /// Sets or clears the value of [update_time][crate::model::Network::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::model::Network;
+    /// use wkt::Timestamp;
+    /// let x = Network::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Network::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -213,6 +300,15 @@ impl Network {
     }
 
     /// Sets the value of [labels][crate::model::Network::labels].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::model::Network;
+    /// let x = Network::new().set_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -225,12 +321,24 @@ impl Network {
     }
 
     /// Sets the value of [description][crate::model::Network::description].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::model::Network;
+    /// let x = Network::new().set_description("example");
+    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [mtu][crate::model::Network::mtu].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::model::Network;
+    /// let x = Network::new().set_mtu(42);
+    /// ```
     pub fn set_mtu<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.mtu = v.into();
         self
@@ -295,12 +403,25 @@ impl Subnet {
     }
 
     /// Sets the value of [name][crate::model::Subnet::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::model::Subnet;
+    /// let x = Subnet::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::Subnet::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::model::Subnet;
+    /// use wkt::Timestamp;
+    /// let x = Subnet::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -310,6 +431,14 @@ impl Subnet {
     }
 
     /// Sets or clears the value of [create_time][crate::model::Subnet::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::model::Subnet;
+    /// use wkt::Timestamp;
+    /// let x = Subnet::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Subnet::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -319,6 +448,13 @@ impl Subnet {
     }
 
     /// Sets the value of [update_time][crate::model::Subnet::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::model::Subnet;
+    /// use wkt::Timestamp;
+    /// let x = Subnet::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -328,6 +464,14 @@ impl Subnet {
     }
 
     /// Sets or clears the value of [update_time][crate::model::Subnet::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::model::Subnet;
+    /// use wkt::Timestamp;
+    /// let x = Subnet::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Subnet::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -337,6 +481,15 @@ impl Subnet {
     }
 
     /// Sets the value of [labels][crate::model::Subnet::labels].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::model::Subnet;
+    /// let x = Subnet::new().set_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -349,18 +502,36 @@ impl Subnet {
     }
 
     /// Sets the value of [description][crate::model::Subnet::description].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::model::Subnet;
+    /// let x = Subnet::new().set_description("example");
+    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [network][crate::model::Subnet::network].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::model::Subnet;
+    /// let x = Subnet::new().set_network("example");
+    /// ```
     pub fn set_network<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.network = v.into();
         self
     }
 
     /// Sets the value of [ipv4_cidr][crate::model::Subnet::ipv4_cidr].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::model::Subnet;
+    /// let x = Subnet::new().set_ipv4_cidr(["a", "b", "c"]);
+    /// ```
     pub fn set_ipv4_cidr<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -372,6 +543,12 @@ impl Subnet {
     }
 
     /// Sets the value of [ipv6_cidr][crate::model::Subnet::ipv6_cidr].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::model::Subnet;
+    /// let x = Subnet::new().set_ipv6_cidr(["a", "b", "c"]);
+    /// ```
     pub fn set_ipv6_cidr<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -383,12 +560,26 @@ impl Subnet {
     }
 
     /// Sets the value of [vlan_id][crate::model::Subnet::vlan_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::model::Subnet;
+    /// let x = Subnet::new().set_vlan_id(42);
+    /// ```
     pub fn set_vlan_id<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.vlan_id = v.into();
         self
     }
 
     /// Sets the value of [bonding_type][crate::model::Subnet::bonding_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::model::Subnet;
+    /// use google_cloud_edgenetwork_v1::model::subnet::BondingType;
+    /// let x0 = Subnet::new().set_bonding_type(BondingType::Bonded);
+    /// let x1 = Subnet::new().set_bonding_type(BondingType::NonBonded);
+    /// ```
     pub fn set_bonding_type<T: std::convert::Into<crate::model::subnet::BondingType>>(
         mut self,
         v: T,
@@ -398,6 +589,15 @@ impl Subnet {
     }
 
     /// Sets the value of [state][crate::model::Subnet::state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::model::Subnet;
+    /// use google_cloud_edgenetwork_v1::model::ResourceState;
+    /// let x0 = Subnet::new().set_state(ResourceState::StatePending);
+    /// let x1 = Subnet::new().set_state(ResourceState::StateProvisioning);
+    /// let x2 = Subnet::new().set_state(ResourceState::StateRunning);
+    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::ResourceState>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
@@ -599,12 +799,25 @@ impl Interconnect {
     }
 
     /// Sets the value of [name][crate::model::Interconnect::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::model::Interconnect;
+    /// let x = Interconnect::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::Interconnect::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::model::Interconnect;
+    /// use wkt::Timestamp;
+    /// let x = Interconnect::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -614,6 +827,14 @@ impl Interconnect {
     }
 
     /// Sets or clears the value of [create_time][crate::model::Interconnect::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::model::Interconnect;
+    /// use wkt::Timestamp;
+    /// let x = Interconnect::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Interconnect::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -623,6 +844,13 @@ impl Interconnect {
     }
 
     /// Sets the value of [update_time][crate::model::Interconnect::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::model::Interconnect;
+    /// use wkt::Timestamp;
+    /// let x = Interconnect::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -632,6 +860,14 @@ impl Interconnect {
     }
 
     /// Sets or clears the value of [update_time][crate::model::Interconnect::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::model::Interconnect;
+    /// use wkt::Timestamp;
+    /// let x = Interconnect::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Interconnect::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -641,6 +877,15 @@ impl Interconnect {
     }
 
     /// Sets the value of [labels][crate::model::Interconnect::labels].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::model::Interconnect;
+    /// let x = Interconnect::new().set_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -653,12 +898,25 @@ impl Interconnect {
     }
 
     /// Sets the value of [description][crate::model::Interconnect::description].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::model::Interconnect;
+    /// let x = Interconnect::new().set_description("example");
+    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [interconnect_type][crate::model::Interconnect::interconnect_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::model::Interconnect;
+    /// use google_cloud_edgenetwork_v1::model::interconnect::InterconnectType;
+    /// let x0 = Interconnect::new().set_interconnect_type(InterconnectType::Dedicated);
+    /// ```
     pub fn set_interconnect_type<
         T: std::convert::Into<crate::model::interconnect::InterconnectType>,
     >(
@@ -670,12 +928,24 @@ impl Interconnect {
     }
 
     /// Sets the value of [uuid][crate::model::Interconnect::uuid].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::model::Interconnect;
+    /// let x = Interconnect::new().set_uuid("example");
+    /// ```
     pub fn set_uuid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.uuid = v.into();
         self
     }
 
     /// Sets the value of [device_cloud_resource_name][crate::model::Interconnect::device_cloud_resource_name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::model::Interconnect;
+    /// let x = Interconnect::new().set_device_cloud_resource_name("example");
+    /// ```
     pub fn set_device_cloud_resource_name<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -685,6 +955,12 @@ impl Interconnect {
     }
 
     /// Sets the value of [physical_ports][crate::model::Interconnect::physical_ports].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::model::Interconnect;
+    /// let x = Interconnect::new().set_physical_ports(["a", "b", "c"]);
+    /// ```
     pub fn set_physical_ports<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -696,6 +972,14 @@ impl Interconnect {
     }
 
     /// Sets the value of [remote_peering_network_type][crate::model::Interconnect::remote_peering_network_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::model::Interconnect;
+    /// use google_cloud_edgenetwork_v1::model::RemotePeeringNetworkType;
+    /// let x0 = Interconnect::new().set_remote_peering_network_type(RemotePeeringNetworkType::CustomerInternal);
+    /// let x1 = Interconnect::new().set_remote_peering_network_type(RemotePeeringNetworkType::CustomerInternet);
+    /// ```
     pub fn set_remote_peering_network_type<
         T: std::convert::Into<crate::model::RemotePeeringNetworkType>,
     >(
@@ -897,12 +1181,25 @@ impl InterconnectAttachment {
     }
 
     /// Sets the value of [name][crate::model::InterconnectAttachment::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::model::InterconnectAttachment;
+    /// let x = InterconnectAttachment::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::InterconnectAttachment::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::model::InterconnectAttachment;
+    /// use wkt::Timestamp;
+    /// let x = InterconnectAttachment::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -912,6 +1209,14 @@ impl InterconnectAttachment {
     }
 
     /// Sets or clears the value of [create_time][crate::model::InterconnectAttachment::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::model::InterconnectAttachment;
+    /// use wkt::Timestamp;
+    /// let x = InterconnectAttachment::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = InterconnectAttachment::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -921,6 +1226,13 @@ impl InterconnectAttachment {
     }
 
     /// Sets the value of [update_time][crate::model::InterconnectAttachment::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::model::InterconnectAttachment;
+    /// use wkt::Timestamp;
+    /// let x = InterconnectAttachment::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -930,6 +1242,14 @@ impl InterconnectAttachment {
     }
 
     /// Sets or clears the value of [update_time][crate::model::InterconnectAttachment::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::model::InterconnectAttachment;
+    /// use wkt::Timestamp;
+    /// let x = InterconnectAttachment::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = InterconnectAttachment::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -939,6 +1259,15 @@ impl InterconnectAttachment {
     }
 
     /// Sets the value of [labels][crate::model::InterconnectAttachment::labels].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::model::InterconnectAttachment;
+    /// let x = InterconnectAttachment::new().set_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -951,42 +1280,89 @@ impl InterconnectAttachment {
     }
 
     /// Sets the value of [description][crate::model::InterconnectAttachment::description].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::model::InterconnectAttachment;
+    /// let x = InterconnectAttachment::new().set_description("example");
+    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [interconnect][crate::model::InterconnectAttachment::interconnect].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::model::InterconnectAttachment;
+    /// let x = InterconnectAttachment::new().set_interconnect("example");
+    /// ```
     pub fn set_interconnect<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.interconnect = v.into();
         self
     }
 
     /// Sets the value of [network][crate::model::InterconnectAttachment::network].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::model::InterconnectAttachment;
+    /// let x = InterconnectAttachment::new().set_network("example");
+    /// ```
     pub fn set_network<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.network = v.into();
         self
     }
 
     /// Sets the value of [vlan_id][crate::model::InterconnectAttachment::vlan_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::model::InterconnectAttachment;
+    /// let x = InterconnectAttachment::new().set_vlan_id(42);
+    /// ```
     pub fn set_vlan_id<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.vlan_id = v.into();
         self
     }
 
     /// Sets the value of [mtu][crate::model::InterconnectAttachment::mtu].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::model::InterconnectAttachment;
+    /// let x = InterconnectAttachment::new().set_mtu(42);
+    /// ```
     pub fn set_mtu<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.mtu = v.into();
         self
     }
 
     /// Sets the value of [state][crate::model::InterconnectAttachment::state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::model::InterconnectAttachment;
+    /// use google_cloud_edgenetwork_v1::model::ResourceState;
+    /// let x0 = InterconnectAttachment::new().set_state(ResourceState::StatePending);
+    /// let x1 = InterconnectAttachment::new().set_state(ResourceState::StateProvisioning);
+    /// let x2 = InterconnectAttachment::new().set_state(ResourceState::StateRunning);
+    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::ResourceState>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
     }
 
     /// Sets the value of [peering_type][crate::model::InterconnectAttachment::peering_type].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::model::InterconnectAttachment;
+    /// use google_cloud_edgenetwork_v1::model::RemotePeeringNetworkType;
+    /// let x0 = InterconnectAttachment::new().set_peering_type(RemotePeeringNetworkType::CustomerInternal);
+    /// let x1 = InterconnectAttachment::new().set_peering_type(RemotePeeringNetworkType::CustomerInternet);
+    /// ```
     pub fn set_peering_type<T: std::convert::Into<crate::model::RemotePeeringNetworkType>>(
         mut self,
         v: T,
@@ -1052,12 +1428,25 @@ impl Router {
     }
 
     /// Sets the value of [name][crate::model::Router::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::model::Router;
+    /// let x = Router::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::Router::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::model::Router;
+    /// use wkt::Timestamp;
+    /// let x = Router::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1067,6 +1456,14 @@ impl Router {
     }
 
     /// Sets or clears the value of [create_time][crate::model::Router::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::model::Router;
+    /// use wkt::Timestamp;
+    /// let x = Router::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Router::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1076,6 +1473,13 @@ impl Router {
     }
 
     /// Sets the value of [update_time][crate::model::Router::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::model::Router;
+    /// use wkt::Timestamp;
+    /// let x = Router::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1085,6 +1489,14 @@ impl Router {
     }
 
     /// Sets or clears the value of [update_time][crate::model::Router::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::model::Router;
+    /// use wkt::Timestamp;
+    /// let x = Router::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Router::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1094,6 +1506,15 @@ impl Router {
     }
 
     /// Sets the value of [labels][crate::model::Router::labels].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::model::Router;
+    /// let x = Router::new().set_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -1106,18 +1527,41 @@ impl Router {
     }
 
     /// Sets the value of [description][crate::model::Router::description].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::model::Router;
+    /// let x = Router::new().set_description("example");
+    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [network][crate::model::Router::network].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::model::Router;
+    /// let x = Router::new().set_network("example");
+    /// ```
     pub fn set_network<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.network = v.into();
         self
     }
 
     /// Sets the value of [interface][crate::model::Router::interface].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::model::Router;
+    /// use google_cloud_edgenetwork_v1::model::router::Interface;
+    /// let x = Router::new()
+    ///     .set_interface([
+    ///         Interface::default()/* use setters */,
+    ///         Interface::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_interface<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1129,6 +1573,17 @@ impl Router {
     }
 
     /// Sets the value of [bgp_peer][crate::model::Router::bgp_peer].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::model::Router;
+    /// use google_cloud_edgenetwork_v1::model::router::BgpPeer;
+    /// let x = Router::new()
+    ///     .set_bgp_peer([
+    ///         BgpPeer::default()/* use setters */,
+    ///         BgpPeer::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_bgp_peer<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1140,6 +1595,13 @@ impl Router {
     }
 
     /// Sets the value of [bgp][crate::model::Router::bgp].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::model::Router;
+    /// use google_cloud_edgenetwork_v1::model::router::Bgp;
+    /// let x = Router::new().set_bgp(Bgp::default()/* use setters */);
+    /// ```
     pub fn set_bgp<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::router::Bgp>,
@@ -1149,6 +1611,14 @@ impl Router {
     }
 
     /// Sets or clears the value of [bgp][crate::model::Router::bgp].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::model::Router;
+    /// use google_cloud_edgenetwork_v1::model::router::Bgp;
+    /// let x = Router::new().set_or_clear_bgp(Some(Bgp::default()/* use setters */));
+    /// let x = Router::new().set_or_clear_bgp(None::<Bgp>);
+    /// ```
     pub fn set_or_clear_bgp<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::router::Bgp>,
@@ -1158,12 +1628,27 @@ impl Router {
     }
 
     /// Sets the value of [state][crate::model::Router::state].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::model::Router;
+    /// use google_cloud_edgenetwork_v1::model::ResourceState;
+    /// let x0 = Router::new().set_state(ResourceState::StatePending);
+    /// let x1 = Router::new().set_state(ResourceState::StateProvisioning);
+    /// let x2 = Router::new().set_state(ResourceState::StateRunning);
+    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::ResourceState>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
     }
 
     /// Sets the value of [route_advertisements][crate::model::Router::route_advertisements].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::model::Router;
+    /// let x = Router::new().set_route_advertisements(["a", "b", "c"]);
+    /// ```
     pub fn set_route_advertisements<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1220,24 +1705,48 @@ pub mod router {
         }
 
         /// Sets the value of [name][crate::model::router::Interface::name].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_edgenetwork_v1::model::router::Interface;
+        /// let x = Interface::new().set_name("example");
+        /// ```
         pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.name = v.into();
             self
         }
 
         /// Sets the value of [ipv4_cidr][crate::model::router::Interface::ipv4_cidr].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_edgenetwork_v1::model::router::Interface;
+        /// let x = Interface::new().set_ipv4_cidr("example");
+        /// ```
         pub fn set_ipv4_cidr<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.ipv4_cidr = v.into();
             self
         }
 
         /// Sets the value of [ipv6_cidr][crate::model::router::Interface::ipv6_cidr].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_edgenetwork_v1::model::router::Interface;
+        /// let x = Interface::new().set_ipv6_cidr("example");
+        /// ```
         pub fn set_ipv6_cidr<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.ipv6_cidr = v.into();
             self
         }
 
         /// Sets the value of [linked_interconnect_attachment][crate::model::router::Interface::linked_interconnect_attachment].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_edgenetwork_v1::model::router::Interface;
+        /// let x = Interface::new().set_linked_interconnect_attachment("example");
+        /// ```
         pub fn set_linked_interconnect_attachment<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -1247,12 +1756,24 @@ pub mod router {
         }
 
         /// Sets the value of [subnetwork][crate::model::router::Interface::subnetwork].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_edgenetwork_v1::model::router::Interface;
+        /// let x = Interface::new().set_subnetwork("example");
+        /// ```
         pub fn set_subnetwork<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.subnetwork = v.into();
             self
         }
 
         /// Sets the value of [loopback_ip_addresses][crate::model::router::Interface::loopback_ip_addresses].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_edgenetwork_v1::model::router::Interface;
+        /// let x = Interface::new().set_loopback_ip_addresses(["a", "b", "c"]);
+        /// ```
         pub fn set_loopback_ip_addresses<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -1311,18 +1832,36 @@ pub mod router {
         }
 
         /// Sets the value of [name][crate::model::router::BgpPeer::name].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_edgenetwork_v1::model::router::BgpPeer;
+        /// let x = BgpPeer::new().set_name("example");
+        /// ```
         pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.name = v.into();
             self
         }
 
         /// Sets the value of [interface][crate::model::router::BgpPeer::interface].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_edgenetwork_v1::model::router::BgpPeer;
+        /// let x = BgpPeer::new().set_interface("example");
+        /// ```
         pub fn set_interface<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.interface = v.into();
             self
         }
 
         /// Sets the value of [interface_ipv4_cidr][crate::model::router::BgpPeer::interface_ipv4_cidr].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_edgenetwork_v1::model::router::BgpPeer;
+        /// let x = BgpPeer::new().set_interface_ipv4_cidr("example");
+        /// ```
         pub fn set_interface_ipv4_cidr<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -1332,6 +1871,12 @@ pub mod router {
         }
 
         /// Sets the value of [interface_ipv6_cidr][crate::model::router::BgpPeer::interface_ipv6_cidr].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_edgenetwork_v1::model::router::BgpPeer;
+        /// let x = BgpPeer::new().set_interface_ipv6_cidr("example");
+        /// ```
         pub fn set_interface_ipv6_cidr<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -1341,6 +1886,12 @@ pub mod router {
         }
 
         /// Sets the value of [peer_ipv4_cidr][crate::model::router::BgpPeer::peer_ipv4_cidr].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_edgenetwork_v1::model::router::BgpPeer;
+        /// let x = BgpPeer::new().set_peer_ipv4_cidr("example");
+        /// ```
         pub fn set_peer_ipv4_cidr<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -1350,6 +1901,12 @@ pub mod router {
         }
 
         /// Sets the value of [peer_ipv6_cidr][crate::model::router::BgpPeer::peer_ipv6_cidr].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_edgenetwork_v1::model::router::BgpPeer;
+        /// let x = BgpPeer::new().set_peer_ipv6_cidr("example");
+        /// ```
         pub fn set_peer_ipv6_cidr<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -1359,12 +1916,24 @@ pub mod router {
         }
 
         /// Sets the value of [peer_asn][crate::model::router::BgpPeer::peer_asn].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_edgenetwork_v1::model::router::BgpPeer;
+        /// let x = BgpPeer::new().set_peer_asn(42);
+        /// ```
         pub fn set_peer_asn<T: std::convert::Into<u32>>(mut self, v: T) -> Self {
             self.peer_asn = v.into();
             self
         }
 
         /// Sets the value of [local_asn][crate::model::router::BgpPeer::local_asn].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_edgenetwork_v1::model::router::BgpPeer;
+        /// let x = BgpPeer::new().set_local_asn(42);
+        /// ```
         pub fn set_local_asn<T: std::convert::Into<u32>>(mut self, v: T) -> Self {
             self.local_asn = v.into();
             self
@@ -1397,12 +1966,24 @@ pub mod router {
         }
 
         /// Sets the value of [asn][crate::model::router::Bgp::asn].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_edgenetwork_v1::model::router::Bgp;
+        /// let x = Bgp::new().set_asn(42);
+        /// ```
         pub fn set_asn<T: std::convert::Into<u32>>(mut self, v: T) -> Self {
             self.asn = v.into();
             self
         }
 
         /// Sets the value of [keepalive_interval_in_seconds][crate::model::router::Bgp::keepalive_interval_in_seconds].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_edgenetwork_v1::model::router::Bgp;
+        /// let x = Bgp::new().set_keepalive_interval_in_seconds(42);
+        /// ```
         pub fn set_keepalive_interval_in_seconds<T: std::convert::Into<u32>>(
             mut self,
             v: T,
@@ -1438,12 +2019,24 @@ impl LinkLayerAddress {
     }
 
     /// Sets the value of [mac_address][crate::model::LinkLayerAddress::mac_address].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::model::LinkLayerAddress;
+    /// let x = LinkLayerAddress::new().set_mac_address("example");
+    /// ```
     pub fn set_mac_address<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.mac_address = v.into();
         self
     }
 
     /// Sets the value of [ip_address][crate::model::LinkLayerAddress::ip_address].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::model::LinkLayerAddress;
+    /// let x = LinkLayerAddress::new().set_ip_address("example");
+    /// ```
     pub fn set_ip_address<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.ip_address = v.into();
         self
@@ -1480,18 +2073,41 @@ impl SubnetStatus {
     }
 
     /// Sets the value of [name][crate::model::SubnetStatus::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::model::SubnetStatus;
+    /// let x = SubnetStatus::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [mac_address][crate::model::SubnetStatus::mac_address].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::model::SubnetStatus;
+    /// let x = SubnetStatus::new().set_mac_address("example");
+    /// ```
     pub fn set_mac_address<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.mac_address = v.into();
         self
     }
 
     /// Sets the value of [link_layer_addresses][crate::model::SubnetStatus::link_layer_addresses].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::model::SubnetStatus;
+    /// use google_cloud_edgenetwork_v1::model::LinkLayerAddress;
+    /// let x = SubnetStatus::new()
+    ///     .set_link_layer_addresses([
+    ///         LinkLayerAddress::default()/* use setters */,
+    ///         LinkLayerAddress::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_link_layer_addresses<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1534,12 +2150,29 @@ impl InterconnectDiagnostics {
     }
 
     /// Sets the value of [mac_address][crate::model::InterconnectDiagnostics::mac_address].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::model::InterconnectDiagnostics;
+    /// let x = InterconnectDiagnostics::new().set_mac_address("example");
+    /// ```
     pub fn set_mac_address<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.mac_address = v.into();
         self
     }
 
     /// Sets the value of [link_layer_addresses][crate::model::InterconnectDiagnostics::link_layer_addresses].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::model::InterconnectDiagnostics;
+    /// use google_cloud_edgenetwork_v1::model::LinkLayerAddress;
+    /// let x = InterconnectDiagnostics::new()
+    ///     .set_link_layer_addresses([
+    ///         LinkLayerAddress::default()/* use setters */,
+    ///         LinkLayerAddress::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_link_layer_addresses<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1551,6 +2184,17 @@ impl InterconnectDiagnostics {
     }
 
     /// Sets the value of [links][crate::model::InterconnectDiagnostics::links].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::model::InterconnectDiagnostics;
+    /// use google_cloud_edgenetwork_v1::model::interconnect_diagnostics::LinkStatus;
+    /// let x = InterconnectDiagnostics::new()
+    ///     .set_links([
+    ///         LinkStatus::default()/* use setters */,
+    ///         LinkStatus::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_links<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1601,12 +2245,25 @@ pub mod interconnect_diagnostics {
         }
 
         /// Sets the value of [circuit_id][crate::model::interconnect_diagnostics::LinkStatus::circuit_id].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_edgenetwork_v1::model::interconnect_diagnostics::LinkStatus;
+        /// let x = LinkStatus::new().set_circuit_id("example");
+        /// ```
         pub fn set_circuit_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.circuit_id = v.into();
             self
         }
 
         /// Sets the value of [lacp_status][crate::model::interconnect_diagnostics::LinkStatus::lacp_status].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_edgenetwork_v1::model::interconnect_diagnostics::LinkStatus;
+        /// use google_cloud_edgenetwork_v1::model::interconnect_diagnostics::LinkLACPStatus;
+        /// let x = LinkStatus::new().set_lacp_status(LinkLACPStatus::default()/* use setters */);
+        /// ```
         pub fn set_lacp_status<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::interconnect_diagnostics::LinkLACPStatus>,
@@ -1616,6 +2273,14 @@ pub mod interconnect_diagnostics {
         }
 
         /// Sets or clears the value of [lacp_status][crate::model::interconnect_diagnostics::LinkStatus::lacp_status].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_edgenetwork_v1::model::interconnect_diagnostics::LinkStatus;
+        /// use google_cloud_edgenetwork_v1::model::interconnect_diagnostics::LinkLACPStatus;
+        /// let x = LinkStatus::new().set_or_clear_lacp_status(Some(LinkLACPStatus::default()/* use setters */));
+        /// let x = LinkStatus::new().set_or_clear_lacp_status(None::<LinkLACPStatus>);
+        /// ```
         pub fn set_or_clear_lacp_status<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::interconnect_diagnostics::LinkLACPStatus>,
@@ -1625,6 +2290,17 @@ pub mod interconnect_diagnostics {
         }
 
         /// Sets the value of [lldp_statuses][crate::model::interconnect_diagnostics::LinkStatus::lldp_statuses].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_edgenetwork_v1::model::interconnect_diagnostics::LinkStatus;
+        /// use google_cloud_edgenetwork_v1::model::interconnect_diagnostics::LinkLLDPStatus;
+        /// let x = LinkStatus::new()
+        ///     .set_lldp_statuses([
+        ///         LinkLLDPStatus::default()/* use setters */,
+        ///         LinkLLDPStatus::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
         pub fn set_lldp_statuses<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -1636,6 +2312,13 @@ pub mod interconnect_diagnostics {
         }
 
         /// Sets the value of [packet_counts][crate::model::interconnect_diagnostics::LinkStatus::packet_counts].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_edgenetwork_v1::model::interconnect_diagnostics::LinkStatus;
+        /// use google_cloud_edgenetwork_v1::model::interconnect_diagnostics::PacketCounts;
+        /// let x = LinkStatus::new().set_packet_counts(PacketCounts::default()/* use setters */);
+        /// ```
         pub fn set_packet_counts<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::interconnect_diagnostics::PacketCounts>,
@@ -1645,6 +2328,14 @@ pub mod interconnect_diagnostics {
         }
 
         /// Sets or clears the value of [packet_counts][crate::model::interconnect_diagnostics::LinkStatus::packet_counts].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_edgenetwork_v1::model::interconnect_diagnostics::LinkStatus;
+        /// use google_cloud_edgenetwork_v1::model::interconnect_diagnostics::PacketCounts;
+        /// let x = LinkStatus::new().set_or_clear_packet_counts(Some(PacketCounts::default()/* use setters */));
+        /// let x = LinkStatus::new().set_or_clear_packet_counts(None::<PacketCounts>);
+        /// ```
         pub fn set_or_clear_packet_counts<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::interconnect_diagnostics::PacketCounts>,
@@ -1694,36 +2385,72 @@ pub mod interconnect_diagnostics {
         }
 
         /// Sets the value of [inbound_unicast][crate::model::interconnect_diagnostics::PacketCounts::inbound_unicast].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_edgenetwork_v1::model::interconnect_diagnostics::PacketCounts;
+        /// let x = PacketCounts::new().set_inbound_unicast(42);
+        /// ```
         pub fn set_inbound_unicast<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
             self.inbound_unicast = v.into();
             self
         }
 
         /// Sets the value of [inbound_errors][crate::model::interconnect_diagnostics::PacketCounts::inbound_errors].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_edgenetwork_v1::model::interconnect_diagnostics::PacketCounts;
+        /// let x = PacketCounts::new().set_inbound_errors(42);
+        /// ```
         pub fn set_inbound_errors<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
             self.inbound_errors = v.into();
             self
         }
 
         /// Sets the value of [inbound_discards][crate::model::interconnect_diagnostics::PacketCounts::inbound_discards].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_edgenetwork_v1::model::interconnect_diagnostics::PacketCounts;
+        /// let x = PacketCounts::new().set_inbound_discards(42);
+        /// ```
         pub fn set_inbound_discards<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
             self.inbound_discards = v.into();
             self
         }
 
         /// Sets the value of [outbound_unicast][crate::model::interconnect_diagnostics::PacketCounts::outbound_unicast].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_edgenetwork_v1::model::interconnect_diagnostics::PacketCounts;
+        /// let x = PacketCounts::new().set_outbound_unicast(42);
+        /// ```
         pub fn set_outbound_unicast<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
             self.outbound_unicast = v.into();
             self
         }
 
         /// Sets the value of [outbound_errors][crate::model::interconnect_diagnostics::PacketCounts::outbound_errors].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_edgenetwork_v1::model::interconnect_diagnostics::PacketCounts;
+        /// let x = PacketCounts::new().set_outbound_errors(42);
+        /// ```
         pub fn set_outbound_errors<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
             self.outbound_errors = v.into();
             self
         }
 
         /// Sets the value of [outbound_discards][crate::model::interconnect_diagnostics::PacketCounts::outbound_discards].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_edgenetwork_v1::model::interconnect_diagnostics::PacketCounts;
+        /// let x = PacketCounts::new().set_outbound_discards(42);
+        /// ```
         pub fn set_outbound_discards<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
             self.outbound_discards = v.into();
             self
@@ -1771,6 +2498,14 @@ pub mod interconnect_diagnostics {
         }
 
         /// Sets the value of [state][crate::model::interconnect_diagnostics::LinkLACPStatus::state].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_edgenetwork_v1::model::interconnect_diagnostics::LinkLACPStatus;
+        /// use google_cloud_edgenetwork_v1::model::interconnect_diagnostics::link_lacp_status::State;
+        /// let x0 = LinkLACPStatus::new().set_state(State::Active);
+        /// let x1 = LinkLACPStatus::new().set_state(State::Detached);
+        /// ```
         pub fn set_state<
             T: std::convert::Into<crate::model::interconnect_diagnostics::link_lacp_status::State>,
         >(
@@ -1782,6 +2517,12 @@ pub mod interconnect_diagnostics {
         }
 
         /// Sets the value of [google_system_id][crate::model::interconnect_diagnostics::LinkLACPStatus::google_system_id].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_edgenetwork_v1::model::interconnect_diagnostics::LinkLACPStatus;
+        /// let x = LinkLACPStatus::new().set_google_system_id("example");
+        /// ```
         pub fn set_google_system_id<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -1791,6 +2532,12 @@ pub mod interconnect_diagnostics {
         }
 
         /// Sets the value of [neighbor_system_id][crate::model::interconnect_diagnostics::LinkLACPStatus::neighbor_system_id].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_edgenetwork_v1::model::interconnect_diagnostics::LinkLACPStatus;
+        /// let x = LinkLACPStatus::new().set_neighbor_system_id("example");
+        /// ```
         pub fn set_neighbor_system_id<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -1800,18 +2547,36 @@ pub mod interconnect_diagnostics {
         }
 
         /// Sets the value of [aggregatable][crate::model::interconnect_diagnostics::LinkLACPStatus::aggregatable].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_edgenetwork_v1::model::interconnect_diagnostics::LinkLACPStatus;
+        /// let x = LinkLACPStatus::new().set_aggregatable(true);
+        /// ```
         pub fn set_aggregatable<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.aggregatable = v.into();
             self
         }
 
         /// Sets the value of [collecting][crate::model::interconnect_diagnostics::LinkLACPStatus::collecting].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_edgenetwork_v1::model::interconnect_diagnostics::LinkLACPStatus;
+        /// let x = LinkLACPStatus::new().set_collecting(true);
+        /// ```
         pub fn set_collecting<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.collecting = v.into();
             self
         }
 
         /// Sets the value of [distributing][crate::model::interconnect_diagnostics::LinkLACPStatus::distributing].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_edgenetwork_v1::model::interconnect_diagnostics::LinkLACPStatus;
+        /// let x = LinkLACPStatus::new().set_distributing(true);
+        /// ```
         pub fn set_distributing<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.distributing = v.into();
             self
@@ -2000,6 +2765,12 @@ pub mod interconnect_diagnostics {
         }
 
         /// Sets the value of [peer_system_name][crate::model::interconnect_diagnostics::LinkLLDPStatus::peer_system_name].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_edgenetwork_v1::model::interconnect_diagnostics::LinkLLDPStatus;
+        /// let x = LinkLLDPStatus::new().set_peer_system_name("example");
+        /// ```
         pub fn set_peer_system_name<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -2009,6 +2780,12 @@ pub mod interconnect_diagnostics {
         }
 
         /// Sets the value of [peer_system_description][crate::model::interconnect_diagnostics::LinkLLDPStatus::peer_system_description].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_edgenetwork_v1::model::interconnect_diagnostics::LinkLLDPStatus;
+        /// let x = LinkLLDPStatus::new().set_peer_system_description("example");
+        /// ```
         pub fn set_peer_system_description<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -2018,6 +2795,12 @@ pub mod interconnect_diagnostics {
         }
 
         /// Sets the value of [peer_chassis_id][crate::model::interconnect_diagnostics::LinkLLDPStatus::peer_chassis_id].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_edgenetwork_v1::model::interconnect_diagnostics::LinkLLDPStatus;
+        /// let x = LinkLLDPStatus::new().set_peer_chassis_id("example");
+        /// ```
         pub fn set_peer_chassis_id<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -2027,6 +2810,12 @@ pub mod interconnect_diagnostics {
         }
 
         /// Sets the value of [peer_chassis_id_type][crate::model::interconnect_diagnostics::LinkLLDPStatus::peer_chassis_id_type].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_edgenetwork_v1::model::interconnect_diagnostics::LinkLLDPStatus;
+        /// let x = LinkLLDPStatus::new().set_peer_chassis_id_type("example");
+        /// ```
         pub fn set_peer_chassis_id_type<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -2036,6 +2825,12 @@ pub mod interconnect_diagnostics {
         }
 
         /// Sets the value of [peer_port_id][crate::model::interconnect_diagnostics::LinkLLDPStatus::peer_port_id].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_edgenetwork_v1::model::interconnect_diagnostics::LinkLLDPStatus;
+        /// let x = LinkLLDPStatus::new().set_peer_port_id("example");
+        /// ```
         pub fn set_peer_port_id<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -2045,6 +2840,12 @@ pub mod interconnect_diagnostics {
         }
 
         /// Sets the value of [peer_port_id_type][crate::model::interconnect_diagnostics::LinkLLDPStatus::peer_port_id_type].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_edgenetwork_v1::model::interconnect_diagnostics::LinkLLDPStatus;
+        /// let x = LinkLLDPStatus::new().set_peer_port_id_type("example");
+        /// ```
         pub fn set_peer_port_id_type<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -2081,12 +2882,29 @@ impl RouterStatus {
     }
 
     /// Sets the value of [network][crate::model::RouterStatus::network].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::model::RouterStatus;
+    /// let x = RouterStatus::new().set_network("example");
+    /// ```
     pub fn set_network<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.network = v.into();
         self
     }
 
     /// Sets the value of [bgp_peer_status][crate::model::RouterStatus::bgp_peer_status].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::model::RouterStatus;
+    /// use google_cloud_edgenetwork_v1::model::router_status::BgpPeerStatus;
+    /// let x = RouterStatus::new()
+    ///     .set_bgp_peer_status([
+    ///         BgpPeerStatus::default()/* use setters */,
+    ///         BgpPeerStatus::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_bgp_peer_status<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2148,18 +2966,36 @@ pub mod router_status {
         }
 
         /// Sets the value of [name][crate::model::router_status::BgpPeerStatus::name].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_edgenetwork_v1::model::router_status::BgpPeerStatus;
+        /// let x = BgpPeerStatus::new().set_name("example");
+        /// ```
         pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.name = v.into();
             self
         }
 
         /// Sets the value of [ip_address][crate::model::router_status::BgpPeerStatus::ip_address].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_edgenetwork_v1::model::router_status::BgpPeerStatus;
+        /// let x = BgpPeerStatus::new().set_ip_address("example");
+        /// ```
         pub fn set_ip_address<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.ip_address = v.into();
             self
         }
 
         /// Sets the value of [peer_ip_address][crate::model::router_status::BgpPeerStatus::peer_ip_address].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_edgenetwork_v1::model::router_status::BgpPeerStatus;
+        /// let x = BgpPeerStatus::new().set_peer_ip_address("example");
+        /// ```
         pub fn set_peer_ip_address<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -2169,6 +3005,14 @@ pub mod router_status {
         }
 
         /// Sets the value of [status][crate::model::router_status::BgpPeerStatus::status].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_edgenetwork_v1::model::router_status::BgpPeerStatus;
+        /// use google_cloud_edgenetwork_v1::model::router_status::bgp_peer_status::BgpStatus;
+        /// let x0 = BgpPeerStatus::new().set_status(BgpStatus::Up);
+        /// let x1 = BgpPeerStatus::new().set_status(BgpStatus::Down);
+        /// ```
         pub fn set_status<
             T: std::convert::Into<crate::model::router_status::bgp_peer_status::BgpStatus>,
         >(
@@ -2180,24 +3024,49 @@ pub mod router_status {
         }
 
         /// Sets the value of [state][crate::model::router_status::BgpPeerStatus::state].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_edgenetwork_v1::model::router_status::BgpPeerStatus;
+        /// let x = BgpPeerStatus::new().set_state("example");
+        /// ```
         pub fn set_state<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.state = v.into();
             self
         }
 
         /// Sets the value of [uptime][crate::model::router_status::BgpPeerStatus::uptime].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_edgenetwork_v1::model::router_status::BgpPeerStatus;
+        /// let x = BgpPeerStatus::new().set_uptime("example");
+        /// ```
         pub fn set_uptime<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.uptime = v.into();
             self
         }
 
         /// Sets the value of [uptime_seconds][crate::model::router_status::BgpPeerStatus::uptime_seconds].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_edgenetwork_v1::model::router_status::BgpPeerStatus;
+        /// let x = BgpPeerStatus::new().set_uptime_seconds(42);
+        /// ```
         pub fn set_uptime_seconds<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
             self.uptime_seconds = v.into();
             self
         }
 
         /// Sets the value of [prefix_counter][crate::model::router_status::BgpPeerStatus::prefix_counter].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_edgenetwork_v1::model::router_status::BgpPeerStatus;
+        /// use google_cloud_edgenetwork_v1::model::router_status::PrefixCounter;
+        /// let x = BgpPeerStatus::new().set_prefix_counter(PrefixCounter::default()/* use setters */);
+        /// ```
         pub fn set_prefix_counter<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::router_status::PrefixCounter>,
@@ -2207,6 +3076,14 @@ pub mod router_status {
         }
 
         /// Sets or clears the value of [prefix_counter][crate::model::router_status::BgpPeerStatus::prefix_counter].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_edgenetwork_v1::model::router_status::BgpPeerStatus;
+        /// use google_cloud_edgenetwork_v1::model::router_status::PrefixCounter;
+        /// let x = BgpPeerStatus::new().set_or_clear_prefix_counter(Some(PrefixCounter::default()/* use setters */));
+        /// let x = BgpPeerStatus::new().set_or_clear_prefix_counter(None::<PrefixCounter>);
+        /// ```
         pub fn set_or_clear_prefix_counter<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::router_status::PrefixCounter>,
@@ -2394,36 +3271,72 @@ pub mod router_status {
         }
 
         /// Sets the value of [advertised][crate::model::router_status::PrefixCounter::advertised].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_edgenetwork_v1::model::router_status::PrefixCounter;
+        /// let x = PrefixCounter::new().set_advertised(42);
+        /// ```
         pub fn set_advertised<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
             self.advertised = v.into();
             self
         }
 
         /// Sets the value of [denied][crate::model::router_status::PrefixCounter::denied].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_edgenetwork_v1::model::router_status::PrefixCounter;
+        /// let x = PrefixCounter::new().set_denied(42);
+        /// ```
         pub fn set_denied<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
             self.denied = v.into();
             self
         }
 
         /// Sets the value of [received][crate::model::router_status::PrefixCounter::received].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_edgenetwork_v1::model::router_status::PrefixCounter;
+        /// let x = PrefixCounter::new().set_received(42);
+        /// ```
         pub fn set_received<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
             self.received = v.into();
             self
         }
 
         /// Sets the value of [sent][crate::model::router_status::PrefixCounter::sent].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_edgenetwork_v1::model::router_status::PrefixCounter;
+        /// let x = PrefixCounter::new().set_sent(42);
+        /// ```
         pub fn set_sent<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
             self.sent = v.into();
             self
         }
 
         /// Sets the value of [suppressed][crate::model::router_status::PrefixCounter::suppressed].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_edgenetwork_v1::model::router_status::PrefixCounter;
+        /// let x = PrefixCounter::new().set_suppressed(42);
+        /// ```
         pub fn set_suppressed<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
             self.suppressed = v.into();
             self
         }
 
         /// Sets the value of [withdrawn][crate::model::router_status::PrefixCounter::withdrawn].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_edgenetwork_v1::model::router_status::PrefixCounter;
+        /// let x = PrefixCounter::new().set_withdrawn(42);
+        /// ```
         pub fn set_withdrawn<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
             self.withdrawn = v.into();
             self
@@ -2468,30 +3381,60 @@ impl ListZonesRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListZonesRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::model::ListZonesRequest;
+    /// let x = ListZonesRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListZonesRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::model::ListZonesRequest;
+    /// let x = ListZonesRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListZonesRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::model::ListZonesRequest;
+    /// let x = ListZonesRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListZonesRequest::filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::model::ListZonesRequest;
+    /// let x = ListZonesRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListZonesRequest::order_by].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::model::ListZonesRequest;
+    /// let x = ListZonesRequest::new().set_order_by("example");
+    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
@@ -2528,6 +3471,17 @@ impl ListZonesResponse {
     }
 
     /// Sets the value of [zones][crate::model::ListZonesResponse::zones].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::model::ListZonesResponse;
+    /// use google_cloud_edgenetwork_v1::model::Zone;
+    /// let x = ListZonesResponse::new()
+    ///     .set_zones([
+    ///         Zone::default()/* use setters */,
+    ///         Zone::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_zones<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2539,12 +3493,24 @@ impl ListZonesResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListZonesResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::model::ListZonesResponse;
+    /// let x = ListZonesResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListZonesResponse::unreachable].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::model::ListZonesResponse;
+    /// let x = ListZonesResponse::new().set_unreachable(["a", "b", "c"]);
+    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2594,6 +3560,12 @@ impl GetZoneRequest {
     }
 
     /// Sets the value of [name][crate::model::GetZoneRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::model::GetZoneRequest;
+    /// let x = GetZoneRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -2635,30 +3607,60 @@ impl ListNetworksRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListNetworksRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::model::ListNetworksRequest;
+    /// let x = ListNetworksRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListNetworksRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::model::ListNetworksRequest;
+    /// let x = ListNetworksRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListNetworksRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::model::ListNetworksRequest;
+    /// let x = ListNetworksRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListNetworksRequest::filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::model::ListNetworksRequest;
+    /// let x = ListNetworksRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListNetworksRequest::order_by].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::model::ListNetworksRequest;
+    /// let x = ListNetworksRequest::new().set_order_by("example");
+    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
@@ -2693,6 +3695,17 @@ impl ListNetworksResponse {
     }
 
     /// Sets the value of [networks][crate::model::ListNetworksResponse::networks].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::model::ListNetworksResponse;
+    /// use google_cloud_edgenetwork_v1::model::Network;
+    /// let x = ListNetworksResponse::new()
+    ///     .set_networks([
+    ///         Network::default()/* use setters */,
+    ///         Network::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_networks<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2704,12 +3717,24 @@ impl ListNetworksResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListNetworksResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::model::ListNetworksResponse;
+    /// let x = ListNetworksResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListNetworksResponse::unreachable].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::model::ListNetworksResponse;
+    /// let x = ListNetworksResponse::new().set_unreachable(["a", "b", "c"]);
+    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2757,6 +3782,12 @@ impl GetNetworkRequest {
     }
 
     /// Sets the value of [name][crate::model::GetNetworkRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::model::GetNetworkRequest;
+    /// let x = GetNetworkRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -2808,18 +3839,37 @@ impl CreateNetworkRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateNetworkRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::model::CreateNetworkRequest;
+    /// let x = CreateNetworkRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [network_id][crate::model::CreateNetworkRequest::network_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::model::CreateNetworkRequest;
+    /// let x = CreateNetworkRequest::new().set_network_id("example");
+    /// ```
     pub fn set_network_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.network_id = v.into();
         self
     }
 
     /// Sets the value of [network][crate::model::CreateNetworkRequest::network].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::model::CreateNetworkRequest;
+    /// use google_cloud_edgenetwork_v1::model::Network;
+    /// let x = CreateNetworkRequest::new().set_network(Network::default()/* use setters */);
+    /// ```
     pub fn set_network<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Network>,
@@ -2829,6 +3879,14 @@ impl CreateNetworkRequest {
     }
 
     /// Sets or clears the value of [network][crate::model::CreateNetworkRequest::network].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::model::CreateNetworkRequest;
+    /// use google_cloud_edgenetwork_v1::model::Network;
+    /// let x = CreateNetworkRequest::new().set_or_clear_network(Some(Network::default()/* use setters */));
+    /// let x = CreateNetworkRequest::new().set_or_clear_network(None::<Network>);
+    /// ```
     pub fn set_or_clear_network<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Network>,
@@ -2838,6 +3896,12 @@ impl CreateNetworkRequest {
     }
 
     /// Sets the value of [request_id][crate::model::CreateNetworkRequest::request_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::model::CreateNetworkRequest;
+    /// let x = CreateNetworkRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -2881,12 +3945,24 @@ impl DeleteNetworkRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteNetworkRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::model::DeleteNetworkRequest;
+    /// let x = DeleteNetworkRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [request_id][crate::model::DeleteNetworkRequest::request_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::model::DeleteNetworkRequest;
+    /// let x = DeleteNetworkRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -2928,30 +4004,60 @@ impl ListSubnetsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListSubnetsRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::model::ListSubnetsRequest;
+    /// let x = ListSubnetsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListSubnetsRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::model::ListSubnetsRequest;
+    /// let x = ListSubnetsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListSubnetsRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::model::ListSubnetsRequest;
+    /// let x = ListSubnetsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListSubnetsRequest::filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::model::ListSubnetsRequest;
+    /// let x = ListSubnetsRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListSubnetsRequest::order_by].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::model::ListSubnetsRequest;
+    /// let x = ListSubnetsRequest::new().set_order_by("example");
+    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
@@ -2986,6 +4092,17 @@ impl ListSubnetsResponse {
     }
 
     /// Sets the value of [subnets][crate::model::ListSubnetsResponse::subnets].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::model::ListSubnetsResponse;
+    /// use google_cloud_edgenetwork_v1::model::Subnet;
+    /// let x = ListSubnetsResponse::new()
+    ///     .set_subnets([
+    ///         Subnet::default()/* use setters */,
+    ///         Subnet::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_subnets<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2997,12 +4114,24 @@ impl ListSubnetsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListSubnetsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::model::ListSubnetsResponse;
+    /// let x = ListSubnetsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListSubnetsResponse::unreachable].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::model::ListSubnetsResponse;
+    /// let x = ListSubnetsResponse::new().set_unreachable(["a", "b", "c"]);
+    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3050,6 +4179,12 @@ impl GetSubnetRequest {
     }
 
     /// Sets the value of [name][crate::model::GetSubnetRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::model::GetSubnetRequest;
+    /// let x = GetSubnetRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -3101,18 +4236,37 @@ impl CreateSubnetRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateSubnetRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::model::CreateSubnetRequest;
+    /// let x = CreateSubnetRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [subnet_id][crate::model::CreateSubnetRequest::subnet_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::model::CreateSubnetRequest;
+    /// let x = CreateSubnetRequest::new().set_subnet_id("example");
+    /// ```
     pub fn set_subnet_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.subnet_id = v.into();
         self
     }
 
     /// Sets the value of [subnet][crate::model::CreateSubnetRequest::subnet].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::model::CreateSubnetRequest;
+    /// use google_cloud_edgenetwork_v1::model::Subnet;
+    /// let x = CreateSubnetRequest::new().set_subnet(Subnet::default()/* use setters */);
+    /// ```
     pub fn set_subnet<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Subnet>,
@@ -3122,6 +4276,14 @@ impl CreateSubnetRequest {
     }
 
     /// Sets or clears the value of [subnet][crate::model::CreateSubnetRequest::subnet].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::model::CreateSubnetRequest;
+    /// use google_cloud_edgenetwork_v1::model::Subnet;
+    /// let x = CreateSubnetRequest::new().set_or_clear_subnet(Some(Subnet::default()/* use setters */));
+    /// let x = CreateSubnetRequest::new().set_or_clear_subnet(None::<Subnet>);
+    /// ```
     pub fn set_or_clear_subnet<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Subnet>,
@@ -3131,6 +4293,12 @@ impl CreateSubnetRequest {
     }
 
     /// Sets the value of [request_id][crate::model::CreateSubnetRequest::request_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::model::CreateSubnetRequest;
+    /// let x = CreateSubnetRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -3181,6 +4349,13 @@ impl UpdateSubnetRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateSubnetRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::model::UpdateSubnetRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateSubnetRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -3190,6 +4365,14 @@ impl UpdateSubnetRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateSubnetRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::model::UpdateSubnetRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateSubnetRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateSubnetRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -3199,6 +4382,13 @@ impl UpdateSubnetRequest {
     }
 
     /// Sets the value of [subnet][crate::model::UpdateSubnetRequest::subnet].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::model::UpdateSubnetRequest;
+    /// use google_cloud_edgenetwork_v1::model::Subnet;
+    /// let x = UpdateSubnetRequest::new().set_subnet(Subnet::default()/* use setters */);
+    /// ```
     pub fn set_subnet<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Subnet>,
@@ -3208,6 +4398,14 @@ impl UpdateSubnetRequest {
     }
 
     /// Sets or clears the value of [subnet][crate::model::UpdateSubnetRequest::subnet].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::model::UpdateSubnetRequest;
+    /// use google_cloud_edgenetwork_v1::model::Subnet;
+    /// let x = UpdateSubnetRequest::new().set_or_clear_subnet(Some(Subnet::default()/* use setters */));
+    /// let x = UpdateSubnetRequest::new().set_or_clear_subnet(None::<Subnet>);
+    /// ```
     pub fn set_or_clear_subnet<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Subnet>,
@@ -3217,6 +4415,12 @@ impl UpdateSubnetRequest {
     }
 
     /// Sets the value of [request_id][crate::model::UpdateSubnetRequest::request_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::model::UpdateSubnetRequest;
+    /// let x = UpdateSubnetRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -3260,12 +4464,24 @@ impl DeleteSubnetRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteSubnetRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::model::DeleteSubnetRequest;
+    /// let x = DeleteSubnetRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [request_id][crate::model::DeleteSubnetRequest::request_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::model::DeleteSubnetRequest;
+    /// let x = DeleteSubnetRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -3307,30 +4523,60 @@ impl ListInterconnectsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListInterconnectsRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::model::ListInterconnectsRequest;
+    /// let x = ListInterconnectsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListInterconnectsRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::model::ListInterconnectsRequest;
+    /// let x = ListInterconnectsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListInterconnectsRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::model::ListInterconnectsRequest;
+    /// let x = ListInterconnectsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListInterconnectsRequest::filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::model::ListInterconnectsRequest;
+    /// let x = ListInterconnectsRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListInterconnectsRequest::order_by].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::model::ListInterconnectsRequest;
+    /// let x = ListInterconnectsRequest::new().set_order_by("example");
+    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
@@ -3365,6 +4611,17 @@ impl ListInterconnectsResponse {
     }
 
     /// Sets the value of [interconnects][crate::model::ListInterconnectsResponse::interconnects].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::model::ListInterconnectsResponse;
+    /// use google_cloud_edgenetwork_v1::model::Interconnect;
+    /// let x = ListInterconnectsResponse::new()
+    ///     .set_interconnects([
+    ///         Interconnect::default()/* use setters */,
+    ///         Interconnect::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_interconnects<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3376,12 +4633,24 @@ impl ListInterconnectsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListInterconnectsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::model::ListInterconnectsResponse;
+    /// let x = ListInterconnectsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListInterconnectsResponse::unreachable].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::model::ListInterconnectsResponse;
+    /// let x = ListInterconnectsResponse::new().set_unreachable(["a", "b", "c"]);
+    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3429,6 +4698,12 @@ impl GetInterconnectRequest {
     }
 
     /// Sets the value of [name][crate::model::GetInterconnectRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::model::GetInterconnectRequest;
+    /// let x = GetInterconnectRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -3470,30 +4745,60 @@ impl ListInterconnectAttachmentsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListInterconnectAttachmentsRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::model::ListInterconnectAttachmentsRequest;
+    /// let x = ListInterconnectAttachmentsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListInterconnectAttachmentsRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::model::ListInterconnectAttachmentsRequest;
+    /// let x = ListInterconnectAttachmentsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListInterconnectAttachmentsRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::model::ListInterconnectAttachmentsRequest;
+    /// let x = ListInterconnectAttachmentsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListInterconnectAttachmentsRequest::filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::model::ListInterconnectAttachmentsRequest;
+    /// let x = ListInterconnectAttachmentsRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListInterconnectAttachmentsRequest::order_by].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::model::ListInterconnectAttachmentsRequest;
+    /// let x = ListInterconnectAttachmentsRequest::new().set_order_by("example");
+    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
@@ -3528,6 +4833,17 @@ impl ListInterconnectAttachmentsResponse {
     }
 
     /// Sets the value of [interconnect_attachments][crate::model::ListInterconnectAttachmentsResponse::interconnect_attachments].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::model::ListInterconnectAttachmentsResponse;
+    /// use google_cloud_edgenetwork_v1::model::InterconnectAttachment;
+    /// let x = ListInterconnectAttachmentsResponse::new()
+    ///     .set_interconnect_attachments([
+    ///         InterconnectAttachment::default()/* use setters */,
+    ///         InterconnectAttachment::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_interconnect_attachments<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3539,12 +4855,24 @@ impl ListInterconnectAttachmentsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListInterconnectAttachmentsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::model::ListInterconnectAttachmentsResponse;
+    /// let x = ListInterconnectAttachmentsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListInterconnectAttachmentsResponse::unreachable].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::model::ListInterconnectAttachmentsResponse;
+    /// let x = ListInterconnectAttachmentsResponse::new().set_unreachable(["a", "b", "c"]);
+    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3592,6 +4920,12 @@ impl GetInterconnectAttachmentRequest {
     }
 
     /// Sets the value of [name][crate::model::GetInterconnectAttachmentRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::model::GetInterconnectAttachmentRequest;
+    /// let x = GetInterconnectAttachmentRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -3643,12 +4977,24 @@ impl CreateInterconnectAttachmentRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateInterconnectAttachmentRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::model::CreateInterconnectAttachmentRequest;
+    /// let x = CreateInterconnectAttachmentRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [interconnect_attachment_id][crate::model::CreateInterconnectAttachmentRequest::interconnect_attachment_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::model::CreateInterconnectAttachmentRequest;
+    /// let x = CreateInterconnectAttachmentRequest::new().set_interconnect_attachment_id("example");
+    /// ```
     pub fn set_interconnect_attachment_id<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -3658,6 +5004,13 @@ impl CreateInterconnectAttachmentRequest {
     }
 
     /// Sets the value of [interconnect_attachment][crate::model::CreateInterconnectAttachmentRequest::interconnect_attachment].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::model::CreateInterconnectAttachmentRequest;
+    /// use google_cloud_edgenetwork_v1::model::InterconnectAttachment;
+    /// let x = CreateInterconnectAttachmentRequest::new().set_interconnect_attachment(InterconnectAttachment::default()/* use setters */);
+    /// ```
     pub fn set_interconnect_attachment<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::InterconnectAttachment>,
@@ -3667,6 +5020,14 @@ impl CreateInterconnectAttachmentRequest {
     }
 
     /// Sets or clears the value of [interconnect_attachment][crate::model::CreateInterconnectAttachmentRequest::interconnect_attachment].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::model::CreateInterconnectAttachmentRequest;
+    /// use google_cloud_edgenetwork_v1::model::InterconnectAttachment;
+    /// let x = CreateInterconnectAttachmentRequest::new().set_or_clear_interconnect_attachment(Some(InterconnectAttachment::default()/* use setters */));
+    /// let x = CreateInterconnectAttachmentRequest::new().set_or_clear_interconnect_attachment(None::<InterconnectAttachment>);
+    /// ```
     pub fn set_or_clear_interconnect_attachment<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::InterconnectAttachment>,
@@ -3676,6 +5037,12 @@ impl CreateInterconnectAttachmentRequest {
     }
 
     /// Sets the value of [request_id][crate::model::CreateInterconnectAttachmentRequest::request_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::model::CreateInterconnectAttachmentRequest;
+    /// let x = CreateInterconnectAttachmentRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -3719,12 +5086,24 @@ impl DeleteInterconnectAttachmentRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteInterconnectAttachmentRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::model::DeleteInterconnectAttachmentRequest;
+    /// let x = DeleteInterconnectAttachmentRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [request_id][crate::model::DeleteInterconnectAttachmentRequest::request_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::model::DeleteInterconnectAttachmentRequest;
+    /// let x = DeleteInterconnectAttachmentRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -3766,30 +5145,60 @@ impl ListRoutersRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListRoutersRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::model::ListRoutersRequest;
+    /// let x = ListRoutersRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListRoutersRequest::page_size].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::model::ListRoutersRequest;
+    /// let x = ListRoutersRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListRoutersRequest::page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::model::ListRoutersRequest;
+    /// let x = ListRoutersRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListRoutersRequest::filter].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::model::ListRoutersRequest;
+    /// let x = ListRoutersRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListRoutersRequest::order_by].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::model::ListRoutersRequest;
+    /// let x = ListRoutersRequest::new().set_order_by("example");
+    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
@@ -3824,6 +5233,17 @@ impl ListRoutersResponse {
     }
 
     /// Sets the value of [routers][crate::model::ListRoutersResponse::routers].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::model::ListRoutersResponse;
+    /// use google_cloud_edgenetwork_v1::model::Router;
+    /// let x = ListRoutersResponse::new()
+    ///     .set_routers([
+    ///         Router::default()/* use setters */,
+    ///         Router::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_routers<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3835,12 +5255,24 @@ impl ListRoutersResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListRoutersResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::model::ListRoutersResponse;
+    /// let x = ListRoutersResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListRoutersResponse::unreachable].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::model::ListRoutersResponse;
+    /// let x = ListRoutersResponse::new().set_unreachable(["a", "b", "c"]);
+    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3888,6 +5320,12 @@ impl GetRouterRequest {
     }
 
     /// Sets the value of [name][crate::model::GetRouterRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::model::GetRouterRequest;
+    /// let x = GetRouterRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -3939,18 +5377,37 @@ impl CreateRouterRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateRouterRequest::parent].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::model::CreateRouterRequest;
+    /// let x = CreateRouterRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [router_id][crate::model::CreateRouterRequest::router_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::model::CreateRouterRequest;
+    /// let x = CreateRouterRequest::new().set_router_id("example");
+    /// ```
     pub fn set_router_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.router_id = v.into();
         self
     }
 
     /// Sets the value of [router][crate::model::CreateRouterRequest::router].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::model::CreateRouterRequest;
+    /// use google_cloud_edgenetwork_v1::model::Router;
+    /// let x = CreateRouterRequest::new().set_router(Router::default()/* use setters */);
+    /// ```
     pub fn set_router<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Router>,
@@ -3960,6 +5417,14 @@ impl CreateRouterRequest {
     }
 
     /// Sets or clears the value of [router][crate::model::CreateRouterRequest::router].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::model::CreateRouterRequest;
+    /// use google_cloud_edgenetwork_v1::model::Router;
+    /// let x = CreateRouterRequest::new().set_or_clear_router(Some(Router::default()/* use setters */));
+    /// let x = CreateRouterRequest::new().set_or_clear_router(None::<Router>);
+    /// ```
     pub fn set_or_clear_router<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Router>,
@@ -3969,6 +5434,12 @@ impl CreateRouterRequest {
     }
 
     /// Sets the value of [request_id][crate::model::CreateRouterRequest::request_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::model::CreateRouterRequest;
+    /// let x = CreateRouterRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -4019,6 +5490,13 @@ impl UpdateRouterRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateRouterRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::model::UpdateRouterRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateRouterRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -4028,6 +5506,14 @@ impl UpdateRouterRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateRouterRequest::update_mask].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::model::UpdateRouterRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateRouterRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateRouterRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -4037,6 +5523,13 @@ impl UpdateRouterRequest {
     }
 
     /// Sets the value of [router][crate::model::UpdateRouterRequest::router].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::model::UpdateRouterRequest;
+    /// use google_cloud_edgenetwork_v1::model::Router;
+    /// let x = UpdateRouterRequest::new().set_router(Router::default()/* use setters */);
+    /// ```
     pub fn set_router<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Router>,
@@ -4046,6 +5539,14 @@ impl UpdateRouterRequest {
     }
 
     /// Sets or clears the value of [router][crate::model::UpdateRouterRequest::router].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::model::UpdateRouterRequest;
+    /// use google_cloud_edgenetwork_v1::model::Router;
+    /// let x = UpdateRouterRequest::new().set_or_clear_router(Some(Router::default()/* use setters */));
+    /// let x = UpdateRouterRequest::new().set_or_clear_router(None::<Router>);
+    /// ```
     pub fn set_or_clear_router<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Router>,
@@ -4055,6 +5556,12 @@ impl UpdateRouterRequest {
     }
 
     /// Sets the value of [request_id][crate::model::UpdateRouterRequest::request_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::model::UpdateRouterRequest;
+    /// let x = UpdateRouterRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -4098,12 +5605,24 @@ impl DeleteRouterRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteRouterRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::model::DeleteRouterRequest;
+    /// let x = DeleteRouterRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [request_id][crate::model::DeleteRouterRequest::request_id].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::model::DeleteRouterRequest;
+    /// let x = DeleteRouterRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -4156,6 +5675,13 @@ impl OperationMetadata {
     }
 
     /// Sets the value of [create_time][crate::model::OperationMetadata::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::model::OperationMetadata;
+    /// use wkt::Timestamp;
+    /// let x = OperationMetadata::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4165,6 +5691,14 @@ impl OperationMetadata {
     }
 
     /// Sets or clears the value of [create_time][crate::model::OperationMetadata::create_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::model::OperationMetadata;
+    /// use wkt::Timestamp;
+    /// let x = OperationMetadata::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = OperationMetadata::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4174,6 +5708,13 @@ impl OperationMetadata {
     }
 
     /// Sets the value of [end_time][crate::model::OperationMetadata::end_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::model::OperationMetadata;
+    /// use wkt::Timestamp;
+    /// let x = OperationMetadata::new().set_end_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4183,6 +5724,14 @@ impl OperationMetadata {
     }
 
     /// Sets or clears the value of [end_time][crate::model::OperationMetadata::end_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::model::OperationMetadata;
+    /// use wkt::Timestamp;
+    /// let x = OperationMetadata::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
+    /// let x = OperationMetadata::new().set_or_clear_end_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4192,30 +5741,60 @@ impl OperationMetadata {
     }
 
     /// Sets the value of [target][crate::model::OperationMetadata::target].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::model::OperationMetadata;
+    /// let x = OperationMetadata::new().set_target("example");
+    /// ```
     pub fn set_target<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.target = v.into();
         self
     }
 
     /// Sets the value of [verb][crate::model::OperationMetadata::verb].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::model::OperationMetadata;
+    /// let x = OperationMetadata::new().set_verb("example");
+    /// ```
     pub fn set_verb<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.verb = v.into();
         self
     }
 
     /// Sets the value of [status_message][crate::model::OperationMetadata::status_message].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::model::OperationMetadata;
+    /// let x = OperationMetadata::new().set_status_message("example");
+    /// ```
     pub fn set_status_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.status_message = v.into();
         self
     }
 
     /// Sets the value of [requested_cancellation][crate::model::OperationMetadata::requested_cancellation].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::model::OperationMetadata;
+    /// let x = OperationMetadata::new().set_requested_cancellation(true);
+    /// ```
     pub fn set_requested_cancellation<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.requested_cancellation = v.into();
         self
     }
 
     /// Sets the value of [api_version][crate::model::OperationMetadata::api_version].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::model::OperationMetadata;
+    /// let x = OperationMetadata::new().set_api_version("example");
+    /// ```
     pub fn set_api_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.api_version = v.into();
         self
@@ -4244,6 +5823,12 @@ impl DiagnoseNetworkRequest {
     }
 
     /// Sets the value of [name][crate::model::DiagnoseNetworkRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::model::DiagnoseNetworkRequest;
+    /// let x = DiagnoseNetworkRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -4275,6 +5860,13 @@ impl DiagnoseNetworkResponse {
     }
 
     /// Sets the value of [update_time][crate::model::DiagnoseNetworkResponse::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::model::DiagnoseNetworkResponse;
+    /// use wkt::Timestamp;
+    /// let x = DiagnoseNetworkResponse::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4284,6 +5876,14 @@ impl DiagnoseNetworkResponse {
     }
 
     /// Sets or clears the value of [update_time][crate::model::DiagnoseNetworkResponse::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::model::DiagnoseNetworkResponse;
+    /// use wkt::Timestamp;
+    /// let x = DiagnoseNetworkResponse::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = DiagnoseNetworkResponse::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4293,6 +5893,13 @@ impl DiagnoseNetworkResponse {
     }
 
     /// Sets the value of [result][crate::model::DiagnoseNetworkResponse::result].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::model::DiagnoseNetworkResponse;
+    /// use google_cloud_edgenetwork_v1::model::diagnose_network_response::NetworkStatus;
+    /// let x = DiagnoseNetworkResponse::new().set_result(NetworkStatus::default()/* use setters */);
+    /// ```
     pub fn set_result<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::diagnose_network_response::NetworkStatus>,
@@ -4302,6 +5909,14 @@ impl DiagnoseNetworkResponse {
     }
 
     /// Sets or clears the value of [result][crate::model::DiagnoseNetworkResponse::result].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::model::DiagnoseNetworkResponse;
+    /// use google_cloud_edgenetwork_v1::model::diagnose_network_response::NetworkStatus;
+    /// let x = DiagnoseNetworkResponse::new().set_or_clear_result(Some(NetworkStatus::default()/* use setters */));
+    /// let x = DiagnoseNetworkResponse::new().set_or_clear_result(None::<NetworkStatus>);
+    /// ```
     pub fn set_or_clear_result<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::diagnose_network_response::NetworkStatus>,
@@ -4343,6 +5958,17 @@ pub mod diagnose_network_response {
         }
 
         /// Sets the value of [subnet_status][crate::model::diagnose_network_response::NetworkStatus::subnet_status].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_edgenetwork_v1::model::diagnose_network_response::NetworkStatus;
+        /// use google_cloud_edgenetwork_v1::model::SubnetStatus;
+        /// let x = NetworkStatus::new()
+        ///     .set_subnet_status([
+        ///         SubnetStatus::default()/* use setters */,
+        ///         SubnetStatus::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
         pub fn set_subnet_status<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -4354,6 +5980,14 @@ pub mod diagnose_network_response {
         }
 
         /// Sets the value of [macsec_status_internal_links][crate::model::diagnose_network_response::NetworkStatus::macsec_status_internal_links].
+        ///
+        /// # Example
+        /// ```
+        /// # use google_cloud_edgenetwork_v1::model::diagnose_network_response::NetworkStatus;
+        /// use google_cloud_edgenetwork_v1::model::diagnose_network_response::network_status::MacsecStatus;
+        /// let x0 = NetworkStatus::new().set_macsec_status_internal_links(MacsecStatus::Secure);
+        /// let x1 = NetworkStatus::new().set_macsec_status_internal_links(MacsecStatus::Unsecure);
+        /// ```
         pub fn set_macsec_status_internal_links<
             T: std::convert::Into<
                     crate::model::diagnose_network_response::network_status::MacsecStatus,
@@ -4531,6 +6165,12 @@ impl DiagnoseInterconnectRequest {
     }
 
     /// Sets the value of [name][crate::model::DiagnoseInterconnectRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::model::DiagnoseInterconnectRequest;
+    /// let x = DiagnoseInterconnectRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -4563,6 +6203,13 @@ impl DiagnoseInterconnectResponse {
     }
 
     /// Sets the value of [update_time][crate::model::DiagnoseInterconnectResponse::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::model::DiagnoseInterconnectResponse;
+    /// use wkt::Timestamp;
+    /// let x = DiagnoseInterconnectResponse::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4572,6 +6219,14 @@ impl DiagnoseInterconnectResponse {
     }
 
     /// Sets or clears the value of [update_time][crate::model::DiagnoseInterconnectResponse::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::model::DiagnoseInterconnectResponse;
+    /// use wkt::Timestamp;
+    /// let x = DiagnoseInterconnectResponse::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = DiagnoseInterconnectResponse::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4581,6 +6236,13 @@ impl DiagnoseInterconnectResponse {
     }
 
     /// Sets the value of [result][crate::model::DiagnoseInterconnectResponse::result].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::model::DiagnoseInterconnectResponse;
+    /// use google_cloud_edgenetwork_v1::model::InterconnectDiagnostics;
+    /// let x = DiagnoseInterconnectResponse::new().set_result(InterconnectDiagnostics::default()/* use setters */);
+    /// ```
     pub fn set_result<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::InterconnectDiagnostics>,
@@ -4590,6 +6252,14 @@ impl DiagnoseInterconnectResponse {
     }
 
     /// Sets or clears the value of [result][crate::model::DiagnoseInterconnectResponse::result].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::model::DiagnoseInterconnectResponse;
+    /// use google_cloud_edgenetwork_v1::model::InterconnectDiagnostics;
+    /// let x = DiagnoseInterconnectResponse::new().set_or_clear_result(Some(InterconnectDiagnostics::default()/* use setters */));
+    /// let x = DiagnoseInterconnectResponse::new().set_or_clear_result(None::<InterconnectDiagnostics>);
+    /// ```
     pub fn set_or_clear_result<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::InterconnectDiagnostics>,
@@ -4621,6 +6291,12 @@ impl DiagnoseRouterRequest {
     }
 
     /// Sets the value of [name][crate::model::DiagnoseRouterRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::model::DiagnoseRouterRequest;
+    /// let x = DiagnoseRouterRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -4652,6 +6328,13 @@ impl DiagnoseRouterResponse {
     }
 
     /// Sets the value of [update_time][crate::model::DiagnoseRouterResponse::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::model::DiagnoseRouterResponse;
+    /// use wkt::Timestamp;
+    /// let x = DiagnoseRouterResponse::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4661,6 +6344,14 @@ impl DiagnoseRouterResponse {
     }
 
     /// Sets or clears the value of [update_time][crate::model::DiagnoseRouterResponse::update_time].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::model::DiagnoseRouterResponse;
+    /// use wkt::Timestamp;
+    /// let x = DiagnoseRouterResponse::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = DiagnoseRouterResponse::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4670,6 +6361,13 @@ impl DiagnoseRouterResponse {
     }
 
     /// Sets the value of [result][crate::model::DiagnoseRouterResponse::result].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::model::DiagnoseRouterResponse;
+    /// use google_cloud_edgenetwork_v1::model::RouterStatus;
+    /// let x = DiagnoseRouterResponse::new().set_result(RouterStatus::default()/* use setters */);
+    /// ```
     pub fn set_result<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::RouterStatus>,
@@ -4679,6 +6377,14 @@ impl DiagnoseRouterResponse {
     }
 
     /// Sets or clears the value of [result][crate::model::DiagnoseRouterResponse::result].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::model::DiagnoseRouterResponse;
+    /// use google_cloud_edgenetwork_v1::model::RouterStatus;
+    /// let x = DiagnoseRouterResponse::new().set_or_clear_result(Some(RouterStatus::default()/* use setters */));
+    /// let x = DiagnoseRouterResponse::new().set_or_clear_result(None::<RouterStatus>);
+    /// ```
     pub fn set_or_clear_result<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::RouterStatus>,
@@ -4710,6 +6416,12 @@ impl InitializeZoneRequest {
     }
 
     /// Sets the value of [name][crate::model::InitializeZoneRequest::name].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::model::InitializeZoneRequest;
+    /// let x = InitializeZoneRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
