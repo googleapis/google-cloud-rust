@@ -132,25 +132,12 @@ impl Service {
     }
 
     /// Sets the value of [name][crate::model::Service::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_metastore_v1::model::Service;
-    /// let x = Service::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::Service::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_metastore_v1::model::Service;
-    /// use wkt::Timestamp;
-    /// let x = Service::new().set_create_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -160,14 +147,6 @@ impl Service {
     }
 
     /// Sets or clears the value of [create_time][crate::model::Service::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_metastore_v1::model::Service;
-    /// use wkt::Timestamp;
-    /// let x = Service::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
-    /// let x = Service::new().set_or_clear_create_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -177,13 +156,6 @@ impl Service {
     }
 
     /// Sets the value of [update_time][crate::model::Service::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_metastore_v1::model::Service;
-    /// use wkt::Timestamp;
-    /// let x = Service::new().set_update_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -193,14 +165,6 @@ impl Service {
     }
 
     /// Sets or clears the value of [update_time][crate::model::Service::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_metastore_v1::model::Service;
-    /// use wkt::Timestamp;
-    /// let x = Service::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
-    /// let x = Service::new().set_or_clear_update_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -210,15 +174,6 @@ impl Service {
     }
 
     /// Sets the value of [labels][crate::model::Service::labels].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_metastore_v1::model::Service;
-    /// let x = Service::new().set_labels([
-    ///     ("key0", "abc"),
-    ///     ("key1", "xyz"),
-    /// ]);
-    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -231,75 +186,36 @@ impl Service {
     }
 
     /// Sets the value of [network][crate::model::Service::network].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_metastore_v1::model::Service;
-    /// let x = Service::new().set_network("example");
-    /// ```
     pub fn set_network<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.network = v.into();
         self
     }
 
     /// Sets the value of [endpoint_uri][crate::model::Service::endpoint_uri].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_metastore_v1::model::Service;
-    /// let x = Service::new().set_endpoint_uri("example");
-    /// ```
     pub fn set_endpoint_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.endpoint_uri = v.into();
         self
     }
 
     /// Sets the value of [port][crate::model::Service::port].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_metastore_v1::model::Service;
-    /// let x = Service::new().set_port(42);
-    /// ```
     pub fn set_port<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.port = v.into();
         self
     }
 
     /// Sets the value of [state][crate::model::Service::state].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_metastore_v1::model::Service;
-    /// use google_cloud_metastore_v1::model::service::State;
-    /// let x0 = Service::new().set_state(State::Creating);
-    /// let x1 = Service::new().set_state(State::Active);
-    /// let x2 = Service::new().set_state(State::Suspending);
-    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::service::State>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
     }
 
     /// Sets the value of [state_message][crate::model::Service::state_message].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_metastore_v1::model::Service;
-    /// let x = Service::new().set_state_message("example");
-    /// ```
     pub fn set_state_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.state_message = v.into();
         self
     }
 
     /// Sets the value of [artifact_gcs_uri][crate::model::Service::artifact_gcs_uri].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_metastore_v1::model::Service;
-    /// let x = Service::new().set_artifact_gcs_uri("example");
-    /// ```
     pub fn set_artifact_gcs_uri<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -309,27 +225,12 @@ impl Service {
     }
 
     /// Sets the value of [tier][crate::model::Service::tier].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_metastore_v1::model::Service;
-    /// use google_cloud_metastore_v1::model::service::Tier;
-    /// let x0 = Service::new().set_tier(Tier::Developer);
-    /// let x1 = Service::new().set_tier(Tier::Enterprise);
-    /// ```
     pub fn set_tier<T: std::convert::Into<crate::model::service::Tier>>(mut self, v: T) -> Self {
         self.tier = v.into();
         self
     }
 
     /// Sets the value of [maintenance_window][crate::model::Service::maintenance_window].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_metastore_v1::model::Service;
-    /// use google_cloud_metastore_v1::model::MaintenanceWindow;
-    /// let x = Service::new().set_maintenance_window(MaintenanceWindow::default()/* use setters */);
-    /// ```
     pub fn set_maintenance_window<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::MaintenanceWindow>,
@@ -339,14 +240,6 @@ impl Service {
     }
 
     /// Sets or clears the value of [maintenance_window][crate::model::Service::maintenance_window].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_metastore_v1::model::Service;
-    /// use google_cloud_metastore_v1::model::MaintenanceWindow;
-    /// let x = Service::new().set_or_clear_maintenance_window(Some(MaintenanceWindow::default()/* use setters */));
-    /// let x = Service::new().set_or_clear_maintenance_window(None::<MaintenanceWindow>);
-    /// ```
     pub fn set_or_clear_maintenance_window<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::MaintenanceWindow>,
@@ -356,25 +249,12 @@ impl Service {
     }
 
     /// Sets the value of [uid][crate::model::Service::uid].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_metastore_v1::model::Service;
-    /// let x = Service::new().set_uid("example");
-    /// ```
     pub fn set_uid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.uid = v.into();
         self
     }
 
     /// Sets the value of [metadata_management_activity][crate::model::Service::metadata_management_activity].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_metastore_v1::model::Service;
-    /// use google_cloud_metastore_v1::model::MetadataManagementActivity;
-    /// let x = Service::new().set_metadata_management_activity(MetadataManagementActivity::default()/* use setters */);
-    /// ```
     pub fn set_metadata_management_activity<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::MetadataManagementActivity>,
@@ -384,14 +264,6 @@ impl Service {
     }
 
     /// Sets or clears the value of [metadata_management_activity][crate::model::Service::metadata_management_activity].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_metastore_v1::model::Service;
-    /// use google_cloud_metastore_v1::model::MetadataManagementActivity;
-    /// let x = Service::new().set_or_clear_metadata_management_activity(Some(MetadataManagementActivity::default()/* use setters */));
-    /// let x = Service::new().set_or_clear_metadata_management_activity(None::<MetadataManagementActivity>);
-    /// ```
     pub fn set_or_clear_metadata_management_activity<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::MetadataManagementActivity>,
@@ -401,14 +273,6 @@ impl Service {
     }
 
     /// Sets the value of [release_channel][crate::model::Service::release_channel].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_metastore_v1::model::Service;
-    /// use google_cloud_metastore_v1::model::service::ReleaseChannel;
-    /// let x0 = Service::new().set_release_channel(ReleaseChannel::Canary);
-    /// let x1 = Service::new().set_release_channel(ReleaseChannel::Stable);
-    /// ```
     pub fn set_release_channel<T: std::convert::Into<crate::model::service::ReleaseChannel>>(
         mut self,
         v: T,
@@ -418,13 +282,6 @@ impl Service {
     }
 
     /// Sets the value of [encryption_config][crate::model::Service::encryption_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_metastore_v1::model::Service;
-    /// use google_cloud_metastore_v1::model::EncryptionConfig;
-    /// let x = Service::new().set_encryption_config(EncryptionConfig::default()/* use setters */);
-    /// ```
     pub fn set_encryption_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::EncryptionConfig>,
@@ -434,14 +291,6 @@ impl Service {
     }
 
     /// Sets or clears the value of [encryption_config][crate::model::Service::encryption_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_metastore_v1::model::Service;
-    /// use google_cloud_metastore_v1::model::EncryptionConfig;
-    /// let x = Service::new().set_or_clear_encryption_config(Some(EncryptionConfig::default()/* use setters */));
-    /// let x = Service::new().set_or_clear_encryption_config(None::<EncryptionConfig>);
-    /// ```
     pub fn set_or_clear_encryption_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::EncryptionConfig>,
@@ -451,13 +300,6 @@ impl Service {
     }
 
     /// Sets the value of [network_config][crate::model::Service::network_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_metastore_v1::model::Service;
-    /// use google_cloud_metastore_v1::model::NetworkConfig;
-    /// let x = Service::new().set_network_config(NetworkConfig::default()/* use setters */);
-    /// ```
     pub fn set_network_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::NetworkConfig>,
@@ -467,14 +309,6 @@ impl Service {
     }
 
     /// Sets or clears the value of [network_config][crate::model::Service::network_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_metastore_v1::model::Service;
-    /// use google_cloud_metastore_v1::model::NetworkConfig;
-    /// let x = Service::new().set_or_clear_network_config(Some(NetworkConfig::default()/* use setters */));
-    /// let x = Service::new().set_or_clear_network_config(None::<NetworkConfig>);
-    /// ```
     pub fn set_or_clear_network_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::NetworkConfig>,
@@ -484,14 +318,6 @@ impl Service {
     }
 
     /// Sets the value of [database_type][crate::model::Service::database_type].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_metastore_v1::model::Service;
-    /// use google_cloud_metastore_v1::model::service::DatabaseType;
-    /// let x0 = Service::new().set_database_type(DatabaseType::Mysql);
-    /// let x1 = Service::new().set_database_type(DatabaseType::Spanner);
-    /// ```
     pub fn set_database_type<T: std::convert::Into<crate::model::service::DatabaseType>>(
         mut self,
         v: T,
@@ -501,13 +327,6 @@ impl Service {
     }
 
     /// Sets the value of [telemetry_config][crate::model::Service::telemetry_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_metastore_v1::model::Service;
-    /// use google_cloud_metastore_v1::model::TelemetryConfig;
-    /// let x = Service::new().set_telemetry_config(TelemetryConfig::default()/* use setters */);
-    /// ```
     pub fn set_telemetry_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::TelemetryConfig>,
@@ -517,14 +336,6 @@ impl Service {
     }
 
     /// Sets or clears the value of [telemetry_config][crate::model::Service::telemetry_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_metastore_v1::model::Service;
-    /// use google_cloud_metastore_v1::model::TelemetryConfig;
-    /// let x = Service::new().set_or_clear_telemetry_config(Some(TelemetryConfig::default()/* use setters */));
-    /// let x = Service::new().set_or_clear_telemetry_config(None::<TelemetryConfig>);
-    /// ```
     pub fn set_or_clear_telemetry_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::TelemetryConfig>,
@@ -534,13 +345,6 @@ impl Service {
     }
 
     /// Sets the value of [scaling_config][crate::model::Service::scaling_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_metastore_v1::model::Service;
-    /// use google_cloud_metastore_v1::model::ScalingConfig;
-    /// let x = Service::new().set_scaling_config(ScalingConfig::default()/* use setters */);
-    /// ```
     pub fn set_scaling_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ScalingConfig>,
@@ -550,14 +354,6 @@ impl Service {
     }
 
     /// Sets or clears the value of [scaling_config][crate::model::Service::scaling_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_metastore_v1::model::Service;
-    /// use google_cloud_metastore_v1::model::ScalingConfig;
-    /// let x = Service::new().set_or_clear_scaling_config(Some(ScalingConfig::default()/* use setters */));
-    /// let x = Service::new().set_or_clear_scaling_config(None::<ScalingConfig>);
-    /// ```
     pub fn set_or_clear_scaling_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ScalingConfig>,
@@ -570,14 +366,6 @@ impl Service {
     ///
     /// Note that all the setters affecting `metastore_config` are mutually
     /// exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_metastore_v1::model::Service;
-    /// use google_cloud_metastore_v1::model::service;
-    /// use google_cloud_metastore_v1::model::HiveMetastoreConfig;
-    /// let x = Service::new().set_metastore_config(Some(service::MetastoreConfig::HiveMetastoreConfig(HiveMetastoreConfig::default().into())));
-    /// ```
     pub fn set_metastore_config<
         T: std::convert::Into<std::option::Option<crate::model::service::MetastoreConfig>>,
     >(
@@ -608,14 +396,6 @@ impl Service {
     ///
     /// Note that all the setters affecting `metastore_config` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_metastore_v1::model::Service;
-    /// use google_cloud_metastore_v1::model::HiveMetastoreConfig;
-    /// let x = Service::new().set_hive_metastore_config(HiveMetastoreConfig::default()/* use setters */);
-    /// assert!(x.hive_metastore_config().is_some());
-    /// ```
     pub fn set_hive_metastore_config<
         T: std::convert::Into<std::boxed::Box<crate::model::HiveMetastoreConfig>>,
     >(
@@ -1244,13 +1024,6 @@ impl MaintenanceWindow {
     }
 
     /// Sets the value of [hour_of_day][crate::model::MaintenanceWindow::hour_of_day].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_metastore_v1::model::MaintenanceWindow;
-    /// use wkt::Int32Value;
-    /// let x = MaintenanceWindow::new().set_hour_of_day(Int32Value::default()/* use setters */);
-    /// ```
     pub fn set_hour_of_day<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Int32Value>,
@@ -1260,14 +1033,6 @@ impl MaintenanceWindow {
     }
 
     /// Sets or clears the value of [hour_of_day][crate::model::MaintenanceWindow::hour_of_day].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_metastore_v1::model::MaintenanceWindow;
-    /// use wkt::Int32Value;
-    /// let x = MaintenanceWindow::new().set_or_clear_hour_of_day(Some(Int32Value::default()/* use setters */));
-    /// let x = MaintenanceWindow::new().set_or_clear_hour_of_day(None::<Int32Value>);
-    /// ```
     pub fn set_or_clear_hour_of_day<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Int32Value>,
@@ -1277,15 +1042,6 @@ impl MaintenanceWindow {
     }
 
     /// Sets the value of [day_of_week][crate::model::MaintenanceWindow::day_of_week].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_metastore_v1::model::MaintenanceWindow;
-    /// use gtype::model::DayOfWeek;
-    /// let x0 = MaintenanceWindow::new().set_day_of_week(DayOfWeek::Monday);
-    /// let x1 = MaintenanceWindow::new().set_day_of_week(DayOfWeek::Tuesday);
-    /// let x2 = MaintenanceWindow::new().set_day_of_week(DayOfWeek::Wednesday);
-    /// ```
     pub fn set_day_of_week<T: std::convert::Into<gtype::model::DayOfWeek>>(mut self, v: T) -> Self {
         self.day_of_week = v.into();
         self
@@ -1344,27 +1100,12 @@ impl HiveMetastoreConfig {
     }
 
     /// Sets the value of [version][crate::model::HiveMetastoreConfig::version].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_metastore_v1::model::HiveMetastoreConfig;
-    /// let x = HiveMetastoreConfig::new().set_version("example");
-    /// ```
     pub fn set_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.version = v.into();
         self
     }
 
     /// Sets the value of [config_overrides][crate::model::HiveMetastoreConfig::config_overrides].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_metastore_v1::model::HiveMetastoreConfig;
-    /// let x = HiveMetastoreConfig::new().set_config_overrides([
-    ///     ("key0", "abc"),
-    ///     ("key1", "xyz"),
-    /// ]);
-    /// ```
     pub fn set_config_overrides<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -1377,13 +1118,6 @@ impl HiveMetastoreConfig {
     }
 
     /// Sets the value of [kerberos_config][crate::model::HiveMetastoreConfig::kerberos_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_metastore_v1::model::HiveMetastoreConfig;
-    /// use google_cloud_metastore_v1::model::KerberosConfig;
-    /// let x = HiveMetastoreConfig::new().set_kerberos_config(KerberosConfig::default()/* use setters */);
-    /// ```
     pub fn set_kerberos_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::KerberosConfig>,
@@ -1393,14 +1127,6 @@ impl HiveMetastoreConfig {
     }
 
     /// Sets or clears the value of [kerberos_config][crate::model::HiveMetastoreConfig::kerberos_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_metastore_v1::model::HiveMetastoreConfig;
-    /// use google_cloud_metastore_v1::model::KerberosConfig;
-    /// let x = HiveMetastoreConfig::new().set_or_clear_kerberos_config(Some(KerberosConfig::default()/* use setters */));
-    /// let x = HiveMetastoreConfig::new().set_or_clear_kerberos_config(None::<KerberosConfig>);
-    /// ```
     pub fn set_or_clear_kerberos_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::KerberosConfig>,
@@ -1410,14 +1136,6 @@ impl HiveMetastoreConfig {
     }
 
     /// Sets the value of [endpoint_protocol][crate::model::HiveMetastoreConfig::endpoint_protocol].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_metastore_v1::model::HiveMetastoreConfig;
-    /// use google_cloud_metastore_v1::model::hive_metastore_config::EndpointProtocol;
-    /// let x0 = HiveMetastoreConfig::new().set_endpoint_protocol(EndpointProtocol::Thrift);
-    /// let x1 = HiveMetastoreConfig::new().set_endpoint_protocol(EndpointProtocol::Grpc);
-    /// ```
     pub fn set_endpoint_protocol<
         T: std::convert::Into<crate::model::hive_metastore_config::EndpointProtocol>,
     >(
@@ -1429,16 +1147,6 @@ impl HiveMetastoreConfig {
     }
 
     /// Sets the value of [auxiliary_versions][crate::model::HiveMetastoreConfig::auxiliary_versions].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_metastore_v1::model::HiveMetastoreConfig;
-    /// use google_cloud_metastore_v1::model::AuxiliaryVersionConfig;
-    /// let x = HiveMetastoreConfig::new().set_auxiliary_versions([
-    ///     ("key0", AuxiliaryVersionConfig::default()/* use setters */),
-    ///     ("key1", AuxiliaryVersionConfig::default()/* use (different) setters */),
-    /// ]);
-    /// ```
     pub fn set_auxiliary_versions<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -1622,13 +1330,6 @@ impl KerberosConfig {
     }
 
     /// Sets the value of [keytab][crate::model::KerberosConfig::keytab].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_metastore_v1::model::KerberosConfig;
-    /// use google_cloud_metastore_v1::model::Secret;
-    /// let x = KerberosConfig::new().set_keytab(Secret::default()/* use setters */);
-    /// ```
     pub fn set_keytab<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Secret>,
@@ -1638,14 +1339,6 @@ impl KerberosConfig {
     }
 
     /// Sets or clears the value of [keytab][crate::model::KerberosConfig::keytab].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_metastore_v1::model::KerberosConfig;
-    /// use google_cloud_metastore_v1::model::Secret;
-    /// let x = KerberosConfig::new().set_or_clear_keytab(Some(Secret::default()/* use setters */));
-    /// let x = KerberosConfig::new().set_or_clear_keytab(None::<Secret>);
-    /// ```
     pub fn set_or_clear_keytab<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Secret>,
@@ -1655,24 +1348,12 @@ impl KerberosConfig {
     }
 
     /// Sets the value of [principal][crate::model::KerberosConfig::principal].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_metastore_v1::model::KerberosConfig;
-    /// let x = KerberosConfig::new().set_principal("example");
-    /// ```
     pub fn set_principal<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.principal = v.into();
         self
     }
 
     /// Sets the value of [krb5_config_gcs_uri][crate::model::KerberosConfig::krb5_config_gcs_uri].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_metastore_v1::model::KerberosConfig;
-    /// let x = KerberosConfig::new().set_krb5_config_gcs_uri("example");
-    /// ```
     pub fn set_krb5_config_gcs_uri<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -1706,13 +1387,6 @@ impl Secret {
     ///
     /// Note that all the setters affecting `value` are mutually
     /// exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_metastore_v1::model::Secret;
-    /// use google_cloud_metastore_v1::model::secret;
-    /// let x = Secret::new().set_value(Some(secret::Value::CloudSecret("example".to_string())));
-    /// ```
     pub fn set_value<T: std::convert::Into<std::option::Option<crate::model::secret::Value>>>(
         mut self,
         v: T,
@@ -1737,13 +1411,6 @@ impl Secret {
     ///
     /// Note that all the setters affecting `value` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_metastore_v1::model::Secret;
-    /// let x = Secret::new().set_cloud_secret("example");
-    /// assert!(x.cloud_secret().is_some());
-    /// ```
     pub fn set_cloud_secret<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.value = std::option::Option::Some(crate::model::secret::Value::CloudSecret(v.into()));
         self
@@ -1791,12 +1458,6 @@ impl EncryptionConfig {
     }
 
     /// Sets the value of [kms_key][crate::model::EncryptionConfig::kms_key].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_metastore_v1::model::EncryptionConfig;
-    /// let x = EncryptionConfig::new().set_kms_key("example");
-    /// ```
     pub fn set_kms_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.kms_key = v.into();
         self
@@ -1837,27 +1498,12 @@ impl AuxiliaryVersionConfig {
     }
 
     /// Sets the value of [version][crate::model::AuxiliaryVersionConfig::version].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_metastore_v1::model::AuxiliaryVersionConfig;
-    /// let x = AuxiliaryVersionConfig::new().set_version("example");
-    /// ```
     pub fn set_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.version = v.into();
         self
     }
 
     /// Sets the value of [config_overrides][crate::model::AuxiliaryVersionConfig::config_overrides].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_metastore_v1::model::AuxiliaryVersionConfig;
-    /// let x = AuxiliaryVersionConfig::new().set_config_overrides([
-    ///     ("key0", "abc"),
-    ///     ("key1", "xyz"),
-    /// ]);
-    /// ```
     pub fn set_config_overrides<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -1870,13 +1516,6 @@ impl AuxiliaryVersionConfig {
     }
 
     /// Sets the value of [network_config][crate::model::AuxiliaryVersionConfig::network_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_metastore_v1::model::AuxiliaryVersionConfig;
-    /// use google_cloud_metastore_v1::model::NetworkConfig;
-    /// let x = AuxiliaryVersionConfig::new().set_network_config(NetworkConfig::default()/* use setters */);
-    /// ```
     pub fn set_network_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::NetworkConfig>,
@@ -1886,14 +1525,6 @@ impl AuxiliaryVersionConfig {
     }
 
     /// Sets or clears the value of [network_config][crate::model::AuxiliaryVersionConfig::network_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_metastore_v1::model::AuxiliaryVersionConfig;
-    /// use google_cloud_metastore_v1::model::NetworkConfig;
-    /// let x = AuxiliaryVersionConfig::new().set_or_clear_network_config(Some(NetworkConfig::default()/* use setters */));
-    /// let x = AuxiliaryVersionConfig::new().set_or_clear_network_config(None::<NetworkConfig>);
-    /// ```
     pub fn set_or_clear_network_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::NetworkConfig>,
@@ -1928,17 +1559,6 @@ impl NetworkConfig {
     }
 
     /// Sets the value of [consumers][crate::model::NetworkConfig::consumers].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_metastore_v1::model::NetworkConfig;
-    /// use google_cloud_metastore_v1::model::network_config::Consumer;
-    /// let x = NetworkConfig::new()
-    ///     .set_consumers([
-    ///         Consumer::default()/* use setters */,
-    ///         Consumer::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_consumers<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1986,12 +1606,6 @@ pub mod network_config {
         }
 
         /// Sets the value of [endpoint_uri][crate::model::network_config::Consumer::endpoint_uri].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_metastore_v1::model::network_config::Consumer;
-        /// let x = Consumer::new().set_endpoint_uri("example");
-        /// ```
         pub fn set_endpoint_uri<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -2001,12 +1615,6 @@ pub mod network_config {
         }
 
         /// Sets the value of [endpoint_location][crate::model::network_config::Consumer::endpoint_location].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_metastore_v1::model::network_config::Consumer;
-        /// let x = Consumer::new().set_endpoint_location("example");
-        /// ```
         pub fn set_endpoint_location<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -2019,13 +1627,6 @@ pub mod network_config {
         ///
         /// Note that all the setters affecting `vpc_resource` are mutually
         /// exclusive.
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_metastore_v1::model::network_config::Consumer;
-        /// use google_cloud_metastore_v1::model::network_config::consumer;
-        /// let x = Consumer::new().set_vpc_resource(Some(network_config::consumer::VpcResource::Subnetwork("example".to_string())));
-        /// ```
         pub fn set_vpc_resource<
             T: std::convert::Into<
                     std::option::Option<crate::model::network_config::consumer::VpcResource>,
@@ -2056,13 +1657,6 @@ pub mod network_config {
         ///
         /// Note that all the setters affecting `vpc_resource` are
         /// mutually exclusive.
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_metastore_v1::model::network_config::Consumer;
-        /// let x = Consumer::new().set_subnetwork("example");
-        /// assert!(x.subnetwork().is_some());
-        /// ```
         pub fn set_subnetwork<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.vpc_resource = std::option::Option::Some(
                 crate::model::network_config::consumer::VpcResource::Subnetwork(v.into()),
@@ -2114,14 +1708,6 @@ impl TelemetryConfig {
     }
 
     /// Sets the value of [log_format][crate::model::TelemetryConfig::log_format].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_metastore_v1::model::TelemetryConfig;
-    /// use google_cloud_metastore_v1::model::telemetry_config::LogFormat;
-    /// let x0 = TelemetryConfig::new().set_log_format(LogFormat::Legacy);
-    /// let x1 = TelemetryConfig::new().set_log_format(LogFormat::Json);
-    /// ```
     pub fn set_log_format<T: std::convert::Into<crate::model::telemetry_config::LogFormat>>(
         mut self,
         v: T,
@@ -2293,17 +1879,6 @@ impl MetadataManagementActivity {
     }
 
     /// Sets the value of [metadata_exports][crate::model::MetadataManagementActivity::metadata_exports].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_metastore_v1::model::MetadataManagementActivity;
-    /// use google_cloud_metastore_v1::model::MetadataExport;
-    /// let x = MetadataManagementActivity::new()
-    ///     .set_metadata_exports([
-    ///         MetadataExport::default()/* use setters */,
-    ///         MetadataExport::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_metadata_exports<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2315,17 +1890,6 @@ impl MetadataManagementActivity {
     }
 
     /// Sets the value of [restores][crate::model::MetadataManagementActivity::restores].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_metastore_v1::model::MetadataManagementActivity;
-    /// use google_cloud_metastore_v1::model::Restore;
-    /// let x = MetadataManagementActivity::new()
-    ///     .set_restores([
-    ///         Restore::default()/* use setters */,
-    ///         Restore::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_restores<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2379,37 +1943,18 @@ impl MetadataImport {
     }
 
     /// Sets the value of [name][crate::model::MetadataImport::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_metastore_v1::model::MetadataImport;
-    /// let x = MetadataImport::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [description][crate::model::MetadataImport::description].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_metastore_v1::model::MetadataImport;
-    /// let x = MetadataImport::new().set_description("example");
-    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::MetadataImport::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_metastore_v1::model::MetadataImport;
-    /// use wkt::Timestamp;
-    /// let x = MetadataImport::new().set_create_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2419,14 +1964,6 @@ impl MetadataImport {
     }
 
     /// Sets or clears the value of [create_time][crate::model::MetadataImport::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_metastore_v1::model::MetadataImport;
-    /// use wkt::Timestamp;
-    /// let x = MetadataImport::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
-    /// let x = MetadataImport::new().set_or_clear_create_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2436,13 +1973,6 @@ impl MetadataImport {
     }
 
     /// Sets the value of [update_time][crate::model::MetadataImport::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_metastore_v1::model::MetadataImport;
-    /// use wkt::Timestamp;
-    /// let x = MetadataImport::new().set_update_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2452,14 +1982,6 @@ impl MetadataImport {
     }
 
     /// Sets or clears the value of [update_time][crate::model::MetadataImport::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_metastore_v1::model::MetadataImport;
-    /// use wkt::Timestamp;
-    /// let x = MetadataImport::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
-    /// let x = MetadataImport::new().set_or_clear_update_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2469,13 +1991,6 @@ impl MetadataImport {
     }
 
     /// Sets the value of [end_time][crate::model::MetadataImport::end_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_metastore_v1::model::MetadataImport;
-    /// use wkt::Timestamp;
-    /// let x = MetadataImport::new().set_end_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2485,14 +2000,6 @@ impl MetadataImport {
     }
 
     /// Sets or clears the value of [end_time][crate::model::MetadataImport::end_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_metastore_v1::model::MetadataImport;
-    /// use wkt::Timestamp;
-    /// let x = MetadataImport::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
-    /// let x = MetadataImport::new().set_or_clear_end_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2502,15 +2009,6 @@ impl MetadataImport {
     }
 
     /// Sets the value of [state][crate::model::MetadataImport::state].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_metastore_v1::model::MetadataImport;
-    /// use google_cloud_metastore_v1::model::metadata_import::State;
-    /// let x0 = MetadataImport::new().set_state(State::Running);
-    /// let x1 = MetadataImport::new().set_state(State::Succeeded);
-    /// let x2 = MetadataImport::new().set_state(State::Updating);
-    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::metadata_import::State>>(
         mut self,
         v: T,
@@ -2523,14 +2021,6 @@ impl MetadataImport {
     ///
     /// Note that all the setters affecting `metadata` are mutually
     /// exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_metastore_v1::model::MetadataImport;
-    /// use google_cloud_metastore_v1::model::metadata_import;
-    /// use google_cloud_metastore_v1::model::metadata_import::DatabaseDump;
-    /// let x = MetadataImport::new().set_metadata(Some(metadata_import::Metadata::DatabaseDump(DatabaseDump::default().into())));
-    /// ```
     pub fn set_metadata<
         T: std::convert::Into<std::option::Option<crate::model::metadata_import::Metadata>>,
     >(
@@ -2561,14 +2051,6 @@ impl MetadataImport {
     ///
     /// Note that all the setters affecting `metadata` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_metastore_v1::model::MetadataImport;
-    /// use google_cloud_metastore_v1::model::metadata_import::DatabaseDump;
-    /// let x = MetadataImport::new().set_database_dump(DatabaseDump::default()/* use setters */);
-    /// assert!(x.database_dump().is_some());
-    /// ```
     pub fn set_database_dump<
         T: std::convert::Into<std::boxed::Box<crate::model::metadata_import::DatabaseDump>>,
     >(
@@ -2623,13 +2105,6 @@ pub mod metadata_import {
         }
 
         /// Sets the value of [database_type][crate::model::metadata_import::DatabaseDump::database_type].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_metastore_v1::model::metadata_import::DatabaseDump;
-        /// use google_cloud_metastore_v1::model::metadata_import::database_dump::DatabaseType;
-        /// let x0 = DatabaseDump::new().set_database_type(DatabaseType::Mysql);
-        /// ```
         #[deprecated]
         pub fn set_database_type<
             T: std::convert::Into<crate::model::metadata_import::database_dump::DatabaseType>,
@@ -2642,24 +2117,12 @@ pub mod metadata_import {
         }
 
         /// Sets the value of [gcs_uri][crate::model::metadata_import::DatabaseDump::gcs_uri].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_metastore_v1::model::metadata_import::DatabaseDump;
-        /// let x = DatabaseDump::new().set_gcs_uri("example");
-        /// ```
         pub fn set_gcs_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.gcs_uri = v.into();
             self
         }
 
         /// Sets the value of [source_database][crate::model::metadata_import::DatabaseDump::source_database].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_metastore_v1::model::metadata_import::DatabaseDump;
-        /// let x = DatabaseDump::new().set_source_database("example");
-        /// ```
         #[deprecated]
         pub fn set_source_database<T: std::convert::Into<std::string::String>>(
             mut self,
@@ -2670,14 +2133,6 @@ pub mod metadata_import {
         }
 
         /// Sets the value of [r#type][crate::model::metadata_import::DatabaseDump::type].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_metastore_v1::model::metadata_import::DatabaseDump;
-        /// use google_cloud_metastore_v1::model::database_dump_spec::Type;
-        /// let x0 = DatabaseDump::new().set_type(Type::Mysql);
-        /// let x1 = DatabaseDump::new().set_type(Type::Avro);
-        /// ```
         pub fn set_type<T: std::convert::Into<crate::model::database_dump_spec::Type>>(
             mut self,
             v: T,
@@ -3010,13 +2465,6 @@ impl MetadataExport {
     }
 
     /// Sets the value of [start_time][crate::model::MetadataExport::start_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_metastore_v1::model::MetadataExport;
-    /// use wkt::Timestamp;
-    /// let x = MetadataExport::new().set_start_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_start_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3026,14 +2474,6 @@ impl MetadataExport {
     }
 
     /// Sets or clears the value of [start_time][crate::model::MetadataExport::start_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_metastore_v1::model::MetadataExport;
-    /// use wkt::Timestamp;
-    /// let x = MetadataExport::new().set_or_clear_start_time(Some(Timestamp::default()/* use setters */));
-    /// let x = MetadataExport::new().set_or_clear_start_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3043,13 +2483,6 @@ impl MetadataExport {
     }
 
     /// Sets the value of [end_time][crate::model::MetadataExport::end_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_metastore_v1::model::MetadataExport;
-    /// use wkt::Timestamp;
-    /// let x = MetadataExport::new().set_end_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3059,14 +2492,6 @@ impl MetadataExport {
     }
 
     /// Sets or clears the value of [end_time][crate::model::MetadataExport::end_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_metastore_v1::model::MetadataExport;
-    /// use wkt::Timestamp;
-    /// let x = MetadataExport::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
-    /// let x = MetadataExport::new().set_or_clear_end_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3076,15 +2501,6 @@ impl MetadataExport {
     }
 
     /// Sets the value of [state][crate::model::MetadataExport::state].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_metastore_v1::model::MetadataExport;
-    /// use google_cloud_metastore_v1::model::metadata_export::State;
-    /// let x0 = MetadataExport::new().set_state(State::Running);
-    /// let x1 = MetadataExport::new().set_state(State::Succeeded);
-    /// let x2 = MetadataExport::new().set_state(State::Failed);
-    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::metadata_export::State>>(
         mut self,
         v: T,
@@ -3094,14 +2510,6 @@ impl MetadataExport {
     }
 
     /// Sets the value of [database_dump_type][crate::model::MetadataExport::database_dump_type].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_metastore_v1::model::MetadataExport;
-    /// use google_cloud_metastore_v1::model::database_dump_spec::Type;
-    /// let x0 = MetadataExport::new().set_database_dump_type(Type::Mysql);
-    /// let x1 = MetadataExport::new().set_database_dump_type(Type::Avro);
-    /// ```
     pub fn set_database_dump_type<T: std::convert::Into<crate::model::database_dump_spec::Type>>(
         mut self,
         v: T,
@@ -3114,13 +2522,6 @@ impl MetadataExport {
     ///
     /// Note that all the setters affecting `destination` are mutually
     /// exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_metastore_v1::model::MetadataExport;
-    /// use google_cloud_metastore_v1::model::metadata_export;
-    /// let x = MetadataExport::new().set_destination(Some(metadata_export::Destination::DestinationGcsUri("example".to_string())));
-    /// ```
     pub fn set_destination<
         T: std::convert::Into<std::option::Option<crate::model::metadata_export::Destination>>,
     >(
@@ -3149,13 +2550,6 @@ impl MetadataExport {
     ///
     /// Note that all the setters affecting `destination` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_metastore_v1::model::MetadataExport;
-    /// let x = MetadataExport::new().set_destination_gcs_uri("example");
-    /// assert!(x.destination_gcs_uri().is_some());
-    /// ```
     pub fn set_destination_gcs_uri<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -3371,25 +2765,12 @@ impl Backup {
     }
 
     /// Sets the value of [name][crate::model::Backup::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_metastore_v1::model::Backup;
-    /// let x = Backup::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::Backup::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_metastore_v1::model::Backup;
-    /// use wkt::Timestamp;
-    /// let x = Backup::new().set_create_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3399,14 +2780,6 @@ impl Backup {
     }
 
     /// Sets or clears the value of [create_time][crate::model::Backup::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_metastore_v1::model::Backup;
-    /// use wkt::Timestamp;
-    /// let x = Backup::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
-    /// let x = Backup::new().set_or_clear_create_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3416,13 +2789,6 @@ impl Backup {
     }
 
     /// Sets the value of [end_time][crate::model::Backup::end_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_metastore_v1::model::Backup;
-    /// use wkt::Timestamp;
-    /// let x = Backup::new().set_end_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3432,14 +2798,6 @@ impl Backup {
     }
 
     /// Sets or clears the value of [end_time][crate::model::Backup::end_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_metastore_v1::model::Backup;
-    /// use wkt::Timestamp;
-    /// let x = Backup::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
-    /// let x = Backup::new().set_or_clear_end_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3449,28 +2807,12 @@ impl Backup {
     }
 
     /// Sets the value of [state][crate::model::Backup::state].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_metastore_v1::model::Backup;
-    /// use google_cloud_metastore_v1::model::backup::State;
-    /// let x0 = Backup::new().set_state(State::Creating);
-    /// let x1 = Backup::new().set_state(State::Deleting);
-    /// let x2 = Backup::new().set_state(State::Active);
-    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::backup::State>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
     }
 
     /// Sets the value of [service_revision][crate::model::Backup::service_revision].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_metastore_v1::model::Backup;
-    /// use google_cloud_metastore_v1::model::Service;
-    /// let x = Backup::new().set_service_revision(Service::default()/* use setters */);
-    /// ```
     pub fn set_service_revision<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Service>,
@@ -3480,14 +2822,6 @@ impl Backup {
     }
 
     /// Sets or clears the value of [service_revision][crate::model::Backup::service_revision].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_metastore_v1::model::Backup;
-    /// use google_cloud_metastore_v1::model::Service;
-    /// let x = Backup::new().set_or_clear_service_revision(Some(Service::default()/* use setters */));
-    /// let x = Backup::new().set_or_clear_service_revision(None::<Service>);
-    /// ```
     pub fn set_or_clear_service_revision<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Service>,
@@ -3497,24 +2831,12 @@ impl Backup {
     }
 
     /// Sets the value of [description][crate::model::Backup::description].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_metastore_v1::model::Backup;
-    /// let x = Backup::new().set_description("example");
-    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [restoring_services][crate::model::Backup::restoring_services].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_metastore_v1::model::Backup;
-    /// let x = Backup::new().set_restoring_services(["a", "b", "c"]);
-    /// ```
     pub fn set_restoring_services<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3726,13 +3048,6 @@ impl Restore {
     }
 
     /// Sets the value of [start_time][crate::model::Restore::start_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_metastore_v1::model::Restore;
-    /// use wkt::Timestamp;
-    /// let x = Restore::new().set_start_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_start_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3742,14 +3057,6 @@ impl Restore {
     }
 
     /// Sets or clears the value of [start_time][crate::model::Restore::start_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_metastore_v1::model::Restore;
-    /// use wkt::Timestamp;
-    /// let x = Restore::new().set_or_clear_start_time(Some(Timestamp::default()/* use setters */));
-    /// let x = Restore::new().set_or_clear_start_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3759,13 +3066,6 @@ impl Restore {
     }
 
     /// Sets the value of [end_time][crate::model::Restore::end_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_metastore_v1::model::Restore;
-    /// use wkt::Timestamp;
-    /// let x = Restore::new().set_end_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3775,14 +3075,6 @@ impl Restore {
     }
 
     /// Sets or clears the value of [end_time][crate::model::Restore::end_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_metastore_v1::model::Restore;
-    /// use wkt::Timestamp;
-    /// let x = Restore::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
-    /// let x = Restore::new().set_or_clear_end_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3792,41 +3084,18 @@ impl Restore {
     }
 
     /// Sets the value of [state][crate::model::Restore::state].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_metastore_v1::model::Restore;
-    /// use google_cloud_metastore_v1::model::restore::State;
-    /// let x0 = Restore::new().set_state(State::Running);
-    /// let x1 = Restore::new().set_state(State::Succeeded);
-    /// let x2 = Restore::new().set_state(State::Failed);
-    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::restore::State>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
     }
 
     /// Sets the value of [backup][crate::model::Restore::backup].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_metastore_v1::model::Restore;
-    /// let x = Restore::new().set_backup("example");
-    /// ```
     pub fn set_backup<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.backup = v.into();
         self
     }
 
     /// Sets the value of [r#type][crate::model::Restore::type].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_metastore_v1::model::Restore;
-    /// use google_cloud_metastore_v1::model::restore::RestoreType;
-    /// let x0 = Restore::new().set_type(RestoreType::Full);
-    /// let x1 = Restore::new().set_type(RestoreType::MetadataOnly);
-    /// ```
     pub fn set_type<T: std::convert::Into<crate::model::restore::RestoreType>>(
         mut self,
         v: T,
@@ -3836,12 +3105,6 @@ impl Restore {
     }
 
     /// Sets the value of [details][crate::model::Restore::details].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_metastore_v1::model::Restore;
-    /// let x = Restore::new().set_details("example");
-    /// ```
     pub fn set_details<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.details = v.into();
         self
@@ -4158,16 +3421,6 @@ impl ScalingConfig {
     ///
     /// Note that all the setters affecting `scaling_model` are mutually
     /// exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_metastore_v1::model::ScalingConfig;
-    /// use google_cloud_metastore_v1::model::scaling_config;
-    /// use google_cloud_metastore_v1::model::scaling_config::InstanceSize;
-    /// let x0 = ScalingConfig::new().set_scaling_model(Some(scaling_config::ScalingModel::InstanceSize(InstanceSize::ExtraSmall)));
-    /// let x1 = ScalingConfig::new().set_scaling_model(Some(scaling_config::ScalingModel::InstanceSize(InstanceSize::Small)));
-    /// let x2 = ScalingConfig::new().set_scaling_model(Some(scaling_config::ScalingModel::InstanceSize(InstanceSize::Medium)));
-    /// ```
     pub fn set_scaling_model<
         T: std::convert::Into<std::option::Option<crate::model::scaling_config::ScalingModel>>,
     >(
@@ -4198,17 +3451,6 @@ impl ScalingConfig {
     ///
     /// Note that all the setters affecting `scaling_model` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_metastore_v1::model::ScalingConfig;
-    /// use google_cloud_metastore_v1::model::scaling_config::InstanceSize;
-    /// let x0 = ScalingConfig::new().set_instance_size(InstanceSize::ExtraSmall);
-    /// let x1 = ScalingConfig::new().set_instance_size(InstanceSize::Small);
-    /// let x2 = ScalingConfig::new().set_instance_size(InstanceSize::Medium);
-    /// assert!(x.instance_size().is_some());
-    /// assert!(x.scaling_factor().is_none());
-    /// ```
     pub fn set_instance_size<T: std::convert::Into<crate::model::scaling_config::InstanceSize>>(
         mut self,
         v: T,
@@ -4237,14 +3479,6 @@ impl ScalingConfig {
     ///
     /// Note that all the setters affecting `scaling_model` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_metastore_v1::model::ScalingConfig;
-    /// let x = ScalingConfig::new().set_scaling_factor(42.0);
-    /// assert!(x.scaling_factor().is_some());
-    /// assert!(x.instance_size().is_none());
-    /// ```
     pub fn set_scaling_factor<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
         self.scaling_model = std::option::Option::Some(
             crate::model::scaling_config::ScalingModel::ScalingFactor(v.into()),
@@ -4480,60 +3714,30 @@ impl ListServicesRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListServicesRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_metastore_v1::model::ListServicesRequest;
-    /// let x = ListServicesRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListServicesRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_metastore_v1::model::ListServicesRequest;
-    /// let x = ListServicesRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListServicesRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_metastore_v1::model::ListServicesRequest;
-    /// let x = ListServicesRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListServicesRequest::filter].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_metastore_v1::model::ListServicesRequest;
-    /// let x = ListServicesRequest::new().set_filter("example");
-    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListServicesRequest::order_by].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_metastore_v1::model::ListServicesRequest;
-    /// let x = ListServicesRequest::new().set_order_by("example");
-    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
@@ -4572,17 +3776,6 @@ impl ListServicesResponse {
     }
 
     /// Sets the value of [services][crate::model::ListServicesResponse::services].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_metastore_v1::model::ListServicesResponse;
-    /// use google_cloud_metastore_v1::model::Service;
-    /// let x = ListServicesResponse::new()
-    ///     .set_services([
-    ///         Service::default()/* use setters */,
-    ///         Service::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_services<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4594,24 +3787,12 @@ impl ListServicesResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListServicesResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_metastore_v1::model::ListServicesResponse;
-    /// let x = ListServicesResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListServicesResponse::unreachable].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_metastore_v1::model::ListServicesResponse;
-    /// let x = ListServicesResponse::new().set_unreachable(["a", "b", "c"]);
-    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4665,12 +3846,6 @@ impl GetServiceRequest {
     }
 
     /// Sets the value of [name][crate::model::GetServiceRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_metastore_v1::model::GetServiceRequest;
-    /// let x = GetServiceRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -4732,37 +3907,18 @@ impl CreateServiceRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateServiceRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_metastore_v1::model::CreateServiceRequest;
-    /// let x = CreateServiceRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [service_id][crate::model::CreateServiceRequest::service_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_metastore_v1::model::CreateServiceRequest;
-    /// let x = CreateServiceRequest::new().set_service_id("example");
-    /// ```
     pub fn set_service_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.service_id = v.into();
         self
     }
 
     /// Sets the value of [service][crate::model::CreateServiceRequest::service].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_metastore_v1::model::CreateServiceRequest;
-    /// use google_cloud_metastore_v1::model::Service;
-    /// let x = CreateServiceRequest::new().set_service(Service::default()/* use setters */);
-    /// ```
     pub fn set_service<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Service>,
@@ -4772,14 +3928,6 @@ impl CreateServiceRequest {
     }
 
     /// Sets or clears the value of [service][crate::model::CreateServiceRequest::service].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_metastore_v1::model::CreateServiceRequest;
-    /// use google_cloud_metastore_v1::model::Service;
-    /// let x = CreateServiceRequest::new().set_or_clear_service(Some(Service::default()/* use setters */));
-    /// let x = CreateServiceRequest::new().set_or_clear_service(None::<Service>);
-    /// ```
     pub fn set_or_clear_service<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Service>,
@@ -4789,12 +3937,6 @@ impl CreateServiceRequest {
     }
 
     /// Sets the value of [request_id][crate::model::CreateServiceRequest::request_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_metastore_v1::model::CreateServiceRequest;
-    /// let x = CreateServiceRequest::new().set_request_id("example");
-    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -4850,13 +3992,6 @@ impl UpdateServiceRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateServiceRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_metastore_v1::model::UpdateServiceRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateServiceRequest::new().set_update_mask(FieldMask::default()/* use setters */);
-    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -4866,14 +4001,6 @@ impl UpdateServiceRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateServiceRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_metastore_v1::model::UpdateServiceRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateServiceRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
-    /// let x = UpdateServiceRequest::new().set_or_clear_update_mask(None::<FieldMask>);
-    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -4883,13 +4010,6 @@ impl UpdateServiceRequest {
     }
 
     /// Sets the value of [service][crate::model::UpdateServiceRequest::service].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_metastore_v1::model::UpdateServiceRequest;
-    /// use google_cloud_metastore_v1::model::Service;
-    /// let x = UpdateServiceRequest::new().set_service(Service::default()/* use setters */);
-    /// ```
     pub fn set_service<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Service>,
@@ -4899,14 +4019,6 @@ impl UpdateServiceRequest {
     }
 
     /// Sets or clears the value of [service][crate::model::UpdateServiceRequest::service].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_metastore_v1::model::UpdateServiceRequest;
-    /// use google_cloud_metastore_v1::model::Service;
-    /// let x = UpdateServiceRequest::new().set_or_clear_service(Some(Service::default()/* use setters */));
-    /// let x = UpdateServiceRequest::new().set_or_clear_service(None::<Service>);
-    /// ```
     pub fn set_or_clear_service<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Service>,
@@ -4916,12 +4028,6 @@ impl UpdateServiceRequest {
     }
 
     /// Sets the value of [request_id][crate::model::UpdateServiceRequest::request_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_metastore_v1::model::UpdateServiceRequest;
-    /// let x = UpdateServiceRequest::new().set_request_id("example");
-    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -4970,24 +4076,12 @@ impl DeleteServiceRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteServiceRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_metastore_v1::model::DeleteServiceRequest;
-    /// let x = DeleteServiceRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [request_id][crate::model::DeleteServiceRequest::request_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_metastore_v1::model::DeleteServiceRequest;
-    /// let x = DeleteServiceRequest::new().set_request_id("example");
-    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -5048,60 +4142,30 @@ impl ListMetadataImportsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListMetadataImportsRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_metastore_v1::model::ListMetadataImportsRequest;
-    /// let x = ListMetadataImportsRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListMetadataImportsRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_metastore_v1::model::ListMetadataImportsRequest;
-    /// let x = ListMetadataImportsRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListMetadataImportsRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_metastore_v1::model::ListMetadataImportsRequest;
-    /// let x = ListMetadataImportsRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListMetadataImportsRequest::filter].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_metastore_v1::model::ListMetadataImportsRequest;
-    /// let x = ListMetadataImportsRequest::new().set_filter("example");
-    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListMetadataImportsRequest::order_by].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_metastore_v1::model::ListMetadataImportsRequest;
-    /// let x = ListMetadataImportsRequest::new().set_order_by("example");
-    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
@@ -5140,17 +4204,6 @@ impl ListMetadataImportsResponse {
     }
 
     /// Sets the value of [metadata_imports][crate::model::ListMetadataImportsResponse::metadata_imports].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_metastore_v1::model::ListMetadataImportsResponse;
-    /// use google_cloud_metastore_v1::model::MetadataImport;
-    /// let x = ListMetadataImportsResponse::new()
-    ///     .set_metadata_imports([
-    ///         MetadataImport::default()/* use setters */,
-    ///         MetadataImport::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_metadata_imports<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -5162,24 +4215,12 @@ impl ListMetadataImportsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListMetadataImportsResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_metastore_v1::model::ListMetadataImportsResponse;
-    /// let x = ListMetadataImportsResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListMetadataImportsResponse::unreachable].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_metastore_v1::model::ListMetadataImportsResponse;
-    /// let x = ListMetadataImportsResponse::new().set_unreachable(["a", "b", "c"]);
-    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -5233,12 +4274,6 @@ impl GetMetadataImportRequest {
     }
 
     /// Sets the value of [name][crate::model::GetMetadataImportRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_metastore_v1::model::GetMetadataImportRequest;
-    /// let x = GetMetadataImportRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -5300,24 +4335,12 @@ impl CreateMetadataImportRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateMetadataImportRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_metastore_v1::model::CreateMetadataImportRequest;
-    /// let x = CreateMetadataImportRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [metadata_import_id][crate::model::CreateMetadataImportRequest::metadata_import_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_metastore_v1::model::CreateMetadataImportRequest;
-    /// let x = CreateMetadataImportRequest::new().set_metadata_import_id("example");
-    /// ```
     pub fn set_metadata_import_id<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -5327,13 +4350,6 @@ impl CreateMetadataImportRequest {
     }
 
     /// Sets the value of [metadata_import][crate::model::CreateMetadataImportRequest::metadata_import].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_metastore_v1::model::CreateMetadataImportRequest;
-    /// use google_cloud_metastore_v1::model::MetadataImport;
-    /// let x = CreateMetadataImportRequest::new().set_metadata_import(MetadataImport::default()/* use setters */);
-    /// ```
     pub fn set_metadata_import<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::MetadataImport>,
@@ -5343,14 +4359,6 @@ impl CreateMetadataImportRequest {
     }
 
     /// Sets or clears the value of [metadata_import][crate::model::CreateMetadataImportRequest::metadata_import].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_metastore_v1::model::CreateMetadataImportRequest;
-    /// use google_cloud_metastore_v1::model::MetadataImport;
-    /// let x = CreateMetadataImportRequest::new().set_or_clear_metadata_import(Some(MetadataImport::default()/* use setters */));
-    /// let x = CreateMetadataImportRequest::new().set_or_clear_metadata_import(None::<MetadataImport>);
-    /// ```
     pub fn set_or_clear_metadata_import<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::MetadataImport>,
@@ -5360,12 +4368,6 @@ impl CreateMetadataImportRequest {
     }
 
     /// Sets the value of [request_id][crate::model::CreateMetadataImportRequest::request_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_metastore_v1::model::CreateMetadataImportRequest;
-    /// let x = CreateMetadataImportRequest::new().set_request_id("example");
-    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -5421,13 +4423,6 @@ impl UpdateMetadataImportRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateMetadataImportRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_metastore_v1::model::UpdateMetadataImportRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateMetadataImportRequest::new().set_update_mask(FieldMask::default()/* use setters */);
-    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -5437,14 +4432,6 @@ impl UpdateMetadataImportRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateMetadataImportRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_metastore_v1::model::UpdateMetadataImportRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateMetadataImportRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
-    /// let x = UpdateMetadataImportRequest::new().set_or_clear_update_mask(None::<FieldMask>);
-    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -5454,13 +4441,6 @@ impl UpdateMetadataImportRequest {
     }
 
     /// Sets the value of [metadata_import][crate::model::UpdateMetadataImportRequest::metadata_import].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_metastore_v1::model::UpdateMetadataImportRequest;
-    /// use google_cloud_metastore_v1::model::MetadataImport;
-    /// let x = UpdateMetadataImportRequest::new().set_metadata_import(MetadataImport::default()/* use setters */);
-    /// ```
     pub fn set_metadata_import<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::MetadataImport>,
@@ -5470,14 +4450,6 @@ impl UpdateMetadataImportRequest {
     }
 
     /// Sets or clears the value of [metadata_import][crate::model::UpdateMetadataImportRequest::metadata_import].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_metastore_v1::model::UpdateMetadataImportRequest;
-    /// use google_cloud_metastore_v1::model::MetadataImport;
-    /// let x = UpdateMetadataImportRequest::new().set_or_clear_metadata_import(Some(MetadataImport::default()/* use setters */));
-    /// let x = UpdateMetadataImportRequest::new().set_or_clear_metadata_import(None::<MetadataImport>);
-    /// ```
     pub fn set_or_clear_metadata_import<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::MetadataImport>,
@@ -5487,12 +4459,6 @@ impl UpdateMetadataImportRequest {
     }
 
     /// Sets the value of [request_id][crate::model::UpdateMetadataImportRequest::request_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_metastore_v1::model::UpdateMetadataImportRequest;
-    /// let x = UpdateMetadataImportRequest::new().set_request_id("example");
-    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -5553,60 +4519,30 @@ impl ListBackupsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListBackupsRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_metastore_v1::model::ListBackupsRequest;
-    /// let x = ListBackupsRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListBackupsRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_metastore_v1::model::ListBackupsRequest;
-    /// let x = ListBackupsRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListBackupsRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_metastore_v1::model::ListBackupsRequest;
-    /// let x = ListBackupsRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListBackupsRequest::filter].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_metastore_v1::model::ListBackupsRequest;
-    /// let x = ListBackupsRequest::new().set_filter("example");
-    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListBackupsRequest::order_by].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_metastore_v1::model::ListBackupsRequest;
-    /// let x = ListBackupsRequest::new().set_order_by("example");
-    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
@@ -5645,17 +4581,6 @@ impl ListBackupsResponse {
     }
 
     /// Sets the value of [backups][crate::model::ListBackupsResponse::backups].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_metastore_v1::model::ListBackupsResponse;
-    /// use google_cloud_metastore_v1::model::Backup;
-    /// let x = ListBackupsResponse::new()
-    ///     .set_backups([
-    ///         Backup::default()/* use setters */,
-    ///         Backup::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_backups<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -5667,24 +4592,12 @@ impl ListBackupsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListBackupsResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_metastore_v1::model::ListBackupsResponse;
-    /// let x = ListBackupsResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListBackupsResponse::unreachable].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_metastore_v1::model::ListBackupsResponse;
-    /// let x = ListBackupsResponse::new().set_unreachable(["a", "b", "c"]);
-    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -5738,12 +4651,6 @@ impl GetBackupRequest {
     }
 
     /// Sets the value of [name][crate::model::GetBackupRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_metastore_v1::model::GetBackupRequest;
-    /// let x = GetBackupRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -5804,37 +4711,18 @@ impl CreateBackupRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateBackupRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_metastore_v1::model::CreateBackupRequest;
-    /// let x = CreateBackupRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [backup_id][crate::model::CreateBackupRequest::backup_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_metastore_v1::model::CreateBackupRequest;
-    /// let x = CreateBackupRequest::new().set_backup_id("example");
-    /// ```
     pub fn set_backup_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.backup_id = v.into();
         self
     }
 
     /// Sets the value of [backup][crate::model::CreateBackupRequest::backup].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_metastore_v1::model::CreateBackupRequest;
-    /// use google_cloud_metastore_v1::model::Backup;
-    /// let x = CreateBackupRequest::new().set_backup(Backup::default()/* use setters */);
-    /// ```
     pub fn set_backup<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Backup>,
@@ -5844,14 +4732,6 @@ impl CreateBackupRequest {
     }
 
     /// Sets or clears the value of [backup][crate::model::CreateBackupRequest::backup].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_metastore_v1::model::CreateBackupRequest;
-    /// use google_cloud_metastore_v1::model::Backup;
-    /// let x = CreateBackupRequest::new().set_or_clear_backup(Some(Backup::default()/* use setters */));
-    /// let x = CreateBackupRequest::new().set_or_clear_backup(None::<Backup>);
-    /// ```
     pub fn set_or_clear_backup<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Backup>,
@@ -5861,12 +4741,6 @@ impl CreateBackupRequest {
     }
 
     /// Sets the value of [request_id][crate::model::CreateBackupRequest::request_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_metastore_v1::model::CreateBackupRequest;
-    /// let x = CreateBackupRequest::new().set_request_id("example");
-    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -5915,24 +4789,12 @@ impl DeleteBackupRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteBackupRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_metastore_v1::model::DeleteBackupRequest;
-    /// let x = DeleteBackupRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [request_id][crate::model::DeleteBackupRequest::request_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_metastore_v1::model::DeleteBackupRequest;
-    /// let x = DeleteBackupRequest::new().set_request_id("example");
-    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -5988,38 +4850,18 @@ impl ExportMetadataRequest {
     }
 
     /// Sets the value of [service][crate::model::ExportMetadataRequest::service].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_metastore_v1::model::ExportMetadataRequest;
-    /// let x = ExportMetadataRequest::new().set_service("example");
-    /// ```
     pub fn set_service<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.service = v.into();
         self
     }
 
     /// Sets the value of [request_id][crate::model::ExportMetadataRequest::request_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_metastore_v1::model::ExportMetadataRequest;
-    /// let x = ExportMetadataRequest::new().set_request_id("example");
-    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
     }
 
     /// Sets the value of [database_dump_type][crate::model::ExportMetadataRequest::database_dump_type].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_metastore_v1::model::ExportMetadataRequest;
-    /// use google_cloud_metastore_v1::model::database_dump_spec::Type;
-    /// let x0 = ExportMetadataRequest::new().set_database_dump_type(Type::Mysql);
-    /// let x1 = ExportMetadataRequest::new().set_database_dump_type(Type::Avro);
-    /// ```
     pub fn set_database_dump_type<T: std::convert::Into<crate::model::database_dump_spec::Type>>(
         mut self,
         v: T,
@@ -6032,13 +4874,6 @@ impl ExportMetadataRequest {
     ///
     /// Note that all the setters affecting `destination` are mutually
     /// exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_metastore_v1::model::ExportMetadataRequest;
-    /// use google_cloud_metastore_v1::model::export_metadata_request;
-    /// let x = ExportMetadataRequest::new().set_destination(Some(export_metadata_request::Destination::DestinationGcsFolder("example".to_string())));
-    /// ```
     pub fn set_destination<
         T: std::convert::Into<std::option::Option<crate::model::export_metadata_request::Destination>>,
     >(
@@ -6067,13 +4902,6 @@ impl ExportMetadataRequest {
     ///
     /// Note that all the setters affecting `destination` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_metastore_v1::model::ExportMetadataRequest;
-    /// let x = ExportMetadataRequest::new().set_destination_gcs_folder("example");
-    /// assert!(x.destination_gcs_folder().is_some());
-    /// ```
     pub fn set_destination_gcs_folder<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -6149,38 +4977,18 @@ impl RestoreServiceRequest {
     }
 
     /// Sets the value of [service][crate::model::RestoreServiceRequest::service].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_metastore_v1::model::RestoreServiceRequest;
-    /// let x = RestoreServiceRequest::new().set_service("example");
-    /// ```
     pub fn set_service<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.service = v.into();
         self
     }
 
     /// Sets the value of [backup][crate::model::RestoreServiceRequest::backup].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_metastore_v1::model::RestoreServiceRequest;
-    /// let x = RestoreServiceRequest::new().set_backup("example");
-    /// ```
     pub fn set_backup<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.backup = v.into();
         self
     }
 
     /// Sets the value of [restore_type][crate::model::RestoreServiceRequest::restore_type].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_metastore_v1::model::RestoreServiceRequest;
-    /// use google_cloud_metastore_v1::model::restore::RestoreType;
-    /// let x0 = RestoreServiceRequest::new().set_restore_type(RestoreType::Full);
-    /// let x1 = RestoreServiceRequest::new().set_restore_type(RestoreType::MetadataOnly);
-    /// ```
     pub fn set_restore_type<T: std::convert::Into<crate::model::restore::RestoreType>>(
         mut self,
         v: T,
@@ -6190,12 +4998,6 @@ impl RestoreServiceRequest {
     }
 
     /// Sets the value of [request_id][crate::model::RestoreServiceRequest::request_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_metastore_v1::model::RestoreServiceRequest;
-    /// let x = RestoreServiceRequest::new().set_request_id("example");
-    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -6248,13 +5050,6 @@ impl OperationMetadata {
     }
 
     /// Sets the value of [create_time][crate::model::OperationMetadata::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_metastore_v1::model::OperationMetadata;
-    /// use wkt::Timestamp;
-    /// let x = OperationMetadata::new().set_create_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -6264,14 +5059,6 @@ impl OperationMetadata {
     }
 
     /// Sets or clears the value of [create_time][crate::model::OperationMetadata::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_metastore_v1::model::OperationMetadata;
-    /// use wkt::Timestamp;
-    /// let x = OperationMetadata::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
-    /// let x = OperationMetadata::new().set_or_clear_create_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -6281,13 +5068,6 @@ impl OperationMetadata {
     }
 
     /// Sets the value of [end_time][crate::model::OperationMetadata::end_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_metastore_v1::model::OperationMetadata;
-    /// use wkt::Timestamp;
-    /// let x = OperationMetadata::new().set_end_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -6297,14 +5077,6 @@ impl OperationMetadata {
     }
 
     /// Sets or clears the value of [end_time][crate::model::OperationMetadata::end_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_metastore_v1::model::OperationMetadata;
-    /// use wkt::Timestamp;
-    /// let x = OperationMetadata::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
-    /// let x = OperationMetadata::new().set_or_clear_end_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -6314,60 +5086,30 @@ impl OperationMetadata {
     }
 
     /// Sets the value of [target][crate::model::OperationMetadata::target].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_metastore_v1::model::OperationMetadata;
-    /// let x = OperationMetadata::new().set_target("example");
-    /// ```
     pub fn set_target<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.target = v.into();
         self
     }
 
     /// Sets the value of [verb][crate::model::OperationMetadata::verb].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_metastore_v1::model::OperationMetadata;
-    /// let x = OperationMetadata::new().set_verb("example");
-    /// ```
     pub fn set_verb<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.verb = v.into();
         self
     }
 
     /// Sets the value of [status_message][crate::model::OperationMetadata::status_message].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_metastore_v1::model::OperationMetadata;
-    /// let x = OperationMetadata::new().set_status_message("example");
-    /// ```
     pub fn set_status_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.status_message = v.into();
         self
     }
 
     /// Sets the value of [requested_cancellation][crate::model::OperationMetadata::requested_cancellation].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_metastore_v1::model::OperationMetadata;
-    /// let x = OperationMetadata::new().set_requested_cancellation(true);
-    /// ```
     pub fn set_requested_cancellation<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.requested_cancellation = v.into();
         self
     }
 
     /// Sets the value of [api_version][crate::model::OperationMetadata::api_version].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_metastore_v1::model::OperationMetadata;
-    /// let x = OperationMetadata::new().set_api_version("example");
-    /// ```
     pub fn set_api_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.api_version = v.into();
         self
@@ -6399,17 +5141,6 @@ impl LocationMetadata {
     }
 
     /// Sets the value of [supported_hive_metastore_versions][crate::model::LocationMetadata::supported_hive_metastore_versions].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_metastore_v1::model::LocationMetadata;
-    /// use google_cloud_metastore_v1::model::location_metadata::HiveMetastoreVersion;
-    /// let x = LocationMetadata::new()
-    ///     .set_supported_hive_metastore_versions([
-    ///         HiveMetastoreVersion::default()/* use setters */,
-    ///         HiveMetastoreVersion::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_supported_hive_metastore_versions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -6452,24 +5183,12 @@ pub mod location_metadata {
         }
 
         /// Sets the value of [version][crate::model::location_metadata::HiveMetastoreVersion::version].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_metastore_v1::model::location_metadata::HiveMetastoreVersion;
-        /// let x = HiveMetastoreVersion::new().set_version("example");
-        /// ```
         pub fn set_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.version = v.into();
             self
         }
 
         /// Sets the value of [is_default][crate::model::location_metadata::HiveMetastoreVersion::is_default].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_metastore_v1::model::location_metadata::HiveMetastoreVersion;
-        /// let x = HiveMetastoreVersion::new().set_is_default(true);
-        /// ```
         pub fn set_is_default<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.is_default = v.into();
             self
@@ -6666,24 +5385,12 @@ impl QueryMetadataRequest {
     }
 
     /// Sets the value of [service][crate::model::QueryMetadataRequest::service].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_metastore_v1::model::QueryMetadataRequest;
-    /// let x = QueryMetadataRequest::new().set_service("example");
-    /// ```
     pub fn set_service<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.service = v.into();
         self
     }
 
     /// Sets the value of [query][crate::model::QueryMetadataRequest::query].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_metastore_v1::model::QueryMetadataRequest;
-    /// let x = QueryMetadataRequest::new().set_query("example");
-    /// ```
     pub fn set_query<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.query = v.into();
         self
@@ -6718,12 +5425,6 @@ impl QueryMetadataResponse {
     }
 
     /// Sets the value of [result_manifest_uri][crate::model::QueryMetadataResponse::result_manifest_uri].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_metastore_v1::model::QueryMetadataResponse;
-    /// let x = QueryMetadataResponse::new().set_result_manifest_uri("example");
-    /// ```
     pub fn set_result_manifest_uri<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -6761,15 +5462,6 @@ impl ErrorDetails {
     }
 
     /// Sets the value of [details][crate::model::ErrorDetails::details].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_metastore_v1::model::ErrorDetails;
-    /// let x = ErrorDetails::new().set_details([
-    ///     ("key0", "abc"),
-    ///     ("key1", "xyz"),
-    /// ]);
-    /// ```
     pub fn set_details<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -6819,48 +5511,24 @@ impl MoveTableToDatabaseRequest {
     }
 
     /// Sets the value of [service][crate::model::MoveTableToDatabaseRequest::service].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_metastore_v1::model::MoveTableToDatabaseRequest;
-    /// let x = MoveTableToDatabaseRequest::new().set_service("example");
-    /// ```
     pub fn set_service<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.service = v.into();
         self
     }
 
     /// Sets the value of [table_name][crate::model::MoveTableToDatabaseRequest::table_name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_metastore_v1::model::MoveTableToDatabaseRequest;
-    /// let x = MoveTableToDatabaseRequest::new().set_table_name("example");
-    /// ```
     pub fn set_table_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.table_name = v.into();
         self
     }
 
     /// Sets the value of [db_name][crate::model::MoveTableToDatabaseRequest::db_name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_metastore_v1::model::MoveTableToDatabaseRequest;
-    /// let x = MoveTableToDatabaseRequest::new().set_db_name("example");
-    /// ```
     pub fn set_db_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.db_name = v.into();
         self
     }
 
     /// Sets the value of [destination_db_name][crate::model::MoveTableToDatabaseRequest::destination_db_name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_metastore_v1::model::MoveTableToDatabaseRequest;
-    /// let x = MoveTableToDatabaseRequest::new().set_destination_db_name("example");
-    /// ```
     pub fn set_destination_db_name<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -6932,36 +5600,18 @@ impl AlterMetadataResourceLocationRequest {
     }
 
     /// Sets the value of [service][crate::model::AlterMetadataResourceLocationRequest::service].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_metastore_v1::model::AlterMetadataResourceLocationRequest;
-    /// let x = AlterMetadataResourceLocationRequest::new().set_service("example");
-    /// ```
     pub fn set_service<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.service = v.into();
         self
     }
 
     /// Sets the value of [resource_name][crate::model::AlterMetadataResourceLocationRequest::resource_name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_metastore_v1::model::AlterMetadataResourceLocationRequest;
-    /// let x = AlterMetadataResourceLocationRequest::new().set_resource_name("example");
-    /// ```
     pub fn set_resource_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.resource_name = v.into();
         self
     }
 
     /// Sets the value of [location_uri][crate::model::AlterMetadataResourceLocationRequest::location_uri].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_metastore_v1::model::AlterMetadataResourceLocationRequest;
-    /// let x = AlterMetadataResourceLocationRequest::new().set_location_uri("example");
-    /// ```
     pub fn set_location_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.location_uri = v.into();
         self
@@ -7049,25 +5699,12 @@ impl Federation {
     }
 
     /// Sets the value of [name][crate::model::Federation::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_metastore_v1::model::Federation;
-    /// let x = Federation::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::Federation::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_metastore_v1::model::Federation;
-    /// use wkt::Timestamp;
-    /// let x = Federation::new().set_create_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -7077,14 +5714,6 @@ impl Federation {
     }
 
     /// Sets or clears the value of [create_time][crate::model::Federation::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_metastore_v1::model::Federation;
-    /// use wkt::Timestamp;
-    /// let x = Federation::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
-    /// let x = Federation::new().set_or_clear_create_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -7094,13 +5723,6 @@ impl Federation {
     }
 
     /// Sets the value of [update_time][crate::model::Federation::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_metastore_v1::model::Federation;
-    /// use wkt::Timestamp;
-    /// let x = Federation::new().set_update_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -7110,14 +5732,6 @@ impl Federation {
     }
 
     /// Sets or clears the value of [update_time][crate::model::Federation::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_metastore_v1::model::Federation;
-    /// use wkt::Timestamp;
-    /// let x = Federation::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
-    /// let x = Federation::new().set_or_clear_update_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -7127,15 +5741,6 @@ impl Federation {
     }
 
     /// Sets the value of [labels][crate::model::Federation::labels].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_metastore_v1::model::Federation;
-    /// let x = Federation::new().set_labels([
-    ///     ("key0", "abc"),
-    ///     ("key1", "xyz"),
-    /// ]);
-    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -7148,28 +5753,12 @@ impl Federation {
     }
 
     /// Sets the value of [version][crate::model::Federation::version].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_metastore_v1::model::Federation;
-    /// let x = Federation::new().set_version("example");
-    /// ```
     pub fn set_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.version = v.into();
         self
     }
 
     /// Sets the value of [backend_metastores][crate::model::Federation::backend_metastores].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_metastore_v1::model::Federation;
-    /// use google_cloud_metastore_v1::model::BackendMetastore;
-    /// let x = Federation::new().set_backend_metastores([
-    ///     (0, BackendMetastore::default()/* use setters */),
-    ///     (1, BackendMetastore::default()/* use (different) setters */),
-    /// ]);
-    /// ```
     pub fn set_backend_metastores<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -7182,27 +5771,12 @@ impl Federation {
     }
 
     /// Sets the value of [endpoint_uri][crate::model::Federation::endpoint_uri].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_metastore_v1::model::Federation;
-    /// let x = Federation::new().set_endpoint_uri("example");
-    /// ```
     pub fn set_endpoint_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.endpoint_uri = v.into();
         self
     }
 
     /// Sets the value of [state][crate::model::Federation::state].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_metastore_v1::model::Federation;
-    /// use google_cloud_metastore_v1::model::federation::State;
-    /// let x0 = Federation::new().set_state(State::Creating);
-    /// let x1 = Federation::new().set_state(State::Active);
-    /// let x2 = Federation::new().set_state(State::Updating);
-    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::federation::State>>(
         mut self,
         v: T,
@@ -7212,24 +5786,12 @@ impl Federation {
     }
 
     /// Sets the value of [state_message][crate::model::Federation::state_message].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_metastore_v1::model::Federation;
-    /// let x = Federation::new().set_state_message("example");
-    /// ```
     pub fn set_state_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.state_message = v.into();
         self
     }
 
     /// Sets the value of [uid][crate::model::Federation::uid].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_metastore_v1::model::Federation;
-    /// let x = Federation::new().set_uid("example");
-    /// ```
     pub fn set_uid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.uid = v.into();
         self
@@ -7429,26 +5991,12 @@ impl BackendMetastore {
     }
 
     /// Sets the value of [name][crate::model::BackendMetastore::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_metastore_v1::model::BackendMetastore;
-    /// let x = BackendMetastore::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [metastore_type][crate::model::BackendMetastore::metastore_type].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_metastore_v1::model::BackendMetastore;
-    /// use google_cloud_metastore_v1::model::backend_metastore::MetastoreType;
-    /// let x0 = BackendMetastore::new().set_metastore_type(MetastoreType::Bigquery);
-    /// let x1 = BackendMetastore::new().set_metastore_type(MetastoreType::DataprocMetastore);
-    /// ```
     pub fn set_metastore_type<
         T: std::convert::Into<crate::model::backend_metastore::MetastoreType>,
     >(
@@ -7646,60 +6194,30 @@ impl ListFederationsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListFederationsRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_metastore_v1::model::ListFederationsRequest;
-    /// let x = ListFederationsRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListFederationsRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_metastore_v1::model::ListFederationsRequest;
-    /// let x = ListFederationsRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListFederationsRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_metastore_v1::model::ListFederationsRequest;
-    /// let x = ListFederationsRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListFederationsRequest::filter].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_metastore_v1::model::ListFederationsRequest;
-    /// let x = ListFederationsRequest::new().set_filter("example");
-    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListFederationsRequest::order_by].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_metastore_v1::model::ListFederationsRequest;
-    /// let x = ListFederationsRequest::new().set_order_by("example");
-    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
@@ -7735,17 +6253,6 @@ impl ListFederationsResponse {
     }
 
     /// Sets the value of [federations][crate::model::ListFederationsResponse::federations].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_metastore_v1::model::ListFederationsResponse;
-    /// use google_cloud_metastore_v1::model::Federation;
-    /// let x = ListFederationsResponse::new()
-    ///     .set_federations([
-    ///         Federation::default()/* use setters */,
-    ///         Federation::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_federations<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -7757,24 +6264,12 @@ impl ListFederationsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListFederationsResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_metastore_v1::model::ListFederationsResponse;
-    /// let x = ListFederationsResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListFederationsResponse::unreachable].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_metastore_v1::model::ListFederationsResponse;
-    /// let x = ListFederationsResponse::new().set_unreachable(["a", "b", "c"]);
-    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -7825,12 +6320,6 @@ impl GetFederationRequest {
     }
 
     /// Sets the value of [name][crate::model::GetFederationRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_metastore_v1::model::GetFederationRequest;
-    /// let x = GetFederationRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -7889,37 +6378,18 @@ impl CreateFederationRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateFederationRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_metastore_v1::model::CreateFederationRequest;
-    /// let x = CreateFederationRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [federation_id][crate::model::CreateFederationRequest::federation_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_metastore_v1::model::CreateFederationRequest;
-    /// let x = CreateFederationRequest::new().set_federation_id("example");
-    /// ```
     pub fn set_federation_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.federation_id = v.into();
         self
     }
 
     /// Sets the value of [federation][crate::model::CreateFederationRequest::federation].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_metastore_v1::model::CreateFederationRequest;
-    /// use google_cloud_metastore_v1::model::Federation;
-    /// let x = CreateFederationRequest::new().set_federation(Federation::default()/* use setters */);
-    /// ```
     pub fn set_federation<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Federation>,
@@ -7929,14 +6399,6 @@ impl CreateFederationRequest {
     }
 
     /// Sets or clears the value of [federation][crate::model::CreateFederationRequest::federation].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_metastore_v1::model::CreateFederationRequest;
-    /// use google_cloud_metastore_v1::model::Federation;
-    /// let x = CreateFederationRequest::new().set_or_clear_federation(Some(Federation::default()/* use setters */));
-    /// let x = CreateFederationRequest::new().set_or_clear_federation(None::<Federation>);
-    /// ```
     pub fn set_or_clear_federation<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Federation>,
@@ -7946,12 +6408,6 @@ impl CreateFederationRequest {
     }
 
     /// Sets the value of [request_id][crate::model::CreateFederationRequest::request_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_metastore_v1::model::CreateFederationRequest;
-    /// let x = CreateFederationRequest::new().set_request_id("example");
-    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -8004,13 +6460,6 @@ impl UpdateFederationRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateFederationRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_metastore_v1::model::UpdateFederationRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateFederationRequest::new().set_update_mask(FieldMask::default()/* use setters */);
-    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -8020,14 +6469,6 @@ impl UpdateFederationRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateFederationRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_metastore_v1::model::UpdateFederationRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateFederationRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
-    /// let x = UpdateFederationRequest::new().set_or_clear_update_mask(None::<FieldMask>);
-    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -8037,13 +6478,6 @@ impl UpdateFederationRequest {
     }
 
     /// Sets the value of [federation][crate::model::UpdateFederationRequest::federation].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_metastore_v1::model::UpdateFederationRequest;
-    /// use google_cloud_metastore_v1::model::Federation;
-    /// let x = UpdateFederationRequest::new().set_federation(Federation::default()/* use setters */);
-    /// ```
     pub fn set_federation<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Federation>,
@@ -8053,14 +6487,6 @@ impl UpdateFederationRequest {
     }
 
     /// Sets or clears the value of [federation][crate::model::UpdateFederationRequest::federation].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_metastore_v1::model::UpdateFederationRequest;
-    /// use google_cloud_metastore_v1::model::Federation;
-    /// let x = UpdateFederationRequest::new().set_or_clear_federation(Some(Federation::default()/* use setters */));
-    /// let x = UpdateFederationRequest::new().set_or_clear_federation(None::<Federation>);
-    /// ```
     pub fn set_or_clear_federation<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Federation>,
@@ -8070,12 +6496,6 @@ impl UpdateFederationRequest {
     }
 
     /// Sets the value of [request_id][crate::model::UpdateFederationRequest::request_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_metastore_v1::model::UpdateFederationRequest;
-    /// let x = UpdateFederationRequest::new().set_request_id("example");
-    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -8121,24 +6541,12 @@ impl DeleteFederationRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteFederationRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_metastore_v1::model::DeleteFederationRequest;
-    /// let x = DeleteFederationRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [request_id][crate::model::DeleteFederationRequest::request_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_metastore_v1::model::DeleteFederationRequest;
-    /// let x = DeleteFederationRequest::new().set_request_id("example");
-    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self

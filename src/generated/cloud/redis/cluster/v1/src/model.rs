@@ -72,37 +72,18 @@ impl CreateClusterRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateClusterRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_redis_cluster_v1::model::CreateClusterRequest;
-    /// let x = CreateClusterRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [cluster_id][crate::model::CreateClusterRequest::cluster_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_redis_cluster_v1::model::CreateClusterRequest;
-    /// let x = CreateClusterRequest::new().set_cluster_id("example");
-    /// ```
     pub fn set_cluster_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.cluster_id = v.into();
         self
     }
 
     /// Sets the value of [cluster][crate::model::CreateClusterRequest::cluster].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_redis_cluster_v1::model::CreateClusterRequest;
-    /// use google_cloud_redis_cluster_v1::model::Cluster;
-    /// let x = CreateClusterRequest::new().set_cluster(Cluster::default()/* use setters */);
-    /// ```
     pub fn set_cluster<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Cluster>,
@@ -112,14 +93,6 @@ impl CreateClusterRequest {
     }
 
     /// Sets or clears the value of [cluster][crate::model::CreateClusterRequest::cluster].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_redis_cluster_v1::model::CreateClusterRequest;
-    /// use google_cloud_redis_cluster_v1::model::Cluster;
-    /// let x = CreateClusterRequest::new().set_or_clear_cluster(Some(Cluster::default()/* use setters */));
-    /// let x = CreateClusterRequest::new().set_or_clear_cluster(None::<Cluster>);
-    /// ```
     pub fn set_or_clear_cluster<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Cluster>,
@@ -129,12 +102,6 @@ impl CreateClusterRequest {
     }
 
     /// Sets the value of [request_id][crate::model::CreateClusterRequest::request_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_redis_cluster_v1::model::CreateClusterRequest;
-    /// let x = CreateClusterRequest::new().set_request_id("example");
-    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -180,36 +147,18 @@ impl ListClustersRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListClustersRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_redis_cluster_v1::model::ListClustersRequest;
-    /// let x = ListClustersRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListClustersRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_redis_cluster_v1::model::ListClustersRequest;
-    /// let x = ListClustersRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListClustersRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_redis_cluster_v1::model::ListClustersRequest;
-    /// let x = ListClustersRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -255,17 +204,6 @@ impl ListClustersResponse {
     }
 
     /// Sets the value of [clusters][crate::model::ListClustersResponse::clusters].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_redis_cluster_v1::model::ListClustersResponse;
-    /// use google_cloud_redis_cluster_v1::model::Cluster;
-    /// let x = ListClustersResponse::new()
-    ///     .set_clusters([
-    ///         Cluster::default()/* use setters */,
-    ///         Cluster::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_clusters<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -277,24 +215,12 @@ impl ListClustersResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListClustersResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_redis_cluster_v1::model::ListClustersResponse;
-    /// let x = ListClustersResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListClustersResponse::unreachable].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_redis_cluster_v1::model::ListClustersResponse;
-    /// let x = ListClustersResponse::new().set_unreachable(["a", "b", "c"]);
-    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -356,13 +282,6 @@ impl UpdateClusterRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateClusterRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_redis_cluster_v1::model::UpdateClusterRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateClusterRequest::new().set_update_mask(FieldMask::default()/* use setters */);
-    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -372,14 +291,6 @@ impl UpdateClusterRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateClusterRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_redis_cluster_v1::model::UpdateClusterRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateClusterRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
-    /// let x = UpdateClusterRequest::new().set_or_clear_update_mask(None::<FieldMask>);
-    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -389,13 +300,6 @@ impl UpdateClusterRequest {
     }
 
     /// Sets the value of [cluster][crate::model::UpdateClusterRequest::cluster].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_redis_cluster_v1::model::UpdateClusterRequest;
-    /// use google_cloud_redis_cluster_v1::model::Cluster;
-    /// let x = UpdateClusterRequest::new().set_cluster(Cluster::default()/* use setters */);
-    /// ```
     pub fn set_cluster<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Cluster>,
@@ -405,14 +309,6 @@ impl UpdateClusterRequest {
     }
 
     /// Sets or clears the value of [cluster][crate::model::UpdateClusterRequest::cluster].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_redis_cluster_v1::model::UpdateClusterRequest;
-    /// use google_cloud_redis_cluster_v1::model::Cluster;
-    /// let x = UpdateClusterRequest::new().set_or_clear_cluster(Some(Cluster::default()/* use setters */));
-    /// let x = UpdateClusterRequest::new().set_or_clear_cluster(None::<Cluster>);
-    /// ```
     pub fn set_or_clear_cluster<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Cluster>,
@@ -422,12 +318,6 @@ impl UpdateClusterRequest {
     }
 
     /// Sets the value of [request_id][crate::model::UpdateClusterRequest::request_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_redis_cluster_v1::model::UpdateClusterRequest;
-    /// let x = UpdateClusterRequest::new().set_request_id("example");
-    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -458,12 +348,6 @@ impl GetClusterRequest {
     }
 
     /// Sets the value of [name][crate::model::GetClusterRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_redis_cluster_v1::model::GetClusterRequest;
-    /// let x = GetClusterRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -497,24 +381,12 @@ impl DeleteClusterRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteClusterRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_redis_cluster_v1::model::DeleteClusterRequest;
-    /// let x = DeleteClusterRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [request_id][crate::model::DeleteClusterRequest::request_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_redis_cluster_v1::model::DeleteClusterRequest;
-    /// let x = DeleteClusterRequest::new().set_request_id("example");
-    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -546,12 +418,6 @@ impl GetClusterCertificateAuthorityRequest {
     }
 
     /// Sets the value of [name][crate::model::GetClusterCertificateAuthorityRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_redis_cluster_v1::model::GetClusterCertificateAuthorityRequest;
-    /// let x = GetClusterCertificateAuthorityRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -598,36 +464,18 @@ impl ListBackupCollectionsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListBackupCollectionsRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_redis_cluster_v1::model::ListBackupCollectionsRequest;
-    /// let x = ListBackupCollectionsRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListBackupCollectionsRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_redis_cluster_v1::model::ListBackupCollectionsRequest;
-    /// let x = ListBackupCollectionsRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListBackupCollectionsRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_redis_cluster_v1::model::ListBackupCollectionsRequest;
-    /// let x = ListBackupCollectionsRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -672,17 +520,6 @@ impl ListBackupCollectionsResponse {
     }
 
     /// Sets the value of [backup_collections][crate::model::ListBackupCollectionsResponse::backup_collections].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_redis_cluster_v1::model::ListBackupCollectionsResponse;
-    /// use google_cloud_redis_cluster_v1::model::BackupCollection;
-    /// let x = ListBackupCollectionsResponse::new()
-    ///     .set_backup_collections([
-    ///         BackupCollection::default()/* use setters */,
-    ///         BackupCollection::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_backup_collections<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -694,24 +531,12 @@ impl ListBackupCollectionsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListBackupCollectionsResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_redis_cluster_v1::model::ListBackupCollectionsResponse;
-    /// let x = ListBackupCollectionsResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListBackupCollectionsResponse::unreachable].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_redis_cluster_v1::model::ListBackupCollectionsResponse;
-    /// let x = ListBackupCollectionsResponse::new().set_unreachable(["a", "b", "c"]);
-    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -761,12 +586,6 @@ impl GetBackupCollectionRequest {
     }
 
     /// Sets the value of [name][crate::model::GetBackupCollectionRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_redis_cluster_v1::model::GetBackupCollectionRequest;
-    /// let x = GetBackupCollectionRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -811,36 +630,18 @@ impl ListBackupsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListBackupsRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_redis_cluster_v1::model::ListBackupsRequest;
-    /// let x = ListBackupsRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListBackupsRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_redis_cluster_v1::model::ListBackupsRequest;
-    /// let x = ListBackupsRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListBackupsRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_redis_cluster_v1::model::ListBackupsRequest;
-    /// let x = ListBackupsRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -876,17 +677,6 @@ impl ListBackupsResponse {
     }
 
     /// Sets the value of [backups][crate::model::ListBackupsResponse::backups].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_redis_cluster_v1::model::ListBackupsResponse;
-    /// use google_cloud_redis_cluster_v1::model::Backup;
-    /// let x = ListBackupsResponse::new()
-    ///     .set_backups([
-    ///         Backup::default()/* use setters */,
-    ///         Backup::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_backups<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -898,24 +688,12 @@ impl ListBackupsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListBackupsResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_redis_cluster_v1::model::ListBackupsResponse;
-    /// let x = ListBackupsResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListBackupsResponse::unreachable].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_redis_cluster_v1::model::ListBackupsResponse;
-    /// let x = ListBackupsResponse::new().set_unreachable(["a", "b", "c"]);
-    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -964,12 +742,6 @@ impl GetBackupRequest {
     }
 
     /// Sets the value of [name][crate::model::GetBackupRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_redis_cluster_v1::model::GetBackupRequest;
-    /// let x = GetBackupRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -1002,24 +774,12 @@ impl DeleteBackupRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteBackupRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_redis_cluster_v1::model::DeleteBackupRequest;
-    /// let x = DeleteBackupRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [request_id][crate::model::DeleteBackupRequest::request_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_redis_cluster_v1::model::DeleteBackupRequest;
-    /// let x = DeleteBackupRequest::new().set_request_id("example");
-    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -1052,12 +812,6 @@ impl ExportBackupRequest {
     }
 
     /// Sets the value of [name][crate::model::ExportBackupRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_redis_cluster_v1::model::ExportBackupRequest;
-    /// let x = ExportBackupRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -1067,13 +821,6 @@ impl ExportBackupRequest {
     ///
     /// Note that all the setters affecting `destination` are mutually
     /// exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_redis_cluster_v1::model::ExportBackupRequest;
-    /// use google_cloud_redis_cluster_v1::model::export_backup_request;
-    /// let x = ExportBackupRequest::new().set_destination(Some(export_backup_request::Destination::GcsBucket("example".to_string())));
-    /// ```
     pub fn set_destination<
         T: std::convert::Into<std::option::Option<crate::model::export_backup_request::Destination>>,
     >(
@@ -1102,13 +849,6 @@ impl ExportBackupRequest {
     ///
     /// Note that all the setters affecting `destination` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_redis_cluster_v1::model::ExportBackupRequest;
-    /// let x = ExportBackupRequest::new().set_gcs_bucket("example");
-    /// assert!(x.gcs_bucket().is_some());
-    /// ```
     pub fn set_gcs_bucket<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.destination = std::option::Option::Some(
             crate::model::export_backup_request::Destination::GcsBucket(v.into()),
@@ -1163,25 +903,12 @@ impl BackupClusterRequest {
     }
 
     /// Sets the value of [name][crate::model::BackupClusterRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_redis_cluster_v1::model::BackupClusterRequest;
-    /// let x = BackupClusterRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [ttl][crate::model::BackupClusterRequest::ttl].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_redis_cluster_v1::model::BackupClusterRequest;
-    /// use wkt::Duration;
-    /// let x = BackupClusterRequest::new().set_ttl(Duration::default()/* use setters */);
-    /// ```
     pub fn set_ttl<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -1191,14 +918,6 @@ impl BackupClusterRequest {
     }
 
     /// Sets or clears the value of [ttl][crate::model::BackupClusterRequest::ttl].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_redis_cluster_v1::model::BackupClusterRequest;
-    /// use wkt::Duration;
-    /// let x = BackupClusterRequest::new().set_or_clear_ttl(Some(Duration::default()/* use setters */));
-    /// let x = BackupClusterRequest::new().set_or_clear_ttl(None::<Duration>);
-    /// ```
     pub fn set_or_clear_ttl<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -1208,12 +927,6 @@ impl BackupClusterRequest {
     }
 
     /// Sets the value of [backup_id][crate::model::BackupClusterRequest::backup_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_redis_cluster_v1::model::BackupClusterRequest;
-    /// let x = BackupClusterRequest::new().set_backup_id("example");
-    /// ```
     pub fn set_backup_id<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -1223,14 +936,6 @@ impl BackupClusterRequest {
     }
 
     /// Sets or clears the value of [backup_id][crate::model::BackupClusterRequest::backup_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_redis_cluster_v1::model::BackupClusterRequest;
-    /// let x = BackupClusterRequest::new().set_or_clear_backup_id("example");
-    /// let x = BackupClusterRequest::new().set_or_clear_backup_id(Some("example"));
-    /// let x = BackupClusterRequest::new().set_or_clear_backup_id(None::<String>);
-    /// ```
     pub fn set_or_clear_backup_id<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -1363,25 +1068,12 @@ impl Cluster {
     }
 
     /// Sets the value of [name][crate::model::Cluster::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_redis_cluster_v1::model::Cluster;
-    /// let x = Cluster::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::Cluster::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_redis_cluster_v1::model::Cluster;
-    /// use wkt::Timestamp;
-    /// let x = Cluster::new().set_create_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1391,14 +1083,6 @@ impl Cluster {
     }
 
     /// Sets or clears the value of [create_time][crate::model::Cluster::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_redis_cluster_v1::model::Cluster;
-    /// use wkt::Timestamp;
-    /// let x = Cluster::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
-    /// let x = Cluster::new().set_or_clear_create_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1408,39 +1092,18 @@ impl Cluster {
     }
 
     /// Sets the value of [state][crate::model::Cluster::state].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_redis_cluster_v1::model::Cluster;
-    /// use google_cloud_redis_cluster_v1::model::cluster::State;
-    /// let x0 = Cluster::new().set_state(State::Creating);
-    /// let x1 = Cluster::new().set_state(State::Active);
-    /// let x2 = Cluster::new().set_state(State::Updating);
-    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::cluster::State>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
     }
 
     /// Sets the value of [uid][crate::model::Cluster::uid].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_redis_cluster_v1::model::Cluster;
-    /// let x = Cluster::new().set_uid("example");
-    /// ```
     pub fn set_uid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.uid = v.into();
         self
     }
 
     /// Sets the value of [replica_count][crate::model::Cluster::replica_count].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_redis_cluster_v1::model::Cluster;
-    /// let x = Cluster::new().set_replica_count(42);
-    /// ```
     pub fn set_replica_count<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<i32>,
@@ -1450,13 +1113,6 @@ impl Cluster {
     }
 
     /// Sets or clears the value of [replica_count][crate::model::Cluster::replica_count].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_redis_cluster_v1::model::Cluster;
-    /// let x = Cluster::new().set_or_clear_replica_count(Some(42));
-    /// let x = Cluster::new().set_or_clear_replica_count(None::<i32>);
-    /// ```
     pub fn set_or_clear_replica_count<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i32>,
@@ -1466,14 +1122,6 @@ impl Cluster {
     }
 
     /// Sets the value of [authorization_mode][crate::model::Cluster::authorization_mode].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_redis_cluster_v1::model::Cluster;
-    /// use google_cloud_redis_cluster_v1::model::AuthorizationMode;
-    /// let x0 = Cluster::new().set_authorization_mode(AuthorizationMode::AuthModeIamAuth);
-    /// let x1 = Cluster::new().set_authorization_mode(AuthorizationMode::AuthModeDisabled);
-    /// ```
     pub fn set_authorization_mode<T: std::convert::Into<crate::model::AuthorizationMode>>(
         mut self,
         v: T,
@@ -1483,14 +1131,6 @@ impl Cluster {
     }
 
     /// Sets the value of [transit_encryption_mode][crate::model::Cluster::transit_encryption_mode].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_redis_cluster_v1::model::Cluster;
-    /// use google_cloud_redis_cluster_v1::model::TransitEncryptionMode;
-    /// let x0 = Cluster::new().set_transit_encryption_mode(TransitEncryptionMode::Disabled);
-    /// let x1 = Cluster::new().set_transit_encryption_mode(TransitEncryptionMode::ServerAuthentication);
-    /// ```
     pub fn set_transit_encryption_mode<
         T: std::convert::Into<crate::model::TransitEncryptionMode>,
     >(
@@ -1502,12 +1142,6 @@ impl Cluster {
     }
 
     /// Sets the value of [size_gb][crate::model::Cluster::size_gb].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_redis_cluster_v1::model::Cluster;
-    /// let x = Cluster::new().set_size_gb(42);
-    /// ```
     pub fn set_size_gb<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<i32>,
@@ -1517,13 +1151,6 @@ impl Cluster {
     }
 
     /// Sets or clears the value of [size_gb][crate::model::Cluster::size_gb].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_redis_cluster_v1::model::Cluster;
-    /// let x = Cluster::new().set_or_clear_size_gb(Some(42));
-    /// let x = Cluster::new().set_or_clear_size_gb(None::<i32>);
-    /// ```
     pub fn set_or_clear_size_gb<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i32>,
@@ -1533,12 +1160,6 @@ impl Cluster {
     }
 
     /// Sets the value of [shard_count][crate::model::Cluster::shard_count].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_redis_cluster_v1::model::Cluster;
-    /// let x = Cluster::new().set_shard_count(42);
-    /// ```
     pub fn set_shard_count<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<i32>,
@@ -1548,13 +1169,6 @@ impl Cluster {
     }
 
     /// Sets or clears the value of [shard_count][crate::model::Cluster::shard_count].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_redis_cluster_v1::model::Cluster;
-    /// let x = Cluster::new().set_or_clear_shard_count(Some(42));
-    /// let x = Cluster::new().set_or_clear_shard_count(None::<i32>);
-    /// ```
     pub fn set_or_clear_shard_count<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i32>,
@@ -1564,17 +1178,6 @@ impl Cluster {
     }
 
     /// Sets the value of [psc_configs][crate::model::Cluster::psc_configs].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_redis_cluster_v1::model::Cluster;
-    /// use google_cloud_redis_cluster_v1::model::PscConfig;
-    /// let x = Cluster::new()
-    ///     .set_psc_configs([
-    ///         PscConfig::default()/* use setters */,
-    ///         PscConfig::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_psc_configs<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1586,17 +1189,6 @@ impl Cluster {
     }
 
     /// Sets the value of [discovery_endpoints][crate::model::Cluster::discovery_endpoints].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_redis_cluster_v1::model::Cluster;
-    /// use google_cloud_redis_cluster_v1::model::DiscoveryEndpoint;
-    /// let x = Cluster::new()
-    ///     .set_discovery_endpoints([
-    ///         DiscoveryEndpoint::default()/* use setters */,
-    ///         DiscoveryEndpoint::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_discovery_endpoints<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1608,17 +1200,6 @@ impl Cluster {
     }
 
     /// Sets the value of [psc_connections][crate::model::Cluster::psc_connections].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_redis_cluster_v1::model::Cluster;
-    /// use google_cloud_redis_cluster_v1::model::PscConnection;
-    /// let x = Cluster::new()
-    ///     .set_psc_connections([
-    ///         PscConnection::default()/* use setters */,
-    ///         PscConnection::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_psc_connections<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1630,13 +1211,6 @@ impl Cluster {
     }
 
     /// Sets the value of [state_info][crate::model::Cluster::state_info].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_redis_cluster_v1::model::Cluster;
-    /// use google_cloud_redis_cluster_v1::model::cluster::StateInfo;
-    /// let x = Cluster::new().set_state_info(StateInfo::default()/* use setters */);
-    /// ```
     pub fn set_state_info<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::cluster::StateInfo>,
@@ -1646,14 +1220,6 @@ impl Cluster {
     }
 
     /// Sets or clears the value of [state_info][crate::model::Cluster::state_info].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_redis_cluster_v1::model::Cluster;
-    /// use google_cloud_redis_cluster_v1::model::cluster::StateInfo;
-    /// let x = Cluster::new().set_or_clear_state_info(Some(StateInfo::default()/* use setters */));
-    /// let x = Cluster::new().set_or_clear_state_info(None::<StateInfo>);
-    /// ```
     pub fn set_or_clear_state_info<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::cluster::StateInfo>,
@@ -1663,28 +1229,12 @@ impl Cluster {
     }
 
     /// Sets the value of [node_type][crate::model::Cluster::node_type].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_redis_cluster_v1::model::Cluster;
-    /// use google_cloud_redis_cluster_v1::model::NodeType;
-    /// let x0 = Cluster::new().set_node_type(NodeType::RedisSharedCoreNano);
-    /// let x1 = Cluster::new().set_node_type(NodeType::RedisHighmemMedium);
-    /// let x2 = Cluster::new().set_node_type(NodeType::RedisHighmemXlarge);
-    /// ```
     pub fn set_node_type<T: std::convert::Into<crate::model::NodeType>>(mut self, v: T) -> Self {
         self.node_type = v.into();
         self
     }
 
     /// Sets the value of [persistence_config][crate::model::Cluster::persistence_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_redis_cluster_v1::model::Cluster;
-    /// use google_cloud_redis_cluster_v1::model::ClusterPersistenceConfig;
-    /// let x = Cluster::new().set_persistence_config(ClusterPersistenceConfig::default()/* use setters */);
-    /// ```
     pub fn set_persistence_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ClusterPersistenceConfig>,
@@ -1694,14 +1244,6 @@ impl Cluster {
     }
 
     /// Sets or clears the value of [persistence_config][crate::model::Cluster::persistence_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_redis_cluster_v1::model::Cluster;
-    /// use google_cloud_redis_cluster_v1::model::ClusterPersistenceConfig;
-    /// let x = Cluster::new().set_or_clear_persistence_config(Some(ClusterPersistenceConfig::default()/* use setters */));
-    /// let x = Cluster::new().set_or_clear_persistence_config(None::<ClusterPersistenceConfig>);
-    /// ```
     pub fn set_or_clear_persistence_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ClusterPersistenceConfig>,
@@ -1711,15 +1253,6 @@ impl Cluster {
     }
 
     /// Sets the value of [redis_configs][crate::model::Cluster::redis_configs].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_redis_cluster_v1::model::Cluster;
-    /// let x = Cluster::new().set_redis_configs([
-    ///     ("key0", "abc"),
-    ///     ("key1", "xyz"),
-    /// ]);
-    /// ```
     pub fn set_redis_configs<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -1732,12 +1265,6 @@ impl Cluster {
     }
 
     /// Sets the value of [precise_size_gb][crate::model::Cluster::precise_size_gb].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_redis_cluster_v1::model::Cluster;
-    /// let x = Cluster::new().set_precise_size_gb(42.0);
-    /// ```
     pub fn set_precise_size_gb<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<f64>,
@@ -1747,13 +1274,6 @@ impl Cluster {
     }
 
     /// Sets or clears the value of [precise_size_gb][crate::model::Cluster::precise_size_gb].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_redis_cluster_v1::model::Cluster;
-    /// let x = Cluster::new().set_or_clear_precise_size_gb(Some(42.0));
-    /// let x = Cluster::new().set_or_clear_precise_size_gb(None::<i32>);
-    /// ```
     pub fn set_or_clear_precise_size_gb<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<f64>,
@@ -1763,13 +1283,6 @@ impl Cluster {
     }
 
     /// Sets the value of [zone_distribution_config][crate::model::Cluster::zone_distribution_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_redis_cluster_v1::model::Cluster;
-    /// use google_cloud_redis_cluster_v1::model::ZoneDistributionConfig;
-    /// let x = Cluster::new().set_zone_distribution_config(ZoneDistributionConfig::default()/* use setters */);
-    /// ```
     pub fn set_zone_distribution_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ZoneDistributionConfig>,
@@ -1779,14 +1292,6 @@ impl Cluster {
     }
 
     /// Sets or clears the value of [zone_distribution_config][crate::model::Cluster::zone_distribution_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_redis_cluster_v1::model::Cluster;
-    /// use google_cloud_redis_cluster_v1::model::ZoneDistributionConfig;
-    /// let x = Cluster::new().set_or_clear_zone_distribution_config(Some(ZoneDistributionConfig::default()/* use setters */));
-    /// let x = Cluster::new().set_or_clear_zone_distribution_config(None::<ZoneDistributionConfig>);
-    /// ```
     pub fn set_or_clear_zone_distribution_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ZoneDistributionConfig>,
@@ -1796,13 +1301,6 @@ impl Cluster {
     }
 
     /// Sets the value of [cross_cluster_replication_config][crate::model::Cluster::cross_cluster_replication_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_redis_cluster_v1::model::Cluster;
-    /// use google_cloud_redis_cluster_v1::model::CrossClusterReplicationConfig;
-    /// let x = Cluster::new().set_cross_cluster_replication_config(CrossClusterReplicationConfig::default()/* use setters */);
-    /// ```
     pub fn set_cross_cluster_replication_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::CrossClusterReplicationConfig>,
@@ -1812,14 +1310,6 @@ impl Cluster {
     }
 
     /// Sets or clears the value of [cross_cluster_replication_config][crate::model::Cluster::cross_cluster_replication_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_redis_cluster_v1::model::Cluster;
-    /// use google_cloud_redis_cluster_v1::model::CrossClusterReplicationConfig;
-    /// let x = Cluster::new().set_or_clear_cross_cluster_replication_config(Some(CrossClusterReplicationConfig::default()/* use setters */));
-    /// let x = Cluster::new().set_or_clear_cross_cluster_replication_config(None::<CrossClusterReplicationConfig>);
-    /// ```
     pub fn set_or_clear_cross_cluster_replication_config<T>(
         mut self,
         v: std::option::Option<T>,
@@ -1832,12 +1322,6 @@ impl Cluster {
     }
 
     /// Sets the value of [deletion_protection_enabled][crate::model::Cluster::deletion_protection_enabled].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_redis_cluster_v1::model::Cluster;
-    /// let x = Cluster::new().set_deletion_protection_enabled(true);
-    /// ```
     pub fn set_deletion_protection_enabled<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<bool>,
@@ -1847,13 +1331,6 @@ impl Cluster {
     }
 
     /// Sets or clears the value of [deletion_protection_enabled][crate::model::Cluster::deletion_protection_enabled].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_redis_cluster_v1::model::Cluster;
-    /// let x = Cluster::new().set_or_clear_deletion_protection_enabled(Some(false));
-    /// let x = Cluster::new().set_or_clear_deletion_protection_enabled(None::<bool>);
-    /// ```
     pub fn set_or_clear_deletion_protection_enabled<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<bool>,
@@ -1863,13 +1340,6 @@ impl Cluster {
     }
 
     /// Sets the value of [maintenance_policy][crate::model::Cluster::maintenance_policy].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_redis_cluster_v1::model::Cluster;
-    /// use google_cloud_redis_cluster_v1::model::ClusterMaintenancePolicy;
-    /// let x = Cluster::new().set_maintenance_policy(ClusterMaintenancePolicy::default()/* use setters */);
-    /// ```
     pub fn set_maintenance_policy<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ClusterMaintenancePolicy>,
@@ -1879,14 +1349,6 @@ impl Cluster {
     }
 
     /// Sets or clears the value of [maintenance_policy][crate::model::Cluster::maintenance_policy].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_redis_cluster_v1::model::Cluster;
-    /// use google_cloud_redis_cluster_v1::model::ClusterMaintenancePolicy;
-    /// let x = Cluster::new().set_or_clear_maintenance_policy(Some(ClusterMaintenancePolicy::default()/* use setters */));
-    /// let x = Cluster::new().set_or_clear_maintenance_policy(None::<ClusterMaintenancePolicy>);
-    /// ```
     pub fn set_or_clear_maintenance_policy<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ClusterMaintenancePolicy>,
@@ -1896,13 +1358,6 @@ impl Cluster {
     }
 
     /// Sets the value of [maintenance_schedule][crate::model::Cluster::maintenance_schedule].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_redis_cluster_v1::model::Cluster;
-    /// use google_cloud_redis_cluster_v1::model::ClusterMaintenanceSchedule;
-    /// let x = Cluster::new().set_maintenance_schedule(ClusterMaintenanceSchedule::default()/* use setters */);
-    /// ```
     pub fn set_maintenance_schedule<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ClusterMaintenanceSchedule>,
@@ -1912,14 +1367,6 @@ impl Cluster {
     }
 
     /// Sets or clears the value of [maintenance_schedule][crate::model::Cluster::maintenance_schedule].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_redis_cluster_v1::model::Cluster;
-    /// use google_cloud_redis_cluster_v1::model::ClusterMaintenanceSchedule;
-    /// let x = Cluster::new().set_or_clear_maintenance_schedule(Some(ClusterMaintenanceSchedule::default()/* use setters */));
-    /// let x = Cluster::new().set_or_clear_maintenance_schedule(None::<ClusterMaintenanceSchedule>);
-    /// ```
     pub fn set_or_clear_maintenance_schedule<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ClusterMaintenanceSchedule>,
@@ -1929,17 +1376,6 @@ impl Cluster {
     }
 
     /// Sets the value of [psc_service_attachments][crate::model::Cluster::psc_service_attachments].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_redis_cluster_v1::model::Cluster;
-    /// use google_cloud_redis_cluster_v1::model::PscServiceAttachment;
-    /// let x = Cluster::new()
-    ///     .set_psc_service_attachments([
-    ///         PscServiceAttachment::default()/* use setters */,
-    ///         PscServiceAttachment::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_psc_service_attachments<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1951,17 +1387,6 @@ impl Cluster {
     }
 
     /// Sets the value of [cluster_endpoints][crate::model::Cluster::cluster_endpoints].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_redis_cluster_v1::model::Cluster;
-    /// use google_cloud_redis_cluster_v1::model::ClusterEndpoint;
-    /// let x = Cluster::new()
-    ///     .set_cluster_endpoints([
-    ///         ClusterEndpoint::default()/* use setters */,
-    ///         ClusterEndpoint::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_cluster_endpoints<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1973,12 +1398,6 @@ impl Cluster {
     }
 
     /// Sets the value of [backup_collection][crate::model::Cluster::backup_collection].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_redis_cluster_v1::model::Cluster;
-    /// let x = Cluster::new().set_backup_collection("example");
-    /// ```
     pub fn set_backup_collection<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -1988,14 +1407,6 @@ impl Cluster {
     }
 
     /// Sets or clears the value of [backup_collection][crate::model::Cluster::backup_collection].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_redis_cluster_v1::model::Cluster;
-    /// let x = Cluster::new().set_or_clear_backup_collection("example");
-    /// let x = Cluster::new().set_or_clear_backup_collection(Some("example"));
-    /// let x = Cluster::new().set_or_clear_backup_collection(None::<String>);
-    /// ```
     pub fn set_or_clear_backup_collection<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -2005,12 +1416,6 @@ impl Cluster {
     }
 
     /// Sets the value of [kms_key][crate::model::Cluster::kms_key].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_redis_cluster_v1::model::Cluster;
-    /// let x = Cluster::new().set_kms_key("example");
-    /// ```
     pub fn set_kms_key<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -2020,14 +1425,6 @@ impl Cluster {
     }
 
     /// Sets or clears the value of [kms_key][crate::model::Cluster::kms_key].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_redis_cluster_v1::model::Cluster;
-    /// let x = Cluster::new().set_or_clear_kms_key("example");
-    /// let x = Cluster::new().set_or_clear_kms_key(Some("example"));
-    /// let x = Cluster::new().set_or_clear_kms_key(None::<String>);
-    /// ```
     pub fn set_or_clear_kms_key<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -2037,13 +1434,6 @@ impl Cluster {
     }
 
     /// Sets the value of [automated_backup_config][crate::model::Cluster::automated_backup_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_redis_cluster_v1::model::Cluster;
-    /// use google_cloud_redis_cluster_v1::model::AutomatedBackupConfig;
-    /// let x = Cluster::new().set_automated_backup_config(AutomatedBackupConfig::default()/* use setters */);
-    /// ```
     pub fn set_automated_backup_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::AutomatedBackupConfig>,
@@ -2053,14 +1443,6 @@ impl Cluster {
     }
 
     /// Sets or clears the value of [automated_backup_config][crate::model::Cluster::automated_backup_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_redis_cluster_v1::model::Cluster;
-    /// use google_cloud_redis_cluster_v1::model::AutomatedBackupConfig;
-    /// let x = Cluster::new().set_or_clear_automated_backup_config(Some(AutomatedBackupConfig::default()/* use setters */));
-    /// let x = Cluster::new().set_or_clear_automated_backup_config(None::<AutomatedBackupConfig>);
-    /// ```
     pub fn set_or_clear_automated_backup_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AutomatedBackupConfig>,
@@ -2070,13 +1452,6 @@ impl Cluster {
     }
 
     /// Sets the value of [encryption_info][crate::model::Cluster::encryption_info].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_redis_cluster_v1::model::Cluster;
-    /// use google_cloud_redis_cluster_v1::model::EncryptionInfo;
-    /// let x = Cluster::new().set_encryption_info(EncryptionInfo::default()/* use setters */);
-    /// ```
     pub fn set_encryption_info<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::EncryptionInfo>,
@@ -2086,14 +1461,6 @@ impl Cluster {
     }
 
     /// Sets or clears the value of [encryption_info][crate::model::Cluster::encryption_info].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_redis_cluster_v1::model::Cluster;
-    /// use google_cloud_redis_cluster_v1::model::EncryptionInfo;
-    /// let x = Cluster::new().set_or_clear_encryption_info(Some(EncryptionInfo::default()/* use setters */));
-    /// let x = Cluster::new().set_or_clear_encryption_info(None::<EncryptionInfo>);
-    /// ```
     pub fn set_or_clear_encryption_info<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::EncryptionInfo>,
@@ -2106,14 +1473,6 @@ impl Cluster {
     ///
     /// Note that all the setters affecting `import_sources` are mutually
     /// exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_redis_cluster_v1::model::Cluster;
-    /// use google_cloud_redis_cluster_v1::model::cluster;
-    /// use google_cloud_redis_cluster_v1::model::cluster::GcsBackupSource;
-    /// let x = Cluster::new().set_import_sources(Some(cluster::ImportSources::GcsSource(GcsBackupSource::default().into())));
-    /// ```
     pub fn set_import_sources<
         T: std::convert::Into<std::option::Option<crate::model::cluster::ImportSources>>,
     >(
@@ -2142,15 +1501,6 @@ impl Cluster {
     ///
     /// Note that all the setters affecting `import_sources` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_redis_cluster_v1::model::Cluster;
-    /// use google_cloud_redis_cluster_v1::model::cluster::GcsBackupSource;
-    /// let x = Cluster::new().set_gcs_source(GcsBackupSource::default()/* use setters */);
-    /// assert!(x.gcs_source().is_some());
-    /// assert!(x.managed_backup_source().is_none());
-    /// ```
     pub fn set_gcs_source<
         T: std::convert::Into<std::boxed::Box<crate::model::cluster::GcsBackupSource>>,
     >(
@@ -2182,15 +1532,6 @@ impl Cluster {
     ///
     /// Note that all the setters affecting `import_sources` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_redis_cluster_v1::model::Cluster;
-    /// use google_cloud_redis_cluster_v1::model::cluster::ManagedBackupSource;
-    /// let x = Cluster::new().set_managed_backup_source(ManagedBackupSource::default()/* use setters */);
-    /// assert!(x.managed_backup_source().is_some());
-    /// assert!(x.gcs_source().is_none());
-    /// ```
     pub fn set_managed_backup_source<
         T: std::convert::Into<std::boxed::Box<crate::model::cluster::ManagedBackupSource>>,
     >(
@@ -2233,14 +1574,6 @@ pub mod cluster {
         ///
         /// Note that all the setters affecting `info` are mutually
         /// exclusive.
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_redis_cluster_v1::model::cluster::StateInfo;
-        /// use google_cloud_redis_cluster_v1::model::cluster::state_info;
-        /// use google_cloud_redis_cluster_v1::model::cluster::state_info::UpdateInfo;
-        /// let x = StateInfo::new().set_info(Some(cluster::state_info::Info::UpdateInfo(UpdateInfo::default().into())));
-        /// ```
         pub fn set_info<
             T: std::convert::Into<std::option::Option<crate::model::cluster::state_info::Info>>,
         >(
@@ -2272,14 +1605,6 @@ pub mod cluster {
         ///
         /// Note that all the setters affecting `info` are
         /// mutually exclusive.
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_redis_cluster_v1::model::cluster::StateInfo;
-        /// use google_cloud_redis_cluster_v1::model::cluster::state_info::UpdateInfo;
-        /// let x = StateInfo::new().set_update_info(UpdateInfo::default()/* use setters */);
-        /// assert!(x.update_info().is_some());
-        /// ```
         pub fn set_update_info<
             T: std::convert::Into<std::boxed::Box<crate::model::cluster::state_info::UpdateInfo>>,
         >(
@@ -2323,12 +1648,6 @@ pub mod cluster {
             }
 
             /// Sets the value of [target_shard_count][crate::model::cluster::state_info::UpdateInfo::target_shard_count].
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_redis_cluster_v1::model::cluster::state_info::UpdateInfo;
-            /// let x = UpdateInfo::new().set_target_shard_count(42);
-            /// ```
             pub fn set_target_shard_count<T>(mut self, v: T) -> Self
             where
                 T: std::convert::Into<i32>,
@@ -2338,13 +1657,6 @@ pub mod cluster {
             }
 
             /// Sets or clears the value of [target_shard_count][crate::model::cluster::state_info::UpdateInfo::target_shard_count].
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_redis_cluster_v1::model::cluster::state_info::UpdateInfo;
-            /// let x = UpdateInfo::new().set_or_clear_target_shard_count(Some(42));
-            /// let x = UpdateInfo::new().set_or_clear_target_shard_count(None::<i32>);
-            /// ```
             pub fn set_or_clear_target_shard_count<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<i32>,
@@ -2354,12 +1666,6 @@ pub mod cluster {
             }
 
             /// Sets the value of [target_replica_count][crate::model::cluster::state_info::UpdateInfo::target_replica_count].
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_redis_cluster_v1::model::cluster::state_info::UpdateInfo;
-            /// let x = UpdateInfo::new().set_target_replica_count(42);
-            /// ```
             pub fn set_target_replica_count<T>(mut self, v: T) -> Self
             where
                 T: std::convert::Into<i32>,
@@ -2369,13 +1675,6 @@ pub mod cluster {
             }
 
             /// Sets or clears the value of [target_replica_count][crate::model::cluster::state_info::UpdateInfo::target_replica_count].
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_redis_cluster_v1::model::cluster::state_info::UpdateInfo;
-            /// let x = UpdateInfo::new().set_or_clear_target_replica_count(Some(42));
-            /// let x = UpdateInfo::new().set_or_clear_target_replica_count(None::<i32>);
-            /// ```
             pub fn set_or_clear_target_replica_count<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<i32>,
@@ -2417,12 +1716,6 @@ pub mod cluster {
         }
 
         /// Sets the value of [uris][crate::model::cluster::GcsBackupSource::uris].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_redis_cluster_v1::model::cluster::GcsBackupSource;
-        /// let x = GcsBackupSource::new().set_uris(["a", "b", "c"]);
-        /// ```
         pub fn set_uris<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -2461,12 +1754,6 @@ pub mod cluster {
         }
 
         /// Sets the value of [backup][crate::model::cluster::ManagedBackupSource::backup].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_redis_cluster_v1::model::cluster::ManagedBackupSource;
-        /// let x = ManagedBackupSource::new().set_backup("example");
-        /// ```
         pub fn set_backup<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.backup = v.into();
             self
@@ -2664,14 +1951,6 @@ impl AutomatedBackupConfig {
     }
 
     /// Sets the value of [automated_backup_mode][crate::model::AutomatedBackupConfig::automated_backup_mode].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_redis_cluster_v1::model::AutomatedBackupConfig;
-    /// use google_cloud_redis_cluster_v1::model::automated_backup_config::AutomatedBackupMode;
-    /// let x0 = AutomatedBackupConfig::new().set_automated_backup_mode(AutomatedBackupMode::Disabled);
-    /// let x1 = AutomatedBackupConfig::new().set_automated_backup_mode(AutomatedBackupMode::Enabled);
-    /// ```
     pub fn set_automated_backup_mode<
         T: std::convert::Into<crate::model::automated_backup_config::AutomatedBackupMode>,
     >(
@@ -2683,13 +1962,6 @@ impl AutomatedBackupConfig {
     }
 
     /// Sets the value of [retention][crate::model::AutomatedBackupConfig::retention].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_redis_cluster_v1::model::AutomatedBackupConfig;
-    /// use wkt::Duration;
-    /// let x = AutomatedBackupConfig::new().set_retention(Duration::default()/* use setters */);
-    /// ```
     pub fn set_retention<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -2699,14 +1971,6 @@ impl AutomatedBackupConfig {
     }
 
     /// Sets or clears the value of [retention][crate::model::AutomatedBackupConfig::retention].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_redis_cluster_v1::model::AutomatedBackupConfig;
-    /// use wkt::Duration;
-    /// let x = AutomatedBackupConfig::new().set_or_clear_retention(Some(Duration::default()/* use setters */));
-    /// let x = AutomatedBackupConfig::new().set_or_clear_retention(None::<Duration>);
-    /// ```
     pub fn set_or_clear_retention<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -2719,14 +1983,6 @@ impl AutomatedBackupConfig {
     ///
     /// Note that all the setters affecting `schedule` are mutually
     /// exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_redis_cluster_v1::model::AutomatedBackupConfig;
-    /// use google_cloud_redis_cluster_v1::model::automated_backup_config;
-    /// use google_cloud_redis_cluster_v1::model::automated_backup_config::FixedFrequencySchedule;
-    /// let x = AutomatedBackupConfig::new().set_schedule(Some(automated_backup_config::Schedule::FixedFrequencySchedule(FixedFrequencySchedule::default().into())));
-    /// ```
     pub fn set_schedule<
         T: std::convert::Into<std::option::Option<crate::model::automated_backup_config::Schedule>>,
     >(
@@ -2759,14 +2015,6 @@ impl AutomatedBackupConfig {
     ///
     /// Note that all the setters affecting `schedule` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_redis_cluster_v1::model::AutomatedBackupConfig;
-    /// use google_cloud_redis_cluster_v1::model::automated_backup_config::FixedFrequencySchedule;
-    /// let x = AutomatedBackupConfig::new().set_fixed_frequency_schedule(FixedFrequencySchedule::default()/* use setters */);
-    /// assert!(x.fixed_frequency_schedule().is_some());
-    /// ```
     pub fn set_fixed_frequency_schedule<
         T: std::convert::Into<
                 std::boxed::Box<crate::model::automated_backup_config::FixedFrequencySchedule>,
@@ -2811,13 +2059,6 @@ pub mod automated_backup_config {
         }
 
         /// Sets the value of [start_time][crate::model::automated_backup_config::FixedFrequencySchedule::start_time].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_redis_cluster_v1::model::automated_backup_config::FixedFrequencySchedule;
-        /// use gtype::model::TimeOfDay;
-        /// let x = FixedFrequencySchedule::new().set_start_time(TimeOfDay::default()/* use setters */);
-        /// ```
         pub fn set_start_time<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<gtype::model::TimeOfDay>,
@@ -2827,14 +2068,6 @@ pub mod automated_backup_config {
         }
 
         /// Sets or clears the value of [start_time][crate::model::automated_backup_config::FixedFrequencySchedule::start_time].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_redis_cluster_v1::model::automated_backup_config::FixedFrequencySchedule;
-        /// use gtype::model::TimeOfDay;
-        /// let x = FixedFrequencySchedule::new().set_or_clear_start_time(Some(TimeOfDay::default()/* use setters */));
-        /// let x = FixedFrequencySchedule::new().set_or_clear_start_time(None::<TimeOfDay>);
-        /// ```
         pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<gtype::model::TimeOfDay>,
@@ -3024,60 +2257,30 @@ impl BackupCollection {
     }
 
     /// Sets the value of [name][crate::model::BackupCollection::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_redis_cluster_v1::model::BackupCollection;
-    /// let x = BackupCollection::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [cluster_uid][crate::model::BackupCollection::cluster_uid].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_redis_cluster_v1::model::BackupCollection;
-    /// let x = BackupCollection::new().set_cluster_uid("example");
-    /// ```
     pub fn set_cluster_uid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.cluster_uid = v.into();
         self
     }
 
     /// Sets the value of [cluster][crate::model::BackupCollection::cluster].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_redis_cluster_v1::model::BackupCollection;
-    /// let x = BackupCollection::new().set_cluster("example");
-    /// ```
     pub fn set_cluster<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.cluster = v.into();
         self
     }
 
     /// Sets the value of [kms_key][crate::model::BackupCollection::kms_key].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_redis_cluster_v1::model::BackupCollection;
-    /// let x = BackupCollection::new().set_kms_key("example");
-    /// ```
     pub fn set_kms_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.kms_key = v.into();
         self
     }
 
     /// Sets the value of [uid][crate::model::BackupCollection::uid].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_redis_cluster_v1::model::BackupCollection;
-    /// let x = BackupCollection::new().set_uid("example");
-    /// ```
     pub fn set_uid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.uid = v.into();
         self
@@ -3151,25 +2354,12 @@ impl Backup {
     }
 
     /// Sets the value of [name][crate::model::Backup::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_redis_cluster_v1::model::Backup;
-    /// let x = Backup::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::Backup::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_redis_cluster_v1::model::Backup;
-    /// use wkt::Timestamp;
-    /// let x = Backup::new().set_create_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3179,14 +2369,6 @@ impl Backup {
     }
 
     /// Sets or clears the value of [create_time][crate::model::Backup::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_redis_cluster_v1::model::Backup;
-    /// use wkt::Timestamp;
-    /// let x = Backup::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
-    /// let x = Backup::new().set_or_clear_create_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3196,49 +2378,24 @@ impl Backup {
     }
 
     /// Sets the value of [cluster][crate::model::Backup::cluster].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_redis_cluster_v1::model::Backup;
-    /// let x = Backup::new().set_cluster("example");
-    /// ```
     pub fn set_cluster<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.cluster = v.into();
         self
     }
 
     /// Sets the value of [cluster_uid][crate::model::Backup::cluster_uid].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_redis_cluster_v1::model::Backup;
-    /// let x = Backup::new().set_cluster_uid("example");
-    /// ```
     pub fn set_cluster_uid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.cluster_uid = v.into();
         self
     }
 
     /// Sets the value of [total_size_bytes][crate::model::Backup::total_size_bytes].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_redis_cluster_v1::model::Backup;
-    /// let x = Backup::new().set_total_size_bytes(42);
-    /// ```
     pub fn set_total_size_bytes<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.total_size_bytes = v.into();
         self
     }
 
     /// Sets the value of [expire_time][crate::model::Backup::expire_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_redis_cluster_v1::model::Backup;
-    /// use wkt::Timestamp;
-    /// let x = Backup::new().set_expire_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_expire_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3248,14 +2405,6 @@ impl Backup {
     }
 
     /// Sets or clears the value of [expire_time][crate::model::Backup::expire_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_redis_cluster_v1::model::Backup;
-    /// use wkt::Timestamp;
-    /// let x = Backup::new().set_or_clear_expire_time(Some(Timestamp::default()/* use setters */));
-    /// let x = Backup::new().set_or_clear_expire_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_expire_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3265,29 +2414,12 @@ impl Backup {
     }
 
     /// Sets the value of [engine_version][crate::model::Backup::engine_version].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_redis_cluster_v1::model::Backup;
-    /// let x = Backup::new().set_engine_version("example");
-    /// ```
     pub fn set_engine_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.engine_version = v.into();
         self
     }
 
     /// Sets the value of [backup_files][crate::model::Backup::backup_files].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_redis_cluster_v1::model::Backup;
-    /// use google_cloud_redis_cluster_v1::model::BackupFile;
-    /// let x = Backup::new()
-    ///     .set_backup_files([
-    ///         BackupFile::default()/* use setters */,
-    ///         BackupFile::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_backup_files<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3299,53 +2431,24 @@ impl Backup {
     }
 
     /// Sets the value of [node_type][crate::model::Backup::node_type].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_redis_cluster_v1::model::Backup;
-    /// use google_cloud_redis_cluster_v1::model::NodeType;
-    /// let x0 = Backup::new().set_node_type(NodeType::RedisSharedCoreNano);
-    /// let x1 = Backup::new().set_node_type(NodeType::RedisHighmemMedium);
-    /// let x2 = Backup::new().set_node_type(NodeType::RedisHighmemXlarge);
-    /// ```
     pub fn set_node_type<T: std::convert::Into<crate::model::NodeType>>(mut self, v: T) -> Self {
         self.node_type = v.into();
         self
     }
 
     /// Sets the value of [replica_count][crate::model::Backup::replica_count].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_redis_cluster_v1::model::Backup;
-    /// let x = Backup::new().set_replica_count(42);
-    /// ```
     pub fn set_replica_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.replica_count = v.into();
         self
     }
 
     /// Sets the value of [shard_count][crate::model::Backup::shard_count].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_redis_cluster_v1::model::Backup;
-    /// let x = Backup::new().set_shard_count(42);
-    /// ```
     pub fn set_shard_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.shard_count = v.into();
         self
     }
 
     /// Sets the value of [backup_type][crate::model::Backup::backup_type].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_redis_cluster_v1::model::Backup;
-    /// use google_cloud_redis_cluster_v1::model::backup::BackupType;
-    /// let x0 = Backup::new().set_backup_type(BackupType::OnDemand);
-    /// let x1 = Backup::new().set_backup_type(BackupType::Automated);
-    /// ```
     pub fn set_backup_type<T: std::convert::Into<crate::model::backup::BackupType>>(
         mut self,
         v: T,
@@ -3355,28 +2458,12 @@ impl Backup {
     }
 
     /// Sets the value of [state][crate::model::Backup::state].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_redis_cluster_v1::model::Backup;
-    /// use google_cloud_redis_cluster_v1::model::backup::State;
-    /// let x0 = Backup::new().set_state(State::Creating);
-    /// let x1 = Backup::new().set_state(State::Active);
-    /// let x2 = Backup::new().set_state(State::Deleting);
-    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::backup::State>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
     }
 
     /// Sets the value of [encryption_info][crate::model::Backup::encryption_info].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_redis_cluster_v1::model::Backup;
-    /// use google_cloud_redis_cluster_v1::model::EncryptionInfo;
-    /// let x = Backup::new().set_encryption_info(EncryptionInfo::default()/* use setters */);
-    /// ```
     pub fn set_encryption_info<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::EncryptionInfo>,
@@ -3386,14 +2473,6 @@ impl Backup {
     }
 
     /// Sets or clears the value of [encryption_info][crate::model::Backup::encryption_info].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_redis_cluster_v1::model::Backup;
-    /// use google_cloud_redis_cluster_v1::model::EncryptionInfo;
-    /// let x = Backup::new().set_or_clear_encryption_info(Some(EncryptionInfo::default()/* use setters */));
-    /// let x = Backup::new().set_or_clear_encryption_info(None::<EncryptionInfo>);
-    /// ```
     pub fn set_or_clear_encryption_info<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::EncryptionInfo>,
@@ -3403,12 +2482,6 @@ impl Backup {
     }
 
     /// Sets the value of [uid][crate::model::Backup::uid].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_redis_cluster_v1::model::Backup;
-    /// let x = Backup::new().set_uid("example");
-    /// ```
     pub fn set_uid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.uid = v.into();
         self
@@ -3728,37 +2801,18 @@ impl BackupFile {
     }
 
     /// Sets the value of [file_name][crate::model::BackupFile::file_name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_redis_cluster_v1::model::BackupFile;
-    /// let x = BackupFile::new().set_file_name("example");
-    /// ```
     pub fn set_file_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.file_name = v.into();
         self
     }
 
     /// Sets the value of [size_bytes][crate::model::BackupFile::size_bytes].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_redis_cluster_v1::model::BackupFile;
-    /// let x = BackupFile::new().set_size_bytes(42);
-    /// ```
     pub fn set_size_bytes<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.size_bytes = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::BackupFile::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_redis_cluster_v1::model::BackupFile;
-    /// use wkt::Timestamp;
-    /// let x = BackupFile::new().set_create_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3768,14 +2822,6 @@ impl BackupFile {
     }
 
     /// Sets or clears the value of [create_time][crate::model::BackupFile::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_redis_cluster_v1::model::BackupFile;
-    /// use wkt::Timestamp;
-    /// let x = BackupFile::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
-    /// let x = BackupFile::new().set_or_clear_create_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3812,12 +2858,6 @@ impl PscServiceAttachment {
     }
 
     /// Sets the value of [service_attachment][crate::model::PscServiceAttachment::service_attachment].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_redis_cluster_v1::model::PscServiceAttachment;
-    /// let x = PscServiceAttachment::new().set_service_attachment("example");
-    /// ```
     pub fn set_service_attachment<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -3827,15 +2867,6 @@ impl PscServiceAttachment {
     }
 
     /// Sets the value of [connection_type][crate::model::PscServiceAttachment::connection_type].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_redis_cluster_v1::model::PscServiceAttachment;
-    /// use google_cloud_redis_cluster_v1::model::ConnectionType;
-    /// let x0 = PscServiceAttachment::new().set_connection_type(ConnectionType::Discovery);
-    /// let x1 = PscServiceAttachment::new().set_connection_type(ConnectionType::Primary);
-    /// let x2 = PscServiceAttachment::new().set_connection_type(ConnectionType::Reader);
-    /// ```
     pub fn set_connection_type<T: std::convert::Into<crate::model::ConnectionType>>(
         mut self,
         v: T,
@@ -3895,15 +2926,6 @@ impl CrossClusterReplicationConfig {
     }
 
     /// Sets the value of [cluster_role][crate::model::CrossClusterReplicationConfig::cluster_role].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_redis_cluster_v1::model::CrossClusterReplicationConfig;
-    /// use google_cloud_redis_cluster_v1::model::cross_cluster_replication_config::ClusterRole;
-    /// let x0 = CrossClusterReplicationConfig::new().set_cluster_role(ClusterRole::None);
-    /// let x1 = CrossClusterReplicationConfig::new().set_cluster_role(ClusterRole::Primary);
-    /// let x2 = CrossClusterReplicationConfig::new().set_cluster_role(ClusterRole::Secondary);
-    /// ```
     pub fn set_cluster_role<
         T: std::convert::Into<crate::model::cross_cluster_replication_config::ClusterRole>,
     >(
@@ -3915,13 +2937,6 @@ impl CrossClusterReplicationConfig {
     }
 
     /// Sets the value of [primary_cluster][crate::model::CrossClusterReplicationConfig::primary_cluster].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_redis_cluster_v1::model::CrossClusterReplicationConfig;
-    /// use google_cloud_redis_cluster_v1::model::cross_cluster_replication_config::RemoteCluster;
-    /// let x = CrossClusterReplicationConfig::new().set_primary_cluster(RemoteCluster::default()/* use setters */);
-    /// ```
     pub fn set_primary_cluster<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::cross_cluster_replication_config::RemoteCluster>,
@@ -3931,14 +2946,6 @@ impl CrossClusterReplicationConfig {
     }
 
     /// Sets or clears the value of [primary_cluster][crate::model::CrossClusterReplicationConfig::primary_cluster].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_redis_cluster_v1::model::CrossClusterReplicationConfig;
-    /// use google_cloud_redis_cluster_v1::model::cross_cluster_replication_config::RemoteCluster;
-    /// let x = CrossClusterReplicationConfig::new().set_or_clear_primary_cluster(Some(RemoteCluster::default()/* use setters */));
-    /// let x = CrossClusterReplicationConfig::new().set_or_clear_primary_cluster(None::<RemoteCluster>);
-    /// ```
     pub fn set_or_clear_primary_cluster<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::cross_cluster_replication_config::RemoteCluster>,
@@ -3948,17 +2955,6 @@ impl CrossClusterReplicationConfig {
     }
 
     /// Sets the value of [secondary_clusters][crate::model::CrossClusterReplicationConfig::secondary_clusters].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_redis_cluster_v1::model::CrossClusterReplicationConfig;
-    /// use google_cloud_redis_cluster_v1::model::cross_cluster_replication_config::RemoteCluster;
-    /// let x = CrossClusterReplicationConfig::new()
-    ///     .set_secondary_clusters([
-    ///         RemoteCluster::default()/* use setters */,
-    ///         RemoteCluster::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_secondary_clusters<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3970,13 +2966,6 @@ impl CrossClusterReplicationConfig {
     }
 
     /// Sets the value of [update_time][crate::model::CrossClusterReplicationConfig::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_redis_cluster_v1::model::CrossClusterReplicationConfig;
-    /// use wkt::Timestamp;
-    /// let x = CrossClusterReplicationConfig::new().set_update_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3986,14 +2975,6 @@ impl CrossClusterReplicationConfig {
     }
 
     /// Sets or clears the value of [update_time][crate::model::CrossClusterReplicationConfig::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_redis_cluster_v1::model::CrossClusterReplicationConfig;
-    /// use wkt::Timestamp;
-    /// let x = CrossClusterReplicationConfig::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
-    /// let x = CrossClusterReplicationConfig::new().set_or_clear_update_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4003,13 +2984,6 @@ impl CrossClusterReplicationConfig {
     }
 
     /// Sets the value of [membership][crate::model::CrossClusterReplicationConfig::membership].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_redis_cluster_v1::model::CrossClusterReplicationConfig;
-    /// use google_cloud_redis_cluster_v1::model::cross_cluster_replication_config::Membership;
-    /// let x = CrossClusterReplicationConfig::new().set_membership(Membership::default()/* use setters */);
-    /// ```
     pub fn set_membership<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::cross_cluster_replication_config::Membership>,
@@ -4019,14 +2993,6 @@ impl CrossClusterReplicationConfig {
     }
 
     /// Sets or clears the value of [membership][crate::model::CrossClusterReplicationConfig::membership].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_redis_cluster_v1::model::CrossClusterReplicationConfig;
-    /// use google_cloud_redis_cluster_v1::model::cross_cluster_replication_config::Membership;
-    /// let x = CrossClusterReplicationConfig::new().set_or_clear_membership(Some(Membership::default()/* use setters */));
-    /// let x = CrossClusterReplicationConfig::new().set_or_clear_membership(None::<Membership>);
-    /// ```
     pub fn set_or_clear_membership<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::cross_cluster_replication_config::Membership>,
@@ -4068,24 +3034,12 @@ pub mod cross_cluster_replication_config {
         }
 
         /// Sets the value of [cluster][crate::model::cross_cluster_replication_config::RemoteCluster::cluster].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_redis_cluster_v1::model::cross_cluster_replication_config::RemoteCluster;
-        /// let x = RemoteCluster::new().set_cluster("example");
-        /// ```
         pub fn set_cluster<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.cluster = v.into();
             self
         }
 
         /// Sets the value of [uid][crate::model::cross_cluster_replication_config::RemoteCluster::uid].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_redis_cluster_v1::model::cross_cluster_replication_config::RemoteCluster;
-        /// let x = RemoteCluster::new().set_uid("example");
-        /// ```
         pub fn set_uid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.uid = v.into();
             self
@@ -4122,13 +3076,6 @@ pub mod cross_cluster_replication_config {
         }
 
         /// Sets the value of [primary_cluster][crate::model::cross_cluster_replication_config::Membership::primary_cluster].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_redis_cluster_v1::model::cross_cluster_replication_config::Membership;
-        /// use google_cloud_redis_cluster_v1::model::cross_cluster_replication_config::RemoteCluster;
-        /// let x = Membership::new().set_primary_cluster(RemoteCluster::default()/* use setters */);
-        /// ```
         pub fn set_primary_cluster<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::cross_cluster_replication_config::RemoteCluster>,
@@ -4138,14 +3085,6 @@ pub mod cross_cluster_replication_config {
         }
 
         /// Sets or clears the value of [primary_cluster][crate::model::cross_cluster_replication_config::Membership::primary_cluster].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_redis_cluster_v1::model::cross_cluster_replication_config::Membership;
-        /// use google_cloud_redis_cluster_v1::model::cross_cluster_replication_config::RemoteCluster;
-        /// let x = Membership::new().set_or_clear_primary_cluster(Some(RemoteCluster::default()/* use setters */));
-        /// let x = Membership::new().set_or_clear_primary_cluster(None::<RemoteCluster>);
-        /// ```
         pub fn set_or_clear_primary_cluster<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::cross_cluster_replication_config::RemoteCluster>,
@@ -4155,17 +3094,6 @@ pub mod cross_cluster_replication_config {
         }
 
         /// Sets the value of [secondary_clusters][crate::model::cross_cluster_replication_config::Membership::secondary_clusters].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_redis_cluster_v1::model::cross_cluster_replication_config::Membership;
-        /// use google_cloud_redis_cluster_v1::model::cross_cluster_replication_config::RemoteCluster;
-        /// let x = Membership::new()
-        ///     .set_secondary_clusters([
-        ///         RemoteCluster::default()/* use setters */,
-        ///         RemoteCluster::default()/* use (different) setters */,
-        ///     ]);
-        /// ```
         pub fn set_secondary_clusters<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -4353,13 +3281,6 @@ impl ClusterMaintenancePolicy {
     }
 
     /// Sets the value of [create_time][crate::model::ClusterMaintenancePolicy::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_redis_cluster_v1::model::ClusterMaintenancePolicy;
-    /// use wkt::Timestamp;
-    /// let x = ClusterMaintenancePolicy::new().set_create_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4369,14 +3290,6 @@ impl ClusterMaintenancePolicy {
     }
 
     /// Sets or clears the value of [create_time][crate::model::ClusterMaintenancePolicy::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_redis_cluster_v1::model::ClusterMaintenancePolicy;
-    /// use wkt::Timestamp;
-    /// let x = ClusterMaintenancePolicy::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
-    /// let x = ClusterMaintenancePolicy::new().set_or_clear_create_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4386,13 +3299,6 @@ impl ClusterMaintenancePolicy {
     }
 
     /// Sets the value of [update_time][crate::model::ClusterMaintenancePolicy::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_redis_cluster_v1::model::ClusterMaintenancePolicy;
-    /// use wkt::Timestamp;
-    /// let x = ClusterMaintenancePolicy::new().set_update_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4402,14 +3308,6 @@ impl ClusterMaintenancePolicy {
     }
 
     /// Sets or clears the value of [update_time][crate::model::ClusterMaintenancePolicy::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_redis_cluster_v1::model::ClusterMaintenancePolicy;
-    /// use wkt::Timestamp;
-    /// let x = ClusterMaintenancePolicy::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
-    /// let x = ClusterMaintenancePolicy::new().set_or_clear_update_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4419,17 +3317,6 @@ impl ClusterMaintenancePolicy {
     }
 
     /// Sets the value of [weekly_maintenance_window][crate::model::ClusterMaintenancePolicy::weekly_maintenance_window].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_redis_cluster_v1::model::ClusterMaintenancePolicy;
-    /// use google_cloud_redis_cluster_v1::model::ClusterWeeklyMaintenanceWindow;
-    /// let x = ClusterMaintenancePolicy::new()
-    ///     .set_weekly_maintenance_window([
-    ///         ClusterWeeklyMaintenanceWindow::default()/* use setters */,
-    ///         ClusterWeeklyMaintenanceWindow::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_weekly_maintenance_window<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4466,28 +3353,12 @@ impl ClusterWeeklyMaintenanceWindow {
     }
 
     /// Sets the value of [day][crate::model::ClusterWeeklyMaintenanceWindow::day].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_redis_cluster_v1::model::ClusterWeeklyMaintenanceWindow;
-    /// use gtype::model::DayOfWeek;
-    /// let x0 = ClusterWeeklyMaintenanceWindow::new().set_day(DayOfWeek::Monday);
-    /// let x1 = ClusterWeeklyMaintenanceWindow::new().set_day(DayOfWeek::Tuesday);
-    /// let x2 = ClusterWeeklyMaintenanceWindow::new().set_day(DayOfWeek::Wednesday);
-    /// ```
     pub fn set_day<T: std::convert::Into<gtype::model::DayOfWeek>>(mut self, v: T) -> Self {
         self.day = v.into();
         self
     }
 
     /// Sets the value of [start_time][crate::model::ClusterWeeklyMaintenanceWindow::start_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_redis_cluster_v1::model::ClusterWeeklyMaintenanceWindow;
-    /// use gtype::model::TimeOfDay;
-    /// let x = ClusterWeeklyMaintenanceWindow::new().set_start_time(TimeOfDay::default()/* use setters */);
-    /// ```
     pub fn set_start_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<gtype::model::TimeOfDay>,
@@ -4497,14 +3368,6 @@ impl ClusterWeeklyMaintenanceWindow {
     }
 
     /// Sets or clears the value of [start_time][crate::model::ClusterWeeklyMaintenanceWindow::start_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_redis_cluster_v1::model::ClusterWeeklyMaintenanceWindow;
-    /// use gtype::model::TimeOfDay;
-    /// let x = ClusterWeeklyMaintenanceWindow::new().set_or_clear_start_time(Some(TimeOfDay::default()/* use setters */));
-    /// let x = ClusterWeeklyMaintenanceWindow::new().set_or_clear_start_time(None::<TimeOfDay>);
-    /// ```
     pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<gtype::model::TimeOfDay>,
@@ -4541,13 +3404,6 @@ impl ClusterMaintenanceSchedule {
     }
 
     /// Sets the value of [start_time][crate::model::ClusterMaintenanceSchedule::start_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_redis_cluster_v1::model::ClusterMaintenanceSchedule;
-    /// use wkt::Timestamp;
-    /// let x = ClusterMaintenanceSchedule::new().set_start_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_start_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4557,14 +3413,6 @@ impl ClusterMaintenanceSchedule {
     }
 
     /// Sets or clears the value of [start_time][crate::model::ClusterMaintenanceSchedule::start_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_redis_cluster_v1::model::ClusterMaintenanceSchedule;
-    /// use wkt::Timestamp;
-    /// let x = ClusterMaintenanceSchedule::new().set_or_clear_start_time(Some(Timestamp::default()/* use setters */));
-    /// let x = ClusterMaintenanceSchedule::new().set_or_clear_start_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4574,13 +3422,6 @@ impl ClusterMaintenanceSchedule {
     }
 
     /// Sets the value of [end_time][crate::model::ClusterMaintenanceSchedule::end_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_redis_cluster_v1::model::ClusterMaintenanceSchedule;
-    /// use wkt::Timestamp;
-    /// let x = ClusterMaintenanceSchedule::new().set_end_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4590,14 +3431,6 @@ impl ClusterMaintenanceSchedule {
     }
 
     /// Sets or clears the value of [end_time][crate::model::ClusterMaintenanceSchedule::end_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_redis_cluster_v1::model::ClusterMaintenanceSchedule;
-    /// use wkt::Timestamp;
-    /// let x = ClusterMaintenanceSchedule::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
-    /// let x = ClusterMaintenanceSchedule::new().set_or_clear_end_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4630,12 +3463,6 @@ impl PscConfig {
     }
 
     /// Sets the value of [network][crate::model::PscConfig::network].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_redis_cluster_v1::model::PscConfig;
-    /// let x = PscConfig::new().set_network("example");
-    /// ```
     pub fn set_network<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.network = v.into();
         self
@@ -4672,37 +3499,18 @@ impl DiscoveryEndpoint {
     }
 
     /// Sets the value of [address][crate::model::DiscoveryEndpoint::address].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_redis_cluster_v1::model::DiscoveryEndpoint;
-    /// let x = DiscoveryEndpoint::new().set_address("example");
-    /// ```
     pub fn set_address<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.address = v.into();
         self
     }
 
     /// Sets the value of [port][crate::model::DiscoveryEndpoint::port].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_redis_cluster_v1::model::DiscoveryEndpoint;
-    /// let x = DiscoveryEndpoint::new().set_port(42);
-    /// ```
     pub fn set_port<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.port = v.into();
         self
     }
 
     /// Sets the value of [psc_config][crate::model::DiscoveryEndpoint::psc_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_redis_cluster_v1::model::DiscoveryEndpoint;
-    /// use google_cloud_redis_cluster_v1::model::PscConfig;
-    /// let x = DiscoveryEndpoint::new().set_psc_config(PscConfig::default()/* use setters */);
-    /// ```
     pub fn set_psc_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::PscConfig>,
@@ -4712,14 +3520,6 @@ impl DiscoveryEndpoint {
     }
 
     /// Sets or clears the value of [psc_config][crate::model::DiscoveryEndpoint::psc_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_redis_cluster_v1::model::DiscoveryEndpoint;
-    /// use google_cloud_redis_cluster_v1::model::PscConfig;
-    /// let x = DiscoveryEndpoint::new().set_or_clear_psc_config(Some(PscConfig::default()/* use setters */));
-    /// let x = DiscoveryEndpoint::new().set_or_clear_psc_config(None::<PscConfig>);
-    /// ```
     pub fn set_or_clear_psc_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::PscConfig>,
@@ -4783,12 +3583,6 @@ impl PscConnection {
     }
 
     /// Sets the value of [psc_connection_id][crate::model::PscConnection::psc_connection_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_redis_cluster_v1::model::PscConnection;
-    /// let x = PscConnection::new().set_psc_connection_id("example");
-    /// ```
     pub fn set_psc_connection_id<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -4798,60 +3592,30 @@ impl PscConnection {
     }
 
     /// Sets the value of [address][crate::model::PscConnection::address].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_redis_cluster_v1::model::PscConnection;
-    /// let x = PscConnection::new().set_address("example");
-    /// ```
     pub fn set_address<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.address = v.into();
         self
     }
 
     /// Sets the value of [forwarding_rule][crate::model::PscConnection::forwarding_rule].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_redis_cluster_v1::model::PscConnection;
-    /// let x = PscConnection::new().set_forwarding_rule("example");
-    /// ```
     pub fn set_forwarding_rule<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.forwarding_rule = v.into();
         self
     }
 
     /// Sets the value of [project_id][crate::model::PscConnection::project_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_redis_cluster_v1::model::PscConnection;
-    /// let x = PscConnection::new().set_project_id("example");
-    /// ```
     pub fn set_project_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project_id = v.into();
         self
     }
 
     /// Sets the value of [network][crate::model::PscConnection::network].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_redis_cluster_v1::model::PscConnection;
-    /// let x = PscConnection::new().set_network("example");
-    /// ```
     pub fn set_network<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.network = v.into();
         self
     }
 
     /// Sets the value of [service_attachment][crate::model::PscConnection::service_attachment].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_redis_cluster_v1::model::PscConnection;
-    /// let x = PscConnection::new().set_service_attachment("example");
-    /// ```
     pub fn set_service_attachment<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -4861,14 +3625,6 @@ impl PscConnection {
     }
 
     /// Sets the value of [psc_connection_status][crate::model::PscConnection::psc_connection_status].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_redis_cluster_v1::model::PscConnection;
-    /// use google_cloud_redis_cluster_v1::model::PscConnectionStatus;
-    /// let x0 = PscConnection::new().set_psc_connection_status(PscConnectionStatus::Active);
-    /// let x1 = PscConnection::new().set_psc_connection_status(PscConnectionStatus::NotFound);
-    /// ```
     pub fn set_psc_connection_status<T: std::convert::Into<crate::model::PscConnectionStatus>>(
         mut self,
         v: T,
@@ -4878,15 +3634,6 @@ impl PscConnection {
     }
 
     /// Sets the value of [connection_type][crate::model::PscConnection::connection_type].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_redis_cluster_v1::model::PscConnection;
-    /// use google_cloud_redis_cluster_v1::model::ConnectionType;
-    /// let x0 = PscConnection::new().set_connection_type(ConnectionType::Discovery);
-    /// let x1 = PscConnection::new().set_connection_type(ConnectionType::Primary);
-    /// let x2 = PscConnection::new().set_connection_type(ConnectionType::Reader);
-    /// ```
     pub fn set_connection_type<T: std::convert::Into<crate::model::ConnectionType>>(
         mut self,
         v: T,
@@ -4921,17 +3668,6 @@ impl ClusterEndpoint {
     }
 
     /// Sets the value of [connections][crate::model::ClusterEndpoint::connections].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_redis_cluster_v1::model::ClusterEndpoint;
-    /// use google_cloud_redis_cluster_v1::model::ConnectionDetail;
-    /// let x = ClusterEndpoint::new()
-    ///     .set_connections([
-    ///         ConnectionDetail::default()/* use setters */,
-    ///         ConnectionDetail::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_connections<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4971,14 +3707,6 @@ impl ConnectionDetail {
     ///
     /// Note that all the setters affecting `connection` are mutually
     /// exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_redis_cluster_v1::model::ConnectionDetail;
-    /// use google_cloud_redis_cluster_v1::model::connection_detail;
-    /// use google_cloud_redis_cluster_v1::model::PscAutoConnection;
-    /// let x = ConnectionDetail::new().set_connection(Some(connection_detail::Connection::PscAutoConnection(PscAutoConnection::default().into())));
-    /// ```
     pub fn set_connection<
         T: std::convert::Into<std::option::Option<crate::model::connection_detail::Connection>>,
     >(
@@ -5009,15 +3737,6 @@ impl ConnectionDetail {
     ///
     /// Note that all the setters affecting `connection` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_redis_cluster_v1::model::ConnectionDetail;
-    /// use google_cloud_redis_cluster_v1::model::PscAutoConnection;
-    /// let x = ConnectionDetail::new().set_psc_auto_connection(PscAutoConnection::default()/* use setters */);
-    /// assert!(x.psc_auto_connection().is_some());
-    /// assert!(x.psc_connection().is_none());
-    /// ```
     pub fn set_psc_auto_connection<
         T: std::convert::Into<std::boxed::Box<crate::model::PscAutoConnection>>,
     >(
@@ -5050,15 +3769,6 @@ impl ConnectionDetail {
     ///
     /// Note that all the setters affecting `connection` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_redis_cluster_v1::model::ConnectionDetail;
-    /// use google_cloud_redis_cluster_v1::model::PscConnection;
-    /// let x = ConnectionDetail::new().set_psc_connection(PscConnection::default()/* use setters */);
-    /// assert!(x.psc_connection().is_some());
-    /// assert!(x.psc_auto_connection().is_none());
-    /// ```
     pub fn set_psc_connection<
         T: std::convert::Into<std::boxed::Box<crate::model::PscConnection>>,
     >(
@@ -5147,12 +3857,6 @@ impl PscAutoConnection {
     }
 
     /// Sets the value of [psc_connection_id][crate::model::PscAutoConnection::psc_connection_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_redis_cluster_v1::model::PscAutoConnection;
-    /// let x = PscAutoConnection::new().set_psc_connection_id("example");
-    /// ```
     pub fn set_psc_connection_id<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -5162,60 +3866,30 @@ impl PscAutoConnection {
     }
 
     /// Sets the value of [address][crate::model::PscAutoConnection::address].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_redis_cluster_v1::model::PscAutoConnection;
-    /// let x = PscAutoConnection::new().set_address("example");
-    /// ```
     pub fn set_address<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.address = v.into();
         self
     }
 
     /// Sets the value of [forwarding_rule][crate::model::PscAutoConnection::forwarding_rule].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_redis_cluster_v1::model::PscAutoConnection;
-    /// let x = PscAutoConnection::new().set_forwarding_rule("example");
-    /// ```
     pub fn set_forwarding_rule<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.forwarding_rule = v.into();
         self
     }
 
     /// Sets the value of [project_id][crate::model::PscAutoConnection::project_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_redis_cluster_v1::model::PscAutoConnection;
-    /// let x = PscAutoConnection::new().set_project_id("example");
-    /// ```
     pub fn set_project_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project_id = v.into();
         self
     }
 
     /// Sets the value of [network][crate::model::PscAutoConnection::network].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_redis_cluster_v1::model::PscAutoConnection;
-    /// let x = PscAutoConnection::new().set_network("example");
-    /// ```
     pub fn set_network<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.network = v.into();
         self
     }
 
     /// Sets the value of [service_attachment][crate::model::PscAutoConnection::service_attachment].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_redis_cluster_v1::model::PscAutoConnection;
-    /// let x = PscAutoConnection::new().set_service_attachment("example");
-    /// ```
     pub fn set_service_attachment<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -5225,14 +3899,6 @@ impl PscAutoConnection {
     }
 
     /// Sets the value of [psc_connection_status][crate::model::PscAutoConnection::psc_connection_status].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_redis_cluster_v1::model::PscAutoConnection;
-    /// use google_cloud_redis_cluster_v1::model::PscConnectionStatus;
-    /// let x0 = PscAutoConnection::new().set_psc_connection_status(PscConnectionStatus::Active);
-    /// let x1 = PscAutoConnection::new().set_psc_connection_status(PscConnectionStatus::NotFound);
-    /// ```
     pub fn set_psc_connection_status<T: std::convert::Into<crate::model::PscConnectionStatus>>(
         mut self,
         v: T,
@@ -5242,15 +3908,6 @@ impl PscAutoConnection {
     }
 
     /// Sets the value of [connection_type][crate::model::PscAutoConnection::connection_type].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_redis_cluster_v1::model::PscAutoConnection;
-    /// use google_cloud_redis_cluster_v1::model::ConnectionType;
-    /// let x0 = PscAutoConnection::new().set_connection_type(ConnectionType::Discovery);
-    /// let x1 = PscAutoConnection::new().set_connection_type(ConnectionType::Primary);
-    /// let x2 = PscAutoConnection::new().set_connection_type(ConnectionType::Reader);
-    /// ```
     pub fn set_connection_type<T: std::convert::Into<crate::model::ConnectionType>>(
         mut self,
         v: T,
@@ -5306,13 +3963,6 @@ impl OperationMetadata {
     }
 
     /// Sets the value of [create_time][crate::model::OperationMetadata::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_redis_cluster_v1::model::OperationMetadata;
-    /// use wkt::Timestamp;
-    /// let x = OperationMetadata::new().set_create_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -5322,14 +3972,6 @@ impl OperationMetadata {
     }
 
     /// Sets or clears the value of [create_time][crate::model::OperationMetadata::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_redis_cluster_v1::model::OperationMetadata;
-    /// use wkt::Timestamp;
-    /// let x = OperationMetadata::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
-    /// let x = OperationMetadata::new().set_or_clear_create_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -5339,13 +3981,6 @@ impl OperationMetadata {
     }
 
     /// Sets the value of [end_time][crate::model::OperationMetadata::end_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_redis_cluster_v1::model::OperationMetadata;
-    /// use wkt::Timestamp;
-    /// let x = OperationMetadata::new().set_end_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -5355,14 +3990,6 @@ impl OperationMetadata {
     }
 
     /// Sets or clears the value of [end_time][crate::model::OperationMetadata::end_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_redis_cluster_v1::model::OperationMetadata;
-    /// use wkt::Timestamp;
-    /// let x = OperationMetadata::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
-    /// let x = OperationMetadata::new().set_or_clear_end_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -5372,60 +3999,30 @@ impl OperationMetadata {
     }
 
     /// Sets the value of [target][crate::model::OperationMetadata::target].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_redis_cluster_v1::model::OperationMetadata;
-    /// let x = OperationMetadata::new().set_target("example");
-    /// ```
     pub fn set_target<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.target = v.into();
         self
     }
 
     /// Sets the value of [verb][crate::model::OperationMetadata::verb].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_redis_cluster_v1::model::OperationMetadata;
-    /// let x = OperationMetadata::new().set_verb("example");
-    /// ```
     pub fn set_verb<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.verb = v.into();
         self
     }
 
     /// Sets the value of [status_message][crate::model::OperationMetadata::status_message].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_redis_cluster_v1::model::OperationMetadata;
-    /// let x = OperationMetadata::new().set_status_message("example");
-    /// ```
     pub fn set_status_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.status_message = v.into();
         self
     }
 
     /// Sets the value of [requested_cancellation][crate::model::OperationMetadata::requested_cancellation].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_redis_cluster_v1::model::OperationMetadata;
-    /// let x = OperationMetadata::new().set_requested_cancellation(true);
-    /// ```
     pub fn set_requested_cancellation<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.requested_cancellation = v.into();
         self
     }
 
     /// Sets the value of [api_version][crate::model::OperationMetadata::api_version].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_redis_cluster_v1::model::OperationMetadata;
-    /// let x = OperationMetadata::new().set_api_version("example");
-    /// ```
     pub fn set_api_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.api_version = v.into();
         self
@@ -5459,12 +4056,6 @@ impl CertificateAuthority {
     }
 
     /// Sets the value of [name][crate::model::CertificateAuthority::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_redis_cluster_v1::model::CertificateAuthority;
-    /// let x = CertificateAuthority::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -5474,14 +4065,6 @@ impl CertificateAuthority {
     ///
     /// Note that all the setters affecting `server_ca` are mutually
     /// exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_redis_cluster_v1::model::CertificateAuthority;
-    /// use google_cloud_redis_cluster_v1::model::certificate_authority;
-    /// use google_cloud_redis_cluster_v1::model::certificate_authority::ManagedCertificateAuthority;
-    /// let x = CertificateAuthority::new().set_server_ca(Some(certificate_authority::ServerCa::ManagedServerCa(ManagedCertificateAuthority::default().into())));
-    /// ```
     pub fn set_server_ca<
         T: std::convert::Into<std::option::Option<crate::model::certificate_authority::ServerCa>>,
     >(
@@ -5514,14 +4097,6 @@ impl CertificateAuthority {
     ///
     /// Note that all the setters affecting `server_ca` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_redis_cluster_v1::model::CertificateAuthority;
-    /// use google_cloud_redis_cluster_v1::model::certificate_authority::ManagedCertificateAuthority;
-    /// let x = CertificateAuthority::new().set_managed_server_ca(ManagedCertificateAuthority::default()/* use setters */);
-    /// assert!(x.managed_server_ca().is_some());
-    /// ```
     pub fn set_managed_server_ca<
         T: std::convert::Into<
                 std::boxed::Box<crate::model::certificate_authority::ManagedCertificateAuthority>,
@@ -5566,17 +4141,6 @@ pub mod certificate_authority {
         }
 
         /// Sets the value of [ca_certs][crate::model::certificate_authority::ManagedCertificateAuthority::ca_certs].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_redis_cluster_v1::model::certificate_authority::ManagedCertificateAuthority;
-        /// use google_cloud_redis_cluster_v1::model::certificate_authority::managed_certificate_authority::CertChain;
-        /// let x = ManagedCertificateAuthority::new()
-        ///     .set_ca_certs([
-        ///         CertChain::default()/* use setters */,
-        ///         CertChain::default()/* use (different) setters */,
-        ///     ]);
-        /// ```
         pub fn set_ca_certs<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -5616,12 +4180,6 @@ pub mod certificate_authority {
             }
 
             /// Sets the value of [certificates][crate::model::certificate_authority::managed_certificate_authority::CertChain::certificates].
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_redis_cluster_v1::model::certificate_authority::managed_certificate_authority::CertChain;
-            /// let x = CertChain::new().set_certificates(["a", "b", "c"]);
-            /// ```
             pub fn set_certificates<T, V>(mut self, v: T) -> Self
             where
                 T: std::iter::IntoIterator<Item = V>,
@@ -5672,15 +4230,6 @@ impl ClusterPersistenceConfig {
     }
 
     /// Sets the value of [mode][crate::model::ClusterPersistenceConfig::mode].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_redis_cluster_v1::model::ClusterPersistenceConfig;
-    /// use google_cloud_redis_cluster_v1::model::cluster_persistence_config::PersistenceMode;
-    /// let x0 = ClusterPersistenceConfig::new().set_mode(PersistenceMode::Disabled);
-    /// let x1 = ClusterPersistenceConfig::new().set_mode(PersistenceMode::Rdb);
-    /// let x2 = ClusterPersistenceConfig::new().set_mode(PersistenceMode::Aof);
-    /// ```
     pub fn set_mode<
         T: std::convert::Into<crate::model::cluster_persistence_config::PersistenceMode>,
     >(
@@ -5692,13 +4241,6 @@ impl ClusterPersistenceConfig {
     }
 
     /// Sets the value of [rdb_config][crate::model::ClusterPersistenceConfig::rdb_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_redis_cluster_v1::model::ClusterPersistenceConfig;
-    /// use google_cloud_redis_cluster_v1::model::cluster_persistence_config::RDBConfig;
-    /// let x = ClusterPersistenceConfig::new().set_rdb_config(RDBConfig::default()/* use setters */);
-    /// ```
     pub fn set_rdb_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::cluster_persistence_config::RDBConfig>,
@@ -5708,14 +4250,6 @@ impl ClusterPersistenceConfig {
     }
 
     /// Sets or clears the value of [rdb_config][crate::model::ClusterPersistenceConfig::rdb_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_redis_cluster_v1::model::ClusterPersistenceConfig;
-    /// use google_cloud_redis_cluster_v1::model::cluster_persistence_config::RDBConfig;
-    /// let x = ClusterPersistenceConfig::new().set_or_clear_rdb_config(Some(RDBConfig::default()/* use setters */));
-    /// let x = ClusterPersistenceConfig::new().set_or_clear_rdb_config(None::<RDBConfig>);
-    /// ```
     pub fn set_or_clear_rdb_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::cluster_persistence_config::RDBConfig>,
@@ -5725,13 +4259,6 @@ impl ClusterPersistenceConfig {
     }
 
     /// Sets the value of [aof_config][crate::model::ClusterPersistenceConfig::aof_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_redis_cluster_v1::model::ClusterPersistenceConfig;
-    /// use google_cloud_redis_cluster_v1::model::cluster_persistence_config::AOFConfig;
-    /// let x = ClusterPersistenceConfig::new().set_aof_config(AOFConfig::default()/* use setters */);
-    /// ```
     pub fn set_aof_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::cluster_persistence_config::AOFConfig>,
@@ -5741,14 +4268,6 @@ impl ClusterPersistenceConfig {
     }
 
     /// Sets or clears the value of [aof_config][crate::model::ClusterPersistenceConfig::aof_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_redis_cluster_v1::model::ClusterPersistenceConfig;
-    /// use google_cloud_redis_cluster_v1::model::cluster_persistence_config::AOFConfig;
-    /// let x = ClusterPersistenceConfig::new().set_or_clear_aof_config(Some(AOFConfig::default()/* use setters */));
-    /// let x = ClusterPersistenceConfig::new().set_or_clear_aof_config(None::<AOFConfig>);
-    /// ```
     pub fn set_or_clear_aof_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::cluster_persistence_config::AOFConfig>,
@@ -5791,15 +4310,6 @@ pub mod cluster_persistence_config {
         }
 
         /// Sets the value of [rdb_snapshot_period][crate::model::cluster_persistence_config::RDBConfig::rdb_snapshot_period].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_redis_cluster_v1::model::cluster_persistence_config::RDBConfig;
-        /// use google_cloud_redis_cluster_v1::model::cluster_persistence_config::rdb_config::SnapshotPeriod;
-        /// let x0 = RDBConfig::new().set_rdb_snapshot_period(SnapshotPeriod::OneHour);
-        /// let x1 = RDBConfig::new().set_rdb_snapshot_period(SnapshotPeriod::SixHours);
-        /// let x2 = RDBConfig::new().set_rdb_snapshot_period(SnapshotPeriod::TwelveHours);
-        /// ```
         pub fn set_rdb_snapshot_period<
             T: std::convert::Into<
                     crate::model::cluster_persistence_config::rdb_config::SnapshotPeriod,
@@ -5813,13 +4323,6 @@ pub mod cluster_persistence_config {
         }
 
         /// Sets the value of [rdb_snapshot_start_time][crate::model::cluster_persistence_config::RDBConfig::rdb_snapshot_start_time].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_redis_cluster_v1::model::cluster_persistence_config::RDBConfig;
-        /// use wkt::Timestamp;
-        /// let x = RDBConfig::new().set_rdb_snapshot_start_time(Timestamp::default()/* use setters */);
-        /// ```
         pub fn set_rdb_snapshot_start_time<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -5829,14 +4332,6 @@ pub mod cluster_persistence_config {
         }
 
         /// Sets or clears the value of [rdb_snapshot_start_time][crate::model::cluster_persistence_config::RDBConfig::rdb_snapshot_start_time].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_redis_cluster_v1::model::cluster_persistence_config::RDBConfig;
-        /// use wkt::Timestamp;
-        /// let x = RDBConfig::new().set_or_clear_rdb_snapshot_start_time(Some(Timestamp::default()/* use setters */));
-        /// let x = RDBConfig::new().set_or_clear_rdb_snapshot_start_time(None::<Timestamp>);
-        /// ```
         pub fn set_or_clear_rdb_snapshot_start_time<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -6022,15 +4517,6 @@ pub mod cluster_persistence_config {
         }
 
         /// Sets the value of [append_fsync][crate::model::cluster_persistence_config::AOFConfig::append_fsync].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_redis_cluster_v1::model::cluster_persistence_config::AOFConfig;
-        /// use google_cloud_redis_cluster_v1::model::cluster_persistence_config::aof_config::AppendFsync;
-        /// let x0 = AOFConfig::new().set_append_fsync(AppendFsync::No);
-        /// let x1 = AOFConfig::new().set_append_fsync(AppendFsync::Everysec);
-        /// let x2 = AOFConfig::new().set_append_fsync(AppendFsync::Always);
-        /// ```
         pub fn set_append_fsync<
             T: std::convert::Into<crate::model::cluster_persistence_config::aof_config::AppendFsync>,
         >(
@@ -6361,14 +4847,6 @@ impl ZoneDistributionConfig {
     }
 
     /// Sets the value of [mode][crate::model::ZoneDistributionConfig::mode].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_redis_cluster_v1::model::ZoneDistributionConfig;
-    /// use google_cloud_redis_cluster_v1::model::zone_distribution_config::ZoneDistributionMode;
-    /// let x0 = ZoneDistributionConfig::new().set_mode(ZoneDistributionMode::MultiZone);
-    /// let x1 = ZoneDistributionConfig::new().set_mode(ZoneDistributionMode::SingleZone);
-    /// ```
     pub fn set_mode<
         T: std::convert::Into<crate::model::zone_distribution_config::ZoneDistributionMode>,
     >(
@@ -6380,12 +4858,6 @@ impl ZoneDistributionConfig {
     }
 
     /// Sets the value of [zone][crate::model::ZoneDistributionConfig::zone].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_redis_cluster_v1::model::ZoneDistributionConfig;
-    /// let x = ZoneDistributionConfig::new().set_zone("example");
-    /// ```
     pub fn set_zone<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.zone = v.into();
         self
@@ -6567,26 +5039,12 @@ impl RescheduleClusterMaintenanceRequest {
     }
 
     /// Sets the value of [name][crate::model::RescheduleClusterMaintenanceRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_redis_cluster_v1::model::RescheduleClusterMaintenanceRequest;
-    /// let x = RescheduleClusterMaintenanceRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [reschedule_type][crate::model::RescheduleClusterMaintenanceRequest::reschedule_type].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_redis_cluster_v1::model::RescheduleClusterMaintenanceRequest;
-    /// use google_cloud_redis_cluster_v1::model::reschedule_cluster_maintenance_request::RescheduleType;
-    /// let x0 = RescheduleClusterMaintenanceRequest::new().set_reschedule_type(RescheduleType::Immediate);
-    /// let x1 = RescheduleClusterMaintenanceRequest::new().set_reschedule_type(RescheduleType::SpecificTime);
-    /// ```
     pub fn set_reschedule_type<
         T: std::convert::Into<crate::model::reschedule_cluster_maintenance_request::RescheduleType>,
     >(
@@ -6598,13 +5056,6 @@ impl RescheduleClusterMaintenanceRequest {
     }
 
     /// Sets the value of [schedule_time][crate::model::RescheduleClusterMaintenanceRequest::schedule_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_redis_cluster_v1::model::RescheduleClusterMaintenanceRequest;
-    /// use wkt::Timestamp;
-    /// let x = RescheduleClusterMaintenanceRequest::new().set_schedule_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_schedule_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -6614,14 +5065,6 @@ impl RescheduleClusterMaintenanceRequest {
     }
 
     /// Sets or clears the value of [schedule_time][crate::model::RescheduleClusterMaintenanceRequest::schedule_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_redis_cluster_v1::model::RescheduleClusterMaintenanceRequest;
-    /// use wkt::Timestamp;
-    /// let x = RescheduleClusterMaintenanceRequest::new().set_or_clear_schedule_time(Some(Timestamp::default()/* use setters */));
-    /// let x = RescheduleClusterMaintenanceRequest::new().set_or_clear_schedule_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_schedule_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -6802,14 +5245,6 @@ impl EncryptionInfo {
     }
 
     /// Sets the value of [encryption_type][crate::model::EncryptionInfo::encryption_type].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_redis_cluster_v1::model::EncryptionInfo;
-    /// use google_cloud_redis_cluster_v1::model::encryption_info::Type;
-    /// let x0 = EncryptionInfo::new().set_encryption_type(Type::GoogleDefaultEncryption);
-    /// let x1 = EncryptionInfo::new().set_encryption_type(Type::CustomerManagedEncryption);
-    /// ```
     pub fn set_encryption_type<T: std::convert::Into<crate::model::encryption_info::Type>>(
         mut self,
         v: T,
@@ -6819,12 +5254,6 @@ impl EncryptionInfo {
     }
 
     /// Sets the value of [kms_key_versions][crate::model::EncryptionInfo::kms_key_versions].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_redis_cluster_v1::model::EncryptionInfo;
-    /// let x = EncryptionInfo::new().set_kms_key_versions(["a", "b", "c"]);
-    /// ```
     pub fn set_kms_key_versions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -6836,15 +5265,6 @@ impl EncryptionInfo {
     }
 
     /// Sets the value of [kms_key_primary_state][crate::model::EncryptionInfo::kms_key_primary_state].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_redis_cluster_v1::model::EncryptionInfo;
-    /// use google_cloud_redis_cluster_v1::model::encryption_info::KmsKeyState;
-    /// let x0 = EncryptionInfo::new().set_kms_key_primary_state(KmsKeyState::Enabled);
-    /// let x1 = EncryptionInfo::new().set_kms_key_primary_state(KmsKeyState::PermissionDenied);
-    /// let x2 = EncryptionInfo::new().set_kms_key_primary_state(KmsKeyState::Disabled);
-    /// ```
     pub fn set_kms_key_primary_state<
         T: std::convert::Into<crate::model::encryption_info::KmsKeyState>,
     >(
@@ -6856,13 +5276,6 @@ impl EncryptionInfo {
     }
 
     /// Sets the value of [last_update_time][crate::model::EncryptionInfo::last_update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_redis_cluster_v1::model::EncryptionInfo;
-    /// use wkt::Timestamp;
-    /// let x = EncryptionInfo::new().set_last_update_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_last_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -6872,14 +5285,6 @@ impl EncryptionInfo {
     }
 
     /// Sets or clears the value of [last_update_time][crate::model::EncryptionInfo::last_update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_redis_cluster_v1::model::EncryptionInfo;
-    /// use wkt::Timestamp;
-    /// let x = EncryptionInfo::new().set_or_clear_last_update_time(Some(Timestamp::default()/* use setters */));
-    /// let x = EncryptionInfo::new().set_or_clear_last_update_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_last_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,

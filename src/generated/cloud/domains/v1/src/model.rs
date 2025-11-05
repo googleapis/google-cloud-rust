@@ -116,37 +116,18 @@ impl Registration {
     }
 
     /// Sets the value of [name][crate::model::Registration::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_domains_v1::model::Registration;
-    /// let x = Registration::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [domain_name][crate::model::Registration::domain_name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_domains_v1::model::Registration;
-    /// let x = Registration::new().set_domain_name("example");
-    /// ```
     pub fn set_domain_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.domain_name = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::Registration::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_domains_v1::model::Registration;
-    /// use wkt::Timestamp;
-    /// let x = Registration::new().set_create_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -156,14 +137,6 @@ impl Registration {
     }
 
     /// Sets or clears the value of [create_time][crate::model::Registration::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_domains_v1::model::Registration;
-    /// use wkt::Timestamp;
-    /// let x = Registration::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
-    /// let x = Registration::new().set_or_clear_create_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -173,13 +146,6 @@ impl Registration {
     }
 
     /// Sets the value of [expire_time][crate::model::Registration::expire_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_domains_v1::model::Registration;
-    /// use wkt::Timestamp;
-    /// let x = Registration::new().set_expire_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_expire_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -189,14 +155,6 @@ impl Registration {
     }
 
     /// Sets or clears the value of [expire_time][crate::model::Registration::expire_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_domains_v1::model::Registration;
-    /// use wkt::Timestamp;
-    /// let x = Registration::new().set_or_clear_expire_time(Some(Timestamp::default()/* use setters */));
-    /// let x = Registration::new().set_or_clear_expire_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_expire_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -206,15 +164,6 @@ impl Registration {
     }
 
     /// Sets the value of [state][crate::model::Registration::state].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_domains_v1::model::Registration;
-    /// use google_cloud_domains_v1::model::registration::State;
-    /// let x0 = Registration::new().set_state(State::RegistrationPending);
-    /// let x1 = Registration::new().set_state(State::RegistrationFailed);
-    /// let x2 = Registration::new().set_state(State::TransferPending);
-    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::registration::State>>(
         mut self,
         v: T,
@@ -224,16 +173,6 @@ impl Registration {
     }
 
     /// Sets the value of [issues][crate::model::Registration::issues].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_domains_v1::model::Registration;
-    /// use google_cloud_domains_v1::model::registration::Issue;
-    /// let x = Registration::new().set_issues([
-    ///     Issue::ContactSupport,
-    ///     Issue::UnverifiedEmail,
-    /// ]);
-    /// ```
     pub fn set_issues<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -245,15 +184,6 @@ impl Registration {
     }
 
     /// Sets the value of [labels][crate::model::Registration::labels].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_domains_v1::model::Registration;
-    /// let x = Registration::new().set_labels([
-    ///     ("key0", "abc"),
-    ///     ("key1", "xyz"),
-    /// ]);
-    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -266,13 +196,6 @@ impl Registration {
     }
 
     /// Sets the value of [management_settings][crate::model::Registration::management_settings].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_domains_v1::model::Registration;
-    /// use google_cloud_domains_v1::model::ManagementSettings;
-    /// let x = Registration::new().set_management_settings(ManagementSettings::default()/* use setters */);
-    /// ```
     pub fn set_management_settings<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ManagementSettings>,
@@ -282,14 +205,6 @@ impl Registration {
     }
 
     /// Sets or clears the value of [management_settings][crate::model::Registration::management_settings].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_domains_v1::model::Registration;
-    /// use google_cloud_domains_v1::model::ManagementSettings;
-    /// let x = Registration::new().set_or_clear_management_settings(Some(ManagementSettings::default()/* use setters */));
-    /// let x = Registration::new().set_or_clear_management_settings(None::<ManagementSettings>);
-    /// ```
     pub fn set_or_clear_management_settings<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ManagementSettings>,
@@ -299,13 +214,6 @@ impl Registration {
     }
 
     /// Sets the value of [dns_settings][crate::model::Registration::dns_settings].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_domains_v1::model::Registration;
-    /// use google_cloud_domains_v1::model::DnsSettings;
-    /// let x = Registration::new().set_dns_settings(DnsSettings::default()/* use setters */);
-    /// ```
     pub fn set_dns_settings<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::DnsSettings>,
@@ -315,14 +223,6 @@ impl Registration {
     }
 
     /// Sets or clears the value of [dns_settings][crate::model::Registration::dns_settings].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_domains_v1::model::Registration;
-    /// use google_cloud_domains_v1::model::DnsSettings;
-    /// let x = Registration::new().set_or_clear_dns_settings(Some(DnsSettings::default()/* use setters */));
-    /// let x = Registration::new().set_or_clear_dns_settings(None::<DnsSettings>);
-    /// ```
     pub fn set_or_clear_dns_settings<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DnsSettings>,
@@ -332,13 +232,6 @@ impl Registration {
     }
 
     /// Sets the value of [contact_settings][crate::model::Registration::contact_settings].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_domains_v1::model::Registration;
-    /// use google_cloud_domains_v1::model::ContactSettings;
-    /// let x = Registration::new().set_contact_settings(ContactSettings::default()/* use setters */);
-    /// ```
     pub fn set_contact_settings<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ContactSettings>,
@@ -348,14 +241,6 @@ impl Registration {
     }
 
     /// Sets or clears the value of [contact_settings][crate::model::Registration::contact_settings].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_domains_v1::model::Registration;
-    /// use google_cloud_domains_v1::model::ContactSettings;
-    /// let x = Registration::new().set_or_clear_contact_settings(Some(ContactSettings::default()/* use setters */));
-    /// let x = Registration::new().set_or_clear_contact_settings(None::<ContactSettings>);
-    /// ```
     pub fn set_or_clear_contact_settings<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ContactSettings>,
@@ -365,13 +250,6 @@ impl Registration {
     }
 
     /// Sets the value of [pending_contact_settings][crate::model::Registration::pending_contact_settings].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_domains_v1::model::Registration;
-    /// use google_cloud_domains_v1::model::ContactSettings;
-    /// let x = Registration::new().set_pending_contact_settings(ContactSettings::default()/* use setters */);
-    /// ```
     pub fn set_pending_contact_settings<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ContactSettings>,
@@ -381,14 +259,6 @@ impl Registration {
     }
 
     /// Sets or clears the value of [pending_contact_settings][crate::model::Registration::pending_contact_settings].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_domains_v1::model::Registration;
-    /// use google_cloud_domains_v1::model::ContactSettings;
-    /// let x = Registration::new().set_or_clear_pending_contact_settings(Some(ContactSettings::default()/* use setters */));
-    /// let x = Registration::new().set_or_clear_pending_contact_settings(None::<ContactSettings>);
-    /// ```
     pub fn set_or_clear_pending_contact_settings<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ContactSettings>,
@@ -398,17 +268,6 @@ impl Registration {
     }
 
     /// Sets the value of [supported_privacy][crate::model::Registration::supported_privacy].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_domains_v1::model::Registration;
-    /// use google_cloud_domains_v1::model::ContactPrivacy;
-    /// let x = Registration::new().set_supported_privacy([
-    ///     ContactPrivacy::PublicContactData,
-    ///     ContactPrivacy::PrivateContactData,
-    ///     ContactPrivacy::RedactedContactData,
-    /// ]);
-    /// ```
     pub fn set_supported_privacy<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -766,14 +625,6 @@ impl ManagementSettings {
     }
 
     /// Sets the value of [renewal_method][crate::model::ManagementSettings::renewal_method].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_domains_v1::model::ManagementSettings;
-    /// use google_cloud_domains_v1::model::management_settings::RenewalMethod;
-    /// let x0 = ManagementSettings::new().set_renewal_method(RenewalMethod::AutomaticRenewal);
-    /// let x1 = ManagementSettings::new().set_renewal_method(RenewalMethod::ManualRenewal);
-    /// ```
     pub fn set_renewal_method<
         T: std::convert::Into<crate::model::management_settings::RenewalMethod>,
     >(
@@ -785,14 +636,6 @@ impl ManagementSettings {
     }
 
     /// Sets the value of [transfer_lock_state][crate::model::ManagementSettings::transfer_lock_state].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_domains_v1::model::ManagementSettings;
-    /// use google_cloud_domains_v1::model::TransferLockState;
-    /// let x0 = ManagementSettings::new().set_transfer_lock_state(TransferLockState::Unlocked);
-    /// let x1 = ManagementSettings::new().set_transfer_lock_state(TransferLockState::Locked);
-    /// ```
     pub fn set_transfer_lock_state<T: std::convert::Into<crate::model::TransferLockState>>(
         mut self,
         v: T,
@@ -974,17 +817,6 @@ impl DnsSettings {
     }
 
     /// Sets the value of [glue_records][crate::model::DnsSettings::glue_records].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_domains_v1::model::DnsSettings;
-    /// use google_cloud_domains_v1::model::dns_settings::GlueRecord;
-    /// let x = DnsSettings::new()
-    ///     .set_glue_records([
-    ///         GlueRecord::default()/* use setters */,
-    ///         GlueRecord::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_glue_records<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -999,14 +831,6 @@ impl DnsSettings {
     ///
     /// Note that all the setters affecting `dns_provider` are mutually
     /// exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_domains_v1::model::DnsSettings;
-    /// use google_cloud_domains_v1::model::dns_settings;
-    /// use google_cloud_domains_v1::model::dns_settings::CustomDns;
-    /// let x = DnsSettings::new().set_dns_provider(Some(dns_settings::DnsProvider::CustomDns(CustomDns::default().into())));
-    /// ```
     pub fn set_dns_provider<
         T: std::convert::Into<std::option::Option<crate::model::dns_settings::DnsProvider>>,
     >(
@@ -1035,15 +859,6 @@ impl DnsSettings {
     ///
     /// Note that all the setters affecting `dns_provider` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_domains_v1::model::DnsSettings;
-    /// use google_cloud_domains_v1::model::dns_settings::CustomDns;
-    /// let x = DnsSettings::new().set_custom_dns(CustomDns::default()/* use setters */);
-    /// assert!(x.custom_dns().is_some());
-    /// assert!(x.google_domains_dns().is_none());
-    /// ```
     pub fn set_custom_dns<
         T: std::convert::Into<std::boxed::Box<crate::model::dns_settings::CustomDns>>,
     >(
@@ -1075,15 +890,6 @@ impl DnsSettings {
     ///
     /// Note that all the setters affecting `dns_provider` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_domains_v1::model::DnsSettings;
-    /// use google_cloud_domains_v1::model::dns_settings::GoogleDomainsDns;
-    /// let x = DnsSettings::new().set_google_domains_dns(GoogleDomainsDns::default()/* use setters */);
-    /// assert!(x.google_domains_dns().is_some());
-    /// assert!(x.custom_dns().is_none());
-    /// ```
     pub fn set_google_domains_dns<
         T: std::convert::Into<std::boxed::Box<crate::model::dns_settings::GoogleDomainsDns>>,
     >(
@@ -1131,12 +937,6 @@ pub mod dns_settings {
         }
 
         /// Sets the value of [name_servers][crate::model::dns_settings::CustomDns::name_servers].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_domains_v1::model::dns_settings::CustomDns;
-        /// let x = CustomDns::new().set_name_servers(["a", "b", "c"]);
-        /// ```
         pub fn set_name_servers<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -1148,17 +948,6 @@ pub mod dns_settings {
         }
 
         /// Sets the value of [ds_records][crate::model::dns_settings::CustomDns::ds_records].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_domains_v1::model::dns_settings::CustomDns;
-        /// use google_cloud_domains_v1::model::dns_settings::DsRecord;
-        /// let x = CustomDns::new()
-        ///     .set_ds_records([
-        ///         DsRecord::default()/* use setters */,
-        ///         DsRecord::default()/* use (different) setters */,
-        ///     ]);
-        /// ```
         pub fn set_ds_records<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -1207,12 +996,6 @@ pub mod dns_settings {
         }
 
         /// Sets the value of [name_servers][crate::model::dns_settings::GoogleDomainsDns::name_servers].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_domains_v1::model::dns_settings::GoogleDomainsDns;
-        /// let x = GoogleDomainsDns::new().set_name_servers(["a", "b", "c"]);
-        /// ```
         pub fn set_name_servers<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -1224,14 +1007,6 @@ pub mod dns_settings {
         }
 
         /// Sets the value of [ds_state][crate::model::dns_settings::GoogleDomainsDns::ds_state].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_domains_v1::model::dns_settings::GoogleDomainsDns;
-        /// use google_cloud_domains_v1::model::dns_settings::DsState;
-        /// let x0 = GoogleDomainsDns::new().set_ds_state(DsState::DsRecordsUnpublished);
-        /// let x1 = GoogleDomainsDns::new().set_ds_state(DsState::DsRecordsPublished);
-        /// ```
         pub fn set_ds_state<T: std::convert::Into<crate::model::dns_settings::DsState>>(
             mut self,
             v: T,
@@ -1241,17 +1016,6 @@ pub mod dns_settings {
         }
 
         /// Sets the value of [ds_records][crate::model::dns_settings::GoogleDomainsDns::ds_records].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_domains_v1::model::dns_settings::GoogleDomainsDns;
-        /// use google_cloud_domains_v1::model::dns_settings::DsRecord;
-        /// let x = GoogleDomainsDns::new()
-        ///     .set_ds_records([
-        ///         DsRecord::default()/* use setters */,
-        ///         DsRecord::default()/* use (different) setters */,
-        ///     ]);
-        /// ```
         pub fn set_ds_records<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -1296,27 +1060,12 @@ pub mod dns_settings {
         }
 
         /// Sets the value of [key_tag][crate::model::dns_settings::DsRecord::key_tag].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_domains_v1::model::dns_settings::DsRecord;
-        /// let x = DsRecord::new().set_key_tag(42);
-        /// ```
         pub fn set_key_tag<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.key_tag = v.into();
             self
         }
 
         /// Sets the value of [algorithm][crate::model::dns_settings::DsRecord::algorithm].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_domains_v1::model::dns_settings::DsRecord;
-        /// use google_cloud_domains_v1::model::dns_settings::ds_record::Algorithm;
-        /// let x0 = DsRecord::new().set_algorithm(Algorithm::Rsamd5);
-        /// let x1 = DsRecord::new().set_algorithm(Algorithm::Dh);
-        /// let x2 = DsRecord::new().set_algorithm(Algorithm::Dsa);
-        /// ```
         pub fn set_algorithm<
             T: std::convert::Into<crate::model::dns_settings::ds_record::Algorithm>,
         >(
@@ -1328,15 +1077,6 @@ pub mod dns_settings {
         }
 
         /// Sets the value of [digest_type][crate::model::dns_settings::DsRecord::digest_type].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_domains_v1::model::dns_settings::DsRecord;
-        /// use google_cloud_domains_v1::model::dns_settings::ds_record::DigestType;
-        /// let x0 = DsRecord::new().set_digest_type(DigestType::Sha1);
-        /// let x1 = DsRecord::new().set_digest_type(DigestType::Sha256);
-        /// let x2 = DsRecord::new().set_digest_type(DigestType::Gost3411);
-        /// ```
         pub fn set_digest_type<
             T: std::convert::Into<crate::model::dns_settings::ds_record::DigestType>,
         >(
@@ -1348,12 +1088,6 @@ pub mod dns_settings {
         }
 
         /// Sets the value of [digest][crate::model::dns_settings::DsRecord::digest].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_domains_v1::model::dns_settings::DsRecord;
-        /// let x = DsRecord::new().set_digest("example");
-        /// ```
         pub fn set_digest<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.digest = v.into();
             self
@@ -1794,24 +1528,12 @@ pub mod dns_settings {
         }
 
         /// Sets the value of [host_name][crate::model::dns_settings::GlueRecord::host_name].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_domains_v1::model::dns_settings::GlueRecord;
-        /// let x = GlueRecord::new().set_host_name("example");
-        /// ```
         pub fn set_host_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.host_name = v.into();
             self
         }
 
         /// Sets the value of [ipv4_addresses][crate::model::dns_settings::GlueRecord::ipv4_addresses].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_domains_v1::model::dns_settings::GlueRecord;
-        /// let x = GlueRecord::new().set_ipv4_addresses(["a", "b", "c"]);
-        /// ```
         pub fn set_ipv4_addresses<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -1823,12 +1545,6 @@ pub mod dns_settings {
         }
 
         /// Sets the value of [ipv6_addresses][crate::model::dns_settings::GlueRecord::ipv6_addresses].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_domains_v1::model::dns_settings::GlueRecord;
-        /// let x = GlueRecord::new().set_ipv6_addresses(["a", "b", "c"]);
-        /// ```
         pub fn set_ipv6_addresses<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -2030,15 +1746,6 @@ impl ContactSettings {
     }
 
     /// Sets the value of [privacy][crate::model::ContactSettings::privacy].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_domains_v1::model::ContactSettings;
-    /// use google_cloud_domains_v1::model::ContactPrivacy;
-    /// let x0 = ContactSettings::new().set_privacy(ContactPrivacy::PublicContactData);
-    /// let x1 = ContactSettings::new().set_privacy(ContactPrivacy::PrivateContactData);
-    /// let x2 = ContactSettings::new().set_privacy(ContactPrivacy::RedactedContactData);
-    /// ```
     pub fn set_privacy<T: std::convert::Into<crate::model::ContactPrivacy>>(
         mut self,
         v: T,
@@ -2048,13 +1755,6 @@ impl ContactSettings {
     }
 
     /// Sets the value of [registrant_contact][crate::model::ContactSettings::registrant_contact].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_domains_v1::model::ContactSettings;
-    /// use google_cloud_domains_v1::model::contact_settings::Contact;
-    /// let x = ContactSettings::new().set_registrant_contact(Contact::default()/* use setters */);
-    /// ```
     pub fn set_registrant_contact<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::contact_settings::Contact>,
@@ -2064,14 +1764,6 @@ impl ContactSettings {
     }
 
     /// Sets or clears the value of [registrant_contact][crate::model::ContactSettings::registrant_contact].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_domains_v1::model::ContactSettings;
-    /// use google_cloud_domains_v1::model::contact_settings::Contact;
-    /// let x = ContactSettings::new().set_or_clear_registrant_contact(Some(Contact::default()/* use setters */));
-    /// let x = ContactSettings::new().set_or_clear_registrant_contact(None::<Contact>);
-    /// ```
     pub fn set_or_clear_registrant_contact<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::contact_settings::Contact>,
@@ -2081,13 +1773,6 @@ impl ContactSettings {
     }
 
     /// Sets the value of [admin_contact][crate::model::ContactSettings::admin_contact].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_domains_v1::model::ContactSettings;
-    /// use google_cloud_domains_v1::model::contact_settings::Contact;
-    /// let x = ContactSettings::new().set_admin_contact(Contact::default()/* use setters */);
-    /// ```
     pub fn set_admin_contact<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::contact_settings::Contact>,
@@ -2097,14 +1782,6 @@ impl ContactSettings {
     }
 
     /// Sets or clears the value of [admin_contact][crate::model::ContactSettings::admin_contact].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_domains_v1::model::ContactSettings;
-    /// use google_cloud_domains_v1::model::contact_settings::Contact;
-    /// let x = ContactSettings::new().set_or_clear_admin_contact(Some(Contact::default()/* use setters */));
-    /// let x = ContactSettings::new().set_or_clear_admin_contact(None::<Contact>);
-    /// ```
     pub fn set_or_clear_admin_contact<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::contact_settings::Contact>,
@@ -2114,13 +1791,6 @@ impl ContactSettings {
     }
 
     /// Sets the value of [technical_contact][crate::model::ContactSettings::technical_contact].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_domains_v1::model::ContactSettings;
-    /// use google_cloud_domains_v1::model::contact_settings::Contact;
-    /// let x = ContactSettings::new().set_technical_contact(Contact::default()/* use setters */);
-    /// ```
     pub fn set_technical_contact<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::contact_settings::Contact>,
@@ -2130,14 +1800,6 @@ impl ContactSettings {
     }
 
     /// Sets or clears the value of [technical_contact][crate::model::ContactSettings::technical_contact].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_domains_v1::model::ContactSettings;
-    /// use google_cloud_domains_v1::model::contact_settings::Contact;
-    /// let x = ContactSettings::new().set_or_clear_technical_contact(Some(Contact::default()/* use setters */));
-    /// let x = ContactSettings::new().set_or_clear_technical_contact(None::<Contact>);
-    /// ```
     pub fn set_or_clear_technical_contact<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::contact_settings::Contact>,
@@ -2185,13 +1847,6 @@ pub mod contact_settings {
         }
 
         /// Sets the value of [postal_address][crate::model::contact_settings::Contact::postal_address].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_domains_v1::model::contact_settings::Contact;
-        /// use gtype::model::PostalAddress;
-        /// let x = Contact::new().set_postal_address(PostalAddress::default()/* use setters */);
-        /// ```
         pub fn set_postal_address<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<gtype::model::PostalAddress>,
@@ -2201,14 +1856,6 @@ pub mod contact_settings {
         }
 
         /// Sets or clears the value of [postal_address][crate::model::contact_settings::Contact::postal_address].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_domains_v1::model::contact_settings::Contact;
-        /// use gtype::model::PostalAddress;
-        /// let x = Contact::new().set_or_clear_postal_address(Some(PostalAddress::default()/* use setters */));
-        /// let x = Contact::new().set_or_clear_postal_address(None::<PostalAddress>);
-        /// ```
         pub fn set_or_clear_postal_address<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<gtype::model::PostalAddress>,
@@ -2218,24 +1865,12 @@ pub mod contact_settings {
         }
 
         /// Sets the value of [email][crate::model::contact_settings::Contact::email].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_domains_v1::model::contact_settings::Contact;
-        /// let x = Contact::new().set_email("example");
-        /// ```
         pub fn set_email<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.email = v.into();
             self
         }
 
         /// Sets the value of [phone_number][crate::model::contact_settings::Contact::phone_number].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_domains_v1::model::contact_settings::Contact;
-        /// let x = Contact::new().set_phone_number("example");
-        /// ```
         pub fn set_phone_number<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -2245,12 +1880,6 @@ pub mod contact_settings {
         }
 
         /// Sets the value of [fax_number][crate::model::contact_settings::Contact::fax_number].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_domains_v1::model::contact_settings::Contact;
-        /// let x = Contact::new().set_fax_number("example");
-        /// ```
         pub fn set_fax_number<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.fax_number = v.into();
             self
@@ -2283,24 +1912,12 @@ impl SearchDomainsRequest {
     }
 
     /// Sets the value of [query][crate::model::SearchDomainsRequest::query].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_domains_v1::model::SearchDomainsRequest;
-    /// let x = SearchDomainsRequest::new().set_query("example");
-    /// ```
     pub fn set_query<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.query = v.into();
         self
     }
 
     /// Sets the value of [location][crate::model::SearchDomainsRequest::location].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_domains_v1::model::SearchDomainsRequest;
-    /// let x = SearchDomainsRequest::new().set_location("example");
-    /// ```
     pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.location = v.into();
         self
@@ -2329,17 +1946,6 @@ impl SearchDomainsResponse {
     }
 
     /// Sets the value of [register_parameters][crate::model::SearchDomainsResponse::register_parameters].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_domains_v1::model::SearchDomainsResponse;
-    /// use google_cloud_domains_v1::model::RegisterParameters;
-    /// let x = SearchDomainsResponse::new()
-    ///     .set_register_parameters([
-    ///         RegisterParameters::default()/* use setters */,
-    ///         RegisterParameters::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_register_parameters<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2376,24 +1982,12 @@ impl RetrieveRegisterParametersRequest {
     }
 
     /// Sets the value of [domain_name][crate::model::RetrieveRegisterParametersRequest::domain_name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_domains_v1::model::RetrieveRegisterParametersRequest;
-    /// let x = RetrieveRegisterParametersRequest::new().set_domain_name("example");
-    /// ```
     pub fn set_domain_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.domain_name = v.into();
         self
     }
 
     /// Sets the value of [location][crate::model::RetrieveRegisterParametersRequest::location].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_domains_v1::model::RetrieveRegisterParametersRequest;
-    /// let x = RetrieveRegisterParametersRequest::new().set_location("example");
-    /// ```
     pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.location = v.into();
         self
@@ -2422,13 +2016,6 @@ impl RetrieveRegisterParametersResponse {
     }
 
     /// Sets the value of [register_parameters][crate::model::RetrieveRegisterParametersResponse::register_parameters].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_domains_v1::model::RetrieveRegisterParametersResponse;
-    /// use google_cloud_domains_v1::model::RegisterParameters;
-    /// let x = RetrieveRegisterParametersResponse::new().set_register_parameters(RegisterParameters::default()/* use setters */);
-    /// ```
     pub fn set_register_parameters<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::RegisterParameters>,
@@ -2438,14 +2025,6 @@ impl RetrieveRegisterParametersResponse {
     }
 
     /// Sets or clears the value of [register_parameters][crate::model::RetrieveRegisterParametersResponse::register_parameters].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_domains_v1::model::RetrieveRegisterParametersResponse;
-    /// use google_cloud_domains_v1::model::RegisterParameters;
-    /// let x = RetrieveRegisterParametersResponse::new().set_or_clear_register_parameters(Some(RegisterParameters::default()/* use setters */));
-    /// let x = RetrieveRegisterParametersResponse::new().set_or_clear_register_parameters(None::<RegisterParameters>);
-    /// ```
     pub fn set_or_clear_register_parameters<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::RegisterParameters>,
@@ -2500,25 +2079,12 @@ impl RegisterDomainRequest {
     }
 
     /// Sets the value of [parent][crate::model::RegisterDomainRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_domains_v1::model::RegisterDomainRequest;
-    /// let x = RegisterDomainRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [registration][crate::model::RegisterDomainRequest::registration].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_domains_v1::model::RegisterDomainRequest;
-    /// use google_cloud_domains_v1::model::Registration;
-    /// let x = RegisterDomainRequest::new().set_registration(Registration::default()/* use setters */);
-    /// ```
     pub fn set_registration<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Registration>,
@@ -2528,14 +2094,6 @@ impl RegisterDomainRequest {
     }
 
     /// Sets or clears the value of [registration][crate::model::RegisterDomainRequest::registration].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_domains_v1::model::RegisterDomainRequest;
-    /// use google_cloud_domains_v1::model::Registration;
-    /// let x = RegisterDomainRequest::new().set_or_clear_registration(Some(Registration::default()/* use setters */));
-    /// let x = RegisterDomainRequest::new().set_or_clear_registration(None::<Registration>);
-    /// ```
     pub fn set_or_clear_registration<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Registration>,
@@ -2545,15 +2103,6 @@ impl RegisterDomainRequest {
     }
 
     /// Sets the value of [domain_notices][crate::model::RegisterDomainRequest::domain_notices].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_domains_v1::model::RegisterDomainRequest;
-    /// use google_cloud_domains_v1::model::DomainNotice;
-    /// let x = RegisterDomainRequest::new().set_domain_notices([
-    ///     DomainNotice::HstsPreloaded,
-    /// ]);
-    /// ```
     pub fn set_domain_notices<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2565,15 +2114,6 @@ impl RegisterDomainRequest {
     }
 
     /// Sets the value of [contact_notices][crate::model::RegisterDomainRequest::contact_notices].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_domains_v1::model::RegisterDomainRequest;
-    /// use google_cloud_domains_v1::model::ContactNotice;
-    /// let x = RegisterDomainRequest::new().set_contact_notices([
-    ///     ContactNotice::PublicContactDataAcknowledgement,
-    /// ]);
-    /// ```
     pub fn set_contact_notices<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2585,13 +2125,6 @@ impl RegisterDomainRequest {
     }
 
     /// Sets the value of [yearly_price][crate::model::RegisterDomainRequest::yearly_price].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_domains_v1::model::RegisterDomainRequest;
-    /// use gtype::model::Money;
-    /// let x = RegisterDomainRequest::new().set_yearly_price(Money::default()/* use setters */);
-    /// ```
     pub fn set_yearly_price<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<gtype::model::Money>,
@@ -2601,14 +2134,6 @@ impl RegisterDomainRequest {
     }
 
     /// Sets or clears the value of [yearly_price][crate::model::RegisterDomainRequest::yearly_price].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_domains_v1::model::RegisterDomainRequest;
-    /// use gtype::model::Money;
-    /// let x = RegisterDomainRequest::new().set_or_clear_yearly_price(Some(Money::default()/* use setters */));
-    /// let x = RegisterDomainRequest::new().set_or_clear_yearly_price(None::<Money>);
-    /// ```
     pub fn set_or_clear_yearly_price<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<gtype::model::Money>,
@@ -2618,12 +2143,6 @@ impl RegisterDomainRequest {
     }
 
     /// Sets the value of [validate_only][crate::model::RegisterDomainRequest::validate_only].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_domains_v1::model::RegisterDomainRequest;
-    /// let x = RegisterDomainRequest::new().set_validate_only(true);
-    /// ```
     pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.validate_only = v.into();
         self
@@ -2655,24 +2174,12 @@ impl RetrieveTransferParametersRequest {
     }
 
     /// Sets the value of [domain_name][crate::model::RetrieveTransferParametersRequest::domain_name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_domains_v1::model::RetrieveTransferParametersRequest;
-    /// let x = RetrieveTransferParametersRequest::new().set_domain_name("example");
-    /// ```
     pub fn set_domain_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.domain_name = v.into();
         self
     }
 
     /// Sets the value of [location][crate::model::RetrieveTransferParametersRequest::location].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_domains_v1::model::RetrieveTransferParametersRequest;
-    /// let x = RetrieveTransferParametersRequest::new().set_location("example");
-    /// ```
     pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.location = v.into();
         self
@@ -2701,13 +2208,6 @@ impl RetrieveTransferParametersResponse {
     }
 
     /// Sets the value of [transfer_parameters][crate::model::RetrieveTransferParametersResponse::transfer_parameters].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_domains_v1::model::RetrieveTransferParametersResponse;
-    /// use google_cloud_domains_v1::model::TransferParameters;
-    /// let x = RetrieveTransferParametersResponse::new().set_transfer_parameters(TransferParameters::default()/* use setters */);
-    /// ```
     pub fn set_transfer_parameters<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::TransferParameters>,
@@ -2717,14 +2217,6 @@ impl RetrieveTransferParametersResponse {
     }
 
     /// Sets or clears the value of [transfer_parameters][crate::model::RetrieveTransferParametersResponse::transfer_parameters].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_domains_v1::model::RetrieveTransferParametersResponse;
-    /// use google_cloud_domains_v1::model::TransferParameters;
-    /// let x = RetrieveTransferParametersResponse::new().set_or_clear_transfer_parameters(Some(TransferParameters::default()/* use setters */));
-    /// let x = RetrieveTransferParametersResponse::new().set_or_clear_transfer_parameters(None::<TransferParameters>);
-    /// ```
     pub fn set_or_clear_transfer_parameters<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::TransferParameters>,
@@ -2783,25 +2275,12 @@ impl TransferDomainRequest {
     }
 
     /// Sets the value of [parent][crate::model::TransferDomainRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_domains_v1::model::TransferDomainRequest;
-    /// let x = TransferDomainRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [registration][crate::model::TransferDomainRequest::registration].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_domains_v1::model::TransferDomainRequest;
-    /// use google_cloud_domains_v1::model::Registration;
-    /// let x = TransferDomainRequest::new().set_registration(Registration::default()/* use setters */);
-    /// ```
     pub fn set_registration<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Registration>,
@@ -2811,14 +2290,6 @@ impl TransferDomainRequest {
     }
 
     /// Sets or clears the value of [registration][crate::model::TransferDomainRequest::registration].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_domains_v1::model::TransferDomainRequest;
-    /// use google_cloud_domains_v1::model::Registration;
-    /// let x = TransferDomainRequest::new().set_or_clear_registration(Some(Registration::default()/* use setters */));
-    /// let x = TransferDomainRequest::new().set_or_clear_registration(None::<Registration>);
-    /// ```
     pub fn set_or_clear_registration<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Registration>,
@@ -2828,15 +2299,6 @@ impl TransferDomainRequest {
     }
 
     /// Sets the value of [contact_notices][crate::model::TransferDomainRequest::contact_notices].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_domains_v1::model::TransferDomainRequest;
-    /// use google_cloud_domains_v1::model::ContactNotice;
-    /// let x = TransferDomainRequest::new().set_contact_notices([
-    ///     ContactNotice::PublicContactDataAcknowledgement,
-    /// ]);
-    /// ```
     pub fn set_contact_notices<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2848,13 +2310,6 @@ impl TransferDomainRequest {
     }
 
     /// Sets the value of [yearly_price][crate::model::TransferDomainRequest::yearly_price].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_domains_v1::model::TransferDomainRequest;
-    /// use gtype::model::Money;
-    /// let x = TransferDomainRequest::new().set_yearly_price(Money::default()/* use setters */);
-    /// ```
     pub fn set_yearly_price<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<gtype::model::Money>,
@@ -2864,14 +2319,6 @@ impl TransferDomainRequest {
     }
 
     /// Sets or clears the value of [yearly_price][crate::model::TransferDomainRequest::yearly_price].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_domains_v1::model::TransferDomainRequest;
-    /// use gtype::model::Money;
-    /// let x = TransferDomainRequest::new().set_or_clear_yearly_price(Some(Money::default()/* use setters */));
-    /// let x = TransferDomainRequest::new().set_or_clear_yearly_price(None::<Money>);
-    /// ```
     pub fn set_or_clear_yearly_price<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<gtype::model::Money>,
@@ -2881,13 +2328,6 @@ impl TransferDomainRequest {
     }
 
     /// Sets the value of [authorization_code][crate::model::TransferDomainRequest::authorization_code].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_domains_v1::model::TransferDomainRequest;
-    /// use google_cloud_domains_v1::model::AuthorizationCode;
-    /// let x = TransferDomainRequest::new().set_authorization_code(AuthorizationCode::default()/* use setters */);
-    /// ```
     pub fn set_authorization_code<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::AuthorizationCode>,
@@ -2897,14 +2337,6 @@ impl TransferDomainRequest {
     }
 
     /// Sets or clears the value of [authorization_code][crate::model::TransferDomainRequest::authorization_code].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_domains_v1::model::TransferDomainRequest;
-    /// use google_cloud_domains_v1::model::AuthorizationCode;
-    /// let x = TransferDomainRequest::new().set_or_clear_authorization_code(Some(AuthorizationCode::default()/* use setters */));
-    /// let x = TransferDomainRequest::new().set_or_clear_authorization_code(None::<AuthorizationCode>);
-    /// ```
     pub fn set_or_clear_authorization_code<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AuthorizationCode>,
@@ -2914,12 +2346,6 @@ impl TransferDomainRequest {
     }
 
     /// Sets the value of [validate_only][crate::model::TransferDomainRequest::validate_only].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_domains_v1::model::TransferDomainRequest;
-    /// let x = TransferDomainRequest::new().set_validate_only(true);
-    /// ```
     pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.validate_only = v.into();
         self
@@ -2974,48 +2400,24 @@ impl ListRegistrationsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListRegistrationsRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_domains_v1::model::ListRegistrationsRequest;
-    /// let x = ListRegistrationsRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListRegistrationsRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_domains_v1::model::ListRegistrationsRequest;
-    /// let x = ListRegistrationsRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListRegistrationsRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_domains_v1::model::ListRegistrationsRequest;
-    /// let x = ListRegistrationsRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListRegistrationsRequest::filter].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_domains_v1::model::ListRegistrationsRequest;
-    /// let x = ListRegistrationsRequest::new().set_filter("example");
-    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
@@ -3048,17 +2450,6 @@ impl ListRegistrationsResponse {
     }
 
     /// Sets the value of [registrations][crate::model::ListRegistrationsResponse::registrations].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_domains_v1::model::ListRegistrationsResponse;
-    /// use google_cloud_domains_v1::model::Registration;
-    /// let x = ListRegistrationsResponse::new()
-    ///     .set_registrations([
-    ///         Registration::default()/* use setters */,
-    ///         Registration::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_registrations<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3070,12 +2461,6 @@ impl ListRegistrationsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListRegistrationsResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_domains_v1::model::ListRegistrationsResponse;
-    /// let x = ListRegistrationsResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -3119,12 +2504,6 @@ impl GetRegistrationRequest {
     }
 
     /// Sets the value of [name][crate::model::GetRegistrationRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_domains_v1::model::GetRegistrationRequest;
-    /// let x = GetRegistrationRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -3158,13 +2537,6 @@ impl UpdateRegistrationRequest {
     }
 
     /// Sets the value of [registration][crate::model::UpdateRegistrationRequest::registration].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_domains_v1::model::UpdateRegistrationRequest;
-    /// use google_cloud_domains_v1::model::Registration;
-    /// let x = UpdateRegistrationRequest::new().set_registration(Registration::default()/* use setters */);
-    /// ```
     pub fn set_registration<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Registration>,
@@ -3174,14 +2546,6 @@ impl UpdateRegistrationRequest {
     }
 
     /// Sets or clears the value of [registration][crate::model::UpdateRegistrationRequest::registration].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_domains_v1::model::UpdateRegistrationRequest;
-    /// use google_cloud_domains_v1::model::Registration;
-    /// let x = UpdateRegistrationRequest::new().set_or_clear_registration(Some(Registration::default()/* use setters */));
-    /// let x = UpdateRegistrationRequest::new().set_or_clear_registration(None::<Registration>);
-    /// ```
     pub fn set_or_clear_registration<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Registration>,
@@ -3191,13 +2555,6 @@ impl UpdateRegistrationRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateRegistrationRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_domains_v1::model::UpdateRegistrationRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateRegistrationRequest::new().set_update_mask(FieldMask::default()/* use setters */);
-    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -3207,14 +2564,6 @@ impl UpdateRegistrationRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateRegistrationRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_domains_v1::model::UpdateRegistrationRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateRegistrationRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
-    /// let x = UpdateRegistrationRequest::new().set_or_clear_update_mask(None::<FieldMask>);
-    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -3255,25 +2604,12 @@ impl ConfigureManagementSettingsRequest {
     }
 
     /// Sets the value of [registration][crate::model::ConfigureManagementSettingsRequest::registration].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_domains_v1::model::ConfigureManagementSettingsRequest;
-    /// let x = ConfigureManagementSettingsRequest::new().set_registration("example");
-    /// ```
     pub fn set_registration<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.registration = v.into();
         self
     }
 
     /// Sets the value of [management_settings][crate::model::ConfigureManagementSettingsRequest::management_settings].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_domains_v1::model::ConfigureManagementSettingsRequest;
-    /// use google_cloud_domains_v1::model::ManagementSettings;
-    /// let x = ConfigureManagementSettingsRequest::new().set_management_settings(ManagementSettings::default()/* use setters */);
-    /// ```
     pub fn set_management_settings<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ManagementSettings>,
@@ -3283,14 +2619,6 @@ impl ConfigureManagementSettingsRequest {
     }
 
     /// Sets or clears the value of [management_settings][crate::model::ConfigureManagementSettingsRequest::management_settings].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_domains_v1::model::ConfigureManagementSettingsRequest;
-    /// use google_cloud_domains_v1::model::ManagementSettings;
-    /// let x = ConfigureManagementSettingsRequest::new().set_or_clear_management_settings(Some(ManagementSettings::default()/* use setters */));
-    /// let x = ConfigureManagementSettingsRequest::new().set_or_clear_management_settings(None::<ManagementSettings>);
-    /// ```
     pub fn set_or_clear_management_settings<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ManagementSettings>,
@@ -3300,13 +2628,6 @@ impl ConfigureManagementSettingsRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::ConfigureManagementSettingsRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_domains_v1::model::ConfigureManagementSettingsRequest;
-    /// use wkt::FieldMask;
-    /// let x = ConfigureManagementSettingsRequest::new().set_update_mask(FieldMask::default()/* use setters */);
-    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -3316,14 +2637,6 @@ impl ConfigureManagementSettingsRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::ConfigureManagementSettingsRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_domains_v1::model::ConfigureManagementSettingsRequest;
-    /// use wkt::FieldMask;
-    /// let x = ConfigureManagementSettingsRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
-    /// let x = ConfigureManagementSettingsRequest::new().set_or_clear_update_mask(None::<FieldMask>);
-    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -3373,25 +2686,12 @@ impl ConfigureDnsSettingsRequest {
     }
 
     /// Sets the value of [registration][crate::model::ConfigureDnsSettingsRequest::registration].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_domains_v1::model::ConfigureDnsSettingsRequest;
-    /// let x = ConfigureDnsSettingsRequest::new().set_registration("example");
-    /// ```
     pub fn set_registration<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.registration = v.into();
         self
     }
 
     /// Sets the value of [dns_settings][crate::model::ConfigureDnsSettingsRequest::dns_settings].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_domains_v1::model::ConfigureDnsSettingsRequest;
-    /// use google_cloud_domains_v1::model::DnsSettings;
-    /// let x = ConfigureDnsSettingsRequest::new().set_dns_settings(DnsSettings::default()/* use setters */);
-    /// ```
     pub fn set_dns_settings<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::DnsSettings>,
@@ -3401,14 +2701,6 @@ impl ConfigureDnsSettingsRequest {
     }
 
     /// Sets or clears the value of [dns_settings][crate::model::ConfigureDnsSettingsRequest::dns_settings].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_domains_v1::model::ConfigureDnsSettingsRequest;
-    /// use google_cloud_domains_v1::model::DnsSettings;
-    /// let x = ConfigureDnsSettingsRequest::new().set_or_clear_dns_settings(Some(DnsSettings::default()/* use setters */));
-    /// let x = ConfigureDnsSettingsRequest::new().set_or_clear_dns_settings(None::<DnsSettings>);
-    /// ```
     pub fn set_or_clear_dns_settings<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DnsSettings>,
@@ -3418,13 +2710,6 @@ impl ConfigureDnsSettingsRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::ConfigureDnsSettingsRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_domains_v1::model::ConfigureDnsSettingsRequest;
-    /// use wkt::FieldMask;
-    /// let x = ConfigureDnsSettingsRequest::new().set_update_mask(FieldMask::default()/* use setters */);
-    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -3434,14 +2719,6 @@ impl ConfigureDnsSettingsRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::ConfigureDnsSettingsRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_domains_v1::model::ConfigureDnsSettingsRequest;
-    /// use wkt::FieldMask;
-    /// let x = ConfigureDnsSettingsRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
-    /// let x = ConfigureDnsSettingsRequest::new().set_or_clear_update_mask(None::<FieldMask>);
-    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -3451,12 +2728,6 @@ impl ConfigureDnsSettingsRequest {
     }
 
     /// Sets the value of [validate_only][crate::model::ConfigureDnsSettingsRequest::validate_only].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_domains_v1::model::ConfigureDnsSettingsRequest;
-    /// let x = ConfigureDnsSettingsRequest::new().set_validate_only(true);
-    /// ```
     pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.validate_only = v.into();
         self
@@ -3501,25 +2772,12 @@ impl ConfigureContactSettingsRequest {
     }
 
     /// Sets the value of [registration][crate::model::ConfigureContactSettingsRequest::registration].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_domains_v1::model::ConfigureContactSettingsRequest;
-    /// let x = ConfigureContactSettingsRequest::new().set_registration("example");
-    /// ```
     pub fn set_registration<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.registration = v.into();
         self
     }
 
     /// Sets the value of [contact_settings][crate::model::ConfigureContactSettingsRequest::contact_settings].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_domains_v1::model::ConfigureContactSettingsRequest;
-    /// use google_cloud_domains_v1::model::ContactSettings;
-    /// let x = ConfigureContactSettingsRequest::new().set_contact_settings(ContactSettings::default()/* use setters */);
-    /// ```
     pub fn set_contact_settings<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ContactSettings>,
@@ -3529,14 +2787,6 @@ impl ConfigureContactSettingsRequest {
     }
 
     /// Sets or clears the value of [contact_settings][crate::model::ConfigureContactSettingsRequest::contact_settings].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_domains_v1::model::ConfigureContactSettingsRequest;
-    /// use google_cloud_domains_v1::model::ContactSettings;
-    /// let x = ConfigureContactSettingsRequest::new().set_or_clear_contact_settings(Some(ContactSettings::default()/* use setters */));
-    /// let x = ConfigureContactSettingsRequest::new().set_or_clear_contact_settings(None::<ContactSettings>);
-    /// ```
     pub fn set_or_clear_contact_settings<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ContactSettings>,
@@ -3546,13 +2796,6 @@ impl ConfigureContactSettingsRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::ConfigureContactSettingsRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_domains_v1::model::ConfigureContactSettingsRequest;
-    /// use wkt::FieldMask;
-    /// let x = ConfigureContactSettingsRequest::new().set_update_mask(FieldMask::default()/* use setters */);
-    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -3562,14 +2805,6 @@ impl ConfigureContactSettingsRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::ConfigureContactSettingsRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_domains_v1::model::ConfigureContactSettingsRequest;
-    /// use wkt::FieldMask;
-    /// let x = ConfigureContactSettingsRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
-    /// let x = ConfigureContactSettingsRequest::new().set_or_clear_update_mask(None::<FieldMask>);
-    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -3579,15 +2814,6 @@ impl ConfigureContactSettingsRequest {
     }
 
     /// Sets the value of [contact_notices][crate::model::ConfigureContactSettingsRequest::contact_notices].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_domains_v1::model::ConfigureContactSettingsRequest;
-    /// use google_cloud_domains_v1::model::ContactNotice;
-    /// let x = ConfigureContactSettingsRequest::new().set_contact_notices([
-    ///     ContactNotice::PublicContactDataAcknowledgement,
-    /// ]);
-    /// ```
     pub fn set_contact_notices<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3599,12 +2825,6 @@ impl ConfigureContactSettingsRequest {
     }
 
     /// Sets the value of [validate_only][crate::model::ConfigureContactSettingsRequest::validate_only].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_domains_v1::model::ConfigureContactSettingsRequest;
-    /// let x = ConfigureContactSettingsRequest::new().set_validate_only(true);
-    /// ```
     pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.validate_only = v.into();
         self
@@ -3634,12 +2854,6 @@ impl ExportRegistrationRequest {
     }
 
     /// Sets the value of [name][crate::model::ExportRegistrationRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_domains_v1::model::ExportRegistrationRequest;
-    /// let x = ExportRegistrationRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -3669,12 +2883,6 @@ impl DeleteRegistrationRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteRegistrationRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_domains_v1::model::DeleteRegistrationRequest;
-    /// let x = DeleteRegistrationRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -3704,12 +2912,6 @@ impl RetrieveAuthorizationCodeRequest {
     }
 
     /// Sets the value of [registration][crate::model::RetrieveAuthorizationCodeRequest::registration].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_domains_v1::model::RetrieveAuthorizationCodeRequest;
-    /// let x = RetrieveAuthorizationCodeRequest::new().set_registration("example");
-    /// ```
     pub fn set_registration<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.registration = v.into();
         self
@@ -3739,12 +2941,6 @@ impl ResetAuthorizationCodeRequest {
     }
 
     /// Sets the value of [registration][crate::model::ResetAuthorizationCodeRequest::registration].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_domains_v1::model::ResetAuthorizationCodeRequest;
-    /// let x = ResetAuthorizationCodeRequest::new().set_registration("example");
-    /// ```
     pub fn set_registration<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.registration = v.into();
         self
@@ -3787,27 +2983,12 @@ impl RegisterParameters {
     }
 
     /// Sets the value of [domain_name][crate::model::RegisterParameters::domain_name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_domains_v1::model::RegisterParameters;
-    /// let x = RegisterParameters::new().set_domain_name("example");
-    /// ```
     pub fn set_domain_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.domain_name = v.into();
         self
     }
 
     /// Sets the value of [availability][crate::model::RegisterParameters::availability].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_domains_v1::model::RegisterParameters;
-    /// use google_cloud_domains_v1::model::register_parameters::Availability;
-    /// let x0 = RegisterParameters::new().set_availability(Availability::Available);
-    /// let x1 = RegisterParameters::new().set_availability(Availability::Unavailable);
-    /// let x2 = RegisterParameters::new().set_availability(Availability::Unsupported);
-    /// ```
     pub fn set_availability<
         T: std::convert::Into<crate::model::register_parameters::Availability>,
     >(
@@ -3819,17 +3000,6 @@ impl RegisterParameters {
     }
 
     /// Sets the value of [supported_privacy][crate::model::RegisterParameters::supported_privacy].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_domains_v1::model::RegisterParameters;
-    /// use google_cloud_domains_v1::model::ContactPrivacy;
-    /// let x = RegisterParameters::new().set_supported_privacy([
-    ///     ContactPrivacy::PublicContactData,
-    ///     ContactPrivacy::PrivateContactData,
-    ///     ContactPrivacy::RedactedContactData,
-    /// ]);
-    /// ```
     pub fn set_supported_privacy<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3841,15 +3011,6 @@ impl RegisterParameters {
     }
 
     /// Sets the value of [domain_notices][crate::model::RegisterParameters::domain_notices].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_domains_v1::model::RegisterParameters;
-    /// use google_cloud_domains_v1::model::DomainNotice;
-    /// let x = RegisterParameters::new().set_domain_notices([
-    ///     DomainNotice::HstsPreloaded,
-    /// ]);
-    /// ```
     pub fn set_domain_notices<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3861,13 +3022,6 @@ impl RegisterParameters {
     }
 
     /// Sets the value of [yearly_price][crate::model::RegisterParameters::yearly_price].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_domains_v1::model::RegisterParameters;
-    /// use gtype::model::Money;
-    /// let x = RegisterParameters::new().set_yearly_price(Money::default()/* use setters */);
-    /// ```
     pub fn set_yearly_price<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<gtype::model::Money>,
@@ -3877,14 +3031,6 @@ impl RegisterParameters {
     }
 
     /// Sets or clears the value of [yearly_price][crate::model::RegisterParameters::yearly_price].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_domains_v1::model::RegisterParameters;
-    /// use gtype::model::Money;
-    /// let x = RegisterParameters::new().set_or_clear_yearly_price(Some(Money::default()/* use setters */));
-    /// let x = RegisterParameters::new().set_or_clear_yearly_price(None::<Money>);
-    /// ```
     pub fn set_or_clear_yearly_price<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<gtype::model::Money>,
@@ -4088,24 +3234,12 @@ impl TransferParameters {
     }
 
     /// Sets the value of [domain_name][crate::model::TransferParameters::domain_name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_domains_v1::model::TransferParameters;
-    /// let x = TransferParameters::new().set_domain_name("example");
-    /// ```
     pub fn set_domain_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.domain_name = v.into();
         self
     }
 
     /// Sets the value of [current_registrar][crate::model::TransferParameters::current_registrar].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_domains_v1::model::TransferParameters;
-    /// let x = TransferParameters::new().set_current_registrar("example");
-    /// ```
     pub fn set_current_registrar<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -4115,12 +3249,6 @@ impl TransferParameters {
     }
 
     /// Sets the value of [name_servers][crate::model::TransferParameters::name_servers].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_domains_v1::model::TransferParameters;
-    /// let x = TransferParameters::new().set_name_servers(["a", "b", "c"]);
-    /// ```
     pub fn set_name_servers<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4132,14 +3260,6 @@ impl TransferParameters {
     }
 
     /// Sets the value of [transfer_lock_state][crate::model::TransferParameters::transfer_lock_state].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_domains_v1::model::TransferParameters;
-    /// use google_cloud_domains_v1::model::TransferLockState;
-    /// let x0 = TransferParameters::new().set_transfer_lock_state(TransferLockState::Unlocked);
-    /// let x1 = TransferParameters::new().set_transfer_lock_state(TransferLockState::Locked);
-    /// ```
     pub fn set_transfer_lock_state<T: std::convert::Into<crate::model::TransferLockState>>(
         mut self,
         v: T,
@@ -4149,17 +3269,6 @@ impl TransferParameters {
     }
 
     /// Sets the value of [supported_privacy][crate::model::TransferParameters::supported_privacy].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_domains_v1::model::TransferParameters;
-    /// use google_cloud_domains_v1::model::ContactPrivacy;
-    /// let x = TransferParameters::new().set_supported_privacy([
-    ///     ContactPrivacy::PublicContactData,
-    ///     ContactPrivacy::PrivateContactData,
-    ///     ContactPrivacy::RedactedContactData,
-    /// ]);
-    /// ```
     pub fn set_supported_privacy<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4171,13 +3280,6 @@ impl TransferParameters {
     }
 
     /// Sets the value of [yearly_price][crate::model::TransferParameters::yearly_price].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_domains_v1::model::TransferParameters;
-    /// use gtype::model::Money;
-    /// let x = TransferParameters::new().set_yearly_price(Money::default()/* use setters */);
-    /// ```
     pub fn set_yearly_price<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<gtype::model::Money>,
@@ -4187,14 +3289,6 @@ impl TransferParameters {
     }
 
     /// Sets or clears the value of [yearly_price][crate::model::TransferParameters::yearly_price].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_domains_v1::model::TransferParameters;
-    /// use gtype::model::Money;
-    /// let x = TransferParameters::new().set_or_clear_yearly_price(Some(Money::default()/* use setters */));
-    /// let x = TransferParameters::new().set_or_clear_yearly_price(None::<Money>);
-    /// ```
     pub fn set_or_clear_yearly_price<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<gtype::model::Money>,
@@ -4227,12 +3321,6 @@ impl AuthorizationCode {
     }
 
     /// Sets the value of [code][crate::model::AuthorizationCode::code].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_domains_v1::model::AuthorizationCode;
-    /// let x = AuthorizationCode::new().set_code("example");
-    /// ```
     pub fn set_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.code = v.into();
         self
@@ -4276,13 +3364,6 @@ impl OperationMetadata {
     }
 
     /// Sets the value of [create_time][crate::model::OperationMetadata::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_domains_v1::model::OperationMetadata;
-    /// use wkt::Timestamp;
-    /// let x = OperationMetadata::new().set_create_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4292,14 +3373,6 @@ impl OperationMetadata {
     }
 
     /// Sets or clears the value of [create_time][crate::model::OperationMetadata::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_domains_v1::model::OperationMetadata;
-    /// use wkt::Timestamp;
-    /// let x = OperationMetadata::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
-    /// let x = OperationMetadata::new().set_or_clear_create_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4309,13 +3382,6 @@ impl OperationMetadata {
     }
 
     /// Sets the value of [end_time][crate::model::OperationMetadata::end_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_domains_v1::model::OperationMetadata;
-    /// use wkt::Timestamp;
-    /// let x = OperationMetadata::new().set_end_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4325,14 +3391,6 @@ impl OperationMetadata {
     }
 
     /// Sets or clears the value of [end_time][crate::model::OperationMetadata::end_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_domains_v1::model::OperationMetadata;
-    /// use wkt::Timestamp;
-    /// let x = OperationMetadata::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
-    /// let x = OperationMetadata::new().set_or_clear_end_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4342,48 +3400,24 @@ impl OperationMetadata {
     }
 
     /// Sets the value of [target][crate::model::OperationMetadata::target].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_domains_v1::model::OperationMetadata;
-    /// let x = OperationMetadata::new().set_target("example");
-    /// ```
     pub fn set_target<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.target = v.into();
         self
     }
 
     /// Sets the value of [verb][crate::model::OperationMetadata::verb].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_domains_v1::model::OperationMetadata;
-    /// let x = OperationMetadata::new().set_verb("example");
-    /// ```
     pub fn set_verb<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.verb = v.into();
         self
     }
 
     /// Sets the value of [status_detail][crate::model::OperationMetadata::status_detail].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_domains_v1::model::OperationMetadata;
-    /// let x = OperationMetadata::new().set_status_detail("example");
-    /// ```
     pub fn set_status_detail<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.status_detail = v.into();
         self
     }
 
     /// Sets the value of [api_version][crate::model::OperationMetadata::api_version].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_domains_v1::model::OperationMetadata;
-    /// let x = OperationMetadata::new().set_api_version("example");
-    /// ```
     pub fn set_api_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.api_version = v.into();
         self

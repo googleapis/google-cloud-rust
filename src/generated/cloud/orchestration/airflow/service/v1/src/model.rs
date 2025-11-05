@@ -57,25 +57,12 @@ impl CreateEnvironmentRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateEnvironmentRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::CreateEnvironmentRequest;
-    /// let x = CreateEnvironmentRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [environment][crate::model::CreateEnvironmentRequest::environment].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::CreateEnvironmentRequest;
-    /// use google_cloud_orchestration_airflow_service_v1::model::Environment;
-    /// let x = CreateEnvironmentRequest::new().set_environment(Environment::default()/* use setters */);
-    /// ```
     pub fn set_environment<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Environment>,
@@ -85,14 +72,6 @@ impl CreateEnvironmentRequest {
     }
 
     /// Sets or clears the value of [environment][crate::model::CreateEnvironmentRequest::environment].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::CreateEnvironmentRequest;
-    /// use google_cloud_orchestration_airflow_service_v1::model::Environment;
-    /// let x = CreateEnvironmentRequest::new().set_or_clear_environment(Some(Environment::default()/* use setters */));
-    /// let x = CreateEnvironmentRequest::new().set_or_clear_environment(None::<Environment>);
-    /// ```
     pub fn set_or_clear_environment<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Environment>,
@@ -125,12 +104,6 @@ impl GetEnvironmentRequest {
     }
 
     /// Sets the value of [name][crate::model::GetEnvironmentRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::GetEnvironmentRequest;
-    /// let x = GetEnvironmentRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -166,36 +139,18 @@ impl ListEnvironmentsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListEnvironmentsRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::ListEnvironmentsRequest;
-    /// let x = ListEnvironmentsRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListEnvironmentsRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::ListEnvironmentsRequest;
-    /// let x = ListEnvironmentsRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListEnvironmentsRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::ListEnvironmentsRequest;
-    /// let x = ListEnvironmentsRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -227,17 +182,6 @@ impl ListEnvironmentsResponse {
     }
 
     /// Sets the value of [environments][crate::model::ListEnvironmentsResponse::environments].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::ListEnvironmentsResponse;
-    /// use google_cloud_orchestration_airflow_service_v1::model::Environment;
-    /// let x = ListEnvironmentsResponse::new()
-    ///     .set_environments([
-    ///         Environment::default()/* use setters */,
-    ///         Environment::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_environments<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -249,12 +193,6 @@ impl ListEnvironmentsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListEnvironmentsResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::ListEnvironmentsResponse;
-    /// let x = ListEnvironmentsResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -298,12 +236,6 @@ impl DeleteEnvironmentRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteEnvironmentRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::DeleteEnvironmentRequest;
-    /// let x = DeleteEnvironmentRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -468,25 +400,12 @@ impl UpdateEnvironmentRequest {
     }
 
     /// Sets the value of [name][crate::model::UpdateEnvironmentRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::UpdateEnvironmentRequest;
-    /// let x = UpdateEnvironmentRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [environment][crate::model::UpdateEnvironmentRequest::environment].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::UpdateEnvironmentRequest;
-    /// use google_cloud_orchestration_airflow_service_v1::model::Environment;
-    /// let x = UpdateEnvironmentRequest::new().set_environment(Environment::default()/* use setters */);
-    /// ```
     pub fn set_environment<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Environment>,
@@ -496,14 +415,6 @@ impl UpdateEnvironmentRequest {
     }
 
     /// Sets or clears the value of [environment][crate::model::UpdateEnvironmentRequest::environment].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::UpdateEnvironmentRequest;
-    /// use google_cloud_orchestration_airflow_service_v1::model::Environment;
-    /// let x = UpdateEnvironmentRequest::new().set_or_clear_environment(Some(Environment::default()/* use setters */));
-    /// let x = UpdateEnvironmentRequest::new().set_or_clear_environment(None::<Environment>);
-    /// ```
     pub fn set_or_clear_environment<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Environment>,
@@ -513,13 +424,6 @@ impl UpdateEnvironmentRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateEnvironmentRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::UpdateEnvironmentRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateEnvironmentRequest::new().set_update_mask(FieldMask::default()/* use setters */);
-    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -529,14 +433,6 @@ impl UpdateEnvironmentRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateEnvironmentRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::UpdateEnvironmentRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateEnvironmentRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
-    /// let x = UpdateEnvironmentRequest::new().set_or_clear_update_mask(None::<FieldMask>);
-    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -581,48 +477,24 @@ impl ExecuteAirflowCommandRequest {
     }
 
     /// Sets the value of [environment][crate::model::ExecuteAirflowCommandRequest::environment].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::ExecuteAirflowCommandRequest;
-    /// let x = ExecuteAirflowCommandRequest::new().set_environment("example");
-    /// ```
     pub fn set_environment<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.environment = v.into();
         self
     }
 
     /// Sets the value of [command][crate::model::ExecuteAirflowCommandRequest::command].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::ExecuteAirflowCommandRequest;
-    /// let x = ExecuteAirflowCommandRequest::new().set_command("example");
-    /// ```
     pub fn set_command<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.command = v.into();
         self
     }
 
     /// Sets the value of [subcommand][crate::model::ExecuteAirflowCommandRequest::subcommand].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::ExecuteAirflowCommandRequest;
-    /// let x = ExecuteAirflowCommandRequest::new().set_subcommand("example");
-    /// ```
     pub fn set_subcommand<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.subcommand = v.into();
         self
     }
 
     /// Sets the value of [parameters][crate::model::ExecuteAirflowCommandRequest::parameters].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::ExecuteAirflowCommandRequest;
-    /// let x = ExecuteAirflowCommandRequest::new().set_parameters(["a", "b", "c"]);
-    /// ```
     pub fn set_parameters<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -665,48 +537,24 @@ impl ExecuteAirflowCommandResponse {
     }
 
     /// Sets the value of [execution_id][crate::model::ExecuteAirflowCommandResponse::execution_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::ExecuteAirflowCommandResponse;
-    /// let x = ExecuteAirflowCommandResponse::new().set_execution_id("example");
-    /// ```
     pub fn set_execution_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.execution_id = v.into();
         self
     }
 
     /// Sets the value of [pod][crate::model::ExecuteAirflowCommandResponse::pod].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::ExecuteAirflowCommandResponse;
-    /// let x = ExecuteAirflowCommandResponse::new().set_pod("example");
-    /// ```
     pub fn set_pod<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.pod = v.into();
         self
     }
 
     /// Sets the value of [pod_namespace][crate::model::ExecuteAirflowCommandResponse::pod_namespace].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::ExecuteAirflowCommandResponse;
-    /// let x = ExecuteAirflowCommandResponse::new().set_pod_namespace("example");
-    /// ```
     pub fn set_pod_namespace<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.pod_namespace = v.into();
         self
     }
 
     /// Sets the value of [error][crate::model::ExecuteAirflowCommandResponse::error].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::ExecuteAirflowCommandResponse;
-    /// let x = ExecuteAirflowCommandResponse::new().set_error("example");
-    /// ```
     pub fn set_error<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.error = v.into();
         self
@@ -749,60 +597,30 @@ impl StopAirflowCommandRequest {
     }
 
     /// Sets the value of [environment][crate::model::StopAirflowCommandRequest::environment].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::StopAirflowCommandRequest;
-    /// let x = StopAirflowCommandRequest::new().set_environment("example");
-    /// ```
     pub fn set_environment<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.environment = v.into();
         self
     }
 
     /// Sets the value of [execution_id][crate::model::StopAirflowCommandRequest::execution_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::StopAirflowCommandRequest;
-    /// let x = StopAirflowCommandRequest::new().set_execution_id("example");
-    /// ```
     pub fn set_execution_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.execution_id = v.into();
         self
     }
 
     /// Sets the value of [pod][crate::model::StopAirflowCommandRequest::pod].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::StopAirflowCommandRequest;
-    /// let x = StopAirflowCommandRequest::new().set_pod("example");
-    /// ```
     pub fn set_pod<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.pod = v.into();
         self
     }
 
     /// Sets the value of [pod_namespace][crate::model::StopAirflowCommandRequest::pod_namespace].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::StopAirflowCommandRequest;
-    /// let x = StopAirflowCommandRequest::new().set_pod_namespace("example");
-    /// ```
     pub fn set_pod_namespace<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.pod_namespace = v.into();
         self
     }
 
     /// Sets the value of [force][crate::model::StopAirflowCommandRequest::force].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::StopAirflowCommandRequest;
-    /// let x = StopAirflowCommandRequest::new().set_force(true);
-    /// ```
     pub fn set_force<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.force = v.into();
         self
@@ -834,24 +652,12 @@ impl StopAirflowCommandResponse {
     }
 
     /// Sets the value of [is_done][crate::model::StopAirflowCommandResponse::is_done].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::StopAirflowCommandResponse;
-    /// let x = StopAirflowCommandResponse::new().set_is_done(true);
-    /// ```
     pub fn set_is_done<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.is_done = v.into();
         self
     }
 
     /// Sets the value of [output][crate::model::StopAirflowCommandResponse::output].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::StopAirflowCommandResponse;
-    /// let x = StopAirflowCommandResponse::new().set_output(["a", "b", "c"]);
-    /// ```
     pub fn set_output<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -898,60 +704,30 @@ impl PollAirflowCommandRequest {
     }
 
     /// Sets the value of [environment][crate::model::PollAirflowCommandRequest::environment].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::PollAirflowCommandRequest;
-    /// let x = PollAirflowCommandRequest::new().set_environment("example");
-    /// ```
     pub fn set_environment<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.environment = v.into();
         self
     }
 
     /// Sets the value of [execution_id][crate::model::PollAirflowCommandRequest::execution_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::PollAirflowCommandRequest;
-    /// let x = PollAirflowCommandRequest::new().set_execution_id("example");
-    /// ```
     pub fn set_execution_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.execution_id = v.into();
         self
     }
 
     /// Sets the value of [pod][crate::model::PollAirflowCommandRequest::pod].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::PollAirflowCommandRequest;
-    /// let x = PollAirflowCommandRequest::new().set_pod("example");
-    /// ```
     pub fn set_pod<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.pod = v.into();
         self
     }
 
     /// Sets the value of [pod_namespace][crate::model::PollAirflowCommandRequest::pod_namespace].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::PollAirflowCommandRequest;
-    /// let x = PollAirflowCommandRequest::new().set_pod_namespace("example");
-    /// ```
     pub fn set_pod_namespace<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.pod_namespace = v.into();
         self
     }
 
     /// Sets the value of [next_line_number][crate::model::PollAirflowCommandRequest::next_line_number].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::PollAirflowCommandRequest;
-    /// let x = PollAirflowCommandRequest::new().set_next_line_number(42);
-    /// ```
     pub fn set_next_line_number<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.next_line_number = v.into();
         self
@@ -987,17 +763,6 @@ impl PollAirflowCommandResponse {
     }
 
     /// Sets the value of [output][crate::model::PollAirflowCommandResponse::output].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::PollAirflowCommandResponse;
-    /// use google_cloud_orchestration_airflow_service_v1::model::poll_airflow_command_response::Line;
-    /// let x = PollAirflowCommandResponse::new()
-    ///     .set_output([
-    ///         Line::default()/* use setters */,
-    ///         Line::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_output<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1009,25 +774,12 @@ impl PollAirflowCommandResponse {
     }
 
     /// Sets the value of [output_end][crate::model::PollAirflowCommandResponse::output_end].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::PollAirflowCommandResponse;
-    /// let x = PollAirflowCommandResponse::new().set_output_end(true);
-    /// ```
     pub fn set_output_end<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.output_end = v.into();
         self
     }
 
     /// Sets the value of [exit_info][crate::model::PollAirflowCommandResponse::exit_info].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::PollAirflowCommandResponse;
-    /// use google_cloud_orchestration_airflow_service_v1::model::poll_airflow_command_response::ExitInfo;
-    /// let x = PollAirflowCommandResponse::new().set_exit_info(ExitInfo::default()/* use setters */);
-    /// ```
     pub fn set_exit_info<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::poll_airflow_command_response::ExitInfo>,
@@ -1037,14 +789,6 @@ impl PollAirflowCommandResponse {
     }
 
     /// Sets or clears the value of [exit_info][crate::model::PollAirflowCommandResponse::exit_info].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::PollAirflowCommandResponse;
-    /// use google_cloud_orchestration_airflow_service_v1::model::poll_airflow_command_response::ExitInfo;
-    /// let x = PollAirflowCommandResponse::new().set_or_clear_exit_info(Some(ExitInfo::default()/* use setters */));
-    /// let x = PollAirflowCommandResponse::new().set_or_clear_exit_info(None::<ExitInfo>);
-    /// ```
     pub fn set_or_clear_exit_info<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::poll_airflow_command_response::ExitInfo>,
@@ -1084,24 +828,12 @@ pub mod poll_airflow_command_response {
         }
 
         /// Sets the value of [line_number][crate::model::poll_airflow_command_response::Line::line_number].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_orchestration_airflow_service_v1::model::poll_airflow_command_response::Line;
-        /// let x = Line::new().set_line_number(42);
-        /// ```
         pub fn set_line_number<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.line_number = v.into();
             self
         }
 
         /// Sets the value of [content][crate::model::poll_airflow_command_response::Line::content].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_orchestration_airflow_service_v1::model::poll_airflow_command_response::Line;
-        /// let x = Line::new().set_content("example");
-        /// ```
         pub fn set_content<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.content = v.into();
             self
@@ -1133,24 +865,12 @@ pub mod poll_airflow_command_response {
         }
 
         /// Sets the value of [exit_code][crate::model::poll_airflow_command_response::ExitInfo::exit_code].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_orchestration_airflow_service_v1::model::poll_airflow_command_response::ExitInfo;
-        /// let x = ExitInfo::new().set_exit_code(42);
-        /// ```
         pub fn set_exit_code<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.exit_code = v.into();
             self
         }
 
         /// Sets the value of [error][crate::model::poll_airflow_command_response::ExitInfo::error].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_orchestration_airflow_service_v1::model::poll_airflow_command_response::ExitInfo;
-        /// let x = ExitInfo::new().set_error("example");
-        /// ```
         pub fn set_error<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.error = v.into();
             self
@@ -1184,25 +904,12 @@ impl CreateUserWorkloadsSecretRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateUserWorkloadsSecretRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::CreateUserWorkloadsSecretRequest;
-    /// let x = CreateUserWorkloadsSecretRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [user_workloads_secret][crate::model::CreateUserWorkloadsSecretRequest::user_workloads_secret].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::CreateUserWorkloadsSecretRequest;
-    /// use google_cloud_orchestration_airflow_service_v1::model::UserWorkloadsSecret;
-    /// let x = CreateUserWorkloadsSecretRequest::new().set_user_workloads_secret(UserWorkloadsSecret::default()/* use setters */);
-    /// ```
     pub fn set_user_workloads_secret<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::UserWorkloadsSecret>,
@@ -1212,14 +919,6 @@ impl CreateUserWorkloadsSecretRequest {
     }
 
     /// Sets or clears the value of [user_workloads_secret][crate::model::CreateUserWorkloadsSecretRequest::user_workloads_secret].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::CreateUserWorkloadsSecretRequest;
-    /// use google_cloud_orchestration_airflow_service_v1::model::UserWorkloadsSecret;
-    /// let x = CreateUserWorkloadsSecretRequest::new().set_or_clear_user_workloads_secret(Some(UserWorkloadsSecret::default()/* use setters */));
-    /// let x = CreateUserWorkloadsSecretRequest::new().set_or_clear_user_workloads_secret(None::<UserWorkloadsSecret>);
-    /// ```
     pub fn set_or_clear_user_workloads_secret<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::UserWorkloadsSecret>,
@@ -1252,12 +951,6 @@ impl GetUserWorkloadsSecretRequest {
     }
 
     /// Sets the value of [name][crate::model::GetUserWorkloadsSecretRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::GetUserWorkloadsSecretRequest;
-    /// let x = GetUserWorkloadsSecretRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -1294,36 +987,18 @@ impl ListUserWorkloadsSecretsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListUserWorkloadsSecretsRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::ListUserWorkloadsSecretsRequest;
-    /// let x = ListUserWorkloadsSecretsRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListUserWorkloadsSecretsRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::ListUserWorkloadsSecretsRequest;
-    /// let x = ListUserWorkloadsSecretsRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListUserWorkloadsSecretsRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::ListUserWorkloadsSecretsRequest;
-    /// let x = ListUserWorkloadsSecretsRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -1352,13 +1027,6 @@ impl UpdateUserWorkloadsSecretRequest {
     }
 
     /// Sets the value of [user_workloads_secret][crate::model::UpdateUserWorkloadsSecretRequest::user_workloads_secret].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::UpdateUserWorkloadsSecretRequest;
-    /// use google_cloud_orchestration_airflow_service_v1::model::UserWorkloadsSecret;
-    /// let x = UpdateUserWorkloadsSecretRequest::new().set_user_workloads_secret(UserWorkloadsSecret::default()/* use setters */);
-    /// ```
     pub fn set_user_workloads_secret<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::UserWorkloadsSecret>,
@@ -1368,14 +1036,6 @@ impl UpdateUserWorkloadsSecretRequest {
     }
 
     /// Sets or clears the value of [user_workloads_secret][crate::model::UpdateUserWorkloadsSecretRequest::user_workloads_secret].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::UpdateUserWorkloadsSecretRequest;
-    /// use google_cloud_orchestration_airflow_service_v1::model::UserWorkloadsSecret;
-    /// let x = UpdateUserWorkloadsSecretRequest::new().set_or_clear_user_workloads_secret(Some(UserWorkloadsSecret::default()/* use setters */));
-    /// let x = UpdateUserWorkloadsSecretRequest::new().set_or_clear_user_workloads_secret(None::<UserWorkloadsSecret>);
-    /// ```
     pub fn set_or_clear_user_workloads_secret<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::UserWorkloadsSecret>,
@@ -1408,12 +1068,6 @@ impl DeleteUserWorkloadsSecretRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteUserWorkloadsSecretRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::DeleteUserWorkloadsSecretRequest;
-    /// let x = DeleteUserWorkloadsSecretRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -1446,25 +1100,12 @@ impl CreateUserWorkloadsConfigMapRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateUserWorkloadsConfigMapRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::CreateUserWorkloadsConfigMapRequest;
-    /// let x = CreateUserWorkloadsConfigMapRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [user_workloads_config_map][crate::model::CreateUserWorkloadsConfigMapRequest::user_workloads_config_map].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::CreateUserWorkloadsConfigMapRequest;
-    /// use google_cloud_orchestration_airflow_service_v1::model::UserWorkloadsConfigMap;
-    /// let x = CreateUserWorkloadsConfigMapRequest::new().set_user_workloads_config_map(UserWorkloadsConfigMap::default()/* use setters */);
-    /// ```
     pub fn set_user_workloads_config_map<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::UserWorkloadsConfigMap>,
@@ -1474,14 +1115,6 @@ impl CreateUserWorkloadsConfigMapRequest {
     }
 
     /// Sets or clears the value of [user_workloads_config_map][crate::model::CreateUserWorkloadsConfigMapRequest::user_workloads_config_map].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::CreateUserWorkloadsConfigMapRequest;
-    /// use google_cloud_orchestration_airflow_service_v1::model::UserWorkloadsConfigMap;
-    /// let x = CreateUserWorkloadsConfigMapRequest::new().set_or_clear_user_workloads_config_map(Some(UserWorkloadsConfigMap::default()/* use setters */));
-    /// let x = CreateUserWorkloadsConfigMapRequest::new().set_or_clear_user_workloads_config_map(None::<UserWorkloadsConfigMap>);
-    /// ```
     pub fn set_or_clear_user_workloads_config_map<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::UserWorkloadsConfigMap>,
@@ -1514,12 +1147,6 @@ impl GetUserWorkloadsConfigMapRequest {
     }
 
     /// Sets the value of [name][crate::model::GetUserWorkloadsConfigMapRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::GetUserWorkloadsConfigMapRequest;
-    /// let x = GetUserWorkloadsConfigMapRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -1556,36 +1183,18 @@ impl ListUserWorkloadsConfigMapsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListUserWorkloadsConfigMapsRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::ListUserWorkloadsConfigMapsRequest;
-    /// let x = ListUserWorkloadsConfigMapsRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListUserWorkloadsConfigMapsRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::ListUserWorkloadsConfigMapsRequest;
-    /// let x = ListUserWorkloadsConfigMapsRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListUserWorkloadsConfigMapsRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::ListUserWorkloadsConfigMapsRequest;
-    /// let x = ListUserWorkloadsConfigMapsRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -1614,13 +1223,6 @@ impl UpdateUserWorkloadsConfigMapRequest {
     }
 
     /// Sets the value of [user_workloads_config_map][crate::model::UpdateUserWorkloadsConfigMapRequest::user_workloads_config_map].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::UpdateUserWorkloadsConfigMapRequest;
-    /// use google_cloud_orchestration_airflow_service_v1::model::UserWorkloadsConfigMap;
-    /// let x = UpdateUserWorkloadsConfigMapRequest::new().set_user_workloads_config_map(UserWorkloadsConfigMap::default()/* use setters */);
-    /// ```
     pub fn set_user_workloads_config_map<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::UserWorkloadsConfigMap>,
@@ -1630,14 +1232,6 @@ impl UpdateUserWorkloadsConfigMapRequest {
     }
 
     /// Sets or clears the value of [user_workloads_config_map][crate::model::UpdateUserWorkloadsConfigMapRequest::user_workloads_config_map].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::UpdateUserWorkloadsConfigMapRequest;
-    /// use google_cloud_orchestration_airflow_service_v1::model::UserWorkloadsConfigMap;
-    /// let x = UpdateUserWorkloadsConfigMapRequest::new().set_or_clear_user_workloads_config_map(Some(UserWorkloadsConfigMap::default()/* use setters */));
-    /// let x = UpdateUserWorkloadsConfigMapRequest::new().set_or_clear_user_workloads_config_map(None::<UserWorkloadsConfigMap>);
-    /// ```
     pub fn set_or_clear_user_workloads_config_map<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::UserWorkloadsConfigMap>,
@@ -1670,12 +1264,6 @@ impl DeleteUserWorkloadsConfigMapRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteUserWorkloadsConfigMapRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::DeleteUserWorkloadsConfigMapRequest;
-    /// let x = DeleteUserWorkloadsConfigMapRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -1719,27 +1307,12 @@ impl UserWorkloadsSecret {
     }
 
     /// Sets the value of [name][crate::model::UserWorkloadsSecret::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::UserWorkloadsSecret;
-    /// let x = UserWorkloadsSecret::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [data][crate::model::UserWorkloadsSecret::data].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::UserWorkloadsSecret;
-    /// let x = UserWorkloadsSecret::new().set_data([
-    ///     ("key0", "abc"),
-    ///     ("key1", "xyz"),
-    /// ]);
-    /// ```
     pub fn set_data<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -1777,17 +1350,6 @@ impl ListUserWorkloadsSecretsResponse {
     }
 
     /// Sets the value of [user_workloads_secrets][crate::model::ListUserWorkloadsSecretsResponse::user_workloads_secrets].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::ListUserWorkloadsSecretsResponse;
-    /// use google_cloud_orchestration_airflow_service_v1::model::UserWorkloadsSecret;
-    /// let x = ListUserWorkloadsSecretsResponse::new()
-    ///     .set_user_workloads_secrets([
-    ///         UserWorkloadsSecret::default()/* use setters */,
-    ///         UserWorkloadsSecret::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_user_workloads_secrets<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1799,12 +1361,6 @@ impl ListUserWorkloadsSecretsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListUserWorkloadsSecretsResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::ListUserWorkloadsSecretsResponse;
-    /// let x = ListUserWorkloadsSecretsResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -1861,27 +1417,12 @@ impl UserWorkloadsConfigMap {
     }
 
     /// Sets the value of [name][crate::model::UserWorkloadsConfigMap::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::UserWorkloadsConfigMap;
-    /// let x = UserWorkloadsConfigMap::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [data][crate::model::UserWorkloadsConfigMap::data].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::UserWorkloadsConfigMap;
-    /// let x = UserWorkloadsConfigMap::new().set_data([
-    ///     ("key0", "abc"),
-    ///     ("key1", "xyz"),
-    /// ]);
-    /// ```
     pub fn set_data<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -1919,17 +1460,6 @@ impl ListUserWorkloadsConfigMapsResponse {
     }
 
     /// Sets the value of [user_workloads_config_maps][crate::model::ListUserWorkloadsConfigMapsResponse::user_workloads_config_maps].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::ListUserWorkloadsConfigMapsResponse;
-    /// use google_cloud_orchestration_airflow_service_v1::model::UserWorkloadsConfigMap;
-    /// let x = ListUserWorkloadsConfigMapsResponse::new()
-    ///     .set_user_workloads_config_maps([
-    ///         UserWorkloadsConfigMap::default()/* use setters */,
-    ///         UserWorkloadsConfigMap::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_user_workloads_config_maps<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1941,12 +1471,6 @@ impl ListUserWorkloadsConfigMapsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListUserWorkloadsConfigMapsResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::ListUserWorkloadsConfigMapsResponse;
-    /// let x = ListUserWorkloadsConfigMapsResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -2005,48 +1529,24 @@ impl ListWorkloadsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListWorkloadsRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::ListWorkloadsRequest;
-    /// let x = ListWorkloadsRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListWorkloadsRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::ListWorkloadsRequest;
-    /// let x = ListWorkloadsRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListWorkloadsRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::ListWorkloadsRequest;
-    /// let x = ListWorkloadsRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListWorkloadsRequest::filter].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::ListWorkloadsRequest;
-    /// let x = ListWorkloadsRequest::new().set_filter("example");
-    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
@@ -2078,17 +1578,6 @@ impl ListWorkloadsResponse {
     }
 
     /// Sets the value of [workloads][crate::model::ListWorkloadsResponse::workloads].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::ListWorkloadsResponse;
-    /// use google_cloud_orchestration_airflow_service_v1::model::list_workloads_response::ComposerWorkload;
-    /// let x = ListWorkloadsResponse::new()
-    ///     .set_workloads([
-    ///         ComposerWorkload::default()/* use setters */,
-    ///         ComposerWorkload::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_workloads<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2100,12 +1589,6 @@ impl ListWorkloadsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListWorkloadsResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::ListWorkloadsResponse;
-    /// let x = ListWorkloadsResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -2160,27 +1643,12 @@ pub mod list_workloads_response {
         }
 
         /// Sets the value of [name][crate::model::list_workloads_response::ComposerWorkload::name].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_orchestration_airflow_service_v1::model::list_workloads_response::ComposerWorkload;
-        /// let x = ComposerWorkload::new().set_name("example");
-        /// ```
         pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.name = v.into();
             self
         }
 
         /// Sets the value of [r#type][crate::model::list_workloads_response::ComposerWorkload::type].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_orchestration_airflow_service_v1::model::list_workloads_response::ComposerWorkload;
-        /// use google_cloud_orchestration_airflow_service_v1::model::list_workloads_response::ComposerWorkloadType;
-        /// let x0 = ComposerWorkload::new().set_type(ComposerWorkloadType::CeleryWorker);
-        /// let x1 = ComposerWorkload::new().set_type(ComposerWorkloadType::KubernetesWorker);
-        /// let x2 = ComposerWorkload::new().set_type(ComposerWorkloadType::KubernetesOperatorPod);
-        /// ```
         pub fn set_type<
             T: std::convert::Into<crate::model::list_workloads_response::ComposerWorkloadType>,
         >(
@@ -2192,13 +1660,6 @@ pub mod list_workloads_response {
         }
 
         /// Sets the value of [status][crate::model::list_workloads_response::ComposerWorkload::status].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_orchestration_airflow_service_v1::model::list_workloads_response::ComposerWorkload;
-        /// use google_cloud_orchestration_airflow_service_v1::model::list_workloads_response::ComposerWorkloadStatus;
-        /// let x = ComposerWorkload::new().set_status(ComposerWorkloadStatus::default()/* use setters */);
-        /// ```
         pub fn set_status<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::list_workloads_response::ComposerWorkloadStatus>,
@@ -2208,14 +1669,6 @@ pub mod list_workloads_response {
         }
 
         /// Sets or clears the value of [status][crate::model::list_workloads_response::ComposerWorkload::status].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_orchestration_airflow_service_v1::model::list_workloads_response::ComposerWorkload;
-        /// use google_cloud_orchestration_airflow_service_v1::model::list_workloads_response::ComposerWorkloadStatus;
-        /// let x = ComposerWorkload::new().set_or_clear_status(Some(ComposerWorkloadStatus::default()/* use setters */));
-        /// let x = ComposerWorkload::new().set_or_clear_status(None::<ComposerWorkloadStatus>);
-        /// ```
         pub fn set_or_clear_status<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::list_workloads_response::ComposerWorkloadStatus>,
@@ -2253,15 +1706,6 @@ pub mod list_workloads_response {
         }
 
         /// Sets the value of [state][crate::model::list_workloads_response::ComposerWorkloadStatus::state].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_orchestration_airflow_service_v1::model::list_workloads_response::ComposerWorkloadStatus;
-        /// use google_cloud_orchestration_airflow_service_v1::model::list_workloads_response::ComposerWorkloadState;
-        /// let x0 = ComposerWorkloadStatus::new().set_state(ComposerWorkloadState::Pending);
-        /// let x1 = ComposerWorkloadStatus::new().set_state(ComposerWorkloadState::Ok);
-        /// let x2 = ComposerWorkloadStatus::new().set_state(ComposerWorkloadState::Warning);
-        /// ```
         pub fn set_state<
             T: std::convert::Into<crate::model::list_workloads_response::ComposerWorkloadState>,
         >(
@@ -2273,12 +1717,6 @@ pub mod list_workloads_response {
         }
 
         /// Sets the value of [status_message][crate::model::list_workloads_response::ComposerWorkloadStatus::status_message].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_orchestration_airflow_service_v1::model::list_workloads_response::ComposerWorkloadStatus;
-        /// let x = ComposerWorkloadStatus::new().set_status_message("example");
-        /// ```
         pub fn set_status_message<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -2288,12 +1726,6 @@ pub mod list_workloads_response {
         }
 
         /// Sets the value of [detailed_status_message][crate::model::list_workloads_response::ComposerWorkloadStatus::detailed_status_message].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_orchestration_airflow_service_v1::model::list_workloads_response::ComposerWorkloadStatus;
-        /// let x = ComposerWorkloadStatus::new().set_detailed_status_message("example");
-        /// ```
         pub fn set_detailed_status_message<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -2667,24 +2099,12 @@ impl SaveSnapshotRequest {
     }
 
     /// Sets the value of [environment][crate::model::SaveSnapshotRequest::environment].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::SaveSnapshotRequest;
-    /// let x = SaveSnapshotRequest::new().set_environment("example");
-    /// ```
     pub fn set_environment<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.environment = v.into();
         self
     }
 
     /// Sets the value of [snapshot_location][crate::model::SaveSnapshotRequest::snapshot_location].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::SaveSnapshotRequest;
-    /// let x = SaveSnapshotRequest::new().set_snapshot_location("example");
-    /// ```
     pub fn set_snapshot_location<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -2719,12 +2139,6 @@ impl SaveSnapshotResponse {
     }
 
     /// Sets the value of [snapshot_path][crate::model::SaveSnapshotResponse::snapshot_path].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::SaveSnapshotResponse;
-    /// let x = SaveSnapshotResponse::new().set_snapshot_path("example");
-    /// ```
     pub fn set_snapshot_path<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.snapshot_path = v.into();
         self
@@ -2774,36 +2188,18 @@ impl LoadSnapshotRequest {
     }
 
     /// Sets the value of [environment][crate::model::LoadSnapshotRequest::environment].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::LoadSnapshotRequest;
-    /// let x = LoadSnapshotRequest::new().set_environment("example");
-    /// ```
     pub fn set_environment<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.environment = v.into();
         self
     }
 
     /// Sets the value of [snapshot_path][crate::model::LoadSnapshotRequest::snapshot_path].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::LoadSnapshotRequest;
-    /// let x = LoadSnapshotRequest::new().set_snapshot_path("example");
-    /// ```
     pub fn set_snapshot_path<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.snapshot_path = v.into();
         self
     }
 
     /// Sets the value of [skip_pypi_packages_installation][crate::model::LoadSnapshotRequest::skip_pypi_packages_installation].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::LoadSnapshotRequest;
-    /// let x = LoadSnapshotRequest::new().set_skip_pypi_packages_installation(true);
-    /// ```
     pub fn set_skip_pypi_packages_installation<T: std::convert::Into<bool>>(
         mut self,
         v: T,
@@ -2813,12 +2209,6 @@ impl LoadSnapshotRequest {
     }
 
     /// Sets the value of [skip_environment_variables_setting][crate::model::LoadSnapshotRequest::skip_environment_variables_setting].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::LoadSnapshotRequest;
-    /// let x = LoadSnapshotRequest::new().set_skip_environment_variables_setting(true);
-    /// ```
     pub fn set_skip_environment_variables_setting<T: std::convert::Into<bool>>(
         mut self,
         v: T,
@@ -2828,24 +2218,12 @@ impl LoadSnapshotRequest {
     }
 
     /// Sets the value of [skip_airflow_overrides_setting][crate::model::LoadSnapshotRequest::skip_airflow_overrides_setting].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::LoadSnapshotRequest;
-    /// let x = LoadSnapshotRequest::new().set_skip_airflow_overrides_setting(true);
-    /// ```
     pub fn set_skip_airflow_overrides_setting<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.skip_airflow_overrides_setting = v.into();
         self
     }
 
     /// Sets the value of [skip_gcs_data_copying][crate::model::LoadSnapshotRequest::skip_gcs_data_copying].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::LoadSnapshotRequest;
-    /// let x = LoadSnapshotRequest::new().set_skip_gcs_data_copying(true);
-    /// ```
     pub fn set_skip_gcs_data_copying<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.skip_gcs_data_copying = v.into();
         self
@@ -2895,12 +2273,6 @@ impl DatabaseFailoverRequest {
     }
 
     /// Sets the value of [environment][crate::model::DatabaseFailoverRequest::environment].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::DatabaseFailoverRequest;
-    /// let x = DatabaseFailoverRequest::new().set_environment("example");
-    /// ```
     pub fn set_environment<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.environment = v.into();
         self
@@ -2949,12 +2321,6 @@ impl FetchDatabasePropertiesRequest {
     }
 
     /// Sets the value of [environment][crate::model::FetchDatabasePropertiesRequest::environment].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::FetchDatabasePropertiesRequest;
-    /// let x = FetchDatabasePropertiesRequest::new().set_environment("example");
-    /// ```
     pub fn set_environment<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.environment = v.into();
         self
@@ -2992,12 +2358,6 @@ impl FetchDatabasePropertiesResponse {
     }
 
     /// Sets the value of [primary_gce_zone][crate::model::FetchDatabasePropertiesResponse::primary_gce_zone].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::FetchDatabasePropertiesResponse;
-    /// let x = FetchDatabasePropertiesResponse::new().set_primary_gce_zone("example");
-    /// ```
     pub fn set_primary_gce_zone<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -3007,12 +2367,6 @@ impl FetchDatabasePropertiesResponse {
     }
 
     /// Sets the value of [secondary_gce_zone][crate::model::FetchDatabasePropertiesResponse::secondary_gce_zone].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::FetchDatabasePropertiesResponse;
-    /// let x = FetchDatabasePropertiesResponse::new().set_secondary_gce_zone("example");
-    /// ```
     pub fn set_secondary_gce_zone<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -3022,12 +2376,6 @@ impl FetchDatabasePropertiesResponse {
     }
 
     /// Sets the value of [is_failover_replica_available][crate::model::FetchDatabasePropertiesResponse::is_failover_replica_available].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::FetchDatabasePropertiesResponse;
-    /// let x = FetchDatabasePropertiesResponse::new().set_is_failover_replica_available(true);
-    /// ```
     pub fn set_is_failover_replica_available<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.is_failover_replica_available = v.into();
         self
@@ -3057,12 +2405,6 @@ impl StorageConfig {
     }
 
     /// Sets the value of [bucket][crate::model::StorageConfig::bucket].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::StorageConfig;
-    /// let x = StorageConfig::new().set_bucket("example");
-    /// ```
     pub fn set_bucket<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.bucket = v.into();
         self
@@ -3201,49 +2543,24 @@ impl EnvironmentConfig {
     }
 
     /// Sets the value of [gke_cluster][crate::model::EnvironmentConfig::gke_cluster].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::EnvironmentConfig;
-    /// let x = EnvironmentConfig::new().set_gke_cluster("example");
-    /// ```
     pub fn set_gke_cluster<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.gke_cluster = v.into();
         self
     }
 
     /// Sets the value of [dag_gcs_prefix][crate::model::EnvironmentConfig::dag_gcs_prefix].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::EnvironmentConfig;
-    /// let x = EnvironmentConfig::new().set_dag_gcs_prefix("example");
-    /// ```
     pub fn set_dag_gcs_prefix<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.dag_gcs_prefix = v.into();
         self
     }
 
     /// Sets the value of [node_count][crate::model::EnvironmentConfig::node_count].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::EnvironmentConfig;
-    /// let x = EnvironmentConfig::new().set_node_count(42);
-    /// ```
     pub fn set_node_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.node_count = v.into();
         self
     }
 
     /// Sets the value of [software_config][crate::model::EnvironmentConfig::software_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::EnvironmentConfig;
-    /// use google_cloud_orchestration_airflow_service_v1::model::SoftwareConfig;
-    /// let x = EnvironmentConfig::new().set_software_config(SoftwareConfig::default()/* use setters */);
-    /// ```
     pub fn set_software_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::SoftwareConfig>,
@@ -3253,14 +2570,6 @@ impl EnvironmentConfig {
     }
 
     /// Sets or clears the value of [software_config][crate::model::EnvironmentConfig::software_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::EnvironmentConfig;
-    /// use google_cloud_orchestration_airflow_service_v1::model::SoftwareConfig;
-    /// let x = EnvironmentConfig::new().set_or_clear_software_config(Some(SoftwareConfig::default()/* use setters */));
-    /// let x = EnvironmentConfig::new().set_or_clear_software_config(None::<SoftwareConfig>);
-    /// ```
     pub fn set_or_clear_software_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::SoftwareConfig>,
@@ -3270,13 +2579,6 @@ impl EnvironmentConfig {
     }
 
     /// Sets the value of [node_config][crate::model::EnvironmentConfig::node_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::EnvironmentConfig;
-    /// use google_cloud_orchestration_airflow_service_v1::model::NodeConfig;
-    /// let x = EnvironmentConfig::new().set_node_config(NodeConfig::default()/* use setters */);
-    /// ```
     pub fn set_node_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::NodeConfig>,
@@ -3286,14 +2588,6 @@ impl EnvironmentConfig {
     }
 
     /// Sets or clears the value of [node_config][crate::model::EnvironmentConfig::node_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::EnvironmentConfig;
-    /// use google_cloud_orchestration_airflow_service_v1::model::NodeConfig;
-    /// let x = EnvironmentConfig::new().set_or_clear_node_config(Some(NodeConfig::default()/* use setters */));
-    /// let x = EnvironmentConfig::new().set_or_clear_node_config(None::<NodeConfig>);
-    /// ```
     pub fn set_or_clear_node_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::NodeConfig>,
@@ -3303,13 +2597,6 @@ impl EnvironmentConfig {
     }
 
     /// Sets the value of [private_environment_config][crate::model::EnvironmentConfig::private_environment_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::EnvironmentConfig;
-    /// use google_cloud_orchestration_airflow_service_v1::model::PrivateEnvironmentConfig;
-    /// let x = EnvironmentConfig::new().set_private_environment_config(PrivateEnvironmentConfig::default()/* use setters */);
-    /// ```
     pub fn set_private_environment_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::PrivateEnvironmentConfig>,
@@ -3319,14 +2606,6 @@ impl EnvironmentConfig {
     }
 
     /// Sets or clears the value of [private_environment_config][crate::model::EnvironmentConfig::private_environment_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::EnvironmentConfig;
-    /// use google_cloud_orchestration_airflow_service_v1::model::PrivateEnvironmentConfig;
-    /// let x = EnvironmentConfig::new().set_or_clear_private_environment_config(Some(PrivateEnvironmentConfig::default()/* use setters */));
-    /// let x = EnvironmentConfig::new().set_or_clear_private_environment_config(None::<PrivateEnvironmentConfig>);
-    /// ```
     pub fn set_or_clear_private_environment_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::PrivateEnvironmentConfig>,
@@ -3336,13 +2615,6 @@ impl EnvironmentConfig {
     }
 
     /// Sets the value of [web_server_network_access_control][crate::model::EnvironmentConfig::web_server_network_access_control].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::EnvironmentConfig;
-    /// use google_cloud_orchestration_airflow_service_v1::model::WebServerNetworkAccessControl;
-    /// let x = EnvironmentConfig::new().set_web_server_network_access_control(WebServerNetworkAccessControl::default()/* use setters */);
-    /// ```
     pub fn set_web_server_network_access_control<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::WebServerNetworkAccessControl>,
@@ -3352,14 +2624,6 @@ impl EnvironmentConfig {
     }
 
     /// Sets or clears the value of [web_server_network_access_control][crate::model::EnvironmentConfig::web_server_network_access_control].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::EnvironmentConfig;
-    /// use google_cloud_orchestration_airflow_service_v1::model::WebServerNetworkAccessControl;
-    /// let x = EnvironmentConfig::new().set_or_clear_web_server_network_access_control(Some(WebServerNetworkAccessControl::default()/* use setters */));
-    /// let x = EnvironmentConfig::new().set_or_clear_web_server_network_access_control(None::<WebServerNetworkAccessControl>);
-    /// ```
     pub fn set_or_clear_web_server_network_access_control<T>(
         mut self,
         v: std::option::Option<T>,
@@ -3372,13 +2636,6 @@ impl EnvironmentConfig {
     }
 
     /// Sets the value of [database_config][crate::model::EnvironmentConfig::database_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::EnvironmentConfig;
-    /// use google_cloud_orchestration_airflow_service_v1::model::DatabaseConfig;
-    /// let x = EnvironmentConfig::new().set_database_config(DatabaseConfig::default()/* use setters */);
-    /// ```
     pub fn set_database_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::DatabaseConfig>,
@@ -3388,14 +2645,6 @@ impl EnvironmentConfig {
     }
 
     /// Sets or clears the value of [database_config][crate::model::EnvironmentConfig::database_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::EnvironmentConfig;
-    /// use google_cloud_orchestration_airflow_service_v1::model::DatabaseConfig;
-    /// let x = EnvironmentConfig::new().set_or_clear_database_config(Some(DatabaseConfig::default()/* use setters */));
-    /// let x = EnvironmentConfig::new().set_or_clear_database_config(None::<DatabaseConfig>);
-    /// ```
     pub fn set_or_clear_database_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DatabaseConfig>,
@@ -3405,13 +2654,6 @@ impl EnvironmentConfig {
     }
 
     /// Sets the value of [web_server_config][crate::model::EnvironmentConfig::web_server_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::EnvironmentConfig;
-    /// use google_cloud_orchestration_airflow_service_v1::model::WebServerConfig;
-    /// let x = EnvironmentConfig::new().set_web_server_config(WebServerConfig::default()/* use setters */);
-    /// ```
     pub fn set_web_server_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::WebServerConfig>,
@@ -3421,14 +2663,6 @@ impl EnvironmentConfig {
     }
 
     /// Sets or clears the value of [web_server_config][crate::model::EnvironmentConfig::web_server_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::EnvironmentConfig;
-    /// use google_cloud_orchestration_airflow_service_v1::model::WebServerConfig;
-    /// let x = EnvironmentConfig::new().set_or_clear_web_server_config(Some(WebServerConfig::default()/* use setters */));
-    /// let x = EnvironmentConfig::new().set_or_clear_web_server_config(None::<WebServerConfig>);
-    /// ```
     pub fn set_or_clear_web_server_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::WebServerConfig>,
@@ -3438,13 +2672,6 @@ impl EnvironmentConfig {
     }
 
     /// Sets the value of [encryption_config][crate::model::EnvironmentConfig::encryption_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::EnvironmentConfig;
-    /// use google_cloud_orchestration_airflow_service_v1::model::EncryptionConfig;
-    /// let x = EnvironmentConfig::new().set_encryption_config(EncryptionConfig::default()/* use setters */);
-    /// ```
     pub fn set_encryption_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::EncryptionConfig>,
@@ -3454,14 +2681,6 @@ impl EnvironmentConfig {
     }
 
     /// Sets or clears the value of [encryption_config][crate::model::EnvironmentConfig::encryption_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::EnvironmentConfig;
-    /// use google_cloud_orchestration_airflow_service_v1::model::EncryptionConfig;
-    /// let x = EnvironmentConfig::new().set_or_clear_encryption_config(Some(EncryptionConfig::default()/* use setters */));
-    /// let x = EnvironmentConfig::new().set_or_clear_encryption_config(None::<EncryptionConfig>);
-    /// ```
     pub fn set_or_clear_encryption_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::EncryptionConfig>,
@@ -3471,13 +2690,6 @@ impl EnvironmentConfig {
     }
 
     /// Sets the value of [maintenance_window][crate::model::EnvironmentConfig::maintenance_window].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::EnvironmentConfig;
-    /// use google_cloud_orchestration_airflow_service_v1::model::MaintenanceWindow;
-    /// let x = EnvironmentConfig::new().set_maintenance_window(MaintenanceWindow::default()/* use setters */);
-    /// ```
     pub fn set_maintenance_window<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::MaintenanceWindow>,
@@ -3487,14 +2699,6 @@ impl EnvironmentConfig {
     }
 
     /// Sets or clears the value of [maintenance_window][crate::model::EnvironmentConfig::maintenance_window].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::EnvironmentConfig;
-    /// use google_cloud_orchestration_airflow_service_v1::model::MaintenanceWindow;
-    /// let x = EnvironmentConfig::new().set_or_clear_maintenance_window(Some(MaintenanceWindow::default()/* use setters */));
-    /// let x = EnvironmentConfig::new().set_or_clear_maintenance_window(None::<MaintenanceWindow>);
-    /// ```
     pub fn set_or_clear_maintenance_window<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::MaintenanceWindow>,
@@ -3504,13 +2708,6 @@ impl EnvironmentConfig {
     }
 
     /// Sets the value of [workloads_config][crate::model::EnvironmentConfig::workloads_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::EnvironmentConfig;
-    /// use google_cloud_orchestration_airflow_service_v1::model::WorkloadsConfig;
-    /// let x = EnvironmentConfig::new().set_workloads_config(WorkloadsConfig::default()/* use setters */);
-    /// ```
     pub fn set_workloads_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::WorkloadsConfig>,
@@ -3520,14 +2717,6 @@ impl EnvironmentConfig {
     }
 
     /// Sets or clears the value of [workloads_config][crate::model::EnvironmentConfig::workloads_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::EnvironmentConfig;
-    /// use google_cloud_orchestration_airflow_service_v1::model::WorkloadsConfig;
-    /// let x = EnvironmentConfig::new().set_or_clear_workloads_config(Some(WorkloadsConfig::default()/* use setters */));
-    /// let x = EnvironmentConfig::new().set_or_clear_workloads_config(None::<WorkloadsConfig>);
-    /// ```
     pub fn set_or_clear_workloads_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::WorkloadsConfig>,
@@ -3537,15 +2726,6 @@ impl EnvironmentConfig {
     }
 
     /// Sets the value of [environment_size][crate::model::EnvironmentConfig::environment_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::EnvironmentConfig;
-    /// use google_cloud_orchestration_airflow_service_v1::model::environment_config::EnvironmentSize;
-    /// let x0 = EnvironmentConfig::new().set_environment_size(EnvironmentSize::Small);
-    /// let x1 = EnvironmentConfig::new().set_environment_size(EnvironmentSize::Medium);
-    /// let x2 = EnvironmentConfig::new().set_environment_size(EnvironmentSize::Large);
-    /// ```
     pub fn set_environment_size<
         T: std::convert::Into<crate::model::environment_config::EnvironmentSize>,
     >(
@@ -3557,24 +2737,12 @@ impl EnvironmentConfig {
     }
 
     /// Sets the value of [airflow_uri][crate::model::EnvironmentConfig::airflow_uri].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::EnvironmentConfig;
-    /// let x = EnvironmentConfig::new().set_airflow_uri("example");
-    /// ```
     pub fn set_airflow_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.airflow_uri = v.into();
         self
     }
 
     /// Sets the value of [airflow_byoid_uri][crate::model::EnvironmentConfig::airflow_byoid_uri].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::EnvironmentConfig;
-    /// let x = EnvironmentConfig::new().set_airflow_byoid_uri("example");
-    /// ```
     pub fn set_airflow_byoid_uri<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -3584,13 +2752,6 @@ impl EnvironmentConfig {
     }
 
     /// Sets the value of [master_authorized_networks_config][crate::model::EnvironmentConfig::master_authorized_networks_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::EnvironmentConfig;
-    /// use google_cloud_orchestration_airflow_service_v1::model::MasterAuthorizedNetworksConfig;
-    /// let x = EnvironmentConfig::new().set_master_authorized_networks_config(MasterAuthorizedNetworksConfig::default()/* use setters */);
-    /// ```
     pub fn set_master_authorized_networks_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::MasterAuthorizedNetworksConfig>,
@@ -3600,14 +2761,6 @@ impl EnvironmentConfig {
     }
 
     /// Sets or clears the value of [master_authorized_networks_config][crate::model::EnvironmentConfig::master_authorized_networks_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::EnvironmentConfig;
-    /// use google_cloud_orchestration_airflow_service_v1::model::MasterAuthorizedNetworksConfig;
-    /// let x = EnvironmentConfig::new().set_or_clear_master_authorized_networks_config(Some(MasterAuthorizedNetworksConfig::default()/* use setters */));
-    /// let x = EnvironmentConfig::new().set_or_clear_master_authorized_networks_config(None::<MasterAuthorizedNetworksConfig>);
-    /// ```
     pub fn set_or_clear_master_authorized_networks_config<T>(
         mut self,
         v: std::option::Option<T>,
@@ -3620,13 +2773,6 @@ impl EnvironmentConfig {
     }
 
     /// Sets the value of [recovery_config][crate::model::EnvironmentConfig::recovery_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::EnvironmentConfig;
-    /// use google_cloud_orchestration_airflow_service_v1::model::RecoveryConfig;
-    /// let x = EnvironmentConfig::new().set_recovery_config(RecoveryConfig::default()/* use setters */);
-    /// ```
     pub fn set_recovery_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::RecoveryConfig>,
@@ -3636,14 +2782,6 @@ impl EnvironmentConfig {
     }
 
     /// Sets or clears the value of [recovery_config][crate::model::EnvironmentConfig::recovery_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::EnvironmentConfig;
-    /// use google_cloud_orchestration_airflow_service_v1::model::RecoveryConfig;
-    /// let x = EnvironmentConfig::new().set_or_clear_recovery_config(Some(RecoveryConfig::default()/* use setters */));
-    /// let x = EnvironmentConfig::new().set_or_clear_recovery_config(None::<RecoveryConfig>);
-    /// ```
     pub fn set_or_clear_recovery_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::RecoveryConfig>,
@@ -3653,13 +2791,6 @@ impl EnvironmentConfig {
     }
 
     /// Sets the value of [resilience_mode][crate::model::EnvironmentConfig::resilience_mode].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::EnvironmentConfig;
-    /// use google_cloud_orchestration_airflow_service_v1::model::environment_config::ResilienceMode;
-    /// let x0 = EnvironmentConfig::new().set_resilience_mode(ResilienceMode::HighResilience);
-    /// ```
     pub fn set_resilience_mode<
         T: std::convert::Into<crate::model::environment_config::ResilienceMode>,
     >(
@@ -3671,13 +2802,6 @@ impl EnvironmentConfig {
     }
 
     /// Sets the value of [data_retention_config][crate::model::EnvironmentConfig::data_retention_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::EnvironmentConfig;
-    /// use google_cloud_orchestration_airflow_service_v1::model::DataRetentionConfig;
-    /// let x = EnvironmentConfig::new().set_data_retention_config(DataRetentionConfig::default()/* use setters */);
-    /// ```
     pub fn set_data_retention_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::DataRetentionConfig>,
@@ -3687,14 +2811,6 @@ impl EnvironmentConfig {
     }
 
     /// Sets or clears the value of [data_retention_config][crate::model::EnvironmentConfig::data_retention_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::EnvironmentConfig;
-    /// use google_cloud_orchestration_airflow_service_v1::model::DataRetentionConfig;
-    /// let x = EnvironmentConfig::new().set_or_clear_data_retention_config(Some(DataRetentionConfig::default()/* use setters */));
-    /// let x = EnvironmentConfig::new().set_or_clear_data_retention_config(None::<DataRetentionConfig>);
-    /// ```
     pub fn set_or_clear_data_retention_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DataRetentionConfig>,
@@ -3997,17 +3113,6 @@ impl WebServerNetworkAccessControl {
     }
 
     /// Sets the value of [allowed_ip_ranges][crate::model::WebServerNetworkAccessControl::allowed_ip_ranges].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::WebServerNetworkAccessControl;
-    /// use google_cloud_orchestration_airflow_service_v1::model::web_server_network_access_control::AllowedIpRange;
-    /// let x = WebServerNetworkAccessControl::new()
-    ///     .set_allowed_ip_ranges([
-    ///         AllowedIpRange::default()/* use setters */,
-    ///         AllowedIpRange::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_allowed_ip_ranges<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4057,24 +3162,12 @@ pub mod web_server_network_access_control {
         }
 
         /// Sets the value of [value][crate::model::web_server_network_access_control::AllowedIpRange::value].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_orchestration_airflow_service_v1::model::web_server_network_access_control::AllowedIpRange;
-        /// let x = AllowedIpRange::new().set_value("example");
-        /// ```
         pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.value = v.into();
             self
         }
 
         /// Sets the value of [description][crate::model::web_server_network_access_control::AllowedIpRange::description].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_orchestration_airflow_service_v1::model::web_server_network_access_control::AllowedIpRange;
-        /// let x = AllowedIpRange::new().set_description("example");
-        /// ```
         pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.description = v.into();
             self
@@ -4116,24 +3209,12 @@ impl DatabaseConfig {
     }
 
     /// Sets the value of [machine_type][crate::model::DatabaseConfig::machine_type].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::DatabaseConfig;
-    /// let x = DatabaseConfig::new().set_machine_type("example");
-    /// ```
     pub fn set_machine_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.machine_type = v.into();
         self
     }
 
     /// Sets the value of [zone][crate::model::DatabaseConfig::zone].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::DatabaseConfig;
-    /// let x = DatabaseConfig::new().set_zone("example");
-    /// ```
     pub fn set_zone<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.zone = v.into();
         self
@@ -4169,12 +3250,6 @@ impl WebServerConfig {
     }
 
     /// Sets the value of [machine_type][crate::model::WebServerConfig::machine_type].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::WebServerConfig;
-    /// let x = WebServerConfig::new().set_machine_type("example");
-    /// ```
     pub fn set_machine_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.machine_type = v.into();
         self
@@ -4207,12 +3282,6 @@ impl EncryptionConfig {
     }
 
     /// Sets the value of [kms_key_name][crate::model::EncryptionConfig::kms_key_name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::EncryptionConfig;
-    /// let x = EncryptionConfig::new().set_kms_key_name("example");
-    /// ```
     pub fn set_kms_key_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.kms_key_name = v.into();
         self
@@ -4264,13 +3333,6 @@ impl MaintenanceWindow {
     }
 
     /// Sets the value of [start_time][crate::model::MaintenanceWindow::start_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::MaintenanceWindow;
-    /// use wkt::Timestamp;
-    /// let x = MaintenanceWindow::new().set_start_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_start_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4280,14 +3342,6 @@ impl MaintenanceWindow {
     }
 
     /// Sets or clears the value of [start_time][crate::model::MaintenanceWindow::start_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::MaintenanceWindow;
-    /// use wkt::Timestamp;
-    /// let x = MaintenanceWindow::new().set_or_clear_start_time(Some(Timestamp::default()/* use setters */));
-    /// let x = MaintenanceWindow::new().set_or_clear_start_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4297,13 +3351,6 @@ impl MaintenanceWindow {
     }
 
     /// Sets the value of [end_time][crate::model::MaintenanceWindow::end_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::MaintenanceWindow;
-    /// use wkt::Timestamp;
-    /// let x = MaintenanceWindow::new().set_end_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4313,14 +3360,6 @@ impl MaintenanceWindow {
     }
 
     /// Sets or clears the value of [end_time][crate::model::MaintenanceWindow::end_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::MaintenanceWindow;
-    /// use wkt::Timestamp;
-    /// let x = MaintenanceWindow::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
-    /// let x = MaintenanceWindow::new().set_or_clear_end_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4330,12 +3369,6 @@ impl MaintenanceWindow {
     }
 
     /// Sets the value of [recurrence][crate::model::MaintenanceWindow::recurrence].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::MaintenanceWindow;
-    /// let x = MaintenanceWindow::new().set_recurrence("example");
-    /// ```
     pub fn set_recurrence<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.recurrence = v.into();
         self
@@ -4467,27 +3500,12 @@ impl SoftwareConfig {
     }
 
     /// Sets the value of [image_version][crate::model::SoftwareConfig::image_version].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::SoftwareConfig;
-    /// let x = SoftwareConfig::new().set_image_version("example");
-    /// ```
     pub fn set_image_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.image_version = v.into();
         self
     }
 
     /// Sets the value of [airflow_config_overrides][crate::model::SoftwareConfig::airflow_config_overrides].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::SoftwareConfig;
-    /// let x = SoftwareConfig::new().set_airflow_config_overrides([
-    ///     ("key0", "abc"),
-    ///     ("key1", "xyz"),
-    /// ]);
-    /// ```
     pub fn set_airflow_config_overrides<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -4500,15 +3518,6 @@ impl SoftwareConfig {
     }
 
     /// Sets the value of [pypi_packages][crate::model::SoftwareConfig::pypi_packages].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::SoftwareConfig;
-    /// let x = SoftwareConfig::new().set_pypi_packages([
-    ///     ("key0", "abc"),
-    ///     ("key1", "xyz"),
-    /// ]);
-    /// ```
     pub fn set_pypi_packages<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -4521,15 +3530,6 @@ impl SoftwareConfig {
     }
 
     /// Sets the value of [env_variables][crate::model::SoftwareConfig::env_variables].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::SoftwareConfig;
-    /// let x = SoftwareConfig::new().set_env_variables([
-    ///     ("key0", "abc"),
-    ///     ("key1", "xyz"),
-    /// ]);
-    /// ```
     pub fn set_env_variables<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -4542,37 +3542,18 @@ impl SoftwareConfig {
     }
 
     /// Sets the value of [python_version][crate::model::SoftwareConfig::python_version].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::SoftwareConfig;
-    /// let x = SoftwareConfig::new().set_python_version("example");
-    /// ```
     pub fn set_python_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.python_version = v.into();
         self
     }
 
     /// Sets the value of [scheduler_count][crate::model::SoftwareConfig::scheduler_count].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::SoftwareConfig;
-    /// let x = SoftwareConfig::new().set_scheduler_count(42);
-    /// ```
     pub fn set_scheduler_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.scheduler_count = v.into();
         self
     }
 
     /// Sets the value of [cloud_data_lineage_integration][crate::model::SoftwareConfig::cloud_data_lineage_integration].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::SoftwareConfig;
-    /// use google_cloud_orchestration_airflow_service_v1::model::CloudDataLineageIntegration;
-    /// let x = SoftwareConfig::new().set_cloud_data_lineage_integration(CloudDataLineageIntegration::default()/* use setters */);
-    /// ```
     pub fn set_cloud_data_lineage_integration<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::CloudDataLineageIntegration>,
@@ -4582,14 +3563,6 @@ impl SoftwareConfig {
     }
 
     /// Sets or clears the value of [cloud_data_lineage_integration][crate::model::SoftwareConfig::cloud_data_lineage_integration].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::SoftwareConfig;
-    /// use google_cloud_orchestration_airflow_service_v1::model::CloudDataLineageIntegration;
-    /// let x = SoftwareConfig::new().set_or_clear_cloud_data_lineage_integration(Some(CloudDataLineageIntegration::default()/* use setters */));
-    /// let x = SoftwareConfig::new().set_or_clear_cloud_data_lineage_integration(None::<CloudDataLineageIntegration>);
-    /// ```
     pub fn set_or_clear_cloud_data_lineage_integration<T>(
         mut self,
         v: std::option::Option<T>,
@@ -4602,14 +3575,6 @@ impl SoftwareConfig {
     }
 
     /// Sets the value of [web_server_plugins_mode][crate::model::SoftwareConfig::web_server_plugins_mode].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::SoftwareConfig;
-    /// use google_cloud_orchestration_airflow_service_v1::model::software_config::WebServerPluginsMode;
-    /// let x0 = SoftwareConfig::new().set_web_server_plugins_mode(WebServerPluginsMode::PluginsDisabled);
-    /// let x1 = SoftwareConfig::new().set_web_server_plugins_mode(WebServerPluginsMode::PluginsEnabled);
-    /// ```
     pub fn set_web_server_plugins_mode<
         T: std::convert::Into<crate::model::software_config::WebServerPluginsMode>,
     >(
@@ -4796,12 +3761,6 @@ impl IPAllocationPolicy {
     }
 
     /// Sets the value of [use_ip_aliases][crate::model::IPAllocationPolicy::use_ip_aliases].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::IPAllocationPolicy;
-    /// let x = IPAllocationPolicy::new().set_use_ip_aliases(true);
-    /// ```
     pub fn set_use_ip_aliases<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.use_ip_aliases = v.into();
         self
@@ -4811,13 +3770,6 @@ impl IPAllocationPolicy {
     ///
     /// Note that all the setters affecting `cluster_ip_allocation` are mutually
     /// exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::IPAllocationPolicy;
-    /// use google_cloud_orchestration_airflow_service_v1::model::ip_allocation_policy;
-    /// let x = IPAllocationPolicy::new().set_cluster_ip_allocation(Some(ip_allocation_policy::ClusterIpAllocation::ClusterSecondaryRangeName("example".to_string())));
-    /// ```
     pub fn set_cluster_ip_allocation<
         T: std::convert::Into<
                 std::option::Option<crate::model::ip_allocation_policy::ClusterIpAllocation>,
@@ -4848,14 +3800,6 @@ impl IPAllocationPolicy {
     ///
     /// Note that all the setters affecting `cluster_ip_allocation` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::IPAllocationPolicy;
-    /// let x = IPAllocationPolicy::new().set_cluster_secondary_range_name("example");
-    /// assert!(x.cluster_secondary_range_name().is_some());
-    /// assert!(x.cluster_ipv4_cidr_block().is_none());
-    /// ```
     pub fn set_cluster_secondary_range_name<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -4886,14 +3830,6 @@ impl IPAllocationPolicy {
     ///
     /// Note that all the setters affecting `cluster_ip_allocation` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::IPAllocationPolicy;
-    /// let x = IPAllocationPolicy::new().set_cluster_ipv4_cidr_block("example");
-    /// assert!(x.cluster_ipv4_cidr_block().is_some());
-    /// assert!(x.cluster_secondary_range_name().is_none());
-    /// ```
     pub fn set_cluster_ipv4_cidr_block<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -4908,13 +3844,6 @@ impl IPAllocationPolicy {
     ///
     /// Note that all the setters affecting `services_ip_allocation` are mutually
     /// exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::IPAllocationPolicy;
-    /// use google_cloud_orchestration_airflow_service_v1::model::ip_allocation_policy;
-    /// let x = IPAllocationPolicy::new().set_services_ip_allocation(Some(ip_allocation_policy::ServicesIpAllocation::ServicesSecondaryRangeName("example".to_string())));
-    /// ```
     pub fn set_services_ip_allocation<
         T: std::convert::Into<
                 std::option::Option<crate::model::ip_allocation_policy::ServicesIpAllocation>,
@@ -4943,14 +3872,6 @@ impl IPAllocationPolicy {
     ///
     /// Note that all the setters affecting `services_ip_allocation` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::IPAllocationPolicy;
-    /// let x = IPAllocationPolicy::new().set_services_secondary_range_name("example");
-    /// assert!(x.services_secondary_range_name().is_some());
-    /// assert!(x.services_ipv4_cidr_block().is_none());
-    /// ```
     pub fn set_services_secondary_range_name<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -4981,14 +3902,6 @@ impl IPAllocationPolicy {
     ///
     /// Note that all the setters affecting `services_ip_allocation` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::IPAllocationPolicy;
-    /// let x = IPAllocationPolicy::new().set_services_ipv4_cidr_block("example");
-    /// assert!(x.services_ipv4_cidr_block().is_some());
-    /// assert!(x.services_secondary_range_name().is_none());
-    /// ```
     pub fn set_services_ipv4_cidr_block<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -5216,72 +4129,36 @@ impl NodeConfig {
     }
 
     /// Sets the value of [location][crate::model::NodeConfig::location].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::NodeConfig;
-    /// let x = NodeConfig::new().set_location("example");
-    /// ```
     pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.location = v.into();
         self
     }
 
     /// Sets the value of [machine_type][crate::model::NodeConfig::machine_type].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::NodeConfig;
-    /// let x = NodeConfig::new().set_machine_type("example");
-    /// ```
     pub fn set_machine_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.machine_type = v.into();
         self
     }
 
     /// Sets the value of [network][crate::model::NodeConfig::network].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::NodeConfig;
-    /// let x = NodeConfig::new().set_network("example");
-    /// ```
     pub fn set_network<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.network = v.into();
         self
     }
 
     /// Sets the value of [subnetwork][crate::model::NodeConfig::subnetwork].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::NodeConfig;
-    /// let x = NodeConfig::new().set_subnetwork("example");
-    /// ```
     pub fn set_subnetwork<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.subnetwork = v.into();
         self
     }
 
     /// Sets the value of [disk_size_gb][crate::model::NodeConfig::disk_size_gb].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::NodeConfig;
-    /// let x = NodeConfig::new().set_disk_size_gb(42);
-    /// ```
     pub fn set_disk_size_gb<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.disk_size_gb = v.into();
         self
     }
 
     /// Sets the value of [oauth_scopes][crate::model::NodeConfig::oauth_scopes].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::NodeConfig;
-    /// let x = NodeConfig::new().set_oauth_scopes(["a", "b", "c"]);
-    /// ```
     pub fn set_oauth_scopes<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -5293,24 +4170,12 @@ impl NodeConfig {
     }
 
     /// Sets the value of [service_account][crate::model::NodeConfig::service_account].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::NodeConfig;
-    /// let x = NodeConfig::new().set_service_account("example");
-    /// ```
     pub fn set_service_account<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.service_account = v.into();
         self
     }
 
     /// Sets the value of [tags][crate::model::NodeConfig::tags].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::NodeConfig;
-    /// let x = NodeConfig::new().set_tags(["a", "b", "c"]);
-    /// ```
     pub fn set_tags<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -5322,13 +4187,6 @@ impl NodeConfig {
     }
 
     /// Sets the value of [ip_allocation_policy][crate::model::NodeConfig::ip_allocation_policy].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::NodeConfig;
-    /// use google_cloud_orchestration_airflow_service_v1::model::IPAllocationPolicy;
-    /// let x = NodeConfig::new().set_ip_allocation_policy(IPAllocationPolicy::default()/* use setters */);
-    /// ```
     pub fn set_ip_allocation_policy<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::IPAllocationPolicy>,
@@ -5338,14 +4196,6 @@ impl NodeConfig {
     }
 
     /// Sets or clears the value of [ip_allocation_policy][crate::model::NodeConfig::ip_allocation_policy].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::NodeConfig;
-    /// use google_cloud_orchestration_airflow_service_v1::model::IPAllocationPolicy;
-    /// let x = NodeConfig::new().set_or_clear_ip_allocation_policy(Some(IPAllocationPolicy::default()/* use setters */));
-    /// let x = NodeConfig::new().set_or_clear_ip_allocation_policy(None::<IPAllocationPolicy>);
-    /// ```
     pub fn set_or_clear_ip_allocation_policy<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::IPAllocationPolicy>,
@@ -5355,24 +4205,12 @@ impl NodeConfig {
     }
 
     /// Sets the value of [enable_ip_masq_agent][crate::model::NodeConfig::enable_ip_masq_agent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::NodeConfig;
-    /// let x = NodeConfig::new().set_enable_ip_masq_agent(true);
-    /// ```
     pub fn set_enable_ip_masq_agent<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.enable_ip_masq_agent = v.into();
         self
     }
 
     /// Sets the value of [composer_network_attachment][crate::model::NodeConfig::composer_network_attachment].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::NodeConfig;
-    /// let x = NodeConfig::new().set_composer_network_attachment("example");
-    /// ```
     pub fn set_composer_network_attachment<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -5382,12 +4220,6 @@ impl NodeConfig {
     }
 
     /// Sets the value of [composer_internal_ipv4_cidr_block][crate::model::NodeConfig::composer_internal_ipv4_cidr_block].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::NodeConfig;
-    /// let x = NodeConfig::new().set_composer_internal_ipv4_cidr_block("example");
-    /// ```
     pub fn set_composer_internal_ipv4_cidr_block<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -5432,24 +4264,12 @@ impl PrivateClusterConfig {
     }
 
     /// Sets the value of [enable_private_endpoint][crate::model::PrivateClusterConfig::enable_private_endpoint].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::PrivateClusterConfig;
-    /// let x = PrivateClusterConfig::new().set_enable_private_endpoint(true);
-    /// ```
     pub fn set_enable_private_endpoint<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.enable_private_endpoint = v.into();
         self
     }
 
     /// Sets the value of [master_ipv4_cidr_block][crate::model::PrivateClusterConfig::master_ipv4_cidr_block].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::PrivateClusterConfig;
-    /// let x = PrivateClusterConfig::new().set_master_ipv4_cidr_block("example");
-    /// ```
     pub fn set_master_ipv4_cidr_block<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -5459,12 +4279,6 @@ impl PrivateClusterConfig {
     }
 
     /// Sets the value of [master_ipv4_reserved_range][crate::model::PrivateClusterConfig::master_ipv4_reserved_range].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::PrivateClusterConfig;
-    /// let x = PrivateClusterConfig::new().set_master_ipv4_reserved_range("example");
-    /// ```
     pub fn set_master_ipv4_reserved_range<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -5499,14 +4313,6 @@ impl NetworkingConfig {
     }
 
     /// Sets the value of [connection_type][crate::model::NetworkingConfig::connection_type].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::NetworkingConfig;
-    /// use google_cloud_orchestration_airflow_service_v1::model::networking_config::ConnectionType;
-    /// let x0 = NetworkingConfig::new().set_connection_type(ConnectionType::VpcPeering);
-    /// let x1 = NetworkingConfig::new().set_connection_type(ConnectionType::PrivateServiceConnect);
-    /// ```
     pub fn set_connection_type<
         T: std::convert::Into<crate::model::networking_config::ConnectionType>,
     >(
@@ -5753,37 +4559,18 @@ impl PrivateEnvironmentConfig {
     }
 
     /// Sets the value of [enable_private_environment][crate::model::PrivateEnvironmentConfig::enable_private_environment].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::PrivateEnvironmentConfig;
-    /// let x = PrivateEnvironmentConfig::new().set_enable_private_environment(true);
-    /// ```
     pub fn set_enable_private_environment<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.enable_private_environment = v.into();
         self
     }
 
     /// Sets the value of [enable_private_builds_only][crate::model::PrivateEnvironmentConfig::enable_private_builds_only].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::PrivateEnvironmentConfig;
-    /// let x = PrivateEnvironmentConfig::new().set_enable_private_builds_only(true);
-    /// ```
     pub fn set_enable_private_builds_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.enable_private_builds_only = v.into();
         self
     }
 
     /// Sets the value of [private_cluster_config][crate::model::PrivateEnvironmentConfig::private_cluster_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::PrivateEnvironmentConfig;
-    /// use google_cloud_orchestration_airflow_service_v1::model::PrivateClusterConfig;
-    /// let x = PrivateEnvironmentConfig::new().set_private_cluster_config(PrivateClusterConfig::default()/* use setters */);
-    /// ```
     pub fn set_private_cluster_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::PrivateClusterConfig>,
@@ -5793,14 +4580,6 @@ impl PrivateEnvironmentConfig {
     }
 
     /// Sets or clears the value of [private_cluster_config][crate::model::PrivateEnvironmentConfig::private_cluster_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::PrivateEnvironmentConfig;
-    /// use google_cloud_orchestration_airflow_service_v1::model::PrivateClusterConfig;
-    /// let x = PrivateEnvironmentConfig::new().set_or_clear_private_cluster_config(Some(PrivateClusterConfig::default()/* use setters */));
-    /// let x = PrivateEnvironmentConfig::new().set_or_clear_private_cluster_config(None::<PrivateClusterConfig>);
-    /// ```
     pub fn set_or_clear_private_cluster_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::PrivateClusterConfig>,
@@ -5810,12 +4589,6 @@ impl PrivateEnvironmentConfig {
     }
 
     /// Sets the value of [web_server_ipv4_cidr_block][crate::model::PrivateEnvironmentConfig::web_server_ipv4_cidr_block].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::PrivateEnvironmentConfig;
-    /// let x = PrivateEnvironmentConfig::new().set_web_server_ipv4_cidr_block("example");
-    /// ```
     pub fn set_web_server_ipv4_cidr_block<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -5825,12 +4598,6 @@ impl PrivateEnvironmentConfig {
     }
 
     /// Sets the value of [cloud_sql_ipv4_cidr_block][crate::model::PrivateEnvironmentConfig::cloud_sql_ipv4_cidr_block].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::PrivateEnvironmentConfig;
-    /// let x = PrivateEnvironmentConfig::new().set_cloud_sql_ipv4_cidr_block("example");
-    /// ```
     pub fn set_cloud_sql_ipv4_cidr_block<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -5840,12 +4607,6 @@ impl PrivateEnvironmentConfig {
     }
 
     /// Sets the value of [web_server_ipv4_reserved_range][crate::model::PrivateEnvironmentConfig::web_server_ipv4_reserved_range].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::PrivateEnvironmentConfig;
-    /// let x = PrivateEnvironmentConfig::new().set_web_server_ipv4_reserved_range("example");
-    /// ```
     pub fn set_web_server_ipv4_reserved_range<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -5855,12 +4616,6 @@ impl PrivateEnvironmentConfig {
     }
 
     /// Sets the value of [cloud_composer_network_ipv4_cidr_block][crate::model::PrivateEnvironmentConfig::cloud_composer_network_ipv4_cidr_block].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::PrivateEnvironmentConfig;
-    /// let x = PrivateEnvironmentConfig::new().set_cloud_composer_network_ipv4_cidr_block("example");
-    /// ```
     pub fn set_cloud_composer_network_ipv4_cidr_block<
         T: std::convert::Into<std::string::String>,
     >(
@@ -5872,12 +4627,6 @@ impl PrivateEnvironmentConfig {
     }
 
     /// Sets the value of [cloud_composer_network_ipv4_reserved_range][crate::model::PrivateEnvironmentConfig::cloud_composer_network_ipv4_reserved_range].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::PrivateEnvironmentConfig;
-    /// let x = PrivateEnvironmentConfig::new().set_cloud_composer_network_ipv4_reserved_range("example");
-    /// ```
     pub fn set_cloud_composer_network_ipv4_reserved_range<
         T: std::convert::Into<std::string::String>,
     >(
@@ -5889,12 +4638,6 @@ impl PrivateEnvironmentConfig {
     }
 
     /// Sets the value of [enable_privately_used_public_ips][crate::model::PrivateEnvironmentConfig::enable_privately_used_public_ips].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::PrivateEnvironmentConfig;
-    /// let x = PrivateEnvironmentConfig::new().set_enable_privately_used_public_ips(true);
-    /// ```
     pub fn set_enable_privately_used_public_ips<T: std::convert::Into<bool>>(
         mut self,
         v: T,
@@ -5904,12 +4647,6 @@ impl PrivateEnvironmentConfig {
     }
 
     /// Sets the value of [cloud_composer_connection_subnetwork][crate::model::PrivateEnvironmentConfig::cloud_composer_connection_subnetwork].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::PrivateEnvironmentConfig;
-    /// let x = PrivateEnvironmentConfig::new().set_cloud_composer_connection_subnetwork("example");
-    /// ```
     pub fn set_cloud_composer_connection_subnetwork<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -5919,13 +4656,6 @@ impl PrivateEnvironmentConfig {
     }
 
     /// Sets the value of [networking_config][crate::model::PrivateEnvironmentConfig::networking_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::PrivateEnvironmentConfig;
-    /// use google_cloud_orchestration_airflow_service_v1::model::NetworkingConfig;
-    /// let x = PrivateEnvironmentConfig::new().set_networking_config(NetworkingConfig::default()/* use setters */);
-    /// ```
     pub fn set_networking_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::NetworkingConfig>,
@@ -5935,14 +4665,6 @@ impl PrivateEnvironmentConfig {
     }
 
     /// Sets or clears the value of [networking_config][crate::model::PrivateEnvironmentConfig::networking_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::PrivateEnvironmentConfig;
-    /// use google_cloud_orchestration_airflow_service_v1::model::NetworkingConfig;
-    /// let x = PrivateEnvironmentConfig::new().set_or_clear_networking_config(Some(NetworkingConfig::default()/* use setters */));
-    /// let x = PrivateEnvironmentConfig::new().set_or_clear_networking_config(None::<NetworkingConfig>);
-    /// ```
     pub fn set_or_clear_networking_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::NetworkingConfig>,
@@ -5991,13 +4713,6 @@ impl WorkloadsConfig {
     }
 
     /// Sets the value of [scheduler][crate::model::WorkloadsConfig::scheduler].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::WorkloadsConfig;
-    /// use google_cloud_orchestration_airflow_service_v1::model::workloads_config::SchedulerResource;
-    /// let x = WorkloadsConfig::new().set_scheduler(SchedulerResource::default()/* use setters */);
-    /// ```
     pub fn set_scheduler<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::workloads_config::SchedulerResource>,
@@ -6007,14 +4722,6 @@ impl WorkloadsConfig {
     }
 
     /// Sets or clears the value of [scheduler][crate::model::WorkloadsConfig::scheduler].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::WorkloadsConfig;
-    /// use google_cloud_orchestration_airflow_service_v1::model::workloads_config::SchedulerResource;
-    /// let x = WorkloadsConfig::new().set_or_clear_scheduler(Some(SchedulerResource::default()/* use setters */));
-    /// let x = WorkloadsConfig::new().set_or_clear_scheduler(None::<SchedulerResource>);
-    /// ```
     pub fn set_or_clear_scheduler<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::workloads_config::SchedulerResource>,
@@ -6024,13 +4731,6 @@ impl WorkloadsConfig {
     }
 
     /// Sets the value of [web_server][crate::model::WorkloadsConfig::web_server].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::WorkloadsConfig;
-    /// use google_cloud_orchestration_airflow_service_v1::model::workloads_config::WebServerResource;
-    /// let x = WorkloadsConfig::new().set_web_server(WebServerResource::default()/* use setters */);
-    /// ```
     pub fn set_web_server<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::workloads_config::WebServerResource>,
@@ -6040,14 +4740,6 @@ impl WorkloadsConfig {
     }
 
     /// Sets or clears the value of [web_server][crate::model::WorkloadsConfig::web_server].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::WorkloadsConfig;
-    /// use google_cloud_orchestration_airflow_service_v1::model::workloads_config::WebServerResource;
-    /// let x = WorkloadsConfig::new().set_or_clear_web_server(Some(WebServerResource::default()/* use setters */));
-    /// let x = WorkloadsConfig::new().set_or_clear_web_server(None::<WebServerResource>);
-    /// ```
     pub fn set_or_clear_web_server<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::workloads_config::WebServerResource>,
@@ -6057,13 +4749,6 @@ impl WorkloadsConfig {
     }
 
     /// Sets the value of [worker][crate::model::WorkloadsConfig::worker].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::WorkloadsConfig;
-    /// use google_cloud_orchestration_airflow_service_v1::model::workloads_config::WorkerResource;
-    /// let x = WorkloadsConfig::new().set_worker(WorkerResource::default()/* use setters */);
-    /// ```
     pub fn set_worker<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::workloads_config::WorkerResource>,
@@ -6073,14 +4758,6 @@ impl WorkloadsConfig {
     }
 
     /// Sets or clears the value of [worker][crate::model::WorkloadsConfig::worker].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::WorkloadsConfig;
-    /// use google_cloud_orchestration_airflow_service_v1::model::workloads_config::WorkerResource;
-    /// let x = WorkloadsConfig::new().set_or_clear_worker(Some(WorkerResource::default()/* use setters */));
-    /// let x = WorkloadsConfig::new().set_or_clear_worker(None::<WorkerResource>);
-    /// ```
     pub fn set_or_clear_worker<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::workloads_config::WorkerResource>,
@@ -6090,13 +4767,6 @@ impl WorkloadsConfig {
     }
 
     /// Sets the value of [triggerer][crate::model::WorkloadsConfig::triggerer].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::WorkloadsConfig;
-    /// use google_cloud_orchestration_airflow_service_v1::model::workloads_config::TriggererResource;
-    /// let x = WorkloadsConfig::new().set_triggerer(TriggererResource::default()/* use setters */);
-    /// ```
     pub fn set_triggerer<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::workloads_config::TriggererResource>,
@@ -6106,14 +4776,6 @@ impl WorkloadsConfig {
     }
 
     /// Sets or clears the value of [triggerer][crate::model::WorkloadsConfig::triggerer].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::WorkloadsConfig;
-    /// use google_cloud_orchestration_airflow_service_v1::model::workloads_config::TriggererResource;
-    /// let x = WorkloadsConfig::new().set_or_clear_triggerer(Some(TriggererResource::default()/* use setters */));
-    /// let x = WorkloadsConfig::new().set_or_clear_triggerer(None::<TriggererResource>);
-    /// ```
     pub fn set_or_clear_triggerer<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::workloads_config::TriggererResource>,
@@ -6123,13 +4785,6 @@ impl WorkloadsConfig {
     }
 
     /// Sets the value of [dag_processor][crate::model::WorkloadsConfig::dag_processor].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::WorkloadsConfig;
-    /// use google_cloud_orchestration_airflow_service_v1::model::workloads_config::DagProcessorResource;
-    /// let x = WorkloadsConfig::new().set_dag_processor(DagProcessorResource::default()/* use setters */);
-    /// ```
     pub fn set_dag_processor<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::workloads_config::DagProcessorResource>,
@@ -6139,14 +4794,6 @@ impl WorkloadsConfig {
     }
 
     /// Sets or clears the value of [dag_processor][crate::model::WorkloadsConfig::dag_processor].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::WorkloadsConfig;
-    /// use google_cloud_orchestration_airflow_service_v1::model::workloads_config::DagProcessorResource;
-    /// let x = WorkloadsConfig::new().set_or_clear_dag_processor(Some(DagProcessorResource::default()/* use setters */));
-    /// let x = WorkloadsConfig::new().set_or_clear_dag_processor(None::<DagProcessorResource>);
-    /// ```
     pub fn set_or_clear_dag_processor<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::workloads_config::DagProcessorResource>,
@@ -6194,48 +4841,24 @@ pub mod workloads_config {
         }
 
         /// Sets the value of [cpu][crate::model::workloads_config::SchedulerResource::cpu].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_orchestration_airflow_service_v1::model::workloads_config::SchedulerResource;
-        /// let x = SchedulerResource::new().set_cpu(42.0);
-        /// ```
         pub fn set_cpu<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
             self.cpu = v.into();
             self
         }
 
         /// Sets the value of [memory_gb][crate::model::workloads_config::SchedulerResource::memory_gb].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_orchestration_airflow_service_v1::model::workloads_config::SchedulerResource;
-        /// let x = SchedulerResource::new().set_memory_gb(42.0);
-        /// ```
         pub fn set_memory_gb<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
             self.memory_gb = v.into();
             self
         }
 
         /// Sets the value of [storage_gb][crate::model::workloads_config::SchedulerResource::storage_gb].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_orchestration_airflow_service_v1::model::workloads_config::SchedulerResource;
-        /// let x = SchedulerResource::new().set_storage_gb(42.0);
-        /// ```
         pub fn set_storage_gb<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
             self.storage_gb = v.into();
             self
         }
 
         /// Sets the value of [count][crate::model::workloads_config::SchedulerResource::count].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_orchestration_airflow_service_v1::model::workloads_config::SchedulerResource;
-        /// let x = SchedulerResource::new().set_count(42);
-        /// ```
         pub fn set_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.count = v.into();
             self
@@ -6270,36 +4893,18 @@ pub mod workloads_config {
         }
 
         /// Sets the value of [cpu][crate::model::workloads_config::WebServerResource::cpu].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_orchestration_airflow_service_v1::model::workloads_config::WebServerResource;
-        /// let x = WebServerResource::new().set_cpu(42.0);
-        /// ```
         pub fn set_cpu<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
             self.cpu = v.into();
             self
         }
 
         /// Sets the value of [memory_gb][crate::model::workloads_config::WebServerResource::memory_gb].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_orchestration_airflow_service_v1::model::workloads_config::WebServerResource;
-        /// let x = WebServerResource::new().set_memory_gb(42.0);
-        /// ```
         pub fn set_memory_gb<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
             self.memory_gb = v.into();
             self
         }
 
         /// Sets the value of [storage_gb][crate::model::workloads_config::WebServerResource::storage_gb].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_orchestration_airflow_service_v1::model::workloads_config::WebServerResource;
-        /// let x = WebServerResource::new().set_storage_gb(42.0);
-        /// ```
         pub fn set_storage_gb<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
             self.storage_gb = v.into();
             self
@@ -6342,60 +4947,30 @@ pub mod workloads_config {
         }
 
         /// Sets the value of [cpu][crate::model::workloads_config::WorkerResource::cpu].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_orchestration_airflow_service_v1::model::workloads_config::WorkerResource;
-        /// let x = WorkerResource::new().set_cpu(42.0);
-        /// ```
         pub fn set_cpu<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
             self.cpu = v.into();
             self
         }
 
         /// Sets the value of [memory_gb][crate::model::workloads_config::WorkerResource::memory_gb].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_orchestration_airflow_service_v1::model::workloads_config::WorkerResource;
-        /// let x = WorkerResource::new().set_memory_gb(42.0);
-        /// ```
         pub fn set_memory_gb<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
             self.memory_gb = v.into();
             self
         }
 
         /// Sets the value of [storage_gb][crate::model::workloads_config::WorkerResource::storage_gb].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_orchestration_airflow_service_v1::model::workloads_config::WorkerResource;
-        /// let x = WorkerResource::new().set_storage_gb(42.0);
-        /// ```
         pub fn set_storage_gb<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
             self.storage_gb = v.into();
             self
         }
 
         /// Sets the value of [min_count][crate::model::workloads_config::WorkerResource::min_count].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_orchestration_airflow_service_v1::model::workloads_config::WorkerResource;
-        /// let x = WorkerResource::new().set_min_count(42);
-        /// ```
         pub fn set_min_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.min_count = v.into();
             self
         }
 
         /// Sets the value of [max_count][crate::model::workloads_config::WorkerResource::max_count].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_orchestration_airflow_service_v1::model::workloads_config::WorkerResource;
-        /// let x = WorkerResource::new().set_max_count(42);
-        /// ```
         pub fn set_max_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.max_count = v.into();
             self
@@ -6431,36 +5006,18 @@ pub mod workloads_config {
         }
 
         /// Sets the value of [count][crate::model::workloads_config::TriggererResource::count].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_orchestration_airflow_service_v1::model::workloads_config::TriggererResource;
-        /// let x = TriggererResource::new().set_count(42);
-        /// ```
         pub fn set_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.count = v.into();
             self
         }
 
         /// Sets the value of [cpu][crate::model::workloads_config::TriggererResource::cpu].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_orchestration_airflow_service_v1::model::workloads_config::TriggererResource;
-        /// let x = TriggererResource::new().set_cpu(42.0);
-        /// ```
         pub fn set_cpu<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
             self.cpu = v.into();
             self
         }
 
         /// Sets the value of [memory_gb][crate::model::workloads_config::TriggererResource::memory_gb].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_orchestration_airflow_service_v1::model::workloads_config::TriggererResource;
-        /// let x = TriggererResource::new().set_memory_gb(42.0);
-        /// ```
         pub fn set_memory_gb<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
             self.memory_gb = v.into();
             self
@@ -6505,48 +5062,24 @@ pub mod workloads_config {
         }
 
         /// Sets the value of [cpu][crate::model::workloads_config::DagProcessorResource::cpu].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_orchestration_airflow_service_v1::model::workloads_config::DagProcessorResource;
-        /// let x = DagProcessorResource::new().set_cpu(42.0);
-        /// ```
         pub fn set_cpu<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
             self.cpu = v.into();
             self
         }
 
         /// Sets the value of [memory_gb][crate::model::workloads_config::DagProcessorResource::memory_gb].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_orchestration_airflow_service_v1::model::workloads_config::DagProcessorResource;
-        /// let x = DagProcessorResource::new().set_memory_gb(42.0);
-        /// ```
         pub fn set_memory_gb<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
             self.memory_gb = v.into();
             self
         }
 
         /// Sets the value of [storage_gb][crate::model::workloads_config::DagProcessorResource::storage_gb].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_orchestration_airflow_service_v1::model::workloads_config::DagProcessorResource;
-        /// let x = DagProcessorResource::new().set_storage_gb(42.0);
-        /// ```
         pub fn set_storage_gb<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
             self.storage_gb = v.into();
             self
         }
 
         /// Sets the value of [count][crate::model::workloads_config::DagProcessorResource::count].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_orchestration_airflow_service_v1::model::workloads_config::DagProcessorResource;
-        /// let x = DagProcessorResource::new().set_count(42);
-        /// ```
         pub fn set_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.count = v.into();
             self
@@ -6576,13 +5109,6 @@ impl RecoveryConfig {
     }
 
     /// Sets the value of [scheduled_snapshots_config][crate::model::RecoveryConfig::scheduled_snapshots_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::RecoveryConfig;
-    /// use google_cloud_orchestration_airflow_service_v1::model::ScheduledSnapshotsConfig;
-    /// let x = RecoveryConfig::new().set_scheduled_snapshots_config(ScheduledSnapshotsConfig::default()/* use setters */);
-    /// ```
     pub fn set_scheduled_snapshots_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ScheduledSnapshotsConfig>,
@@ -6592,14 +5118,6 @@ impl RecoveryConfig {
     }
 
     /// Sets or clears the value of [scheduled_snapshots_config][crate::model::RecoveryConfig::scheduled_snapshots_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::RecoveryConfig;
-    /// use google_cloud_orchestration_airflow_service_v1::model::ScheduledSnapshotsConfig;
-    /// let x = RecoveryConfig::new().set_or_clear_scheduled_snapshots_config(Some(ScheduledSnapshotsConfig::default()/* use setters */));
-    /// let x = RecoveryConfig::new().set_or_clear_scheduled_snapshots_config(None::<ScheduledSnapshotsConfig>);
-    /// ```
     pub fn set_or_clear_scheduled_snapshots_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ScheduledSnapshotsConfig>,
@@ -6644,24 +5162,12 @@ impl ScheduledSnapshotsConfig {
     }
 
     /// Sets the value of [enabled][crate::model::ScheduledSnapshotsConfig::enabled].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::ScheduledSnapshotsConfig;
-    /// let x = ScheduledSnapshotsConfig::new().set_enabled(true);
-    /// ```
     pub fn set_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.enabled = v.into();
         self
     }
 
     /// Sets the value of [snapshot_location][crate::model::ScheduledSnapshotsConfig::snapshot_location].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::ScheduledSnapshotsConfig;
-    /// let x = ScheduledSnapshotsConfig::new().set_snapshot_location("example");
-    /// ```
     pub fn set_snapshot_location<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -6671,12 +5177,6 @@ impl ScheduledSnapshotsConfig {
     }
 
     /// Sets the value of [snapshot_creation_schedule][crate::model::ScheduledSnapshotsConfig::snapshot_creation_schedule].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::ScheduledSnapshotsConfig;
-    /// let x = ScheduledSnapshotsConfig::new().set_snapshot_creation_schedule("example");
-    /// ```
     pub fn set_snapshot_creation_schedule<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -6686,12 +5186,6 @@ impl ScheduledSnapshotsConfig {
     }
 
     /// Sets the value of [time_zone][crate::model::ScheduledSnapshotsConfig::time_zone].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::ScheduledSnapshotsConfig;
-    /// let x = ScheduledSnapshotsConfig::new().set_time_zone("example");
-    /// ```
     pub fn set_time_zone<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.time_zone = v.into();
         self
@@ -6727,29 +5221,12 @@ impl MasterAuthorizedNetworksConfig {
     }
 
     /// Sets the value of [enabled][crate::model::MasterAuthorizedNetworksConfig::enabled].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::MasterAuthorizedNetworksConfig;
-    /// let x = MasterAuthorizedNetworksConfig::new().set_enabled(true);
-    /// ```
     pub fn set_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.enabled = v.into();
         self
     }
 
     /// Sets the value of [cidr_blocks][crate::model::MasterAuthorizedNetworksConfig::cidr_blocks].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::MasterAuthorizedNetworksConfig;
-    /// use google_cloud_orchestration_airflow_service_v1::model::master_authorized_networks_config::CidrBlock;
-    /// let x = MasterAuthorizedNetworksConfig::new()
-    ///     .set_cidr_blocks([
-    ///         CidrBlock::default()/* use setters */,
-    ///         CidrBlock::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_cidr_blocks<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -6791,12 +5268,6 @@ pub mod master_authorized_networks_config {
         }
 
         /// Sets the value of [display_name][crate::model::master_authorized_networks_config::CidrBlock::display_name].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_orchestration_airflow_service_v1::model::master_authorized_networks_config::CidrBlock;
-        /// let x = CidrBlock::new().set_display_name("example");
-        /// ```
         pub fn set_display_name<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -6806,12 +5277,6 @@ pub mod master_authorized_networks_config {
         }
 
         /// Sets the value of [cidr_block][crate::model::master_authorized_networks_config::CidrBlock::cidr_block].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_orchestration_airflow_service_v1::model::master_authorized_networks_config::CidrBlock;
-        /// let x = CidrBlock::new().set_cidr_block("example");
-        /// ```
         pub fn set_cidr_block<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.cidr_block = v.into();
             self
@@ -6841,12 +5306,6 @@ impl CloudDataLineageIntegration {
     }
 
     /// Sets the value of [enabled][crate::model::CloudDataLineageIntegration::enabled].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::CloudDataLineageIntegration;
-    /// let x = CloudDataLineageIntegration::new().set_enabled(true);
-    /// ```
     pub fn set_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.enabled = v.into();
         self
@@ -6914,25 +5373,12 @@ impl Environment {
     }
 
     /// Sets the value of [name][crate::model::Environment::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::Environment;
-    /// let x = Environment::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [config][crate::model::Environment::config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::Environment;
-    /// use google_cloud_orchestration_airflow_service_v1::model::EnvironmentConfig;
-    /// let x = Environment::new().set_config(EnvironmentConfig::default()/* use setters */);
-    /// ```
     pub fn set_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::EnvironmentConfig>,
@@ -6942,14 +5388,6 @@ impl Environment {
     }
 
     /// Sets or clears the value of [config][crate::model::Environment::config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::Environment;
-    /// use google_cloud_orchestration_airflow_service_v1::model::EnvironmentConfig;
-    /// let x = Environment::new().set_or_clear_config(Some(EnvironmentConfig::default()/* use setters */));
-    /// let x = Environment::new().set_or_clear_config(None::<EnvironmentConfig>);
-    /// ```
     pub fn set_or_clear_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::EnvironmentConfig>,
@@ -6959,27 +5397,12 @@ impl Environment {
     }
 
     /// Sets the value of [uuid][crate::model::Environment::uuid].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::Environment;
-    /// let x = Environment::new().set_uuid("example");
-    /// ```
     pub fn set_uuid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.uuid = v.into();
         self
     }
 
     /// Sets the value of [state][crate::model::Environment::state].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::Environment;
-    /// use google_cloud_orchestration_airflow_service_v1::model::environment::State;
-    /// let x0 = Environment::new().set_state(State::Creating);
-    /// let x1 = Environment::new().set_state(State::Running);
-    /// let x2 = Environment::new().set_state(State::Updating);
-    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::environment::State>>(
         mut self,
         v: T,
@@ -6989,13 +5412,6 @@ impl Environment {
     }
 
     /// Sets the value of [create_time][crate::model::Environment::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::Environment;
-    /// use wkt::Timestamp;
-    /// let x = Environment::new().set_create_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -7005,14 +5421,6 @@ impl Environment {
     }
 
     /// Sets or clears the value of [create_time][crate::model::Environment::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::Environment;
-    /// use wkt::Timestamp;
-    /// let x = Environment::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
-    /// let x = Environment::new().set_or_clear_create_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -7022,13 +5430,6 @@ impl Environment {
     }
 
     /// Sets the value of [update_time][crate::model::Environment::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::Environment;
-    /// use wkt::Timestamp;
-    /// let x = Environment::new().set_update_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -7038,14 +5439,6 @@ impl Environment {
     }
 
     /// Sets or clears the value of [update_time][crate::model::Environment::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::Environment;
-    /// use wkt::Timestamp;
-    /// let x = Environment::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
-    /// let x = Environment::new().set_or_clear_update_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -7055,15 +5448,6 @@ impl Environment {
     }
 
     /// Sets the value of [labels][crate::model::Environment::labels].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::Environment;
-    /// let x = Environment::new().set_labels([
-    ///     ("key0", "abc"),
-    ///     ("key1", "xyz"),
-    /// ]);
-    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -7076,37 +5460,18 @@ impl Environment {
     }
 
     /// Sets the value of [satisfies_pzs][crate::model::Environment::satisfies_pzs].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::Environment;
-    /// let x = Environment::new().set_satisfies_pzs(true);
-    /// ```
     pub fn set_satisfies_pzs<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.satisfies_pzs = v.into();
         self
     }
 
     /// Sets the value of [satisfies_pzi][crate::model::Environment::satisfies_pzi].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::Environment;
-    /// let x = Environment::new().set_satisfies_pzi(true);
-    /// ```
     pub fn set_satisfies_pzi<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.satisfies_pzi = v.into();
         self
     }
 
     /// Sets the value of [storage_config][crate::model::Environment::storage_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::Environment;
-    /// use google_cloud_orchestration_airflow_service_v1::model::StorageConfig;
-    /// let x = Environment::new().set_storage_config(StorageConfig::default()/* use setters */);
-    /// ```
     pub fn set_storage_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::StorageConfig>,
@@ -7116,14 +5481,6 @@ impl Environment {
     }
 
     /// Sets or clears the value of [storage_config][crate::model::Environment::storage_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::Environment;
-    /// use google_cloud_orchestration_airflow_service_v1::model::StorageConfig;
-    /// let x = Environment::new().set_or_clear_storage_config(Some(StorageConfig::default()/* use setters */));
-    /// let x = Environment::new().set_or_clear_storage_config(None::<StorageConfig>);
-    /// ```
     pub fn set_or_clear_storage_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::StorageConfig>,
@@ -7343,24 +5700,12 @@ impl CheckUpgradeRequest {
     }
 
     /// Sets the value of [environment][crate::model::CheckUpgradeRequest::environment].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::CheckUpgradeRequest;
-    /// let x = CheckUpgradeRequest::new().set_environment("example");
-    /// ```
     pub fn set_environment<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.environment = v.into();
         self
     }
 
     /// Sets the value of [image_version][crate::model::CheckUpgradeRequest::image_version].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::CheckUpgradeRequest;
-    /// let x = CheckUpgradeRequest::new().set_image_version("example");
-    /// ```
     pub fn set_image_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.image_version = v.into();
         self
@@ -7404,26 +5749,12 @@ impl CheckUpgradeResponse {
     }
 
     /// Sets the value of [build_log_uri][crate::model::CheckUpgradeResponse::build_log_uri].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::CheckUpgradeResponse;
-    /// let x = CheckUpgradeResponse::new().set_build_log_uri("example");
-    /// ```
     pub fn set_build_log_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.build_log_uri = v.into();
         self
     }
 
     /// Sets the value of [contains_pypi_modules_conflict][crate::model::CheckUpgradeResponse::contains_pypi_modules_conflict].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::CheckUpgradeResponse;
-    /// use google_cloud_orchestration_airflow_service_v1::model::check_upgrade_response::ConflictResult;
-    /// let x0 = CheckUpgradeResponse::new().set_contains_pypi_modules_conflict(ConflictResult::Conflict);
-    /// let x1 = CheckUpgradeResponse::new().set_contains_pypi_modules_conflict(ConflictResult::NoConflict);
-    /// ```
     pub fn set_contains_pypi_modules_conflict<
         T: std::convert::Into<crate::model::check_upgrade_response::ConflictResult>,
     >(
@@ -7435,12 +5766,6 @@ impl CheckUpgradeResponse {
     }
 
     /// Sets the value of [pypi_conflict_build_log_extract][crate::model::CheckUpgradeResponse::pypi_conflict_build_log_extract].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::CheckUpgradeResponse;
-    /// let x = CheckUpgradeResponse::new().set_pypi_conflict_build_log_extract("example");
-    /// ```
     pub fn set_pypi_conflict_build_log_extract<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -7450,27 +5775,12 @@ impl CheckUpgradeResponse {
     }
 
     /// Sets the value of [image_version][crate::model::CheckUpgradeResponse::image_version].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::CheckUpgradeResponse;
-    /// let x = CheckUpgradeResponse::new().set_image_version("example");
-    /// ```
     pub fn set_image_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.image_version = v.into();
         self
     }
 
     /// Sets the value of [pypi_dependencies][crate::model::CheckUpgradeResponse::pypi_dependencies].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::CheckUpgradeResponse;
-    /// let x = CheckUpgradeResponse::new().set_pypi_dependencies([
-    ///     ("key0", "abc"),
-    ///     ("key1", "xyz"),
-    /// ]);
-    /// ```
     pub fn set_pypi_dependencies<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -7646,13 +5956,6 @@ impl DataRetentionConfig {
     }
 
     /// Sets the value of [airflow_metadata_retention_config][crate::model::DataRetentionConfig::airflow_metadata_retention_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::DataRetentionConfig;
-    /// use google_cloud_orchestration_airflow_service_v1::model::AirflowMetadataRetentionPolicyConfig;
-    /// let x = DataRetentionConfig::new().set_airflow_metadata_retention_config(AirflowMetadataRetentionPolicyConfig::default()/* use setters */);
-    /// ```
     pub fn set_airflow_metadata_retention_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::AirflowMetadataRetentionPolicyConfig>,
@@ -7662,14 +5965,6 @@ impl DataRetentionConfig {
     }
 
     /// Sets or clears the value of [airflow_metadata_retention_config][crate::model::DataRetentionConfig::airflow_metadata_retention_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::DataRetentionConfig;
-    /// use google_cloud_orchestration_airflow_service_v1::model::AirflowMetadataRetentionPolicyConfig;
-    /// let x = DataRetentionConfig::new().set_or_clear_airflow_metadata_retention_config(Some(AirflowMetadataRetentionPolicyConfig::default()/* use setters */));
-    /// let x = DataRetentionConfig::new().set_or_clear_airflow_metadata_retention_config(None::<AirflowMetadataRetentionPolicyConfig>);
-    /// ```
     pub fn set_or_clear_airflow_metadata_retention_config<T>(
         mut self,
         v: std::option::Option<T>,
@@ -7682,13 +5977,6 @@ impl DataRetentionConfig {
     }
 
     /// Sets the value of [task_logs_retention_config][crate::model::DataRetentionConfig::task_logs_retention_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::DataRetentionConfig;
-    /// use google_cloud_orchestration_airflow_service_v1::model::TaskLogsRetentionConfig;
-    /// let x = DataRetentionConfig::new().set_task_logs_retention_config(TaskLogsRetentionConfig::default()/* use setters */);
-    /// ```
     pub fn set_task_logs_retention_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::TaskLogsRetentionConfig>,
@@ -7698,14 +5986,6 @@ impl DataRetentionConfig {
     }
 
     /// Sets or clears the value of [task_logs_retention_config][crate::model::DataRetentionConfig::task_logs_retention_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::DataRetentionConfig;
-    /// use google_cloud_orchestration_airflow_service_v1::model::TaskLogsRetentionConfig;
-    /// let x = DataRetentionConfig::new().set_or_clear_task_logs_retention_config(Some(TaskLogsRetentionConfig::default()/* use setters */));
-    /// let x = DataRetentionConfig::new().set_or_clear_task_logs_retention_config(None::<TaskLogsRetentionConfig>);
-    /// ```
     pub fn set_or_clear_task_logs_retention_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::TaskLogsRetentionConfig>,
@@ -7737,14 +6017,6 @@ impl TaskLogsRetentionConfig {
     }
 
     /// Sets the value of [storage_mode][crate::model::TaskLogsRetentionConfig::storage_mode].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::TaskLogsRetentionConfig;
-    /// use google_cloud_orchestration_airflow_service_v1::model::task_logs_retention_config::TaskLogsStorageMode;
-    /// let x0 = TaskLogsRetentionConfig::new().set_storage_mode(TaskLogsStorageMode::CloudLoggingAndCloudStorage);
-    /// let x1 = TaskLogsRetentionConfig::new().set_storage_mode(TaskLogsStorageMode::CloudLoggingOnly);
-    /// ```
     pub fn set_storage_mode<
         T: std::convert::Into<crate::model::task_logs_retention_config::TaskLogsStorageMode>,
     >(
@@ -7923,14 +6195,6 @@ impl AirflowMetadataRetentionPolicyConfig {
     }
 
     /// Sets the value of [retention_mode][crate::model::AirflowMetadataRetentionPolicyConfig::retention_mode].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::AirflowMetadataRetentionPolicyConfig;
-    /// use google_cloud_orchestration_airflow_service_v1::model::airflow_metadata_retention_policy_config::RetentionMode;
-    /// let x0 = AirflowMetadataRetentionPolicyConfig::new().set_retention_mode(RetentionMode::Enabled);
-    /// let x1 = AirflowMetadataRetentionPolicyConfig::new().set_retention_mode(RetentionMode::Disabled);
-    /// ```
     pub fn set_retention_mode<
         T: std::convert::Into<crate::model::airflow_metadata_retention_policy_config::RetentionMode>,
     >(
@@ -7942,12 +6206,6 @@ impl AirflowMetadataRetentionPolicyConfig {
     }
 
     /// Sets the value of [retention_days][crate::model::AirflowMetadataRetentionPolicyConfig::retention_days].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::AirflowMetadataRetentionPolicyConfig;
-    /// let x = AirflowMetadataRetentionPolicyConfig::new().set_retention_days(42);
-    /// ```
     pub fn set_retention_days<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.retention_days = v.into();
         self
@@ -8123,48 +6381,24 @@ impl ListImageVersionsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListImageVersionsRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::ListImageVersionsRequest;
-    /// let x = ListImageVersionsRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListImageVersionsRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::ListImageVersionsRequest;
-    /// let x = ListImageVersionsRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListImageVersionsRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::ListImageVersionsRequest;
-    /// let x = ListImageVersionsRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [include_past_releases][crate::model::ListImageVersionsRequest::include_past_releases].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::ListImageVersionsRequest;
-    /// let x = ListImageVersionsRequest::new().set_include_past_releases(true);
-    /// ```
     pub fn set_include_past_releases<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.include_past_releases = v.into();
         self
@@ -8196,17 +6430,6 @@ impl ListImageVersionsResponse {
     }
 
     /// Sets the value of [image_versions][crate::model::ListImageVersionsResponse::image_versions].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::ListImageVersionsResponse;
-    /// use google_cloud_orchestration_airflow_service_v1::model::ImageVersion;
-    /// let x = ListImageVersionsResponse::new()
-    ///     .set_image_versions([
-    ///         ImageVersion::default()/* use setters */,
-    ///         ImageVersion::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_image_versions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -8218,12 +6441,6 @@ impl ListImageVersionsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListImageVersionsResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::ListImageVersionsResponse;
-    /// let x = ListImageVersionsResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -8284,12 +6501,6 @@ impl ImageVersion {
     }
 
     /// Sets the value of [image_version_id][crate::model::ImageVersion::image_version_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::ImageVersion;
-    /// let x = ImageVersion::new().set_image_version_id("example");
-    /// ```
     pub fn set_image_version_id<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -8299,24 +6510,12 @@ impl ImageVersion {
     }
 
     /// Sets the value of [is_default][crate::model::ImageVersion::is_default].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::ImageVersion;
-    /// let x = ImageVersion::new().set_is_default(true);
-    /// ```
     pub fn set_is_default<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.is_default = v.into();
         self
     }
 
     /// Sets the value of [supported_python_versions][crate::model::ImageVersion::supported_python_versions].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::ImageVersion;
-    /// let x = ImageVersion::new().set_supported_python_versions(["a", "b", "c"]);
-    /// ```
     pub fn set_supported_python_versions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -8328,13 +6527,6 @@ impl ImageVersion {
     }
 
     /// Sets the value of [release_date][crate::model::ImageVersion::release_date].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::ImageVersion;
-    /// use gtype::model::Date;
-    /// let x = ImageVersion::new().set_release_date(Date::default()/* use setters */);
-    /// ```
     pub fn set_release_date<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<gtype::model::Date>,
@@ -8344,14 +6536,6 @@ impl ImageVersion {
     }
 
     /// Sets or clears the value of [release_date][crate::model::ImageVersion::release_date].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::ImageVersion;
-    /// use gtype::model::Date;
-    /// let x = ImageVersion::new().set_or_clear_release_date(Some(Date::default()/* use setters */));
-    /// let x = ImageVersion::new().set_or_clear_release_date(None::<Date>);
-    /// ```
     pub fn set_or_clear_release_date<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<gtype::model::Date>,
@@ -8361,24 +6545,12 @@ impl ImageVersion {
     }
 
     /// Sets the value of [creation_disabled][crate::model::ImageVersion::creation_disabled].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::ImageVersion;
-    /// let x = ImageVersion::new().set_creation_disabled(true);
-    /// ```
     pub fn set_creation_disabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.creation_disabled = v.into();
         self
     }
 
     /// Sets the value of [upgrade_disabled][crate::model::ImageVersion::upgrade_disabled].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::ImageVersion;
-    /// let x = ImageVersion::new().set_upgrade_disabled(true);
-    /// ```
     pub fn set_upgrade_disabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.upgrade_disabled = v.into();
         self
@@ -8424,15 +6596,6 @@ impl OperationMetadata {
     }
 
     /// Sets the value of [state][crate::model::OperationMetadata::state].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::OperationMetadata;
-    /// use google_cloud_orchestration_airflow_service_v1::model::operation_metadata::State;
-    /// let x0 = OperationMetadata::new().set_state(State::Pending);
-    /// let x1 = OperationMetadata::new().set_state(State::Running);
-    /// let x2 = OperationMetadata::new().set_state(State::Succeeded);
-    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::operation_metadata::State>>(
         mut self,
         v: T,
@@ -8442,15 +6605,6 @@ impl OperationMetadata {
     }
 
     /// Sets the value of [operation_type][crate::model::OperationMetadata::operation_type].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::OperationMetadata;
-    /// use google_cloud_orchestration_airflow_service_v1::model::operation_metadata::Type;
-    /// let x0 = OperationMetadata::new().set_operation_type(Type::Create);
-    /// let x1 = OperationMetadata::new().set_operation_type(Type::Delete);
-    /// let x2 = OperationMetadata::new().set_operation_type(Type::Update);
-    /// ```
     pub fn set_operation_type<T: std::convert::Into<crate::model::operation_metadata::Type>>(
         mut self,
         v: T,
@@ -8460,37 +6614,18 @@ impl OperationMetadata {
     }
 
     /// Sets the value of [resource][crate::model::OperationMetadata::resource].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::OperationMetadata;
-    /// let x = OperationMetadata::new().set_resource("example");
-    /// ```
     pub fn set_resource<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.resource = v.into();
         self
     }
 
     /// Sets the value of [resource_uuid][crate::model::OperationMetadata::resource_uuid].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::OperationMetadata;
-    /// let x = OperationMetadata::new().set_resource_uuid("example");
-    /// ```
     pub fn set_resource_uuid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.resource_uuid = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::OperationMetadata::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::OperationMetadata;
-    /// use wkt::Timestamp;
-    /// let x = OperationMetadata::new().set_create_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -8500,14 +6635,6 @@ impl OperationMetadata {
     }
 
     /// Sets or clears the value of [create_time][crate::model::OperationMetadata::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::OperationMetadata;
-    /// use wkt::Timestamp;
-    /// let x = OperationMetadata::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
-    /// let x = OperationMetadata::new().set_or_clear_create_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -8517,13 +6644,6 @@ impl OperationMetadata {
     }
 
     /// Sets the value of [end_time][crate::model::OperationMetadata::end_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::OperationMetadata;
-    /// use wkt::Timestamp;
-    /// let x = OperationMetadata::new().set_end_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -8533,14 +6653,6 @@ impl OperationMetadata {
     }
 
     /// Sets or clears the value of [end_time][crate::model::OperationMetadata::end_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orchestration_airflow_service_v1::model::OperationMetadata;
-    /// use wkt::Timestamp;
-    /// let x = OperationMetadata::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
-    /// let x = OperationMetadata::new().set_or_clear_end_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,

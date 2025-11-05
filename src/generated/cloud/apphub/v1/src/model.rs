@@ -56,12 +56,6 @@ impl LookupServiceProjectAttachmentRequest {
     }
 
     /// Sets the value of [name][crate::model::LookupServiceProjectAttachmentRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apphub_v1::model::LookupServiceProjectAttachmentRequest;
-    /// let x = LookupServiceProjectAttachmentRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -90,13 +84,6 @@ impl LookupServiceProjectAttachmentResponse {
     }
 
     /// Sets the value of [service_project_attachment][crate::model::LookupServiceProjectAttachmentResponse::service_project_attachment].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apphub_v1::model::LookupServiceProjectAttachmentResponse;
-    /// use google_cloud_apphub_v1::model::ServiceProjectAttachment;
-    /// let x = LookupServiceProjectAttachmentResponse::new().set_service_project_attachment(ServiceProjectAttachment::default()/* use setters */);
-    /// ```
     pub fn set_service_project_attachment<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ServiceProjectAttachment>,
@@ -106,14 +93,6 @@ impl LookupServiceProjectAttachmentResponse {
     }
 
     /// Sets or clears the value of [service_project_attachment][crate::model::LookupServiceProjectAttachmentResponse::service_project_attachment].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apphub_v1::model::LookupServiceProjectAttachmentResponse;
-    /// use google_cloud_apphub_v1::model::ServiceProjectAttachment;
-    /// let x = LookupServiceProjectAttachmentResponse::new().set_or_clear_service_project_attachment(Some(ServiceProjectAttachment::default()/* use setters */));
-    /// let x = LookupServiceProjectAttachmentResponse::new().set_or_clear_service_project_attachment(None::<ServiceProjectAttachment>);
-    /// ```
     pub fn set_or_clear_service_project_attachment<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ServiceProjectAttachment>,
@@ -160,60 +139,30 @@ impl ListServiceProjectAttachmentsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListServiceProjectAttachmentsRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apphub_v1::model::ListServiceProjectAttachmentsRequest;
-    /// let x = ListServiceProjectAttachmentsRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListServiceProjectAttachmentsRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apphub_v1::model::ListServiceProjectAttachmentsRequest;
-    /// let x = ListServiceProjectAttachmentsRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListServiceProjectAttachmentsRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apphub_v1::model::ListServiceProjectAttachmentsRequest;
-    /// let x = ListServiceProjectAttachmentsRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListServiceProjectAttachmentsRequest::filter].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apphub_v1::model::ListServiceProjectAttachmentsRequest;
-    /// let x = ListServiceProjectAttachmentsRequest::new().set_filter("example");
-    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListServiceProjectAttachmentsRequest::order_by].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apphub_v1::model::ListServiceProjectAttachmentsRequest;
-    /// let x = ListServiceProjectAttachmentsRequest::new().set_order_by("example");
-    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
@@ -248,17 +197,6 @@ impl ListServiceProjectAttachmentsResponse {
     }
 
     /// Sets the value of [service_project_attachments][crate::model::ListServiceProjectAttachmentsResponse::service_project_attachments].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apphub_v1::model::ListServiceProjectAttachmentsResponse;
-    /// use google_cloud_apphub_v1::model::ServiceProjectAttachment;
-    /// let x = ListServiceProjectAttachmentsResponse::new()
-    ///     .set_service_project_attachments([
-    ///         ServiceProjectAttachment::default()/* use setters */,
-    ///         ServiceProjectAttachment::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_service_project_attachments<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -270,24 +208,12 @@ impl ListServiceProjectAttachmentsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListServiceProjectAttachmentsResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apphub_v1::model::ListServiceProjectAttachmentsResponse;
-    /// let x = ListServiceProjectAttachmentsResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListServiceProjectAttachmentsResponse::unreachable].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apphub_v1::model::ListServiceProjectAttachmentsResponse;
-    /// let x = ListServiceProjectAttachmentsResponse::new().set_unreachable(["a", "b", "c"]);
-    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -360,24 +286,12 @@ impl CreateServiceProjectAttachmentRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateServiceProjectAttachmentRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apphub_v1::model::CreateServiceProjectAttachmentRequest;
-    /// let x = CreateServiceProjectAttachmentRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [service_project_attachment_id][crate::model::CreateServiceProjectAttachmentRequest::service_project_attachment_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apphub_v1::model::CreateServiceProjectAttachmentRequest;
-    /// let x = CreateServiceProjectAttachmentRequest::new().set_service_project_attachment_id("example");
-    /// ```
     pub fn set_service_project_attachment_id<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -387,13 +301,6 @@ impl CreateServiceProjectAttachmentRequest {
     }
 
     /// Sets the value of [service_project_attachment][crate::model::CreateServiceProjectAttachmentRequest::service_project_attachment].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apphub_v1::model::CreateServiceProjectAttachmentRequest;
-    /// use google_cloud_apphub_v1::model::ServiceProjectAttachment;
-    /// let x = CreateServiceProjectAttachmentRequest::new().set_service_project_attachment(ServiceProjectAttachment::default()/* use setters */);
-    /// ```
     pub fn set_service_project_attachment<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ServiceProjectAttachment>,
@@ -403,14 +310,6 @@ impl CreateServiceProjectAttachmentRequest {
     }
 
     /// Sets or clears the value of [service_project_attachment][crate::model::CreateServiceProjectAttachmentRequest::service_project_attachment].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apphub_v1::model::CreateServiceProjectAttachmentRequest;
-    /// use google_cloud_apphub_v1::model::ServiceProjectAttachment;
-    /// let x = CreateServiceProjectAttachmentRequest::new().set_or_clear_service_project_attachment(Some(ServiceProjectAttachment::default()/* use setters */));
-    /// let x = CreateServiceProjectAttachmentRequest::new().set_or_clear_service_project_attachment(None::<ServiceProjectAttachment>);
-    /// ```
     pub fn set_or_clear_service_project_attachment<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ServiceProjectAttachment>,
@@ -420,12 +319,6 @@ impl CreateServiceProjectAttachmentRequest {
     }
 
     /// Sets the value of [request_id][crate::model::CreateServiceProjectAttachmentRequest::request_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apphub_v1::model::CreateServiceProjectAttachmentRequest;
-    /// let x = CreateServiceProjectAttachmentRequest::new().set_request_id("example");
-    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -456,12 +349,6 @@ impl GetServiceProjectAttachmentRequest {
     }
 
     /// Sets the value of [name][crate::model::GetServiceProjectAttachmentRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apphub_v1::model::GetServiceProjectAttachmentRequest;
-    /// let x = GetServiceProjectAttachmentRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -507,24 +394,12 @@ impl DeleteServiceProjectAttachmentRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteServiceProjectAttachmentRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apphub_v1::model::DeleteServiceProjectAttachmentRequest;
-    /// let x = DeleteServiceProjectAttachmentRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [request_id][crate::model::DeleteServiceProjectAttachmentRequest::request_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apphub_v1::model::DeleteServiceProjectAttachmentRequest;
-    /// let x = DeleteServiceProjectAttachmentRequest::new().set_request_id("example");
-    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -555,12 +430,6 @@ impl DetachServiceProjectAttachmentRequest {
     }
 
     /// Sets the value of [name][crate::model::DetachServiceProjectAttachmentRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apphub_v1::model::DetachServiceProjectAttachmentRequest;
-    /// let x = DetachServiceProjectAttachmentRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -623,60 +492,30 @@ impl ListServicesRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListServicesRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apphub_v1::model::ListServicesRequest;
-    /// let x = ListServicesRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListServicesRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apphub_v1::model::ListServicesRequest;
-    /// let x = ListServicesRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListServicesRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apphub_v1::model::ListServicesRequest;
-    /// let x = ListServicesRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListServicesRequest::filter].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apphub_v1::model::ListServicesRequest;
-    /// let x = ListServicesRequest::new().set_filter("example");
-    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListServicesRequest::order_by].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apphub_v1::model::ListServicesRequest;
-    /// let x = ListServicesRequest::new().set_order_by("example");
-    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
@@ -711,17 +550,6 @@ impl ListServicesResponse {
     }
 
     /// Sets the value of [services][crate::model::ListServicesResponse::services].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apphub_v1::model::ListServicesResponse;
-    /// use google_cloud_apphub_v1::model::Service;
-    /// let x = ListServicesResponse::new()
-    ///     .set_services([
-    ///         Service::default()/* use setters */,
-    ///         Service::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_services<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -733,24 +561,12 @@ impl ListServicesResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListServicesResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apphub_v1::model::ListServicesResponse;
-    /// let x = ListServicesResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListServicesResponse::unreachable].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apphub_v1::model::ListServicesResponse;
-    /// let x = ListServicesResponse::new().set_unreachable(["a", "b", "c"]);
-    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -812,60 +628,30 @@ impl ListDiscoveredServicesRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListDiscoveredServicesRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apphub_v1::model::ListDiscoveredServicesRequest;
-    /// let x = ListDiscoveredServicesRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListDiscoveredServicesRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apphub_v1::model::ListDiscoveredServicesRequest;
-    /// let x = ListDiscoveredServicesRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListDiscoveredServicesRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apphub_v1::model::ListDiscoveredServicesRequest;
-    /// let x = ListDiscoveredServicesRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListDiscoveredServicesRequest::filter].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apphub_v1::model::ListDiscoveredServicesRequest;
-    /// let x = ListDiscoveredServicesRequest::new().set_filter("example");
-    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListDiscoveredServicesRequest::order_by].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apphub_v1::model::ListDiscoveredServicesRequest;
-    /// let x = ListDiscoveredServicesRequest::new().set_order_by("example");
-    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
@@ -900,17 +686,6 @@ impl ListDiscoveredServicesResponse {
     }
 
     /// Sets the value of [discovered_services][crate::model::ListDiscoveredServicesResponse::discovered_services].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apphub_v1::model::ListDiscoveredServicesResponse;
-    /// use google_cloud_apphub_v1::model::DiscoveredService;
-    /// let x = ListDiscoveredServicesResponse::new()
-    ///     .set_discovered_services([
-    ///         DiscoveredService::default()/* use setters */,
-    ///         DiscoveredService::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_discovered_services<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -922,24 +697,12 @@ impl ListDiscoveredServicesResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListDiscoveredServicesResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apphub_v1::model::ListDiscoveredServicesResponse;
-    /// let x = ListDiscoveredServicesResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListDiscoveredServicesResponse::unreachable].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apphub_v1::model::ListDiscoveredServicesResponse;
-    /// let x = ListDiscoveredServicesResponse::new().set_unreachable(["a", "b", "c"]);
-    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1013,37 +776,18 @@ impl CreateServiceRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateServiceRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apphub_v1::model::CreateServiceRequest;
-    /// let x = CreateServiceRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [service_id][crate::model::CreateServiceRequest::service_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apphub_v1::model::CreateServiceRequest;
-    /// let x = CreateServiceRequest::new().set_service_id("example");
-    /// ```
     pub fn set_service_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.service_id = v.into();
         self
     }
 
     /// Sets the value of [service][crate::model::CreateServiceRequest::service].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apphub_v1::model::CreateServiceRequest;
-    /// use google_cloud_apphub_v1::model::Service;
-    /// let x = CreateServiceRequest::new().set_service(Service::default()/* use setters */);
-    /// ```
     pub fn set_service<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Service>,
@@ -1053,14 +797,6 @@ impl CreateServiceRequest {
     }
 
     /// Sets or clears the value of [service][crate::model::CreateServiceRequest::service].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apphub_v1::model::CreateServiceRequest;
-    /// use google_cloud_apphub_v1::model::Service;
-    /// let x = CreateServiceRequest::new().set_or_clear_service(Some(Service::default()/* use setters */));
-    /// let x = CreateServiceRequest::new().set_or_clear_service(None::<Service>);
-    /// ```
     pub fn set_or_clear_service<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Service>,
@@ -1070,12 +806,6 @@ impl CreateServiceRequest {
     }
 
     /// Sets the value of [request_id][crate::model::CreateServiceRequest::request_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apphub_v1::model::CreateServiceRequest;
-    /// let x = CreateServiceRequest::new().set_request_id("example");
-    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -1106,12 +836,6 @@ impl GetServiceRequest {
     }
 
     /// Sets the value of [name][crate::model::GetServiceRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apphub_v1::model::GetServiceRequest;
-    /// let x = GetServiceRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -1142,12 +866,6 @@ impl GetDiscoveredServiceRequest {
     }
 
     /// Sets the value of [name][crate::model::GetDiscoveredServiceRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apphub_v1::model::GetDiscoveredServiceRequest;
-    /// let x = GetDiscoveredServiceRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -1182,24 +900,12 @@ impl LookupDiscoveredServiceRequest {
     }
 
     /// Sets the value of [parent][crate::model::LookupDiscoveredServiceRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apphub_v1::model::LookupDiscoveredServiceRequest;
-    /// let x = LookupDiscoveredServiceRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [uri][crate::model::LookupDiscoveredServiceRequest::uri].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apphub_v1::model::LookupDiscoveredServiceRequest;
-    /// let x = LookupDiscoveredServiceRequest::new().set_uri("example");
-    /// ```
     pub fn set_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.uri = v.into();
         self
@@ -1228,13 +934,6 @@ impl LookupDiscoveredServiceResponse {
     }
 
     /// Sets the value of [discovered_service][crate::model::LookupDiscoveredServiceResponse::discovered_service].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apphub_v1::model::LookupDiscoveredServiceResponse;
-    /// use google_cloud_apphub_v1::model::DiscoveredService;
-    /// let x = LookupDiscoveredServiceResponse::new().set_discovered_service(DiscoveredService::default()/* use setters */);
-    /// ```
     pub fn set_discovered_service<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::DiscoveredService>,
@@ -1244,14 +943,6 @@ impl LookupDiscoveredServiceResponse {
     }
 
     /// Sets or clears the value of [discovered_service][crate::model::LookupDiscoveredServiceResponse::discovered_service].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apphub_v1::model::LookupDiscoveredServiceResponse;
-    /// use google_cloud_apphub_v1::model::DiscoveredService;
-    /// let x = LookupDiscoveredServiceResponse::new().set_or_clear_discovered_service(Some(DiscoveredService::default()/* use setters */));
-    /// let x = LookupDiscoveredServiceResponse::new().set_or_clear_discovered_service(None::<DiscoveredService>);
-    /// ```
     pub fn set_or_clear_discovered_service<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DiscoveredService>,
@@ -1309,13 +1000,6 @@ impl UpdateServiceRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateServiceRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apphub_v1::model::UpdateServiceRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateServiceRequest::new().set_update_mask(FieldMask::default()/* use setters */);
-    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -1325,14 +1009,6 @@ impl UpdateServiceRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateServiceRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apphub_v1::model::UpdateServiceRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateServiceRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
-    /// let x = UpdateServiceRequest::new().set_or_clear_update_mask(None::<FieldMask>);
-    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -1342,13 +1018,6 @@ impl UpdateServiceRequest {
     }
 
     /// Sets the value of [service][crate::model::UpdateServiceRequest::service].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apphub_v1::model::UpdateServiceRequest;
-    /// use google_cloud_apphub_v1::model::Service;
-    /// let x = UpdateServiceRequest::new().set_service(Service::default()/* use setters */);
-    /// ```
     pub fn set_service<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Service>,
@@ -1358,14 +1027,6 @@ impl UpdateServiceRequest {
     }
 
     /// Sets or clears the value of [service][crate::model::UpdateServiceRequest::service].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apphub_v1::model::UpdateServiceRequest;
-    /// use google_cloud_apphub_v1::model::Service;
-    /// let x = UpdateServiceRequest::new().set_or_clear_service(Some(Service::default()/* use setters */));
-    /// let x = UpdateServiceRequest::new().set_or_clear_service(None::<Service>);
-    /// ```
     pub fn set_or_clear_service<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Service>,
@@ -1375,12 +1036,6 @@ impl UpdateServiceRequest {
     }
 
     /// Sets the value of [request_id][crate::model::UpdateServiceRequest::request_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apphub_v1::model::UpdateServiceRequest;
-    /// let x = UpdateServiceRequest::new().set_request_id("example");
-    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -1426,24 +1081,12 @@ impl DeleteServiceRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteServiceRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apphub_v1::model::DeleteServiceRequest;
-    /// let x = DeleteServiceRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [request_id][crate::model::DeleteServiceRequest::request_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apphub_v1::model::DeleteServiceRequest;
-    /// let x = DeleteServiceRequest::new().set_request_id("example");
-    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -1486,60 +1129,30 @@ impl ListApplicationsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListApplicationsRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apphub_v1::model::ListApplicationsRequest;
-    /// let x = ListApplicationsRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListApplicationsRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apphub_v1::model::ListApplicationsRequest;
-    /// let x = ListApplicationsRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListApplicationsRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apphub_v1::model::ListApplicationsRequest;
-    /// let x = ListApplicationsRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListApplicationsRequest::filter].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apphub_v1::model::ListApplicationsRequest;
-    /// let x = ListApplicationsRequest::new().set_filter("example");
-    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListApplicationsRequest::order_by].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apphub_v1::model::ListApplicationsRequest;
-    /// let x = ListApplicationsRequest::new().set_order_by("example");
-    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
@@ -1574,17 +1187,6 @@ impl ListApplicationsResponse {
     }
 
     /// Sets the value of [applications][crate::model::ListApplicationsResponse::applications].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apphub_v1::model::ListApplicationsResponse;
-    /// use google_cloud_apphub_v1::model::Application;
-    /// let x = ListApplicationsResponse::new()
-    ///     .set_applications([
-    ///         Application::default()/* use setters */,
-    ///         Application::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_applications<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1596,24 +1198,12 @@ impl ListApplicationsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListApplicationsResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apphub_v1::model::ListApplicationsResponse;
-    /// let x = ListApplicationsResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListApplicationsResponse::unreachable].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apphub_v1::model::ListApplicationsResponse;
-    /// let x = ListApplicationsResponse::new().set_unreachable(["a", "b", "c"]);
-    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1686,37 +1276,18 @@ impl CreateApplicationRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateApplicationRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apphub_v1::model::CreateApplicationRequest;
-    /// let x = CreateApplicationRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [application_id][crate::model::CreateApplicationRequest::application_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apphub_v1::model::CreateApplicationRequest;
-    /// let x = CreateApplicationRequest::new().set_application_id("example");
-    /// ```
     pub fn set_application_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.application_id = v.into();
         self
     }
 
     /// Sets the value of [application][crate::model::CreateApplicationRequest::application].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apphub_v1::model::CreateApplicationRequest;
-    /// use google_cloud_apphub_v1::model::Application;
-    /// let x = CreateApplicationRequest::new().set_application(Application::default()/* use setters */);
-    /// ```
     pub fn set_application<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Application>,
@@ -1726,14 +1297,6 @@ impl CreateApplicationRequest {
     }
 
     /// Sets or clears the value of [application][crate::model::CreateApplicationRequest::application].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apphub_v1::model::CreateApplicationRequest;
-    /// use google_cloud_apphub_v1::model::Application;
-    /// let x = CreateApplicationRequest::new().set_or_clear_application(Some(Application::default()/* use setters */));
-    /// let x = CreateApplicationRequest::new().set_or_clear_application(None::<Application>);
-    /// ```
     pub fn set_or_clear_application<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Application>,
@@ -1743,12 +1306,6 @@ impl CreateApplicationRequest {
     }
 
     /// Sets the value of [request_id][crate::model::CreateApplicationRequest::request_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apphub_v1::model::CreateApplicationRequest;
-    /// let x = CreateApplicationRequest::new().set_request_id("example");
-    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -1779,12 +1336,6 @@ impl GetApplicationRequest {
     }
 
     /// Sets the value of [name][crate::model::GetApplicationRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apphub_v1::model::GetApplicationRequest;
-    /// let x = GetApplicationRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -1839,13 +1390,6 @@ impl UpdateApplicationRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateApplicationRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apphub_v1::model::UpdateApplicationRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateApplicationRequest::new().set_update_mask(FieldMask::default()/* use setters */);
-    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -1855,14 +1399,6 @@ impl UpdateApplicationRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateApplicationRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apphub_v1::model::UpdateApplicationRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateApplicationRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
-    /// let x = UpdateApplicationRequest::new().set_or_clear_update_mask(None::<FieldMask>);
-    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -1872,13 +1408,6 @@ impl UpdateApplicationRequest {
     }
 
     /// Sets the value of [application][crate::model::UpdateApplicationRequest::application].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apphub_v1::model::UpdateApplicationRequest;
-    /// use google_cloud_apphub_v1::model::Application;
-    /// let x = UpdateApplicationRequest::new().set_application(Application::default()/* use setters */);
-    /// ```
     pub fn set_application<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Application>,
@@ -1888,14 +1417,6 @@ impl UpdateApplicationRequest {
     }
 
     /// Sets or clears the value of [application][crate::model::UpdateApplicationRequest::application].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apphub_v1::model::UpdateApplicationRequest;
-    /// use google_cloud_apphub_v1::model::Application;
-    /// let x = UpdateApplicationRequest::new().set_or_clear_application(Some(Application::default()/* use setters */));
-    /// let x = UpdateApplicationRequest::new().set_or_clear_application(None::<Application>);
-    /// ```
     pub fn set_or_clear_application<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Application>,
@@ -1905,12 +1426,6 @@ impl UpdateApplicationRequest {
     }
 
     /// Sets the value of [request_id][crate::model::UpdateApplicationRequest::request_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apphub_v1::model::UpdateApplicationRequest;
-    /// let x = UpdateApplicationRequest::new().set_request_id("example");
-    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -1956,24 +1471,12 @@ impl DeleteApplicationRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteApplicationRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apphub_v1::model::DeleteApplicationRequest;
-    /// let x = DeleteApplicationRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [request_id][crate::model::DeleteApplicationRequest::request_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apphub_v1::model::DeleteApplicationRequest;
-    /// let x = DeleteApplicationRequest::new().set_request_id("example");
-    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -2017,60 +1520,30 @@ impl ListWorkloadsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListWorkloadsRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apphub_v1::model::ListWorkloadsRequest;
-    /// let x = ListWorkloadsRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListWorkloadsRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apphub_v1::model::ListWorkloadsRequest;
-    /// let x = ListWorkloadsRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListWorkloadsRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apphub_v1::model::ListWorkloadsRequest;
-    /// let x = ListWorkloadsRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListWorkloadsRequest::filter].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apphub_v1::model::ListWorkloadsRequest;
-    /// let x = ListWorkloadsRequest::new().set_filter("example");
-    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListWorkloadsRequest::order_by].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apphub_v1::model::ListWorkloadsRequest;
-    /// let x = ListWorkloadsRequest::new().set_order_by("example");
-    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
@@ -2105,17 +1578,6 @@ impl ListWorkloadsResponse {
     }
 
     /// Sets the value of [workloads][crate::model::ListWorkloadsResponse::workloads].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apphub_v1::model::ListWorkloadsResponse;
-    /// use google_cloud_apphub_v1::model::Workload;
-    /// let x = ListWorkloadsResponse::new()
-    ///     .set_workloads([
-    ///         Workload::default()/* use setters */,
-    ///         Workload::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_workloads<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2127,24 +1589,12 @@ impl ListWorkloadsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListWorkloadsResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apphub_v1::model::ListWorkloadsResponse;
-    /// let x = ListWorkloadsResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListWorkloadsResponse::unreachable].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apphub_v1::model::ListWorkloadsResponse;
-    /// let x = ListWorkloadsResponse::new().set_unreachable(["a", "b", "c"]);
-    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2206,60 +1656,30 @@ impl ListDiscoveredWorkloadsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListDiscoveredWorkloadsRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apphub_v1::model::ListDiscoveredWorkloadsRequest;
-    /// let x = ListDiscoveredWorkloadsRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListDiscoveredWorkloadsRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apphub_v1::model::ListDiscoveredWorkloadsRequest;
-    /// let x = ListDiscoveredWorkloadsRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListDiscoveredWorkloadsRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apphub_v1::model::ListDiscoveredWorkloadsRequest;
-    /// let x = ListDiscoveredWorkloadsRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListDiscoveredWorkloadsRequest::filter].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apphub_v1::model::ListDiscoveredWorkloadsRequest;
-    /// let x = ListDiscoveredWorkloadsRequest::new().set_filter("example");
-    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListDiscoveredWorkloadsRequest::order_by].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apphub_v1::model::ListDiscoveredWorkloadsRequest;
-    /// let x = ListDiscoveredWorkloadsRequest::new().set_order_by("example");
-    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
@@ -2294,17 +1714,6 @@ impl ListDiscoveredWorkloadsResponse {
     }
 
     /// Sets the value of [discovered_workloads][crate::model::ListDiscoveredWorkloadsResponse::discovered_workloads].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apphub_v1::model::ListDiscoveredWorkloadsResponse;
-    /// use google_cloud_apphub_v1::model::DiscoveredWorkload;
-    /// let x = ListDiscoveredWorkloadsResponse::new()
-    ///     .set_discovered_workloads([
-    ///         DiscoveredWorkload::default()/* use setters */,
-    ///         DiscoveredWorkload::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_discovered_workloads<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2316,24 +1725,12 @@ impl ListDiscoveredWorkloadsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListDiscoveredWorkloadsResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apphub_v1::model::ListDiscoveredWorkloadsResponse;
-    /// let x = ListDiscoveredWorkloadsResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListDiscoveredWorkloadsResponse::unreachable].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apphub_v1::model::ListDiscoveredWorkloadsResponse;
-    /// let x = ListDiscoveredWorkloadsResponse::new().set_unreachable(["a", "b", "c"]);
-    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2407,37 +1804,18 @@ impl CreateWorkloadRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateWorkloadRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apphub_v1::model::CreateWorkloadRequest;
-    /// let x = CreateWorkloadRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [workload_id][crate::model::CreateWorkloadRequest::workload_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apphub_v1::model::CreateWorkloadRequest;
-    /// let x = CreateWorkloadRequest::new().set_workload_id("example");
-    /// ```
     pub fn set_workload_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.workload_id = v.into();
         self
     }
 
     /// Sets the value of [workload][crate::model::CreateWorkloadRequest::workload].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apphub_v1::model::CreateWorkloadRequest;
-    /// use google_cloud_apphub_v1::model::Workload;
-    /// let x = CreateWorkloadRequest::new().set_workload(Workload::default()/* use setters */);
-    /// ```
     pub fn set_workload<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Workload>,
@@ -2447,14 +1825,6 @@ impl CreateWorkloadRequest {
     }
 
     /// Sets or clears the value of [workload][crate::model::CreateWorkloadRequest::workload].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apphub_v1::model::CreateWorkloadRequest;
-    /// use google_cloud_apphub_v1::model::Workload;
-    /// let x = CreateWorkloadRequest::new().set_or_clear_workload(Some(Workload::default()/* use setters */));
-    /// let x = CreateWorkloadRequest::new().set_or_clear_workload(None::<Workload>);
-    /// ```
     pub fn set_or_clear_workload<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Workload>,
@@ -2464,12 +1834,6 @@ impl CreateWorkloadRequest {
     }
 
     /// Sets the value of [request_id][crate::model::CreateWorkloadRequest::request_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apphub_v1::model::CreateWorkloadRequest;
-    /// let x = CreateWorkloadRequest::new().set_request_id("example");
-    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -2500,12 +1864,6 @@ impl GetWorkloadRequest {
     }
 
     /// Sets the value of [name][crate::model::GetWorkloadRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apphub_v1::model::GetWorkloadRequest;
-    /// let x = GetWorkloadRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -2536,12 +1894,6 @@ impl GetDiscoveredWorkloadRequest {
     }
 
     /// Sets the value of [name][crate::model::GetDiscoveredWorkloadRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apphub_v1::model::GetDiscoveredWorkloadRequest;
-    /// let x = GetDiscoveredWorkloadRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -2576,24 +1928,12 @@ impl LookupDiscoveredWorkloadRequest {
     }
 
     /// Sets the value of [parent][crate::model::LookupDiscoveredWorkloadRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apphub_v1::model::LookupDiscoveredWorkloadRequest;
-    /// let x = LookupDiscoveredWorkloadRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [uri][crate::model::LookupDiscoveredWorkloadRequest::uri].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apphub_v1::model::LookupDiscoveredWorkloadRequest;
-    /// let x = LookupDiscoveredWorkloadRequest::new().set_uri("example");
-    /// ```
     pub fn set_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.uri = v.into();
         self
@@ -2622,13 +1962,6 @@ impl LookupDiscoveredWorkloadResponse {
     }
 
     /// Sets the value of [discovered_workload][crate::model::LookupDiscoveredWorkloadResponse::discovered_workload].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apphub_v1::model::LookupDiscoveredWorkloadResponse;
-    /// use google_cloud_apphub_v1::model::DiscoveredWorkload;
-    /// let x = LookupDiscoveredWorkloadResponse::new().set_discovered_workload(DiscoveredWorkload::default()/* use setters */);
-    /// ```
     pub fn set_discovered_workload<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::DiscoveredWorkload>,
@@ -2638,14 +1971,6 @@ impl LookupDiscoveredWorkloadResponse {
     }
 
     /// Sets or clears the value of [discovered_workload][crate::model::LookupDiscoveredWorkloadResponse::discovered_workload].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apphub_v1::model::LookupDiscoveredWorkloadResponse;
-    /// use google_cloud_apphub_v1::model::DiscoveredWorkload;
-    /// let x = LookupDiscoveredWorkloadResponse::new().set_or_clear_discovered_workload(Some(DiscoveredWorkload::default()/* use setters */));
-    /// let x = LookupDiscoveredWorkloadResponse::new().set_or_clear_discovered_workload(None::<DiscoveredWorkload>);
-    /// ```
     pub fn set_or_clear_discovered_workload<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DiscoveredWorkload>,
@@ -2703,13 +2028,6 @@ impl UpdateWorkloadRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateWorkloadRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apphub_v1::model::UpdateWorkloadRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateWorkloadRequest::new().set_update_mask(FieldMask::default()/* use setters */);
-    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -2719,14 +2037,6 @@ impl UpdateWorkloadRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateWorkloadRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apphub_v1::model::UpdateWorkloadRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateWorkloadRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
-    /// let x = UpdateWorkloadRequest::new().set_or_clear_update_mask(None::<FieldMask>);
-    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -2736,13 +2046,6 @@ impl UpdateWorkloadRequest {
     }
 
     /// Sets the value of [workload][crate::model::UpdateWorkloadRequest::workload].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apphub_v1::model::UpdateWorkloadRequest;
-    /// use google_cloud_apphub_v1::model::Workload;
-    /// let x = UpdateWorkloadRequest::new().set_workload(Workload::default()/* use setters */);
-    /// ```
     pub fn set_workload<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Workload>,
@@ -2752,14 +2055,6 @@ impl UpdateWorkloadRequest {
     }
 
     /// Sets or clears the value of [workload][crate::model::UpdateWorkloadRequest::workload].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apphub_v1::model::UpdateWorkloadRequest;
-    /// use google_cloud_apphub_v1::model::Workload;
-    /// let x = UpdateWorkloadRequest::new().set_or_clear_workload(Some(Workload::default()/* use setters */));
-    /// let x = UpdateWorkloadRequest::new().set_or_clear_workload(None::<Workload>);
-    /// ```
     pub fn set_or_clear_workload<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Workload>,
@@ -2769,12 +2064,6 @@ impl UpdateWorkloadRequest {
     }
 
     /// Sets the value of [request_id][crate::model::UpdateWorkloadRequest::request_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apphub_v1::model::UpdateWorkloadRequest;
-    /// let x = UpdateWorkloadRequest::new().set_request_id("example");
-    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -2820,24 +2109,12 @@ impl DeleteWorkloadRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteWorkloadRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apphub_v1::model::DeleteWorkloadRequest;
-    /// let x = DeleteWorkloadRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [request_id][crate::model::DeleteWorkloadRequest::request_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apphub_v1::model::DeleteWorkloadRequest;
-    /// let x = DeleteWorkloadRequest::new().set_request_id("example");
-    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -2892,13 +2169,6 @@ impl OperationMetadata {
     }
 
     /// Sets the value of [create_time][crate::model::OperationMetadata::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apphub_v1::model::OperationMetadata;
-    /// use wkt::Timestamp;
-    /// let x = OperationMetadata::new().set_create_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2908,14 +2178,6 @@ impl OperationMetadata {
     }
 
     /// Sets or clears the value of [create_time][crate::model::OperationMetadata::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apphub_v1::model::OperationMetadata;
-    /// use wkt::Timestamp;
-    /// let x = OperationMetadata::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
-    /// let x = OperationMetadata::new().set_or_clear_create_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2925,13 +2187,6 @@ impl OperationMetadata {
     }
 
     /// Sets the value of [end_time][crate::model::OperationMetadata::end_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apphub_v1::model::OperationMetadata;
-    /// use wkt::Timestamp;
-    /// let x = OperationMetadata::new().set_end_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2941,14 +2196,6 @@ impl OperationMetadata {
     }
 
     /// Sets or clears the value of [end_time][crate::model::OperationMetadata::end_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apphub_v1::model::OperationMetadata;
-    /// use wkt::Timestamp;
-    /// let x = OperationMetadata::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
-    /// let x = OperationMetadata::new().set_or_clear_end_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2958,60 +2205,30 @@ impl OperationMetadata {
     }
 
     /// Sets the value of [target][crate::model::OperationMetadata::target].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apphub_v1::model::OperationMetadata;
-    /// let x = OperationMetadata::new().set_target("example");
-    /// ```
     pub fn set_target<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.target = v.into();
         self
     }
 
     /// Sets the value of [verb][crate::model::OperationMetadata::verb].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apphub_v1::model::OperationMetadata;
-    /// let x = OperationMetadata::new().set_verb("example");
-    /// ```
     pub fn set_verb<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.verb = v.into();
         self
     }
 
     /// Sets the value of [status_message][crate::model::OperationMetadata::status_message].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apphub_v1::model::OperationMetadata;
-    /// let x = OperationMetadata::new().set_status_message("example");
-    /// ```
     pub fn set_status_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.status_message = v.into();
         self
     }
 
     /// Sets the value of [requested_cancellation][crate::model::OperationMetadata::requested_cancellation].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apphub_v1::model::OperationMetadata;
-    /// let x = OperationMetadata::new().set_requested_cancellation(true);
-    /// ```
     pub fn set_requested_cancellation<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.requested_cancellation = v.into();
         self
     }
 
     /// Sets the value of [api_version][crate::model::OperationMetadata::api_version].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apphub_v1::model::OperationMetadata;
-    /// let x = OperationMetadata::new().set_api_version("example");
-    /// ```
     pub fn set_api_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.api_version = v.into();
         self
@@ -3072,49 +2289,24 @@ impl Application {
     }
 
     /// Sets the value of [name][crate::model::Application::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apphub_v1::model::Application;
-    /// let x = Application::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [display_name][crate::model::Application::display_name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apphub_v1::model::Application;
-    /// let x = Application::new().set_display_name("example");
-    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
     }
 
     /// Sets the value of [description][crate::model::Application::description].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apphub_v1::model::Application;
-    /// let x = Application::new().set_description("example");
-    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [attributes][crate::model::Application::attributes].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apphub_v1::model::Application;
-    /// use google_cloud_apphub_v1::model::Attributes;
-    /// let x = Application::new().set_attributes(Attributes::default()/* use setters */);
-    /// ```
     pub fn set_attributes<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Attributes>,
@@ -3124,14 +2316,6 @@ impl Application {
     }
 
     /// Sets or clears the value of [attributes][crate::model::Application::attributes].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apphub_v1::model::Application;
-    /// use google_cloud_apphub_v1::model::Attributes;
-    /// let x = Application::new().set_or_clear_attributes(Some(Attributes::default()/* use setters */));
-    /// let x = Application::new().set_or_clear_attributes(None::<Attributes>);
-    /// ```
     pub fn set_or_clear_attributes<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Attributes>,
@@ -3141,13 +2325,6 @@ impl Application {
     }
 
     /// Sets the value of [create_time][crate::model::Application::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apphub_v1::model::Application;
-    /// use wkt::Timestamp;
-    /// let x = Application::new().set_create_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3157,14 +2334,6 @@ impl Application {
     }
 
     /// Sets or clears the value of [create_time][crate::model::Application::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apphub_v1::model::Application;
-    /// use wkt::Timestamp;
-    /// let x = Application::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
-    /// let x = Application::new().set_or_clear_create_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3174,13 +2343,6 @@ impl Application {
     }
 
     /// Sets the value of [update_time][crate::model::Application::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apphub_v1::model::Application;
-    /// use wkt::Timestamp;
-    /// let x = Application::new().set_update_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3190,14 +2352,6 @@ impl Application {
     }
 
     /// Sets or clears the value of [update_time][crate::model::Application::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apphub_v1::model::Application;
-    /// use wkt::Timestamp;
-    /// let x = Application::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
-    /// let x = Application::new().set_or_clear_update_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3207,13 +2361,6 @@ impl Application {
     }
 
     /// Sets the value of [scope][crate::model::Application::scope].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apphub_v1::model::Application;
-    /// use google_cloud_apphub_v1::model::Scope;
-    /// let x = Application::new().set_scope(Scope::default()/* use setters */);
-    /// ```
     pub fn set_scope<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Scope>,
@@ -3223,14 +2370,6 @@ impl Application {
     }
 
     /// Sets or clears the value of [scope][crate::model::Application::scope].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apphub_v1::model::Application;
-    /// use google_cloud_apphub_v1::model::Scope;
-    /// let x = Application::new().set_or_clear_scope(Some(Scope::default()/* use setters */));
-    /// let x = Application::new().set_or_clear_scope(None::<Scope>);
-    /// ```
     pub fn set_or_clear_scope<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Scope>,
@@ -3240,27 +2379,12 @@ impl Application {
     }
 
     /// Sets the value of [uid][crate::model::Application::uid].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apphub_v1::model::Application;
-    /// let x = Application::new().set_uid("example");
-    /// ```
     pub fn set_uid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.uid = v.into();
         self
     }
 
     /// Sets the value of [state][crate::model::Application::state].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apphub_v1::model::Application;
-    /// use google_cloud_apphub_v1::model::application::State;
-    /// let x0 = Application::new().set_state(State::Creating);
-    /// let x1 = Application::new().set_state(State::Active);
-    /// let x2 = Application::new().set_state(State::Deleting);
-    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::application::State>>(
         mut self,
         v: T,
@@ -3437,14 +2561,6 @@ impl Scope {
     }
 
     /// Sets the value of [r#type][crate::model::Scope::type].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apphub_v1::model::Scope;
-    /// use google_cloud_apphub_v1::model::scope::Type;
-    /// let x0 = Scope::new().set_type(Type::Regional);
-    /// let x1 = Scope::new().set_type(Type::Global);
-    /// ```
     pub fn set_type<T: std::convert::Into<crate::model::scope::Type>>(mut self, v: T) -> Self {
         self.r#type = v.into();
         self
@@ -3624,13 +2740,6 @@ impl Attributes {
     }
 
     /// Sets the value of [criticality][crate::model::Attributes::criticality].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apphub_v1::model::Attributes;
-    /// use google_cloud_apphub_v1::model::Criticality;
-    /// let x = Attributes::new().set_criticality(Criticality::default()/* use setters */);
-    /// ```
     pub fn set_criticality<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Criticality>,
@@ -3640,14 +2749,6 @@ impl Attributes {
     }
 
     /// Sets or clears the value of [criticality][crate::model::Attributes::criticality].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apphub_v1::model::Attributes;
-    /// use google_cloud_apphub_v1::model::Criticality;
-    /// let x = Attributes::new().set_or_clear_criticality(Some(Criticality::default()/* use setters */));
-    /// let x = Attributes::new().set_or_clear_criticality(None::<Criticality>);
-    /// ```
     pub fn set_or_clear_criticality<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Criticality>,
@@ -3657,13 +2758,6 @@ impl Attributes {
     }
 
     /// Sets the value of [environment][crate::model::Attributes::environment].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apphub_v1::model::Attributes;
-    /// use google_cloud_apphub_v1::model::Environment;
-    /// let x = Attributes::new().set_environment(Environment::default()/* use setters */);
-    /// ```
     pub fn set_environment<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Environment>,
@@ -3673,14 +2767,6 @@ impl Attributes {
     }
 
     /// Sets or clears the value of [environment][crate::model::Attributes::environment].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apphub_v1::model::Attributes;
-    /// use google_cloud_apphub_v1::model::Environment;
-    /// let x = Attributes::new().set_or_clear_environment(Some(Environment::default()/* use setters */));
-    /// let x = Attributes::new().set_or_clear_environment(None::<Environment>);
-    /// ```
     pub fn set_or_clear_environment<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Environment>,
@@ -3690,17 +2776,6 @@ impl Attributes {
     }
 
     /// Sets the value of [developer_owners][crate::model::Attributes::developer_owners].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apphub_v1::model::Attributes;
-    /// use google_cloud_apphub_v1::model::ContactInfo;
-    /// let x = Attributes::new()
-    ///     .set_developer_owners([
-    ///         ContactInfo::default()/* use setters */,
-    ///         ContactInfo::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_developer_owners<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3712,17 +2787,6 @@ impl Attributes {
     }
 
     /// Sets the value of [operator_owners][crate::model::Attributes::operator_owners].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apphub_v1::model::Attributes;
-    /// use google_cloud_apphub_v1::model::ContactInfo;
-    /// let x = Attributes::new()
-    ///     .set_operator_owners([
-    ///         ContactInfo::default()/* use setters */,
-    ///         ContactInfo::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_operator_owners<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3734,17 +2798,6 @@ impl Attributes {
     }
 
     /// Sets the value of [business_owners][crate::model::Attributes::business_owners].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apphub_v1::model::Attributes;
-    /// use google_cloud_apphub_v1::model::ContactInfo;
-    /// let x = Attributes::new()
-    ///     .set_business_owners([
-    ///         ContactInfo::default()/* use setters */,
-    ///         ContactInfo::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_business_owners<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3778,15 +2831,6 @@ impl Criticality {
     }
 
     /// Sets the value of [r#type][crate::model::Criticality::type].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apphub_v1::model::Criticality;
-    /// use google_cloud_apphub_v1::model::criticality::Type;
-    /// let x0 = Criticality::new().set_type(Type::MissionCritical);
-    /// let x1 = Criticality::new().set_type(Type::High);
-    /// let x2 = Criticality::new().set_type(Type::Medium);
-    /// ```
     pub fn set_type<T: std::convert::Into<crate::model::criticality::Type>>(
         mut self,
         v: T,
@@ -3970,15 +3014,6 @@ impl Environment {
     }
 
     /// Sets the value of [r#type][crate::model::Environment::type].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apphub_v1::model::Environment;
-    /// use google_cloud_apphub_v1::model::environment::Type;
-    /// let x0 = Environment::new().set_type(Type::Production);
-    /// let x1 = Environment::new().set_type(Type::Staging);
-    /// let x2 = Environment::new().set_type(Type::Test);
-    /// ```
     pub fn set_type<T: std::convert::Into<crate::model::environment::Type>>(
         mut self,
         v: T,
@@ -4166,24 +3201,12 @@ impl ContactInfo {
     }
 
     /// Sets the value of [display_name][crate::model::ContactInfo::display_name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apphub_v1::model::ContactInfo;
-    /// let x = ContactInfo::new().set_display_name("example");
-    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
     }
 
     /// Sets the value of [email][crate::model::ContactInfo::email].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apphub_v1::model::ContactInfo;
-    /// let x = ContactInfo::new().set_email("example");
-    /// ```
     pub fn set_email<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.email = v.into();
         self
@@ -4250,49 +3273,24 @@ impl Service {
     }
 
     /// Sets the value of [name][crate::model::Service::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apphub_v1::model::Service;
-    /// let x = Service::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [display_name][crate::model::Service::display_name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apphub_v1::model::Service;
-    /// let x = Service::new().set_display_name("example");
-    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
     }
 
     /// Sets the value of [description][crate::model::Service::description].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apphub_v1::model::Service;
-    /// let x = Service::new().set_description("example");
-    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [service_reference][crate::model::Service::service_reference].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apphub_v1::model::Service;
-    /// use google_cloud_apphub_v1::model::ServiceReference;
-    /// let x = Service::new().set_service_reference(ServiceReference::default()/* use setters */);
-    /// ```
     pub fn set_service_reference<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ServiceReference>,
@@ -4302,14 +3300,6 @@ impl Service {
     }
 
     /// Sets or clears the value of [service_reference][crate::model::Service::service_reference].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apphub_v1::model::Service;
-    /// use google_cloud_apphub_v1::model::ServiceReference;
-    /// let x = Service::new().set_or_clear_service_reference(Some(ServiceReference::default()/* use setters */));
-    /// let x = Service::new().set_or_clear_service_reference(None::<ServiceReference>);
-    /// ```
     pub fn set_or_clear_service_reference<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ServiceReference>,
@@ -4319,13 +3309,6 @@ impl Service {
     }
 
     /// Sets the value of [service_properties][crate::model::Service::service_properties].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apphub_v1::model::Service;
-    /// use google_cloud_apphub_v1::model::ServiceProperties;
-    /// let x = Service::new().set_service_properties(ServiceProperties::default()/* use setters */);
-    /// ```
     pub fn set_service_properties<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ServiceProperties>,
@@ -4335,14 +3318,6 @@ impl Service {
     }
 
     /// Sets or clears the value of [service_properties][crate::model::Service::service_properties].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apphub_v1::model::Service;
-    /// use google_cloud_apphub_v1::model::ServiceProperties;
-    /// let x = Service::new().set_or_clear_service_properties(Some(ServiceProperties::default()/* use setters */));
-    /// let x = Service::new().set_or_clear_service_properties(None::<ServiceProperties>);
-    /// ```
     pub fn set_or_clear_service_properties<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ServiceProperties>,
@@ -4352,13 +3327,6 @@ impl Service {
     }
 
     /// Sets the value of [attributes][crate::model::Service::attributes].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apphub_v1::model::Service;
-    /// use google_cloud_apphub_v1::model::Attributes;
-    /// let x = Service::new().set_attributes(Attributes::default()/* use setters */);
-    /// ```
     pub fn set_attributes<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Attributes>,
@@ -4368,14 +3336,6 @@ impl Service {
     }
 
     /// Sets or clears the value of [attributes][crate::model::Service::attributes].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apphub_v1::model::Service;
-    /// use google_cloud_apphub_v1::model::Attributes;
-    /// let x = Service::new().set_or_clear_attributes(Some(Attributes::default()/* use setters */));
-    /// let x = Service::new().set_or_clear_attributes(None::<Attributes>);
-    /// ```
     pub fn set_or_clear_attributes<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Attributes>,
@@ -4385,12 +3345,6 @@ impl Service {
     }
 
     /// Sets the value of [discovered_service][crate::model::Service::discovered_service].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apphub_v1::model::Service;
-    /// let x = Service::new().set_discovered_service("example");
-    /// ```
     pub fn set_discovered_service<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -4400,13 +3354,6 @@ impl Service {
     }
 
     /// Sets the value of [create_time][crate::model::Service::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apphub_v1::model::Service;
-    /// use wkt::Timestamp;
-    /// let x = Service::new().set_create_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4416,14 +3363,6 @@ impl Service {
     }
 
     /// Sets or clears the value of [create_time][crate::model::Service::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apphub_v1::model::Service;
-    /// use wkt::Timestamp;
-    /// let x = Service::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
-    /// let x = Service::new().set_or_clear_create_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4433,13 +3372,6 @@ impl Service {
     }
 
     /// Sets the value of [update_time][crate::model::Service::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apphub_v1::model::Service;
-    /// use wkt::Timestamp;
-    /// let x = Service::new().set_update_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4449,14 +3381,6 @@ impl Service {
     }
 
     /// Sets or clears the value of [update_time][crate::model::Service::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apphub_v1::model::Service;
-    /// use wkt::Timestamp;
-    /// let x = Service::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
-    /// let x = Service::new().set_or_clear_update_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4466,27 +3390,12 @@ impl Service {
     }
 
     /// Sets the value of [uid][crate::model::Service::uid].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apphub_v1::model::Service;
-    /// let x = Service::new().set_uid("example");
-    /// ```
     pub fn set_uid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.uid = v.into();
         self
     }
 
     /// Sets the value of [state][crate::model::Service::state].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apphub_v1::model::Service;
-    /// use google_cloud_apphub_v1::model::service::State;
-    /// let x0 = Service::new().set_state(State::Creating);
-    /// let x1 = Service::new().set_state(State::Active);
-    /// let x2 = Service::new().set_state(State::Deleting);
-    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::service::State>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
@@ -4668,12 +3577,6 @@ impl ServiceReference {
     }
 
     /// Sets the value of [uri][crate::model::ServiceReference::uri].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apphub_v1::model::ServiceReference;
-    /// let x = ServiceReference::new().set_uri("example");
-    /// ```
     pub fn set_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.uri = v.into();
         self
@@ -4711,36 +3614,18 @@ impl ServiceProperties {
     }
 
     /// Sets the value of [gcp_project][crate::model::ServiceProperties::gcp_project].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apphub_v1::model::ServiceProperties;
-    /// let x = ServiceProperties::new().set_gcp_project("example");
-    /// ```
     pub fn set_gcp_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.gcp_project = v.into();
         self
     }
 
     /// Sets the value of [location][crate::model::ServiceProperties::location].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apphub_v1::model::ServiceProperties;
-    /// let x = ServiceProperties::new().set_location("example");
-    /// ```
     pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.location = v.into();
         self
     }
 
     /// Sets the value of [zone][crate::model::ServiceProperties::zone].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apphub_v1::model::ServiceProperties;
-    /// let x = ServiceProperties::new().set_zone("example");
-    /// ```
     pub fn set_zone<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.zone = v.into();
         self
@@ -4780,25 +3665,12 @@ impl DiscoveredService {
     }
 
     /// Sets the value of [name][crate::model::DiscoveredService::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apphub_v1::model::DiscoveredService;
-    /// let x = DiscoveredService::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [service_reference][crate::model::DiscoveredService::service_reference].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apphub_v1::model::DiscoveredService;
-    /// use google_cloud_apphub_v1::model::ServiceReference;
-    /// let x = DiscoveredService::new().set_service_reference(ServiceReference::default()/* use setters */);
-    /// ```
     pub fn set_service_reference<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ServiceReference>,
@@ -4808,14 +3680,6 @@ impl DiscoveredService {
     }
 
     /// Sets or clears the value of [service_reference][crate::model::DiscoveredService::service_reference].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apphub_v1::model::DiscoveredService;
-    /// use google_cloud_apphub_v1::model::ServiceReference;
-    /// let x = DiscoveredService::new().set_or_clear_service_reference(Some(ServiceReference::default()/* use setters */));
-    /// let x = DiscoveredService::new().set_or_clear_service_reference(None::<ServiceReference>);
-    /// ```
     pub fn set_or_clear_service_reference<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ServiceReference>,
@@ -4825,13 +3689,6 @@ impl DiscoveredService {
     }
 
     /// Sets the value of [service_properties][crate::model::DiscoveredService::service_properties].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apphub_v1::model::DiscoveredService;
-    /// use google_cloud_apphub_v1::model::ServiceProperties;
-    /// let x = DiscoveredService::new().set_service_properties(ServiceProperties::default()/* use setters */);
-    /// ```
     pub fn set_service_properties<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ServiceProperties>,
@@ -4841,14 +3698,6 @@ impl DiscoveredService {
     }
 
     /// Sets or clears the value of [service_properties][crate::model::DiscoveredService::service_properties].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apphub_v1::model::DiscoveredService;
-    /// use google_cloud_apphub_v1::model::ServiceProperties;
-    /// let x = DiscoveredService::new().set_or_clear_service_properties(Some(ServiceProperties::default()/* use setters */));
-    /// let x = DiscoveredService::new().set_or_clear_service_properties(None::<ServiceProperties>);
-    /// ```
     pub fn set_or_clear_service_properties<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ServiceProperties>,
@@ -4900,37 +3749,18 @@ impl ServiceProjectAttachment {
     }
 
     /// Sets the value of [name][crate::model::ServiceProjectAttachment::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apphub_v1::model::ServiceProjectAttachment;
-    /// let x = ServiceProjectAttachment::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [service_project][crate::model::ServiceProjectAttachment::service_project].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apphub_v1::model::ServiceProjectAttachment;
-    /// let x = ServiceProjectAttachment::new().set_service_project("example");
-    /// ```
     pub fn set_service_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.service_project = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::ServiceProjectAttachment::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apphub_v1::model::ServiceProjectAttachment;
-    /// use wkt::Timestamp;
-    /// let x = ServiceProjectAttachment::new().set_create_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4940,14 +3770,6 @@ impl ServiceProjectAttachment {
     }
 
     /// Sets or clears the value of [create_time][crate::model::ServiceProjectAttachment::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apphub_v1::model::ServiceProjectAttachment;
-    /// use wkt::Timestamp;
-    /// let x = ServiceProjectAttachment::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
-    /// let x = ServiceProjectAttachment::new().set_or_clear_create_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4957,27 +3779,12 @@ impl ServiceProjectAttachment {
     }
 
     /// Sets the value of [uid][crate::model::ServiceProjectAttachment::uid].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apphub_v1::model::ServiceProjectAttachment;
-    /// let x = ServiceProjectAttachment::new().set_uid("example");
-    /// ```
     pub fn set_uid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.uid = v.into();
         self
     }
 
     /// Sets the value of [state][crate::model::ServiceProjectAttachment::state].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apphub_v1::model::ServiceProjectAttachment;
-    /// use google_cloud_apphub_v1::model::service_project_attachment::State;
-    /// let x0 = ServiceProjectAttachment::new().set_state(State::Creating);
-    /// let x1 = ServiceProjectAttachment::new().set_state(State::Active);
-    /// let x2 = ServiceProjectAttachment::new().set_state(State::Deleting);
-    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::service_project_attachment::State>>(
         mut self,
         v: T,
@@ -5195,49 +4002,24 @@ impl Workload {
     }
 
     /// Sets the value of [name][crate::model::Workload::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apphub_v1::model::Workload;
-    /// let x = Workload::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [display_name][crate::model::Workload::display_name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apphub_v1::model::Workload;
-    /// let x = Workload::new().set_display_name("example");
-    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
     }
 
     /// Sets the value of [description][crate::model::Workload::description].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apphub_v1::model::Workload;
-    /// let x = Workload::new().set_description("example");
-    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [workload_reference][crate::model::Workload::workload_reference].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apphub_v1::model::Workload;
-    /// use google_cloud_apphub_v1::model::WorkloadReference;
-    /// let x = Workload::new().set_workload_reference(WorkloadReference::default()/* use setters */);
-    /// ```
     pub fn set_workload_reference<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::WorkloadReference>,
@@ -5247,14 +4029,6 @@ impl Workload {
     }
 
     /// Sets or clears the value of [workload_reference][crate::model::Workload::workload_reference].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apphub_v1::model::Workload;
-    /// use google_cloud_apphub_v1::model::WorkloadReference;
-    /// let x = Workload::new().set_or_clear_workload_reference(Some(WorkloadReference::default()/* use setters */));
-    /// let x = Workload::new().set_or_clear_workload_reference(None::<WorkloadReference>);
-    /// ```
     pub fn set_or_clear_workload_reference<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::WorkloadReference>,
@@ -5264,13 +4038,6 @@ impl Workload {
     }
 
     /// Sets the value of [workload_properties][crate::model::Workload::workload_properties].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apphub_v1::model::Workload;
-    /// use google_cloud_apphub_v1::model::WorkloadProperties;
-    /// let x = Workload::new().set_workload_properties(WorkloadProperties::default()/* use setters */);
-    /// ```
     pub fn set_workload_properties<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::WorkloadProperties>,
@@ -5280,14 +4047,6 @@ impl Workload {
     }
 
     /// Sets or clears the value of [workload_properties][crate::model::Workload::workload_properties].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apphub_v1::model::Workload;
-    /// use google_cloud_apphub_v1::model::WorkloadProperties;
-    /// let x = Workload::new().set_or_clear_workload_properties(Some(WorkloadProperties::default()/* use setters */));
-    /// let x = Workload::new().set_or_clear_workload_properties(None::<WorkloadProperties>);
-    /// ```
     pub fn set_or_clear_workload_properties<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::WorkloadProperties>,
@@ -5297,12 +4056,6 @@ impl Workload {
     }
 
     /// Sets the value of [discovered_workload][crate::model::Workload::discovered_workload].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apphub_v1::model::Workload;
-    /// let x = Workload::new().set_discovered_workload("example");
-    /// ```
     pub fn set_discovered_workload<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -5312,13 +4065,6 @@ impl Workload {
     }
 
     /// Sets the value of [attributes][crate::model::Workload::attributes].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apphub_v1::model::Workload;
-    /// use google_cloud_apphub_v1::model::Attributes;
-    /// let x = Workload::new().set_attributes(Attributes::default()/* use setters */);
-    /// ```
     pub fn set_attributes<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Attributes>,
@@ -5328,14 +4074,6 @@ impl Workload {
     }
 
     /// Sets or clears the value of [attributes][crate::model::Workload::attributes].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apphub_v1::model::Workload;
-    /// use google_cloud_apphub_v1::model::Attributes;
-    /// let x = Workload::new().set_or_clear_attributes(Some(Attributes::default()/* use setters */));
-    /// let x = Workload::new().set_or_clear_attributes(None::<Attributes>);
-    /// ```
     pub fn set_or_clear_attributes<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Attributes>,
@@ -5345,13 +4083,6 @@ impl Workload {
     }
 
     /// Sets the value of [create_time][crate::model::Workload::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apphub_v1::model::Workload;
-    /// use wkt::Timestamp;
-    /// let x = Workload::new().set_create_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -5361,14 +4092,6 @@ impl Workload {
     }
 
     /// Sets or clears the value of [create_time][crate::model::Workload::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apphub_v1::model::Workload;
-    /// use wkt::Timestamp;
-    /// let x = Workload::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
-    /// let x = Workload::new().set_or_clear_create_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -5378,13 +4101,6 @@ impl Workload {
     }
 
     /// Sets the value of [update_time][crate::model::Workload::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apphub_v1::model::Workload;
-    /// use wkt::Timestamp;
-    /// let x = Workload::new().set_update_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -5394,14 +4110,6 @@ impl Workload {
     }
 
     /// Sets or clears the value of [update_time][crate::model::Workload::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apphub_v1::model::Workload;
-    /// use wkt::Timestamp;
-    /// let x = Workload::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
-    /// let x = Workload::new().set_or_clear_update_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -5411,27 +4119,12 @@ impl Workload {
     }
 
     /// Sets the value of [uid][crate::model::Workload::uid].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apphub_v1::model::Workload;
-    /// let x = Workload::new().set_uid("example");
-    /// ```
     pub fn set_uid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.uid = v.into();
         self
     }
 
     /// Sets the value of [state][crate::model::Workload::state].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apphub_v1::model::Workload;
-    /// use google_cloud_apphub_v1::model::workload::State;
-    /// let x0 = Workload::new().set_state(State::Creating);
-    /// let x1 = Workload::new().set_state(State::Active);
-    /// let x2 = Workload::new().set_state(State::Deleting);
-    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::workload::State>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
@@ -5612,12 +4305,6 @@ impl WorkloadReference {
     }
 
     /// Sets the value of [uri][crate::model::WorkloadReference::uri].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apphub_v1::model::WorkloadReference;
-    /// let x = WorkloadReference::new().set_uri("example");
-    /// ```
     pub fn set_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.uri = v.into();
         self
@@ -5655,36 +4342,18 @@ impl WorkloadProperties {
     }
 
     /// Sets the value of [gcp_project][crate::model::WorkloadProperties::gcp_project].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apphub_v1::model::WorkloadProperties;
-    /// let x = WorkloadProperties::new().set_gcp_project("example");
-    /// ```
     pub fn set_gcp_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.gcp_project = v.into();
         self
     }
 
     /// Sets the value of [location][crate::model::WorkloadProperties::location].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apphub_v1::model::WorkloadProperties;
-    /// let x = WorkloadProperties::new().set_location("example");
-    /// ```
     pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.location = v.into();
         self
     }
 
     /// Sets the value of [zone][crate::model::WorkloadProperties::zone].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apphub_v1::model::WorkloadProperties;
-    /// let x = WorkloadProperties::new().set_zone("example");
-    /// ```
     pub fn set_zone<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.zone = v.into();
         self
@@ -5725,25 +4394,12 @@ impl DiscoveredWorkload {
     }
 
     /// Sets the value of [name][crate::model::DiscoveredWorkload::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apphub_v1::model::DiscoveredWorkload;
-    /// let x = DiscoveredWorkload::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [workload_reference][crate::model::DiscoveredWorkload::workload_reference].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apphub_v1::model::DiscoveredWorkload;
-    /// use google_cloud_apphub_v1::model::WorkloadReference;
-    /// let x = DiscoveredWorkload::new().set_workload_reference(WorkloadReference::default()/* use setters */);
-    /// ```
     pub fn set_workload_reference<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::WorkloadReference>,
@@ -5753,14 +4409,6 @@ impl DiscoveredWorkload {
     }
 
     /// Sets or clears the value of [workload_reference][crate::model::DiscoveredWorkload::workload_reference].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apphub_v1::model::DiscoveredWorkload;
-    /// use google_cloud_apphub_v1::model::WorkloadReference;
-    /// let x = DiscoveredWorkload::new().set_or_clear_workload_reference(Some(WorkloadReference::default()/* use setters */));
-    /// let x = DiscoveredWorkload::new().set_or_clear_workload_reference(None::<WorkloadReference>);
-    /// ```
     pub fn set_or_clear_workload_reference<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::WorkloadReference>,
@@ -5770,13 +4418,6 @@ impl DiscoveredWorkload {
     }
 
     /// Sets the value of [workload_properties][crate::model::DiscoveredWorkload::workload_properties].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apphub_v1::model::DiscoveredWorkload;
-    /// use google_cloud_apphub_v1::model::WorkloadProperties;
-    /// let x = DiscoveredWorkload::new().set_workload_properties(WorkloadProperties::default()/* use setters */);
-    /// ```
     pub fn set_workload_properties<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::WorkloadProperties>,
@@ -5786,14 +4427,6 @@ impl DiscoveredWorkload {
     }
 
     /// Sets or clears the value of [workload_properties][crate::model::DiscoveredWorkload::workload_properties].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apphub_v1::model::DiscoveredWorkload;
-    /// use google_cloud_apphub_v1::model::WorkloadProperties;
-    /// let x = DiscoveredWorkload::new().set_or_clear_workload_properties(Some(WorkloadProperties::default()/* use setters */));
-    /// let x = DiscoveredWorkload::new().set_or_clear_workload_properties(None::<WorkloadProperties>);
-    /// ```
     pub fn set_or_clear_workload_properties<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::WorkloadProperties>,

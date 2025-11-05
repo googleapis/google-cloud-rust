@@ -76,60 +76,30 @@ impl ListAppConnectionsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListAppConnectionsRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_beyondcorp_appconnections_v1::model::ListAppConnectionsRequest;
-    /// let x = ListAppConnectionsRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListAppConnectionsRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_beyondcorp_appconnections_v1::model::ListAppConnectionsRequest;
-    /// let x = ListAppConnectionsRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListAppConnectionsRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_beyondcorp_appconnections_v1::model::ListAppConnectionsRequest;
-    /// let x = ListAppConnectionsRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListAppConnectionsRequest::filter].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_beyondcorp_appconnections_v1::model::ListAppConnectionsRequest;
-    /// let x = ListAppConnectionsRequest::new().set_filter("example");
-    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListAppConnectionsRequest::order_by].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_beyondcorp_appconnections_v1::model::ListAppConnectionsRequest;
-    /// let x = ListAppConnectionsRequest::new().set_order_by("example");
-    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
@@ -165,17 +135,6 @@ impl ListAppConnectionsResponse {
     }
 
     /// Sets the value of [app_connections][crate::model::ListAppConnectionsResponse::app_connections].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_beyondcorp_appconnections_v1::model::ListAppConnectionsResponse;
-    /// use google_cloud_beyondcorp_appconnections_v1::model::AppConnection;
-    /// let x = ListAppConnectionsResponse::new()
-    ///     .set_app_connections([
-    ///         AppConnection::default()/* use setters */,
-    ///         AppConnection::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_app_connections<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -187,24 +146,12 @@ impl ListAppConnectionsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListAppConnectionsResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_beyondcorp_appconnections_v1::model::ListAppConnectionsResponse;
-    /// let x = ListAppConnectionsResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListAppConnectionsResponse::unreachable].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_beyondcorp_appconnections_v1::model::ListAppConnectionsResponse;
-    /// let x = ListAppConnectionsResponse::new().set_unreachable(["a", "b", "c"]);
-    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -253,12 +200,6 @@ impl GetAppConnectionRequest {
     }
 
     /// Sets the value of [name][crate::model::GetAppConnectionRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_beyondcorp_appconnections_v1::model::GetAppConnectionRequest;
-    /// let x = GetAppConnectionRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -317,24 +258,12 @@ impl CreateAppConnectionRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateAppConnectionRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_beyondcorp_appconnections_v1::model::CreateAppConnectionRequest;
-    /// let x = CreateAppConnectionRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [app_connection_id][crate::model::CreateAppConnectionRequest::app_connection_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_beyondcorp_appconnections_v1::model::CreateAppConnectionRequest;
-    /// let x = CreateAppConnectionRequest::new().set_app_connection_id("example");
-    /// ```
     pub fn set_app_connection_id<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -344,13 +273,6 @@ impl CreateAppConnectionRequest {
     }
 
     /// Sets the value of [app_connection][crate::model::CreateAppConnectionRequest::app_connection].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_beyondcorp_appconnections_v1::model::CreateAppConnectionRequest;
-    /// use google_cloud_beyondcorp_appconnections_v1::model::AppConnection;
-    /// let x = CreateAppConnectionRequest::new().set_app_connection(AppConnection::default()/* use setters */);
-    /// ```
     pub fn set_app_connection<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::AppConnection>,
@@ -360,14 +282,6 @@ impl CreateAppConnectionRequest {
     }
 
     /// Sets or clears the value of [app_connection][crate::model::CreateAppConnectionRequest::app_connection].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_beyondcorp_appconnections_v1::model::CreateAppConnectionRequest;
-    /// use google_cloud_beyondcorp_appconnections_v1::model::AppConnection;
-    /// let x = CreateAppConnectionRequest::new().set_or_clear_app_connection(Some(AppConnection::default()/* use setters */));
-    /// let x = CreateAppConnectionRequest::new().set_or_clear_app_connection(None::<AppConnection>);
-    /// ```
     pub fn set_or_clear_app_connection<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AppConnection>,
@@ -377,24 +291,12 @@ impl CreateAppConnectionRequest {
     }
 
     /// Sets the value of [request_id][crate::model::CreateAppConnectionRequest::request_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_beyondcorp_appconnections_v1::model::CreateAppConnectionRequest;
-    /// let x = CreateAppConnectionRequest::new().set_request_id("example");
-    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
     }
 
     /// Sets the value of [validate_only][crate::model::CreateAppConnectionRequest::validate_only].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_beyondcorp_appconnections_v1::model::CreateAppConnectionRequest;
-    /// let x = CreateAppConnectionRequest::new().set_validate_only(true);
-    /// ```
     pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.validate_only = v.into();
         self
@@ -456,13 +358,6 @@ impl UpdateAppConnectionRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateAppConnectionRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_beyondcorp_appconnections_v1::model::UpdateAppConnectionRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateAppConnectionRequest::new().set_update_mask(FieldMask::default()/* use setters */);
-    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -472,14 +367,6 @@ impl UpdateAppConnectionRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateAppConnectionRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_beyondcorp_appconnections_v1::model::UpdateAppConnectionRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateAppConnectionRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
-    /// let x = UpdateAppConnectionRequest::new().set_or_clear_update_mask(None::<FieldMask>);
-    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -489,13 +376,6 @@ impl UpdateAppConnectionRequest {
     }
 
     /// Sets the value of [app_connection][crate::model::UpdateAppConnectionRequest::app_connection].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_beyondcorp_appconnections_v1::model::UpdateAppConnectionRequest;
-    /// use google_cloud_beyondcorp_appconnections_v1::model::AppConnection;
-    /// let x = UpdateAppConnectionRequest::new().set_app_connection(AppConnection::default()/* use setters */);
-    /// ```
     pub fn set_app_connection<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::AppConnection>,
@@ -505,14 +385,6 @@ impl UpdateAppConnectionRequest {
     }
 
     /// Sets or clears the value of [app_connection][crate::model::UpdateAppConnectionRequest::app_connection].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_beyondcorp_appconnections_v1::model::UpdateAppConnectionRequest;
-    /// use google_cloud_beyondcorp_appconnections_v1::model::AppConnection;
-    /// let x = UpdateAppConnectionRequest::new().set_or_clear_app_connection(Some(AppConnection::default()/* use setters */));
-    /// let x = UpdateAppConnectionRequest::new().set_or_clear_app_connection(None::<AppConnection>);
-    /// ```
     pub fn set_or_clear_app_connection<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AppConnection>,
@@ -522,36 +394,18 @@ impl UpdateAppConnectionRequest {
     }
 
     /// Sets the value of [request_id][crate::model::UpdateAppConnectionRequest::request_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_beyondcorp_appconnections_v1::model::UpdateAppConnectionRequest;
-    /// let x = UpdateAppConnectionRequest::new().set_request_id("example");
-    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
     }
 
     /// Sets the value of [validate_only][crate::model::UpdateAppConnectionRequest::validate_only].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_beyondcorp_appconnections_v1::model::UpdateAppConnectionRequest;
-    /// let x = UpdateAppConnectionRequest::new().set_validate_only(true);
-    /// ```
     pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.validate_only = v.into();
         self
     }
 
     /// Sets the value of [allow_missing][crate::model::UpdateAppConnectionRequest::allow_missing].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_beyondcorp_appconnections_v1::model::UpdateAppConnectionRequest;
-    /// let x = UpdateAppConnectionRequest::new().set_allow_missing(true);
-    /// ```
     pub fn set_allow_missing<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.allow_missing = v.into();
         self
@@ -600,36 +454,18 @@ impl DeleteAppConnectionRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteAppConnectionRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_beyondcorp_appconnections_v1::model::DeleteAppConnectionRequest;
-    /// let x = DeleteAppConnectionRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [request_id][crate::model::DeleteAppConnectionRequest::request_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_beyondcorp_appconnections_v1::model::DeleteAppConnectionRequest;
-    /// let x = DeleteAppConnectionRequest::new().set_request_id("example");
-    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
     }
 
     /// Sets the value of [validate_only][crate::model::DeleteAppConnectionRequest::validate_only].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_beyondcorp_appconnections_v1::model::DeleteAppConnectionRequest;
-    /// let x = DeleteAppConnectionRequest::new().set_validate_only(true);
-    /// ```
     pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.validate_only = v.into();
         self
@@ -676,24 +512,12 @@ impl ResolveAppConnectionsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ResolveAppConnectionsRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_beyondcorp_appconnections_v1::model::ResolveAppConnectionsRequest;
-    /// let x = ResolveAppConnectionsRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [app_connector_id][crate::model::ResolveAppConnectionsRequest::app_connector_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_beyondcorp_appconnections_v1::model::ResolveAppConnectionsRequest;
-    /// let x = ResolveAppConnectionsRequest::new().set_app_connector_id("example");
-    /// ```
     pub fn set_app_connector_id<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -703,24 +527,12 @@ impl ResolveAppConnectionsRequest {
     }
 
     /// Sets the value of [page_size][crate::model::ResolveAppConnectionsRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_beyondcorp_appconnections_v1::model::ResolveAppConnectionsRequest;
-    /// let x = ResolveAppConnectionsRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ResolveAppConnectionsRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_beyondcorp_appconnections_v1::model::ResolveAppConnectionsRequest;
-    /// let x = ResolveAppConnectionsRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -757,17 +569,6 @@ impl ResolveAppConnectionsResponse {
     }
 
     /// Sets the value of [app_connection_details][crate::model::ResolveAppConnectionsResponse::app_connection_details].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_beyondcorp_appconnections_v1::model::ResolveAppConnectionsResponse;
-    /// use google_cloud_beyondcorp_appconnections_v1::model::resolve_app_connections_response::AppConnectionDetails;
-    /// let x = ResolveAppConnectionsResponse::new()
-    ///     .set_app_connection_details([
-    ///         AppConnectionDetails::default()/* use setters */,
-    ///         AppConnectionDetails::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_app_connection_details<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -779,24 +580,12 @@ impl ResolveAppConnectionsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ResolveAppConnectionsResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_beyondcorp_appconnections_v1::model::ResolveAppConnectionsResponse;
-    /// let x = ResolveAppConnectionsResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ResolveAppConnectionsResponse::unreachable].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_beyondcorp_appconnections_v1::model::ResolveAppConnectionsResponse;
-    /// let x = ResolveAppConnectionsResponse::new().set_unreachable(["a", "b", "c"]);
-    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -853,13 +642,6 @@ pub mod resolve_app_connections_response {
         }
 
         /// Sets the value of [app_connection][crate::model::resolve_app_connections_response::AppConnectionDetails::app_connection].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_beyondcorp_appconnections_v1::model::resolve_app_connections_response::AppConnectionDetails;
-        /// use google_cloud_beyondcorp_appconnections_v1::model::AppConnection;
-        /// let x = AppConnectionDetails::new().set_app_connection(AppConnection::default()/* use setters */);
-        /// ```
         pub fn set_app_connection<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::AppConnection>,
@@ -869,14 +651,6 @@ pub mod resolve_app_connections_response {
         }
 
         /// Sets or clears the value of [app_connection][crate::model::resolve_app_connections_response::AppConnectionDetails::app_connection].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_beyondcorp_appconnections_v1::model::resolve_app_connections_response::AppConnectionDetails;
-        /// use google_cloud_beyondcorp_appconnections_v1::model::AppConnection;
-        /// let x = AppConnectionDetails::new().set_or_clear_app_connection(Some(AppConnection::default()/* use setters */));
-        /// let x = AppConnectionDetails::new().set_or_clear_app_connection(None::<AppConnection>);
-        /// ```
         pub fn set_or_clear_app_connection<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::AppConnection>,
@@ -886,12 +660,6 @@ pub mod resolve_app_connections_response {
         }
 
         /// Sets the value of [recent_mig_vms][crate::model::resolve_app_connections_response::AppConnectionDetails::recent_mig_vms].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_beyondcorp_appconnections_v1::model::resolve_app_connections_response::AppConnectionDetails;
-        /// let x = AppConnectionDetails::new().set_recent_mig_vms(["a", "b", "c"]);
-        /// ```
         pub fn set_recent_mig_vms<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -965,25 +733,12 @@ impl AppConnection {
     }
 
     /// Sets the value of [name][crate::model::AppConnection::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_beyondcorp_appconnections_v1::model::AppConnection;
-    /// let x = AppConnection::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::AppConnection::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_beyondcorp_appconnections_v1::model::AppConnection;
-    /// use wkt::Timestamp;
-    /// let x = AppConnection::new().set_create_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -993,14 +748,6 @@ impl AppConnection {
     }
 
     /// Sets or clears the value of [create_time][crate::model::AppConnection::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_beyondcorp_appconnections_v1::model::AppConnection;
-    /// use wkt::Timestamp;
-    /// let x = AppConnection::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
-    /// let x = AppConnection::new().set_or_clear_create_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1010,13 +757,6 @@ impl AppConnection {
     }
 
     /// Sets the value of [update_time][crate::model::AppConnection::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_beyondcorp_appconnections_v1::model::AppConnection;
-    /// use wkt::Timestamp;
-    /// let x = AppConnection::new().set_update_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1026,14 +766,6 @@ impl AppConnection {
     }
 
     /// Sets or clears the value of [update_time][crate::model::AppConnection::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_beyondcorp_appconnections_v1::model::AppConnection;
-    /// use wkt::Timestamp;
-    /// let x = AppConnection::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
-    /// let x = AppConnection::new().set_or_clear_update_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1043,15 +775,6 @@ impl AppConnection {
     }
 
     /// Sets the value of [labels][crate::model::AppConnection::labels].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_beyondcorp_appconnections_v1::model::AppConnection;
-    /// let x = AppConnection::new().set_labels([
-    ///     ("key0", "abc"),
-    ///     ("key1", "xyz"),
-    /// ]);
-    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -1064,37 +787,18 @@ impl AppConnection {
     }
 
     /// Sets the value of [display_name][crate::model::AppConnection::display_name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_beyondcorp_appconnections_v1::model::AppConnection;
-    /// let x = AppConnection::new().set_display_name("example");
-    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
     }
 
     /// Sets the value of [uid][crate::model::AppConnection::uid].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_beyondcorp_appconnections_v1::model::AppConnection;
-    /// let x = AppConnection::new().set_uid("example");
-    /// ```
     pub fn set_uid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.uid = v.into();
         self
     }
 
     /// Sets the value of [r#type][crate::model::AppConnection::type].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_beyondcorp_appconnections_v1::model::AppConnection;
-    /// use google_cloud_beyondcorp_appconnections_v1::model::app_connection::Type;
-    /// let x0 = AppConnection::new().set_type(Type::TcpProxy);
-    /// ```
     pub fn set_type<T: std::convert::Into<crate::model::app_connection::Type>>(
         mut self,
         v: T,
@@ -1104,13 +808,6 @@ impl AppConnection {
     }
 
     /// Sets the value of [application_endpoint][crate::model::AppConnection::application_endpoint].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_beyondcorp_appconnections_v1::model::AppConnection;
-    /// use google_cloud_beyondcorp_appconnections_v1::model::app_connection::ApplicationEndpoint;
-    /// let x = AppConnection::new().set_application_endpoint(ApplicationEndpoint::default()/* use setters */);
-    /// ```
     pub fn set_application_endpoint<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::app_connection::ApplicationEndpoint>,
@@ -1120,14 +817,6 @@ impl AppConnection {
     }
 
     /// Sets or clears the value of [application_endpoint][crate::model::AppConnection::application_endpoint].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_beyondcorp_appconnections_v1::model::AppConnection;
-    /// use google_cloud_beyondcorp_appconnections_v1::model::app_connection::ApplicationEndpoint;
-    /// let x = AppConnection::new().set_or_clear_application_endpoint(Some(ApplicationEndpoint::default()/* use setters */));
-    /// let x = AppConnection::new().set_or_clear_application_endpoint(None::<ApplicationEndpoint>);
-    /// ```
     pub fn set_or_clear_application_endpoint<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::app_connection::ApplicationEndpoint>,
@@ -1137,12 +826,6 @@ impl AppConnection {
     }
 
     /// Sets the value of [connectors][crate::model::AppConnection::connectors].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_beyondcorp_appconnections_v1::model::AppConnection;
-    /// let x = AppConnection::new().set_connectors(["a", "b", "c"]);
-    /// ```
     pub fn set_connectors<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1154,15 +837,6 @@ impl AppConnection {
     }
 
     /// Sets the value of [state][crate::model::AppConnection::state].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_beyondcorp_appconnections_v1::model::AppConnection;
-    /// use google_cloud_beyondcorp_appconnections_v1::model::app_connection::State;
-    /// let x0 = AppConnection::new().set_state(State::Creating);
-    /// let x1 = AppConnection::new().set_state(State::Created);
-    /// let x2 = AppConnection::new().set_state(State::Updating);
-    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::app_connection::State>>(
         mut self,
         v: T,
@@ -1172,13 +846,6 @@ impl AppConnection {
     }
 
     /// Sets the value of [gateway][crate::model::AppConnection::gateway].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_beyondcorp_appconnections_v1::model::AppConnection;
-    /// use google_cloud_beyondcorp_appconnections_v1::model::app_connection::Gateway;
-    /// let x = AppConnection::new().set_gateway(Gateway::default()/* use setters */);
-    /// ```
     pub fn set_gateway<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::app_connection::Gateway>,
@@ -1188,14 +855,6 @@ impl AppConnection {
     }
 
     /// Sets or clears the value of [gateway][crate::model::AppConnection::gateway].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_beyondcorp_appconnections_v1::model::AppConnection;
-    /// use google_cloud_beyondcorp_appconnections_v1::model::app_connection::Gateway;
-    /// let x = AppConnection::new().set_or_clear_gateway(Some(Gateway::default()/* use setters */));
-    /// let x = AppConnection::new().set_or_clear_gateway(None::<Gateway>);
-    /// ```
     pub fn set_or_clear_gateway<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::app_connection::Gateway>,
@@ -1235,24 +894,12 @@ pub mod app_connection {
         }
 
         /// Sets the value of [host][crate::model::app_connection::ApplicationEndpoint::host].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_beyondcorp_appconnections_v1::model::app_connection::ApplicationEndpoint;
-        /// let x = ApplicationEndpoint::new().set_host("example");
-        /// ```
         pub fn set_host<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.host = v.into();
             self
         }
 
         /// Sets the value of [port][crate::model::app_connection::ApplicationEndpoint::port].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_beyondcorp_appconnections_v1::model::app_connection::ApplicationEndpoint;
-        /// let x = ApplicationEndpoint::new().set_port(42);
-        /// ```
         pub fn set_port<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.port = v.into();
             self
@@ -1293,13 +940,6 @@ pub mod app_connection {
         }
 
         /// Sets the value of [r#type][crate::model::app_connection::Gateway::type].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_beyondcorp_appconnections_v1::model::app_connection::Gateway;
-        /// use google_cloud_beyondcorp_appconnections_v1::model::app_connection::gateway::Type;
-        /// let x0 = Gateway::new().set_type(Type::GcpRegionalMig);
-        /// ```
         pub fn set_type<T: std::convert::Into<crate::model::app_connection::gateway::Type>>(
             mut self,
             v: T,
@@ -1309,36 +949,18 @@ pub mod app_connection {
         }
 
         /// Sets the value of [uri][crate::model::app_connection::Gateway::uri].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_beyondcorp_appconnections_v1::model::app_connection::Gateway;
-        /// let x = Gateway::new().set_uri("example");
-        /// ```
         pub fn set_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.uri = v.into();
             self
         }
 
         /// Sets the value of [ingress_port][crate::model::app_connection::Gateway::ingress_port].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_beyondcorp_appconnections_v1::model::app_connection::Gateway;
-        /// let x = Gateway::new().set_ingress_port(42);
-        /// ```
         pub fn set_ingress_port<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.ingress_port = v.into();
             self
         }
 
         /// Sets the value of [app_gateway][crate::model::app_connection::Gateway::app_gateway].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_beyondcorp_appconnections_v1::model::app_connection::Gateway;
-        /// let x = Gateway::new().set_app_gateway("example");
-        /// ```
         pub fn set_app_gateway<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.app_gateway = v.into();
             self
@@ -1807,13 +1429,6 @@ impl AppConnectionOperationMetadata {
     }
 
     /// Sets the value of [create_time][crate::model::AppConnectionOperationMetadata::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_beyondcorp_appconnections_v1::model::AppConnectionOperationMetadata;
-    /// use wkt::Timestamp;
-    /// let x = AppConnectionOperationMetadata::new().set_create_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1823,14 +1438,6 @@ impl AppConnectionOperationMetadata {
     }
 
     /// Sets or clears the value of [create_time][crate::model::AppConnectionOperationMetadata::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_beyondcorp_appconnections_v1::model::AppConnectionOperationMetadata;
-    /// use wkt::Timestamp;
-    /// let x = AppConnectionOperationMetadata::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
-    /// let x = AppConnectionOperationMetadata::new().set_or_clear_create_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1840,13 +1447,6 @@ impl AppConnectionOperationMetadata {
     }
 
     /// Sets the value of [end_time][crate::model::AppConnectionOperationMetadata::end_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_beyondcorp_appconnections_v1::model::AppConnectionOperationMetadata;
-    /// use wkt::Timestamp;
-    /// let x = AppConnectionOperationMetadata::new().set_end_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1856,14 +1456,6 @@ impl AppConnectionOperationMetadata {
     }
 
     /// Sets or clears the value of [end_time][crate::model::AppConnectionOperationMetadata::end_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_beyondcorp_appconnections_v1::model::AppConnectionOperationMetadata;
-    /// use wkt::Timestamp;
-    /// let x = AppConnectionOperationMetadata::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
-    /// let x = AppConnectionOperationMetadata::new().set_or_clear_end_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1873,60 +1465,30 @@ impl AppConnectionOperationMetadata {
     }
 
     /// Sets the value of [target][crate::model::AppConnectionOperationMetadata::target].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_beyondcorp_appconnections_v1::model::AppConnectionOperationMetadata;
-    /// let x = AppConnectionOperationMetadata::new().set_target("example");
-    /// ```
     pub fn set_target<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.target = v.into();
         self
     }
 
     /// Sets the value of [verb][crate::model::AppConnectionOperationMetadata::verb].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_beyondcorp_appconnections_v1::model::AppConnectionOperationMetadata;
-    /// let x = AppConnectionOperationMetadata::new().set_verb("example");
-    /// ```
     pub fn set_verb<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.verb = v.into();
         self
     }
 
     /// Sets the value of [status_message][crate::model::AppConnectionOperationMetadata::status_message].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_beyondcorp_appconnections_v1::model::AppConnectionOperationMetadata;
-    /// let x = AppConnectionOperationMetadata::new().set_status_message("example");
-    /// ```
     pub fn set_status_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.status_message = v.into();
         self
     }
 
     /// Sets the value of [requested_cancellation][crate::model::AppConnectionOperationMetadata::requested_cancellation].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_beyondcorp_appconnections_v1::model::AppConnectionOperationMetadata;
-    /// let x = AppConnectionOperationMetadata::new().set_requested_cancellation(true);
-    /// ```
     pub fn set_requested_cancellation<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.requested_cancellation = v.into();
         self
     }
 
     /// Sets the value of [api_version][crate::model::AppConnectionOperationMetadata::api_version].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_beyondcorp_appconnections_v1::model::AppConnectionOperationMetadata;
-    /// let x = AppConnectionOperationMetadata::new().set_api_version("example");
-    /// ```
     pub fn set_api_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.api_version = v.into();
         self

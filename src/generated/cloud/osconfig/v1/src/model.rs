@@ -76,25 +76,12 @@ impl Inventory {
     }
 
     /// Sets the value of [name][crate::model::Inventory::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::Inventory;
-    /// let x = Inventory::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [os_info][crate::model::Inventory::os_info].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::Inventory;
-    /// use google_cloud_osconfig_v1::model::inventory::OsInfo;
-    /// let x = Inventory::new().set_os_info(OsInfo::default()/* use setters */);
-    /// ```
     pub fn set_os_info<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::inventory::OsInfo>,
@@ -104,14 +91,6 @@ impl Inventory {
     }
 
     /// Sets or clears the value of [os_info][crate::model::Inventory::os_info].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::Inventory;
-    /// use google_cloud_osconfig_v1::model::inventory::OsInfo;
-    /// let x = Inventory::new().set_or_clear_os_info(Some(OsInfo::default()/* use setters */));
-    /// let x = Inventory::new().set_or_clear_os_info(None::<OsInfo>);
-    /// ```
     pub fn set_or_clear_os_info<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::inventory::OsInfo>,
@@ -121,16 +100,6 @@ impl Inventory {
     }
 
     /// Sets the value of [items][crate::model::Inventory::items].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::Inventory;
-    /// use google_cloud_osconfig_v1::model::inventory::Item;
-    /// let x = Inventory::new().set_items([
-    ///     ("key0", Item::default()/* use setters */),
-    ///     ("key1", Item::default()/* use (different) setters */),
-    /// ]);
-    /// ```
     pub fn set_items<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -143,13 +112,6 @@ impl Inventory {
     }
 
     /// Sets the value of [update_time][crate::model::Inventory::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::Inventory;
-    /// use wkt::Timestamp;
-    /// let x = Inventory::new().set_update_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -159,14 +121,6 @@ impl Inventory {
     }
 
     /// Sets or clears the value of [update_time][crate::model::Inventory::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::Inventory;
-    /// use wkt::Timestamp;
-    /// let x = Inventory::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
-    /// let x = Inventory::new().set_or_clear_update_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -227,60 +181,30 @@ pub mod inventory {
         }
 
         /// Sets the value of [hostname][crate::model::inventory::OsInfo::hostname].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_osconfig_v1::model::inventory::OsInfo;
-        /// let x = OsInfo::new().set_hostname("example");
-        /// ```
         pub fn set_hostname<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.hostname = v.into();
             self
         }
 
         /// Sets the value of [long_name][crate::model::inventory::OsInfo::long_name].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_osconfig_v1::model::inventory::OsInfo;
-        /// let x = OsInfo::new().set_long_name("example");
-        /// ```
         pub fn set_long_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.long_name = v.into();
             self
         }
 
         /// Sets the value of [short_name][crate::model::inventory::OsInfo::short_name].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_osconfig_v1::model::inventory::OsInfo;
-        /// let x = OsInfo::new().set_short_name("example");
-        /// ```
         pub fn set_short_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.short_name = v.into();
             self
         }
 
         /// Sets the value of [version][crate::model::inventory::OsInfo::version].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_osconfig_v1::model::inventory::OsInfo;
-        /// let x = OsInfo::new().set_version("example");
-        /// ```
         pub fn set_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.version = v.into();
             self
         }
 
         /// Sets the value of [architecture][crate::model::inventory::OsInfo::architecture].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_osconfig_v1::model::inventory::OsInfo;
-        /// let x = OsInfo::new().set_architecture("example");
-        /// ```
         pub fn set_architecture<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -290,12 +214,6 @@ pub mod inventory {
         }
 
         /// Sets the value of [kernel_version][crate::model::inventory::OsInfo::kernel_version].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_osconfig_v1::model::inventory::OsInfo;
-        /// let x = OsInfo::new().set_kernel_version("example");
-        /// ```
         pub fn set_kernel_version<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -305,12 +223,6 @@ pub mod inventory {
         }
 
         /// Sets the value of [kernel_release][crate::model::inventory::OsInfo::kernel_release].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_osconfig_v1::model::inventory::OsInfo;
-        /// let x = OsInfo::new().set_kernel_release("example");
-        /// ```
         pub fn set_kernel_release<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -320,12 +232,6 @@ pub mod inventory {
         }
 
         /// Sets the value of [osconfig_agent_version][crate::model::inventory::OsInfo::osconfig_agent_version].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_osconfig_v1::model::inventory::OsInfo;
-        /// let x = OsInfo::new().set_osconfig_agent_version("example");
-        /// ```
         pub fn set_osconfig_agent_version<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -372,25 +278,12 @@ pub mod inventory {
         }
 
         /// Sets the value of [id][crate::model::inventory::Item::id].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_osconfig_v1::model::inventory::Item;
-        /// let x = Item::new().set_id("example");
-        /// ```
         pub fn set_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.id = v.into();
             self
         }
 
         /// Sets the value of [origin_type][crate::model::inventory::Item::origin_type].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_osconfig_v1::model::inventory::Item;
-        /// use google_cloud_osconfig_v1::model::inventory::item::OriginType;
-        /// let x0 = Item::new().set_origin_type(OriginType::InventoryReport);
-        /// ```
         pub fn set_origin_type<T: std::convert::Into<crate::model::inventory::item::OriginType>>(
             mut self,
             v: T,
@@ -400,13 +293,6 @@ pub mod inventory {
         }
 
         /// Sets the value of [create_time][crate::model::inventory::Item::create_time].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_osconfig_v1::model::inventory::Item;
-        /// use wkt::Timestamp;
-        /// let x = Item::new().set_create_time(Timestamp::default()/* use setters */);
-        /// ```
         pub fn set_create_time<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -416,14 +302,6 @@ pub mod inventory {
         }
 
         /// Sets or clears the value of [create_time][crate::model::inventory::Item::create_time].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_osconfig_v1::model::inventory::Item;
-        /// use wkt::Timestamp;
-        /// let x = Item::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
-        /// let x = Item::new().set_or_clear_create_time(None::<Timestamp>);
-        /// ```
         pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -433,13 +311,6 @@ pub mod inventory {
         }
 
         /// Sets the value of [update_time][crate::model::inventory::Item::update_time].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_osconfig_v1::model::inventory::Item;
-        /// use wkt::Timestamp;
-        /// let x = Item::new().set_update_time(Timestamp::default()/* use setters */);
-        /// ```
         pub fn set_update_time<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -449,14 +320,6 @@ pub mod inventory {
         }
 
         /// Sets or clears the value of [update_time][crate::model::inventory::Item::update_time].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_osconfig_v1::model::inventory::Item;
-        /// use wkt::Timestamp;
-        /// let x = Item::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
-        /// let x = Item::new().set_or_clear_update_time(None::<Timestamp>);
-        /// ```
         pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -466,14 +329,6 @@ pub mod inventory {
         }
 
         /// Sets the value of [r#type][crate::model::inventory::Item::type].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_osconfig_v1::model::inventory::Item;
-        /// use google_cloud_osconfig_v1::model::inventory::item::Type;
-        /// let x0 = Item::new().set_type(Type::InstalledPackage);
-        /// let x1 = Item::new().set_type(Type::AvailablePackage);
-        /// ```
         pub fn set_type<T: std::convert::Into<crate::model::inventory::item::Type>>(
             mut self,
             v: T,
@@ -486,14 +341,6 @@ pub mod inventory {
         ///
         /// Note that all the setters affecting `details` are mutually
         /// exclusive.
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_osconfig_v1::model::inventory::Item;
-        /// use google_cloud_osconfig_v1::model::inventory::item;
-        /// use google_cloud_osconfig_v1::model::inventory::SoftwarePackage;
-        /// let x = Item::new().set_details(Some(inventory::item::Details::InstalledPackage(SoftwarePackage::default().into())));
-        /// ```
         pub fn set_details<
             T: std::convert::Into<std::option::Option<crate::model::inventory::item::Details>>,
         >(
@@ -525,15 +372,6 @@ pub mod inventory {
         ///
         /// Note that all the setters affecting `details` are
         /// mutually exclusive.
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_osconfig_v1::model::inventory::Item;
-        /// use google_cloud_osconfig_v1::model::inventory::SoftwarePackage;
-        /// let x = Item::new().set_installed_package(SoftwarePackage::default()/* use setters */);
-        /// assert!(x.installed_package().is_some());
-        /// assert!(x.available_package().is_none());
-        /// ```
         pub fn set_installed_package<
             T: std::convert::Into<std::boxed::Box<crate::model::inventory::SoftwarePackage>>,
         >(
@@ -567,15 +405,6 @@ pub mod inventory {
         ///
         /// Note that all the setters affecting `details` are
         /// mutually exclusive.
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_osconfig_v1::model::inventory::Item;
-        /// use google_cloud_osconfig_v1::model::inventory::SoftwarePackage;
-        /// let x = Item::new().set_available_package(SoftwarePackage::default()/* use setters */);
-        /// assert!(x.available_package().is_some());
-        /// assert!(x.installed_package().is_none());
-        /// ```
         pub fn set_available_package<
             T: std::convert::Into<std::boxed::Box<crate::model::inventory::SoftwarePackage>>,
         >(
@@ -894,14 +723,6 @@ pub mod inventory {
         ///
         /// Note that all the setters affecting `details` are mutually
         /// exclusive.
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_osconfig_v1::model::inventory::SoftwarePackage;
-        /// use google_cloud_osconfig_v1::model::inventory::software_package;
-        /// use google_cloud_osconfig_v1::model::inventory::VersionedPackage;
-        /// let x = SoftwarePackage::new().set_details(Some(inventory::software_package::Details::YumPackage(VersionedPackage::default().into())));
-        /// ```
         pub fn set_details<
             T: std::convert::Into<
                     std::option::Option<crate::model::inventory::software_package::Details>,
@@ -935,22 +756,6 @@ pub mod inventory {
         ///
         /// Note that all the setters affecting `details` are
         /// mutually exclusive.
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_osconfig_v1::model::inventory::SoftwarePackage;
-        /// use google_cloud_osconfig_v1::model::inventory::VersionedPackage;
-        /// let x = SoftwarePackage::new().set_yum_package(VersionedPackage::default()/* use setters */);
-        /// assert!(x.yum_package().is_some());
-        /// assert!(x.apt_package().is_none());
-        /// assert!(x.zypper_package().is_none());
-        /// assert!(x.googet_package().is_none());
-        /// assert!(x.zypper_patch().is_none());
-        /// assert!(x.wua_package().is_none());
-        /// assert!(x.qfe_package().is_none());
-        /// assert!(x.cos_package().is_none());
-        /// assert!(x.windows_application().is_none());
-        /// ```
         pub fn set_yum_package<
             T: std::convert::Into<std::boxed::Box<crate::model::inventory::VersionedPackage>>,
         >(
@@ -984,22 +789,6 @@ pub mod inventory {
         ///
         /// Note that all the setters affecting `details` are
         /// mutually exclusive.
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_osconfig_v1::model::inventory::SoftwarePackage;
-        /// use google_cloud_osconfig_v1::model::inventory::VersionedPackage;
-        /// let x = SoftwarePackage::new().set_apt_package(VersionedPackage::default()/* use setters */);
-        /// assert!(x.apt_package().is_some());
-        /// assert!(x.yum_package().is_none());
-        /// assert!(x.zypper_package().is_none());
-        /// assert!(x.googet_package().is_none());
-        /// assert!(x.zypper_patch().is_none());
-        /// assert!(x.wua_package().is_none());
-        /// assert!(x.qfe_package().is_none());
-        /// assert!(x.cos_package().is_none());
-        /// assert!(x.windows_application().is_none());
-        /// ```
         pub fn set_apt_package<
             T: std::convert::Into<std::boxed::Box<crate::model::inventory::VersionedPackage>>,
         >(
@@ -1033,22 +822,6 @@ pub mod inventory {
         ///
         /// Note that all the setters affecting `details` are
         /// mutually exclusive.
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_osconfig_v1::model::inventory::SoftwarePackage;
-        /// use google_cloud_osconfig_v1::model::inventory::VersionedPackage;
-        /// let x = SoftwarePackage::new().set_zypper_package(VersionedPackage::default()/* use setters */);
-        /// assert!(x.zypper_package().is_some());
-        /// assert!(x.yum_package().is_none());
-        /// assert!(x.apt_package().is_none());
-        /// assert!(x.googet_package().is_none());
-        /// assert!(x.zypper_patch().is_none());
-        /// assert!(x.wua_package().is_none());
-        /// assert!(x.qfe_package().is_none());
-        /// assert!(x.cos_package().is_none());
-        /// assert!(x.windows_application().is_none());
-        /// ```
         pub fn set_zypper_package<
             T: std::convert::Into<std::boxed::Box<crate::model::inventory::VersionedPackage>>,
         >(
@@ -1082,22 +855,6 @@ pub mod inventory {
         ///
         /// Note that all the setters affecting `details` are
         /// mutually exclusive.
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_osconfig_v1::model::inventory::SoftwarePackage;
-        /// use google_cloud_osconfig_v1::model::inventory::VersionedPackage;
-        /// let x = SoftwarePackage::new().set_googet_package(VersionedPackage::default()/* use setters */);
-        /// assert!(x.googet_package().is_some());
-        /// assert!(x.yum_package().is_none());
-        /// assert!(x.apt_package().is_none());
-        /// assert!(x.zypper_package().is_none());
-        /// assert!(x.zypper_patch().is_none());
-        /// assert!(x.wua_package().is_none());
-        /// assert!(x.qfe_package().is_none());
-        /// assert!(x.cos_package().is_none());
-        /// assert!(x.windows_application().is_none());
-        /// ```
         pub fn set_googet_package<
             T: std::convert::Into<std::boxed::Box<crate::model::inventory::VersionedPackage>>,
         >(
@@ -1130,22 +887,6 @@ pub mod inventory {
         ///
         /// Note that all the setters affecting `details` are
         /// mutually exclusive.
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_osconfig_v1::model::inventory::SoftwarePackage;
-        /// use google_cloud_osconfig_v1::model::inventory::ZypperPatch;
-        /// let x = SoftwarePackage::new().set_zypper_patch(ZypperPatch::default()/* use setters */);
-        /// assert!(x.zypper_patch().is_some());
-        /// assert!(x.yum_package().is_none());
-        /// assert!(x.apt_package().is_none());
-        /// assert!(x.zypper_package().is_none());
-        /// assert!(x.googet_package().is_none());
-        /// assert!(x.wua_package().is_none());
-        /// assert!(x.qfe_package().is_none());
-        /// assert!(x.cos_package().is_none());
-        /// assert!(x.windows_application().is_none());
-        /// ```
         pub fn set_zypper_patch<
             T: std::convert::Into<std::boxed::Box<crate::model::inventory::ZypperPatch>>,
         >(
@@ -1179,22 +920,6 @@ pub mod inventory {
         ///
         /// Note that all the setters affecting `details` are
         /// mutually exclusive.
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_osconfig_v1::model::inventory::SoftwarePackage;
-        /// use google_cloud_osconfig_v1::model::inventory::WindowsUpdatePackage;
-        /// let x = SoftwarePackage::new().set_wua_package(WindowsUpdatePackage::default()/* use setters */);
-        /// assert!(x.wua_package().is_some());
-        /// assert!(x.yum_package().is_none());
-        /// assert!(x.apt_package().is_none());
-        /// assert!(x.zypper_package().is_none());
-        /// assert!(x.googet_package().is_none());
-        /// assert!(x.zypper_patch().is_none());
-        /// assert!(x.qfe_package().is_none());
-        /// assert!(x.cos_package().is_none());
-        /// assert!(x.windows_application().is_none());
-        /// ```
         pub fn set_wua_package<
             T: std::convert::Into<std::boxed::Box<crate::model::inventory::WindowsUpdatePackage>>,
         >(
@@ -1229,22 +954,6 @@ pub mod inventory {
         ///
         /// Note that all the setters affecting `details` are
         /// mutually exclusive.
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_osconfig_v1::model::inventory::SoftwarePackage;
-        /// use google_cloud_osconfig_v1::model::inventory::WindowsQuickFixEngineeringPackage;
-        /// let x = SoftwarePackage::new().set_qfe_package(WindowsQuickFixEngineeringPackage::default()/* use setters */);
-        /// assert!(x.qfe_package().is_some());
-        /// assert!(x.yum_package().is_none());
-        /// assert!(x.apt_package().is_none());
-        /// assert!(x.zypper_package().is_none());
-        /// assert!(x.googet_package().is_none());
-        /// assert!(x.zypper_patch().is_none());
-        /// assert!(x.wua_package().is_none());
-        /// assert!(x.cos_package().is_none());
-        /// assert!(x.windows_application().is_none());
-        /// ```
         pub fn set_qfe_package<
             T: std::convert::Into<
                     std::boxed::Box<crate::model::inventory::WindowsQuickFixEngineeringPackage>,
@@ -1280,22 +989,6 @@ pub mod inventory {
         ///
         /// Note that all the setters affecting `details` are
         /// mutually exclusive.
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_osconfig_v1::model::inventory::SoftwarePackage;
-        /// use google_cloud_osconfig_v1::model::inventory::VersionedPackage;
-        /// let x = SoftwarePackage::new().set_cos_package(VersionedPackage::default()/* use setters */);
-        /// assert!(x.cos_package().is_some());
-        /// assert!(x.yum_package().is_none());
-        /// assert!(x.apt_package().is_none());
-        /// assert!(x.zypper_package().is_none());
-        /// assert!(x.googet_package().is_none());
-        /// assert!(x.zypper_patch().is_none());
-        /// assert!(x.wua_package().is_none());
-        /// assert!(x.qfe_package().is_none());
-        /// assert!(x.windows_application().is_none());
-        /// ```
         pub fn set_cos_package<
             T: std::convert::Into<std::boxed::Box<crate::model::inventory::VersionedPackage>>,
         >(
@@ -1329,22 +1022,6 @@ pub mod inventory {
         ///
         /// Note that all the setters affecting `details` are
         /// mutually exclusive.
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_osconfig_v1::model::inventory::SoftwarePackage;
-        /// use google_cloud_osconfig_v1::model::inventory::WindowsApplication;
-        /// let x = SoftwarePackage::new().set_windows_application(WindowsApplication::default()/* use setters */);
-        /// assert!(x.windows_application().is_some());
-        /// assert!(x.yum_package().is_none());
-        /// assert!(x.apt_package().is_none());
-        /// assert!(x.zypper_package().is_none());
-        /// assert!(x.googet_package().is_none());
-        /// assert!(x.zypper_patch().is_none());
-        /// assert!(x.wua_package().is_none());
-        /// assert!(x.qfe_package().is_none());
-        /// assert!(x.cos_package().is_none());
-        /// ```
         pub fn set_windows_application<
             T: std::convert::Into<std::boxed::Box<crate::model::inventory::WindowsApplication>>,
         >(
@@ -1432,12 +1109,6 @@ pub mod inventory {
         }
 
         /// Sets the value of [package_name][crate::model::inventory::VersionedPackage::package_name].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_osconfig_v1::model::inventory::VersionedPackage;
-        /// let x = VersionedPackage::new().set_package_name("example");
-        /// ```
         pub fn set_package_name<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -1447,12 +1118,6 @@ pub mod inventory {
         }
 
         /// Sets the value of [architecture][crate::model::inventory::VersionedPackage::architecture].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_osconfig_v1::model::inventory::VersionedPackage;
-        /// let x = VersionedPackage::new().set_architecture("example");
-        /// ```
         pub fn set_architecture<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -1462,12 +1127,6 @@ pub mod inventory {
         }
 
         /// Sets the value of [version][crate::model::inventory::VersionedPackage::version].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_osconfig_v1::model::inventory::VersionedPackage;
-        /// let x = VersionedPackage::new().set_version("example");
-        /// ```
         pub fn set_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.version = v.into();
             self
@@ -1505,48 +1164,24 @@ pub mod inventory {
         }
 
         /// Sets the value of [patch_name][crate::model::inventory::ZypperPatch::patch_name].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_osconfig_v1::model::inventory::ZypperPatch;
-        /// let x = ZypperPatch::new().set_patch_name("example");
-        /// ```
         pub fn set_patch_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.patch_name = v.into();
             self
         }
 
         /// Sets the value of [category][crate::model::inventory::ZypperPatch::category].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_osconfig_v1::model::inventory::ZypperPatch;
-        /// let x = ZypperPatch::new().set_category("example");
-        /// ```
         pub fn set_category<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.category = v.into();
             self
         }
 
         /// Sets the value of [severity][crate::model::inventory::ZypperPatch::severity].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_osconfig_v1::model::inventory::ZypperPatch;
-        /// let x = ZypperPatch::new().set_severity("example");
-        /// ```
         pub fn set_severity<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.severity = v.into();
             self
         }
 
         /// Sets the value of [summary][crate::model::inventory::ZypperPatch::summary].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_osconfig_v1::model::inventory::ZypperPatch;
-        /// let x = ZypperPatch::new().set_summary("example");
-        /// ```
         pub fn set_summary<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.summary = v.into();
             self
@@ -1607,41 +1242,18 @@ pub mod inventory {
         }
 
         /// Sets the value of [title][crate::model::inventory::WindowsUpdatePackage::title].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_osconfig_v1::model::inventory::WindowsUpdatePackage;
-        /// let x = WindowsUpdatePackage::new().set_title("example");
-        /// ```
         pub fn set_title<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.title = v.into();
             self
         }
 
         /// Sets the value of [description][crate::model::inventory::WindowsUpdatePackage::description].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_osconfig_v1::model::inventory::WindowsUpdatePackage;
-        /// let x = WindowsUpdatePackage::new().set_description("example");
-        /// ```
         pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.description = v.into();
             self
         }
 
         /// Sets the value of [categories][crate::model::inventory::WindowsUpdatePackage::categories].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_osconfig_v1::model::inventory::WindowsUpdatePackage;
-        /// use google_cloud_osconfig_v1::model::inventory::windows_update_package::WindowsUpdateCategory;
-        /// let x = WindowsUpdatePackage::new()
-        ///     .set_categories([
-        ///         WindowsUpdateCategory::default()/* use setters */,
-        ///         WindowsUpdateCategory::default()/* use (different) setters */,
-        ///     ]);
-        /// ```
         pub fn set_categories<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -1655,12 +1267,6 @@ pub mod inventory {
         }
 
         /// Sets the value of [kb_article_ids][crate::model::inventory::WindowsUpdatePackage::kb_article_ids].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_osconfig_v1::model::inventory::WindowsUpdatePackage;
-        /// let x = WindowsUpdatePackage::new().set_kb_article_ids(["a", "b", "c"]);
-        /// ```
         pub fn set_kb_article_ids<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -1672,24 +1278,12 @@ pub mod inventory {
         }
 
         /// Sets the value of [support_url][crate::model::inventory::WindowsUpdatePackage::support_url].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_osconfig_v1::model::inventory::WindowsUpdatePackage;
-        /// let x = WindowsUpdatePackage::new().set_support_url("example");
-        /// ```
         pub fn set_support_url<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.support_url = v.into();
             self
         }
 
         /// Sets the value of [more_info_urls][crate::model::inventory::WindowsUpdatePackage::more_info_urls].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_osconfig_v1::model::inventory::WindowsUpdatePackage;
-        /// let x = WindowsUpdatePackage::new().set_more_info_urls(["a", "b", "c"]);
-        /// ```
         pub fn set_more_info_urls<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -1701,37 +1295,18 @@ pub mod inventory {
         }
 
         /// Sets the value of [update_id][crate::model::inventory::WindowsUpdatePackage::update_id].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_osconfig_v1::model::inventory::WindowsUpdatePackage;
-        /// let x = WindowsUpdatePackage::new().set_update_id("example");
-        /// ```
         pub fn set_update_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.update_id = v.into();
             self
         }
 
         /// Sets the value of [revision_number][crate::model::inventory::WindowsUpdatePackage::revision_number].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_osconfig_v1::model::inventory::WindowsUpdatePackage;
-        /// let x = WindowsUpdatePackage::new().set_revision_number(42);
-        /// ```
         pub fn set_revision_number<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.revision_number = v.into();
             self
         }
 
         /// Sets the value of [last_deployment_change_time][crate::model::inventory::WindowsUpdatePackage::last_deployment_change_time].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_osconfig_v1::model::inventory::WindowsUpdatePackage;
-        /// use wkt::Timestamp;
-        /// let x = WindowsUpdatePackage::new().set_last_deployment_change_time(Timestamp::default()/* use setters */);
-        /// ```
         pub fn set_last_deployment_change_time<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -1741,14 +1316,6 @@ pub mod inventory {
         }
 
         /// Sets or clears the value of [last_deployment_change_time][crate::model::inventory::WindowsUpdatePackage::last_deployment_change_time].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_osconfig_v1::model::inventory::WindowsUpdatePackage;
-        /// use wkt::Timestamp;
-        /// let x = WindowsUpdatePackage::new().set_or_clear_last_deployment_change_time(Some(Timestamp::default()/* use setters */));
-        /// let x = WindowsUpdatePackage::new().set_or_clear_last_deployment_change_time(None::<Timestamp>);
-        /// ```
         pub fn set_or_clear_last_deployment_change_time<T>(
             mut self,
             v: std::option::Option<T>,
@@ -1791,24 +1358,12 @@ pub mod inventory {
             }
 
             /// Sets the value of [id][crate::model::inventory::windows_update_package::WindowsUpdateCategory::id].
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_osconfig_v1::model::inventory::windows_update_package::WindowsUpdateCategory;
-            /// let x = WindowsUpdateCategory::new().set_id("example");
-            /// ```
             pub fn set_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
                 self.id = v.into();
                 self
             }
 
             /// Sets the value of [name][crate::model::inventory::windows_update_package::WindowsUpdateCategory::name].
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_osconfig_v1::model::inventory::windows_update_package::WindowsUpdateCategory;
-            /// let x = WindowsUpdateCategory::new().set_name("example");
-            /// ```
             pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
                 self.name = v.into();
                 self
@@ -1850,49 +1405,24 @@ pub mod inventory {
         }
 
         /// Sets the value of [caption][crate::model::inventory::WindowsQuickFixEngineeringPackage::caption].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_osconfig_v1::model::inventory::WindowsQuickFixEngineeringPackage;
-        /// let x = WindowsQuickFixEngineeringPackage::new().set_caption("example");
-        /// ```
         pub fn set_caption<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.caption = v.into();
             self
         }
 
         /// Sets the value of [description][crate::model::inventory::WindowsQuickFixEngineeringPackage::description].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_osconfig_v1::model::inventory::WindowsQuickFixEngineeringPackage;
-        /// let x = WindowsQuickFixEngineeringPackage::new().set_description("example");
-        /// ```
         pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.description = v.into();
             self
         }
 
         /// Sets the value of [hot_fix_id][crate::model::inventory::WindowsQuickFixEngineeringPackage::hot_fix_id].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_osconfig_v1::model::inventory::WindowsQuickFixEngineeringPackage;
-        /// let x = WindowsQuickFixEngineeringPackage::new().set_hot_fix_id("example");
-        /// ```
         pub fn set_hot_fix_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.hot_fix_id = v.into();
             self
         }
 
         /// Sets the value of [install_time][crate::model::inventory::WindowsQuickFixEngineeringPackage::install_time].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_osconfig_v1::model::inventory::WindowsQuickFixEngineeringPackage;
-        /// use wkt::Timestamp;
-        /// let x = WindowsQuickFixEngineeringPackage::new().set_install_time(Timestamp::default()/* use setters */);
-        /// ```
         pub fn set_install_time<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -1902,14 +1432,6 @@ pub mod inventory {
         }
 
         /// Sets or clears the value of [install_time][crate::model::inventory::WindowsQuickFixEngineeringPackage::install_time].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_osconfig_v1::model::inventory::WindowsQuickFixEngineeringPackage;
-        /// use wkt::Timestamp;
-        /// let x = WindowsQuickFixEngineeringPackage::new().set_or_clear_install_time(Some(Timestamp::default()/* use setters */));
-        /// let x = WindowsQuickFixEngineeringPackage::new().set_or_clear_install_time(None::<Timestamp>);
-        /// ```
         pub fn set_or_clear_install_time<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -1957,12 +1479,6 @@ pub mod inventory {
         }
 
         /// Sets the value of [display_name][crate::model::inventory::WindowsApplication::display_name].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_osconfig_v1::model::inventory::WindowsApplication;
-        /// let x = WindowsApplication::new().set_display_name("example");
-        /// ```
         pub fn set_display_name<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -1972,12 +1488,6 @@ pub mod inventory {
         }
 
         /// Sets the value of [display_version][crate::model::inventory::WindowsApplication::display_version].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_osconfig_v1::model::inventory::WindowsApplication;
-        /// let x = WindowsApplication::new().set_display_version("example");
-        /// ```
         pub fn set_display_version<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -1987,25 +1497,12 @@ pub mod inventory {
         }
 
         /// Sets the value of [publisher][crate::model::inventory::WindowsApplication::publisher].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_osconfig_v1::model::inventory::WindowsApplication;
-        /// let x = WindowsApplication::new().set_publisher("example");
-        /// ```
         pub fn set_publisher<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.publisher = v.into();
             self
         }
 
         /// Sets the value of [install_date][crate::model::inventory::WindowsApplication::install_date].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_osconfig_v1::model::inventory::WindowsApplication;
-        /// use gtype::model::Date;
-        /// let x = WindowsApplication::new().set_install_date(Date::default()/* use setters */);
-        /// ```
         pub fn set_install_date<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<gtype::model::Date>,
@@ -2015,14 +1512,6 @@ pub mod inventory {
         }
 
         /// Sets or clears the value of [install_date][crate::model::inventory::WindowsApplication::install_date].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_osconfig_v1::model::inventory::WindowsApplication;
-        /// use gtype::model::Date;
-        /// let x = WindowsApplication::new().set_or_clear_install_date(Some(Date::default()/* use setters */));
-        /// let x = WindowsApplication::new().set_or_clear_install_date(None::<Date>);
-        /// ```
         pub fn set_or_clear_install_date<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<gtype::model::Date>,
@@ -2032,12 +1521,6 @@ pub mod inventory {
         }
 
         /// Sets the value of [help_link][crate::model::inventory::WindowsApplication::help_link].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_osconfig_v1::model::inventory::WindowsApplication;
-        /// let x = WindowsApplication::new().set_help_link("example");
-        /// ```
         pub fn set_help_link<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.help_link = v.into();
             self
@@ -2078,26 +1561,12 @@ impl GetInventoryRequest {
     }
 
     /// Sets the value of [name][crate::model::GetInventoryRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::GetInventoryRequest;
-    /// let x = GetInventoryRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [view][crate::model::GetInventoryRequest::view].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::GetInventoryRequest;
-    /// use google_cloud_osconfig_v1::model::InventoryView;
-    /// let x0 = GetInventoryRequest::new().set_view(InventoryView::Basic);
-    /// let x1 = GetInventoryRequest::new().set_view(InventoryView::Full);
-    /// ```
     pub fn set_view<T: std::convert::Into<crate::model::InventoryView>>(mut self, v: T) -> Self {
         self.view = v.into();
         self
@@ -2147,62 +1616,30 @@ impl ListInventoriesRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListInventoriesRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::ListInventoriesRequest;
-    /// let x = ListInventoriesRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [view][crate::model::ListInventoriesRequest::view].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::ListInventoriesRequest;
-    /// use google_cloud_osconfig_v1::model::InventoryView;
-    /// let x0 = ListInventoriesRequest::new().set_view(InventoryView::Basic);
-    /// let x1 = ListInventoriesRequest::new().set_view(InventoryView::Full);
-    /// ```
     pub fn set_view<T: std::convert::Into<crate::model::InventoryView>>(mut self, v: T) -> Self {
         self.view = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListInventoriesRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::ListInventoriesRequest;
-    /// let x = ListInventoriesRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListInventoriesRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::ListInventoriesRequest;
-    /// let x = ListInventoriesRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListInventoriesRequest::filter].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::ListInventoriesRequest;
-    /// let x = ListInventoriesRequest::new().set_filter("example");
-    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
@@ -2235,17 +1672,6 @@ impl ListInventoriesResponse {
     }
 
     /// Sets the value of [inventories][crate::model::ListInventoriesResponse::inventories].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::ListInventoriesResponse;
-    /// use google_cloud_osconfig_v1::model::Inventory;
-    /// let x = ListInventoriesResponse::new()
-    ///     .set_inventories([
-    ///         Inventory::default()/* use setters */,
-    ///         Inventory::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_inventories<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2257,12 +1683,6 @@ impl ListInventoriesResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListInventoriesResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::ListInventoriesResponse;
-    /// let x = ListInventoriesResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -2334,55 +1754,24 @@ impl OSPolicy {
     }
 
     /// Sets the value of [id][crate::model::OSPolicy::id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::OSPolicy;
-    /// let x = OSPolicy::new().set_id("example");
-    /// ```
     pub fn set_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.id = v.into();
         self
     }
 
     /// Sets the value of [description][crate::model::OSPolicy::description].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::OSPolicy;
-    /// let x = OSPolicy::new().set_description("example");
-    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [mode][crate::model::OSPolicy::mode].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::OSPolicy;
-    /// use google_cloud_osconfig_v1::model::os_policy::Mode;
-    /// let x0 = OSPolicy::new().set_mode(Mode::Validation);
-    /// let x1 = OSPolicy::new().set_mode(Mode::Enforcement);
-    /// ```
     pub fn set_mode<T: std::convert::Into<crate::model::os_policy::Mode>>(mut self, v: T) -> Self {
         self.mode = v.into();
         self
     }
 
     /// Sets the value of [resource_groups][crate::model::OSPolicy::resource_groups].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::OSPolicy;
-    /// use google_cloud_osconfig_v1::model::os_policy::ResourceGroup;
-    /// let x = OSPolicy::new()
-    ///     .set_resource_groups([
-    ///         ResourceGroup::default()/* use setters */,
-    ///         ResourceGroup::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_resource_groups<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2394,12 +1783,6 @@ impl OSPolicy {
     }
 
     /// Sets the value of [allow_no_resource_group_match][crate::model::OSPolicy::allow_no_resource_group_match].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::OSPolicy;
-    /// let x = OSPolicy::new().set_allow_no_resource_group_match(true);
-    /// ```
     pub fn set_allow_no_resource_group_match<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.allow_no_resource_group_match = v.into();
         self
@@ -2442,12 +1825,6 @@ pub mod os_policy {
         }
 
         /// Sets the value of [os_short_name][crate::model::os_policy::InventoryFilter::os_short_name].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_osconfig_v1::model::os_policy::InventoryFilter;
-        /// let x = InventoryFilter::new().set_os_short_name("example");
-        /// ```
         pub fn set_os_short_name<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -2457,12 +1834,6 @@ pub mod os_policy {
         }
 
         /// Sets the value of [os_version][crate::model::os_policy::InventoryFilter::os_version].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_osconfig_v1::model::os_policy::InventoryFilter;
-        /// let x = InventoryFilter::new().set_os_version("example");
-        /// ```
         pub fn set_os_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.os_version = v.into();
             self
@@ -2505,12 +1876,6 @@ pub mod os_policy {
         }
 
         /// Sets the value of [id][crate::model::os_policy::Resource::id].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_osconfig_v1::model::os_policy::Resource;
-        /// let x = Resource::new().set_id("example");
-        /// ```
         pub fn set_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.id = v.into();
             self
@@ -2520,14 +1885,6 @@ pub mod os_policy {
         ///
         /// Note that all the setters affecting `resource_type` are mutually
         /// exclusive.
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_osconfig_v1::model::os_policy::Resource;
-        /// use google_cloud_osconfig_v1::model::os_policy::resource;
-        /// use google_cloud_osconfig_v1::model::os_policy::resource::PackageResource;
-        /// let x = Resource::new().set_resource_type(Some(os_policy::resource::ResourceType::Pkg(PackageResource::default().into())));
-        /// ```
         pub fn set_resource_type<
             T: std::convert::Into<
                     std::option::Option<crate::model::os_policy::resource::ResourceType>,
@@ -2561,17 +1918,6 @@ pub mod os_policy {
         ///
         /// Note that all the setters affecting `resource_type` are
         /// mutually exclusive.
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_osconfig_v1::model::os_policy::Resource;
-        /// use google_cloud_osconfig_v1::model::os_policy::resource::PackageResource;
-        /// let x = Resource::new().set_pkg(PackageResource::default()/* use setters */);
-        /// assert!(x.pkg().is_some());
-        /// assert!(x.repository().is_none());
-        /// assert!(x.exec().is_none());
-        /// assert!(x.file().is_none());
-        /// ```
         pub fn set_pkg<
             T: std::convert::Into<std::boxed::Box<crate::model::os_policy::resource::PackageResource>>,
         >(
@@ -2606,17 +1952,6 @@ pub mod os_policy {
         ///
         /// Note that all the setters affecting `resource_type` are
         /// mutually exclusive.
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_osconfig_v1::model::os_policy::Resource;
-        /// use google_cloud_osconfig_v1::model::os_policy::resource::RepositoryResource;
-        /// let x = Resource::new().set_repository(RepositoryResource::default()/* use setters */);
-        /// assert!(x.repository().is_some());
-        /// assert!(x.pkg().is_none());
-        /// assert!(x.exec().is_none());
-        /// assert!(x.file().is_none());
-        /// ```
         pub fn set_repository<
             T: std::convert::Into<
                     std::boxed::Box<crate::model::os_policy::resource::RepositoryResource>,
@@ -2652,17 +1987,6 @@ pub mod os_policy {
         ///
         /// Note that all the setters affecting `resource_type` are
         /// mutually exclusive.
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_osconfig_v1::model::os_policy::Resource;
-        /// use google_cloud_osconfig_v1::model::os_policy::resource::ExecResource;
-        /// let x = Resource::new().set_exec(ExecResource::default()/* use setters */);
-        /// assert!(x.exec().is_some());
-        /// assert!(x.pkg().is_none());
-        /// assert!(x.repository().is_none());
-        /// assert!(x.file().is_none());
-        /// ```
         pub fn set_exec<
             T: std::convert::Into<std::boxed::Box<crate::model::os_policy::resource::ExecResource>>,
         >(
@@ -2696,17 +2020,6 @@ pub mod os_policy {
         ///
         /// Note that all the setters affecting `resource_type` are
         /// mutually exclusive.
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_osconfig_v1::model::os_policy::Resource;
-        /// use google_cloud_osconfig_v1::model::os_policy::resource::FileResource;
-        /// let x = Resource::new().set_file(FileResource::default()/* use setters */);
-        /// assert!(x.file().is_some());
-        /// assert!(x.pkg().is_none());
-        /// assert!(x.repository().is_none());
-        /// assert!(x.exec().is_none());
-        /// ```
         pub fn set_file<
             T: std::convert::Into<std::boxed::Box<crate::model::os_policy::resource::FileResource>>,
         >(
@@ -2754,12 +2067,6 @@ pub mod os_policy {
             }
 
             /// Sets the value of [allow_insecure][crate::model::os_policy::resource::File::allow_insecure].
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_osconfig_v1::model::os_policy::resource::File;
-            /// let x = File::new().set_allow_insecure(true);
-            /// ```
             pub fn set_allow_insecure<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
                 self.allow_insecure = v.into();
                 self
@@ -2769,13 +2076,6 @@ pub mod os_policy {
             ///
             /// Note that all the setters affecting `r#type` are mutually
             /// exclusive.
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_osconfig_v1::model::os_policy::resource::File;
-            /// use google_cloud_osconfig_v1::model::os_policy::resource::file;
-            /// let x = File::new().set_type(Some(os_policy::resource::file::Type::LocalPath("example".to_string())));
-            /// ```
             pub fn set_type<
                 T: std::convert::Into<
                         std::option::Option<crate::model::os_policy::resource::file::Type>,
@@ -2810,16 +2110,6 @@ pub mod os_policy {
             ///
             /// Note that all the setters affecting `r#type` are
             /// mutually exclusive.
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_osconfig_v1::model::os_policy::resource::File;
-            /// use google_cloud_osconfig_v1::model::os_policy::resource::file::Remote;
-            /// let x = File::new().set_remote(Remote::default()/* use setters */);
-            /// assert!(x.remote().is_some());
-            /// assert!(x.gcs().is_none());
-            /// assert!(x.local_path().is_none());
-            /// ```
             pub fn set_remote<
                 T: std::convert::Into<
                         std::boxed::Box<crate::model::os_policy::resource::file::Remote>,
@@ -2855,16 +2145,6 @@ pub mod os_policy {
             ///
             /// Note that all the setters affecting `r#type` are
             /// mutually exclusive.
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_osconfig_v1::model::os_policy::resource::File;
-            /// use google_cloud_osconfig_v1::model::os_policy::resource::file::Gcs;
-            /// let x = File::new().set_gcs(Gcs::default()/* use setters */);
-            /// assert!(x.gcs().is_some());
-            /// assert!(x.remote().is_none());
-            /// assert!(x.local_path().is_none());
-            /// ```
             pub fn set_gcs<
                 T: std::convert::Into<std::boxed::Box<crate::model::os_policy::resource::file::Gcs>>,
             >(
@@ -2895,15 +2175,6 @@ pub mod os_policy {
             ///
             /// Note that all the setters affecting `r#type` are
             /// mutually exclusive.
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_osconfig_v1::model::os_policy::resource::File;
-            /// let x = File::new().set_local_path("example");
-            /// assert!(x.local_path().is_some());
-            /// assert!(x.remote().is_none());
-            /// assert!(x.gcs().is_none());
-            /// ```
             pub fn set_local_path<T: std::convert::Into<std::string::String>>(
                 mut self,
                 v: T,
@@ -2946,24 +2217,12 @@ pub mod os_policy {
                 }
 
                 /// Sets the value of [uri][crate::model::os_policy::resource::file::Remote::uri].
-                ///
-                /// # Example
-                /// ```
-                /// # use google_cloud_osconfig_v1::model::os_policy::resource::file::Remote;
-                /// let x = Remote::new().set_uri("example");
-                /// ```
                 pub fn set_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
                     self.uri = v.into();
                     self
                 }
 
                 /// Sets the value of [sha256_checksum][crate::model::os_policy::resource::file::Remote::sha256_checksum].
-                ///
-                /// # Example
-                /// ```
-                /// # use google_cloud_osconfig_v1::model::os_policy::resource::file::Remote;
-                /// let x = Remote::new().set_sha256_checksum("example");
-                /// ```
                 pub fn set_sha256_checksum<T: std::convert::Into<std::string::String>>(
                     mut self,
                     v: T,
@@ -3001,12 +2260,6 @@ pub mod os_policy {
                 }
 
                 /// Sets the value of [bucket][crate::model::os_policy::resource::file::Gcs::bucket].
-                ///
-                /// # Example
-                /// ```
-                /// # use google_cloud_osconfig_v1::model::os_policy::resource::file::Gcs;
-                /// let x = Gcs::new().set_bucket("example");
-                /// ```
                 pub fn set_bucket<T: std::convert::Into<std::string::String>>(
                     mut self,
                     v: T,
@@ -3016,12 +2269,6 @@ pub mod os_policy {
                 }
 
                 /// Sets the value of [object][crate::model::os_policy::resource::file::Gcs::object].
-                ///
-                /// # Example
-                /// ```
-                /// # use google_cloud_osconfig_v1::model::os_policy::resource::file::Gcs;
-                /// let x = Gcs::new().set_object("example");
-                /// ```
                 pub fn set_object<T: std::convert::Into<std::string::String>>(
                     mut self,
                     v: T,
@@ -3031,12 +2278,6 @@ pub mod os_policy {
                 }
 
                 /// Sets the value of [generation][crate::model::os_policy::resource::file::Gcs::generation].
-                ///
-                /// # Example
-                /// ```
-                /// # use google_cloud_osconfig_v1::model::os_policy::resource::file::Gcs;
-                /// let x = Gcs::new().set_generation(42);
-                /// ```
                 pub fn set_generation<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
                     self.generation = v.into();
                     self
@@ -3083,14 +2324,6 @@ pub mod os_policy {
             }
 
             /// Sets the value of [desired_state][crate::model::os_policy::resource::PackageResource::desired_state].
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_osconfig_v1::model::os_policy::resource::PackageResource;
-            /// use google_cloud_osconfig_v1::model::os_policy::resource::package_resource::DesiredState;
-            /// let x0 = PackageResource::new().set_desired_state(DesiredState::Installed);
-            /// let x1 = PackageResource::new().set_desired_state(DesiredState::Removed);
-            /// ```
             pub fn set_desired_state<
                 T: std::convert::Into<
                         crate::model::os_policy::resource::package_resource::DesiredState,
@@ -3107,14 +2340,6 @@ pub mod os_policy {
             ///
             /// Note that all the setters affecting `system_package` are mutually
             /// exclusive.
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_osconfig_v1::model::os_policy::resource::PackageResource;
-            /// use google_cloud_osconfig_v1::model::os_policy::resource::package_resource;
-            /// use google_cloud_osconfig_v1::model::os_policy::resource::package_resource::Apt;
-            /// let x = PackageResource::new().set_system_package(Some(os_policy::resource::package_resource::SystemPackage::Apt(Apt::default().into())));
-            /// ```
             pub fn set_system_package<
                 T: std::convert::Into<
                         std::option::Option<
@@ -3151,20 +2376,6 @@ pub mod os_policy {
             ///
             /// Note that all the setters affecting `system_package` are
             /// mutually exclusive.
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_osconfig_v1::model::os_policy::resource::PackageResource;
-            /// use google_cloud_osconfig_v1::model::os_policy::resource::package_resource::Apt;
-            /// let x = PackageResource::new().set_apt(Apt::default()/* use setters */);
-            /// assert!(x.apt().is_some());
-            /// assert!(x.deb().is_none());
-            /// assert!(x.yum().is_none());
-            /// assert!(x.zypper().is_none());
-            /// assert!(x.rpm().is_none());
-            /// assert!(x.googet().is_none());
-            /// assert!(x.msi().is_none());
-            /// ```
             pub fn set_apt<
                 T: std::convert::Into<
                         std::boxed::Box<crate::model::os_policy::resource::package_resource::Apt>,
@@ -3203,20 +2414,6 @@ pub mod os_policy {
             ///
             /// Note that all the setters affecting `system_package` are
             /// mutually exclusive.
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_osconfig_v1::model::os_policy::resource::PackageResource;
-            /// use google_cloud_osconfig_v1::model::os_policy::resource::package_resource::Deb;
-            /// let x = PackageResource::new().set_deb(Deb::default()/* use setters */);
-            /// assert!(x.deb().is_some());
-            /// assert!(x.apt().is_none());
-            /// assert!(x.yum().is_none());
-            /// assert!(x.zypper().is_none());
-            /// assert!(x.rpm().is_none());
-            /// assert!(x.googet().is_none());
-            /// assert!(x.msi().is_none());
-            /// ```
             pub fn set_deb<
                 T: std::convert::Into<
                         std::boxed::Box<crate::model::os_policy::resource::package_resource::Deb>,
@@ -3255,20 +2452,6 @@ pub mod os_policy {
             ///
             /// Note that all the setters affecting `system_package` are
             /// mutually exclusive.
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_osconfig_v1::model::os_policy::resource::PackageResource;
-            /// use google_cloud_osconfig_v1::model::os_policy::resource::package_resource::Yum;
-            /// let x = PackageResource::new().set_yum(Yum::default()/* use setters */);
-            /// assert!(x.yum().is_some());
-            /// assert!(x.apt().is_none());
-            /// assert!(x.deb().is_none());
-            /// assert!(x.zypper().is_none());
-            /// assert!(x.rpm().is_none());
-            /// assert!(x.googet().is_none());
-            /// assert!(x.msi().is_none());
-            /// ```
             pub fn set_yum<
                 T: std::convert::Into<
                         std::boxed::Box<crate::model::os_policy::resource::package_resource::Yum>,
@@ -3307,20 +2490,6 @@ pub mod os_policy {
             ///
             /// Note that all the setters affecting `system_package` are
             /// mutually exclusive.
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_osconfig_v1::model::os_policy::resource::PackageResource;
-            /// use google_cloud_osconfig_v1::model::os_policy::resource::package_resource::Zypper;
-            /// let x = PackageResource::new().set_zypper(Zypper::default()/* use setters */);
-            /// assert!(x.zypper().is_some());
-            /// assert!(x.apt().is_none());
-            /// assert!(x.deb().is_none());
-            /// assert!(x.yum().is_none());
-            /// assert!(x.rpm().is_none());
-            /// assert!(x.googet().is_none());
-            /// assert!(x.msi().is_none());
-            /// ```
             pub fn set_zypper<
                 T: std::convert::Into<
                         std::boxed::Box<
@@ -3361,20 +2530,6 @@ pub mod os_policy {
             ///
             /// Note that all the setters affecting `system_package` are
             /// mutually exclusive.
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_osconfig_v1::model::os_policy::resource::PackageResource;
-            /// use google_cloud_osconfig_v1::model::os_policy::resource::package_resource::Rpm;
-            /// let x = PackageResource::new().set_rpm(Rpm::default()/* use setters */);
-            /// assert!(x.rpm().is_some());
-            /// assert!(x.apt().is_none());
-            /// assert!(x.deb().is_none());
-            /// assert!(x.yum().is_none());
-            /// assert!(x.zypper().is_none());
-            /// assert!(x.googet().is_none());
-            /// assert!(x.msi().is_none());
-            /// ```
             pub fn set_rpm<
                 T: std::convert::Into<
                         std::boxed::Box<crate::model::os_policy::resource::package_resource::Rpm>,
@@ -3413,20 +2568,6 @@ pub mod os_policy {
             ///
             /// Note that all the setters affecting `system_package` are
             /// mutually exclusive.
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_osconfig_v1::model::os_policy::resource::PackageResource;
-            /// use google_cloud_osconfig_v1::model::os_policy::resource::package_resource::GooGet;
-            /// let x = PackageResource::new().set_googet(GooGet::default()/* use setters */);
-            /// assert!(x.googet().is_some());
-            /// assert!(x.apt().is_none());
-            /// assert!(x.deb().is_none());
-            /// assert!(x.yum().is_none());
-            /// assert!(x.zypper().is_none());
-            /// assert!(x.rpm().is_none());
-            /// assert!(x.msi().is_none());
-            /// ```
             pub fn set_googet<
                 T: std::convert::Into<
                         std::boxed::Box<
@@ -3467,20 +2608,6 @@ pub mod os_policy {
             ///
             /// Note that all the setters affecting `system_package` are
             /// mutually exclusive.
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_osconfig_v1::model::os_policy::resource::PackageResource;
-            /// use google_cloud_osconfig_v1::model::os_policy::resource::package_resource::Msi;
-            /// let x = PackageResource::new().set_msi(Msi::default()/* use setters */);
-            /// assert!(x.msi().is_some());
-            /// assert!(x.apt().is_none());
-            /// assert!(x.deb().is_none());
-            /// assert!(x.yum().is_none());
-            /// assert!(x.zypper().is_none());
-            /// assert!(x.rpm().is_none());
-            /// assert!(x.googet().is_none());
-            /// ```
             pub fn set_msi<
                 T: std::convert::Into<
                         std::boxed::Box<crate::model::os_policy::resource::package_resource::Msi>,
@@ -3532,13 +2659,6 @@ pub mod os_policy {
                 }
 
                 /// Sets the value of [source][crate::model::os_policy::resource::package_resource::Deb::source].
-                ///
-                /// # Example
-                /// ```
-                /// # use google_cloud_osconfig_v1::model::os_policy::resource::package_resource::Deb;
-                /// use google_cloud_osconfig_v1::model::os_policy::resource::File;
-                /// let x = Deb::new().set_source(File::default()/* use setters */);
-                /// ```
                 pub fn set_source<T>(mut self, v: T) -> Self
                 where
                     T: std::convert::Into<crate::model::os_policy::resource::File>,
@@ -3548,14 +2668,6 @@ pub mod os_policy {
                 }
 
                 /// Sets or clears the value of [source][crate::model::os_policy::resource::package_resource::Deb::source].
-                ///
-                /// # Example
-                /// ```
-                /// # use google_cloud_osconfig_v1::model::os_policy::resource::package_resource::Deb;
-                /// use google_cloud_osconfig_v1::model::os_policy::resource::File;
-                /// let x = Deb::new().set_or_clear_source(Some(File::default()/* use setters */));
-                /// let x = Deb::new().set_or_clear_source(None::<File>);
-                /// ```
                 pub fn set_or_clear_source<T>(mut self, v: std::option::Option<T>) -> Self
                 where
                     T: std::convert::Into<crate::model::os_policy::resource::File>,
@@ -3565,12 +2677,6 @@ pub mod os_policy {
                 }
 
                 /// Sets the value of [pull_deps][crate::model::os_policy::resource::package_resource::Deb::pull_deps].
-                ///
-                /// # Example
-                /// ```
-                /// # use google_cloud_osconfig_v1::model::os_policy::resource::package_resource::Deb;
-                /// let x = Deb::new().set_pull_deps(true);
-                /// ```
                 pub fn set_pull_deps<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
                     self.pull_deps = v.into();
                     self
@@ -3602,12 +2708,6 @@ pub mod os_policy {
                 }
 
                 /// Sets the value of [name][crate::model::os_policy::resource::package_resource::Apt::name].
-                ///
-                /// # Example
-                /// ```
-                /// # use google_cloud_osconfig_v1::model::os_policy::resource::package_resource::Apt;
-                /// let x = Apt::new().set_name("example");
-                /// ```
                 pub fn set_name<T: std::convert::Into<std::string::String>>(
                     mut self,
                     v: T,
@@ -3646,13 +2746,6 @@ pub mod os_policy {
                 }
 
                 /// Sets the value of [source][crate::model::os_policy::resource::package_resource::Rpm::source].
-                ///
-                /// # Example
-                /// ```
-                /// # use google_cloud_osconfig_v1::model::os_policy::resource::package_resource::Rpm;
-                /// use google_cloud_osconfig_v1::model::os_policy::resource::File;
-                /// let x = Rpm::new().set_source(File::default()/* use setters */);
-                /// ```
                 pub fn set_source<T>(mut self, v: T) -> Self
                 where
                     T: std::convert::Into<crate::model::os_policy::resource::File>,
@@ -3662,14 +2755,6 @@ pub mod os_policy {
                 }
 
                 /// Sets or clears the value of [source][crate::model::os_policy::resource::package_resource::Rpm::source].
-                ///
-                /// # Example
-                /// ```
-                /// # use google_cloud_osconfig_v1::model::os_policy::resource::package_resource::Rpm;
-                /// use google_cloud_osconfig_v1::model::os_policy::resource::File;
-                /// let x = Rpm::new().set_or_clear_source(Some(File::default()/* use setters */));
-                /// let x = Rpm::new().set_or_clear_source(None::<File>);
-                /// ```
                 pub fn set_or_clear_source<T>(mut self, v: std::option::Option<T>) -> Self
                 where
                     T: std::convert::Into<crate::model::os_policy::resource::File>,
@@ -3679,12 +2764,6 @@ pub mod os_policy {
                 }
 
                 /// Sets the value of [pull_deps][crate::model::os_policy::resource::package_resource::Rpm::pull_deps].
-                ///
-                /// # Example
-                /// ```
-                /// # use google_cloud_osconfig_v1::model::os_policy::resource::package_resource::Rpm;
-                /// let x = Rpm::new().set_pull_deps(true);
-                /// ```
                 pub fn set_pull_deps<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
                     self.pull_deps = v.into();
                     self
@@ -3716,12 +2795,6 @@ pub mod os_policy {
                 }
 
                 /// Sets the value of [name][crate::model::os_policy::resource::package_resource::Yum::name].
-                ///
-                /// # Example
-                /// ```
-                /// # use google_cloud_osconfig_v1::model::os_policy::resource::package_resource::Yum;
-                /// let x = Yum::new().set_name("example");
-                /// ```
                 pub fn set_name<T: std::convert::Into<std::string::String>>(
                     mut self,
                     v: T,
@@ -3756,12 +2829,6 @@ pub mod os_policy {
                 }
 
                 /// Sets the value of [name][crate::model::os_policy::resource::package_resource::Zypper::name].
-                ///
-                /// # Example
-                /// ```
-                /// # use google_cloud_osconfig_v1::model::os_policy::resource::package_resource::Zypper;
-                /// let x = Zypper::new().set_name("example");
-                /// ```
                 pub fn set_name<T: std::convert::Into<std::string::String>>(
                     mut self,
                     v: T,
@@ -3796,12 +2863,6 @@ pub mod os_policy {
                 }
 
                 /// Sets the value of [name][crate::model::os_policy::resource::package_resource::GooGet::name].
-                ///
-                /// # Example
-                /// ```
-                /// # use google_cloud_osconfig_v1::model::os_policy::resource::package_resource::GooGet;
-                /// let x = GooGet::new().set_name("example");
-                /// ```
                 pub fn set_name<T: std::convert::Into<std::string::String>>(
                     mut self,
                     v: T,
@@ -3839,13 +2900,6 @@ pub mod os_policy {
                 }
 
                 /// Sets the value of [source][crate::model::os_policy::resource::package_resource::Msi::source].
-                ///
-                /// # Example
-                /// ```
-                /// # use google_cloud_osconfig_v1::model::os_policy::resource::package_resource::Msi;
-                /// use google_cloud_osconfig_v1::model::os_policy::resource::File;
-                /// let x = Msi::new().set_source(File::default()/* use setters */);
-                /// ```
                 pub fn set_source<T>(mut self, v: T) -> Self
                 where
                     T: std::convert::Into<crate::model::os_policy::resource::File>,
@@ -3855,14 +2909,6 @@ pub mod os_policy {
                 }
 
                 /// Sets or clears the value of [source][crate::model::os_policy::resource::package_resource::Msi::source].
-                ///
-                /// # Example
-                /// ```
-                /// # use google_cloud_osconfig_v1::model::os_policy::resource::package_resource::Msi;
-                /// use google_cloud_osconfig_v1::model::os_policy::resource::File;
-                /// let x = Msi::new().set_or_clear_source(Some(File::default()/* use setters */));
-                /// let x = Msi::new().set_or_clear_source(None::<File>);
-                /// ```
                 pub fn set_or_clear_source<T>(mut self, v: std::option::Option<T>) -> Self
                 where
                     T: std::convert::Into<crate::model::os_policy::resource::File>,
@@ -3872,12 +2918,6 @@ pub mod os_policy {
                 }
 
                 /// Sets the value of [properties][crate::model::os_policy::resource::package_resource::Msi::properties].
-                ///
-                /// # Example
-                /// ```
-                /// # use google_cloud_osconfig_v1::model::os_policy::resource::package_resource::Msi;
-                /// let x = Msi::new().set_properties(["a", "b", "c"]);
-                /// ```
                 pub fn set_properties<T, V>(mut self, v: T) -> Self
                 where
                     T: std::iter::IntoIterator<Item = V>,
@@ -4077,14 +3117,6 @@ pub mod os_policy {
             ///
             /// Note that all the setters affecting `repository` are mutually
             /// exclusive.
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_osconfig_v1::model::os_policy::resource::RepositoryResource;
-            /// use google_cloud_osconfig_v1::model::os_policy::resource::repository_resource;
-            /// use google_cloud_osconfig_v1::model::os_policy::resource::repository_resource::AptRepository;
-            /// let x = RepositoryResource::new().set_repository(Some(os_policy::resource::repository_resource::Repository::Apt(AptRepository::default().into())));
-            /// ```
             pub fn set_repository<
                 T: std::convert::Into<
                         std::option::Option<
@@ -4123,17 +3155,6 @@ pub mod os_policy {
             ///
             /// Note that all the setters affecting `repository` are
             /// mutually exclusive.
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_osconfig_v1::model::os_policy::resource::RepositoryResource;
-            /// use google_cloud_osconfig_v1::model::os_policy::resource::repository_resource::AptRepository;
-            /// let x = RepositoryResource::new().set_apt(AptRepository::default()/* use setters */);
-            /// assert!(x.apt().is_some());
-            /// assert!(x.yum().is_none());
-            /// assert!(x.zypper().is_none());
-            /// assert!(x.goo().is_none());
-            /// ```
             pub fn set_apt<
                 T: std::convert::Into<
                         std::boxed::Box<
@@ -4176,17 +3197,6 @@ pub mod os_policy {
             ///
             /// Note that all the setters affecting `repository` are
             /// mutually exclusive.
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_osconfig_v1::model::os_policy::resource::RepositoryResource;
-            /// use google_cloud_osconfig_v1::model::os_policy::resource::repository_resource::YumRepository;
-            /// let x = RepositoryResource::new().set_yum(YumRepository::default()/* use setters */);
-            /// assert!(x.yum().is_some());
-            /// assert!(x.apt().is_none());
-            /// assert!(x.zypper().is_none());
-            /// assert!(x.goo().is_none());
-            /// ```
             pub fn set_yum<
                 T: std::convert::Into<
                         std::boxed::Box<
@@ -4229,17 +3239,6 @@ pub mod os_policy {
             ///
             /// Note that all the setters affecting `repository` are
             /// mutually exclusive.
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_osconfig_v1::model::os_policy::resource::RepositoryResource;
-            /// use google_cloud_osconfig_v1::model::os_policy::resource::repository_resource::ZypperRepository;
-            /// let x = RepositoryResource::new().set_zypper(ZypperRepository::default()/* use setters */);
-            /// assert!(x.zypper().is_some());
-            /// assert!(x.apt().is_none());
-            /// assert!(x.yum().is_none());
-            /// assert!(x.goo().is_none());
-            /// ```
             pub fn set_zypper<T: std::convert::Into<std::boxed::Box<crate::model::os_policy::resource::repository_resource::ZypperRepository>>>(mut self, v: T) -> Self{
                 self.repository = std::option::Option::Some(
                     crate::model::os_policy::resource::repository_resource::Repository::Zypper(
@@ -4273,17 +3272,6 @@ pub mod os_policy {
             ///
             /// Note that all the setters affecting `repository` are
             /// mutually exclusive.
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_osconfig_v1::model::os_policy::resource::RepositoryResource;
-            /// use google_cloud_osconfig_v1::model::os_policy::resource::repository_resource::GooRepository;
-            /// let x = RepositoryResource::new().set_goo(GooRepository::default()/* use setters */);
-            /// assert!(x.goo().is_some());
-            /// assert!(x.apt().is_none());
-            /// assert!(x.yum().is_none());
-            /// assert!(x.zypper().is_none());
-            /// ```
             pub fn set_goo<
                 T: std::convert::Into<
                         std::boxed::Box<
@@ -4347,38 +3335,18 @@ pub mod os_policy {
                 }
 
                 /// Sets the value of [archive_type][crate::model::os_policy::resource::repository_resource::AptRepository::archive_type].
-                ///
-                /// # Example
-                /// ```
-                /// # use google_cloud_osconfig_v1::model::os_policy::resource::repository_resource::AptRepository;
-                /// use google_cloud_osconfig_v1::model::os_policy::resource::repository_resource::apt_repository::ArchiveType;
-                /// let x0 = AptRepository::new().set_archive_type(ArchiveType::Deb);
-                /// let x1 = AptRepository::new().set_archive_type(ArchiveType::DebSrc);
-                /// ```
                 pub fn set_archive_type<T: std::convert::Into<crate::model::os_policy::resource::repository_resource::apt_repository::ArchiveType>>(mut self, v: T) -> Self{
                     self.archive_type = v.into();
                     self
                 }
 
                 /// Sets the value of [uri][crate::model::os_policy::resource::repository_resource::AptRepository::uri].
-                ///
-                /// # Example
-                /// ```
-                /// # use google_cloud_osconfig_v1::model::os_policy::resource::repository_resource::AptRepository;
-                /// let x = AptRepository::new().set_uri("example");
-                /// ```
                 pub fn set_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
                     self.uri = v.into();
                     self
                 }
 
                 /// Sets the value of [distribution][crate::model::os_policy::resource::repository_resource::AptRepository::distribution].
-                ///
-                /// # Example
-                /// ```
-                /// # use google_cloud_osconfig_v1::model::os_policy::resource::repository_resource::AptRepository;
-                /// let x = AptRepository::new().set_distribution("example");
-                /// ```
                 pub fn set_distribution<T: std::convert::Into<std::string::String>>(
                     mut self,
                     v: T,
@@ -4388,12 +3356,6 @@ pub mod os_policy {
                 }
 
                 /// Sets the value of [components][crate::model::os_policy::resource::repository_resource::AptRepository::components].
-                ///
-                /// # Example
-                /// ```
-                /// # use google_cloud_osconfig_v1::model::os_policy::resource::repository_resource::AptRepository;
-                /// let x = AptRepository::new().set_components(["a", "b", "c"]);
-                /// ```
                 pub fn set_components<T, V>(mut self, v: T) -> Self
                 where
                     T: std::iter::IntoIterator<Item = V>,
@@ -4405,12 +3367,6 @@ pub mod os_policy {
                 }
 
                 /// Sets the value of [gpg_key][crate::model::os_policy::resource::repository_resource::AptRepository::gpg_key].
-                ///
-                /// # Example
-                /// ```
-                /// # use google_cloud_osconfig_v1::model::os_policy::resource::repository_resource::AptRepository;
-                /// let x = AptRepository::new().set_gpg_key("example");
-                /// ```
                 pub fn set_gpg_key<T: std::convert::Into<std::string::String>>(
                     mut self,
                     v: T,
@@ -4598,24 +3554,12 @@ pub mod os_policy {
                 }
 
                 /// Sets the value of [id][crate::model::os_policy::resource::repository_resource::YumRepository::id].
-                ///
-                /// # Example
-                /// ```
-                /// # use google_cloud_osconfig_v1::model::os_policy::resource::repository_resource::YumRepository;
-                /// let x = YumRepository::new().set_id("example");
-                /// ```
                 pub fn set_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
                     self.id = v.into();
                     self
                 }
 
                 /// Sets the value of [display_name][crate::model::os_policy::resource::repository_resource::YumRepository::display_name].
-                ///
-                /// # Example
-                /// ```
-                /// # use google_cloud_osconfig_v1::model::os_policy::resource::repository_resource::YumRepository;
-                /// let x = YumRepository::new().set_display_name("example");
-                /// ```
                 pub fn set_display_name<T: std::convert::Into<std::string::String>>(
                     mut self,
                     v: T,
@@ -4625,12 +3569,6 @@ pub mod os_policy {
                 }
 
                 /// Sets the value of [base_url][crate::model::os_policy::resource::repository_resource::YumRepository::base_url].
-                ///
-                /// # Example
-                /// ```
-                /// # use google_cloud_osconfig_v1::model::os_policy::resource::repository_resource::YumRepository;
-                /// let x = YumRepository::new().set_base_url("example");
-                /// ```
                 pub fn set_base_url<T: std::convert::Into<std::string::String>>(
                     mut self,
                     v: T,
@@ -4640,12 +3578,6 @@ pub mod os_policy {
                 }
 
                 /// Sets the value of [gpg_keys][crate::model::os_policy::resource::repository_resource::YumRepository::gpg_keys].
-                ///
-                /// # Example
-                /// ```
-                /// # use google_cloud_osconfig_v1::model::os_policy::resource::repository_resource::YumRepository;
-                /// let x = YumRepository::new().set_gpg_keys(["a", "b", "c"]);
-                /// ```
                 pub fn set_gpg_keys<T, V>(mut self, v: T) -> Self
                 where
                     T: std::iter::IntoIterator<Item = V>,
@@ -4693,24 +3625,12 @@ pub mod os_policy {
                 }
 
                 /// Sets the value of [id][crate::model::os_policy::resource::repository_resource::ZypperRepository::id].
-                ///
-                /// # Example
-                /// ```
-                /// # use google_cloud_osconfig_v1::model::os_policy::resource::repository_resource::ZypperRepository;
-                /// let x = ZypperRepository::new().set_id("example");
-                /// ```
                 pub fn set_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
                     self.id = v.into();
                     self
                 }
 
                 /// Sets the value of [display_name][crate::model::os_policy::resource::repository_resource::ZypperRepository::display_name].
-                ///
-                /// # Example
-                /// ```
-                /// # use google_cloud_osconfig_v1::model::os_policy::resource::repository_resource::ZypperRepository;
-                /// let x = ZypperRepository::new().set_display_name("example");
-                /// ```
                 pub fn set_display_name<T: std::convert::Into<std::string::String>>(
                     mut self,
                     v: T,
@@ -4720,12 +3640,6 @@ pub mod os_policy {
                 }
 
                 /// Sets the value of [base_url][crate::model::os_policy::resource::repository_resource::ZypperRepository::base_url].
-                ///
-                /// # Example
-                /// ```
-                /// # use google_cloud_osconfig_v1::model::os_policy::resource::repository_resource::ZypperRepository;
-                /// let x = ZypperRepository::new().set_base_url("example");
-                /// ```
                 pub fn set_base_url<T: std::convert::Into<std::string::String>>(
                     mut self,
                     v: T,
@@ -4735,12 +3649,6 @@ pub mod os_policy {
                 }
 
                 /// Sets the value of [gpg_keys][crate::model::os_policy::resource::repository_resource::ZypperRepository::gpg_keys].
-                ///
-                /// # Example
-                /// ```
-                /// # use google_cloud_osconfig_v1::model::os_policy::resource::repository_resource::ZypperRepository;
-                /// let x = ZypperRepository::new().set_gpg_keys(["a", "b", "c"]);
-                /// ```
                 pub fn set_gpg_keys<T, V>(mut self, v: T) -> Self
                 where
                     T: std::iter::IntoIterator<Item = V>,
@@ -4779,12 +3687,6 @@ pub mod os_policy {
                 }
 
                 /// Sets the value of [name][crate::model::os_policy::resource::repository_resource::GooRepository::name].
-                ///
-                /// # Example
-                /// ```
-                /// # use google_cloud_osconfig_v1::model::os_policy::resource::repository_resource::GooRepository;
-                /// let x = GooRepository::new().set_name("example");
-                /// ```
                 pub fn set_name<T: std::convert::Into<std::string::String>>(
                     mut self,
                     v: T,
@@ -4794,12 +3696,6 @@ pub mod os_policy {
                 }
 
                 /// Sets the value of [url][crate::model::os_policy::resource::repository_resource::GooRepository::url].
-                ///
-                /// # Example
-                /// ```
-                /// # use google_cloud_osconfig_v1::model::os_policy::resource::repository_resource::GooRepository;
-                /// let x = GooRepository::new().set_url("example");
-                /// ```
                 pub fn set_url<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
                     self.url = v.into();
                     self
@@ -4894,13 +3790,6 @@ pub mod os_policy {
             }
 
             /// Sets the value of [validate][crate::model::os_policy::resource::ExecResource::validate].
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_osconfig_v1::model::os_policy::resource::ExecResource;
-            /// use google_cloud_osconfig_v1::model::os_policy::resource::exec_resource::Exec;
-            /// let x = ExecResource::new().set_validate(Exec::default()/* use setters */);
-            /// ```
             pub fn set_validate<T>(mut self, v: T) -> Self
             where
                 T: std::convert::Into<crate::model::os_policy::resource::exec_resource::Exec>,
@@ -4910,14 +3799,6 @@ pub mod os_policy {
             }
 
             /// Sets or clears the value of [validate][crate::model::os_policy::resource::ExecResource::validate].
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_osconfig_v1::model::os_policy::resource::ExecResource;
-            /// use google_cloud_osconfig_v1::model::os_policy::resource::exec_resource::Exec;
-            /// let x = ExecResource::new().set_or_clear_validate(Some(Exec::default()/* use setters */));
-            /// let x = ExecResource::new().set_or_clear_validate(None::<Exec>);
-            /// ```
             pub fn set_or_clear_validate<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<crate::model::os_policy::resource::exec_resource::Exec>,
@@ -4927,13 +3808,6 @@ pub mod os_policy {
             }
 
             /// Sets the value of [enforce][crate::model::os_policy::resource::ExecResource::enforce].
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_osconfig_v1::model::os_policy::resource::ExecResource;
-            /// use google_cloud_osconfig_v1::model::os_policy::resource::exec_resource::Exec;
-            /// let x = ExecResource::new().set_enforce(Exec::default()/* use setters */);
-            /// ```
             pub fn set_enforce<T>(mut self, v: T) -> Self
             where
                 T: std::convert::Into<crate::model::os_policy::resource::exec_resource::Exec>,
@@ -4943,14 +3817,6 @@ pub mod os_policy {
             }
 
             /// Sets or clears the value of [enforce][crate::model::os_policy::resource::ExecResource::enforce].
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_osconfig_v1::model::os_policy::resource::ExecResource;
-            /// use google_cloud_osconfig_v1::model::os_policy::resource::exec_resource::Exec;
-            /// let x = ExecResource::new().set_or_clear_enforce(Some(Exec::default()/* use setters */));
-            /// let x = ExecResource::new().set_or_clear_enforce(None::<Exec>);
-            /// ```
             pub fn set_or_clear_enforce<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<crate::model::os_policy::resource::exec_resource::Exec>,
@@ -5004,12 +3870,6 @@ pub mod os_policy {
                 }
 
                 /// Sets the value of [args][crate::model::os_policy::resource::exec_resource::Exec::args].
-                ///
-                /// # Example
-                /// ```
-                /// # use google_cloud_osconfig_v1::model::os_policy::resource::exec_resource::Exec;
-                /// let x = Exec::new().set_args(["a", "b", "c"]);
-                /// ```
                 pub fn set_args<T, V>(mut self, v: T) -> Self
                 where
                     T: std::iter::IntoIterator<Item = V>,
@@ -5021,15 +3881,6 @@ pub mod os_policy {
                 }
 
                 /// Sets the value of [interpreter][crate::model::os_policy::resource::exec_resource::Exec::interpreter].
-                ///
-                /// # Example
-                /// ```
-                /// # use google_cloud_osconfig_v1::model::os_policy::resource::exec_resource::Exec;
-                /// use google_cloud_osconfig_v1::model::os_policy::resource::exec_resource::exec::Interpreter;
-                /// let x0 = Exec::new().set_interpreter(Interpreter::None);
-                /// let x1 = Exec::new().set_interpreter(Interpreter::Shell);
-                /// let x2 = Exec::new().set_interpreter(Interpreter::Powershell);
-                /// ```
                 pub fn set_interpreter<
                     T: std::convert::Into<
                             crate::model::os_policy::resource::exec_resource::exec::Interpreter,
@@ -5043,12 +3894,6 @@ pub mod os_policy {
                 }
 
                 /// Sets the value of [output_file_path][crate::model::os_policy::resource::exec_resource::Exec::output_file_path].
-                ///
-                /// # Example
-                /// ```
-                /// # use google_cloud_osconfig_v1::model::os_policy::resource::exec_resource::Exec;
-                /// let x = Exec::new().set_output_file_path("example");
-                /// ```
                 pub fn set_output_file_path<T: std::convert::Into<std::string::String>>(
                     mut self,
                     v: T,
@@ -5061,13 +3906,6 @@ pub mod os_policy {
                 ///
                 /// Note that all the setters affecting `source` are mutually
                 /// exclusive.
-                ///
-                /// # Example
-                /// ```
-                /// # use google_cloud_osconfig_v1::model::os_policy::resource::exec_resource::Exec;
-                /// use google_cloud_osconfig_v1::model::os_policy::resource::exec_resource::exec;
-                /// let x = Exec::new().set_source(Some(os_policy::resource::exec_resource::exec::Source::Script("example".to_string())));
-                /// ```
                 pub fn set_source<
                     T: std::convert::Into<
                             std::option::Option<
@@ -5103,15 +3941,6 @@ pub mod os_policy {
                 ///
                 /// Note that all the setters affecting `source` are
                 /// mutually exclusive.
-                ///
-                /// # Example
-                /// ```
-                /// # use google_cloud_osconfig_v1::model::os_policy::resource::exec_resource::Exec;
-                /// use google_cloud_osconfig_v1::model::os_policy::resource::File;
-                /// let x = Exec::new().set_file(File::default()/* use setters */);
-                /// assert!(x.file().is_some());
-                /// assert!(x.script().is_none());
-                /// ```
                 pub fn set_file<
                     T: std::convert::Into<std::boxed::Box<crate::model::os_policy::resource::File>>,
                 >(
@@ -5144,14 +3973,6 @@ pub mod os_policy {
                 ///
                 /// Note that all the setters affecting `source` are
                 /// mutually exclusive.
-                ///
-                /// # Example
-                /// ```
-                /// # use google_cloud_osconfig_v1::model::os_policy::resource::exec_resource::Exec;
-                /// let x = Exec::new().set_script("example");
-                /// assert!(x.script().is_some());
-                /// assert!(x.file().is_none());
-                /// ```
                 pub fn set_script<T: std::convert::Into<std::string::String>>(
                     mut self,
                     v: T,
@@ -5375,27 +4196,12 @@ pub mod os_policy {
             }
 
             /// Sets the value of [path][crate::model::os_policy::resource::FileResource::path].
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_osconfig_v1::model::os_policy::resource::FileResource;
-            /// let x = FileResource::new().set_path("example");
-            /// ```
             pub fn set_path<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
                 self.path = v.into();
                 self
             }
 
             /// Sets the value of [state][crate::model::os_policy::resource::FileResource::state].
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_osconfig_v1::model::os_policy::resource::FileResource;
-            /// use google_cloud_osconfig_v1::model::os_policy::resource::file_resource::DesiredState;
-            /// let x0 = FileResource::new().set_state(DesiredState::Present);
-            /// let x1 = FileResource::new().set_state(DesiredState::Absent);
-            /// let x2 = FileResource::new().set_state(DesiredState::ContentsMatch);
-            /// ```
             pub fn set_state<
                 T: std::convert::Into<crate::model::os_policy::resource::file_resource::DesiredState>,
             >(
@@ -5407,12 +4213,6 @@ pub mod os_policy {
             }
 
             /// Sets the value of [permissions][crate::model::os_policy::resource::FileResource::permissions].
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_osconfig_v1::model::os_policy::resource::FileResource;
-            /// let x = FileResource::new().set_permissions("example");
-            /// ```
             pub fn set_permissions<T: std::convert::Into<std::string::String>>(
                 mut self,
                 v: T,
@@ -5425,13 +4225,6 @@ pub mod os_policy {
             ///
             /// Note that all the setters affecting `source` are mutually
             /// exclusive.
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_osconfig_v1::model::os_policy::resource::FileResource;
-            /// use google_cloud_osconfig_v1::model::os_policy::resource::file_resource;
-            /// let x = FileResource::new().set_source(Some(os_policy::resource::file_resource::Source::Content("example".to_string())));
-            /// ```
             pub fn set_source<
                 T: std::convert::Into<
                         std::option::Option<
@@ -5467,15 +4260,6 @@ pub mod os_policy {
             ///
             /// Note that all the setters affecting `source` are
             /// mutually exclusive.
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_osconfig_v1::model::os_policy::resource::FileResource;
-            /// use google_cloud_osconfig_v1::model::os_policy::resource::File;
-            /// let x = FileResource::new().set_file(File::default()/* use setters */);
-            /// assert!(x.file().is_some());
-            /// assert!(x.content().is_none());
-            /// ```
             pub fn set_file<
                 T: std::convert::Into<std::boxed::Box<crate::model::os_policy::resource::File>>,
             >(
@@ -5506,14 +4290,6 @@ pub mod os_policy {
             ///
             /// Note that all the setters affecting `source` are
             /// mutually exclusive.
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_osconfig_v1::model::os_policy::resource::FileResource;
-            /// let x = FileResource::new().set_content("example");
-            /// assert!(x.content().is_some());
-            /// assert!(x.file().is_none());
-            /// ```
             pub fn set_content<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
                 self.source = std::option::Option::Some(
                     crate::model::os_policy::resource::file_resource::Source::Content(v.into()),
@@ -5742,17 +4518,6 @@ pub mod os_policy {
         }
 
         /// Sets the value of [inventory_filters][crate::model::os_policy::ResourceGroup::inventory_filters].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_osconfig_v1::model::os_policy::ResourceGroup;
-        /// use google_cloud_osconfig_v1::model::os_policy::InventoryFilter;
-        /// let x = ResourceGroup::new()
-        ///     .set_inventory_filters([
-        ///         InventoryFilter::default()/* use setters */,
-        ///         InventoryFilter::default()/* use (different) setters */,
-        ///     ]);
-        /// ```
         pub fn set_inventory_filters<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -5764,17 +4529,6 @@ pub mod os_policy {
         }
 
         /// Sets the value of [resources][crate::model::os_policy::ResourceGroup::resources].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_osconfig_v1::model::os_policy::ResourceGroup;
-        /// use google_cloud_osconfig_v1::model::os_policy::Resource;
-        /// let x = ResourceGroup::new()
-        ///     .set_resources([
-        ///         Resource::default()/* use setters */,
-        ///         Resource::default()/* use (different) setters */,
-        ///     ]);
-        /// ```
         pub fn set_resources<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -5952,12 +4706,6 @@ impl GetOSPolicyAssignmentReportRequest {
     }
 
     /// Sets the value of [name][crate::model::GetOSPolicyAssignmentReportRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::GetOSPolicyAssignmentReportRequest;
-    /// let x = GetOSPolicyAssignmentReportRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -6018,48 +4766,24 @@ impl ListOSPolicyAssignmentReportsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListOSPolicyAssignmentReportsRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::ListOSPolicyAssignmentReportsRequest;
-    /// let x = ListOSPolicyAssignmentReportsRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListOSPolicyAssignmentReportsRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::ListOSPolicyAssignmentReportsRequest;
-    /// let x = ListOSPolicyAssignmentReportsRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListOSPolicyAssignmentReportsRequest::filter].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::ListOSPolicyAssignmentReportsRequest;
-    /// let x = ListOSPolicyAssignmentReportsRequest::new().set_filter("example");
-    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListOSPolicyAssignmentReportsRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::ListOSPolicyAssignmentReportsRequest;
-    /// let x = ListOSPolicyAssignmentReportsRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -6093,17 +4817,6 @@ impl ListOSPolicyAssignmentReportsResponse {
     }
 
     /// Sets the value of [os_policy_assignment_reports][crate::model::ListOSPolicyAssignmentReportsResponse::os_policy_assignment_reports].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::ListOSPolicyAssignmentReportsResponse;
-    /// use google_cloud_osconfig_v1::model::OSPolicyAssignmentReport;
-    /// let x = ListOSPolicyAssignmentReportsResponse::new()
-    ///     .set_os_policy_assignment_reports([
-    ///         OSPolicyAssignmentReport::default()/* use setters */,
-    ///         OSPolicyAssignmentReport::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_os_policy_assignment_reports<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -6115,12 +4828,6 @@ impl ListOSPolicyAssignmentReportsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListOSPolicyAssignmentReportsResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::ListOSPolicyAssignmentReportsResponse;
-    /// let x = ListOSPolicyAssignmentReportsResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -6192,36 +4899,18 @@ impl OSPolicyAssignmentReport {
     }
 
     /// Sets the value of [name][crate::model::OSPolicyAssignmentReport::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::OSPolicyAssignmentReport;
-    /// let x = OSPolicyAssignmentReport::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [instance][crate::model::OSPolicyAssignmentReport::instance].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::OSPolicyAssignmentReport;
-    /// let x = OSPolicyAssignmentReport::new().set_instance("example");
-    /// ```
     pub fn set_instance<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.instance = v.into();
         self
     }
 
     /// Sets the value of [os_policy_assignment][crate::model::OSPolicyAssignmentReport::os_policy_assignment].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::OSPolicyAssignmentReport;
-    /// let x = OSPolicyAssignmentReport::new().set_os_policy_assignment("example");
-    /// ```
     pub fn set_os_policy_assignment<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -6231,17 +4920,6 @@ impl OSPolicyAssignmentReport {
     }
 
     /// Sets the value of [os_policy_compliances][crate::model::OSPolicyAssignmentReport::os_policy_compliances].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::OSPolicyAssignmentReport;
-    /// use google_cloud_osconfig_v1::model::os_policy_assignment_report::OSPolicyCompliance;
-    /// let x = OSPolicyAssignmentReport::new()
-    ///     .set_os_policy_compliances([
-    ///         OSPolicyCompliance::default()/* use setters */,
-    ///         OSPolicyCompliance::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_os_policy_compliances<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -6253,13 +4931,6 @@ impl OSPolicyAssignmentReport {
     }
 
     /// Sets the value of [update_time][crate::model::OSPolicyAssignmentReport::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::OSPolicyAssignmentReport;
-    /// use wkt::Timestamp;
-    /// let x = OSPolicyAssignmentReport::new().set_update_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -6269,14 +4940,6 @@ impl OSPolicyAssignmentReport {
     }
 
     /// Sets or clears the value of [update_time][crate::model::OSPolicyAssignmentReport::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::OSPolicyAssignmentReport;
-    /// use wkt::Timestamp;
-    /// let x = OSPolicyAssignmentReport::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
-    /// let x = OSPolicyAssignmentReport::new().set_or_clear_update_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -6286,12 +4949,6 @@ impl OSPolicyAssignmentReport {
     }
 
     /// Sets the value of [last_run_id][crate::model::OSPolicyAssignmentReport::last_run_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::OSPolicyAssignmentReport;
-    /// let x = OSPolicyAssignmentReport::new().set_last_run_id("example");
-    /// ```
     pub fn set_last_run_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.last_run_id = v.into();
         self
@@ -6355,12 +5012,6 @@ pub mod os_policy_assignment_report {
         }
 
         /// Sets the value of [os_policy_id][crate::model::os_policy_assignment_report::OSPolicyCompliance::os_policy_id].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_osconfig_v1::model::os_policy_assignment_report::OSPolicyCompliance;
-        /// let x = OSPolicyCompliance::new().set_os_policy_id("example");
-        /// ```
         pub fn set_os_policy_id<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -6370,26 +5021,12 @@ pub mod os_policy_assignment_report {
         }
 
         /// Sets the value of [compliance_state][crate::model::os_policy_assignment_report::OSPolicyCompliance::compliance_state].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_osconfig_v1::model::os_policy_assignment_report::OSPolicyCompliance;
-        /// use google_cloud_osconfig_v1::model::os_policy_assignment_report::os_policy_compliance::ComplianceState;
-        /// let x0 = OSPolicyCompliance::new().set_compliance_state(ComplianceState::Compliant);
-        /// let x1 = OSPolicyCompliance::new().set_compliance_state(ComplianceState::NonCompliant);
-        /// ```
         pub fn set_compliance_state<T: std::convert::Into<crate::model::os_policy_assignment_report::os_policy_compliance::ComplianceState>>(mut self, v: T) -> Self{
             self.compliance_state = v.into();
             self
         }
 
         /// Sets the value of [compliance_state_reason][crate::model::os_policy_assignment_report::OSPolicyCompliance::compliance_state_reason].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_osconfig_v1::model::os_policy_assignment_report::OSPolicyCompliance;
-        /// let x = OSPolicyCompliance::new().set_compliance_state_reason("example");
-        /// ```
         pub fn set_compliance_state_reason<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -6399,17 +5036,6 @@ pub mod os_policy_assignment_report {
         }
 
         /// Sets the value of [os_policy_resource_compliances][crate::model::os_policy_assignment_report::OSPolicyCompliance::os_policy_resource_compliances].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_osconfig_v1::model::os_policy_assignment_report::OSPolicyCompliance;
-        /// use google_cloud_osconfig_v1::model::os_policy_assignment_report::os_policy_compliance::OSPolicyResourceCompliance;
-        /// let x = OSPolicyCompliance::new()
-        ///     .set_os_policy_resource_compliances([
-        ///         OSPolicyResourceCompliance::default()/* use setters */,
-        ///         OSPolicyResourceCompliance::default()/* use (different) setters */,
-        ///     ]);
-        /// ```
         pub fn set_os_policy_resource_compliances<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -6475,12 +5101,6 @@ pub mod os_policy_assignment_report {
             }
 
             /// Sets the value of [os_policy_resource_id][crate::model::os_policy_assignment_report::os_policy_compliance::OSPolicyResourceCompliance::os_policy_resource_id].
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_osconfig_v1::model::os_policy_assignment_report::os_policy_compliance::OSPolicyResourceCompliance;
-            /// let x = OSPolicyResourceCompliance::new().set_os_policy_resource_id("example");
-            /// ```
             pub fn set_os_policy_resource_id<T: std::convert::Into<std::string::String>>(
                 mut self,
                 v: T,
@@ -6490,17 +5110,6 @@ pub mod os_policy_assignment_report {
             }
 
             /// Sets the value of [config_steps][crate::model::os_policy_assignment_report::os_policy_compliance::OSPolicyResourceCompliance::config_steps].
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_osconfig_v1::model::os_policy_assignment_report::os_policy_compliance::OSPolicyResourceCompliance;
-            /// use google_cloud_osconfig_v1::model::os_policy_assignment_report::os_policy_compliance::os_policy_resource_compliance::OSPolicyResourceConfigStep;
-            /// let x = OSPolicyResourceCompliance::new()
-            ///     .set_config_steps([
-            ///         OSPolicyResourceConfigStep::default()/* use setters */,
-            ///         OSPolicyResourceConfigStep::default()/* use (different) setters */,
-            ///     ]);
-            /// ```
             pub fn set_config_steps<T, V>(mut self, v: T) -> Self
             where
                 T: std::iter::IntoIterator<Item = V>,
@@ -6512,26 +5121,12 @@ pub mod os_policy_assignment_report {
             }
 
             /// Sets the value of [compliance_state][crate::model::os_policy_assignment_report::os_policy_compliance::OSPolicyResourceCompliance::compliance_state].
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_osconfig_v1::model::os_policy_assignment_report::os_policy_compliance::OSPolicyResourceCompliance;
-            /// use google_cloud_osconfig_v1::model::os_policy_assignment_report::os_policy_compliance::os_policy_resource_compliance::ComplianceState;
-            /// let x0 = OSPolicyResourceCompliance::new().set_compliance_state(ComplianceState::Compliant);
-            /// let x1 = OSPolicyResourceCompliance::new().set_compliance_state(ComplianceState::NonCompliant);
-            /// ```
             pub fn set_compliance_state<T: std::convert::Into<crate::model::os_policy_assignment_report::os_policy_compliance::os_policy_resource_compliance::ComplianceState>>(mut self, v: T) -> Self{
                 self.compliance_state = v.into();
                 self
             }
 
             /// Sets the value of [compliance_state_reason][crate::model::os_policy_assignment_report::os_policy_compliance::OSPolicyResourceCompliance::compliance_state_reason].
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_osconfig_v1::model::os_policy_assignment_report::os_policy_compliance::OSPolicyResourceCompliance;
-            /// let x = OSPolicyResourceCompliance::new().set_compliance_state_reason("example");
-            /// ```
             pub fn set_compliance_state_reason<T: std::convert::Into<std::string::String>>(
                 mut self,
                 v: T,
@@ -6544,14 +5139,6 @@ pub mod os_policy_assignment_report {
             ///
             /// Note that all the setters affecting `output` are mutually
             /// exclusive.
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_osconfig_v1::model::os_policy_assignment_report::os_policy_compliance::OSPolicyResourceCompliance;
-            /// use google_cloud_osconfig_v1::model::os_policy_assignment_report::os_policy_compliance::os_policy_resource_compliance;
-            /// use google_cloud_osconfig_v1::model::os_policy_assignment_report::os_policy_compliance::os_policy_resource_compliance::ExecResourceOutput;
-            /// let x = OSPolicyResourceCompliance::new().set_output(Some(os_policy_assignment_report::os_policy_compliance::os_policy_resource_compliance::Output::ExecResourceOutput(ExecResourceOutput::default().into())));
-            /// ```
             pub fn set_output<T: std::convert::Into<std::option::Option<crate::model::os_policy_assignment_report::os_policy_compliance::os_policy_resource_compliance::Output>>>(mut self, v: T) -> Self
             {
                 self.output = v.into();
@@ -6574,14 +5161,6 @@ pub mod os_policy_assignment_report {
             ///
             /// Note that all the setters affecting `output` are
             /// mutually exclusive.
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_osconfig_v1::model::os_policy_assignment_report::os_policy_compliance::OSPolicyResourceCompliance;
-            /// use google_cloud_osconfig_v1::model::os_policy_assignment_report::os_policy_compliance::os_policy_resource_compliance::ExecResourceOutput;
-            /// let x = OSPolicyResourceCompliance::new().set_exec_resource_output(ExecResourceOutput::default()/* use setters */);
-            /// assert!(x.exec_resource_output().is_some());
-            /// ```
             pub fn set_exec_resource_output<T: std::convert::Into<std::boxed::Box<crate::model::os_policy_assignment_report::os_policy_compliance::os_policy_resource_compliance::ExecResourceOutput>>>(mut self, v: T) -> Self{
                 self.output = std::option::Option::Some(
                     crate::model::os_policy_assignment_report::os_policy_compliance::os_policy_resource_compliance::Output::ExecResourceOutput(
@@ -6625,27 +5204,12 @@ pub mod os_policy_assignment_report {
                 }
 
                 /// Sets the value of [r#type][crate::model::os_policy_assignment_report::os_policy_compliance::os_policy_resource_compliance::OSPolicyResourceConfigStep::type].
-                ///
-                /// # Example
-                /// ```
-                /// # use google_cloud_osconfig_v1::model::os_policy_assignment_report::os_policy_compliance::os_policy_resource_compliance::OSPolicyResourceConfigStep;
-                /// use google_cloud_osconfig_v1::model::os_policy_assignment_report::os_policy_compliance::os_policy_resource_compliance::os_policy_resource_config_step::Type;
-                /// let x0 = OSPolicyResourceConfigStep::new().set_type(Type::Validation);
-                /// let x1 = OSPolicyResourceConfigStep::new().set_type(Type::DesiredStateCheck);
-                /// let x2 = OSPolicyResourceConfigStep::new().set_type(Type::DesiredStateEnforcement);
-                /// ```
                 pub fn set_type<T: std::convert::Into<crate::model::os_policy_assignment_report::os_policy_compliance::os_policy_resource_compliance::os_policy_resource_config_step::Type>>(mut self, v: T) -> Self{
                     self.r#type = v.into();
                     self
                 }
 
                 /// Sets the value of [error_message][crate::model::os_policy_assignment_report::os_policy_compliance::os_policy_resource_compliance::OSPolicyResourceConfigStep::error_message].
-                ///
-                /// # Example
-                /// ```
-                /// # use google_cloud_osconfig_v1::model::os_policy_assignment_report::os_policy_compliance::os_policy_resource_compliance::OSPolicyResourceConfigStep;
-                /// let x = OSPolicyResourceConfigStep::new().set_error_message("example");
-                /// ```
                 pub fn set_error_message<T: std::convert::Into<std::string::String>>(
                     mut self,
                     v: T,
@@ -6847,12 +5411,6 @@ pub mod os_policy_assignment_report {
                 }
 
                 /// Sets the value of [enforcement_output][crate::model::os_policy_assignment_report::os_policy_compliance::os_policy_resource_compliance::ExecResourceOutput::enforcement_output].
-                ///
-                /// # Example
-                /// ```
-                /// # use google_cloud_osconfig_v1::model::os_policy_assignment_report::os_policy_compliance::os_policy_resource_compliance::ExecResourceOutput;
-                /// let x = ExecResourceOutput::new().set_enforcement_output(bytes::Bytes::from_static(b"example"));
-                /// ```
                 pub fn set_enforcement_output<T: std::convert::Into<::bytes::Bytes>>(
                     mut self,
                     v: T,
@@ -7247,41 +5805,18 @@ impl OSPolicyAssignment {
     }
 
     /// Sets the value of [name][crate::model::OSPolicyAssignment::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::OSPolicyAssignment;
-    /// let x = OSPolicyAssignment::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [description][crate::model::OSPolicyAssignment::description].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::OSPolicyAssignment;
-    /// let x = OSPolicyAssignment::new().set_description("example");
-    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [os_policies][crate::model::OSPolicyAssignment::os_policies].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::OSPolicyAssignment;
-    /// use google_cloud_osconfig_v1::model::OSPolicy;
-    /// let x = OSPolicyAssignment::new()
-    ///     .set_os_policies([
-    ///         OSPolicy::default()/* use setters */,
-    ///         OSPolicy::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_os_policies<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -7293,13 +5828,6 @@ impl OSPolicyAssignment {
     }
 
     /// Sets the value of [instance_filter][crate::model::OSPolicyAssignment::instance_filter].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::OSPolicyAssignment;
-    /// use google_cloud_osconfig_v1::model::os_policy_assignment::InstanceFilter;
-    /// let x = OSPolicyAssignment::new().set_instance_filter(InstanceFilter::default()/* use setters */);
-    /// ```
     pub fn set_instance_filter<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::os_policy_assignment::InstanceFilter>,
@@ -7309,14 +5837,6 @@ impl OSPolicyAssignment {
     }
 
     /// Sets or clears the value of [instance_filter][crate::model::OSPolicyAssignment::instance_filter].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::OSPolicyAssignment;
-    /// use google_cloud_osconfig_v1::model::os_policy_assignment::InstanceFilter;
-    /// let x = OSPolicyAssignment::new().set_or_clear_instance_filter(Some(InstanceFilter::default()/* use setters */));
-    /// let x = OSPolicyAssignment::new().set_or_clear_instance_filter(None::<InstanceFilter>);
-    /// ```
     pub fn set_or_clear_instance_filter<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::os_policy_assignment::InstanceFilter>,
@@ -7326,13 +5846,6 @@ impl OSPolicyAssignment {
     }
 
     /// Sets the value of [rollout][crate::model::OSPolicyAssignment::rollout].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::OSPolicyAssignment;
-    /// use google_cloud_osconfig_v1::model::os_policy_assignment::Rollout;
-    /// let x = OSPolicyAssignment::new().set_rollout(Rollout::default()/* use setters */);
-    /// ```
     pub fn set_rollout<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::os_policy_assignment::Rollout>,
@@ -7342,14 +5855,6 @@ impl OSPolicyAssignment {
     }
 
     /// Sets or clears the value of [rollout][crate::model::OSPolicyAssignment::rollout].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::OSPolicyAssignment;
-    /// use google_cloud_osconfig_v1::model::os_policy_assignment::Rollout;
-    /// let x = OSPolicyAssignment::new().set_or_clear_rollout(Some(Rollout::default()/* use setters */));
-    /// let x = OSPolicyAssignment::new().set_or_clear_rollout(None::<Rollout>);
-    /// ```
     pub fn set_or_clear_rollout<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::os_policy_assignment::Rollout>,
@@ -7359,25 +5864,12 @@ impl OSPolicyAssignment {
     }
 
     /// Sets the value of [revision_id][crate::model::OSPolicyAssignment::revision_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::OSPolicyAssignment;
-    /// let x = OSPolicyAssignment::new().set_revision_id("example");
-    /// ```
     pub fn set_revision_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.revision_id = v.into();
         self
     }
 
     /// Sets the value of [revision_create_time][crate::model::OSPolicyAssignment::revision_create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::OSPolicyAssignment;
-    /// use wkt::Timestamp;
-    /// let x = OSPolicyAssignment::new().set_revision_create_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_revision_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -7387,14 +5879,6 @@ impl OSPolicyAssignment {
     }
 
     /// Sets or clears the value of [revision_create_time][crate::model::OSPolicyAssignment::revision_create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::OSPolicyAssignment;
-    /// use wkt::Timestamp;
-    /// let x = OSPolicyAssignment::new().set_or_clear_revision_create_time(Some(Timestamp::default()/* use setters */));
-    /// let x = OSPolicyAssignment::new().set_or_clear_revision_create_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_revision_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -7404,27 +5888,12 @@ impl OSPolicyAssignment {
     }
 
     /// Sets the value of [etag][crate::model::OSPolicyAssignment::etag].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::OSPolicyAssignment;
-    /// let x = OSPolicyAssignment::new().set_etag("example");
-    /// ```
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
     }
 
     /// Sets the value of [rollout_state][crate::model::OSPolicyAssignment::rollout_state].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::OSPolicyAssignment;
-    /// use google_cloud_osconfig_v1::model::os_policy_assignment::RolloutState;
-    /// let x0 = OSPolicyAssignment::new().set_rollout_state(RolloutState::InProgress);
-    /// let x1 = OSPolicyAssignment::new().set_rollout_state(RolloutState::Cancelling);
-    /// let x2 = OSPolicyAssignment::new().set_rollout_state(RolloutState::Cancelled);
-    /// ```
     pub fn set_rollout_state<
         T: std::convert::Into<crate::model::os_policy_assignment::RolloutState>,
     >(
@@ -7436,48 +5905,24 @@ impl OSPolicyAssignment {
     }
 
     /// Sets the value of [baseline][crate::model::OSPolicyAssignment::baseline].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::OSPolicyAssignment;
-    /// let x = OSPolicyAssignment::new().set_baseline(true);
-    /// ```
     pub fn set_baseline<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.baseline = v.into();
         self
     }
 
     /// Sets the value of [deleted][crate::model::OSPolicyAssignment::deleted].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::OSPolicyAssignment;
-    /// let x = OSPolicyAssignment::new().set_deleted(true);
-    /// ```
     pub fn set_deleted<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.deleted = v.into();
         self
     }
 
     /// Sets the value of [reconciling][crate::model::OSPolicyAssignment::reconciling].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::OSPolicyAssignment;
-    /// let x = OSPolicyAssignment::new().set_reconciling(true);
-    /// ```
     pub fn set_reconciling<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.reconciling = v.into();
         self
     }
 
     /// Sets the value of [uid][crate::model::OSPolicyAssignment::uid].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::OSPolicyAssignment;
-    /// let x = OSPolicyAssignment::new().set_uid("example");
-    /// ```
     pub fn set_uid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.uid = v.into();
         self
@@ -7522,15 +5967,6 @@ pub mod os_policy_assignment {
         }
 
         /// Sets the value of [labels][crate::model::os_policy_assignment::LabelSet::labels].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_osconfig_v1::model::os_policy_assignment::LabelSet;
-        /// let x = LabelSet::new().set_labels([
-        ///     ("key0", "abc"),
-        ///     ("key1", "xyz"),
-        /// ]);
-        /// ```
         pub fn set_labels<T, K, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = (K, V)>,
@@ -7588,29 +6024,12 @@ pub mod os_policy_assignment {
         }
 
         /// Sets the value of [all][crate::model::os_policy_assignment::InstanceFilter::all].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_osconfig_v1::model::os_policy_assignment::InstanceFilter;
-        /// let x = InstanceFilter::new().set_all(true);
-        /// ```
         pub fn set_all<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.all = v.into();
             self
         }
 
         /// Sets the value of [inclusion_labels][crate::model::os_policy_assignment::InstanceFilter::inclusion_labels].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_osconfig_v1::model::os_policy_assignment::InstanceFilter;
-        /// use google_cloud_osconfig_v1::model::os_policy_assignment::LabelSet;
-        /// let x = InstanceFilter::new()
-        ///     .set_inclusion_labels([
-        ///         LabelSet::default()/* use setters */,
-        ///         LabelSet::default()/* use (different) setters */,
-        ///     ]);
-        /// ```
         pub fn set_inclusion_labels<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -7622,17 +6041,6 @@ pub mod os_policy_assignment {
         }
 
         /// Sets the value of [exclusion_labels][crate::model::os_policy_assignment::InstanceFilter::exclusion_labels].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_osconfig_v1::model::os_policy_assignment::InstanceFilter;
-        /// use google_cloud_osconfig_v1::model::os_policy_assignment::LabelSet;
-        /// let x = InstanceFilter::new()
-        ///     .set_exclusion_labels([
-        ///         LabelSet::default()/* use setters */,
-        ///         LabelSet::default()/* use (different) setters */,
-        ///     ]);
-        /// ```
         pub fn set_exclusion_labels<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -7644,17 +6052,6 @@ pub mod os_policy_assignment {
         }
 
         /// Sets the value of [inventories][crate::model::os_policy_assignment::InstanceFilter::inventories].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_osconfig_v1::model::os_policy_assignment::InstanceFilter;
-        /// use google_cloud_osconfig_v1::model::os_policy_assignment::instance_filter::Inventory;
-        /// let x = InstanceFilter::new()
-        ///     .set_inventories([
-        ///         Inventory::default()/* use setters */,
-        ///         Inventory::default()/* use (different) setters */,
-        ///     ]);
-        /// ```
         pub fn set_inventories<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -7702,12 +6099,6 @@ pub mod os_policy_assignment {
             }
 
             /// Sets the value of [os_short_name][crate::model::os_policy_assignment::instance_filter::Inventory::os_short_name].
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_osconfig_v1::model::os_policy_assignment::instance_filter::Inventory;
-            /// let x = Inventory::new().set_os_short_name("example");
-            /// ```
             pub fn set_os_short_name<T: std::convert::Into<std::string::String>>(
                 mut self,
                 v: T,
@@ -7717,12 +6108,6 @@ pub mod os_policy_assignment {
             }
 
             /// Sets the value of [os_version][crate::model::os_policy_assignment::instance_filter::Inventory::os_version].
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_osconfig_v1::model::os_policy_assignment::instance_filter::Inventory;
-            /// let x = Inventory::new().set_os_version("example");
-            /// ```
             pub fn set_os_version<T: std::convert::Into<std::string::String>>(
                 mut self,
                 v: T,
@@ -7764,13 +6149,6 @@ pub mod os_policy_assignment {
         }
 
         /// Sets the value of [disruption_budget][crate::model::os_policy_assignment::Rollout::disruption_budget].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_osconfig_v1::model::os_policy_assignment::Rollout;
-        /// use google_cloud_osconfig_v1::model::FixedOrPercent;
-        /// let x = Rollout::new().set_disruption_budget(FixedOrPercent::default()/* use setters */);
-        /// ```
         pub fn set_disruption_budget<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::FixedOrPercent>,
@@ -7780,14 +6158,6 @@ pub mod os_policy_assignment {
         }
 
         /// Sets or clears the value of [disruption_budget][crate::model::os_policy_assignment::Rollout::disruption_budget].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_osconfig_v1::model::os_policy_assignment::Rollout;
-        /// use google_cloud_osconfig_v1::model::FixedOrPercent;
-        /// let x = Rollout::new().set_or_clear_disruption_budget(Some(FixedOrPercent::default()/* use setters */));
-        /// let x = Rollout::new().set_or_clear_disruption_budget(None::<FixedOrPercent>);
-        /// ```
         pub fn set_or_clear_disruption_budget<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::FixedOrPercent>,
@@ -7797,13 +6167,6 @@ pub mod os_policy_assignment {
         }
 
         /// Sets the value of [min_wait_duration][crate::model::os_policy_assignment::Rollout::min_wait_duration].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_osconfig_v1::model::os_policy_assignment::Rollout;
-        /// use wkt::Duration;
-        /// let x = Rollout::new().set_min_wait_duration(Duration::default()/* use setters */);
-        /// ```
         pub fn set_min_wait_duration<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
@@ -7813,14 +6176,6 @@ pub mod os_policy_assignment {
         }
 
         /// Sets or clears the value of [min_wait_duration][crate::model::os_policy_assignment::Rollout::min_wait_duration].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_osconfig_v1::model::os_policy_assignment::Rollout;
-        /// use wkt::Duration;
-        /// let x = Rollout::new().set_or_clear_min_wait_duration(Some(Duration::default()/* use setters */));
-        /// let x = Rollout::new().set_or_clear_min_wait_duration(None::<Duration>);
-        /// ```
         pub fn set_or_clear_min_wait_duration<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
@@ -8015,12 +6370,6 @@ impl OSPolicyAssignmentOperationMetadata {
     }
 
     /// Sets the value of [os_policy_assignment][crate::model::OSPolicyAssignmentOperationMetadata::os_policy_assignment].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::OSPolicyAssignmentOperationMetadata;
-    /// let x = OSPolicyAssignmentOperationMetadata::new().set_os_policy_assignment("example");
-    /// ```
     pub fn set_os_policy_assignment<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -8030,15 +6379,6 @@ impl OSPolicyAssignmentOperationMetadata {
     }
 
     /// Sets the value of [api_method][crate::model::OSPolicyAssignmentOperationMetadata::api_method].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::OSPolicyAssignmentOperationMetadata;
-    /// use google_cloud_osconfig_v1::model::os_policy_assignment_operation_metadata::APIMethod;
-    /// let x0 = OSPolicyAssignmentOperationMetadata::new().set_api_method(APIMethod::Create);
-    /// let x1 = OSPolicyAssignmentOperationMetadata::new().set_api_method(APIMethod::Update);
-    /// let x2 = OSPolicyAssignmentOperationMetadata::new().set_api_method(APIMethod::Delete);
-    /// ```
     pub fn set_api_method<
         T: std::convert::Into<crate::model::os_policy_assignment_operation_metadata::APIMethod>,
     >(
@@ -8050,15 +6390,6 @@ impl OSPolicyAssignmentOperationMetadata {
     }
 
     /// Sets the value of [rollout_state][crate::model::OSPolicyAssignmentOperationMetadata::rollout_state].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::OSPolicyAssignmentOperationMetadata;
-    /// use google_cloud_osconfig_v1::model::os_policy_assignment_operation_metadata::RolloutState;
-    /// let x0 = OSPolicyAssignmentOperationMetadata::new().set_rollout_state(RolloutState::InProgress);
-    /// let x1 = OSPolicyAssignmentOperationMetadata::new().set_rollout_state(RolloutState::Cancelling);
-    /// let x2 = OSPolicyAssignmentOperationMetadata::new().set_rollout_state(RolloutState::Cancelled);
-    /// ```
     pub fn set_rollout_state<
         T: std::convert::Into<crate::model::os_policy_assignment_operation_metadata::RolloutState>,
     >(
@@ -8070,13 +6401,6 @@ impl OSPolicyAssignmentOperationMetadata {
     }
 
     /// Sets the value of [rollout_start_time][crate::model::OSPolicyAssignmentOperationMetadata::rollout_start_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::OSPolicyAssignmentOperationMetadata;
-    /// use wkt::Timestamp;
-    /// let x = OSPolicyAssignmentOperationMetadata::new().set_rollout_start_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_rollout_start_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -8086,14 +6410,6 @@ impl OSPolicyAssignmentOperationMetadata {
     }
 
     /// Sets or clears the value of [rollout_start_time][crate::model::OSPolicyAssignmentOperationMetadata::rollout_start_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::OSPolicyAssignmentOperationMetadata;
-    /// use wkt::Timestamp;
-    /// let x = OSPolicyAssignmentOperationMetadata::new().set_or_clear_rollout_start_time(Some(Timestamp::default()/* use setters */));
-    /// let x = OSPolicyAssignmentOperationMetadata::new().set_or_clear_rollout_start_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_rollout_start_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -8103,13 +6419,6 @@ impl OSPolicyAssignmentOperationMetadata {
     }
 
     /// Sets the value of [rollout_update_time][crate::model::OSPolicyAssignmentOperationMetadata::rollout_update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::OSPolicyAssignmentOperationMetadata;
-    /// use wkt::Timestamp;
-    /// let x = OSPolicyAssignmentOperationMetadata::new().set_rollout_update_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_rollout_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -8119,14 +6428,6 @@ impl OSPolicyAssignmentOperationMetadata {
     }
 
     /// Sets or clears the value of [rollout_update_time][crate::model::OSPolicyAssignmentOperationMetadata::rollout_update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::OSPolicyAssignmentOperationMetadata;
-    /// use wkt::Timestamp;
-    /// let x = OSPolicyAssignmentOperationMetadata::new().set_or_clear_rollout_update_time(Some(Timestamp::default()/* use setters */));
-    /// let x = OSPolicyAssignmentOperationMetadata::new().set_or_clear_rollout_update_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_rollout_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -8463,25 +6764,12 @@ impl CreateOSPolicyAssignmentRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateOSPolicyAssignmentRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::CreateOSPolicyAssignmentRequest;
-    /// let x = CreateOSPolicyAssignmentRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [os_policy_assignment][crate::model::CreateOSPolicyAssignmentRequest::os_policy_assignment].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::CreateOSPolicyAssignmentRequest;
-    /// use google_cloud_osconfig_v1::model::OSPolicyAssignment;
-    /// let x = CreateOSPolicyAssignmentRequest::new().set_os_policy_assignment(OSPolicyAssignment::default()/* use setters */);
-    /// ```
     pub fn set_os_policy_assignment<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::OSPolicyAssignment>,
@@ -8491,14 +6779,6 @@ impl CreateOSPolicyAssignmentRequest {
     }
 
     /// Sets or clears the value of [os_policy_assignment][crate::model::CreateOSPolicyAssignmentRequest::os_policy_assignment].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::CreateOSPolicyAssignmentRequest;
-    /// use google_cloud_osconfig_v1::model::OSPolicyAssignment;
-    /// let x = CreateOSPolicyAssignmentRequest::new().set_or_clear_os_policy_assignment(Some(OSPolicyAssignment::default()/* use setters */));
-    /// let x = CreateOSPolicyAssignmentRequest::new().set_or_clear_os_policy_assignment(None::<OSPolicyAssignment>);
-    /// ```
     pub fn set_or_clear_os_policy_assignment<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::OSPolicyAssignment>,
@@ -8508,12 +6788,6 @@ impl CreateOSPolicyAssignmentRequest {
     }
 
     /// Sets the value of [os_policy_assignment_id][crate::model::CreateOSPolicyAssignmentRequest::os_policy_assignment_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::CreateOSPolicyAssignmentRequest;
-    /// let x = CreateOSPolicyAssignmentRequest::new().set_os_policy_assignment_id("example");
-    /// ```
     pub fn set_os_policy_assignment_id<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -8549,13 +6823,6 @@ impl UpdateOSPolicyAssignmentRequest {
     }
 
     /// Sets the value of [os_policy_assignment][crate::model::UpdateOSPolicyAssignmentRequest::os_policy_assignment].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::UpdateOSPolicyAssignmentRequest;
-    /// use google_cloud_osconfig_v1::model::OSPolicyAssignment;
-    /// let x = UpdateOSPolicyAssignmentRequest::new().set_os_policy_assignment(OSPolicyAssignment::default()/* use setters */);
-    /// ```
     pub fn set_os_policy_assignment<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::OSPolicyAssignment>,
@@ -8565,14 +6832,6 @@ impl UpdateOSPolicyAssignmentRequest {
     }
 
     /// Sets or clears the value of [os_policy_assignment][crate::model::UpdateOSPolicyAssignmentRequest::os_policy_assignment].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::UpdateOSPolicyAssignmentRequest;
-    /// use google_cloud_osconfig_v1::model::OSPolicyAssignment;
-    /// let x = UpdateOSPolicyAssignmentRequest::new().set_or_clear_os_policy_assignment(Some(OSPolicyAssignment::default()/* use setters */));
-    /// let x = UpdateOSPolicyAssignmentRequest::new().set_or_clear_os_policy_assignment(None::<OSPolicyAssignment>);
-    /// ```
     pub fn set_or_clear_os_policy_assignment<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::OSPolicyAssignment>,
@@ -8582,13 +6841,6 @@ impl UpdateOSPolicyAssignmentRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateOSPolicyAssignmentRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::UpdateOSPolicyAssignmentRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateOSPolicyAssignmentRequest::new().set_update_mask(FieldMask::default()/* use setters */);
-    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -8598,14 +6850,6 @@ impl UpdateOSPolicyAssignmentRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateOSPolicyAssignmentRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::UpdateOSPolicyAssignmentRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateOSPolicyAssignmentRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
-    /// let x = UpdateOSPolicyAssignmentRequest::new().set_or_clear_update_mask(None::<FieldMask>);
-    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -8640,12 +6884,6 @@ impl GetOSPolicyAssignmentRequest {
     }
 
     /// Sets the value of [name][crate::model::GetOSPolicyAssignmentRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::GetOSPolicyAssignmentRequest;
-    /// let x = GetOSPolicyAssignmentRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -8682,36 +6920,18 @@ impl ListOSPolicyAssignmentsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListOSPolicyAssignmentsRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::ListOSPolicyAssignmentsRequest;
-    /// let x = ListOSPolicyAssignmentsRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListOSPolicyAssignmentsRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::ListOSPolicyAssignmentsRequest;
-    /// let x = ListOSPolicyAssignmentsRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListOSPolicyAssignmentsRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::ListOSPolicyAssignmentsRequest;
-    /// let x = ListOSPolicyAssignmentsRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -8743,17 +6963,6 @@ impl ListOSPolicyAssignmentsResponse {
     }
 
     /// Sets the value of [os_policy_assignments][crate::model::ListOSPolicyAssignmentsResponse::os_policy_assignments].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::ListOSPolicyAssignmentsResponse;
-    /// use google_cloud_osconfig_v1::model::OSPolicyAssignment;
-    /// let x = ListOSPolicyAssignmentsResponse::new()
-    ///     .set_os_policy_assignments([
-    ///         OSPolicyAssignment::default()/* use setters */,
-    ///         OSPolicyAssignment::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_os_policy_assignments<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -8765,12 +6974,6 @@ impl ListOSPolicyAssignmentsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListOSPolicyAssignmentsResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::ListOSPolicyAssignmentsResponse;
-    /// let x = ListOSPolicyAssignmentsResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -8821,36 +7024,18 @@ impl ListOSPolicyAssignmentRevisionsRequest {
     }
 
     /// Sets the value of [name][crate::model::ListOSPolicyAssignmentRevisionsRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::ListOSPolicyAssignmentRevisionsRequest;
-    /// let x = ListOSPolicyAssignmentRevisionsRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListOSPolicyAssignmentRevisionsRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::ListOSPolicyAssignmentRevisionsRequest;
-    /// let x = ListOSPolicyAssignmentRevisionsRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListOSPolicyAssignmentRevisionsRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::ListOSPolicyAssignmentRevisionsRequest;
-    /// let x = ListOSPolicyAssignmentRevisionsRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -8883,17 +7068,6 @@ impl ListOSPolicyAssignmentRevisionsResponse {
     }
 
     /// Sets the value of [os_policy_assignments][crate::model::ListOSPolicyAssignmentRevisionsResponse::os_policy_assignments].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::ListOSPolicyAssignmentRevisionsResponse;
-    /// use google_cloud_osconfig_v1::model::OSPolicyAssignment;
-    /// let x = ListOSPolicyAssignmentRevisionsResponse::new()
-    ///     .set_os_policy_assignments([
-    ///         OSPolicyAssignment::default()/* use setters */,
-    ///         OSPolicyAssignment::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_os_policy_assignments<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -8905,12 +7079,6 @@ impl ListOSPolicyAssignmentRevisionsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListOSPolicyAssignmentRevisionsResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::ListOSPolicyAssignmentRevisionsResponse;
-    /// let x = ListOSPolicyAssignmentRevisionsResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -8953,12 +7121,6 @@ impl DeleteOSPolicyAssignmentRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteOSPolicyAssignmentRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::DeleteOSPolicyAssignmentRequest;
-    /// let x = DeleteOSPolicyAssignmentRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -8991,13 +7153,6 @@ impl FixedOrPercent {
     ///
     /// Note that all the setters affecting `mode` are mutually
     /// exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::FixedOrPercent;
-    /// use google_cloud_osconfig_v1::model::fixed_or_percent;
-    /// let x = FixedOrPercent::new().set_mode(Some(fixed_or_percent::Mode::Fixed(42)));
-    /// ```
     pub fn set_mode<
         T: std::convert::Into<std::option::Option<crate::model::fixed_or_percent::Mode>>,
     >(
@@ -9024,14 +7179,6 @@ impl FixedOrPercent {
     ///
     /// Note that all the setters affecting `mode` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::FixedOrPercent;
-    /// let x = FixedOrPercent::new().set_fixed(42);
-    /// assert!(x.fixed().is_some());
-    /// assert!(x.percent().is_none());
-    /// ```
     pub fn set_fixed<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.mode =
             std::option::Option::Some(crate::model::fixed_or_percent::Mode::Fixed(v.into()));
@@ -9054,14 +7201,6 @@ impl FixedOrPercent {
     ///
     /// Note that all the setters affecting `mode` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::FixedOrPercent;
-    /// let x = FixedOrPercent::new().set_percent(42);
-    /// assert!(x.percent().is_some());
-    /// assert!(x.fixed().is_none());
-    /// ```
     pub fn set_percent<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.mode =
             std::option::Option::Some(crate::model::fixed_or_percent::Mode::Percent(v.into()));
@@ -9151,37 +7290,18 @@ impl PatchDeployment {
     }
 
     /// Sets the value of [name][crate::model::PatchDeployment::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::PatchDeployment;
-    /// let x = PatchDeployment::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [description][crate::model::PatchDeployment::description].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::PatchDeployment;
-    /// let x = PatchDeployment::new().set_description("example");
-    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [instance_filter][crate::model::PatchDeployment::instance_filter].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::PatchDeployment;
-    /// use google_cloud_osconfig_v1::model::PatchInstanceFilter;
-    /// let x = PatchDeployment::new().set_instance_filter(PatchInstanceFilter::default()/* use setters */);
-    /// ```
     pub fn set_instance_filter<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::PatchInstanceFilter>,
@@ -9191,14 +7311,6 @@ impl PatchDeployment {
     }
 
     /// Sets or clears the value of [instance_filter][crate::model::PatchDeployment::instance_filter].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::PatchDeployment;
-    /// use google_cloud_osconfig_v1::model::PatchInstanceFilter;
-    /// let x = PatchDeployment::new().set_or_clear_instance_filter(Some(PatchInstanceFilter::default()/* use setters */));
-    /// let x = PatchDeployment::new().set_or_clear_instance_filter(None::<PatchInstanceFilter>);
-    /// ```
     pub fn set_or_clear_instance_filter<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::PatchInstanceFilter>,
@@ -9208,13 +7320,6 @@ impl PatchDeployment {
     }
 
     /// Sets the value of [patch_config][crate::model::PatchDeployment::patch_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::PatchDeployment;
-    /// use google_cloud_osconfig_v1::model::PatchConfig;
-    /// let x = PatchDeployment::new().set_patch_config(PatchConfig::default()/* use setters */);
-    /// ```
     pub fn set_patch_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::PatchConfig>,
@@ -9224,14 +7329,6 @@ impl PatchDeployment {
     }
 
     /// Sets or clears the value of [patch_config][crate::model::PatchDeployment::patch_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::PatchDeployment;
-    /// use google_cloud_osconfig_v1::model::PatchConfig;
-    /// let x = PatchDeployment::new().set_or_clear_patch_config(Some(PatchConfig::default()/* use setters */));
-    /// let x = PatchDeployment::new().set_or_clear_patch_config(None::<PatchConfig>);
-    /// ```
     pub fn set_or_clear_patch_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::PatchConfig>,
@@ -9241,13 +7338,6 @@ impl PatchDeployment {
     }
 
     /// Sets the value of [duration][crate::model::PatchDeployment::duration].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::PatchDeployment;
-    /// use wkt::Duration;
-    /// let x = PatchDeployment::new().set_duration(Duration::default()/* use setters */);
-    /// ```
     pub fn set_duration<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -9257,14 +7347,6 @@ impl PatchDeployment {
     }
 
     /// Sets or clears the value of [duration][crate::model::PatchDeployment::duration].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::PatchDeployment;
-    /// use wkt::Duration;
-    /// let x = PatchDeployment::new().set_or_clear_duration(Some(Duration::default()/* use setters */));
-    /// let x = PatchDeployment::new().set_or_clear_duration(None::<Duration>);
-    /// ```
     pub fn set_or_clear_duration<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -9274,13 +7356,6 @@ impl PatchDeployment {
     }
 
     /// Sets the value of [create_time][crate::model::PatchDeployment::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::PatchDeployment;
-    /// use wkt::Timestamp;
-    /// let x = PatchDeployment::new().set_create_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -9290,14 +7365,6 @@ impl PatchDeployment {
     }
 
     /// Sets or clears the value of [create_time][crate::model::PatchDeployment::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::PatchDeployment;
-    /// use wkt::Timestamp;
-    /// let x = PatchDeployment::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
-    /// let x = PatchDeployment::new().set_or_clear_create_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -9307,13 +7374,6 @@ impl PatchDeployment {
     }
 
     /// Sets the value of [update_time][crate::model::PatchDeployment::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::PatchDeployment;
-    /// use wkt::Timestamp;
-    /// let x = PatchDeployment::new().set_update_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -9323,14 +7383,6 @@ impl PatchDeployment {
     }
 
     /// Sets or clears the value of [update_time][crate::model::PatchDeployment::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::PatchDeployment;
-    /// use wkt::Timestamp;
-    /// let x = PatchDeployment::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
-    /// let x = PatchDeployment::new().set_or_clear_update_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -9340,13 +7392,6 @@ impl PatchDeployment {
     }
 
     /// Sets the value of [last_execute_time][crate::model::PatchDeployment::last_execute_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::PatchDeployment;
-    /// use wkt::Timestamp;
-    /// let x = PatchDeployment::new().set_last_execute_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_last_execute_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -9356,14 +7401,6 @@ impl PatchDeployment {
     }
 
     /// Sets or clears the value of [last_execute_time][crate::model::PatchDeployment::last_execute_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::PatchDeployment;
-    /// use wkt::Timestamp;
-    /// let x = PatchDeployment::new().set_or_clear_last_execute_time(Some(Timestamp::default()/* use setters */));
-    /// let x = PatchDeployment::new().set_or_clear_last_execute_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_last_execute_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -9373,13 +7410,6 @@ impl PatchDeployment {
     }
 
     /// Sets the value of [rollout][crate::model::PatchDeployment::rollout].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::PatchDeployment;
-    /// use google_cloud_osconfig_v1::model::PatchRollout;
-    /// let x = PatchDeployment::new().set_rollout(PatchRollout::default()/* use setters */);
-    /// ```
     pub fn set_rollout<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::PatchRollout>,
@@ -9389,14 +7419,6 @@ impl PatchDeployment {
     }
 
     /// Sets or clears the value of [rollout][crate::model::PatchDeployment::rollout].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::PatchDeployment;
-    /// use google_cloud_osconfig_v1::model::PatchRollout;
-    /// let x = PatchDeployment::new().set_or_clear_rollout(Some(PatchRollout::default()/* use setters */));
-    /// let x = PatchDeployment::new().set_or_clear_rollout(None::<PatchRollout>);
-    /// ```
     pub fn set_or_clear_rollout<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::PatchRollout>,
@@ -9406,14 +7428,6 @@ impl PatchDeployment {
     }
 
     /// Sets the value of [state][crate::model::PatchDeployment::state].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::PatchDeployment;
-    /// use google_cloud_osconfig_v1::model::patch_deployment::State;
-    /// let x0 = PatchDeployment::new().set_state(State::Active);
-    /// let x1 = PatchDeployment::new().set_state(State::Paused);
-    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::patch_deployment::State>>(
         mut self,
         v: T,
@@ -9426,14 +7440,6 @@ impl PatchDeployment {
     ///
     /// Note that all the setters affecting `schedule` are mutually
     /// exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::PatchDeployment;
-    /// use google_cloud_osconfig_v1::model::patch_deployment;
-    /// use google_cloud_osconfig_v1::model::OneTimeSchedule;
-    /// let x = PatchDeployment::new().set_schedule(Some(patch_deployment::Schedule::OneTimeSchedule(OneTimeSchedule::default().into())));
-    /// ```
     pub fn set_schedule<
         T: std::convert::Into<std::option::Option<crate::model::patch_deployment::Schedule>>,
     >(
@@ -9464,15 +7470,6 @@ impl PatchDeployment {
     ///
     /// Note that all the setters affecting `schedule` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::PatchDeployment;
-    /// use google_cloud_osconfig_v1::model::OneTimeSchedule;
-    /// let x = PatchDeployment::new().set_one_time_schedule(OneTimeSchedule::default()/* use setters */);
-    /// assert!(x.one_time_schedule().is_some());
-    /// assert!(x.recurring_schedule().is_none());
-    /// ```
     pub fn set_one_time_schedule<
         T: std::convert::Into<std::boxed::Box<crate::model::OneTimeSchedule>>,
     >(
@@ -9505,15 +7502,6 @@ impl PatchDeployment {
     ///
     /// Note that all the setters affecting `schedule` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::PatchDeployment;
-    /// use google_cloud_osconfig_v1::model::RecurringSchedule;
-    /// let x = PatchDeployment::new().set_recurring_schedule(RecurringSchedule::default()/* use setters */);
-    /// assert!(x.recurring_schedule().is_some());
-    /// assert!(x.one_time_schedule().is_none());
-    /// ```
     pub fn set_recurring_schedule<
         T: std::convert::Into<std::boxed::Box<crate::model::RecurringSchedule>>,
     >(
@@ -9699,13 +7687,6 @@ impl OneTimeSchedule {
     }
 
     /// Sets the value of [execute_time][crate::model::OneTimeSchedule::execute_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::OneTimeSchedule;
-    /// use wkt::Timestamp;
-    /// let x = OneTimeSchedule::new().set_execute_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_execute_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -9715,14 +7696,6 @@ impl OneTimeSchedule {
     }
 
     /// Sets or clears the value of [execute_time][crate::model::OneTimeSchedule::execute_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::OneTimeSchedule;
-    /// use wkt::Timestamp;
-    /// let x = OneTimeSchedule::new().set_or_clear_execute_time(Some(Timestamp::default()/* use setters */));
-    /// let x = OneTimeSchedule::new().set_or_clear_execute_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_execute_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -9779,13 +7752,6 @@ impl RecurringSchedule {
     }
 
     /// Sets the value of [time_zone][crate::model::RecurringSchedule::time_zone].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::RecurringSchedule;
-    /// use gtype::model::TimeZone;
-    /// let x = RecurringSchedule::new().set_time_zone(TimeZone::default()/* use setters */);
-    /// ```
     pub fn set_time_zone<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<gtype::model::TimeZone>,
@@ -9795,14 +7761,6 @@ impl RecurringSchedule {
     }
 
     /// Sets or clears the value of [time_zone][crate::model::RecurringSchedule::time_zone].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::RecurringSchedule;
-    /// use gtype::model::TimeZone;
-    /// let x = RecurringSchedule::new().set_or_clear_time_zone(Some(TimeZone::default()/* use setters */));
-    /// let x = RecurringSchedule::new().set_or_clear_time_zone(None::<TimeZone>);
-    /// ```
     pub fn set_or_clear_time_zone<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<gtype::model::TimeZone>,
@@ -9812,13 +7770,6 @@ impl RecurringSchedule {
     }
 
     /// Sets the value of [start_time][crate::model::RecurringSchedule::start_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::RecurringSchedule;
-    /// use wkt::Timestamp;
-    /// let x = RecurringSchedule::new().set_start_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_start_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -9828,14 +7779,6 @@ impl RecurringSchedule {
     }
 
     /// Sets or clears the value of [start_time][crate::model::RecurringSchedule::start_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::RecurringSchedule;
-    /// use wkt::Timestamp;
-    /// let x = RecurringSchedule::new().set_or_clear_start_time(Some(Timestamp::default()/* use setters */));
-    /// let x = RecurringSchedule::new().set_or_clear_start_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -9845,13 +7788,6 @@ impl RecurringSchedule {
     }
 
     /// Sets the value of [end_time][crate::model::RecurringSchedule::end_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::RecurringSchedule;
-    /// use wkt::Timestamp;
-    /// let x = RecurringSchedule::new().set_end_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -9861,14 +7797,6 @@ impl RecurringSchedule {
     }
 
     /// Sets or clears the value of [end_time][crate::model::RecurringSchedule::end_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::RecurringSchedule;
-    /// use wkt::Timestamp;
-    /// let x = RecurringSchedule::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
-    /// let x = RecurringSchedule::new().set_or_clear_end_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -9878,13 +7806,6 @@ impl RecurringSchedule {
     }
 
     /// Sets the value of [time_of_day][crate::model::RecurringSchedule::time_of_day].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::RecurringSchedule;
-    /// use gtype::model::TimeOfDay;
-    /// let x = RecurringSchedule::new().set_time_of_day(TimeOfDay::default()/* use setters */);
-    /// ```
     pub fn set_time_of_day<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<gtype::model::TimeOfDay>,
@@ -9894,14 +7815,6 @@ impl RecurringSchedule {
     }
 
     /// Sets or clears the value of [time_of_day][crate::model::RecurringSchedule::time_of_day].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::RecurringSchedule;
-    /// use gtype::model::TimeOfDay;
-    /// let x = RecurringSchedule::new().set_or_clear_time_of_day(Some(TimeOfDay::default()/* use setters */));
-    /// let x = RecurringSchedule::new().set_or_clear_time_of_day(None::<TimeOfDay>);
-    /// ```
     pub fn set_or_clear_time_of_day<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<gtype::model::TimeOfDay>,
@@ -9911,15 +7824,6 @@ impl RecurringSchedule {
     }
 
     /// Sets the value of [frequency][crate::model::RecurringSchedule::frequency].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::RecurringSchedule;
-    /// use google_cloud_osconfig_v1::model::recurring_schedule::Frequency;
-    /// let x0 = RecurringSchedule::new().set_frequency(Frequency::Weekly);
-    /// let x1 = RecurringSchedule::new().set_frequency(Frequency::Monthly);
-    /// let x2 = RecurringSchedule::new().set_frequency(Frequency::Daily);
-    /// ```
     pub fn set_frequency<T: std::convert::Into<crate::model::recurring_schedule::Frequency>>(
         mut self,
         v: T,
@@ -9929,13 +7833,6 @@ impl RecurringSchedule {
     }
 
     /// Sets the value of [last_execute_time][crate::model::RecurringSchedule::last_execute_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::RecurringSchedule;
-    /// use wkt::Timestamp;
-    /// let x = RecurringSchedule::new().set_last_execute_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_last_execute_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -9945,14 +7842,6 @@ impl RecurringSchedule {
     }
 
     /// Sets or clears the value of [last_execute_time][crate::model::RecurringSchedule::last_execute_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::RecurringSchedule;
-    /// use wkt::Timestamp;
-    /// let x = RecurringSchedule::new().set_or_clear_last_execute_time(Some(Timestamp::default()/* use setters */));
-    /// let x = RecurringSchedule::new().set_or_clear_last_execute_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_last_execute_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -9962,13 +7851,6 @@ impl RecurringSchedule {
     }
 
     /// Sets the value of [next_execute_time][crate::model::RecurringSchedule::next_execute_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::RecurringSchedule;
-    /// use wkt::Timestamp;
-    /// let x = RecurringSchedule::new().set_next_execute_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_next_execute_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -9978,14 +7860,6 @@ impl RecurringSchedule {
     }
 
     /// Sets or clears the value of [next_execute_time][crate::model::RecurringSchedule::next_execute_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::RecurringSchedule;
-    /// use wkt::Timestamp;
-    /// let x = RecurringSchedule::new().set_or_clear_next_execute_time(Some(Timestamp::default()/* use setters */));
-    /// let x = RecurringSchedule::new().set_or_clear_next_execute_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_next_execute_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -9998,14 +7872,6 @@ impl RecurringSchedule {
     ///
     /// Note that all the setters affecting `schedule_config` are mutually
     /// exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::RecurringSchedule;
-    /// use google_cloud_osconfig_v1::model::recurring_schedule;
-    /// use google_cloud_osconfig_v1::model::WeeklySchedule;
-    /// let x = RecurringSchedule::new().set_schedule_config(Some(recurring_schedule::ScheduleConfig::Weekly(WeeklySchedule::default().into())));
-    /// ```
     pub fn set_schedule_config<
         T: std::convert::Into<std::option::Option<crate::model::recurring_schedule::ScheduleConfig>>,
     >(
@@ -10034,15 +7900,6 @@ impl RecurringSchedule {
     ///
     /// Note that all the setters affecting `schedule_config` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::RecurringSchedule;
-    /// use google_cloud_osconfig_v1::model::WeeklySchedule;
-    /// let x = RecurringSchedule::new().set_weekly(WeeklySchedule::default()/* use setters */);
-    /// assert!(x.weekly().is_some());
-    /// assert!(x.monthly().is_none());
-    /// ```
     pub fn set_weekly<T: std::convert::Into<std::boxed::Box<crate::model::WeeklySchedule>>>(
         mut self,
         v: T,
@@ -10071,15 +7928,6 @@ impl RecurringSchedule {
     ///
     /// Note that all the setters affecting `schedule_config` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::RecurringSchedule;
-    /// use google_cloud_osconfig_v1::model::MonthlySchedule;
-    /// let x = RecurringSchedule::new().set_monthly(MonthlySchedule::default()/* use setters */);
-    /// assert!(x.monthly().is_some());
-    /// assert!(x.weekly().is_none());
-    /// ```
     pub fn set_monthly<T: std::convert::Into<std::boxed::Box<crate::model::MonthlySchedule>>>(
         mut self,
         v: T,
@@ -10272,15 +8120,6 @@ impl WeeklySchedule {
     }
 
     /// Sets the value of [day_of_week][crate::model::WeeklySchedule::day_of_week].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::WeeklySchedule;
-    /// use gtype::model::DayOfWeek;
-    /// let x0 = WeeklySchedule::new().set_day_of_week(DayOfWeek::Monday);
-    /// let x1 = WeeklySchedule::new().set_day_of_week(DayOfWeek::Tuesday);
-    /// let x2 = WeeklySchedule::new().set_day_of_week(DayOfWeek::Wednesday);
-    /// ```
     pub fn set_day_of_week<T: std::convert::Into<gtype::model::DayOfWeek>>(mut self, v: T) -> Self {
         self.day_of_week = v.into();
         self
@@ -10313,13 +8152,6 @@ impl MonthlySchedule {
     ///
     /// Note that all the setters affecting `day_of_month` are mutually
     /// exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::MonthlySchedule;
-    /// use google_cloud_osconfig_v1::model::monthly_schedule;
-    /// let x = MonthlySchedule::new().set_day_of_month(Some(monthly_schedule::DayOfMonth::MonthDay(42)));
-    /// ```
     pub fn set_day_of_month<
         T: std::convert::Into<std::option::Option<crate::model::monthly_schedule::DayOfMonth>>,
     >(
@@ -10350,15 +8182,6 @@ impl MonthlySchedule {
     ///
     /// Note that all the setters affecting `day_of_month` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::MonthlySchedule;
-    /// use google_cloud_osconfig_v1::model::WeekDayOfMonth;
-    /// let x = MonthlySchedule::new().set_week_day_of_month(WeekDayOfMonth::default()/* use setters */);
-    /// assert!(x.week_day_of_month().is_some());
-    /// assert!(x.month_day().is_none());
-    /// ```
     pub fn set_week_day_of_month<
         T: std::convert::Into<std::boxed::Box<crate::model::WeekDayOfMonth>>,
     >(
@@ -10387,14 +8210,6 @@ impl MonthlySchedule {
     ///
     /// Note that all the setters affecting `day_of_month` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::MonthlySchedule;
-    /// let x = MonthlySchedule::new().set_month_day(42);
-    /// assert!(x.month_day().is_some());
-    /// assert!(x.week_day_of_month().is_none());
-    /// ```
     pub fn set_month_day<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.day_of_month = std::option::Option::Some(
             crate::model::monthly_schedule::DayOfMonth::MonthDay(v.into()),
@@ -10457,39 +8272,18 @@ impl WeekDayOfMonth {
     }
 
     /// Sets the value of [week_ordinal][crate::model::WeekDayOfMonth::week_ordinal].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::WeekDayOfMonth;
-    /// let x = WeekDayOfMonth::new().set_week_ordinal(42);
-    /// ```
     pub fn set_week_ordinal<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.week_ordinal = v.into();
         self
     }
 
     /// Sets the value of [day_of_week][crate::model::WeekDayOfMonth::day_of_week].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::WeekDayOfMonth;
-    /// use gtype::model::DayOfWeek;
-    /// let x0 = WeekDayOfMonth::new().set_day_of_week(DayOfWeek::Monday);
-    /// let x1 = WeekDayOfMonth::new().set_day_of_week(DayOfWeek::Tuesday);
-    /// let x2 = WeekDayOfMonth::new().set_day_of_week(DayOfWeek::Wednesday);
-    /// ```
     pub fn set_day_of_week<T: std::convert::Into<gtype::model::DayOfWeek>>(mut self, v: T) -> Self {
         self.day_of_week = v.into();
         self
     }
 
     /// Sets the value of [day_offset][crate::model::WeekDayOfMonth::day_offset].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::WeekDayOfMonth;
-    /// let x = WeekDayOfMonth::new().set_day_offset(42);
-    /// ```
     pub fn set_day_offset<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.day_offset = v.into();
         self
@@ -10532,24 +8326,12 @@ impl CreatePatchDeploymentRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreatePatchDeploymentRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::CreatePatchDeploymentRequest;
-    /// let x = CreatePatchDeploymentRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [patch_deployment_id][crate::model::CreatePatchDeploymentRequest::patch_deployment_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::CreatePatchDeploymentRequest;
-    /// let x = CreatePatchDeploymentRequest::new().set_patch_deployment_id("example");
-    /// ```
     pub fn set_patch_deployment_id<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -10559,13 +8341,6 @@ impl CreatePatchDeploymentRequest {
     }
 
     /// Sets the value of [patch_deployment][crate::model::CreatePatchDeploymentRequest::patch_deployment].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::CreatePatchDeploymentRequest;
-    /// use google_cloud_osconfig_v1::model::PatchDeployment;
-    /// let x = CreatePatchDeploymentRequest::new().set_patch_deployment(PatchDeployment::default()/* use setters */);
-    /// ```
     pub fn set_patch_deployment<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::PatchDeployment>,
@@ -10575,14 +8350,6 @@ impl CreatePatchDeploymentRequest {
     }
 
     /// Sets or clears the value of [patch_deployment][crate::model::CreatePatchDeploymentRequest::patch_deployment].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::CreatePatchDeploymentRequest;
-    /// use google_cloud_osconfig_v1::model::PatchDeployment;
-    /// let x = CreatePatchDeploymentRequest::new().set_or_clear_patch_deployment(Some(PatchDeployment::default()/* use setters */));
-    /// let x = CreatePatchDeploymentRequest::new().set_or_clear_patch_deployment(None::<PatchDeployment>);
-    /// ```
     pub fn set_or_clear_patch_deployment<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::PatchDeployment>,
@@ -10615,12 +8382,6 @@ impl GetPatchDeploymentRequest {
     }
 
     /// Sets the value of [name][crate::model::GetPatchDeploymentRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::GetPatchDeploymentRequest;
-    /// let x = GetPatchDeploymentRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -10658,36 +8419,18 @@ impl ListPatchDeploymentsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListPatchDeploymentsRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::ListPatchDeploymentsRequest;
-    /// let x = ListPatchDeploymentsRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListPatchDeploymentsRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::ListPatchDeploymentsRequest;
-    /// let x = ListPatchDeploymentsRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListPatchDeploymentsRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::ListPatchDeploymentsRequest;
-    /// let x = ListPatchDeploymentsRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -10720,17 +8463,6 @@ impl ListPatchDeploymentsResponse {
     }
 
     /// Sets the value of [patch_deployments][crate::model::ListPatchDeploymentsResponse::patch_deployments].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::ListPatchDeploymentsResponse;
-    /// use google_cloud_osconfig_v1::model::PatchDeployment;
-    /// let x = ListPatchDeploymentsResponse::new()
-    ///     .set_patch_deployments([
-    ///         PatchDeployment::default()/* use setters */,
-    ///         PatchDeployment::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_patch_deployments<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -10742,12 +8474,6 @@ impl ListPatchDeploymentsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListPatchDeploymentsResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::ListPatchDeploymentsResponse;
-    /// let x = ListPatchDeploymentsResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -10791,12 +8517,6 @@ impl DeletePatchDeploymentRequest {
     }
 
     /// Sets the value of [name][crate::model::DeletePatchDeploymentRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::DeletePatchDeploymentRequest;
-    /// let x = DeletePatchDeploymentRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -10829,13 +8549,6 @@ impl UpdatePatchDeploymentRequest {
     }
 
     /// Sets the value of [patch_deployment][crate::model::UpdatePatchDeploymentRequest::patch_deployment].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::UpdatePatchDeploymentRequest;
-    /// use google_cloud_osconfig_v1::model::PatchDeployment;
-    /// let x = UpdatePatchDeploymentRequest::new().set_patch_deployment(PatchDeployment::default()/* use setters */);
-    /// ```
     pub fn set_patch_deployment<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::PatchDeployment>,
@@ -10845,14 +8558,6 @@ impl UpdatePatchDeploymentRequest {
     }
 
     /// Sets or clears the value of [patch_deployment][crate::model::UpdatePatchDeploymentRequest::patch_deployment].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::UpdatePatchDeploymentRequest;
-    /// use google_cloud_osconfig_v1::model::PatchDeployment;
-    /// let x = UpdatePatchDeploymentRequest::new().set_or_clear_patch_deployment(Some(PatchDeployment::default()/* use setters */));
-    /// let x = UpdatePatchDeploymentRequest::new().set_or_clear_patch_deployment(None::<PatchDeployment>);
-    /// ```
     pub fn set_or_clear_patch_deployment<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::PatchDeployment>,
@@ -10862,13 +8567,6 @@ impl UpdatePatchDeploymentRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdatePatchDeploymentRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::UpdatePatchDeploymentRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdatePatchDeploymentRequest::new().set_update_mask(FieldMask::default()/* use setters */);
-    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -10878,14 +8576,6 @@ impl UpdatePatchDeploymentRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdatePatchDeploymentRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::UpdatePatchDeploymentRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdatePatchDeploymentRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
-    /// let x = UpdatePatchDeploymentRequest::new().set_or_clear_update_mask(None::<FieldMask>);
-    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -10918,12 +8608,6 @@ impl PausePatchDeploymentRequest {
     }
 
     /// Sets the value of [name][crate::model::PausePatchDeploymentRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::PausePatchDeploymentRequest;
-    /// let x = PausePatchDeploymentRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -10953,12 +8637,6 @@ impl ResumePatchDeploymentRequest {
     }
 
     /// Sets the value of [name][crate::model::ResumePatchDeploymentRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::ResumePatchDeploymentRequest;
-    /// let x = ResumePatchDeploymentRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -11014,37 +8692,18 @@ impl ExecutePatchJobRequest {
     }
 
     /// Sets the value of [parent][crate::model::ExecutePatchJobRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::ExecutePatchJobRequest;
-    /// let x = ExecutePatchJobRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [description][crate::model::ExecutePatchJobRequest::description].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::ExecutePatchJobRequest;
-    /// let x = ExecutePatchJobRequest::new().set_description("example");
-    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [instance_filter][crate::model::ExecutePatchJobRequest::instance_filter].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::ExecutePatchJobRequest;
-    /// use google_cloud_osconfig_v1::model::PatchInstanceFilter;
-    /// let x = ExecutePatchJobRequest::new().set_instance_filter(PatchInstanceFilter::default()/* use setters */);
-    /// ```
     pub fn set_instance_filter<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::PatchInstanceFilter>,
@@ -11054,14 +8713,6 @@ impl ExecutePatchJobRequest {
     }
 
     /// Sets or clears the value of [instance_filter][crate::model::ExecutePatchJobRequest::instance_filter].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::ExecutePatchJobRequest;
-    /// use google_cloud_osconfig_v1::model::PatchInstanceFilter;
-    /// let x = ExecutePatchJobRequest::new().set_or_clear_instance_filter(Some(PatchInstanceFilter::default()/* use setters */));
-    /// let x = ExecutePatchJobRequest::new().set_or_clear_instance_filter(None::<PatchInstanceFilter>);
-    /// ```
     pub fn set_or_clear_instance_filter<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::PatchInstanceFilter>,
@@ -11071,13 +8722,6 @@ impl ExecutePatchJobRequest {
     }
 
     /// Sets the value of [patch_config][crate::model::ExecutePatchJobRequest::patch_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::ExecutePatchJobRequest;
-    /// use google_cloud_osconfig_v1::model::PatchConfig;
-    /// let x = ExecutePatchJobRequest::new().set_patch_config(PatchConfig::default()/* use setters */);
-    /// ```
     pub fn set_patch_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::PatchConfig>,
@@ -11087,14 +8731,6 @@ impl ExecutePatchJobRequest {
     }
 
     /// Sets or clears the value of [patch_config][crate::model::ExecutePatchJobRequest::patch_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::ExecutePatchJobRequest;
-    /// use google_cloud_osconfig_v1::model::PatchConfig;
-    /// let x = ExecutePatchJobRequest::new().set_or_clear_patch_config(Some(PatchConfig::default()/* use setters */));
-    /// let x = ExecutePatchJobRequest::new().set_or_clear_patch_config(None::<PatchConfig>);
-    /// ```
     pub fn set_or_clear_patch_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::PatchConfig>,
@@ -11104,13 +8740,6 @@ impl ExecutePatchJobRequest {
     }
 
     /// Sets the value of [duration][crate::model::ExecutePatchJobRequest::duration].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::ExecutePatchJobRequest;
-    /// use wkt::Duration;
-    /// let x = ExecutePatchJobRequest::new().set_duration(Duration::default()/* use setters */);
-    /// ```
     pub fn set_duration<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -11120,14 +8749,6 @@ impl ExecutePatchJobRequest {
     }
 
     /// Sets or clears the value of [duration][crate::model::ExecutePatchJobRequest::duration].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::ExecutePatchJobRequest;
-    /// use wkt::Duration;
-    /// let x = ExecutePatchJobRequest::new().set_or_clear_duration(Some(Duration::default()/* use setters */));
-    /// let x = ExecutePatchJobRequest::new().set_or_clear_duration(None::<Duration>);
-    /// ```
     pub fn set_or_clear_duration<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -11137,37 +8758,18 @@ impl ExecutePatchJobRequest {
     }
 
     /// Sets the value of [dry_run][crate::model::ExecutePatchJobRequest::dry_run].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::ExecutePatchJobRequest;
-    /// let x = ExecutePatchJobRequest::new().set_dry_run(true);
-    /// ```
     pub fn set_dry_run<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.dry_run = v.into();
         self
     }
 
     /// Sets the value of [display_name][crate::model::ExecutePatchJobRequest::display_name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::ExecutePatchJobRequest;
-    /// let x = ExecutePatchJobRequest::new().set_display_name("example");
-    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
     }
 
     /// Sets the value of [rollout][crate::model::ExecutePatchJobRequest::rollout].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::ExecutePatchJobRequest;
-    /// use google_cloud_osconfig_v1::model::PatchRollout;
-    /// let x = ExecutePatchJobRequest::new().set_rollout(PatchRollout::default()/* use setters */);
-    /// ```
     pub fn set_rollout<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::PatchRollout>,
@@ -11177,14 +8779,6 @@ impl ExecutePatchJobRequest {
     }
 
     /// Sets or clears the value of [rollout][crate::model::ExecutePatchJobRequest::rollout].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::ExecutePatchJobRequest;
-    /// use google_cloud_osconfig_v1::model::PatchRollout;
-    /// let x = ExecutePatchJobRequest::new().set_or_clear_rollout(Some(PatchRollout::default()/* use setters */));
-    /// let x = ExecutePatchJobRequest::new().set_or_clear_rollout(None::<PatchRollout>);
-    /// ```
     pub fn set_or_clear_rollout<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::PatchRollout>,
@@ -11216,12 +8810,6 @@ impl GetPatchJobRequest {
     }
 
     /// Sets the value of [name][crate::model::GetPatchJobRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::GetPatchJobRequest;
-    /// let x = GetPatchJobRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -11263,48 +8851,24 @@ impl ListPatchJobInstanceDetailsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListPatchJobInstanceDetailsRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::ListPatchJobInstanceDetailsRequest;
-    /// let x = ListPatchJobInstanceDetailsRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListPatchJobInstanceDetailsRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::ListPatchJobInstanceDetailsRequest;
-    /// let x = ListPatchJobInstanceDetailsRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListPatchJobInstanceDetailsRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::ListPatchJobInstanceDetailsRequest;
-    /// let x = ListPatchJobInstanceDetailsRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListPatchJobInstanceDetailsRequest::filter].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::ListPatchJobInstanceDetailsRequest;
-    /// let x = ListPatchJobInstanceDetailsRequest::new().set_filter("example");
-    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
@@ -11336,17 +8900,6 @@ impl ListPatchJobInstanceDetailsResponse {
     }
 
     /// Sets the value of [patch_job_instance_details][crate::model::ListPatchJobInstanceDetailsResponse::patch_job_instance_details].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::ListPatchJobInstanceDetailsResponse;
-    /// use google_cloud_osconfig_v1::model::PatchJobInstanceDetails;
-    /// let x = ListPatchJobInstanceDetailsResponse::new()
-    ///     .set_patch_job_instance_details([
-    ///         PatchJobInstanceDetails::default()/* use setters */,
-    ///         PatchJobInstanceDetails::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_patch_job_instance_details<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -11358,12 +8911,6 @@ impl ListPatchJobInstanceDetailsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListPatchJobInstanceDetailsResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::ListPatchJobInstanceDetailsResponse;
-    /// let x = ListPatchJobInstanceDetailsResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -11422,24 +8969,12 @@ impl PatchJobInstanceDetails {
     }
 
     /// Sets the value of [name][crate::model::PatchJobInstanceDetails::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::PatchJobInstanceDetails;
-    /// let x = PatchJobInstanceDetails::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [instance_system_id][crate::model::PatchJobInstanceDetails::instance_system_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::PatchJobInstanceDetails;
-    /// let x = PatchJobInstanceDetails::new().set_instance_system_id("example");
-    /// ```
     pub fn set_instance_system_id<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -11449,15 +8984,6 @@ impl PatchJobInstanceDetails {
     }
 
     /// Sets the value of [state][crate::model::PatchJobInstanceDetails::state].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::PatchJobInstanceDetails;
-    /// use google_cloud_osconfig_v1::model::instance::PatchState;
-    /// let x0 = PatchJobInstanceDetails::new().set_state(PatchState::Pending);
-    /// let x1 = PatchJobInstanceDetails::new().set_state(PatchState::Inactive);
-    /// let x2 = PatchJobInstanceDetails::new().set_state(PatchState::Notified);
-    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::instance::PatchState>>(
         mut self,
         v: T,
@@ -11467,24 +8993,12 @@ impl PatchJobInstanceDetails {
     }
 
     /// Sets the value of [failure_reason][crate::model::PatchJobInstanceDetails::failure_reason].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::PatchJobInstanceDetails;
-    /// let x = PatchJobInstanceDetails::new().set_failure_reason("example");
-    /// ```
     pub fn set_failure_reason<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.failure_reason = v.into();
         self
     }
 
     /// Sets the value of [attempt_count][crate::model::PatchJobInstanceDetails::attempt_count].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::PatchJobInstanceDetails;
-    /// let x = PatchJobInstanceDetails::new().set_attempt_count(42);
-    /// ```
     pub fn set_attempt_count<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.attempt_count = v.into();
         self
@@ -11525,48 +9039,24 @@ impl ListPatchJobsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListPatchJobsRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::ListPatchJobsRequest;
-    /// let x = ListPatchJobsRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListPatchJobsRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::ListPatchJobsRequest;
-    /// let x = ListPatchJobsRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListPatchJobsRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::ListPatchJobsRequest;
-    /// let x = ListPatchJobsRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListPatchJobsRequest::filter].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::ListPatchJobsRequest;
-    /// let x = ListPatchJobsRequest::new().set_filter("example");
-    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
@@ -11598,17 +9088,6 @@ impl ListPatchJobsResponse {
     }
 
     /// Sets the value of [patch_jobs][crate::model::ListPatchJobsResponse::patch_jobs].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::ListPatchJobsResponse;
-    /// use google_cloud_osconfig_v1::model::PatchJob;
-    /// let x = ListPatchJobsResponse::new()
-    ///     .set_patch_jobs([
-    ///         PatchJob::default()/* use setters */,
-    ///         PatchJob::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_patch_jobs<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -11620,12 +9099,6 @@ impl ListPatchJobsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListPatchJobsResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::ListPatchJobsResponse;
-    /// let x = ListPatchJobsResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -11725,49 +9198,24 @@ impl PatchJob {
     }
 
     /// Sets the value of [name][crate::model::PatchJob::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::PatchJob;
-    /// let x = PatchJob::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [display_name][crate::model::PatchJob::display_name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::PatchJob;
-    /// let x = PatchJob::new().set_display_name("example");
-    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
     }
 
     /// Sets the value of [description][crate::model::PatchJob::description].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::PatchJob;
-    /// let x = PatchJob::new().set_description("example");
-    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::PatchJob::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::PatchJob;
-    /// use wkt::Timestamp;
-    /// let x = PatchJob::new().set_create_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -11777,14 +9225,6 @@ impl PatchJob {
     }
 
     /// Sets or clears the value of [create_time][crate::model::PatchJob::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::PatchJob;
-    /// use wkt::Timestamp;
-    /// let x = PatchJob::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
-    /// let x = PatchJob::new().set_or_clear_create_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -11794,13 +9234,6 @@ impl PatchJob {
     }
 
     /// Sets the value of [update_time][crate::model::PatchJob::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::PatchJob;
-    /// use wkt::Timestamp;
-    /// let x = PatchJob::new().set_update_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -11810,14 +9243,6 @@ impl PatchJob {
     }
 
     /// Sets or clears the value of [update_time][crate::model::PatchJob::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::PatchJob;
-    /// use wkt::Timestamp;
-    /// let x = PatchJob::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
-    /// let x = PatchJob::new().set_or_clear_update_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -11827,15 +9252,6 @@ impl PatchJob {
     }
 
     /// Sets the value of [state][crate::model::PatchJob::state].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::PatchJob;
-    /// use google_cloud_osconfig_v1::model::patch_job::State;
-    /// let x0 = PatchJob::new().set_state(State::Started);
-    /// let x1 = PatchJob::new().set_state(State::InstanceLookup);
-    /// let x2 = PatchJob::new().set_state(State::Patching);
-    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::patch_job::State>>(
         mut self,
         v: T,
@@ -11845,13 +9261,6 @@ impl PatchJob {
     }
 
     /// Sets the value of [instance_filter][crate::model::PatchJob::instance_filter].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::PatchJob;
-    /// use google_cloud_osconfig_v1::model::PatchInstanceFilter;
-    /// let x = PatchJob::new().set_instance_filter(PatchInstanceFilter::default()/* use setters */);
-    /// ```
     pub fn set_instance_filter<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::PatchInstanceFilter>,
@@ -11861,14 +9270,6 @@ impl PatchJob {
     }
 
     /// Sets or clears the value of [instance_filter][crate::model::PatchJob::instance_filter].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::PatchJob;
-    /// use google_cloud_osconfig_v1::model::PatchInstanceFilter;
-    /// let x = PatchJob::new().set_or_clear_instance_filter(Some(PatchInstanceFilter::default()/* use setters */));
-    /// let x = PatchJob::new().set_or_clear_instance_filter(None::<PatchInstanceFilter>);
-    /// ```
     pub fn set_or_clear_instance_filter<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::PatchInstanceFilter>,
@@ -11878,13 +9279,6 @@ impl PatchJob {
     }
 
     /// Sets the value of [patch_config][crate::model::PatchJob::patch_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::PatchJob;
-    /// use google_cloud_osconfig_v1::model::PatchConfig;
-    /// let x = PatchJob::new().set_patch_config(PatchConfig::default()/* use setters */);
-    /// ```
     pub fn set_patch_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::PatchConfig>,
@@ -11894,14 +9288,6 @@ impl PatchJob {
     }
 
     /// Sets or clears the value of [patch_config][crate::model::PatchJob::patch_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::PatchJob;
-    /// use google_cloud_osconfig_v1::model::PatchConfig;
-    /// let x = PatchJob::new().set_or_clear_patch_config(Some(PatchConfig::default()/* use setters */));
-    /// let x = PatchJob::new().set_or_clear_patch_config(None::<PatchConfig>);
-    /// ```
     pub fn set_or_clear_patch_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::PatchConfig>,
@@ -11911,13 +9297,6 @@ impl PatchJob {
     }
 
     /// Sets the value of [duration][crate::model::PatchJob::duration].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::PatchJob;
-    /// use wkt::Duration;
-    /// let x = PatchJob::new().set_duration(Duration::default()/* use setters */);
-    /// ```
     pub fn set_duration<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -11927,14 +9306,6 @@ impl PatchJob {
     }
 
     /// Sets or clears the value of [duration][crate::model::PatchJob::duration].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::PatchJob;
-    /// use wkt::Duration;
-    /// let x = PatchJob::new().set_or_clear_duration(Some(Duration::default()/* use setters */));
-    /// let x = PatchJob::new().set_or_clear_duration(None::<Duration>);
-    /// ```
     pub fn set_or_clear_duration<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -11944,13 +9315,6 @@ impl PatchJob {
     }
 
     /// Sets the value of [instance_details_summary][crate::model::PatchJob::instance_details_summary].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::PatchJob;
-    /// use google_cloud_osconfig_v1::model::patch_job::InstanceDetailsSummary;
-    /// let x = PatchJob::new().set_instance_details_summary(InstanceDetailsSummary::default()/* use setters */);
-    /// ```
     pub fn set_instance_details_summary<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::patch_job::InstanceDetailsSummary>,
@@ -11960,14 +9324,6 @@ impl PatchJob {
     }
 
     /// Sets or clears the value of [instance_details_summary][crate::model::PatchJob::instance_details_summary].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::PatchJob;
-    /// use google_cloud_osconfig_v1::model::patch_job::InstanceDetailsSummary;
-    /// let x = PatchJob::new().set_or_clear_instance_details_summary(Some(InstanceDetailsSummary::default()/* use setters */));
-    /// let x = PatchJob::new().set_or_clear_instance_details_summary(None::<InstanceDetailsSummary>);
-    /// ```
     pub fn set_or_clear_instance_details_summary<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::patch_job::InstanceDetailsSummary>,
@@ -11977,48 +9333,24 @@ impl PatchJob {
     }
 
     /// Sets the value of [dry_run][crate::model::PatchJob::dry_run].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::PatchJob;
-    /// let x = PatchJob::new().set_dry_run(true);
-    /// ```
     pub fn set_dry_run<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.dry_run = v.into();
         self
     }
 
     /// Sets the value of [error_message][crate::model::PatchJob::error_message].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::PatchJob;
-    /// let x = PatchJob::new().set_error_message("example");
-    /// ```
     pub fn set_error_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.error_message = v.into();
         self
     }
 
     /// Sets the value of [percent_complete][crate::model::PatchJob::percent_complete].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::PatchJob;
-    /// let x = PatchJob::new().set_percent_complete(42.0);
-    /// ```
     pub fn set_percent_complete<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
         self.percent_complete = v.into();
         self
     }
 
     /// Sets the value of [patch_deployment][crate::model::PatchJob::patch_deployment].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::PatchJob;
-    /// let x = PatchJob::new().set_patch_deployment("example");
-    /// ```
     pub fn set_patch_deployment<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -12028,13 +9360,6 @@ impl PatchJob {
     }
 
     /// Sets the value of [rollout][crate::model::PatchJob::rollout].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::PatchJob;
-    /// use google_cloud_osconfig_v1::model::PatchRollout;
-    /// let x = PatchJob::new().set_rollout(PatchRollout::default()/* use setters */);
-    /// ```
     pub fn set_rollout<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::PatchRollout>,
@@ -12044,14 +9369,6 @@ impl PatchJob {
     }
 
     /// Sets or clears the value of [rollout][crate::model::PatchJob::rollout].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::PatchJob;
-    /// use google_cloud_osconfig_v1::model::PatchRollout;
-    /// let x = PatchJob::new().set_or_clear_rollout(Some(PatchRollout::default()/* use setters */));
-    /// let x = PatchJob::new().set_or_clear_rollout(None::<PatchRollout>);
-    /// ```
     pub fn set_or_clear_rollout<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::PatchRollout>,
@@ -12135,60 +9452,30 @@ pub mod patch_job {
         }
 
         /// Sets the value of [pending_instance_count][crate::model::patch_job::InstanceDetailsSummary::pending_instance_count].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_osconfig_v1::model::patch_job::InstanceDetailsSummary;
-        /// let x = InstanceDetailsSummary::new().set_pending_instance_count(42);
-        /// ```
         pub fn set_pending_instance_count<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
             self.pending_instance_count = v.into();
             self
         }
 
         /// Sets the value of [inactive_instance_count][crate::model::patch_job::InstanceDetailsSummary::inactive_instance_count].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_osconfig_v1::model::patch_job::InstanceDetailsSummary;
-        /// let x = InstanceDetailsSummary::new().set_inactive_instance_count(42);
-        /// ```
         pub fn set_inactive_instance_count<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
             self.inactive_instance_count = v.into();
             self
         }
 
         /// Sets the value of [notified_instance_count][crate::model::patch_job::InstanceDetailsSummary::notified_instance_count].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_osconfig_v1::model::patch_job::InstanceDetailsSummary;
-        /// let x = InstanceDetailsSummary::new().set_notified_instance_count(42);
-        /// ```
         pub fn set_notified_instance_count<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
             self.notified_instance_count = v.into();
             self
         }
 
         /// Sets the value of [started_instance_count][crate::model::patch_job::InstanceDetailsSummary::started_instance_count].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_osconfig_v1::model::patch_job::InstanceDetailsSummary;
-        /// let x = InstanceDetailsSummary::new().set_started_instance_count(42);
-        /// ```
         pub fn set_started_instance_count<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
             self.started_instance_count = v.into();
             self
         }
 
         /// Sets the value of [downloading_patches_instance_count][crate::model::patch_job::InstanceDetailsSummary::downloading_patches_instance_count].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_osconfig_v1::model::patch_job::InstanceDetailsSummary;
-        /// let x = InstanceDetailsSummary::new().set_downloading_patches_instance_count(42);
-        /// ```
         pub fn set_downloading_patches_instance_count<T: std::convert::Into<i64>>(
             mut self,
             v: T,
@@ -12198,12 +9485,6 @@ pub mod patch_job {
         }
 
         /// Sets the value of [applying_patches_instance_count][crate::model::patch_job::InstanceDetailsSummary::applying_patches_instance_count].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_osconfig_v1::model::patch_job::InstanceDetailsSummary;
-        /// let x = InstanceDetailsSummary::new().set_applying_patches_instance_count(42);
-        /// ```
         pub fn set_applying_patches_instance_count<T: std::convert::Into<i64>>(
             mut self,
             v: T,
@@ -12213,36 +9494,18 @@ pub mod patch_job {
         }
 
         /// Sets the value of [rebooting_instance_count][crate::model::patch_job::InstanceDetailsSummary::rebooting_instance_count].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_osconfig_v1::model::patch_job::InstanceDetailsSummary;
-        /// let x = InstanceDetailsSummary::new().set_rebooting_instance_count(42);
-        /// ```
         pub fn set_rebooting_instance_count<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
             self.rebooting_instance_count = v.into();
             self
         }
 
         /// Sets the value of [succeeded_instance_count][crate::model::patch_job::InstanceDetailsSummary::succeeded_instance_count].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_osconfig_v1::model::patch_job::InstanceDetailsSummary;
-        /// let x = InstanceDetailsSummary::new().set_succeeded_instance_count(42);
-        /// ```
         pub fn set_succeeded_instance_count<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
             self.succeeded_instance_count = v.into();
             self
         }
 
         /// Sets the value of [succeeded_reboot_required_instance_count][crate::model::patch_job::InstanceDetailsSummary::succeeded_reboot_required_instance_count].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_osconfig_v1::model::patch_job::InstanceDetailsSummary;
-        /// let x = InstanceDetailsSummary::new().set_succeeded_reboot_required_instance_count(42);
-        /// ```
         pub fn set_succeeded_reboot_required_instance_count<T: std::convert::Into<i64>>(
             mut self,
             v: T,
@@ -12252,48 +9515,24 @@ pub mod patch_job {
         }
 
         /// Sets the value of [failed_instance_count][crate::model::patch_job::InstanceDetailsSummary::failed_instance_count].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_osconfig_v1::model::patch_job::InstanceDetailsSummary;
-        /// let x = InstanceDetailsSummary::new().set_failed_instance_count(42);
-        /// ```
         pub fn set_failed_instance_count<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
             self.failed_instance_count = v.into();
             self
         }
 
         /// Sets the value of [acked_instance_count][crate::model::patch_job::InstanceDetailsSummary::acked_instance_count].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_osconfig_v1::model::patch_job::InstanceDetailsSummary;
-        /// let x = InstanceDetailsSummary::new().set_acked_instance_count(42);
-        /// ```
         pub fn set_acked_instance_count<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
             self.acked_instance_count = v.into();
             self
         }
 
         /// Sets the value of [timed_out_instance_count][crate::model::patch_job::InstanceDetailsSummary::timed_out_instance_count].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_osconfig_v1::model::patch_job::InstanceDetailsSummary;
-        /// let x = InstanceDetailsSummary::new().set_timed_out_instance_count(42);
-        /// ```
         pub fn set_timed_out_instance_count<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
             self.timed_out_instance_count = v.into();
             self
         }
 
         /// Sets the value of [pre_patch_step_instance_count][crate::model::patch_job::InstanceDetailsSummary::pre_patch_step_instance_count].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_osconfig_v1::model::patch_job::InstanceDetailsSummary;
-        /// let x = InstanceDetailsSummary::new().set_pre_patch_step_instance_count(42);
-        /// ```
         pub fn set_pre_patch_step_instance_count<T: std::convert::Into<i64>>(
             mut self,
             v: T,
@@ -12303,12 +9542,6 @@ pub mod patch_job {
         }
 
         /// Sets the value of [post_patch_step_instance_count][crate::model::patch_job::InstanceDetailsSummary::post_patch_step_instance_count].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_osconfig_v1::model::patch_job::InstanceDetailsSummary;
-        /// let x = InstanceDetailsSummary::new().set_post_patch_step_instance_count(42);
-        /// ```
         pub fn set_post_patch_step_instance_count<T: std::convert::Into<i64>>(
             mut self,
             v: T,
@@ -12318,12 +9551,6 @@ pub mod patch_job {
         }
 
         /// Sets the value of [no_agent_detected_instance_count][crate::model::patch_job::InstanceDetailsSummary::no_agent_detected_instance_count].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_osconfig_v1::model::patch_job::InstanceDetailsSummary;
-        /// let x = InstanceDetailsSummary::new().set_no_agent_detected_instance_count(42);
-        /// ```
         pub fn set_no_agent_detected_instance_count<T: std::convert::Into<i64>>(
             mut self,
             v: T,
@@ -12553,15 +9780,6 @@ impl PatchConfig {
     }
 
     /// Sets the value of [reboot_config][crate::model::PatchConfig::reboot_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::PatchConfig;
-    /// use google_cloud_osconfig_v1::model::patch_config::RebootConfig;
-    /// let x0 = PatchConfig::new().set_reboot_config(RebootConfig::Default);
-    /// let x1 = PatchConfig::new().set_reboot_config(RebootConfig::Always);
-    /// let x2 = PatchConfig::new().set_reboot_config(RebootConfig::Never);
-    /// ```
     pub fn set_reboot_config<T: std::convert::Into<crate::model::patch_config::RebootConfig>>(
         mut self,
         v: T,
@@ -12571,13 +9789,6 @@ impl PatchConfig {
     }
 
     /// Sets the value of [apt][crate::model::PatchConfig::apt].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::PatchConfig;
-    /// use google_cloud_osconfig_v1::model::AptSettings;
-    /// let x = PatchConfig::new().set_apt(AptSettings::default()/* use setters */);
-    /// ```
     pub fn set_apt<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::AptSettings>,
@@ -12587,14 +9798,6 @@ impl PatchConfig {
     }
 
     /// Sets or clears the value of [apt][crate::model::PatchConfig::apt].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::PatchConfig;
-    /// use google_cloud_osconfig_v1::model::AptSettings;
-    /// let x = PatchConfig::new().set_or_clear_apt(Some(AptSettings::default()/* use setters */));
-    /// let x = PatchConfig::new().set_or_clear_apt(None::<AptSettings>);
-    /// ```
     pub fn set_or_clear_apt<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AptSettings>,
@@ -12604,13 +9807,6 @@ impl PatchConfig {
     }
 
     /// Sets the value of [yum][crate::model::PatchConfig::yum].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::PatchConfig;
-    /// use google_cloud_osconfig_v1::model::YumSettings;
-    /// let x = PatchConfig::new().set_yum(YumSettings::default()/* use setters */);
-    /// ```
     pub fn set_yum<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::YumSettings>,
@@ -12620,14 +9816,6 @@ impl PatchConfig {
     }
 
     /// Sets or clears the value of [yum][crate::model::PatchConfig::yum].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::PatchConfig;
-    /// use google_cloud_osconfig_v1::model::YumSettings;
-    /// let x = PatchConfig::new().set_or_clear_yum(Some(YumSettings::default()/* use setters */));
-    /// let x = PatchConfig::new().set_or_clear_yum(None::<YumSettings>);
-    /// ```
     pub fn set_or_clear_yum<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::YumSettings>,
@@ -12637,13 +9825,6 @@ impl PatchConfig {
     }
 
     /// Sets the value of [goo][crate::model::PatchConfig::goo].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::PatchConfig;
-    /// use google_cloud_osconfig_v1::model::GooSettings;
-    /// let x = PatchConfig::new().set_goo(GooSettings::default()/* use setters */);
-    /// ```
     pub fn set_goo<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::GooSettings>,
@@ -12653,14 +9834,6 @@ impl PatchConfig {
     }
 
     /// Sets or clears the value of [goo][crate::model::PatchConfig::goo].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::PatchConfig;
-    /// use google_cloud_osconfig_v1::model::GooSettings;
-    /// let x = PatchConfig::new().set_or_clear_goo(Some(GooSettings::default()/* use setters */));
-    /// let x = PatchConfig::new().set_or_clear_goo(None::<GooSettings>);
-    /// ```
     pub fn set_or_clear_goo<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::GooSettings>,
@@ -12670,13 +9843,6 @@ impl PatchConfig {
     }
 
     /// Sets the value of [zypper][crate::model::PatchConfig::zypper].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::PatchConfig;
-    /// use google_cloud_osconfig_v1::model::ZypperSettings;
-    /// let x = PatchConfig::new().set_zypper(ZypperSettings::default()/* use setters */);
-    /// ```
     pub fn set_zypper<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ZypperSettings>,
@@ -12686,14 +9852,6 @@ impl PatchConfig {
     }
 
     /// Sets or clears the value of [zypper][crate::model::PatchConfig::zypper].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::PatchConfig;
-    /// use google_cloud_osconfig_v1::model::ZypperSettings;
-    /// let x = PatchConfig::new().set_or_clear_zypper(Some(ZypperSettings::default()/* use setters */));
-    /// let x = PatchConfig::new().set_or_clear_zypper(None::<ZypperSettings>);
-    /// ```
     pub fn set_or_clear_zypper<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ZypperSettings>,
@@ -12703,13 +9861,6 @@ impl PatchConfig {
     }
 
     /// Sets the value of [windows_update][crate::model::PatchConfig::windows_update].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::PatchConfig;
-    /// use google_cloud_osconfig_v1::model::WindowsUpdateSettings;
-    /// let x = PatchConfig::new().set_windows_update(WindowsUpdateSettings::default()/* use setters */);
-    /// ```
     pub fn set_windows_update<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::WindowsUpdateSettings>,
@@ -12719,14 +9870,6 @@ impl PatchConfig {
     }
 
     /// Sets or clears the value of [windows_update][crate::model::PatchConfig::windows_update].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::PatchConfig;
-    /// use google_cloud_osconfig_v1::model::WindowsUpdateSettings;
-    /// let x = PatchConfig::new().set_or_clear_windows_update(Some(WindowsUpdateSettings::default()/* use setters */));
-    /// let x = PatchConfig::new().set_or_clear_windows_update(None::<WindowsUpdateSettings>);
-    /// ```
     pub fn set_or_clear_windows_update<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::WindowsUpdateSettings>,
@@ -12736,13 +9879,6 @@ impl PatchConfig {
     }
 
     /// Sets the value of [pre_step][crate::model::PatchConfig::pre_step].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::PatchConfig;
-    /// use google_cloud_osconfig_v1::model::ExecStep;
-    /// let x = PatchConfig::new().set_pre_step(ExecStep::default()/* use setters */);
-    /// ```
     pub fn set_pre_step<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ExecStep>,
@@ -12752,14 +9888,6 @@ impl PatchConfig {
     }
 
     /// Sets or clears the value of [pre_step][crate::model::PatchConfig::pre_step].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::PatchConfig;
-    /// use google_cloud_osconfig_v1::model::ExecStep;
-    /// let x = PatchConfig::new().set_or_clear_pre_step(Some(ExecStep::default()/* use setters */));
-    /// let x = PatchConfig::new().set_or_clear_pre_step(None::<ExecStep>);
-    /// ```
     pub fn set_or_clear_pre_step<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ExecStep>,
@@ -12769,13 +9897,6 @@ impl PatchConfig {
     }
 
     /// Sets the value of [post_step][crate::model::PatchConfig::post_step].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::PatchConfig;
-    /// use google_cloud_osconfig_v1::model::ExecStep;
-    /// let x = PatchConfig::new().set_post_step(ExecStep::default()/* use setters */);
-    /// ```
     pub fn set_post_step<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ExecStep>,
@@ -12785,14 +9906,6 @@ impl PatchConfig {
     }
 
     /// Sets or clears the value of [post_step][crate::model::PatchConfig::post_step].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::PatchConfig;
-    /// use google_cloud_osconfig_v1::model::ExecStep;
-    /// let x = PatchConfig::new().set_or_clear_post_step(Some(ExecStep::default()/* use setters */));
-    /// let x = PatchConfig::new().set_or_clear_post_step(None::<ExecStep>);
-    /// ```
     pub fn set_or_clear_post_step<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ExecStep>,
@@ -12802,12 +9915,6 @@ impl PatchConfig {
     }
 
     /// Sets the value of [mig_instances_allowed][crate::model::PatchConfig::mig_instances_allowed].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::PatchConfig;
-    /// let x = PatchConfig::new().set_mig_instances_allowed(true);
-    /// ```
     pub fn set_mig_instances_allowed<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.mig_instances_allowed = v.into();
         self
@@ -13236,12 +10343,6 @@ impl CancelPatchJobRequest {
     }
 
     /// Sets the value of [name][crate::model::CancelPatchJobRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::CancelPatchJobRequest;
-    /// let x = CancelPatchJobRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -13281,14 +10382,6 @@ impl AptSettings {
     }
 
     /// Sets the value of [r#type][crate::model::AptSettings::type].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::AptSettings;
-    /// use google_cloud_osconfig_v1::model::apt_settings::Type;
-    /// let x0 = AptSettings::new().set_type(Type::Dist);
-    /// let x1 = AptSettings::new().set_type(Type::Upgrade);
-    /// ```
     pub fn set_type<T: std::convert::Into<crate::model::apt_settings::Type>>(
         mut self,
         v: T,
@@ -13298,12 +10391,6 @@ impl AptSettings {
     }
 
     /// Sets the value of [excludes][crate::model::AptSettings::excludes].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::AptSettings;
-    /// let x = AptSettings::new().set_excludes(["a", "b", "c"]);
-    /// ```
     pub fn set_excludes<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -13315,12 +10402,6 @@ impl AptSettings {
     }
 
     /// Sets the value of [exclusive_packages][crate::model::AptSettings::exclusive_packages].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::AptSettings;
-    /// let x = AptSettings::new().set_exclusive_packages(["a", "b", "c"]);
-    /// ```
     pub fn set_exclusive_packages<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -13509,36 +10590,18 @@ impl YumSettings {
     }
 
     /// Sets the value of [security][crate::model::YumSettings::security].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::YumSettings;
-    /// let x = YumSettings::new().set_security(true);
-    /// ```
     pub fn set_security<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.security = v.into();
         self
     }
 
     /// Sets the value of [minimal][crate::model::YumSettings::minimal].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::YumSettings;
-    /// let x = YumSettings::new().set_minimal(true);
-    /// ```
     pub fn set_minimal<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.minimal = v.into();
         self
     }
 
     /// Sets the value of [excludes][crate::model::YumSettings::excludes].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::YumSettings;
-    /// let x = YumSettings::new().set_excludes(["a", "b", "c"]);
-    /// ```
     pub fn set_excludes<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -13550,12 +10613,6 @@ impl YumSettings {
     }
 
     /// Sets the value of [exclusive_packages][crate::model::YumSettings::exclusive_packages].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::YumSettings;
-    /// let x = YumSettings::new().set_exclusive_packages(["a", "b", "c"]);
-    /// ```
     pub fn set_exclusive_packages<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -13628,36 +10685,18 @@ impl ZypperSettings {
     }
 
     /// Sets the value of [with_optional][crate::model::ZypperSettings::with_optional].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::ZypperSettings;
-    /// let x = ZypperSettings::new().set_with_optional(true);
-    /// ```
     pub fn set_with_optional<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.with_optional = v.into();
         self
     }
 
     /// Sets the value of [with_update][crate::model::ZypperSettings::with_update].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::ZypperSettings;
-    /// let x = ZypperSettings::new().set_with_update(true);
-    /// ```
     pub fn set_with_update<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.with_update = v.into();
         self
     }
 
     /// Sets the value of [categories][crate::model::ZypperSettings::categories].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::ZypperSettings;
-    /// let x = ZypperSettings::new().set_categories(["a", "b", "c"]);
-    /// ```
     pub fn set_categories<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -13669,12 +10708,6 @@ impl ZypperSettings {
     }
 
     /// Sets the value of [severities][crate::model::ZypperSettings::severities].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::ZypperSettings;
-    /// let x = ZypperSettings::new().set_severities(["a", "b", "c"]);
-    /// ```
     pub fn set_severities<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -13686,12 +10719,6 @@ impl ZypperSettings {
     }
 
     /// Sets the value of [excludes][crate::model::ZypperSettings::excludes].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::ZypperSettings;
-    /// let x = ZypperSettings::new().set_excludes(["a", "b", "c"]);
-    /// ```
     pub fn set_excludes<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -13703,12 +10730,6 @@ impl ZypperSettings {
     }
 
     /// Sets the value of [exclusive_patches][crate::model::ZypperSettings::exclusive_patches].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::ZypperSettings;
-    /// let x = ZypperSettings::new().set_exclusive_patches(["a", "b", "c"]);
-    /// ```
     pub fn set_exclusive_patches<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -13751,17 +10772,6 @@ impl WindowsUpdateSettings {
     }
 
     /// Sets the value of [classifications][crate::model::WindowsUpdateSettings::classifications].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::WindowsUpdateSettings;
-    /// use google_cloud_osconfig_v1::model::windows_update_settings::Classification;
-    /// let x = WindowsUpdateSettings::new().set_classifications([
-    ///     Classification::Critical,
-    ///     Classification::Security,
-    ///     Classification::Definition,
-    /// ]);
-    /// ```
     pub fn set_classifications<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -13773,12 +10783,6 @@ impl WindowsUpdateSettings {
     }
 
     /// Sets the value of [excludes][crate::model::WindowsUpdateSettings::excludes].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::WindowsUpdateSettings;
-    /// let x = WindowsUpdateSettings::new().set_excludes(["a", "b", "c"]);
-    /// ```
     pub fn set_excludes<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -13790,12 +10794,6 @@ impl WindowsUpdateSettings {
     }
 
     /// Sets the value of [exclusive_patches][crate::model::WindowsUpdateSettings::exclusive_patches].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::WindowsUpdateSettings;
-    /// let x = WindowsUpdateSettings::new().set_exclusive_patches(["a", "b", "c"]);
-    /// ```
     pub fn set_exclusive_patches<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -14038,13 +11036,6 @@ impl ExecStep {
     }
 
     /// Sets the value of [linux_exec_step_config][crate::model::ExecStep::linux_exec_step_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::ExecStep;
-    /// use google_cloud_osconfig_v1::model::ExecStepConfig;
-    /// let x = ExecStep::new().set_linux_exec_step_config(ExecStepConfig::default()/* use setters */);
-    /// ```
     pub fn set_linux_exec_step_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ExecStepConfig>,
@@ -14054,14 +11045,6 @@ impl ExecStep {
     }
 
     /// Sets or clears the value of [linux_exec_step_config][crate::model::ExecStep::linux_exec_step_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::ExecStep;
-    /// use google_cloud_osconfig_v1::model::ExecStepConfig;
-    /// let x = ExecStep::new().set_or_clear_linux_exec_step_config(Some(ExecStepConfig::default()/* use setters */));
-    /// let x = ExecStep::new().set_or_clear_linux_exec_step_config(None::<ExecStepConfig>);
-    /// ```
     pub fn set_or_clear_linux_exec_step_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ExecStepConfig>,
@@ -14071,13 +11054,6 @@ impl ExecStep {
     }
 
     /// Sets the value of [windows_exec_step_config][crate::model::ExecStep::windows_exec_step_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::ExecStep;
-    /// use google_cloud_osconfig_v1::model::ExecStepConfig;
-    /// let x = ExecStep::new().set_windows_exec_step_config(ExecStepConfig::default()/* use setters */);
-    /// ```
     pub fn set_windows_exec_step_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ExecStepConfig>,
@@ -14087,14 +11063,6 @@ impl ExecStep {
     }
 
     /// Sets or clears the value of [windows_exec_step_config][crate::model::ExecStep::windows_exec_step_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::ExecStep;
-    /// use google_cloud_osconfig_v1::model::ExecStepConfig;
-    /// let x = ExecStep::new().set_or_clear_windows_exec_step_config(Some(ExecStepConfig::default()/* use setters */));
-    /// let x = ExecStep::new().set_or_clear_windows_exec_step_config(None::<ExecStepConfig>);
-    /// ```
     pub fn set_or_clear_windows_exec_step_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ExecStepConfig>,
@@ -14136,12 +11104,6 @@ impl ExecStepConfig {
     }
 
     /// Sets the value of [allowed_success_codes][crate::model::ExecStepConfig::allowed_success_codes].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::ExecStepConfig;
-    /// let x = ExecStepConfig::new().set_allowed_success_codes([1, 2, 3]);
-    /// ```
     pub fn set_allowed_success_codes<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -14153,14 +11115,6 @@ impl ExecStepConfig {
     }
 
     /// Sets the value of [interpreter][crate::model::ExecStepConfig::interpreter].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::ExecStepConfig;
-    /// use google_cloud_osconfig_v1::model::exec_step_config::Interpreter;
-    /// let x0 = ExecStepConfig::new().set_interpreter(Interpreter::Shell);
-    /// let x1 = ExecStepConfig::new().set_interpreter(Interpreter::Powershell);
-    /// ```
     pub fn set_interpreter<T: std::convert::Into<crate::model::exec_step_config::Interpreter>>(
         mut self,
         v: T,
@@ -14173,13 +11127,6 @@ impl ExecStepConfig {
     ///
     /// Note that all the setters affecting `executable` are mutually
     /// exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::ExecStepConfig;
-    /// use google_cloud_osconfig_v1::model::exec_step_config;
-    /// let x = ExecStepConfig::new().set_executable(Some(exec_step_config::Executable::LocalPath("example".to_string())));
-    /// ```
     pub fn set_executable<
         T: std::convert::Into<std::option::Option<crate::model::exec_step_config::Executable>>,
     >(
@@ -14208,14 +11155,6 @@ impl ExecStepConfig {
     ///
     /// Note that all the setters affecting `executable` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::ExecStepConfig;
-    /// let x = ExecStepConfig::new().set_local_path("example");
-    /// assert!(x.local_path().is_some());
-    /// assert!(x.gcs_object().is_none());
-    /// ```
     pub fn set_local_path<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.executable = std::option::Option::Some(
             crate::model::exec_step_config::Executable::LocalPath(v.into()),
@@ -14241,15 +11180,6 @@ impl ExecStepConfig {
     ///
     /// Note that all the setters affecting `executable` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::ExecStepConfig;
-    /// use google_cloud_osconfig_v1::model::GcsObject;
-    /// let x = ExecStepConfig::new().set_gcs_object(GcsObject::default()/* use setters */);
-    /// assert!(x.gcs_object().is_some());
-    /// assert!(x.local_path().is_none());
-    /// ```
     pub fn set_gcs_object<T: std::convert::Into<std::boxed::Box<crate::model::GcsObject>>>(
         mut self,
         v: T,
@@ -14442,36 +11372,18 @@ impl GcsObject {
     }
 
     /// Sets the value of [bucket][crate::model::GcsObject::bucket].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::GcsObject;
-    /// let x = GcsObject::new().set_bucket("example");
-    /// ```
     pub fn set_bucket<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.bucket = v.into();
         self
     }
 
     /// Sets the value of [object][crate::model::GcsObject::object].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::GcsObject;
-    /// let x = GcsObject::new().set_object("example");
-    /// ```
     pub fn set_object<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.object = v.into();
         self
     }
 
     /// Sets the value of [generation_number][crate::model::GcsObject::generation_number].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::GcsObject;
-    /// let x = GcsObject::new().set_generation_number(42);
-    /// ```
     pub fn set_generation_number<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.generation_number = v.into();
         self
@@ -14523,29 +11435,12 @@ impl PatchInstanceFilter {
     }
 
     /// Sets the value of [all][crate::model::PatchInstanceFilter::all].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::PatchInstanceFilter;
-    /// let x = PatchInstanceFilter::new().set_all(true);
-    /// ```
     pub fn set_all<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.all = v.into();
         self
     }
 
     /// Sets the value of [group_labels][crate::model::PatchInstanceFilter::group_labels].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::PatchInstanceFilter;
-    /// use google_cloud_osconfig_v1::model::patch_instance_filter::GroupLabel;
-    /// let x = PatchInstanceFilter::new()
-    ///     .set_group_labels([
-    ///         GroupLabel::default()/* use setters */,
-    ///         GroupLabel::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_group_labels<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -14557,12 +11452,6 @@ impl PatchInstanceFilter {
     }
 
     /// Sets the value of [zones][crate::model::PatchInstanceFilter::zones].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::PatchInstanceFilter;
-    /// let x = PatchInstanceFilter::new().set_zones(["a", "b", "c"]);
-    /// ```
     pub fn set_zones<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -14574,12 +11463,6 @@ impl PatchInstanceFilter {
     }
 
     /// Sets the value of [instances][crate::model::PatchInstanceFilter::instances].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::PatchInstanceFilter;
-    /// let x = PatchInstanceFilter::new().set_instances(["a", "b", "c"]);
-    /// ```
     pub fn set_instances<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -14591,12 +11474,6 @@ impl PatchInstanceFilter {
     }
 
     /// Sets the value of [instance_name_prefixes][crate::model::PatchInstanceFilter::instance_name_prefixes].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::PatchInstanceFilter;
-    /// let x = PatchInstanceFilter::new().set_instance_name_prefixes(["a", "b", "c"]);
-    /// ```
     pub fn set_instance_name_prefixes<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -14643,15 +11520,6 @@ pub mod patch_instance_filter {
         }
 
         /// Sets the value of [labels][crate::model::patch_instance_filter::GroupLabel::labels].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_osconfig_v1::model::patch_instance_filter::GroupLabel;
-        /// let x = GroupLabel::new().set_labels([
-        ///     ("key0", "abc"),
-        ///     ("key1", "xyz"),
-        /// ]);
-        /// ```
         pub fn set_labels<T, K, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = (K, V)>,
@@ -14713,14 +11581,6 @@ impl PatchRollout {
     }
 
     /// Sets the value of [mode][crate::model::PatchRollout::mode].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::PatchRollout;
-    /// use google_cloud_osconfig_v1::model::patch_rollout::Mode;
-    /// let x0 = PatchRollout::new().set_mode(Mode::ZoneByZone);
-    /// let x1 = PatchRollout::new().set_mode(Mode::ConcurrentZones);
-    /// ```
     pub fn set_mode<T: std::convert::Into<crate::model::patch_rollout::Mode>>(
         mut self,
         v: T,
@@ -14730,13 +11590,6 @@ impl PatchRollout {
     }
 
     /// Sets the value of [disruption_budget][crate::model::PatchRollout::disruption_budget].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::PatchRollout;
-    /// use google_cloud_osconfig_v1::model::FixedOrPercent;
-    /// let x = PatchRollout::new().set_disruption_budget(FixedOrPercent::default()/* use setters */);
-    /// ```
     pub fn set_disruption_budget<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::FixedOrPercent>,
@@ -14746,14 +11599,6 @@ impl PatchRollout {
     }
 
     /// Sets or clears the value of [disruption_budget][crate::model::PatchRollout::disruption_budget].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::PatchRollout;
-    /// use google_cloud_osconfig_v1::model::FixedOrPercent;
-    /// let x = PatchRollout::new().set_or_clear_disruption_budget(Some(FixedOrPercent::default()/* use setters */));
-    /// let x = PatchRollout::new().set_or_clear_disruption_budget(None::<FixedOrPercent>);
-    /// ```
     pub fn set_or_clear_disruption_budget<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::FixedOrPercent>,
@@ -14947,29 +11792,12 @@ impl VulnerabilityReport {
     }
 
     /// Sets the value of [name][crate::model::VulnerabilityReport::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::VulnerabilityReport;
-    /// let x = VulnerabilityReport::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [vulnerabilities][crate::model::VulnerabilityReport::vulnerabilities].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::VulnerabilityReport;
-    /// use google_cloud_osconfig_v1::model::vulnerability_report::Vulnerability;
-    /// let x = VulnerabilityReport::new()
-    ///     .set_vulnerabilities([
-    ///         Vulnerability::default()/* use setters */,
-    ///         Vulnerability::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_vulnerabilities<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -14981,13 +11809,6 @@ impl VulnerabilityReport {
     }
 
     /// Sets the value of [update_time][crate::model::VulnerabilityReport::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::VulnerabilityReport;
-    /// use wkt::Timestamp;
-    /// let x = VulnerabilityReport::new().set_update_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -14997,14 +11818,6 @@ impl VulnerabilityReport {
     }
 
     /// Sets or clears the value of [update_time][crate::model::VulnerabilityReport::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::VulnerabilityReport;
-    /// use wkt::Timestamp;
-    /// let x = VulnerabilityReport::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
-    /// let x = VulnerabilityReport::new().set_or_clear_update_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -15014,15 +11827,6 @@ impl VulnerabilityReport {
     }
 
     /// Sets the value of [highest_upgradable_cve_severity][crate::model::VulnerabilityReport::highest_upgradable_cve_severity].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::VulnerabilityReport;
-    /// use google_cloud_osconfig_v1::model::vulnerability_report::VulnerabilitySeverityLevel;
-    /// let x0 = VulnerabilityReport::new().set_highest_upgradable_cve_severity(VulnerabilitySeverityLevel::None);
-    /// let x1 = VulnerabilityReport::new().set_highest_upgradable_cve_severity(VulnerabilitySeverityLevel::Minimal);
-    /// let x2 = VulnerabilityReport::new().set_highest_upgradable_cve_severity(VulnerabilitySeverityLevel::Low);
-    /// ```
     pub fn set_highest_upgradable_cve_severity<
         T: std::convert::Into<crate::model::vulnerability_report::VulnerabilitySeverityLevel>,
     >(
@@ -15089,13 +11893,6 @@ pub mod vulnerability_report {
         }
 
         /// Sets the value of [details][crate::model::vulnerability_report::Vulnerability::details].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_osconfig_v1::model::vulnerability_report::Vulnerability;
-        /// use google_cloud_osconfig_v1::model::vulnerability_report::vulnerability::Details;
-        /// let x = Vulnerability::new().set_details(Details::default()/* use setters */);
-        /// ```
         pub fn set_details<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::vulnerability_report::vulnerability::Details>,
@@ -15105,14 +11902,6 @@ pub mod vulnerability_report {
         }
 
         /// Sets or clears the value of [details][crate::model::vulnerability_report::Vulnerability::details].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_osconfig_v1::model::vulnerability_report::Vulnerability;
-        /// use google_cloud_osconfig_v1::model::vulnerability_report::vulnerability::Details;
-        /// let x = Vulnerability::new().set_or_clear_details(Some(Details::default()/* use setters */));
-        /// let x = Vulnerability::new().set_or_clear_details(None::<Details>);
-        /// ```
         pub fn set_or_clear_details<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::vulnerability_report::vulnerability::Details>,
@@ -15122,12 +11911,6 @@ pub mod vulnerability_report {
         }
 
         /// Sets the value of [installed_inventory_item_ids][crate::model::vulnerability_report::Vulnerability::installed_inventory_item_ids].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_osconfig_v1::model::vulnerability_report::Vulnerability;
-        /// let x = Vulnerability::new().set_installed_inventory_item_ids(["a", "b", "c"]);
-        /// ```
         #[deprecated]
         pub fn set_installed_inventory_item_ids<T, V>(mut self, v: T) -> Self
         where
@@ -15140,12 +11923,6 @@ pub mod vulnerability_report {
         }
 
         /// Sets the value of [available_inventory_item_ids][crate::model::vulnerability_report::Vulnerability::available_inventory_item_ids].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_osconfig_v1::model::vulnerability_report::Vulnerability;
-        /// let x = Vulnerability::new().set_available_inventory_item_ids(["a", "b", "c"]);
-        /// ```
         #[deprecated]
         pub fn set_available_inventory_item_ids<T, V>(mut self, v: T) -> Self
         where
@@ -15158,13 +11935,6 @@ pub mod vulnerability_report {
         }
 
         /// Sets the value of [create_time][crate::model::vulnerability_report::Vulnerability::create_time].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_osconfig_v1::model::vulnerability_report::Vulnerability;
-        /// use wkt::Timestamp;
-        /// let x = Vulnerability::new().set_create_time(Timestamp::default()/* use setters */);
-        /// ```
         pub fn set_create_time<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -15174,14 +11944,6 @@ pub mod vulnerability_report {
         }
 
         /// Sets or clears the value of [create_time][crate::model::vulnerability_report::Vulnerability::create_time].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_osconfig_v1::model::vulnerability_report::Vulnerability;
-        /// use wkt::Timestamp;
-        /// let x = Vulnerability::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
-        /// let x = Vulnerability::new().set_or_clear_create_time(None::<Timestamp>);
-        /// ```
         pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -15191,13 +11953,6 @@ pub mod vulnerability_report {
         }
 
         /// Sets the value of [update_time][crate::model::vulnerability_report::Vulnerability::update_time].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_osconfig_v1::model::vulnerability_report::Vulnerability;
-        /// use wkt::Timestamp;
-        /// let x = Vulnerability::new().set_update_time(Timestamp::default()/* use setters */);
-        /// ```
         pub fn set_update_time<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -15207,14 +11962,6 @@ pub mod vulnerability_report {
         }
 
         /// Sets or clears the value of [update_time][crate::model::vulnerability_report::Vulnerability::update_time].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_osconfig_v1::model::vulnerability_report::Vulnerability;
-        /// use wkt::Timestamp;
-        /// let x = Vulnerability::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
-        /// let x = Vulnerability::new().set_or_clear_update_time(None::<Timestamp>);
-        /// ```
         pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -15224,17 +11971,6 @@ pub mod vulnerability_report {
         }
 
         /// Sets the value of [items][crate::model::vulnerability_report::Vulnerability::items].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_osconfig_v1::model::vulnerability_report::Vulnerability;
-        /// use google_cloud_osconfig_v1::model::vulnerability_report::vulnerability::Item;
-        /// let x = Vulnerability::new()
-        ///     .set_items([
-        ///         Item::default()/* use setters */,
-        ///         Item::default()/* use (different) setters */,
-        ///     ]);
-        /// ```
         pub fn set_items<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -15294,37 +12030,18 @@ pub mod vulnerability_report {
             }
 
             /// Sets the value of [cve][crate::model::vulnerability_report::vulnerability::Details::cve].
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_osconfig_v1::model::vulnerability_report::vulnerability::Details;
-            /// let x = Details::new().set_cve("example");
-            /// ```
             pub fn set_cve<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
                 self.cve = v.into();
                 self
             }
 
             /// Sets the value of [cvss_v2_score][crate::model::vulnerability_report::vulnerability::Details::cvss_v2_score].
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_osconfig_v1::model::vulnerability_report::vulnerability::Details;
-            /// let x = Details::new().set_cvss_v2_score(42.0);
-            /// ```
             pub fn set_cvss_v2_score<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
                 self.cvss_v2_score = v.into();
                 self
             }
 
             /// Sets the value of [cvss_v3][crate::model::vulnerability_report::vulnerability::Details::cvss_v3].
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_osconfig_v1::model::vulnerability_report::vulnerability::Details;
-            /// use google_cloud_osconfig_v1::model::CVSSv3;
-            /// let x = Details::new().set_cvss_v3(CVSSv3::default()/* use setters */);
-            /// ```
             pub fn set_cvss_v3<T>(mut self, v: T) -> Self
             where
                 T: std::convert::Into<crate::model::CVSSv3>,
@@ -15334,14 +12051,6 @@ pub mod vulnerability_report {
             }
 
             /// Sets or clears the value of [cvss_v3][crate::model::vulnerability_report::vulnerability::Details::cvss_v3].
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_osconfig_v1::model::vulnerability_report::vulnerability::Details;
-            /// use google_cloud_osconfig_v1::model::CVSSv3;
-            /// let x = Details::new().set_or_clear_cvss_v3(Some(CVSSv3::default()/* use setters */));
-            /// let x = Details::new().set_or_clear_cvss_v3(None::<CVSSv3>);
-            /// ```
             pub fn set_or_clear_cvss_v3<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<crate::model::CVSSv3>,
@@ -15351,12 +12060,6 @@ pub mod vulnerability_report {
             }
 
             /// Sets the value of [severity][crate::model::vulnerability_report::vulnerability::Details::severity].
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_osconfig_v1::model::vulnerability_report::vulnerability::Details;
-            /// let x = Details::new().set_severity("example");
-            /// ```
             pub fn set_severity<T: std::convert::Into<std::string::String>>(
                 mut self,
                 v: T,
@@ -15366,12 +12069,6 @@ pub mod vulnerability_report {
             }
 
             /// Sets the value of [description][crate::model::vulnerability_report::vulnerability::Details::description].
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_osconfig_v1::model::vulnerability_report::vulnerability::Details;
-            /// let x = Details::new().set_description("example");
-            /// ```
             pub fn set_description<T: std::convert::Into<std::string::String>>(
                 mut self,
                 v: T,
@@ -15381,17 +12078,6 @@ pub mod vulnerability_report {
             }
 
             /// Sets the value of [references][crate::model::vulnerability_report::vulnerability::Details::references].
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_osconfig_v1::model::vulnerability_report::vulnerability::Details;
-            /// use google_cloud_osconfig_v1::model::vulnerability_report::vulnerability::details::Reference;
-            /// let x = Details::new()
-            ///     .set_references([
-            ///         Reference::default()/* use setters */,
-            ///         Reference::default()/* use (different) setters */,
-            ///     ]);
-            /// ```
             pub fn set_references<T, V>(mut self, v: T) -> Self
             where
                 T: std::iter::IntoIterator<Item = V>,
@@ -15435,24 +12121,12 @@ pub mod vulnerability_report {
                 }
 
                 /// Sets the value of [url][crate::model::vulnerability_report::vulnerability::details::Reference::url].
-                ///
-                /// # Example
-                /// ```
-                /// # use google_cloud_osconfig_v1::model::vulnerability_report::vulnerability::details::Reference;
-                /// let x = Reference::new().set_url("example");
-                /// ```
                 pub fn set_url<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
                     self.url = v.into();
                     self
                 }
 
                 /// Sets the value of [source][crate::model::vulnerability_report::vulnerability::details::Reference::source].
-                ///
-                /// # Example
-                /// ```
-                /// # use google_cloud_osconfig_v1::model::vulnerability_report::vulnerability::details::Reference;
-                /// let x = Reference::new().set_source("example");
-                /// ```
                 pub fn set_source<T: std::convert::Into<std::string::String>>(
                     mut self,
                     v: T,
@@ -15505,12 +12179,6 @@ pub mod vulnerability_report {
             }
 
             /// Sets the value of [installed_inventory_item_id][crate::model::vulnerability_report::vulnerability::Item::installed_inventory_item_id].
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_osconfig_v1::model::vulnerability_report::vulnerability::Item;
-            /// let x = Item::new().set_installed_inventory_item_id("example");
-            /// ```
             pub fn set_installed_inventory_item_id<T: std::convert::Into<std::string::String>>(
                 mut self,
                 v: T,
@@ -15520,12 +12188,6 @@ pub mod vulnerability_report {
             }
 
             /// Sets the value of [available_inventory_item_id][crate::model::vulnerability_report::vulnerability::Item::available_inventory_item_id].
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_osconfig_v1::model::vulnerability_report::vulnerability::Item;
-            /// let x = Item::new().set_available_inventory_item_id("example");
-            /// ```
             pub fn set_available_inventory_item_id<T: std::convert::Into<std::string::String>>(
                 mut self,
                 v: T,
@@ -15535,12 +12197,6 @@ pub mod vulnerability_report {
             }
 
             /// Sets the value of [fixed_cpe_uri][crate::model::vulnerability_report::vulnerability::Item::fixed_cpe_uri].
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_osconfig_v1::model::vulnerability_report::vulnerability::Item;
-            /// let x = Item::new().set_fixed_cpe_uri("example");
-            /// ```
             pub fn set_fixed_cpe_uri<T: std::convert::Into<std::string::String>>(
                 mut self,
                 v: T,
@@ -15550,12 +12206,6 @@ pub mod vulnerability_report {
             }
 
             /// Sets the value of [upstream_fix][crate::model::vulnerability_report::vulnerability::Item::upstream_fix].
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_osconfig_v1::model::vulnerability_report::vulnerability::Item;
-            /// let x = Item::new().set_upstream_fix("example");
-            /// ```
             pub fn set_upstream_fix<T: std::convert::Into<std::string::String>>(
                 mut self,
                 v: T,
@@ -15765,12 +12415,6 @@ impl GetVulnerabilityReportRequest {
     }
 
     /// Sets the value of [name][crate::model::GetVulnerabilityReportRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::GetVulnerabilityReportRequest;
-    /// let x = GetVulnerabilityReportRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -15831,48 +12475,24 @@ impl ListVulnerabilityReportsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListVulnerabilityReportsRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::ListVulnerabilityReportsRequest;
-    /// let x = ListVulnerabilityReportsRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListVulnerabilityReportsRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::ListVulnerabilityReportsRequest;
-    /// let x = ListVulnerabilityReportsRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListVulnerabilityReportsRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::ListVulnerabilityReportsRequest;
-    /// let x = ListVulnerabilityReportsRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListVulnerabilityReportsRequest::filter].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::ListVulnerabilityReportsRequest;
-    /// let x = ListVulnerabilityReportsRequest::new().set_filter("example");
-    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
@@ -15906,17 +12526,6 @@ impl ListVulnerabilityReportsResponse {
     }
 
     /// Sets the value of [vulnerability_reports][crate::model::ListVulnerabilityReportsResponse::vulnerability_reports].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::ListVulnerabilityReportsResponse;
-    /// use google_cloud_osconfig_v1::model::VulnerabilityReport;
-    /// let x = ListVulnerabilityReportsResponse::new()
-    ///     .set_vulnerability_reports([
-    ///         VulnerabilityReport::default()/* use setters */,
-    ///         VulnerabilityReport::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_vulnerability_reports<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -15928,12 +12537,6 @@ impl ListVulnerabilityReportsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListVulnerabilityReportsResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::ListVulnerabilityReportsResponse;
-    /// let x = ListVulnerabilityReportsResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -16020,51 +12623,24 @@ impl CVSSv3 {
     }
 
     /// Sets the value of [base_score][crate::model::CVSSv3::base_score].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::CVSSv3;
-    /// let x = CVSSv3::new().set_base_score(42.0);
-    /// ```
     pub fn set_base_score<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
         self.base_score = v.into();
         self
     }
 
     /// Sets the value of [exploitability_score][crate::model::CVSSv3::exploitability_score].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::CVSSv3;
-    /// let x = CVSSv3::new().set_exploitability_score(42.0);
-    /// ```
     pub fn set_exploitability_score<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
         self.exploitability_score = v.into();
         self
     }
 
     /// Sets the value of [impact_score][crate::model::CVSSv3::impact_score].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::CVSSv3;
-    /// let x = CVSSv3::new().set_impact_score(42.0);
-    /// ```
     pub fn set_impact_score<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
         self.impact_score = v.into();
         self
     }
 
     /// Sets the value of [attack_vector][crate::model::CVSSv3::attack_vector].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::CVSSv3;
-    /// use google_cloud_osconfig_v1::model::cvs_sv_3::AttackVector;
-    /// let x0 = CVSSv3::new().set_attack_vector(AttackVector::Network);
-    /// let x1 = CVSSv3::new().set_attack_vector(AttackVector::Adjacent);
-    /// let x2 = CVSSv3::new().set_attack_vector(AttackVector::Local);
-    /// ```
     pub fn set_attack_vector<T: std::convert::Into<crate::model::cvs_sv_3::AttackVector>>(
         mut self,
         v: T,
@@ -16074,14 +12650,6 @@ impl CVSSv3 {
     }
 
     /// Sets the value of [attack_complexity][crate::model::CVSSv3::attack_complexity].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::CVSSv3;
-    /// use google_cloud_osconfig_v1::model::cvs_sv_3::AttackComplexity;
-    /// let x0 = CVSSv3::new().set_attack_complexity(AttackComplexity::Low);
-    /// let x1 = CVSSv3::new().set_attack_complexity(AttackComplexity::High);
-    /// ```
     pub fn set_attack_complexity<
         T: std::convert::Into<crate::model::cvs_sv_3::AttackComplexity>,
     >(
@@ -16093,15 +12661,6 @@ impl CVSSv3 {
     }
 
     /// Sets the value of [privileges_required][crate::model::CVSSv3::privileges_required].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::CVSSv3;
-    /// use google_cloud_osconfig_v1::model::cvs_sv_3::PrivilegesRequired;
-    /// let x0 = CVSSv3::new().set_privileges_required(PrivilegesRequired::None);
-    /// let x1 = CVSSv3::new().set_privileges_required(PrivilegesRequired::Low);
-    /// let x2 = CVSSv3::new().set_privileges_required(PrivilegesRequired::High);
-    /// ```
     pub fn set_privileges_required<
         T: std::convert::Into<crate::model::cvs_sv_3::PrivilegesRequired>,
     >(
@@ -16113,14 +12672,6 @@ impl CVSSv3 {
     }
 
     /// Sets the value of [user_interaction][crate::model::CVSSv3::user_interaction].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::CVSSv3;
-    /// use google_cloud_osconfig_v1::model::cvs_sv_3::UserInteraction;
-    /// let x0 = CVSSv3::new().set_user_interaction(UserInteraction::None);
-    /// let x1 = CVSSv3::new().set_user_interaction(UserInteraction::Required);
-    /// ```
     pub fn set_user_interaction<T: std::convert::Into<crate::model::cvs_sv_3::UserInteraction>>(
         mut self,
         v: T,
@@ -16130,29 +12681,12 @@ impl CVSSv3 {
     }
 
     /// Sets the value of [scope][crate::model::CVSSv3::scope].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::CVSSv3;
-    /// use google_cloud_osconfig_v1::model::cvs_sv_3::Scope;
-    /// let x0 = CVSSv3::new().set_scope(Scope::Unchanged);
-    /// let x1 = CVSSv3::new().set_scope(Scope::Changed);
-    /// ```
     pub fn set_scope<T: std::convert::Into<crate::model::cvs_sv_3::Scope>>(mut self, v: T) -> Self {
         self.scope = v.into();
         self
     }
 
     /// Sets the value of [confidentiality_impact][crate::model::CVSSv3::confidentiality_impact].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::CVSSv3;
-    /// use google_cloud_osconfig_v1::model::cvs_sv_3::Impact;
-    /// let x0 = CVSSv3::new().set_confidentiality_impact(Impact::High);
-    /// let x1 = CVSSv3::new().set_confidentiality_impact(Impact::Low);
-    /// let x2 = CVSSv3::new().set_confidentiality_impact(Impact::None);
-    /// ```
     pub fn set_confidentiality_impact<T: std::convert::Into<crate::model::cvs_sv_3::Impact>>(
         mut self,
         v: T,
@@ -16162,15 +12696,6 @@ impl CVSSv3 {
     }
 
     /// Sets the value of [integrity_impact][crate::model::CVSSv3::integrity_impact].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::CVSSv3;
-    /// use google_cloud_osconfig_v1::model::cvs_sv_3::Impact;
-    /// let x0 = CVSSv3::new().set_integrity_impact(Impact::High);
-    /// let x1 = CVSSv3::new().set_integrity_impact(Impact::Low);
-    /// let x2 = CVSSv3::new().set_integrity_impact(Impact::None);
-    /// ```
     pub fn set_integrity_impact<T: std::convert::Into<crate::model::cvs_sv_3::Impact>>(
         mut self,
         v: T,
@@ -16180,15 +12705,6 @@ impl CVSSv3 {
     }
 
     /// Sets the value of [availability_impact][crate::model::CVSSv3::availability_impact].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_osconfig_v1::model::CVSSv3;
-    /// use google_cloud_osconfig_v1::model::cvs_sv_3::Impact;
-    /// let x0 = CVSSv3::new().set_availability_impact(Impact::High);
-    /// let x1 = CVSSv3::new().set_availability_impact(Impact::Low);
-    /// let x2 = CVSSv3::new().set_availability_impact(Impact::None);
-    /// ```
     pub fn set_availability_impact<T: std::convert::Into<crate::model::cvs_sv_3::Impact>>(
         mut self,
         v: T,

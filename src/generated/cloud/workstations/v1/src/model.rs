@@ -122,63 +122,30 @@ impl WorkstationCluster {
     }
 
     /// Sets the value of [name][crate::model::WorkstationCluster::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_workstations_v1::model::WorkstationCluster;
-    /// let x = WorkstationCluster::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [display_name][crate::model::WorkstationCluster::display_name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_workstations_v1::model::WorkstationCluster;
-    /// let x = WorkstationCluster::new().set_display_name("example");
-    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
     }
 
     /// Sets the value of [uid][crate::model::WorkstationCluster::uid].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_workstations_v1::model::WorkstationCluster;
-    /// let x = WorkstationCluster::new().set_uid("example");
-    /// ```
     pub fn set_uid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.uid = v.into();
         self
     }
 
     /// Sets the value of [reconciling][crate::model::WorkstationCluster::reconciling].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_workstations_v1::model::WorkstationCluster;
-    /// let x = WorkstationCluster::new().set_reconciling(true);
-    /// ```
     pub fn set_reconciling<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.reconciling = v.into();
         self
     }
 
     /// Sets the value of [annotations][crate::model::WorkstationCluster::annotations].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_workstations_v1::model::WorkstationCluster;
-    /// let x = WorkstationCluster::new().set_annotations([
-    ///     ("key0", "abc"),
-    ///     ("key1", "xyz"),
-    /// ]);
-    /// ```
     pub fn set_annotations<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -191,15 +158,6 @@ impl WorkstationCluster {
     }
 
     /// Sets the value of [labels][crate::model::WorkstationCluster::labels].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_workstations_v1::model::WorkstationCluster;
-    /// let x = WorkstationCluster::new().set_labels([
-    ///     ("key0", "abc"),
-    ///     ("key1", "xyz"),
-    /// ]);
-    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -212,13 +170,6 @@ impl WorkstationCluster {
     }
 
     /// Sets the value of [create_time][crate::model::WorkstationCluster::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_workstations_v1::model::WorkstationCluster;
-    /// use wkt::Timestamp;
-    /// let x = WorkstationCluster::new().set_create_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -228,14 +179,6 @@ impl WorkstationCluster {
     }
 
     /// Sets or clears the value of [create_time][crate::model::WorkstationCluster::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_workstations_v1::model::WorkstationCluster;
-    /// use wkt::Timestamp;
-    /// let x = WorkstationCluster::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
-    /// let x = WorkstationCluster::new().set_or_clear_create_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -245,13 +188,6 @@ impl WorkstationCluster {
     }
 
     /// Sets the value of [update_time][crate::model::WorkstationCluster::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_workstations_v1::model::WorkstationCluster;
-    /// use wkt::Timestamp;
-    /// let x = WorkstationCluster::new().set_update_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -261,14 +197,6 @@ impl WorkstationCluster {
     }
 
     /// Sets or clears the value of [update_time][crate::model::WorkstationCluster::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_workstations_v1::model::WorkstationCluster;
-    /// use wkt::Timestamp;
-    /// let x = WorkstationCluster::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
-    /// let x = WorkstationCluster::new().set_or_clear_update_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -278,13 +206,6 @@ impl WorkstationCluster {
     }
 
     /// Sets the value of [delete_time][crate::model::WorkstationCluster::delete_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_workstations_v1::model::WorkstationCluster;
-    /// use wkt::Timestamp;
-    /// let x = WorkstationCluster::new().set_delete_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_delete_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -294,14 +215,6 @@ impl WorkstationCluster {
     }
 
     /// Sets or clears the value of [delete_time][crate::model::WorkstationCluster::delete_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_workstations_v1::model::WorkstationCluster;
-    /// use wkt::Timestamp;
-    /// let x = WorkstationCluster::new().set_or_clear_delete_time(Some(Timestamp::default()/* use setters */));
-    /// let x = WorkstationCluster::new().set_or_clear_delete_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_delete_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -311,48 +224,24 @@ impl WorkstationCluster {
     }
 
     /// Sets the value of [etag][crate::model::WorkstationCluster::etag].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_workstations_v1::model::WorkstationCluster;
-    /// let x = WorkstationCluster::new().set_etag("example");
-    /// ```
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
     }
 
     /// Sets the value of [network][crate::model::WorkstationCluster::network].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_workstations_v1::model::WorkstationCluster;
-    /// let x = WorkstationCluster::new().set_network("example");
-    /// ```
     pub fn set_network<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.network = v.into();
         self
     }
 
     /// Sets the value of [subnetwork][crate::model::WorkstationCluster::subnetwork].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_workstations_v1::model::WorkstationCluster;
-    /// let x = WorkstationCluster::new().set_subnetwork("example");
-    /// ```
     pub fn set_subnetwork<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.subnetwork = v.into();
         self
     }
 
     /// Sets the value of [control_plane_ip][crate::model::WorkstationCluster::control_plane_ip].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_workstations_v1::model::WorkstationCluster;
-    /// let x = WorkstationCluster::new().set_control_plane_ip("example");
-    /// ```
     pub fn set_control_plane_ip<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -362,13 +251,6 @@ impl WorkstationCluster {
     }
 
     /// Sets the value of [private_cluster_config][crate::model::WorkstationCluster::private_cluster_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_workstations_v1::model::WorkstationCluster;
-    /// use google_cloud_workstations_v1::model::workstation_cluster::PrivateClusterConfig;
-    /// let x = WorkstationCluster::new().set_private_cluster_config(PrivateClusterConfig::default()/* use setters */);
-    /// ```
     pub fn set_private_cluster_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::workstation_cluster::PrivateClusterConfig>,
@@ -378,14 +260,6 @@ impl WorkstationCluster {
     }
 
     /// Sets or clears the value of [private_cluster_config][crate::model::WorkstationCluster::private_cluster_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_workstations_v1::model::WorkstationCluster;
-    /// use google_cloud_workstations_v1::model::workstation_cluster::PrivateClusterConfig;
-    /// let x = WorkstationCluster::new().set_or_clear_private_cluster_config(Some(PrivateClusterConfig::default()/* use setters */));
-    /// let x = WorkstationCluster::new().set_or_clear_private_cluster_config(None::<PrivateClusterConfig>);
-    /// ```
     pub fn set_or_clear_private_cluster_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::workstation_cluster::PrivateClusterConfig>,
@@ -395,29 +269,12 @@ impl WorkstationCluster {
     }
 
     /// Sets the value of [degraded][crate::model::WorkstationCluster::degraded].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_workstations_v1::model::WorkstationCluster;
-    /// let x = WorkstationCluster::new().set_degraded(true);
-    /// ```
     pub fn set_degraded<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.degraded = v.into();
         self
     }
 
     /// Sets the value of [conditions][crate::model::WorkstationCluster::conditions].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_workstations_v1::model::WorkstationCluster;
-    /// use rpc::model::Status;
-    /// let x = WorkstationCluster::new()
-    ///     .set_conditions([
-    ///         Status::default()/* use setters */,
-    ///         Status::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_conditions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -475,24 +332,12 @@ pub mod workstation_cluster {
         }
 
         /// Sets the value of [enable_private_endpoint][crate::model::workstation_cluster::PrivateClusterConfig::enable_private_endpoint].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_workstations_v1::model::workstation_cluster::PrivateClusterConfig;
-        /// let x = PrivateClusterConfig::new().set_enable_private_endpoint(true);
-        /// ```
         pub fn set_enable_private_endpoint<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.enable_private_endpoint = v.into();
             self
         }
 
         /// Sets the value of [cluster_hostname][crate::model::workstation_cluster::PrivateClusterConfig::cluster_hostname].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_workstations_v1::model::workstation_cluster::PrivateClusterConfig;
-        /// let x = PrivateClusterConfig::new().set_cluster_hostname("example");
-        /// ```
         pub fn set_cluster_hostname<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -502,12 +347,6 @@ pub mod workstation_cluster {
         }
 
         /// Sets the value of [service_attachment_uri][crate::model::workstation_cluster::PrivateClusterConfig::service_attachment_uri].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_workstations_v1::model::workstation_cluster::PrivateClusterConfig;
-        /// let x = PrivateClusterConfig::new().set_service_attachment_uri("example");
-        /// ```
         pub fn set_service_attachment_uri<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -517,12 +356,6 @@ pub mod workstation_cluster {
         }
 
         /// Sets the value of [allowed_projects][crate::model::workstation_cluster::PrivateClusterConfig::allowed_projects].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_workstations_v1::model::workstation_cluster::PrivateClusterConfig;
-        /// let x = PrivateClusterConfig::new().set_allowed_projects(["a", "b", "c"]);
-        /// ```
         pub fn set_allowed_projects<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -696,63 +529,30 @@ impl WorkstationConfig {
     }
 
     /// Sets the value of [name][crate::model::WorkstationConfig::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_workstations_v1::model::WorkstationConfig;
-    /// let x = WorkstationConfig::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [display_name][crate::model::WorkstationConfig::display_name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_workstations_v1::model::WorkstationConfig;
-    /// let x = WorkstationConfig::new().set_display_name("example");
-    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
     }
 
     /// Sets the value of [uid][crate::model::WorkstationConfig::uid].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_workstations_v1::model::WorkstationConfig;
-    /// let x = WorkstationConfig::new().set_uid("example");
-    /// ```
     pub fn set_uid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.uid = v.into();
         self
     }
 
     /// Sets the value of [reconciling][crate::model::WorkstationConfig::reconciling].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_workstations_v1::model::WorkstationConfig;
-    /// let x = WorkstationConfig::new().set_reconciling(true);
-    /// ```
     pub fn set_reconciling<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.reconciling = v.into();
         self
     }
 
     /// Sets the value of [annotations][crate::model::WorkstationConfig::annotations].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_workstations_v1::model::WorkstationConfig;
-    /// let x = WorkstationConfig::new().set_annotations([
-    ///     ("key0", "abc"),
-    ///     ("key1", "xyz"),
-    /// ]);
-    /// ```
     pub fn set_annotations<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -765,15 +565,6 @@ impl WorkstationConfig {
     }
 
     /// Sets the value of [labels][crate::model::WorkstationConfig::labels].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_workstations_v1::model::WorkstationConfig;
-    /// let x = WorkstationConfig::new().set_labels([
-    ///     ("key0", "abc"),
-    ///     ("key1", "xyz"),
-    /// ]);
-    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -786,13 +577,6 @@ impl WorkstationConfig {
     }
 
     /// Sets the value of [create_time][crate::model::WorkstationConfig::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_workstations_v1::model::WorkstationConfig;
-    /// use wkt::Timestamp;
-    /// let x = WorkstationConfig::new().set_create_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -802,14 +586,6 @@ impl WorkstationConfig {
     }
 
     /// Sets or clears the value of [create_time][crate::model::WorkstationConfig::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_workstations_v1::model::WorkstationConfig;
-    /// use wkt::Timestamp;
-    /// let x = WorkstationConfig::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
-    /// let x = WorkstationConfig::new().set_or_clear_create_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -819,13 +595,6 @@ impl WorkstationConfig {
     }
 
     /// Sets the value of [update_time][crate::model::WorkstationConfig::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_workstations_v1::model::WorkstationConfig;
-    /// use wkt::Timestamp;
-    /// let x = WorkstationConfig::new().set_update_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -835,14 +604,6 @@ impl WorkstationConfig {
     }
 
     /// Sets or clears the value of [update_time][crate::model::WorkstationConfig::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_workstations_v1::model::WorkstationConfig;
-    /// use wkt::Timestamp;
-    /// let x = WorkstationConfig::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
-    /// let x = WorkstationConfig::new().set_or_clear_update_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -852,13 +613,6 @@ impl WorkstationConfig {
     }
 
     /// Sets the value of [delete_time][crate::model::WorkstationConfig::delete_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_workstations_v1::model::WorkstationConfig;
-    /// use wkt::Timestamp;
-    /// let x = WorkstationConfig::new().set_delete_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_delete_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -868,14 +622,6 @@ impl WorkstationConfig {
     }
 
     /// Sets or clears the value of [delete_time][crate::model::WorkstationConfig::delete_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_workstations_v1::model::WorkstationConfig;
-    /// use wkt::Timestamp;
-    /// let x = WorkstationConfig::new().set_or_clear_delete_time(Some(Timestamp::default()/* use setters */));
-    /// let x = WorkstationConfig::new().set_or_clear_delete_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_delete_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -885,25 +631,12 @@ impl WorkstationConfig {
     }
 
     /// Sets the value of [etag][crate::model::WorkstationConfig::etag].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_workstations_v1::model::WorkstationConfig;
-    /// let x = WorkstationConfig::new().set_etag("example");
-    /// ```
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
     }
 
     /// Sets the value of [idle_timeout][crate::model::WorkstationConfig::idle_timeout].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_workstations_v1::model::WorkstationConfig;
-    /// use wkt::Duration;
-    /// let x = WorkstationConfig::new().set_idle_timeout(Duration::default()/* use setters */);
-    /// ```
     pub fn set_idle_timeout<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -913,14 +646,6 @@ impl WorkstationConfig {
     }
 
     /// Sets or clears the value of [idle_timeout][crate::model::WorkstationConfig::idle_timeout].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_workstations_v1::model::WorkstationConfig;
-    /// use wkt::Duration;
-    /// let x = WorkstationConfig::new().set_or_clear_idle_timeout(Some(Duration::default()/* use setters */));
-    /// let x = WorkstationConfig::new().set_or_clear_idle_timeout(None::<Duration>);
-    /// ```
     pub fn set_or_clear_idle_timeout<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -930,13 +655,6 @@ impl WorkstationConfig {
     }
 
     /// Sets the value of [running_timeout][crate::model::WorkstationConfig::running_timeout].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_workstations_v1::model::WorkstationConfig;
-    /// use wkt::Duration;
-    /// let x = WorkstationConfig::new().set_running_timeout(Duration::default()/* use setters */);
-    /// ```
     pub fn set_running_timeout<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -946,14 +664,6 @@ impl WorkstationConfig {
     }
 
     /// Sets or clears the value of [running_timeout][crate::model::WorkstationConfig::running_timeout].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_workstations_v1::model::WorkstationConfig;
-    /// use wkt::Duration;
-    /// let x = WorkstationConfig::new().set_or_clear_running_timeout(Some(Duration::default()/* use setters */));
-    /// let x = WorkstationConfig::new().set_or_clear_running_timeout(None::<Duration>);
-    /// ```
     pub fn set_or_clear_running_timeout<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -963,13 +673,6 @@ impl WorkstationConfig {
     }
 
     /// Sets the value of [host][crate::model::WorkstationConfig::host].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_workstations_v1::model::WorkstationConfig;
-    /// use google_cloud_workstations_v1::model::workstation_config::Host;
-    /// let x = WorkstationConfig::new().set_host(Host::default()/* use setters */);
-    /// ```
     pub fn set_host<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::workstation_config::Host>,
@@ -979,14 +682,6 @@ impl WorkstationConfig {
     }
 
     /// Sets or clears the value of [host][crate::model::WorkstationConfig::host].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_workstations_v1::model::WorkstationConfig;
-    /// use google_cloud_workstations_v1::model::workstation_config::Host;
-    /// let x = WorkstationConfig::new().set_or_clear_host(Some(Host::default()/* use setters */));
-    /// let x = WorkstationConfig::new().set_or_clear_host(None::<Host>);
-    /// ```
     pub fn set_or_clear_host<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::workstation_config::Host>,
@@ -996,17 +691,6 @@ impl WorkstationConfig {
     }
 
     /// Sets the value of [persistent_directories][crate::model::WorkstationConfig::persistent_directories].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_workstations_v1::model::WorkstationConfig;
-    /// use google_cloud_workstations_v1::model::workstation_config::PersistentDirectory;
-    /// let x = WorkstationConfig::new()
-    ///     .set_persistent_directories([
-    ///         PersistentDirectory::default()/* use setters */,
-    ///         PersistentDirectory::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_persistent_directories<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1018,13 +702,6 @@ impl WorkstationConfig {
     }
 
     /// Sets the value of [container][crate::model::WorkstationConfig::container].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_workstations_v1::model::WorkstationConfig;
-    /// use google_cloud_workstations_v1::model::workstation_config::Container;
-    /// let x = WorkstationConfig::new().set_container(Container::default()/* use setters */);
-    /// ```
     pub fn set_container<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::workstation_config::Container>,
@@ -1034,14 +711,6 @@ impl WorkstationConfig {
     }
 
     /// Sets or clears the value of [container][crate::model::WorkstationConfig::container].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_workstations_v1::model::WorkstationConfig;
-    /// use google_cloud_workstations_v1::model::workstation_config::Container;
-    /// let x = WorkstationConfig::new().set_or_clear_container(Some(Container::default()/* use setters */));
-    /// let x = WorkstationConfig::new().set_or_clear_container(None::<Container>);
-    /// ```
     pub fn set_or_clear_container<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::workstation_config::Container>,
@@ -1051,13 +720,6 @@ impl WorkstationConfig {
     }
 
     /// Sets the value of [encryption_key][crate::model::WorkstationConfig::encryption_key].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_workstations_v1::model::WorkstationConfig;
-    /// use google_cloud_workstations_v1::model::workstation_config::CustomerEncryptionKey;
-    /// let x = WorkstationConfig::new().set_encryption_key(CustomerEncryptionKey::default()/* use setters */);
-    /// ```
     pub fn set_encryption_key<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::workstation_config::CustomerEncryptionKey>,
@@ -1067,14 +729,6 @@ impl WorkstationConfig {
     }
 
     /// Sets or clears the value of [encryption_key][crate::model::WorkstationConfig::encryption_key].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_workstations_v1::model::WorkstationConfig;
-    /// use google_cloud_workstations_v1::model::workstation_config::CustomerEncryptionKey;
-    /// let x = WorkstationConfig::new().set_or_clear_encryption_key(Some(CustomerEncryptionKey::default()/* use setters */));
-    /// let x = WorkstationConfig::new().set_or_clear_encryption_key(None::<CustomerEncryptionKey>);
-    /// ```
     pub fn set_or_clear_encryption_key<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::workstation_config::CustomerEncryptionKey>,
@@ -1084,17 +738,6 @@ impl WorkstationConfig {
     }
 
     /// Sets the value of [readiness_checks][crate::model::WorkstationConfig::readiness_checks].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_workstations_v1::model::WorkstationConfig;
-    /// use google_cloud_workstations_v1::model::workstation_config::ReadinessCheck;
-    /// let x = WorkstationConfig::new()
-    ///     .set_readiness_checks([
-    ///         ReadinessCheck::default()/* use setters */,
-    ///         ReadinessCheck::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_readiness_checks<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1106,12 +749,6 @@ impl WorkstationConfig {
     }
 
     /// Sets the value of [replica_zones][crate::model::WorkstationConfig::replica_zones].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_workstations_v1::model::WorkstationConfig;
-    /// let x = WorkstationConfig::new().set_replica_zones(["a", "b", "c"]);
-    /// ```
     pub fn set_replica_zones<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1123,29 +760,12 @@ impl WorkstationConfig {
     }
 
     /// Sets the value of [degraded][crate::model::WorkstationConfig::degraded].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_workstations_v1::model::WorkstationConfig;
-    /// let x = WorkstationConfig::new().set_degraded(true);
-    /// ```
     pub fn set_degraded<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.degraded = v.into();
         self
     }
 
     /// Sets the value of [conditions][crate::model::WorkstationConfig::conditions].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_workstations_v1::model::WorkstationConfig;
-    /// use rpc::model::Status;
-    /// let x = WorkstationConfig::new()
-    ///     .set_conditions([
-    ///         Status::default()/* use setters */,
-    ///         Status::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_conditions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1187,14 +807,6 @@ pub mod workstation_config {
         ///
         /// Note that all the setters affecting `config` are mutually
         /// exclusive.
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_workstations_v1::model::workstation_config::Host;
-        /// use google_cloud_workstations_v1::model::workstation_config::host;
-        /// use google_cloud_workstations_v1::model::workstation_config::host::GceInstance;
-        /// let x = Host::new().set_config(Some(workstation_config::host::Config::GceInstance(GceInstance::default().into())));
-        /// ```
         pub fn set_config<
             T: std::convert::Into<std::option::Option<crate::model::workstation_config::host::Config>>,
         >(
@@ -1227,14 +839,6 @@ pub mod workstation_config {
         ///
         /// Note that all the setters affecting `config` are
         /// mutually exclusive.
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_workstations_v1::model::workstation_config::Host;
-        /// use google_cloud_workstations_v1::model::workstation_config::host::GceInstance;
-        /// let x = Host::new().set_gce_instance(GceInstance::default()/* use setters */);
-        /// assert!(x.gce_instance().is_some());
-        /// ```
         pub fn set_gce_instance<
             T: std::convert::Into<
                     std::boxed::Box<crate::model::workstation_config::host::GceInstance>,
@@ -1388,12 +992,6 @@ pub mod workstation_config {
             }
 
             /// Sets the value of [machine_type][crate::model::workstation_config::host::GceInstance::machine_type].
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_workstations_v1::model::workstation_config::host::GceInstance;
-            /// let x = GceInstance::new().set_machine_type("example");
-            /// ```
             pub fn set_machine_type<T: std::convert::Into<std::string::String>>(
                 mut self,
                 v: T,
@@ -1403,12 +1001,6 @@ pub mod workstation_config {
             }
 
             /// Sets the value of [service_account][crate::model::workstation_config::host::GceInstance::service_account].
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_workstations_v1::model::workstation_config::host::GceInstance;
-            /// let x = GceInstance::new().set_service_account("example");
-            /// ```
             pub fn set_service_account<T: std::convert::Into<std::string::String>>(
                 mut self,
                 v: T,
@@ -1418,12 +1010,6 @@ pub mod workstation_config {
             }
 
             /// Sets the value of [service_account_scopes][crate::model::workstation_config::host::GceInstance::service_account_scopes].
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_workstations_v1::model::workstation_config::host::GceInstance;
-            /// let x = GceInstance::new().set_service_account_scopes(["a", "b", "c"]);
-            /// ```
             pub fn set_service_account_scopes<T, V>(mut self, v: T) -> Self
             where
                 T: std::iter::IntoIterator<Item = V>,
@@ -1435,12 +1021,6 @@ pub mod workstation_config {
             }
 
             /// Sets the value of [tags][crate::model::workstation_config::host::GceInstance::tags].
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_workstations_v1::model::workstation_config::host::GceInstance;
-            /// let x = GceInstance::new().set_tags(["a", "b", "c"]);
-            /// ```
             pub fn set_tags<T, V>(mut self, v: T) -> Self
             where
                 T: std::iter::IntoIterator<Item = V>,
@@ -1452,36 +1032,18 @@ pub mod workstation_config {
             }
 
             /// Sets the value of [pool_size][crate::model::workstation_config::host::GceInstance::pool_size].
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_workstations_v1::model::workstation_config::host::GceInstance;
-            /// let x = GceInstance::new().set_pool_size(42);
-            /// ```
             pub fn set_pool_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
                 self.pool_size = v.into();
                 self
             }
 
             /// Sets the value of [pooled_instances][crate::model::workstation_config::host::GceInstance::pooled_instances].
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_workstations_v1::model::workstation_config::host::GceInstance;
-            /// let x = GceInstance::new().set_pooled_instances(42);
-            /// ```
             pub fn set_pooled_instances<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
                 self.pooled_instances = v.into();
                 self
             }
 
             /// Sets the value of [disable_public_ip_addresses][crate::model::workstation_config::host::GceInstance::disable_public_ip_addresses].
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_workstations_v1::model::workstation_config::host::GceInstance;
-            /// let x = GceInstance::new().set_disable_public_ip_addresses(true);
-            /// ```
             pub fn set_disable_public_ip_addresses<T: std::convert::Into<bool>>(
                 mut self,
                 v: T,
@@ -1491,12 +1053,6 @@ pub mod workstation_config {
             }
 
             /// Sets the value of [enable_nested_virtualization][crate::model::workstation_config::host::GceInstance::enable_nested_virtualization].
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_workstations_v1::model::workstation_config::host::GceInstance;
-            /// let x = GceInstance::new().set_enable_nested_virtualization(true);
-            /// ```
             pub fn set_enable_nested_virtualization<T: std::convert::Into<bool>>(
                 mut self,
                 v: T,
@@ -1506,13 +1062,6 @@ pub mod workstation_config {
             }
 
             /// Sets the value of [shielded_instance_config][crate::model::workstation_config::host::GceInstance::shielded_instance_config].
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_workstations_v1::model::workstation_config::host::GceInstance;
-            /// use google_cloud_workstations_v1::model::workstation_config::host::gce_instance::GceShieldedInstanceConfig;
-            /// let x = GceInstance::new().set_shielded_instance_config(GceShieldedInstanceConfig::default()/* use setters */);
-            /// ```
             pub fn set_shielded_instance_config<T>(mut self, v: T) -> Self
             where T: std::convert::Into<crate::model::workstation_config::host::gce_instance::GceShieldedInstanceConfig>
             {
@@ -1521,14 +1070,6 @@ pub mod workstation_config {
             }
 
             /// Sets or clears the value of [shielded_instance_config][crate::model::workstation_config::host::GceInstance::shielded_instance_config].
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_workstations_v1::model::workstation_config::host::GceInstance;
-            /// use google_cloud_workstations_v1::model::workstation_config::host::gce_instance::GceShieldedInstanceConfig;
-            /// let x = GceInstance::new().set_or_clear_shielded_instance_config(Some(GceShieldedInstanceConfig::default()/* use setters */));
-            /// let x = GceInstance::new().set_or_clear_shielded_instance_config(None::<GceShieldedInstanceConfig>);
-            /// ```
             pub fn set_or_clear_shielded_instance_config<T>(mut self, v: std::option::Option<T>) -> Self
             where T: std::convert::Into<crate::model::workstation_config::host::gce_instance::GceShieldedInstanceConfig>
             {
@@ -1537,13 +1078,6 @@ pub mod workstation_config {
             }
 
             /// Sets the value of [confidential_instance_config][crate::model::workstation_config::host::GceInstance::confidential_instance_config].
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_workstations_v1::model::workstation_config::host::GceInstance;
-            /// use google_cloud_workstations_v1::model::workstation_config::host::gce_instance::GceConfidentialInstanceConfig;
-            /// let x = GceInstance::new().set_confidential_instance_config(GceConfidentialInstanceConfig::default()/* use setters */);
-            /// ```
             pub fn set_confidential_instance_config<T>(mut self, v: T) -> Self
             where T: std::convert::Into<crate::model::workstation_config::host::gce_instance::GceConfidentialInstanceConfig>
             {
@@ -1552,14 +1086,6 @@ pub mod workstation_config {
             }
 
             /// Sets or clears the value of [confidential_instance_config][crate::model::workstation_config::host::GceInstance::confidential_instance_config].
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_workstations_v1::model::workstation_config::host::GceInstance;
-            /// use google_cloud_workstations_v1::model::workstation_config::host::gce_instance::GceConfidentialInstanceConfig;
-            /// let x = GceInstance::new().set_or_clear_confidential_instance_config(Some(GceConfidentialInstanceConfig::default()/* use setters */));
-            /// let x = GceInstance::new().set_or_clear_confidential_instance_config(None::<GceConfidentialInstanceConfig>);
-            /// ```
             pub fn set_or_clear_confidential_instance_config<T>(mut self, v: std::option::Option<T>) -> Self
             where T: std::convert::Into<crate::model::workstation_config::host::gce_instance::GceConfidentialInstanceConfig>
             {
@@ -1568,12 +1094,6 @@ pub mod workstation_config {
             }
 
             /// Sets the value of [boot_disk_size_gb][crate::model::workstation_config::host::GceInstance::boot_disk_size_gb].
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_workstations_v1::model::workstation_config::host::GceInstance;
-            /// let x = GceInstance::new().set_boot_disk_size_gb(42);
-            /// ```
             pub fn set_boot_disk_size_gb<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
                 self.boot_disk_size_gb = v.into();
                 self
@@ -1613,36 +1133,18 @@ pub mod workstation_config {
                 }
 
                 /// Sets the value of [enable_secure_boot][crate::model::workstation_config::host::gce_instance::GceShieldedInstanceConfig::enable_secure_boot].
-                ///
-                /// # Example
-                /// ```
-                /// # use google_cloud_workstations_v1::model::workstation_config::host::gce_instance::GceShieldedInstanceConfig;
-                /// let x = GceShieldedInstanceConfig::new().set_enable_secure_boot(true);
-                /// ```
                 pub fn set_enable_secure_boot<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
                     self.enable_secure_boot = v.into();
                     self
                 }
 
                 /// Sets the value of [enable_vtpm][crate::model::workstation_config::host::gce_instance::GceShieldedInstanceConfig::enable_vtpm].
-                ///
-                /// # Example
-                /// ```
-                /// # use google_cloud_workstations_v1::model::workstation_config::host::gce_instance::GceShieldedInstanceConfig;
-                /// let x = GceShieldedInstanceConfig::new().set_enable_vtpm(true);
-                /// ```
                 pub fn set_enable_vtpm<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
                     self.enable_vtpm = v.into();
                     self
                 }
 
                 /// Sets the value of [enable_integrity_monitoring][crate::model::workstation_config::host::gce_instance::GceShieldedInstanceConfig::enable_integrity_monitoring].
-                ///
-                /// # Example
-                /// ```
-                /// # use google_cloud_workstations_v1::model::workstation_config::host::gce_instance::GceShieldedInstanceConfig;
-                /// let x = GceShieldedInstanceConfig::new().set_enable_integrity_monitoring(true);
-                /// ```
                 pub fn set_enable_integrity_monitoring<T: std::convert::Into<bool>>(
                     mut self,
                     v: T,
@@ -1674,12 +1176,6 @@ pub mod workstation_config {
                 }
 
                 /// Sets the value of [enable_confidential_compute][crate::model::workstation_config::host::gce_instance::GceConfidentialInstanceConfig::enable_confidential_compute].
-                ///
-                /// # Example
-                /// ```
-                /// # use google_cloud_workstations_v1::model::workstation_config::host::gce_instance::GceConfidentialInstanceConfig;
-                /// let x = GceConfidentialInstanceConfig::new().set_enable_confidential_compute(true);
-                /// ```
                 pub fn set_enable_confidential_compute<T: std::convert::Into<bool>>(
                     mut self,
                     v: T,
@@ -1726,12 +1222,6 @@ pub mod workstation_config {
         }
 
         /// Sets the value of [mount_path][crate::model::workstation_config::PersistentDirectory::mount_path].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_workstations_v1::model::workstation_config::PersistentDirectory;
-        /// let x = PersistentDirectory::new().set_mount_path("example");
-        /// ```
         pub fn set_mount_path<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.mount_path = v.into();
             self
@@ -1741,14 +1231,6 @@ pub mod workstation_config {
         ///
         /// Note that all the setters affecting `directory_type` are mutually
         /// exclusive.
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_workstations_v1::model::workstation_config::PersistentDirectory;
-        /// use google_cloud_workstations_v1::model::workstation_config::persistent_directory;
-        /// use google_cloud_workstations_v1::model::workstation_config::persistent_directory::GceRegionalPersistentDisk;
-        /// let x = PersistentDirectory::new().set_directory_type(Some(workstation_config::persistent_directory::DirectoryType::GcePd(GceRegionalPersistentDisk::default().into())));
-        /// ```
         pub fn set_directory_type<
             T: std::convert::Into<
                     std::option::Option<
@@ -1787,14 +1269,6 @@ pub mod workstation_config {
         ///
         /// Note that all the setters affecting `directory_type` are
         /// mutually exclusive.
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_workstations_v1::model::workstation_config::PersistentDirectory;
-        /// use google_cloud_workstations_v1::model::workstation_config::persistent_directory::GceRegionalPersistentDisk;
-        /// let x = PersistentDirectory::new().set_gce_pd(GceRegionalPersistentDisk::default()/* use setters */);
-        /// assert!(x.gce_pd().is_some());
-        /// ```
         pub fn set_gce_pd<T: std::convert::Into<std::boxed::Box<crate::model::workstation_config::persistent_directory::GceRegionalPersistentDisk>>>(mut self, v: T) -> Self{
             self.directory_type = std::option::Option::Some(
                 crate::model::workstation_config::persistent_directory::DirectoryType::GcePd(
@@ -1886,36 +1360,18 @@ pub mod workstation_config {
             }
 
             /// Sets the value of [size_gb][crate::model::workstation_config::persistent_directory::GceRegionalPersistentDisk::size_gb].
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_workstations_v1::model::workstation_config::persistent_directory::GceRegionalPersistentDisk;
-            /// let x = GceRegionalPersistentDisk::new().set_size_gb(42);
-            /// ```
             pub fn set_size_gb<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
                 self.size_gb = v.into();
                 self
             }
 
             /// Sets the value of [fs_type][crate::model::workstation_config::persistent_directory::GceRegionalPersistentDisk::fs_type].
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_workstations_v1::model::workstation_config::persistent_directory::GceRegionalPersistentDisk;
-            /// let x = GceRegionalPersistentDisk::new().set_fs_type("example");
-            /// ```
             pub fn set_fs_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
                 self.fs_type = v.into();
                 self
             }
 
             /// Sets the value of [disk_type][crate::model::workstation_config::persistent_directory::GceRegionalPersistentDisk::disk_type].
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_workstations_v1::model::workstation_config::persistent_directory::GceRegionalPersistentDisk;
-            /// let x = GceRegionalPersistentDisk::new().set_disk_type("example");
-            /// ```
             pub fn set_disk_type<T: std::convert::Into<std::string::String>>(
                 mut self,
                 v: T,
@@ -1925,12 +1381,6 @@ pub mod workstation_config {
             }
 
             /// Sets the value of [source_snapshot][crate::model::workstation_config::persistent_directory::GceRegionalPersistentDisk::source_snapshot].
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_workstations_v1::model::workstation_config::persistent_directory::GceRegionalPersistentDisk;
-            /// let x = GceRegionalPersistentDisk::new().set_source_snapshot("example");
-            /// ```
             pub fn set_source_snapshot<T: std::convert::Into<std::string::String>>(
                 mut self,
                 v: T,
@@ -1940,14 +1390,6 @@ pub mod workstation_config {
             }
 
             /// Sets the value of [reclaim_policy][crate::model::workstation_config::persistent_directory::GceRegionalPersistentDisk::reclaim_policy].
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_workstations_v1::model::workstation_config::persistent_directory::GceRegionalPersistentDisk;
-            /// use google_cloud_workstations_v1::model::workstation_config::persistent_directory::gce_regional_persistent_disk::ReclaimPolicy;
-            /// let x0 = GceRegionalPersistentDisk::new().set_reclaim_policy(ReclaimPolicy::Delete);
-            /// let x1 = GceRegionalPersistentDisk::new().set_reclaim_policy(ReclaimPolicy::Retain);
-            /// ```
             pub fn set_reclaim_policy<T: std::convert::Into<crate::model::workstation_config::persistent_directory::gce_regional_persistent_disk::ReclaimPolicy>>(mut self, v: T) -> Self{
                 self.reclaim_policy = v.into();
                 self
@@ -2157,24 +1599,12 @@ pub mod workstation_config {
         }
 
         /// Sets the value of [image][crate::model::workstation_config::Container::image].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_workstations_v1::model::workstation_config::Container;
-        /// let x = Container::new().set_image("example");
-        /// ```
         pub fn set_image<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.image = v.into();
             self
         }
 
         /// Sets the value of [command][crate::model::workstation_config::Container::command].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_workstations_v1::model::workstation_config::Container;
-        /// let x = Container::new().set_command(["a", "b", "c"]);
-        /// ```
         pub fn set_command<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -2186,12 +1616,6 @@ pub mod workstation_config {
         }
 
         /// Sets the value of [args][crate::model::workstation_config::Container::args].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_workstations_v1::model::workstation_config::Container;
-        /// let x = Container::new().set_args(["a", "b", "c"]);
-        /// ```
         pub fn set_args<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -2203,15 +1627,6 @@ pub mod workstation_config {
         }
 
         /// Sets the value of [env][crate::model::workstation_config::Container::env].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_workstations_v1::model::workstation_config::Container;
-        /// let x = Container::new().set_env([
-        ///     ("key0", "abc"),
-        ///     ("key1", "xyz"),
-        /// ]);
-        /// ```
         pub fn set_env<T, K, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = (K, V)>,
@@ -2224,24 +1639,12 @@ pub mod workstation_config {
         }
 
         /// Sets the value of [working_dir][crate::model::workstation_config::Container::working_dir].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_workstations_v1::model::workstation_config::Container;
-        /// let x = Container::new().set_working_dir("example");
-        /// ```
         pub fn set_working_dir<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.working_dir = v.into();
             self
         }
 
         /// Sets the value of [run_as_user][crate::model::workstation_config::Container::run_as_user].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_workstations_v1::model::workstation_config::Container;
-        /// let x = Container::new().set_run_as_user(42);
-        /// ```
         pub fn set_run_as_user<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.run_as_user = v.into();
             self
@@ -2286,24 +1689,12 @@ pub mod workstation_config {
         }
 
         /// Sets the value of [kms_key][crate::model::workstation_config::CustomerEncryptionKey::kms_key].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_workstations_v1::model::workstation_config::CustomerEncryptionKey;
-        /// let x = CustomerEncryptionKey::new().set_kms_key("example");
-        /// ```
         pub fn set_kms_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.kms_key = v.into();
             self
         }
 
         /// Sets the value of [kms_key_service_account][crate::model::workstation_config::CustomerEncryptionKey::kms_key_service_account].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_workstations_v1::model::workstation_config::CustomerEncryptionKey;
-        /// let x = CustomerEncryptionKey::new().set_kms_key_service_account("example");
-        /// ```
         pub fn set_kms_key_service_account<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -2338,24 +1729,12 @@ pub mod workstation_config {
         }
 
         /// Sets the value of [path][crate::model::workstation_config::ReadinessCheck::path].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_workstations_v1::model::workstation_config::ReadinessCheck;
-        /// let x = ReadinessCheck::new().set_path("example");
-        /// ```
         pub fn set_path<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.path = v.into();
             self
         }
 
         /// Sets the value of [port][crate::model::workstation_config::ReadinessCheck::port].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_workstations_v1::model::workstation_config::ReadinessCheck;
-        /// let x = ReadinessCheck::new().set_port(42);
-        /// ```
         pub fn set_port<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.port = v.into();
             self
@@ -2432,63 +1811,30 @@ impl Workstation {
     }
 
     /// Sets the value of [name][crate::model::Workstation::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_workstations_v1::model::Workstation;
-    /// let x = Workstation::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [display_name][crate::model::Workstation::display_name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_workstations_v1::model::Workstation;
-    /// let x = Workstation::new().set_display_name("example");
-    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
     }
 
     /// Sets the value of [uid][crate::model::Workstation::uid].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_workstations_v1::model::Workstation;
-    /// let x = Workstation::new().set_uid("example");
-    /// ```
     pub fn set_uid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.uid = v.into();
         self
     }
 
     /// Sets the value of [reconciling][crate::model::Workstation::reconciling].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_workstations_v1::model::Workstation;
-    /// let x = Workstation::new().set_reconciling(true);
-    /// ```
     pub fn set_reconciling<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.reconciling = v.into();
         self
     }
 
     /// Sets the value of [annotations][crate::model::Workstation::annotations].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_workstations_v1::model::Workstation;
-    /// let x = Workstation::new().set_annotations([
-    ///     ("key0", "abc"),
-    ///     ("key1", "xyz"),
-    /// ]);
-    /// ```
     pub fn set_annotations<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -2501,15 +1847,6 @@ impl Workstation {
     }
 
     /// Sets the value of [labels][crate::model::Workstation::labels].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_workstations_v1::model::Workstation;
-    /// let x = Workstation::new().set_labels([
-    ///     ("key0", "abc"),
-    ///     ("key1", "xyz"),
-    /// ]);
-    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -2522,13 +1859,6 @@ impl Workstation {
     }
 
     /// Sets the value of [create_time][crate::model::Workstation::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_workstations_v1::model::Workstation;
-    /// use wkt::Timestamp;
-    /// let x = Workstation::new().set_create_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2538,14 +1868,6 @@ impl Workstation {
     }
 
     /// Sets or clears the value of [create_time][crate::model::Workstation::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_workstations_v1::model::Workstation;
-    /// use wkt::Timestamp;
-    /// let x = Workstation::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
-    /// let x = Workstation::new().set_or_clear_create_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2555,13 +1877,6 @@ impl Workstation {
     }
 
     /// Sets the value of [update_time][crate::model::Workstation::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_workstations_v1::model::Workstation;
-    /// use wkt::Timestamp;
-    /// let x = Workstation::new().set_update_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2571,14 +1886,6 @@ impl Workstation {
     }
 
     /// Sets or clears the value of [update_time][crate::model::Workstation::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_workstations_v1::model::Workstation;
-    /// use wkt::Timestamp;
-    /// let x = Workstation::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
-    /// let x = Workstation::new().set_or_clear_update_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2588,13 +1895,6 @@ impl Workstation {
     }
 
     /// Sets the value of [start_time][crate::model::Workstation::start_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_workstations_v1::model::Workstation;
-    /// use wkt::Timestamp;
-    /// let x = Workstation::new().set_start_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_start_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2604,14 +1904,6 @@ impl Workstation {
     }
 
     /// Sets or clears the value of [start_time][crate::model::Workstation::start_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_workstations_v1::model::Workstation;
-    /// use wkt::Timestamp;
-    /// let x = Workstation::new().set_or_clear_start_time(Some(Timestamp::default()/* use setters */));
-    /// let x = Workstation::new().set_or_clear_start_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2621,13 +1913,6 @@ impl Workstation {
     }
 
     /// Sets the value of [delete_time][crate::model::Workstation::delete_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_workstations_v1::model::Workstation;
-    /// use wkt::Timestamp;
-    /// let x = Workstation::new().set_delete_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_delete_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2637,14 +1922,6 @@ impl Workstation {
     }
 
     /// Sets or clears the value of [delete_time][crate::model::Workstation::delete_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_workstations_v1::model::Workstation;
-    /// use wkt::Timestamp;
-    /// let x = Workstation::new().set_or_clear_delete_time(Some(Timestamp::default()/* use setters */));
-    /// let x = Workstation::new().set_or_clear_delete_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_delete_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2654,27 +1931,12 @@ impl Workstation {
     }
 
     /// Sets the value of [etag][crate::model::Workstation::etag].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_workstations_v1::model::Workstation;
-    /// let x = Workstation::new().set_etag("example");
-    /// ```
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
     }
 
     /// Sets the value of [state][crate::model::Workstation::state].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_workstations_v1::model::Workstation;
-    /// use google_cloud_workstations_v1::model::workstation::State;
-    /// let x0 = Workstation::new().set_state(State::Starting);
-    /// let x1 = Workstation::new().set_state(State::Running);
-    /// let x2 = Workstation::new().set_state(State::Stopping);
-    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::workstation::State>>(
         mut self,
         v: T,
@@ -2684,12 +1946,6 @@ impl Workstation {
     }
 
     /// Sets the value of [host][crate::model::Workstation::host].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_workstations_v1::model::Workstation;
-    /// let x = Workstation::new().set_host("example");
-    /// ```
     pub fn set_host<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.host = v.into();
         self
@@ -2872,12 +2128,6 @@ impl GetWorkstationClusterRequest {
     }
 
     /// Sets the value of [name][crate::model::GetWorkstationClusterRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_workstations_v1::model::GetWorkstationClusterRequest;
-    /// let x = GetWorkstationClusterRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -2913,36 +2163,18 @@ impl ListWorkstationClustersRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListWorkstationClustersRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_workstations_v1::model::ListWorkstationClustersRequest;
-    /// let x = ListWorkstationClustersRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListWorkstationClustersRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_workstations_v1::model::ListWorkstationClustersRequest;
-    /// let x = ListWorkstationClustersRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListWorkstationClustersRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_workstations_v1::model::ListWorkstationClustersRequest;
-    /// let x = ListWorkstationClustersRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -2978,17 +2210,6 @@ impl ListWorkstationClustersResponse {
     }
 
     /// Sets the value of [workstation_clusters][crate::model::ListWorkstationClustersResponse::workstation_clusters].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_workstations_v1::model::ListWorkstationClustersResponse;
-    /// use google_cloud_workstations_v1::model::WorkstationCluster;
-    /// let x = ListWorkstationClustersResponse::new()
-    ///     .set_workstation_clusters([
-    ///         WorkstationCluster::default()/* use setters */,
-    ///         WorkstationCluster::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_workstation_clusters<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3000,24 +2221,12 @@ impl ListWorkstationClustersResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListWorkstationClustersResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_workstations_v1::model::ListWorkstationClustersResponse;
-    /// let x = ListWorkstationClustersResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListWorkstationClustersResponse::unreachable].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_workstations_v1::model::ListWorkstationClustersResponse;
-    /// let x = ListWorkstationClustersResponse::new().set_unreachable(["a", "b", "c"]);
-    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3075,24 +2284,12 @@ impl CreateWorkstationClusterRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateWorkstationClusterRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_workstations_v1::model::CreateWorkstationClusterRequest;
-    /// let x = CreateWorkstationClusterRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [workstation_cluster_id][crate::model::CreateWorkstationClusterRequest::workstation_cluster_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_workstations_v1::model::CreateWorkstationClusterRequest;
-    /// let x = CreateWorkstationClusterRequest::new().set_workstation_cluster_id("example");
-    /// ```
     pub fn set_workstation_cluster_id<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -3102,13 +2299,6 @@ impl CreateWorkstationClusterRequest {
     }
 
     /// Sets the value of [workstation_cluster][crate::model::CreateWorkstationClusterRequest::workstation_cluster].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_workstations_v1::model::CreateWorkstationClusterRequest;
-    /// use google_cloud_workstations_v1::model::WorkstationCluster;
-    /// let x = CreateWorkstationClusterRequest::new().set_workstation_cluster(WorkstationCluster::default()/* use setters */);
-    /// ```
     pub fn set_workstation_cluster<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::WorkstationCluster>,
@@ -3118,14 +2308,6 @@ impl CreateWorkstationClusterRequest {
     }
 
     /// Sets or clears the value of [workstation_cluster][crate::model::CreateWorkstationClusterRequest::workstation_cluster].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_workstations_v1::model::CreateWorkstationClusterRequest;
-    /// use google_cloud_workstations_v1::model::WorkstationCluster;
-    /// let x = CreateWorkstationClusterRequest::new().set_or_clear_workstation_cluster(Some(WorkstationCluster::default()/* use setters */));
-    /// let x = CreateWorkstationClusterRequest::new().set_or_clear_workstation_cluster(None::<WorkstationCluster>);
-    /// ```
     pub fn set_or_clear_workstation_cluster<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::WorkstationCluster>,
@@ -3135,12 +2317,6 @@ impl CreateWorkstationClusterRequest {
     }
 
     /// Sets the value of [validate_only][crate::model::CreateWorkstationClusterRequest::validate_only].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_workstations_v1::model::CreateWorkstationClusterRequest;
-    /// let x = CreateWorkstationClusterRequest::new().set_validate_only(true);
-    /// ```
     pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.validate_only = v.into();
         self
@@ -3182,13 +2358,6 @@ impl UpdateWorkstationClusterRequest {
     }
 
     /// Sets the value of [workstation_cluster][crate::model::UpdateWorkstationClusterRequest::workstation_cluster].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_workstations_v1::model::UpdateWorkstationClusterRequest;
-    /// use google_cloud_workstations_v1::model::WorkstationCluster;
-    /// let x = UpdateWorkstationClusterRequest::new().set_workstation_cluster(WorkstationCluster::default()/* use setters */);
-    /// ```
     pub fn set_workstation_cluster<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::WorkstationCluster>,
@@ -3198,14 +2367,6 @@ impl UpdateWorkstationClusterRequest {
     }
 
     /// Sets or clears the value of [workstation_cluster][crate::model::UpdateWorkstationClusterRequest::workstation_cluster].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_workstations_v1::model::UpdateWorkstationClusterRequest;
-    /// use google_cloud_workstations_v1::model::WorkstationCluster;
-    /// let x = UpdateWorkstationClusterRequest::new().set_or_clear_workstation_cluster(Some(WorkstationCluster::default()/* use setters */));
-    /// let x = UpdateWorkstationClusterRequest::new().set_or_clear_workstation_cluster(None::<WorkstationCluster>);
-    /// ```
     pub fn set_or_clear_workstation_cluster<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::WorkstationCluster>,
@@ -3215,13 +2376,6 @@ impl UpdateWorkstationClusterRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateWorkstationClusterRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_workstations_v1::model::UpdateWorkstationClusterRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateWorkstationClusterRequest::new().set_update_mask(FieldMask::default()/* use setters */);
-    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -3231,14 +2385,6 @@ impl UpdateWorkstationClusterRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateWorkstationClusterRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_workstations_v1::model::UpdateWorkstationClusterRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateWorkstationClusterRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
-    /// let x = UpdateWorkstationClusterRequest::new().set_or_clear_update_mask(None::<FieldMask>);
-    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -3248,24 +2394,12 @@ impl UpdateWorkstationClusterRequest {
     }
 
     /// Sets the value of [validate_only][crate::model::UpdateWorkstationClusterRequest::validate_only].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_workstations_v1::model::UpdateWorkstationClusterRequest;
-    /// let x = UpdateWorkstationClusterRequest::new().set_validate_only(true);
-    /// ```
     pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.validate_only = v.into();
         self
     }
 
     /// Sets the value of [allow_missing][crate::model::UpdateWorkstationClusterRequest::allow_missing].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_workstations_v1::model::UpdateWorkstationClusterRequest;
-    /// let x = UpdateWorkstationClusterRequest::new().set_allow_missing(true);
-    /// ```
     pub fn set_allow_missing<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.allow_missing = v.into();
         self
@@ -3307,48 +2441,24 @@ impl DeleteWorkstationClusterRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteWorkstationClusterRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_workstations_v1::model::DeleteWorkstationClusterRequest;
-    /// let x = DeleteWorkstationClusterRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [validate_only][crate::model::DeleteWorkstationClusterRequest::validate_only].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_workstations_v1::model::DeleteWorkstationClusterRequest;
-    /// let x = DeleteWorkstationClusterRequest::new().set_validate_only(true);
-    /// ```
     pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.validate_only = v.into();
         self
     }
 
     /// Sets the value of [etag][crate::model::DeleteWorkstationClusterRequest::etag].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_workstations_v1::model::DeleteWorkstationClusterRequest;
-    /// let x = DeleteWorkstationClusterRequest::new().set_etag("example");
-    /// ```
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
     }
 
     /// Sets the value of [force][crate::model::DeleteWorkstationClusterRequest::force].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_workstations_v1::model::DeleteWorkstationClusterRequest;
-    /// let x = DeleteWorkstationClusterRequest::new().set_force(true);
-    /// ```
     pub fn set_force<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.force = v.into();
         self
@@ -3377,12 +2487,6 @@ impl GetWorkstationConfigRequest {
     }
 
     /// Sets the value of [name][crate::model::GetWorkstationConfigRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_workstations_v1::model::GetWorkstationConfigRequest;
-    /// let x = GetWorkstationConfigRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -3418,36 +2522,18 @@ impl ListWorkstationConfigsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListWorkstationConfigsRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_workstations_v1::model::ListWorkstationConfigsRequest;
-    /// let x = ListWorkstationConfigsRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListWorkstationConfigsRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_workstations_v1::model::ListWorkstationConfigsRequest;
-    /// let x = ListWorkstationConfigsRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListWorkstationConfigsRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_workstations_v1::model::ListWorkstationConfigsRequest;
-    /// let x = ListWorkstationConfigsRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -3483,17 +2569,6 @@ impl ListWorkstationConfigsResponse {
     }
 
     /// Sets the value of [workstation_configs][crate::model::ListWorkstationConfigsResponse::workstation_configs].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_workstations_v1::model::ListWorkstationConfigsResponse;
-    /// use google_cloud_workstations_v1::model::WorkstationConfig;
-    /// let x = ListWorkstationConfigsResponse::new()
-    ///     .set_workstation_configs([
-    ///         WorkstationConfig::default()/* use setters */,
-    ///         WorkstationConfig::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_workstation_configs<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3505,24 +2580,12 @@ impl ListWorkstationConfigsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListWorkstationConfigsResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_workstations_v1::model::ListWorkstationConfigsResponse;
-    /// let x = ListWorkstationConfigsResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListWorkstationConfigsResponse::unreachable].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_workstations_v1::model::ListWorkstationConfigsResponse;
-    /// let x = ListWorkstationConfigsResponse::new().set_unreachable(["a", "b", "c"]);
-    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3577,36 +2640,18 @@ impl ListUsableWorkstationConfigsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListUsableWorkstationConfigsRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_workstations_v1::model::ListUsableWorkstationConfigsRequest;
-    /// let x = ListUsableWorkstationConfigsRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListUsableWorkstationConfigsRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_workstations_v1::model::ListUsableWorkstationConfigsRequest;
-    /// let x = ListUsableWorkstationConfigsRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListUsableWorkstationConfigsRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_workstations_v1::model::ListUsableWorkstationConfigsRequest;
-    /// let x = ListUsableWorkstationConfigsRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -3642,17 +2687,6 @@ impl ListUsableWorkstationConfigsResponse {
     }
 
     /// Sets the value of [workstation_configs][crate::model::ListUsableWorkstationConfigsResponse::workstation_configs].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_workstations_v1::model::ListUsableWorkstationConfigsResponse;
-    /// use google_cloud_workstations_v1::model::WorkstationConfig;
-    /// let x = ListUsableWorkstationConfigsResponse::new()
-    ///     .set_workstation_configs([
-    ///         WorkstationConfig::default()/* use setters */,
-    ///         WorkstationConfig::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_workstation_configs<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3664,24 +2698,12 @@ impl ListUsableWorkstationConfigsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListUsableWorkstationConfigsResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_workstations_v1::model::ListUsableWorkstationConfigsResponse;
-    /// let x = ListUsableWorkstationConfigsResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListUsableWorkstationConfigsResponse::unreachable].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_workstations_v1::model::ListUsableWorkstationConfigsResponse;
-    /// let x = ListUsableWorkstationConfigsResponse::new().set_unreachable(["a", "b", "c"]);
-    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3739,24 +2761,12 @@ impl CreateWorkstationConfigRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateWorkstationConfigRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_workstations_v1::model::CreateWorkstationConfigRequest;
-    /// let x = CreateWorkstationConfigRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [workstation_config_id][crate::model::CreateWorkstationConfigRequest::workstation_config_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_workstations_v1::model::CreateWorkstationConfigRequest;
-    /// let x = CreateWorkstationConfigRequest::new().set_workstation_config_id("example");
-    /// ```
     pub fn set_workstation_config_id<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -3766,13 +2776,6 @@ impl CreateWorkstationConfigRequest {
     }
 
     /// Sets the value of [workstation_config][crate::model::CreateWorkstationConfigRequest::workstation_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_workstations_v1::model::CreateWorkstationConfigRequest;
-    /// use google_cloud_workstations_v1::model::WorkstationConfig;
-    /// let x = CreateWorkstationConfigRequest::new().set_workstation_config(WorkstationConfig::default()/* use setters */);
-    /// ```
     pub fn set_workstation_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::WorkstationConfig>,
@@ -3782,14 +2785,6 @@ impl CreateWorkstationConfigRequest {
     }
 
     /// Sets or clears the value of [workstation_config][crate::model::CreateWorkstationConfigRequest::workstation_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_workstations_v1::model::CreateWorkstationConfigRequest;
-    /// use google_cloud_workstations_v1::model::WorkstationConfig;
-    /// let x = CreateWorkstationConfigRequest::new().set_or_clear_workstation_config(Some(WorkstationConfig::default()/* use setters */));
-    /// let x = CreateWorkstationConfigRequest::new().set_or_clear_workstation_config(None::<WorkstationConfig>);
-    /// ```
     pub fn set_or_clear_workstation_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::WorkstationConfig>,
@@ -3799,12 +2794,6 @@ impl CreateWorkstationConfigRequest {
     }
 
     /// Sets the value of [validate_only][crate::model::CreateWorkstationConfigRequest::validate_only].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_workstations_v1::model::CreateWorkstationConfigRequest;
-    /// let x = CreateWorkstationConfigRequest::new().set_validate_only(true);
-    /// ```
     pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.validate_only = v.into();
         self
@@ -3846,13 +2835,6 @@ impl UpdateWorkstationConfigRequest {
     }
 
     /// Sets the value of [workstation_config][crate::model::UpdateWorkstationConfigRequest::workstation_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_workstations_v1::model::UpdateWorkstationConfigRequest;
-    /// use google_cloud_workstations_v1::model::WorkstationConfig;
-    /// let x = UpdateWorkstationConfigRequest::new().set_workstation_config(WorkstationConfig::default()/* use setters */);
-    /// ```
     pub fn set_workstation_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::WorkstationConfig>,
@@ -3862,14 +2844,6 @@ impl UpdateWorkstationConfigRequest {
     }
 
     /// Sets or clears the value of [workstation_config][crate::model::UpdateWorkstationConfigRequest::workstation_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_workstations_v1::model::UpdateWorkstationConfigRequest;
-    /// use google_cloud_workstations_v1::model::WorkstationConfig;
-    /// let x = UpdateWorkstationConfigRequest::new().set_or_clear_workstation_config(Some(WorkstationConfig::default()/* use setters */));
-    /// let x = UpdateWorkstationConfigRequest::new().set_or_clear_workstation_config(None::<WorkstationConfig>);
-    /// ```
     pub fn set_or_clear_workstation_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::WorkstationConfig>,
@@ -3879,13 +2853,6 @@ impl UpdateWorkstationConfigRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateWorkstationConfigRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_workstations_v1::model::UpdateWorkstationConfigRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateWorkstationConfigRequest::new().set_update_mask(FieldMask::default()/* use setters */);
-    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -3895,14 +2862,6 @@ impl UpdateWorkstationConfigRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateWorkstationConfigRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_workstations_v1::model::UpdateWorkstationConfigRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateWorkstationConfigRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
-    /// let x = UpdateWorkstationConfigRequest::new().set_or_clear_update_mask(None::<FieldMask>);
-    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -3912,24 +2871,12 @@ impl UpdateWorkstationConfigRequest {
     }
 
     /// Sets the value of [validate_only][crate::model::UpdateWorkstationConfigRequest::validate_only].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_workstations_v1::model::UpdateWorkstationConfigRequest;
-    /// let x = UpdateWorkstationConfigRequest::new().set_validate_only(true);
-    /// ```
     pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.validate_only = v.into();
         self
     }
 
     /// Sets the value of [allow_missing][crate::model::UpdateWorkstationConfigRequest::allow_missing].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_workstations_v1::model::UpdateWorkstationConfigRequest;
-    /// let x = UpdateWorkstationConfigRequest::new().set_allow_missing(true);
-    /// ```
     pub fn set_allow_missing<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.allow_missing = v.into();
         self
@@ -3971,48 +2918,24 @@ impl DeleteWorkstationConfigRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteWorkstationConfigRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_workstations_v1::model::DeleteWorkstationConfigRequest;
-    /// let x = DeleteWorkstationConfigRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [validate_only][crate::model::DeleteWorkstationConfigRequest::validate_only].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_workstations_v1::model::DeleteWorkstationConfigRequest;
-    /// let x = DeleteWorkstationConfigRequest::new().set_validate_only(true);
-    /// ```
     pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.validate_only = v.into();
         self
     }
 
     /// Sets the value of [etag][crate::model::DeleteWorkstationConfigRequest::etag].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_workstations_v1::model::DeleteWorkstationConfigRequest;
-    /// let x = DeleteWorkstationConfigRequest::new().set_etag("example");
-    /// ```
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
     }
 
     /// Sets the value of [force][crate::model::DeleteWorkstationConfigRequest::force].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_workstations_v1::model::DeleteWorkstationConfigRequest;
-    /// let x = DeleteWorkstationConfigRequest::new().set_force(true);
-    /// ```
     pub fn set_force<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.force = v.into();
         self
@@ -4041,12 +2964,6 @@ impl GetWorkstationRequest {
     }
 
     /// Sets the value of [name][crate::model::GetWorkstationRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_workstations_v1::model::GetWorkstationRequest;
-    /// let x = GetWorkstationRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -4082,36 +2999,18 @@ impl ListWorkstationsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListWorkstationsRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_workstations_v1::model::ListWorkstationsRequest;
-    /// let x = ListWorkstationsRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListWorkstationsRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_workstations_v1::model::ListWorkstationsRequest;
-    /// let x = ListWorkstationsRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListWorkstationsRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_workstations_v1::model::ListWorkstationsRequest;
-    /// let x = ListWorkstationsRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -4147,17 +3046,6 @@ impl ListWorkstationsResponse {
     }
 
     /// Sets the value of [workstations][crate::model::ListWorkstationsResponse::workstations].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_workstations_v1::model::ListWorkstationsResponse;
-    /// use google_cloud_workstations_v1::model::Workstation;
-    /// let x = ListWorkstationsResponse::new()
-    ///     .set_workstations([
-    ///         Workstation::default()/* use setters */,
-    ///         Workstation::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_workstations<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4169,24 +3057,12 @@ impl ListWorkstationsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListWorkstationsResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_workstations_v1::model::ListWorkstationsResponse;
-    /// let x = ListWorkstationsResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListWorkstationsResponse::unreachable].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_workstations_v1::model::ListWorkstationsResponse;
-    /// let x = ListWorkstationsResponse::new().set_unreachable(["a", "b", "c"]);
-    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4241,36 +3117,18 @@ impl ListUsableWorkstationsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListUsableWorkstationsRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_workstations_v1::model::ListUsableWorkstationsRequest;
-    /// let x = ListUsableWorkstationsRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListUsableWorkstationsRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_workstations_v1::model::ListUsableWorkstationsRequest;
-    /// let x = ListUsableWorkstationsRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListUsableWorkstationsRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_workstations_v1::model::ListUsableWorkstationsRequest;
-    /// let x = ListUsableWorkstationsRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -4306,17 +3164,6 @@ impl ListUsableWorkstationsResponse {
     }
 
     /// Sets the value of [workstations][crate::model::ListUsableWorkstationsResponse::workstations].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_workstations_v1::model::ListUsableWorkstationsResponse;
-    /// use google_cloud_workstations_v1::model::Workstation;
-    /// let x = ListUsableWorkstationsResponse::new()
-    ///     .set_workstations([
-    ///         Workstation::default()/* use setters */,
-    ///         Workstation::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_workstations<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4328,24 +3175,12 @@ impl ListUsableWorkstationsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListUsableWorkstationsResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_workstations_v1::model::ListUsableWorkstationsResponse;
-    /// let x = ListUsableWorkstationsResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListUsableWorkstationsResponse::unreachable].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_workstations_v1::model::ListUsableWorkstationsResponse;
-    /// let x = ListUsableWorkstationsResponse::new().set_unreachable(["a", "b", "c"]);
-    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4403,37 +3238,18 @@ impl CreateWorkstationRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateWorkstationRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_workstations_v1::model::CreateWorkstationRequest;
-    /// let x = CreateWorkstationRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [workstation_id][crate::model::CreateWorkstationRequest::workstation_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_workstations_v1::model::CreateWorkstationRequest;
-    /// let x = CreateWorkstationRequest::new().set_workstation_id("example");
-    /// ```
     pub fn set_workstation_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.workstation_id = v.into();
         self
     }
 
     /// Sets the value of [workstation][crate::model::CreateWorkstationRequest::workstation].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_workstations_v1::model::CreateWorkstationRequest;
-    /// use google_cloud_workstations_v1::model::Workstation;
-    /// let x = CreateWorkstationRequest::new().set_workstation(Workstation::default()/* use setters */);
-    /// ```
     pub fn set_workstation<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Workstation>,
@@ -4443,14 +3259,6 @@ impl CreateWorkstationRequest {
     }
 
     /// Sets or clears the value of [workstation][crate::model::CreateWorkstationRequest::workstation].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_workstations_v1::model::CreateWorkstationRequest;
-    /// use google_cloud_workstations_v1::model::Workstation;
-    /// let x = CreateWorkstationRequest::new().set_or_clear_workstation(Some(Workstation::default()/* use setters */));
-    /// let x = CreateWorkstationRequest::new().set_or_clear_workstation(None::<Workstation>);
-    /// ```
     pub fn set_or_clear_workstation<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Workstation>,
@@ -4460,12 +3268,6 @@ impl CreateWorkstationRequest {
     }
 
     /// Sets the value of [validate_only][crate::model::CreateWorkstationRequest::validate_only].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_workstations_v1::model::CreateWorkstationRequest;
-    /// let x = CreateWorkstationRequest::new().set_validate_only(true);
-    /// ```
     pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.validate_only = v.into();
         self
@@ -4507,13 +3309,6 @@ impl UpdateWorkstationRequest {
     }
 
     /// Sets the value of [workstation][crate::model::UpdateWorkstationRequest::workstation].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_workstations_v1::model::UpdateWorkstationRequest;
-    /// use google_cloud_workstations_v1::model::Workstation;
-    /// let x = UpdateWorkstationRequest::new().set_workstation(Workstation::default()/* use setters */);
-    /// ```
     pub fn set_workstation<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Workstation>,
@@ -4523,14 +3318,6 @@ impl UpdateWorkstationRequest {
     }
 
     /// Sets or clears the value of [workstation][crate::model::UpdateWorkstationRequest::workstation].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_workstations_v1::model::UpdateWorkstationRequest;
-    /// use google_cloud_workstations_v1::model::Workstation;
-    /// let x = UpdateWorkstationRequest::new().set_or_clear_workstation(Some(Workstation::default()/* use setters */));
-    /// let x = UpdateWorkstationRequest::new().set_or_clear_workstation(None::<Workstation>);
-    /// ```
     pub fn set_or_clear_workstation<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Workstation>,
@@ -4540,13 +3327,6 @@ impl UpdateWorkstationRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateWorkstationRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_workstations_v1::model::UpdateWorkstationRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateWorkstationRequest::new().set_update_mask(FieldMask::default()/* use setters */);
-    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -4556,14 +3336,6 @@ impl UpdateWorkstationRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateWorkstationRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_workstations_v1::model::UpdateWorkstationRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateWorkstationRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
-    /// let x = UpdateWorkstationRequest::new().set_or_clear_update_mask(None::<FieldMask>);
-    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -4573,24 +3345,12 @@ impl UpdateWorkstationRequest {
     }
 
     /// Sets the value of [validate_only][crate::model::UpdateWorkstationRequest::validate_only].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_workstations_v1::model::UpdateWorkstationRequest;
-    /// let x = UpdateWorkstationRequest::new().set_validate_only(true);
-    /// ```
     pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.validate_only = v.into();
         self
     }
 
     /// Sets the value of [allow_missing][crate::model::UpdateWorkstationRequest::allow_missing].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_workstations_v1::model::UpdateWorkstationRequest;
-    /// let x = UpdateWorkstationRequest::new().set_allow_missing(true);
-    /// ```
     pub fn set_allow_missing<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.allow_missing = v.into();
         self
@@ -4627,36 +3387,18 @@ impl DeleteWorkstationRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteWorkstationRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_workstations_v1::model::DeleteWorkstationRequest;
-    /// let x = DeleteWorkstationRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [validate_only][crate::model::DeleteWorkstationRequest::validate_only].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_workstations_v1::model::DeleteWorkstationRequest;
-    /// let x = DeleteWorkstationRequest::new().set_validate_only(true);
-    /// ```
     pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.validate_only = v.into();
         self
     }
 
     /// Sets the value of [etag][crate::model::DeleteWorkstationRequest::etag].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_workstations_v1::model::DeleteWorkstationRequest;
-    /// let x = DeleteWorkstationRequest::new().set_etag("example");
-    /// ```
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
@@ -4693,36 +3435,18 @@ impl StartWorkstationRequest {
     }
 
     /// Sets the value of [name][crate::model::StartWorkstationRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_workstations_v1::model::StartWorkstationRequest;
-    /// let x = StartWorkstationRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [validate_only][crate::model::StartWorkstationRequest::validate_only].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_workstations_v1::model::StartWorkstationRequest;
-    /// let x = StartWorkstationRequest::new().set_validate_only(true);
-    /// ```
     pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.validate_only = v.into();
         self
     }
 
     /// Sets the value of [etag][crate::model::StartWorkstationRequest::etag].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_workstations_v1::model::StartWorkstationRequest;
-    /// let x = StartWorkstationRequest::new().set_etag("example");
-    /// ```
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
@@ -4759,36 +3483,18 @@ impl StopWorkstationRequest {
     }
 
     /// Sets the value of [name][crate::model::StopWorkstationRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_workstations_v1::model::StopWorkstationRequest;
-    /// let x = StopWorkstationRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [validate_only][crate::model::StopWorkstationRequest::validate_only].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_workstations_v1::model::StopWorkstationRequest;
-    /// let x = StopWorkstationRequest::new().set_validate_only(true);
-    /// ```
     pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.validate_only = v.into();
         self
     }
 
     /// Sets the value of [etag][crate::model::StopWorkstationRequest::etag].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_workstations_v1::model::StopWorkstationRequest;
-    /// let x = StopWorkstationRequest::new().set_etag("example");
-    /// ```
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
@@ -4821,12 +3527,6 @@ impl GenerateAccessTokenRequest {
     }
 
     /// Sets the value of [workstation][crate::model::GenerateAccessTokenRequest::workstation].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_workstations_v1::model::GenerateAccessTokenRequest;
-    /// let x = GenerateAccessTokenRequest::new().set_workstation("example");
-    /// ```
     pub fn set_workstation<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.workstation = v.into();
         self
@@ -4836,14 +3536,6 @@ impl GenerateAccessTokenRequest {
     ///
     /// Note that all the setters affecting `expiration` are mutually
     /// exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_workstations_v1::model::GenerateAccessTokenRequest;
-    /// use google_cloud_workstations_v1::model::generate_access_token_request;
-    /// use wkt::Timestamp;
-    /// let x = GenerateAccessTokenRequest::new().set_expiration(Some(generate_access_token_request::Expiration::ExpireTime(Timestamp::default().into())));
-    /// ```
     pub fn set_expiration<
         T: std::convert::Into<
                 std::option::Option<crate::model::generate_access_token_request::Expiration>,
@@ -4874,15 +3566,6 @@ impl GenerateAccessTokenRequest {
     ///
     /// Note that all the setters affecting `expiration` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_workstations_v1::model::GenerateAccessTokenRequest;
-    /// use wkt::Timestamp;
-    /// let x = GenerateAccessTokenRequest::new().set_expire_time(Timestamp::default()/* use setters */);
-    /// assert!(x.expire_time().is_some());
-    /// assert!(x.ttl().is_none());
-    /// ```
     pub fn set_expire_time<T: std::convert::Into<std::boxed::Box<wkt::Timestamp>>>(
         mut self,
         v: T,
@@ -4911,15 +3594,6 @@ impl GenerateAccessTokenRequest {
     ///
     /// Note that all the setters affecting `expiration` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_workstations_v1::model::GenerateAccessTokenRequest;
-    /// use wkt::Duration;
-    /// let x = GenerateAccessTokenRequest::new().set_ttl(Duration::default()/* use setters */);
-    /// assert!(x.ttl().is_some());
-    /// assert!(x.expire_time().is_none());
-    /// ```
     pub fn set_ttl<T: std::convert::Into<std::boxed::Box<wkt::Duration>>>(mut self, v: T) -> Self {
         self.expiration = std::option::Option::Some(
             crate::model::generate_access_token_request::Expiration::Ttl(v.into()),
@@ -4977,25 +3651,12 @@ impl GenerateAccessTokenResponse {
     }
 
     /// Sets the value of [access_token][crate::model::GenerateAccessTokenResponse::access_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_workstations_v1::model::GenerateAccessTokenResponse;
-    /// let x = GenerateAccessTokenResponse::new().set_access_token("example");
-    /// ```
     pub fn set_access_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.access_token = v.into();
         self
     }
 
     /// Sets the value of [expire_time][crate::model::GenerateAccessTokenResponse::expire_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_workstations_v1::model::GenerateAccessTokenResponse;
-    /// use wkt::Timestamp;
-    /// let x = GenerateAccessTokenResponse::new().set_expire_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_expire_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -5005,14 +3666,6 @@ impl GenerateAccessTokenResponse {
     }
 
     /// Sets or clears the value of [expire_time][crate::model::GenerateAccessTokenResponse::expire_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_workstations_v1::model::GenerateAccessTokenResponse;
-    /// use wkt::Timestamp;
-    /// let x = GenerateAccessTokenResponse::new().set_or_clear_expire_time(Some(Timestamp::default()/* use setters */));
-    /// let x = GenerateAccessTokenResponse::new().set_or_clear_expire_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_expire_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -5063,13 +3716,6 @@ impl OperationMetadata {
     }
 
     /// Sets the value of [create_time][crate::model::OperationMetadata::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_workstations_v1::model::OperationMetadata;
-    /// use wkt::Timestamp;
-    /// let x = OperationMetadata::new().set_create_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -5079,14 +3725,6 @@ impl OperationMetadata {
     }
 
     /// Sets or clears the value of [create_time][crate::model::OperationMetadata::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_workstations_v1::model::OperationMetadata;
-    /// use wkt::Timestamp;
-    /// let x = OperationMetadata::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
-    /// let x = OperationMetadata::new().set_or_clear_create_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -5096,13 +3734,6 @@ impl OperationMetadata {
     }
 
     /// Sets the value of [end_time][crate::model::OperationMetadata::end_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_workstations_v1::model::OperationMetadata;
-    /// use wkt::Timestamp;
-    /// let x = OperationMetadata::new().set_end_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -5112,14 +3743,6 @@ impl OperationMetadata {
     }
 
     /// Sets or clears the value of [end_time][crate::model::OperationMetadata::end_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_workstations_v1::model::OperationMetadata;
-    /// use wkt::Timestamp;
-    /// let x = OperationMetadata::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
-    /// let x = OperationMetadata::new().set_or_clear_end_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -5129,60 +3752,30 @@ impl OperationMetadata {
     }
 
     /// Sets the value of [target][crate::model::OperationMetadata::target].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_workstations_v1::model::OperationMetadata;
-    /// let x = OperationMetadata::new().set_target("example");
-    /// ```
     pub fn set_target<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.target = v.into();
         self
     }
 
     /// Sets the value of [verb][crate::model::OperationMetadata::verb].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_workstations_v1::model::OperationMetadata;
-    /// let x = OperationMetadata::new().set_verb("example");
-    /// ```
     pub fn set_verb<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.verb = v.into();
         self
     }
 
     /// Sets the value of [status_message][crate::model::OperationMetadata::status_message].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_workstations_v1::model::OperationMetadata;
-    /// let x = OperationMetadata::new().set_status_message("example");
-    /// ```
     pub fn set_status_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.status_message = v.into();
         self
     }
 
     /// Sets the value of [requested_cancellation][crate::model::OperationMetadata::requested_cancellation].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_workstations_v1::model::OperationMetadata;
-    /// let x = OperationMetadata::new().set_requested_cancellation(true);
-    /// ```
     pub fn set_requested_cancellation<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.requested_cancellation = v.into();
         self
     }
 
     /// Sets the value of [api_version][crate::model::OperationMetadata::api_version].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_workstations_v1::model::OperationMetadata;
-    /// let x = OperationMetadata::new().set_api_version("example");
-    /// ```
     pub fn set_api_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.api_version = v.into();
         self

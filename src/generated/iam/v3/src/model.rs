@@ -77,13 +77,6 @@ impl OperationMetadata {
     }
 
     /// Sets the value of [create_time][crate::model::OperationMetadata::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iam_v3::model::OperationMetadata;
-    /// use wkt::Timestamp;
-    /// let x = OperationMetadata::new().set_create_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -93,14 +86,6 @@ impl OperationMetadata {
     }
 
     /// Sets or clears the value of [create_time][crate::model::OperationMetadata::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iam_v3::model::OperationMetadata;
-    /// use wkt::Timestamp;
-    /// let x = OperationMetadata::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
-    /// let x = OperationMetadata::new().set_or_clear_create_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -110,13 +95,6 @@ impl OperationMetadata {
     }
 
     /// Sets the value of [end_time][crate::model::OperationMetadata::end_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iam_v3::model::OperationMetadata;
-    /// use wkt::Timestamp;
-    /// let x = OperationMetadata::new().set_end_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -126,14 +104,6 @@ impl OperationMetadata {
     }
 
     /// Sets or clears the value of [end_time][crate::model::OperationMetadata::end_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iam_v3::model::OperationMetadata;
-    /// use wkt::Timestamp;
-    /// let x = OperationMetadata::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
-    /// let x = OperationMetadata::new().set_or_clear_end_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -143,60 +113,30 @@ impl OperationMetadata {
     }
 
     /// Sets the value of [target][crate::model::OperationMetadata::target].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iam_v3::model::OperationMetadata;
-    /// let x = OperationMetadata::new().set_target("example");
-    /// ```
     pub fn set_target<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.target = v.into();
         self
     }
 
     /// Sets the value of [verb][crate::model::OperationMetadata::verb].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iam_v3::model::OperationMetadata;
-    /// let x = OperationMetadata::new().set_verb("example");
-    /// ```
     pub fn set_verb<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.verb = v.into();
         self
     }
 
     /// Sets the value of [status_message][crate::model::OperationMetadata::status_message].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iam_v3::model::OperationMetadata;
-    /// let x = OperationMetadata::new().set_status_message("example");
-    /// ```
     pub fn set_status_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.status_message = v.into();
         self
     }
 
     /// Sets the value of [requested_cancellation][crate::model::OperationMetadata::requested_cancellation].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iam_v3::model::OperationMetadata;
-    /// let x = OperationMetadata::new().set_requested_cancellation(true);
-    /// ```
     pub fn set_requested_cancellation<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.requested_cancellation = v.into();
         self
     }
 
     /// Sets the value of [api_version][crate::model::OperationMetadata::api_version].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iam_v3::model::OperationMetadata;
-    /// let x = OperationMetadata::new().set_api_version("example");
-    /// ```
     pub fn set_api_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.api_version = v.into();
         self
@@ -314,63 +254,30 @@ impl PolicyBinding {
     }
 
     /// Sets the value of [name][crate::model::PolicyBinding::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iam_v3::model::PolicyBinding;
-    /// let x = PolicyBinding::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [uid][crate::model::PolicyBinding::uid].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iam_v3::model::PolicyBinding;
-    /// let x = PolicyBinding::new().set_uid("example");
-    /// ```
     pub fn set_uid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.uid = v.into();
         self
     }
 
     /// Sets the value of [etag][crate::model::PolicyBinding::etag].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iam_v3::model::PolicyBinding;
-    /// let x = PolicyBinding::new().set_etag("example");
-    /// ```
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
     }
 
     /// Sets the value of [display_name][crate::model::PolicyBinding::display_name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iam_v3::model::PolicyBinding;
-    /// let x = PolicyBinding::new().set_display_name("example");
-    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
     }
 
     /// Sets the value of [annotations][crate::model::PolicyBinding::annotations].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iam_v3::model::PolicyBinding;
-    /// let x = PolicyBinding::new().set_annotations([
-    ///     ("key0", "abc"),
-    ///     ("key1", "xyz"),
-    /// ]);
-    /// ```
     pub fn set_annotations<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -383,13 +290,6 @@ impl PolicyBinding {
     }
 
     /// Sets the value of [target][crate::model::PolicyBinding::target].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iam_v3::model::PolicyBinding;
-    /// use google_cloud_iam_v3::model::policy_binding::Target;
-    /// let x = PolicyBinding::new().set_target(Target::default()/* use setters */);
-    /// ```
     pub fn set_target<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::policy_binding::Target>,
@@ -399,14 +299,6 @@ impl PolicyBinding {
     }
 
     /// Sets or clears the value of [target][crate::model::PolicyBinding::target].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iam_v3::model::PolicyBinding;
-    /// use google_cloud_iam_v3::model::policy_binding::Target;
-    /// let x = PolicyBinding::new().set_or_clear_target(Some(Target::default()/* use setters */));
-    /// let x = PolicyBinding::new().set_or_clear_target(None::<Target>);
-    /// ```
     pub fn set_or_clear_target<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::policy_binding::Target>,
@@ -416,13 +308,6 @@ impl PolicyBinding {
     }
 
     /// Sets the value of [policy_kind][crate::model::PolicyBinding::policy_kind].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iam_v3::model::PolicyBinding;
-    /// use google_cloud_iam_v3::model::policy_binding::PolicyKind;
-    /// let x0 = PolicyBinding::new().set_policy_kind(PolicyKind::PrincipalAccessBoundary);
-    /// ```
     pub fn set_policy_kind<T: std::convert::Into<crate::model::policy_binding::PolicyKind>>(
         mut self,
         v: T,
@@ -432,37 +317,18 @@ impl PolicyBinding {
     }
 
     /// Sets the value of [policy][crate::model::PolicyBinding::policy].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iam_v3::model::PolicyBinding;
-    /// let x = PolicyBinding::new().set_policy("example");
-    /// ```
     pub fn set_policy<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.policy = v.into();
         self
     }
 
     /// Sets the value of [policy_uid][crate::model::PolicyBinding::policy_uid].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iam_v3::model::PolicyBinding;
-    /// let x = PolicyBinding::new().set_policy_uid("example");
-    /// ```
     pub fn set_policy_uid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.policy_uid = v.into();
         self
     }
 
     /// Sets the value of [condition][crate::model::PolicyBinding::condition].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iam_v3::model::PolicyBinding;
-    /// use gtype::model::Expr;
-    /// let x = PolicyBinding::new().set_condition(Expr::default()/* use setters */);
-    /// ```
     pub fn set_condition<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<gtype::model::Expr>,
@@ -472,14 +338,6 @@ impl PolicyBinding {
     }
 
     /// Sets or clears the value of [condition][crate::model::PolicyBinding::condition].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iam_v3::model::PolicyBinding;
-    /// use gtype::model::Expr;
-    /// let x = PolicyBinding::new().set_or_clear_condition(Some(Expr::default()/* use setters */));
-    /// let x = PolicyBinding::new().set_or_clear_condition(None::<Expr>);
-    /// ```
     pub fn set_or_clear_condition<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<gtype::model::Expr>,
@@ -489,13 +347,6 @@ impl PolicyBinding {
     }
 
     /// Sets the value of [create_time][crate::model::PolicyBinding::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iam_v3::model::PolicyBinding;
-    /// use wkt::Timestamp;
-    /// let x = PolicyBinding::new().set_create_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -505,14 +356,6 @@ impl PolicyBinding {
     }
 
     /// Sets or clears the value of [create_time][crate::model::PolicyBinding::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iam_v3::model::PolicyBinding;
-    /// use wkt::Timestamp;
-    /// let x = PolicyBinding::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
-    /// let x = PolicyBinding::new().set_or_clear_create_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -522,13 +365,6 @@ impl PolicyBinding {
     }
 
     /// Sets the value of [update_time][crate::model::PolicyBinding::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iam_v3::model::PolicyBinding;
-    /// use wkt::Timestamp;
-    /// let x = PolicyBinding::new().set_update_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -538,14 +374,6 @@ impl PolicyBinding {
     }
 
     /// Sets or clears the value of [update_time][crate::model::PolicyBinding::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iam_v3::model::PolicyBinding;
-    /// use wkt::Timestamp;
-    /// let x = PolicyBinding::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
-    /// let x = PolicyBinding::new().set_or_clear_update_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -586,13 +414,6 @@ pub mod policy_binding {
         ///
         /// Note that all the setters affecting `target` are mutually
         /// exclusive.
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_iam_v3::model::policy_binding::Target;
-        /// use google_cloud_iam_v3::model::policy_binding::target;
-        /// let x = Target::new().set_target(Some(policy_binding::target::Target::PrincipalSet("example".to_string())));
-        /// ```
         pub fn set_target<
             T: std::convert::Into<std::option::Option<crate::model::policy_binding::target::Target>>,
         >(
@@ -621,13 +442,6 @@ pub mod policy_binding {
         ///
         /// Note that all the setters affecting `target` are
         /// mutually exclusive.
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_iam_v3::model::policy_binding::Target;
-        /// let x = Target::new().set_principal_set("example");
-        /// assert!(x.principal_set().is_some());
-        /// ```
         pub fn set_principal_set<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -849,24 +663,12 @@ impl CreatePolicyBindingRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreatePolicyBindingRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iam_v3::model::CreatePolicyBindingRequest;
-    /// let x = CreatePolicyBindingRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [policy_binding_id][crate::model::CreatePolicyBindingRequest::policy_binding_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iam_v3::model::CreatePolicyBindingRequest;
-    /// let x = CreatePolicyBindingRequest::new().set_policy_binding_id("example");
-    /// ```
     pub fn set_policy_binding_id<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -876,13 +678,6 @@ impl CreatePolicyBindingRequest {
     }
 
     /// Sets the value of [policy_binding][crate::model::CreatePolicyBindingRequest::policy_binding].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iam_v3::model::CreatePolicyBindingRequest;
-    /// use google_cloud_iam_v3::model::PolicyBinding;
-    /// let x = CreatePolicyBindingRequest::new().set_policy_binding(PolicyBinding::default()/* use setters */);
-    /// ```
     pub fn set_policy_binding<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::PolicyBinding>,
@@ -892,14 +687,6 @@ impl CreatePolicyBindingRequest {
     }
 
     /// Sets or clears the value of [policy_binding][crate::model::CreatePolicyBindingRequest::policy_binding].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iam_v3::model::CreatePolicyBindingRequest;
-    /// use google_cloud_iam_v3::model::PolicyBinding;
-    /// let x = CreatePolicyBindingRequest::new().set_or_clear_policy_binding(Some(PolicyBinding::default()/* use setters */));
-    /// let x = CreatePolicyBindingRequest::new().set_or_clear_policy_binding(None::<PolicyBinding>);
-    /// ```
     pub fn set_or_clear_policy_binding<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::PolicyBinding>,
@@ -909,12 +696,6 @@ impl CreatePolicyBindingRequest {
     }
 
     /// Sets the value of [validate_only][crate::model::CreatePolicyBindingRequest::validate_only].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iam_v3::model::CreatePolicyBindingRequest;
-    /// let x = CreatePolicyBindingRequest::new().set_validate_only(true);
-    /// ```
     pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.validate_only = v.into();
         self
@@ -950,12 +731,6 @@ impl GetPolicyBindingRequest {
     }
 
     /// Sets the value of [name][crate::model::GetPolicyBindingRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iam_v3::model::GetPolicyBindingRequest;
-    /// let x = GetPolicyBindingRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -994,13 +769,6 @@ impl UpdatePolicyBindingRequest {
     }
 
     /// Sets the value of [policy_binding][crate::model::UpdatePolicyBindingRequest::policy_binding].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iam_v3::model::UpdatePolicyBindingRequest;
-    /// use google_cloud_iam_v3::model::PolicyBinding;
-    /// let x = UpdatePolicyBindingRequest::new().set_policy_binding(PolicyBinding::default()/* use setters */);
-    /// ```
     pub fn set_policy_binding<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::PolicyBinding>,
@@ -1010,14 +778,6 @@ impl UpdatePolicyBindingRequest {
     }
 
     /// Sets or clears the value of [policy_binding][crate::model::UpdatePolicyBindingRequest::policy_binding].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iam_v3::model::UpdatePolicyBindingRequest;
-    /// use google_cloud_iam_v3::model::PolicyBinding;
-    /// let x = UpdatePolicyBindingRequest::new().set_or_clear_policy_binding(Some(PolicyBinding::default()/* use setters */));
-    /// let x = UpdatePolicyBindingRequest::new().set_or_clear_policy_binding(None::<PolicyBinding>);
-    /// ```
     pub fn set_or_clear_policy_binding<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::PolicyBinding>,
@@ -1027,25 +787,12 @@ impl UpdatePolicyBindingRequest {
     }
 
     /// Sets the value of [validate_only][crate::model::UpdatePolicyBindingRequest::validate_only].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iam_v3::model::UpdatePolicyBindingRequest;
-    /// let x = UpdatePolicyBindingRequest::new().set_validate_only(true);
-    /// ```
     pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.validate_only = v.into();
         self
     }
 
     /// Sets the value of [update_mask][crate::model::UpdatePolicyBindingRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iam_v3::model::UpdatePolicyBindingRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdatePolicyBindingRequest::new().set_update_mask(FieldMask::default()/* use setters */);
-    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -1055,14 +802,6 @@ impl UpdatePolicyBindingRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdatePolicyBindingRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iam_v3::model::UpdatePolicyBindingRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdatePolicyBindingRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
-    /// let x = UpdatePolicyBindingRequest::new().set_or_clear_update_mask(None::<FieldMask>);
-    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -1109,36 +848,18 @@ impl DeletePolicyBindingRequest {
     }
 
     /// Sets the value of [name][crate::model::DeletePolicyBindingRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iam_v3::model::DeletePolicyBindingRequest;
-    /// let x = DeletePolicyBindingRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [etag][crate::model::DeletePolicyBindingRequest::etag].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iam_v3::model::DeletePolicyBindingRequest;
-    /// let x = DeletePolicyBindingRequest::new().set_etag("example");
-    /// ```
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
     }
 
     /// Sets the value of [validate_only][crate::model::DeletePolicyBindingRequest::validate_only].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iam_v3::model::DeletePolicyBindingRequest;
-    /// let x = DeletePolicyBindingRequest::new().set_validate_only(true);
-    /// ```
     pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.validate_only = v.into();
         self
@@ -1202,48 +923,24 @@ impl ListPolicyBindingsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListPolicyBindingsRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iam_v3::model::ListPolicyBindingsRequest;
-    /// let x = ListPolicyBindingsRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListPolicyBindingsRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iam_v3::model::ListPolicyBindingsRequest;
-    /// let x = ListPolicyBindingsRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListPolicyBindingsRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iam_v3::model::ListPolicyBindingsRequest;
-    /// let x = ListPolicyBindingsRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListPolicyBindingsRequest::filter].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iam_v3::model::ListPolicyBindingsRequest;
-    /// let x = ListPolicyBindingsRequest::new().set_filter("example");
-    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
@@ -1276,17 +973,6 @@ impl ListPolicyBindingsResponse {
     }
 
     /// Sets the value of [policy_bindings][crate::model::ListPolicyBindingsResponse::policy_bindings].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iam_v3::model::ListPolicyBindingsResponse;
-    /// use google_cloud_iam_v3::model::PolicyBinding;
-    /// let x = ListPolicyBindingsResponse::new()
-    ///     .set_policy_bindings([
-    ///         PolicyBinding::default()/* use setters */,
-    ///         PolicyBinding::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_policy_bindings<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1298,12 +984,6 @@ impl ListPolicyBindingsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListPolicyBindingsResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iam_v3::model::ListPolicyBindingsResponse;
-    /// let x = ListPolicyBindingsResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -1383,48 +1063,24 @@ impl SearchTargetPolicyBindingsRequest {
     }
 
     /// Sets the value of [target][crate::model::SearchTargetPolicyBindingsRequest::target].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iam_v3::model::SearchTargetPolicyBindingsRequest;
-    /// let x = SearchTargetPolicyBindingsRequest::new().set_target("example");
-    /// ```
     pub fn set_target<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.target = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::SearchTargetPolicyBindingsRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iam_v3::model::SearchTargetPolicyBindingsRequest;
-    /// let x = SearchTargetPolicyBindingsRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::SearchTargetPolicyBindingsRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iam_v3::model::SearchTargetPolicyBindingsRequest;
-    /// let x = SearchTargetPolicyBindingsRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [parent][crate::model::SearchTargetPolicyBindingsRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iam_v3::model::SearchTargetPolicyBindingsRequest;
-    /// let x = SearchTargetPolicyBindingsRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
@@ -1457,17 +1113,6 @@ impl SearchTargetPolicyBindingsResponse {
     }
 
     /// Sets the value of [policy_bindings][crate::model::SearchTargetPolicyBindingsResponse::policy_bindings].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iam_v3::model::SearchTargetPolicyBindingsResponse;
-    /// use google_cloud_iam_v3::model::PolicyBinding;
-    /// let x = SearchTargetPolicyBindingsResponse::new()
-    ///     .set_policy_bindings([
-    ///         PolicyBinding::default()/* use setters */,
-    ///         PolicyBinding::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_policy_bindings<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1479,12 +1124,6 @@ impl SearchTargetPolicyBindingsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::SearchTargetPolicyBindingsResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iam_v3::model::SearchTargetPolicyBindingsResponse;
-    /// let x = SearchTargetPolicyBindingsResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -1548,24 +1187,12 @@ impl CreatePrincipalAccessBoundaryPolicyRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreatePrincipalAccessBoundaryPolicyRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iam_v3::model::CreatePrincipalAccessBoundaryPolicyRequest;
-    /// let x = CreatePrincipalAccessBoundaryPolicyRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [principal_access_boundary_policy_id][crate::model::CreatePrincipalAccessBoundaryPolicyRequest::principal_access_boundary_policy_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iam_v3::model::CreatePrincipalAccessBoundaryPolicyRequest;
-    /// let x = CreatePrincipalAccessBoundaryPolicyRequest::new().set_principal_access_boundary_policy_id("example");
-    /// ```
     pub fn set_principal_access_boundary_policy_id<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -1575,13 +1202,6 @@ impl CreatePrincipalAccessBoundaryPolicyRequest {
     }
 
     /// Sets the value of [principal_access_boundary_policy][crate::model::CreatePrincipalAccessBoundaryPolicyRequest::principal_access_boundary_policy].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iam_v3::model::CreatePrincipalAccessBoundaryPolicyRequest;
-    /// use google_cloud_iam_v3::model::PrincipalAccessBoundaryPolicy;
-    /// let x = CreatePrincipalAccessBoundaryPolicyRequest::new().set_principal_access_boundary_policy(PrincipalAccessBoundaryPolicy::default()/* use setters */);
-    /// ```
     pub fn set_principal_access_boundary_policy<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::PrincipalAccessBoundaryPolicy>,
@@ -1591,14 +1211,6 @@ impl CreatePrincipalAccessBoundaryPolicyRequest {
     }
 
     /// Sets or clears the value of [principal_access_boundary_policy][crate::model::CreatePrincipalAccessBoundaryPolicyRequest::principal_access_boundary_policy].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iam_v3::model::CreatePrincipalAccessBoundaryPolicyRequest;
-    /// use google_cloud_iam_v3::model::PrincipalAccessBoundaryPolicy;
-    /// let x = CreatePrincipalAccessBoundaryPolicyRequest::new().set_or_clear_principal_access_boundary_policy(Some(PrincipalAccessBoundaryPolicy::default()/* use setters */));
-    /// let x = CreatePrincipalAccessBoundaryPolicyRequest::new().set_or_clear_principal_access_boundary_policy(None::<PrincipalAccessBoundaryPolicy>);
-    /// ```
     pub fn set_or_clear_principal_access_boundary_policy<T>(
         mut self,
         v: std::option::Option<T>,
@@ -1611,12 +1223,6 @@ impl CreatePrincipalAccessBoundaryPolicyRequest {
     }
 
     /// Sets the value of [validate_only][crate::model::CreatePrincipalAccessBoundaryPolicyRequest::validate_only].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iam_v3::model::CreatePrincipalAccessBoundaryPolicyRequest;
-    /// let x = CreatePrincipalAccessBoundaryPolicyRequest::new().set_validate_only(true);
-    /// ```
     pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.validate_only = v.into();
         self
@@ -1648,12 +1254,6 @@ impl GetPrincipalAccessBoundaryPolicyRequest {
     }
 
     /// Sets the value of [name][crate::model::GetPrincipalAccessBoundaryPolicyRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iam_v3::model::GetPrincipalAccessBoundaryPolicyRequest;
-    /// let x = GetPrincipalAccessBoundaryPolicyRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -1693,13 +1293,6 @@ impl UpdatePrincipalAccessBoundaryPolicyRequest {
     }
 
     /// Sets the value of [principal_access_boundary_policy][crate::model::UpdatePrincipalAccessBoundaryPolicyRequest::principal_access_boundary_policy].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iam_v3::model::UpdatePrincipalAccessBoundaryPolicyRequest;
-    /// use google_cloud_iam_v3::model::PrincipalAccessBoundaryPolicy;
-    /// let x = UpdatePrincipalAccessBoundaryPolicyRequest::new().set_principal_access_boundary_policy(PrincipalAccessBoundaryPolicy::default()/* use setters */);
-    /// ```
     pub fn set_principal_access_boundary_policy<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::PrincipalAccessBoundaryPolicy>,
@@ -1709,14 +1302,6 @@ impl UpdatePrincipalAccessBoundaryPolicyRequest {
     }
 
     /// Sets or clears the value of [principal_access_boundary_policy][crate::model::UpdatePrincipalAccessBoundaryPolicyRequest::principal_access_boundary_policy].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iam_v3::model::UpdatePrincipalAccessBoundaryPolicyRequest;
-    /// use google_cloud_iam_v3::model::PrincipalAccessBoundaryPolicy;
-    /// let x = UpdatePrincipalAccessBoundaryPolicyRequest::new().set_or_clear_principal_access_boundary_policy(Some(PrincipalAccessBoundaryPolicy::default()/* use setters */));
-    /// let x = UpdatePrincipalAccessBoundaryPolicyRequest::new().set_or_clear_principal_access_boundary_policy(None::<PrincipalAccessBoundaryPolicy>);
-    /// ```
     pub fn set_or_clear_principal_access_boundary_policy<T>(
         mut self,
         v: std::option::Option<T>,
@@ -1729,25 +1314,12 @@ impl UpdatePrincipalAccessBoundaryPolicyRequest {
     }
 
     /// Sets the value of [validate_only][crate::model::UpdatePrincipalAccessBoundaryPolicyRequest::validate_only].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iam_v3::model::UpdatePrincipalAccessBoundaryPolicyRequest;
-    /// let x = UpdatePrincipalAccessBoundaryPolicyRequest::new().set_validate_only(true);
-    /// ```
     pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.validate_only = v.into();
         self
     }
 
     /// Sets the value of [update_mask][crate::model::UpdatePrincipalAccessBoundaryPolicyRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iam_v3::model::UpdatePrincipalAccessBoundaryPolicyRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdatePrincipalAccessBoundaryPolicyRequest::new().set_update_mask(FieldMask::default()/* use setters */);
-    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -1757,14 +1329,6 @@ impl UpdatePrincipalAccessBoundaryPolicyRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdatePrincipalAccessBoundaryPolicyRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iam_v3::model::UpdatePrincipalAccessBoundaryPolicyRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdatePrincipalAccessBoundaryPolicyRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
-    /// let x = UpdatePrincipalAccessBoundaryPolicyRequest::new().set_or_clear_update_mask(None::<FieldMask>);
-    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -1811,48 +1375,24 @@ impl DeletePrincipalAccessBoundaryPolicyRequest {
     }
 
     /// Sets the value of [name][crate::model::DeletePrincipalAccessBoundaryPolicyRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iam_v3::model::DeletePrincipalAccessBoundaryPolicyRequest;
-    /// let x = DeletePrincipalAccessBoundaryPolicyRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [etag][crate::model::DeletePrincipalAccessBoundaryPolicyRequest::etag].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iam_v3::model::DeletePrincipalAccessBoundaryPolicyRequest;
-    /// let x = DeletePrincipalAccessBoundaryPolicyRequest::new().set_etag("example");
-    /// ```
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
     }
 
     /// Sets the value of [validate_only][crate::model::DeletePrincipalAccessBoundaryPolicyRequest::validate_only].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iam_v3::model::DeletePrincipalAccessBoundaryPolicyRequest;
-    /// let x = DeletePrincipalAccessBoundaryPolicyRequest::new().set_validate_only(true);
-    /// ```
     pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.validate_only = v.into();
         self
     }
 
     /// Sets the value of [force][crate::model::DeletePrincipalAccessBoundaryPolicyRequest::force].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iam_v3::model::DeletePrincipalAccessBoundaryPolicyRequest;
-    /// let x = DeletePrincipalAccessBoundaryPolicyRequest::new().set_force(true);
-    /// ```
     pub fn set_force<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.force = v.into();
         self
@@ -1902,36 +1442,18 @@ impl ListPrincipalAccessBoundaryPoliciesRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListPrincipalAccessBoundaryPoliciesRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iam_v3::model::ListPrincipalAccessBoundaryPoliciesRequest;
-    /// let x = ListPrincipalAccessBoundaryPoliciesRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListPrincipalAccessBoundaryPoliciesRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iam_v3::model::ListPrincipalAccessBoundaryPoliciesRequest;
-    /// let x = ListPrincipalAccessBoundaryPoliciesRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListPrincipalAccessBoundaryPoliciesRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iam_v3::model::ListPrincipalAccessBoundaryPoliciesRequest;
-    /// let x = ListPrincipalAccessBoundaryPoliciesRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -1965,17 +1487,6 @@ impl ListPrincipalAccessBoundaryPoliciesResponse {
     }
 
     /// Sets the value of [principal_access_boundary_policies][crate::model::ListPrincipalAccessBoundaryPoliciesResponse::principal_access_boundary_policies].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iam_v3::model::ListPrincipalAccessBoundaryPoliciesResponse;
-    /// use google_cloud_iam_v3::model::PrincipalAccessBoundaryPolicy;
-    /// let x = ListPrincipalAccessBoundaryPoliciesResponse::new()
-    ///     .set_principal_access_boundary_policies([
-    ///         PrincipalAccessBoundaryPolicy::default()/* use setters */,
-    ///         PrincipalAccessBoundaryPolicy::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_principal_access_boundary_policies<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1987,12 +1498,6 @@ impl ListPrincipalAccessBoundaryPoliciesResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListPrincipalAccessBoundaryPoliciesResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iam_v3::model::ListPrincipalAccessBoundaryPoliciesResponse;
-    /// let x = ListPrincipalAccessBoundaryPoliciesResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -2053,36 +1558,18 @@ impl SearchPrincipalAccessBoundaryPolicyBindingsRequest {
     }
 
     /// Sets the value of [name][crate::model::SearchPrincipalAccessBoundaryPolicyBindingsRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iam_v3::model::SearchPrincipalAccessBoundaryPolicyBindingsRequest;
-    /// let x = SearchPrincipalAccessBoundaryPolicyBindingsRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::SearchPrincipalAccessBoundaryPolicyBindingsRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iam_v3::model::SearchPrincipalAccessBoundaryPolicyBindingsRequest;
-    /// let x = SearchPrincipalAccessBoundaryPolicyBindingsRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::SearchPrincipalAccessBoundaryPolicyBindingsRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iam_v3::model::SearchPrincipalAccessBoundaryPolicyBindingsRequest;
-    /// let x = SearchPrincipalAccessBoundaryPolicyBindingsRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -2115,17 +1602,6 @@ impl SearchPrincipalAccessBoundaryPolicyBindingsResponse {
     }
 
     /// Sets the value of [policy_bindings][crate::model::SearchPrincipalAccessBoundaryPolicyBindingsResponse::policy_bindings].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iam_v3::model::SearchPrincipalAccessBoundaryPolicyBindingsResponse;
-    /// use google_cloud_iam_v3::model::PolicyBinding;
-    /// let x = SearchPrincipalAccessBoundaryPolicyBindingsResponse::new()
-    ///     .set_policy_bindings([
-    ///         PolicyBinding::default()/* use setters */,
-    ///         PolicyBinding::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_policy_bindings<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2137,12 +1613,6 @@ impl SearchPrincipalAccessBoundaryPolicyBindingsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::SearchPrincipalAccessBoundaryPolicyBindingsResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iam_v3::model::SearchPrincipalAccessBoundaryPolicyBindingsResponse;
-    /// let x = SearchPrincipalAccessBoundaryPolicyBindingsResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -2218,63 +1688,30 @@ impl PrincipalAccessBoundaryPolicy {
     }
 
     /// Sets the value of [name][crate::model::PrincipalAccessBoundaryPolicy::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iam_v3::model::PrincipalAccessBoundaryPolicy;
-    /// let x = PrincipalAccessBoundaryPolicy::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [uid][crate::model::PrincipalAccessBoundaryPolicy::uid].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iam_v3::model::PrincipalAccessBoundaryPolicy;
-    /// let x = PrincipalAccessBoundaryPolicy::new().set_uid("example");
-    /// ```
     pub fn set_uid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.uid = v.into();
         self
     }
 
     /// Sets the value of [etag][crate::model::PrincipalAccessBoundaryPolicy::etag].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iam_v3::model::PrincipalAccessBoundaryPolicy;
-    /// let x = PrincipalAccessBoundaryPolicy::new().set_etag("example");
-    /// ```
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
     }
 
     /// Sets the value of [display_name][crate::model::PrincipalAccessBoundaryPolicy::display_name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iam_v3::model::PrincipalAccessBoundaryPolicy;
-    /// let x = PrincipalAccessBoundaryPolicy::new().set_display_name("example");
-    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
     }
 
     /// Sets the value of [annotations][crate::model::PrincipalAccessBoundaryPolicy::annotations].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iam_v3::model::PrincipalAccessBoundaryPolicy;
-    /// let x = PrincipalAccessBoundaryPolicy::new().set_annotations([
-    ///     ("key0", "abc"),
-    ///     ("key1", "xyz"),
-    /// ]);
-    /// ```
     pub fn set_annotations<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -2287,13 +1724,6 @@ impl PrincipalAccessBoundaryPolicy {
     }
 
     /// Sets the value of [create_time][crate::model::PrincipalAccessBoundaryPolicy::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iam_v3::model::PrincipalAccessBoundaryPolicy;
-    /// use wkt::Timestamp;
-    /// let x = PrincipalAccessBoundaryPolicy::new().set_create_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2303,14 +1733,6 @@ impl PrincipalAccessBoundaryPolicy {
     }
 
     /// Sets or clears the value of [create_time][crate::model::PrincipalAccessBoundaryPolicy::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iam_v3::model::PrincipalAccessBoundaryPolicy;
-    /// use wkt::Timestamp;
-    /// let x = PrincipalAccessBoundaryPolicy::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
-    /// let x = PrincipalAccessBoundaryPolicy::new().set_or_clear_create_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2320,13 +1742,6 @@ impl PrincipalAccessBoundaryPolicy {
     }
 
     /// Sets the value of [update_time][crate::model::PrincipalAccessBoundaryPolicy::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iam_v3::model::PrincipalAccessBoundaryPolicy;
-    /// use wkt::Timestamp;
-    /// let x = PrincipalAccessBoundaryPolicy::new().set_update_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2336,14 +1751,6 @@ impl PrincipalAccessBoundaryPolicy {
     }
 
     /// Sets or clears the value of [update_time][crate::model::PrincipalAccessBoundaryPolicy::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iam_v3::model::PrincipalAccessBoundaryPolicy;
-    /// use wkt::Timestamp;
-    /// let x = PrincipalAccessBoundaryPolicy::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
-    /// let x = PrincipalAccessBoundaryPolicy::new().set_or_clear_update_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2353,13 +1760,6 @@ impl PrincipalAccessBoundaryPolicy {
     }
 
     /// Sets the value of [details][crate::model::PrincipalAccessBoundaryPolicy::details].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iam_v3::model::PrincipalAccessBoundaryPolicy;
-    /// use google_cloud_iam_v3::model::PrincipalAccessBoundaryPolicyDetails;
-    /// let x = PrincipalAccessBoundaryPolicy::new().set_details(PrincipalAccessBoundaryPolicyDetails::default()/* use setters */);
-    /// ```
     pub fn set_details<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::PrincipalAccessBoundaryPolicyDetails>,
@@ -2369,14 +1769,6 @@ impl PrincipalAccessBoundaryPolicy {
     }
 
     /// Sets or clears the value of [details][crate::model::PrincipalAccessBoundaryPolicy::details].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iam_v3::model::PrincipalAccessBoundaryPolicy;
-    /// use google_cloud_iam_v3::model::PrincipalAccessBoundaryPolicyDetails;
-    /// let x = PrincipalAccessBoundaryPolicy::new().set_or_clear_details(Some(PrincipalAccessBoundaryPolicyDetails::default()/* use setters */));
-    /// let x = PrincipalAccessBoundaryPolicy::new().set_or_clear_details(None::<PrincipalAccessBoundaryPolicyDetails>);
-    /// ```
     pub fn set_or_clear_details<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::PrincipalAccessBoundaryPolicyDetails>,
@@ -2416,17 +1808,6 @@ impl PrincipalAccessBoundaryPolicyDetails {
     }
 
     /// Sets the value of [rules][crate::model::PrincipalAccessBoundaryPolicyDetails::rules].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iam_v3::model::PrincipalAccessBoundaryPolicyDetails;
-    /// use google_cloud_iam_v3::model::PrincipalAccessBoundaryPolicyRule;
-    /// let x = PrincipalAccessBoundaryPolicyDetails::new()
-    ///     .set_rules([
-    ///         PrincipalAccessBoundaryPolicyRule::default()/* use setters */,
-    ///         PrincipalAccessBoundaryPolicyRule::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_rules<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2438,12 +1819,6 @@ impl PrincipalAccessBoundaryPolicyDetails {
     }
 
     /// Sets the value of [enforcement_version][crate::model::PrincipalAccessBoundaryPolicyDetails::enforcement_version].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iam_v3::model::PrincipalAccessBoundaryPolicyDetails;
-    /// let x = PrincipalAccessBoundaryPolicyDetails::new().set_enforcement_version("example");
-    /// ```
     pub fn set_enforcement_version<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -2494,24 +1869,12 @@ impl PrincipalAccessBoundaryPolicyRule {
     }
 
     /// Sets the value of [description][crate::model::PrincipalAccessBoundaryPolicyRule::description].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iam_v3::model::PrincipalAccessBoundaryPolicyRule;
-    /// let x = PrincipalAccessBoundaryPolicyRule::new().set_description("example");
-    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [resources][crate::model::PrincipalAccessBoundaryPolicyRule::resources].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iam_v3::model::PrincipalAccessBoundaryPolicyRule;
-    /// let x = PrincipalAccessBoundaryPolicyRule::new().set_resources(["a", "b", "c"]);
-    /// ```
     pub fn set_resources<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2523,13 +1886,6 @@ impl PrincipalAccessBoundaryPolicyRule {
     }
 
     /// Sets the value of [effect][crate::model::PrincipalAccessBoundaryPolicyRule::effect].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iam_v3::model::PrincipalAccessBoundaryPolicyRule;
-    /// use google_cloud_iam_v3::model::principal_access_boundary_policy_rule::Effect;
-    /// let x0 = PrincipalAccessBoundaryPolicyRule::new().set_effect(Effect::Allow);
-    /// ```
     pub fn set_effect<
         T: std::convert::Into<crate::model::principal_access_boundary_policy_rule::Effect>,
     >(

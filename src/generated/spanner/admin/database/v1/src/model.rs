@@ -201,25 +201,12 @@ impl Backup {
     }
 
     /// Sets the value of [database][crate::model::Backup::database].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::Backup;
-    /// let x = Backup::new().set_database("example");
-    /// ```
     pub fn set_database<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.database = v.into();
         self
     }
 
     /// Sets the value of [version_time][crate::model::Backup::version_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::Backup;
-    /// use wkt::Timestamp;
-    /// let x = Backup::new().set_version_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_version_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -229,14 +216,6 @@ impl Backup {
     }
 
     /// Sets or clears the value of [version_time][crate::model::Backup::version_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::Backup;
-    /// use wkt::Timestamp;
-    /// let x = Backup::new().set_or_clear_version_time(Some(Timestamp::default()/* use setters */));
-    /// let x = Backup::new().set_or_clear_version_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_version_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -246,13 +225,6 @@ impl Backup {
     }
 
     /// Sets the value of [expire_time][crate::model::Backup::expire_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::Backup;
-    /// use wkt::Timestamp;
-    /// let x = Backup::new().set_expire_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_expire_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -262,14 +234,6 @@ impl Backup {
     }
 
     /// Sets or clears the value of [expire_time][crate::model::Backup::expire_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::Backup;
-    /// use wkt::Timestamp;
-    /// let x = Backup::new().set_or_clear_expire_time(Some(Timestamp::default()/* use setters */));
-    /// let x = Backup::new().set_or_clear_expire_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_expire_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -279,25 +243,12 @@ impl Backup {
     }
 
     /// Sets the value of [name][crate::model::Backup::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::Backup;
-    /// let x = Backup::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::Backup::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::Backup;
-    /// use wkt::Timestamp;
-    /// let x = Backup::new().set_create_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -307,14 +258,6 @@ impl Backup {
     }
 
     /// Sets or clears the value of [create_time][crate::model::Backup::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::Backup;
-    /// use wkt::Timestamp;
-    /// let x = Backup::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
-    /// let x = Backup::new().set_or_clear_create_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -324,62 +267,30 @@ impl Backup {
     }
 
     /// Sets the value of [size_bytes][crate::model::Backup::size_bytes].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::Backup;
-    /// let x = Backup::new().set_size_bytes(42);
-    /// ```
     pub fn set_size_bytes<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.size_bytes = v.into();
         self
     }
 
     /// Sets the value of [freeable_size_bytes][crate::model::Backup::freeable_size_bytes].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::Backup;
-    /// let x = Backup::new().set_freeable_size_bytes(42);
-    /// ```
     pub fn set_freeable_size_bytes<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.freeable_size_bytes = v.into();
         self
     }
 
     /// Sets the value of [exclusive_size_bytes][crate::model::Backup::exclusive_size_bytes].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::Backup;
-    /// let x = Backup::new().set_exclusive_size_bytes(42);
-    /// ```
     pub fn set_exclusive_size_bytes<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.exclusive_size_bytes = v.into();
         self
     }
 
     /// Sets the value of [state][crate::model::Backup::state].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::Backup;
-    /// use google_cloud_spanner_admin_database_v1::model::backup::State;
-    /// let x0 = Backup::new().set_state(State::Creating);
-    /// let x1 = Backup::new().set_state(State::Ready);
-    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::backup::State>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
     }
 
     /// Sets the value of [referencing_databases][crate::model::Backup::referencing_databases].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::Backup;
-    /// let x = Backup::new().set_referencing_databases(["a", "b", "c"]);
-    /// ```
     pub fn set_referencing_databases<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -391,13 +302,6 @@ impl Backup {
     }
 
     /// Sets the value of [encryption_info][crate::model::Backup::encryption_info].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::Backup;
-    /// use google_cloud_spanner_admin_database_v1::model::EncryptionInfo;
-    /// let x = Backup::new().set_encryption_info(EncryptionInfo::default()/* use setters */);
-    /// ```
     pub fn set_encryption_info<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::EncryptionInfo>,
@@ -407,14 +311,6 @@ impl Backup {
     }
 
     /// Sets or clears the value of [encryption_info][crate::model::Backup::encryption_info].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::Backup;
-    /// use google_cloud_spanner_admin_database_v1::model::EncryptionInfo;
-    /// let x = Backup::new().set_or_clear_encryption_info(Some(EncryptionInfo::default()/* use setters */));
-    /// let x = Backup::new().set_or_clear_encryption_info(None::<EncryptionInfo>);
-    /// ```
     pub fn set_or_clear_encryption_info<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::EncryptionInfo>,
@@ -424,17 +320,6 @@ impl Backup {
     }
 
     /// Sets the value of [encryption_information][crate::model::Backup::encryption_information].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::Backup;
-    /// use google_cloud_spanner_admin_database_v1::model::EncryptionInfo;
-    /// let x = Backup::new()
-    ///     .set_encryption_information([
-    ///         EncryptionInfo::default()/* use setters */,
-    ///         EncryptionInfo::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_encryption_information<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -446,14 +331,6 @@ impl Backup {
     }
 
     /// Sets the value of [database_dialect][crate::model::Backup::database_dialect].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::Backup;
-    /// use google_cloud_spanner_admin_database_v1::model::DatabaseDialect;
-    /// let x0 = Backup::new().set_database_dialect(DatabaseDialect::GoogleStandardSql);
-    /// let x1 = Backup::new().set_database_dialect(DatabaseDialect::Postgresql);
-    /// ```
     pub fn set_database_dialect<T: std::convert::Into<crate::model::DatabaseDialect>>(
         mut self,
         v: T,
@@ -463,12 +340,6 @@ impl Backup {
     }
 
     /// Sets the value of [referencing_backups][crate::model::Backup::referencing_backups].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::Backup;
-    /// let x = Backup::new().set_referencing_backups(["a", "b", "c"]);
-    /// ```
     pub fn set_referencing_backups<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -480,13 +351,6 @@ impl Backup {
     }
 
     /// Sets the value of [max_expire_time][crate::model::Backup::max_expire_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::Backup;
-    /// use wkt::Timestamp;
-    /// let x = Backup::new().set_max_expire_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_max_expire_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -496,14 +360,6 @@ impl Backup {
     }
 
     /// Sets or clears the value of [max_expire_time][crate::model::Backup::max_expire_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::Backup;
-    /// use wkt::Timestamp;
-    /// let x = Backup::new().set_or_clear_max_expire_time(Some(Timestamp::default()/* use setters */));
-    /// let x = Backup::new().set_or_clear_max_expire_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_max_expire_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -513,12 +369,6 @@ impl Backup {
     }
 
     /// Sets the value of [backup_schedules][crate::model::Backup::backup_schedules].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::Backup;
-    /// let x = Backup::new().set_backup_schedules(["a", "b", "c"]);
-    /// ```
     pub fn set_backup_schedules<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -530,12 +380,6 @@ impl Backup {
     }
 
     /// Sets the value of [incremental_backup_chain_id][crate::model::Backup::incremental_backup_chain_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::Backup;
-    /// let x = Backup::new().set_incremental_backup_chain_id("example");
-    /// ```
     pub fn set_incremental_backup_chain_id<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -545,13 +389,6 @@ impl Backup {
     }
 
     /// Sets the value of [oldest_version_time][crate::model::Backup::oldest_version_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::Backup;
-    /// use wkt::Timestamp;
-    /// let x = Backup::new().set_oldest_version_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_oldest_version_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -561,14 +398,6 @@ impl Backup {
     }
 
     /// Sets or clears the value of [oldest_version_time][crate::model::Backup::oldest_version_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::Backup;
-    /// use wkt::Timestamp;
-    /// let x = Backup::new().set_or_clear_oldest_version_time(Some(Timestamp::default()/* use setters */));
-    /// let x = Backup::new().set_or_clear_oldest_version_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_oldest_version_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -578,17 +407,6 @@ impl Backup {
     }
 
     /// Sets the value of [instance_partitions][crate::model::Backup::instance_partitions].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::Backup;
-    /// use google_cloud_spanner_admin_database_v1::model::BackupInstancePartition;
-    /// let x = Backup::new()
-    ///     .set_instance_partitions([
-    ///         BackupInstancePartition::default()/* use setters */,
-    ///         BackupInstancePartition::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_instance_partitions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -786,37 +604,18 @@ impl CreateBackupRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateBackupRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::CreateBackupRequest;
-    /// let x = CreateBackupRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [backup_id][crate::model::CreateBackupRequest::backup_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::CreateBackupRequest;
-    /// let x = CreateBackupRequest::new().set_backup_id("example");
-    /// ```
     pub fn set_backup_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.backup_id = v.into();
         self
     }
 
     /// Sets the value of [backup][crate::model::CreateBackupRequest::backup].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::CreateBackupRequest;
-    /// use google_cloud_spanner_admin_database_v1::model::Backup;
-    /// let x = CreateBackupRequest::new().set_backup(Backup::default()/* use setters */);
-    /// ```
     pub fn set_backup<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Backup>,
@@ -826,14 +625,6 @@ impl CreateBackupRequest {
     }
 
     /// Sets or clears the value of [backup][crate::model::CreateBackupRequest::backup].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::CreateBackupRequest;
-    /// use google_cloud_spanner_admin_database_v1::model::Backup;
-    /// let x = CreateBackupRequest::new().set_or_clear_backup(Some(Backup::default()/* use setters */));
-    /// let x = CreateBackupRequest::new().set_or_clear_backup(None::<Backup>);
-    /// ```
     pub fn set_or_clear_backup<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Backup>,
@@ -843,13 +634,6 @@ impl CreateBackupRequest {
     }
 
     /// Sets the value of [encryption_config][crate::model::CreateBackupRequest::encryption_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::CreateBackupRequest;
-    /// use google_cloud_spanner_admin_database_v1::model::CreateBackupEncryptionConfig;
-    /// let x = CreateBackupRequest::new().set_encryption_config(CreateBackupEncryptionConfig::default()/* use setters */);
-    /// ```
     pub fn set_encryption_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::CreateBackupEncryptionConfig>,
@@ -859,14 +643,6 @@ impl CreateBackupRequest {
     }
 
     /// Sets or clears the value of [encryption_config][crate::model::CreateBackupRequest::encryption_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::CreateBackupRequest;
-    /// use google_cloud_spanner_admin_database_v1::model::CreateBackupEncryptionConfig;
-    /// let x = CreateBackupRequest::new().set_or_clear_encryption_config(Some(CreateBackupEncryptionConfig::default()/* use setters */));
-    /// let x = CreateBackupRequest::new().set_or_clear_encryption_config(None::<CreateBackupEncryptionConfig>);
-    /// ```
     pub fn set_or_clear_encryption_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CreateBackupEncryptionConfig>,
@@ -928,37 +704,18 @@ impl CreateBackupMetadata {
     }
 
     /// Sets the value of [name][crate::model::CreateBackupMetadata::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::CreateBackupMetadata;
-    /// let x = CreateBackupMetadata::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [database][crate::model::CreateBackupMetadata::database].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::CreateBackupMetadata;
-    /// let x = CreateBackupMetadata::new().set_database("example");
-    /// ```
     pub fn set_database<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.database = v.into();
         self
     }
 
     /// Sets the value of [progress][crate::model::CreateBackupMetadata::progress].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::CreateBackupMetadata;
-    /// use google_cloud_spanner_admin_database_v1::model::OperationProgress;
-    /// let x = CreateBackupMetadata::new().set_progress(OperationProgress::default()/* use setters */);
-    /// ```
     pub fn set_progress<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::OperationProgress>,
@@ -968,14 +725,6 @@ impl CreateBackupMetadata {
     }
 
     /// Sets or clears the value of [progress][crate::model::CreateBackupMetadata::progress].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::CreateBackupMetadata;
-    /// use google_cloud_spanner_admin_database_v1::model::OperationProgress;
-    /// let x = CreateBackupMetadata::new().set_or_clear_progress(Some(OperationProgress::default()/* use setters */));
-    /// let x = CreateBackupMetadata::new().set_or_clear_progress(None::<OperationProgress>);
-    /// ```
     pub fn set_or_clear_progress<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::OperationProgress>,
@@ -985,13 +734,6 @@ impl CreateBackupMetadata {
     }
 
     /// Sets the value of [cancel_time][crate::model::CreateBackupMetadata::cancel_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::CreateBackupMetadata;
-    /// use wkt::Timestamp;
-    /// let x = CreateBackupMetadata::new().set_cancel_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_cancel_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1001,14 +743,6 @@ impl CreateBackupMetadata {
     }
 
     /// Sets or clears the value of [cancel_time][crate::model::CreateBackupMetadata::cancel_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::CreateBackupMetadata;
-    /// use wkt::Timestamp;
-    /// let x = CreateBackupMetadata::new().set_or_clear_cancel_time(Some(Timestamp::default()/* use setters */));
-    /// let x = CreateBackupMetadata::new().set_or_clear_cancel_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_cancel_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1073,49 +807,24 @@ impl CopyBackupRequest {
     }
 
     /// Sets the value of [parent][crate::model::CopyBackupRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::CopyBackupRequest;
-    /// let x = CopyBackupRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [backup_id][crate::model::CopyBackupRequest::backup_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::CopyBackupRequest;
-    /// let x = CopyBackupRequest::new().set_backup_id("example");
-    /// ```
     pub fn set_backup_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.backup_id = v.into();
         self
     }
 
     /// Sets the value of [source_backup][crate::model::CopyBackupRequest::source_backup].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::CopyBackupRequest;
-    /// let x = CopyBackupRequest::new().set_source_backup("example");
-    /// ```
     pub fn set_source_backup<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.source_backup = v.into();
         self
     }
 
     /// Sets the value of [expire_time][crate::model::CopyBackupRequest::expire_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::CopyBackupRequest;
-    /// use wkt::Timestamp;
-    /// let x = CopyBackupRequest::new().set_expire_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_expire_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1125,14 +834,6 @@ impl CopyBackupRequest {
     }
 
     /// Sets or clears the value of [expire_time][crate::model::CopyBackupRequest::expire_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::CopyBackupRequest;
-    /// use wkt::Timestamp;
-    /// let x = CopyBackupRequest::new().set_or_clear_expire_time(Some(Timestamp::default()/* use setters */));
-    /// let x = CopyBackupRequest::new().set_or_clear_expire_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_expire_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1142,13 +843,6 @@ impl CopyBackupRequest {
     }
 
     /// Sets the value of [encryption_config][crate::model::CopyBackupRequest::encryption_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::CopyBackupRequest;
-    /// use google_cloud_spanner_admin_database_v1::model::CopyBackupEncryptionConfig;
-    /// let x = CopyBackupRequest::new().set_encryption_config(CopyBackupEncryptionConfig::default()/* use setters */);
-    /// ```
     pub fn set_encryption_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::CopyBackupEncryptionConfig>,
@@ -1158,14 +852,6 @@ impl CopyBackupRequest {
     }
 
     /// Sets or clears the value of [encryption_config][crate::model::CopyBackupRequest::encryption_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::CopyBackupRequest;
-    /// use google_cloud_spanner_admin_database_v1::model::CopyBackupEncryptionConfig;
-    /// let x = CopyBackupRequest::new().set_or_clear_encryption_config(Some(CopyBackupEncryptionConfig::default()/* use setters */));
-    /// let x = CopyBackupRequest::new().set_or_clear_encryption_config(None::<CopyBackupEncryptionConfig>);
-    /// ```
     pub fn set_or_clear_encryption_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CopyBackupEncryptionConfig>,
@@ -1231,37 +917,18 @@ impl CopyBackupMetadata {
     }
 
     /// Sets the value of [name][crate::model::CopyBackupMetadata::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::CopyBackupMetadata;
-    /// let x = CopyBackupMetadata::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [source_backup][crate::model::CopyBackupMetadata::source_backup].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::CopyBackupMetadata;
-    /// let x = CopyBackupMetadata::new().set_source_backup("example");
-    /// ```
     pub fn set_source_backup<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.source_backup = v.into();
         self
     }
 
     /// Sets the value of [progress][crate::model::CopyBackupMetadata::progress].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::CopyBackupMetadata;
-    /// use google_cloud_spanner_admin_database_v1::model::OperationProgress;
-    /// let x = CopyBackupMetadata::new().set_progress(OperationProgress::default()/* use setters */);
-    /// ```
     pub fn set_progress<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::OperationProgress>,
@@ -1271,14 +938,6 @@ impl CopyBackupMetadata {
     }
 
     /// Sets or clears the value of [progress][crate::model::CopyBackupMetadata::progress].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::CopyBackupMetadata;
-    /// use google_cloud_spanner_admin_database_v1::model::OperationProgress;
-    /// let x = CopyBackupMetadata::new().set_or_clear_progress(Some(OperationProgress::default()/* use setters */));
-    /// let x = CopyBackupMetadata::new().set_or_clear_progress(None::<OperationProgress>);
-    /// ```
     pub fn set_or_clear_progress<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::OperationProgress>,
@@ -1288,13 +947,6 @@ impl CopyBackupMetadata {
     }
 
     /// Sets the value of [cancel_time][crate::model::CopyBackupMetadata::cancel_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::CopyBackupMetadata;
-    /// use wkt::Timestamp;
-    /// let x = CopyBackupMetadata::new().set_cancel_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_cancel_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1304,14 +956,6 @@ impl CopyBackupMetadata {
     }
 
     /// Sets or clears the value of [cancel_time][crate::model::CopyBackupMetadata::cancel_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::CopyBackupMetadata;
-    /// use wkt::Timestamp;
-    /// let x = CopyBackupMetadata::new().set_or_clear_cancel_time(Some(Timestamp::default()/* use setters */));
-    /// let x = CopyBackupMetadata::new().set_or_clear_cancel_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_cancel_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1357,13 +1001,6 @@ impl UpdateBackupRequest {
     }
 
     /// Sets the value of [backup][crate::model::UpdateBackupRequest::backup].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::UpdateBackupRequest;
-    /// use google_cloud_spanner_admin_database_v1::model::Backup;
-    /// let x = UpdateBackupRequest::new().set_backup(Backup::default()/* use setters */);
-    /// ```
     pub fn set_backup<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Backup>,
@@ -1373,14 +1010,6 @@ impl UpdateBackupRequest {
     }
 
     /// Sets or clears the value of [backup][crate::model::UpdateBackupRequest::backup].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::UpdateBackupRequest;
-    /// use google_cloud_spanner_admin_database_v1::model::Backup;
-    /// let x = UpdateBackupRequest::new().set_or_clear_backup(Some(Backup::default()/* use setters */));
-    /// let x = UpdateBackupRequest::new().set_or_clear_backup(None::<Backup>);
-    /// ```
     pub fn set_or_clear_backup<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Backup>,
@@ -1390,13 +1019,6 @@ impl UpdateBackupRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateBackupRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::UpdateBackupRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateBackupRequest::new().set_update_mask(FieldMask::default()/* use setters */);
-    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -1406,14 +1028,6 @@ impl UpdateBackupRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateBackupRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::UpdateBackupRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateBackupRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
-    /// let x = UpdateBackupRequest::new().set_or_clear_update_mask(None::<FieldMask>);
-    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -1450,12 +1064,6 @@ impl GetBackupRequest {
     }
 
     /// Sets the value of [name][crate::model::GetBackupRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::GetBackupRequest;
-    /// let x = GetBackupRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -1489,12 +1097,6 @@ impl DeleteBackupRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteBackupRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::DeleteBackupRequest;
-    /// let x = DeleteBackupRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -1584,48 +1186,24 @@ impl ListBackupsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListBackupsRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::ListBackupsRequest;
-    /// let x = ListBackupsRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListBackupsRequest::filter].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::ListBackupsRequest;
-    /// let x = ListBackupsRequest::new().set_filter("example");
-    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListBackupsRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::ListBackupsRequest;
-    /// let x = ListBackupsRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListBackupsRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::ListBackupsRequest;
-    /// let x = ListBackupsRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -1665,17 +1243,6 @@ impl ListBackupsResponse {
     }
 
     /// Sets the value of [backups][crate::model::ListBackupsResponse::backups].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::ListBackupsResponse;
-    /// use google_cloud_spanner_admin_database_v1::model::Backup;
-    /// let x = ListBackupsResponse::new()
-    ///     .set_backups([
-    ///         Backup::default()/* use setters */,
-    ///         Backup::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_backups<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1687,12 +1254,6 @@ impl ListBackupsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListBackupsResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::ListBackupsResponse;
-    /// let x = ListBackupsResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -1829,48 +1390,24 @@ impl ListBackupOperationsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListBackupOperationsRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::ListBackupOperationsRequest;
-    /// let x = ListBackupOperationsRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListBackupOperationsRequest::filter].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::ListBackupOperationsRequest;
-    /// let x = ListBackupOperationsRequest::new().set_filter("example");
-    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListBackupOperationsRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::ListBackupOperationsRequest;
-    /// let x = ListBackupOperationsRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListBackupOperationsRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::ListBackupOperationsRequest;
-    /// let x = ListBackupOperationsRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -1920,17 +1457,6 @@ impl ListBackupOperationsResponse {
     }
 
     /// Sets the value of [operations][crate::model::ListBackupOperationsResponse::operations].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::ListBackupOperationsResponse;
-    /// use longrunning::model::Operation;
-    /// let x = ListBackupOperationsResponse::new()
-    ///     .set_operations([
-    ///         Operation::default()/* use setters */,
-    ///         Operation::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_operations<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1942,12 +1468,6 @@ impl ListBackupOperationsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListBackupOperationsResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::ListBackupOperationsResponse;
-    /// let x = ListBackupOperationsResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -2009,25 +1529,12 @@ impl BackupInfo {
     }
 
     /// Sets the value of [backup][crate::model::BackupInfo::backup].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::BackupInfo;
-    /// let x = BackupInfo::new().set_backup("example");
-    /// ```
     pub fn set_backup<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.backup = v.into();
         self
     }
 
     /// Sets the value of [version_time][crate::model::BackupInfo::version_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::BackupInfo;
-    /// use wkt::Timestamp;
-    /// let x = BackupInfo::new().set_version_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_version_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2037,14 +1544,6 @@ impl BackupInfo {
     }
 
     /// Sets or clears the value of [version_time][crate::model::BackupInfo::version_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::BackupInfo;
-    /// use wkt::Timestamp;
-    /// let x = BackupInfo::new().set_or_clear_version_time(Some(Timestamp::default()/* use setters */));
-    /// let x = BackupInfo::new().set_or_clear_version_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_version_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2054,13 +1553,6 @@ impl BackupInfo {
     }
 
     /// Sets the value of [create_time][crate::model::BackupInfo::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::BackupInfo;
-    /// use wkt::Timestamp;
-    /// let x = BackupInfo::new().set_create_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2070,14 +1562,6 @@ impl BackupInfo {
     }
 
     /// Sets or clears the value of [create_time][crate::model::BackupInfo::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::BackupInfo;
-    /// use wkt::Timestamp;
-    /// let x = BackupInfo::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
-    /// let x = BackupInfo::new().set_or_clear_create_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2087,12 +1571,6 @@ impl BackupInfo {
     }
 
     /// Sets the value of [source_database][crate::model::BackupInfo::source_database].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::BackupInfo;
-    /// let x = BackupInfo::new().set_source_database("example");
-    /// ```
     pub fn set_source_database<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.source_database = v.into();
         self
@@ -2148,15 +1626,6 @@ impl CreateBackupEncryptionConfig {
     }
 
     /// Sets the value of [encryption_type][crate::model::CreateBackupEncryptionConfig::encryption_type].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::CreateBackupEncryptionConfig;
-    /// use google_cloud_spanner_admin_database_v1::model::create_backup_encryption_config::EncryptionType;
-    /// let x0 = CreateBackupEncryptionConfig::new().set_encryption_type(EncryptionType::UseDatabaseEncryption);
-    /// let x1 = CreateBackupEncryptionConfig::new().set_encryption_type(EncryptionType::GoogleDefaultEncryption);
-    /// let x2 = CreateBackupEncryptionConfig::new().set_encryption_type(EncryptionType::CustomerManagedEncryption);
-    /// ```
     pub fn set_encryption_type<
         T: std::convert::Into<crate::model::create_backup_encryption_config::EncryptionType>,
     >(
@@ -2168,24 +1637,12 @@ impl CreateBackupEncryptionConfig {
     }
 
     /// Sets the value of [kms_key_name][crate::model::CreateBackupEncryptionConfig::kms_key_name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::CreateBackupEncryptionConfig;
-    /// let x = CreateBackupEncryptionConfig::new().set_kms_key_name("example");
-    /// ```
     pub fn set_kms_key_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.kms_key_name = v.into();
         self
     }
 
     /// Sets the value of [kms_key_names][crate::model::CreateBackupEncryptionConfig::kms_key_names].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::CreateBackupEncryptionConfig;
-    /// let x = CreateBackupEncryptionConfig::new().set_kms_key_names(["a", "b", "c"]);
-    /// ```
     pub fn set_kms_key_names<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2404,15 +1861,6 @@ impl CopyBackupEncryptionConfig {
     }
 
     /// Sets the value of [encryption_type][crate::model::CopyBackupEncryptionConfig::encryption_type].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::CopyBackupEncryptionConfig;
-    /// use google_cloud_spanner_admin_database_v1::model::copy_backup_encryption_config::EncryptionType;
-    /// let x0 = CopyBackupEncryptionConfig::new().set_encryption_type(EncryptionType::UseConfigDefaultOrBackupEncryption);
-    /// let x1 = CopyBackupEncryptionConfig::new().set_encryption_type(EncryptionType::GoogleDefaultEncryption);
-    /// let x2 = CopyBackupEncryptionConfig::new().set_encryption_type(EncryptionType::CustomerManagedEncryption);
-    /// ```
     pub fn set_encryption_type<
         T: std::convert::Into<crate::model::copy_backup_encryption_config::EncryptionType>,
     >(
@@ -2424,24 +1872,12 @@ impl CopyBackupEncryptionConfig {
     }
 
     /// Sets the value of [kms_key_name][crate::model::CopyBackupEncryptionConfig::kms_key_name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::CopyBackupEncryptionConfig;
-    /// let x = CopyBackupEncryptionConfig::new().set_kms_key_name("example");
-    /// ```
     pub fn set_kms_key_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.kms_key_name = v.into();
         self
     }
 
     /// Sets the value of [kms_key_names][crate::model::CopyBackupEncryptionConfig::kms_key_names].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::CopyBackupEncryptionConfig;
-    /// let x = CopyBackupEncryptionConfig::new().set_kms_key_names(["a", "b", "c"]);
-    /// ```
     pub fn set_kms_key_names<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2684,12 +2120,6 @@ impl BackupInstancePartition {
     }
 
     /// Sets the value of [instance_partition][crate::model::BackupInstancePartition::instance_partition].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::BackupInstancePartition;
-    /// let x = BackupInstancePartition::new().set_instance_partition("example");
-    /// ```
     pub fn set_instance_partition<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -2724,14 +2154,6 @@ impl BackupScheduleSpec {
     ///
     /// Note that all the setters affecting `schedule_spec` are mutually
     /// exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::BackupScheduleSpec;
-    /// use google_cloud_spanner_admin_database_v1::model::backup_schedule_spec;
-    /// use google_cloud_spanner_admin_database_v1::model::CrontabSpec;
-    /// let x = BackupScheduleSpec::new().set_schedule_spec(Some(backup_schedule_spec::ScheduleSpec::CronSpec(CrontabSpec::default().into())));
-    /// ```
     pub fn set_schedule_spec<
         T: std::convert::Into<std::option::Option<crate::model::backup_schedule_spec::ScheduleSpec>>,
     >(
@@ -2760,14 +2182,6 @@ impl BackupScheduleSpec {
     ///
     /// Note that all the setters affecting `schedule_spec` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::BackupScheduleSpec;
-    /// use google_cloud_spanner_admin_database_v1::model::CrontabSpec;
-    /// let x = BackupScheduleSpec::new().set_cron_spec(CrontabSpec::default()/* use setters */);
-    /// assert!(x.cron_spec().is_some());
-    /// ```
     pub fn set_cron_spec<T: std::convert::Into<std::boxed::Box<crate::model::CrontabSpec>>>(
         mut self,
         v: T,
@@ -2850,25 +2264,12 @@ impl BackupSchedule {
     }
 
     /// Sets the value of [name][crate::model::BackupSchedule::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::BackupSchedule;
-    /// let x = BackupSchedule::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [spec][crate::model::BackupSchedule::spec].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::BackupSchedule;
-    /// use google_cloud_spanner_admin_database_v1::model::BackupScheduleSpec;
-    /// let x = BackupSchedule::new().set_spec(BackupScheduleSpec::default()/* use setters */);
-    /// ```
     pub fn set_spec<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::BackupScheduleSpec>,
@@ -2878,14 +2279,6 @@ impl BackupSchedule {
     }
 
     /// Sets or clears the value of [spec][crate::model::BackupSchedule::spec].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::BackupSchedule;
-    /// use google_cloud_spanner_admin_database_v1::model::BackupScheduleSpec;
-    /// let x = BackupSchedule::new().set_or_clear_spec(Some(BackupScheduleSpec::default()/* use setters */));
-    /// let x = BackupSchedule::new().set_or_clear_spec(None::<BackupScheduleSpec>);
-    /// ```
     pub fn set_or_clear_spec<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::BackupScheduleSpec>,
@@ -2895,13 +2288,6 @@ impl BackupSchedule {
     }
 
     /// Sets the value of [retention_duration][crate::model::BackupSchedule::retention_duration].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::BackupSchedule;
-    /// use wkt::Duration;
-    /// let x = BackupSchedule::new().set_retention_duration(Duration::default()/* use setters */);
-    /// ```
     pub fn set_retention_duration<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -2911,14 +2297,6 @@ impl BackupSchedule {
     }
 
     /// Sets or clears the value of [retention_duration][crate::model::BackupSchedule::retention_duration].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::BackupSchedule;
-    /// use wkt::Duration;
-    /// let x = BackupSchedule::new().set_or_clear_retention_duration(Some(Duration::default()/* use setters */));
-    /// let x = BackupSchedule::new().set_or_clear_retention_duration(None::<Duration>);
-    /// ```
     pub fn set_or_clear_retention_duration<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -2928,13 +2306,6 @@ impl BackupSchedule {
     }
 
     /// Sets the value of [encryption_config][crate::model::BackupSchedule::encryption_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::BackupSchedule;
-    /// use google_cloud_spanner_admin_database_v1::model::CreateBackupEncryptionConfig;
-    /// let x = BackupSchedule::new().set_encryption_config(CreateBackupEncryptionConfig::default()/* use setters */);
-    /// ```
     pub fn set_encryption_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::CreateBackupEncryptionConfig>,
@@ -2944,14 +2315,6 @@ impl BackupSchedule {
     }
 
     /// Sets or clears the value of [encryption_config][crate::model::BackupSchedule::encryption_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::BackupSchedule;
-    /// use google_cloud_spanner_admin_database_v1::model::CreateBackupEncryptionConfig;
-    /// let x = BackupSchedule::new().set_or_clear_encryption_config(Some(CreateBackupEncryptionConfig::default()/* use setters */));
-    /// let x = BackupSchedule::new().set_or_clear_encryption_config(None::<CreateBackupEncryptionConfig>);
-    /// ```
     pub fn set_or_clear_encryption_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CreateBackupEncryptionConfig>,
@@ -2961,13 +2324,6 @@ impl BackupSchedule {
     }
 
     /// Sets the value of [update_time][crate::model::BackupSchedule::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::BackupSchedule;
-    /// use wkt::Timestamp;
-    /// let x = BackupSchedule::new().set_update_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2977,14 +2333,6 @@ impl BackupSchedule {
     }
 
     /// Sets or clears the value of [update_time][crate::model::BackupSchedule::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::BackupSchedule;
-    /// use wkt::Timestamp;
-    /// let x = BackupSchedule::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
-    /// let x = BackupSchedule::new().set_or_clear_update_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2997,14 +2345,6 @@ impl BackupSchedule {
     ///
     /// Note that all the setters affecting `backup_type_spec` are mutually
     /// exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::BackupSchedule;
-    /// use google_cloud_spanner_admin_database_v1::model::backup_schedule;
-    /// use google_cloud_spanner_admin_database_v1::model::FullBackupSpec;
-    /// let x = BackupSchedule::new().set_backup_type_spec(Some(backup_schedule::BackupTypeSpec::FullBackupSpec(FullBackupSpec::default().into())));
-    /// ```
     pub fn set_backup_type_spec<
         T: std::convert::Into<std::option::Option<crate::model::backup_schedule::BackupTypeSpec>>,
     >(
@@ -3035,15 +2375,6 @@ impl BackupSchedule {
     ///
     /// Note that all the setters affecting `backup_type_spec` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::BackupSchedule;
-    /// use google_cloud_spanner_admin_database_v1::model::FullBackupSpec;
-    /// let x = BackupSchedule::new().set_full_backup_spec(FullBackupSpec::default()/* use setters */);
-    /// assert!(x.full_backup_spec().is_some());
-    /// assert!(x.incremental_backup_spec().is_none());
-    /// ```
     pub fn set_full_backup_spec<
         T: std::convert::Into<std::boxed::Box<crate::model::FullBackupSpec>>,
     >(
@@ -3076,15 +2407,6 @@ impl BackupSchedule {
     ///
     /// Note that all the setters affecting `backup_type_spec` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::BackupSchedule;
-    /// use google_cloud_spanner_admin_database_v1::model::IncrementalBackupSpec;
-    /// let x = BackupSchedule::new().set_incremental_backup_spec(IncrementalBackupSpec::default()/* use setters */);
-    /// assert!(x.incremental_backup_spec().is_some());
-    /// assert!(x.full_backup_spec().is_none());
-    /// ```
     pub fn set_incremental_backup_spec<
         T: std::convert::Into<std::boxed::Box<crate::model::IncrementalBackupSpec>>,
     >(
@@ -3163,37 +2485,18 @@ impl CrontabSpec {
     }
 
     /// Sets the value of [text][crate::model::CrontabSpec::text].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::CrontabSpec;
-    /// let x = CrontabSpec::new().set_text("example");
-    /// ```
     pub fn set_text<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.text = v.into();
         self
     }
 
     /// Sets the value of [time_zone][crate::model::CrontabSpec::time_zone].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::CrontabSpec;
-    /// let x = CrontabSpec::new().set_time_zone("example");
-    /// ```
     pub fn set_time_zone<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.time_zone = v.into();
         self
     }
 
     /// Sets the value of [creation_window][crate::model::CrontabSpec::creation_window].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::CrontabSpec;
-    /// use wkt::Duration;
-    /// let x = CrontabSpec::new().set_creation_window(Duration::default()/* use setters */);
-    /// ```
     pub fn set_creation_window<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -3203,14 +2506,6 @@ impl CrontabSpec {
     }
 
     /// Sets or clears the value of [creation_window][crate::model::CrontabSpec::creation_window].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::CrontabSpec;
-    /// use wkt::Duration;
-    /// let x = CrontabSpec::new().set_or_clear_creation_window(Some(Duration::default()/* use setters */));
-    /// let x = CrontabSpec::new().set_or_clear_creation_window(None::<Duration>);
-    /// ```
     pub fn set_or_clear_creation_window<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -3253,24 +2548,12 @@ impl CreateBackupScheduleRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateBackupScheduleRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::CreateBackupScheduleRequest;
-    /// let x = CreateBackupScheduleRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [backup_schedule_id][crate::model::CreateBackupScheduleRequest::backup_schedule_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::CreateBackupScheduleRequest;
-    /// let x = CreateBackupScheduleRequest::new().set_backup_schedule_id("example");
-    /// ```
     pub fn set_backup_schedule_id<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -3280,13 +2563,6 @@ impl CreateBackupScheduleRequest {
     }
 
     /// Sets the value of [backup_schedule][crate::model::CreateBackupScheduleRequest::backup_schedule].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::CreateBackupScheduleRequest;
-    /// use google_cloud_spanner_admin_database_v1::model::BackupSchedule;
-    /// let x = CreateBackupScheduleRequest::new().set_backup_schedule(BackupSchedule::default()/* use setters */);
-    /// ```
     pub fn set_backup_schedule<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::BackupSchedule>,
@@ -3296,14 +2572,6 @@ impl CreateBackupScheduleRequest {
     }
 
     /// Sets or clears the value of [backup_schedule][crate::model::CreateBackupScheduleRequest::backup_schedule].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::CreateBackupScheduleRequest;
-    /// use google_cloud_spanner_admin_database_v1::model::BackupSchedule;
-    /// let x = CreateBackupScheduleRequest::new().set_or_clear_backup_schedule(Some(BackupSchedule::default()/* use setters */));
-    /// let x = CreateBackupScheduleRequest::new().set_or_clear_backup_schedule(None::<BackupSchedule>);
-    /// ```
     pub fn set_or_clear_backup_schedule<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::BackupSchedule>,
@@ -3340,12 +2608,6 @@ impl GetBackupScheduleRequest {
     }
 
     /// Sets the value of [name][crate::model::GetBackupScheduleRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::GetBackupScheduleRequest;
-    /// let x = GetBackupScheduleRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -3379,12 +2641,6 @@ impl DeleteBackupScheduleRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteBackupScheduleRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::DeleteBackupScheduleRequest;
-    /// let x = DeleteBackupScheduleRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -3432,36 +2688,18 @@ impl ListBackupSchedulesRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListBackupSchedulesRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::ListBackupSchedulesRequest;
-    /// let x = ListBackupSchedulesRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListBackupSchedulesRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::ListBackupSchedulesRequest;
-    /// let x = ListBackupSchedulesRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListBackupSchedulesRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::ListBackupSchedulesRequest;
-    /// let x = ListBackupSchedulesRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -3500,17 +2738,6 @@ impl ListBackupSchedulesResponse {
     }
 
     /// Sets the value of [backup_schedules][crate::model::ListBackupSchedulesResponse::backup_schedules].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::ListBackupSchedulesResponse;
-    /// use google_cloud_spanner_admin_database_v1::model::BackupSchedule;
-    /// let x = ListBackupSchedulesResponse::new()
-    ///     .set_backup_schedules([
-    ///         BackupSchedule::default()/* use setters */,
-    ///         BackupSchedule::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_backup_schedules<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3522,12 +2749,6 @@ impl ListBackupSchedulesResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListBackupSchedulesResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::ListBackupSchedulesResponse;
-    /// let x = ListBackupSchedulesResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -3582,13 +2803,6 @@ impl UpdateBackupScheduleRequest {
     }
 
     /// Sets the value of [backup_schedule][crate::model::UpdateBackupScheduleRequest::backup_schedule].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::UpdateBackupScheduleRequest;
-    /// use google_cloud_spanner_admin_database_v1::model::BackupSchedule;
-    /// let x = UpdateBackupScheduleRequest::new().set_backup_schedule(BackupSchedule::default()/* use setters */);
-    /// ```
     pub fn set_backup_schedule<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::BackupSchedule>,
@@ -3598,14 +2812,6 @@ impl UpdateBackupScheduleRequest {
     }
 
     /// Sets or clears the value of [backup_schedule][crate::model::UpdateBackupScheduleRequest::backup_schedule].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::UpdateBackupScheduleRequest;
-    /// use google_cloud_spanner_admin_database_v1::model::BackupSchedule;
-    /// let x = UpdateBackupScheduleRequest::new().set_or_clear_backup_schedule(Some(BackupSchedule::default()/* use setters */));
-    /// let x = UpdateBackupScheduleRequest::new().set_or_clear_backup_schedule(None::<BackupSchedule>);
-    /// ```
     pub fn set_or_clear_backup_schedule<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::BackupSchedule>,
@@ -3615,13 +2821,6 @@ impl UpdateBackupScheduleRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateBackupScheduleRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::UpdateBackupScheduleRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateBackupScheduleRequest::new().set_update_mask(FieldMask::default()/* use setters */);
-    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -3631,14 +2830,6 @@ impl UpdateBackupScheduleRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateBackupScheduleRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::UpdateBackupScheduleRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateBackupScheduleRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
-    /// let x = UpdateBackupScheduleRequest::new().set_or_clear_update_mask(None::<FieldMask>);
-    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -3679,25 +2870,12 @@ impl OperationProgress {
     }
 
     /// Sets the value of [progress_percent][crate::model::OperationProgress::progress_percent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::OperationProgress;
-    /// let x = OperationProgress::new().set_progress_percent(42);
-    /// ```
     pub fn set_progress_percent<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.progress_percent = v.into();
         self
     }
 
     /// Sets the value of [start_time][crate::model::OperationProgress::start_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::OperationProgress;
-    /// use wkt::Timestamp;
-    /// let x = OperationProgress::new().set_start_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_start_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3707,14 +2885,6 @@ impl OperationProgress {
     }
 
     /// Sets or clears the value of [start_time][crate::model::OperationProgress::start_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::OperationProgress;
-    /// use wkt::Timestamp;
-    /// let x = OperationProgress::new().set_or_clear_start_time(Some(Timestamp::default()/* use setters */));
-    /// let x = OperationProgress::new().set_or_clear_start_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3724,13 +2894,6 @@ impl OperationProgress {
     }
 
     /// Sets the value of [end_time][crate::model::OperationProgress::end_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::OperationProgress;
-    /// use wkt::Timestamp;
-    /// let x = OperationProgress::new().set_end_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3740,14 +2903,6 @@ impl OperationProgress {
     }
 
     /// Sets or clears the value of [end_time][crate::model::OperationProgress::end_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::OperationProgress;
-    /// use wkt::Timestamp;
-    /// let x = OperationProgress::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
-    /// let x = OperationProgress::new().set_or_clear_end_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3799,24 +2954,12 @@ impl EncryptionConfig {
     }
 
     /// Sets the value of [kms_key_name][crate::model::EncryptionConfig::kms_key_name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::EncryptionConfig;
-    /// let x = EncryptionConfig::new().set_kms_key_name("example");
-    /// ```
     pub fn set_kms_key_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.kms_key_name = v.into();
         self
     }
 
     /// Sets the value of [kms_key_names][crate::model::EncryptionConfig::kms_key_names].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::EncryptionConfig;
-    /// let x = EncryptionConfig::new().set_kms_key_names(["a", "b", "c"]);
-    /// ```
     pub fn set_kms_key_names<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3859,14 +3002,6 @@ impl EncryptionInfo {
     }
 
     /// Sets the value of [encryption_type][crate::model::EncryptionInfo::encryption_type].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::EncryptionInfo;
-    /// use google_cloud_spanner_admin_database_v1::model::encryption_info::Type;
-    /// let x0 = EncryptionInfo::new().set_encryption_type(Type::GoogleDefaultEncryption);
-    /// let x1 = EncryptionInfo::new().set_encryption_type(Type::CustomerManagedEncryption);
-    /// ```
     pub fn set_encryption_type<T: std::convert::Into<crate::model::encryption_info::Type>>(
         mut self,
         v: T,
@@ -3876,13 +3011,6 @@ impl EncryptionInfo {
     }
 
     /// Sets the value of [encryption_status][crate::model::EncryptionInfo::encryption_status].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::EncryptionInfo;
-    /// use rpc::model::Status;
-    /// let x = EncryptionInfo::new().set_encryption_status(Status::default()/* use setters */);
-    /// ```
     pub fn set_encryption_status<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<rpc::model::Status>,
@@ -3892,14 +3020,6 @@ impl EncryptionInfo {
     }
 
     /// Sets or clears the value of [encryption_status][crate::model::EncryptionInfo::encryption_status].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::EncryptionInfo;
-    /// use rpc::model::Status;
-    /// let x = EncryptionInfo::new().set_or_clear_encryption_status(Some(Status::default()/* use setters */));
-    /// let x = EncryptionInfo::new().set_or_clear_encryption_status(None::<Status>);
-    /// ```
     pub fn set_or_clear_encryption_status<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<rpc::model::Status>,
@@ -3909,12 +3029,6 @@ impl EncryptionInfo {
     }
 
     /// Sets the value of [kms_key_version][crate::model::EncryptionInfo::kms_key_version].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::EncryptionInfo;
-    /// let x = EncryptionInfo::new().set_kms_key_version("example");
-    /// ```
     pub fn set_kms_key_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.kms_key_version = v.into();
         self
@@ -4092,13 +3206,6 @@ impl RestoreInfo {
     }
 
     /// Sets the value of [source_type][crate::model::RestoreInfo::source_type].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::RestoreInfo;
-    /// use google_cloud_spanner_admin_database_v1::model::RestoreSourceType;
-    /// let x0 = RestoreInfo::new().set_source_type(RestoreSourceType::Backup);
-    /// ```
     pub fn set_source_type<T: std::convert::Into<crate::model::RestoreSourceType>>(
         mut self,
         v: T,
@@ -4111,14 +3218,6 @@ impl RestoreInfo {
     ///
     /// Note that all the setters affecting `source_info` are mutually
     /// exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::RestoreInfo;
-    /// use google_cloud_spanner_admin_database_v1::model::restore_info;
-    /// use google_cloud_spanner_admin_database_v1::model::BackupInfo;
-    /// let x = RestoreInfo::new().set_source_info(Some(restore_info::SourceInfo::BackupInfo(BackupInfo::default().into())));
-    /// ```
     pub fn set_source_info<
         T: std::convert::Into<std::option::Option<crate::model::restore_info::SourceInfo>>,
     >(
@@ -4145,14 +3244,6 @@ impl RestoreInfo {
     ///
     /// Note that all the setters affecting `source_info` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::RestoreInfo;
-    /// use google_cloud_spanner_admin_database_v1::model::BackupInfo;
-    /// let x = RestoreInfo::new().set_backup_info(BackupInfo::default()/* use setters */);
-    /// assert!(x.backup_info().is_some());
-    /// ```
     pub fn set_backup_info<T: std::convert::Into<std::boxed::Box<crate::model::BackupInfo>>>(
         mut self,
         v: T,
@@ -4269,40 +3360,18 @@ impl Database {
     }
 
     /// Sets the value of [name][crate::model::Database::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::Database;
-    /// let x = Database::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [state][crate::model::Database::state].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::Database;
-    /// use google_cloud_spanner_admin_database_v1::model::database::State;
-    /// let x0 = Database::new().set_state(State::Creating);
-    /// let x1 = Database::new().set_state(State::Ready);
-    /// let x2 = Database::new().set_state(State::ReadyOptimizing);
-    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::database::State>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::Database::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::Database;
-    /// use wkt::Timestamp;
-    /// let x = Database::new().set_create_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4312,14 +3381,6 @@ impl Database {
     }
 
     /// Sets or clears the value of [create_time][crate::model::Database::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::Database;
-    /// use wkt::Timestamp;
-    /// let x = Database::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
-    /// let x = Database::new().set_or_clear_create_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4329,13 +3390,6 @@ impl Database {
     }
 
     /// Sets the value of [restore_info][crate::model::Database::restore_info].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::Database;
-    /// use google_cloud_spanner_admin_database_v1::model::RestoreInfo;
-    /// let x = Database::new().set_restore_info(RestoreInfo::default()/* use setters */);
-    /// ```
     pub fn set_restore_info<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::RestoreInfo>,
@@ -4345,14 +3399,6 @@ impl Database {
     }
 
     /// Sets or clears the value of [restore_info][crate::model::Database::restore_info].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::Database;
-    /// use google_cloud_spanner_admin_database_v1::model::RestoreInfo;
-    /// let x = Database::new().set_or_clear_restore_info(Some(RestoreInfo::default()/* use setters */));
-    /// let x = Database::new().set_or_clear_restore_info(None::<RestoreInfo>);
-    /// ```
     pub fn set_or_clear_restore_info<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::RestoreInfo>,
@@ -4362,13 +3408,6 @@ impl Database {
     }
 
     /// Sets the value of [encryption_config][crate::model::Database::encryption_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::Database;
-    /// use google_cloud_spanner_admin_database_v1::model::EncryptionConfig;
-    /// let x = Database::new().set_encryption_config(EncryptionConfig::default()/* use setters */);
-    /// ```
     pub fn set_encryption_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::EncryptionConfig>,
@@ -4378,14 +3417,6 @@ impl Database {
     }
 
     /// Sets or clears the value of [encryption_config][crate::model::Database::encryption_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::Database;
-    /// use google_cloud_spanner_admin_database_v1::model::EncryptionConfig;
-    /// let x = Database::new().set_or_clear_encryption_config(Some(EncryptionConfig::default()/* use setters */));
-    /// let x = Database::new().set_or_clear_encryption_config(None::<EncryptionConfig>);
-    /// ```
     pub fn set_or_clear_encryption_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::EncryptionConfig>,
@@ -4395,17 +3426,6 @@ impl Database {
     }
 
     /// Sets the value of [encryption_info][crate::model::Database::encryption_info].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::Database;
-    /// use google_cloud_spanner_admin_database_v1::model::EncryptionInfo;
-    /// let x = Database::new()
-    ///     .set_encryption_info([
-    ///         EncryptionInfo::default()/* use setters */,
-    ///         EncryptionInfo::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_encryption_info<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4417,12 +3437,6 @@ impl Database {
     }
 
     /// Sets the value of [version_retention_period][crate::model::Database::version_retention_period].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::Database;
-    /// let x = Database::new().set_version_retention_period("example");
-    /// ```
     pub fn set_version_retention_period<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -4432,13 +3446,6 @@ impl Database {
     }
 
     /// Sets the value of [earliest_version_time][crate::model::Database::earliest_version_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::Database;
-    /// use wkt::Timestamp;
-    /// let x = Database::new().set_earliest_version_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_earliest_version_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4448,14 +3455,6 @@ impl Database {
     }
 
     /// Sets or clears the value of [earliest_version_time][crate::model::Database::earliest_version_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::Database;
-    /// use wkt::Timestamp;
-    /// let x = Database::new().set_or_clear_earliest_version_time(Some(Timestamp::default()/* use setters */));
-    /// let x = Database::new().set_or_clear_earliest_version_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_earliest_version_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4465,26 +3464,12 @@ impl Database {
     }
 
     /// Sets the value of [default_leader][crate::model::Database::default_leader].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::Database;
-    /// let x = Database::new().set_default_leader("example");
-    /// ```
     pub fn set_default_leader<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.default_leader = v.into();
         self
     }
 
     /// Sets the value of [database_dialect][crate::model::Database::database_dialect].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::Database;
-    /// use google_cloud_spanner_admin_database_v1::model::DatabaseDialect;
-    /// let x0 = Database::new().set_database_dialect(DatabaseDialect::GoogleStandardSql);
-    /// let x1 = Database::new().set_database_dialect(DatabaseDialect::Postgresql);
-    /// ```
     pub fn set_database_dialect<T: std::convert::Into<crate::model::DatabaseDialect>>(
         mut self,
         v: T,
@@ -4494,24 +3479,12 @@ impl Database {
     }
 
     /// Sets the value of [enable_drop_protection][crate::model::Database::enable_drop_protection].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::Database;
-    /// let x = Database::new().set_enable_drop_protection(true);
-    /// ```
     pub fn set_enable_drop_protection<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.enable_drop_protection = v.into();
         self
     }
 
     /// Sets the value of [reconciling][crate::model::Database::reconciling].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::Database;
-    /// let x = Database::new().set_reconciling(true);
-    /// ```
     pub fn set_reconciling<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.reconciling = v.into();
         self
@@ -4710,36 +3683,18 @@ impl ListDatabasesRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListDatabasesRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::ListDatabasesRequest;
-    /// let x = ListDatabasesRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListDatabasesRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::ListDatabasesRequest;
-    /// let x = ListDatabasesRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListDatabasesRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::ListDatabasesRequest;
-    /// let x = ListDatabasesRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -4778,17 +3733,6 @@ impl ListDatabasesResponse {
     }
 
     /// Sets the value of [databases][crate::model::ListDatabasesResponse::databases].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::ListDatabasesResponse;
-    /// use google_cloud_spanner_admin_database_v1::model::Database;
-    /// let x = ListDatabasesResponse::new()
-    ///     .set_databases([
-    ///         Database::default()/* use setters */,
-    ///         Database::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_databases<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4800,12 +3744,6 @@ impl ListDatabasesResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListDatabasesResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::ListDatabasesResponse;
-    /// let x = ListDatabasesResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -4892,24 +3830,12 @@ impl CreateDatabaseRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateDatabaseRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::CreateDatabaseRequest;
-    /// let x = CreateDatabaseRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [create_statement][crate::model::CreateDatabaseRequest::create_statement].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::CreateDatabaseRequest;
-    /// let x = CreateDatabaseRequest::new().set_create_statement("example");
-    /// ```
     pub fn set_create_statement<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -4919,12 +3845,6 @@ impl CreateDatabaseRequest {
     }
 
     /// Sets the value of [extra_statements][crate::model::CreateDatabaseRequest::extra_statements].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::CreateDatabaseRequest;
-    /// let x = CreateDatabaseRequest::new().set_extra_statements(["a", "b", "c"]);
-    /// ```
     pub fn set_extra_statements<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4936,13 +3856,6 @@ impl CreateDatabaseRequest {
     }
 
     /// Sets the value of [encryption_config][crate::model::CreateDatabaseRequest::encryption_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::CreateDatabaseRequest;
-    /// use google_cloud_spanner_admin_database_v1::model::EncryptionConfig;
-    /// let x = CreateDatabaseRequest::new().set_encryption_config(EncryptionConfig::default()/* use setters */);
-    /// ```
     pub fn set_encryption_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::EncryptionConfig>,
@@ -4952,14 +3865,6 @@ impl CreateDatabaseRequest {
     }
 
     /// Sets or clears the value of [encryption_config][crate::model::CreateDatabaseRequest::encryption_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::CreateDatabaseRequest;
-    /// use google_cloud_spanner_admin_database_v1::model::EncryptionConfig;
-    /// let x = CreateDatabaseRequest::new().set_or_clear_encryption_config(Some(EncryptionConfig::default()/* use setters */));
-    /// let x = CreateDatabaseRequest::new().set_or_clear_encryption_config(None::<EncryptionConfig>);
-    /// ```
     pub fn set_or_clear_encryption_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::EncryptionConfig>,
@@ -4969,14 +3874,6 @@ impl CreateDatabaseRequest {
     }
 
     /// Sets the value of [database_dialect][crate::model::CreateDatabaseRequest::database_dialect].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::CreateDatabaseRequest;
-    /// use google_cloud_spanner_admin_database_v1::model::DatabaseDialect;
-    /// let x0 = CreateDatabaseRequest::new().set_database_dialect(DatabaseDialect::GoogleStandardSql);
-    /// let x1 = CreateDatabaseRequest::new().set_database_dialect(DatabaseDialect::Postgresql);
-    /// ```
     pub fn set_database_dialect<T: std::convert::Into<crate::model::DatabaseDialect>>(
         mut self,
         v: T,
@@ -4986,12 +3883,6 @@ impl CreateDatabaseRequest {
     }
 
     /// Sets the value of [proto_descriptors][crate::model::CreateDatabaseRequest::proto_descriptors].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::CreateDatabaseRequest;
-    /// let x = CreateDatabaseRequest::new().set_proto_descriptors(bytes::Bytes::from_static(b"example"));
-    /// ```
     pub fn set_proto_descriptors<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.proto_descriptors = v.into();
         self
@@ -5023,12 +3914,6 @@ impl CreateDatabaseMetadata {
     }
 
     /// Sets the value of [database][crate::model::CreateDatabaseMetadata::database].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::CreateDatabaseMetadata;
-    /// let x = CreateDatabaseMetadata::new().set_database("example");
-    /// ```
     pub fn set_database<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.database = v.into();
         self
@@ -5061,12 +3946,6 @@ impl GetDatabaseRequest {
     }
 
     /// Sets the value of [name][crate::model::GetDatabaseRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::GetDatabaseRequest;
-    /// let x = GetDatabaseRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -5104,13 +3983,6 @@ impl UpdateDatabaseRequest {
     }
 
     /// Sets the value of [database][crate::model::UpdateDatabaseRequest::database].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::UpdateDatabaseRequest;
-    /// use google_cloud_spanner_admin_database_v1::model::Database;
-    /// let x = UpdateDatabaseRequest::new().set_database(Database::default()/* use setters */);
-    /// ```
     pub fn set_database<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Database>,
@@ -5120,14 +3992,6 @@ impl UpdateDatabaseRequest {
     }
 
     /// Sets or clears the value of [database][crate::model::UpdateDatabaseRequest::database].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::UpdateDatabaseRequest;
-    /// use google_cloud_spanner_admin_database_v1::model::Database;
-    /// let x = UpdateDatabaseRequest::new().set_or_clear_database(Some(Database::default()/* use setters */));
-    /// let x = UpdateDatabaseRequest::new().set_or_clear_database(None::<Database>);
-    /// ```
     pub fn set_or_clear_database<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Database>,
@@ -5137,13 +4001,6 @@ impl UpdateDatabaseRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateDatabaseRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::UpdateDatabaseRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateDatabaseRequest::new().set_update_mask(FieldMask::default()/* use setters */);
-    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -5153,14 +4010,6 @@ impl UpdateDatabaseRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateDatabaseRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::UpdateDatabaseRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateDatabaseRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
-    /// let x = UpdateDatabaseRequest::new().set_or_clear_update_mask(None::<FieldMask>);
-    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -5209,13 +4058,6 @@ impl UpdateDatabaseMetadata {
     }
 
     /// Sets the value of [request][crate::model::UpdateDatabaseMetadata::request].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::UpdateDatabaseMetadata;
-    /// use google_cloud_spanner_admin_database_v1::model::UpdateDatabaseRequest;
-    /// let x = UpdateDatabaseMetadata::new().set_request(UpdateDatabaseRequest::default()/* use setters */);
-    /// ```
     pub fn set_request<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::UpdateDatabaseRequest>,
@@ -5225,14 +4067,6 @@ impl UpdateDatabaseMetadata {
     }
 
     /// Sets or clears the value of [request][crate::model::UpdateDatabaseMetadata::request].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::UpdateDatabaseMetadata;
-    /// use google_cloud_spanner_admin_database_v1::model::UpdateDatabaseRequest;
-    /// let x = UpdateDatabaseMetadata::new().set_or_clear_request(Some(UpdateDatabaseRequest::default()/* use setters */));
-    /// let x = UpdateDatabaseMetadata::new().set_or_clear_request(None::<UpdateDatabaseRequest>);
-    /// ```
     pub fn set_or_clear_request<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::UpdateDatabaseRequest>,
@@ -5242,13 +4076,6 @@ impl UpdateDatabaseMetadata {
     }
 
     /// Sets the value of [progress][crate::model::UpdateDatabaseMetadata::progress].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::UpdateDatabaseMetadata;
-    /// use google_cloud_spanner_admin_database_v1::model::OperationProgress;
-    /// let x = UpdateDatabaseMetadata::new().set_progress(OperationProgress::default()/* use setters */);
-    /// ```
     pub fn set_progress<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::OperationProgress>,
@@ -5258,14 +4085,6 @@ impl UpdateDatabaseMetadata {
     }
 
     /// Sets or clears the value of [progress][crate::model::UpdateDatabaseMetadata::progress].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::UpdateDatabaseMetadata;
-    /// use google_cloud_spanner_admin_database_v1::model::OperationProgress;
-    /// let x = UpdateDatabaseMetadata::new().set_or_clear_progress(Some(OperationProgress::default()/* use setters */));
-    /// let x = UpdateDatabaseMetadata::new().set_or_clear_progress(None::<OperationProgress>);
-    /// ```
     pub fn set_or_clear_progress<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::OperationProgress>,
@@ -5275,13 +4094,6 @@ impl UpdateDatabaseMetadata {
     }
 
     /// Sets the value of [cancel_time][crate::model::UpdateDatabaseMetadata::cancel_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::UpdateDatabaseMetadata;
-    /// use wkt::Timestamp;
-    /// let x = UpdateDatabaseMetadata::new().set_cancel_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_cancel_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -5291,14 +4103,6 @@ impl UpdateDatabaseMetadata {
     }
 
     /// Sets or clears the value of [cancel_time][crate::model::UpdateDatabaseMetadata::cancel_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::UpdateDatabaseMetadata;
-    /// use wkt::Timestamp;
-    /// let x = UpdateDatabaseMetadata::new().set_or_clear_cancel_time(Some(Timestamp::default()/* use setters */));
-    /// let x = UpdateDatabaseMetadata::new().set_or_clear_cancel_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_cancel_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -5402,24 +4206,12 @@ impl UpdateDatabaseDdlRequest {
     }
 
     /// Sets the value of [database][crate::model::UpdateDatabaseDdlRequest::database].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::UpdateDatabaseDdlRequest;
-    /// let x = UpdateDatabaseDdlRequest::new().set_database("example");
-    /// ```
     pub fn set_database<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.database = v.into();
         self
     }
 
     /// Sets the value of [statements][crate::model::UpdateDatabaseDdlRequest::statements].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::UpdateDatabaseDdlRequest;
-    /// let x = UpdateDatabaseDdlRequest::new().set_statements(["a", "b", "c"]);
-    /// ```
     pub fn set_statements<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -5431,36 +4223,18 @@ impl UpdateDatabaseDdlRequest {
     }
 
     /// Sets the value of [operation_id][crate::model::UpdateDatabaseDdlRequest::operation_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::UpdateDatabaseDdlRequest;
-    /// let x = UpdateDatabaseDdlRequest::new().set_operation_id("example");
-    /// ```
     pub fn set_operation_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.operation_id = v.into();
         self
     }
 
     /// Sets the value of [proto_descriptors][crate::model::UpdateDatabaseDdlRequest::proto_descriptors].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::UpdateDatabaseDdlRequest;
-    /// let x = UpdateDatabaseDdlRequest::new().set_proto_descriptors(bytes::Bytes::from_static(b"example"));
-    /// ```
     pub fn set_proto_descriptors<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.proto_descriptors = v.into();
         self
     }
 
     /// Sets the value of [throughput_mode][crate::model::UpdateDatabaseDdlRequest::throughput_mode].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::UpdateDatabaseDdlRequest;
-    /// let x = UpdateDatabaseDdlRequest::new().set_throughput_mode(true);
-    /// ```
     pub fn set_throughput_mode<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.throughput_mode = v.into();
         self
@@ -5507,36 +4281,18 @@ impl DdlStatementActionInfo {
     }
 
     /// Sets the value of [action][crate::model::DdlStatementActionInfo::action].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::DdlStatementActionInfo;
-    /// let x = DdlStatementActionInfo::new().set_action("example");
-    /// ```
     pub fn set_action<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.action = v.into();
         self
     }
 
     /// Sets the value of [entity_type][crate::model::DdlStatementActionInfo::entity_type].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::DdlStatementActionInfo;
-    /// let x = DdlStatementActionInfo::new().set_entity_type("example");
-    /// ```
     pub fn set_entity_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.entity_type = v.into();
         self
     }
 
     /// Sets the value of [entity_names][crate::model::DdlStatementActionInfo::entity_names].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::DdlStatementActionInfo;
-    /// let x = DdlStatementActionInfo::new().set_entity_names(["a", "b", "c"]);
-    /// ```
     pub fn set_entity_names<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -5602,24 +4358,12 @@ impl UpdateDatabaseDdlMetadata {
     }
 
     /// Sets the value of [database][crate::model::UpdateDatabaseDdlMetadata::database].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::UpdateDatabaseDdlMetadata;
-    /// let x = UpdateDatabaseDdlMetadata::new().set_database("example");
-    /// ```
     pub fn set_database<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.database = v.into();
         self
     }
 
     /// Sets the value of [statements][crate::model::UpdateDatabaseDdlMetadata::statements].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::UpdateDatabaseDdlMetadata;
-    /// let x = UpdateDatabaseDdlMetadata::new().set_statements(["a", "b", "c"]);
-    /// ```
     pub fn set_statements<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -5631,17 +4375,6 @@ impl UpdateDatabaseDdlMetadata {
     }
 
     /// Sets the value of [commit_timestamps][crate::model::UpdateDatabaseDdlMetadata::commit_timestamps].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::UpdateDatabaseDdlMetadata;
-    /// use wkt::Timestamp;
-    /// let x = UpdateDatabaseDdlMetadata::new()
-    ///     .set_commit_timestamps([
-    ///         Timestamp::default()/* use setters */,
-    ///         Timestamp::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_commit_timestamps<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -5653,29 +4386,12 @@ impl UpdateDatabaseDdlMetadata {
     }
 
     /// Sets the value of [throttled][crate::model::UpdateDatabaseDdlMetadata::throttled].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::UpdateDatabaseDdlMetadata;
-    /// let x = UpdateDatabaseDdlMetadata::new().set_throttled(true);
-    /// ```
     pub fn set_throttled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.throttled = v.into();
         self
     }
 
     /// Sets the value of [progress][crate::model::UpdateDatabaseDdlMetadata::progress].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::UpdateDatabaseDdlMetadata;
-    /// use google_cloud_spanner_admin_database_v1::model::OperationProgress;
-    /// let x = UpdateDatabaseDdlMetadata::new()
-    ///     .set_progress([
-    ///         OperationProgress::default()/* use setters */,
-    ///         OperationProgress::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_progress<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -5687,17 +4403,6 @@ impl UpdateDatabaseDdlMetadata {
     }
 
     /// Sets the value of [actions][crate::model::UpdateDatabaseDdlMetadata::actions].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::UpdateDatabaseDdlMetadata;
-    /// use google_cloud_spanner_admin_database_v1::model::DdlStatementActionInfo;
-    /// let x = UpdateDatabaseDdlMetadata::new()
-    ///     .set_actions([
-    ///         DdlStatementActionInfo::default()/* use setters */,
-    ///         DdlStatementActionInfo::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_actions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -5734,12 +4439,6 @@ impl DropDatabaseRequest {
     }
 
     /// Sets the value of [database][crate::model::DropDatabaseRequest::database].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::DropDatabaseRequest;
-    /// let x = DropDatabaseRequest::new().set_database("example");
-    /// ```
     pub fn set_database<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.database = v.into();
         self
@@ -5773,12 +4472,6 @@ impl GetDatabaseDdlRequest {
     }
 
     /// Sets the value of [database][crate::model::GetDatabaseDdlRequest::database].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::GetDatabaseDdlRequest;
-    /// let x = GetDatabaseDdlRequest::new().set_database("example");
-    /// ```
     pub fn set_database<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.database = v.into();
         self
@@ -5818,12 +4511,6 @@ impl GetDatabaseDdlResponse {
     }
 
     /// Sets the value of [statements][crate::model::GetDatabaseDdlResponse::statements].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::GetDatabaseDdlResponse;
-    /// let x = GetDatabaseDdlResponse::new().set_statements(["a", "b", "c"]);
-    /// ```
     pub fn set_statements<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -5835,12 +4522,6 @@ impl GetDatabaseDdlResponse {
     }
 
     /// Sets the value of [proto_descriptors][crate::model::GetDatabaseDdlResponse::proto_descriptors].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::GetDatabaseDdlResponse;
-    /// let x = GetDatabaseDdlResponse::new().set_proto_descriptors(bytes::Bytes::from_static(b"example"));
-    /// ```
     pub fn set_proto_descriptors<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.proto_descriptors = v.into();
         self
@@ -5937,48 +4618,24 @@ impl ListDatabaseOperationsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListDatabaseOperationsRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::ListDatabaseOperationsRequest;
-    /// let x = ListDatabaseOperationsRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListDatabaseOperationsRequest::filter].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::ListDatabaseOperationsRequest;
-    /// let x = ListDatabaseOperationsRequest::new().set_filter("example");
-    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListDatabaseOperationsRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::ListDatabaseOperationsRequest;
-    /// let x = ListDatabaseOperationsRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListDatabaseOperationsRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::ListDatabaseOperationsRequest;
-    /// let x = ListDatabaseOperationsRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -6024,17 +4681,6 @@ impl ListDatabaseOperationsResponse {
     }
 
     /// Sets the value of [operations][crate::model::ListDatabaseOperationsResponse::operations].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::ListDatabaseOperationsResponse;
-    /// use longrunning::model::Operation;
-    /// let x = ListDatabaseOperationsResponse::new()
-    ///     .set_operations([
-    ///         Operation::default()/* use setters */,
-    ///         Operation::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_operations<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -6046,12 +4692,6 @@ impl ListDatabaseOperationsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListDatabaseOperationsResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::ListDatabaseOperationsResponse;
-    /// let x = ListDatabaseOperationsResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -6120,37 +4760,18 @@ impl RestoreDatabaseRequest {
     }
 
     /// Sets the value of [parent][crate::model::RestoreDatabaseRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::RestoreDatabaseRequest;
-    /// let x = RestoreDatabaseRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [database_id][crate::model::RestoreDatabaseRequest::database_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::RestoreDatabaseRequest;
-    /// let x = RestoreDatabaseRequest::new().set_database_id("example");
-    /// ```
     pub fn set_database_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.database_id = v.into();
         self
     }
 
     /// Sets the value of [encryption_config][crate::model::RestoreDatabaseRequest::encryption_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::RestoreDatabaseRequest;
-    /// use google_cloud_spanner_admin_database_v1::model::RestoreDatabaseEncryptionConfig;
-    /// let x = RestoreDatabaseRequest::new().set_encryption_config(RestoreDatabaseEncryptionConfig::default()/* use setters */);
-    /// ```
     pub fn set_encryption_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::RestoreDatabaseEncryptionConfig>,
@@ -6160,14 +4781,6 @@ impl RestoreDatabaseRequest {
     }
 
     /// Sets or clears the value of [encryption_config][crate::model::RestoreDatabaseRequest::encryption_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::RestoreDatabaseRequest;
-    /// use google_cloud_spanner_admin_database_v1::model::RestoreDatabaseEncryptionConfig;
-    /// let x = RestoreDatabaseRequest::new().set_or_clear_encryption_config(Some(RestoreDatabaseEncryptionConfig::default()/* use setters */));
-    /// let x = RestoreDatabaseRequest::new().set_or_clear_encryption_config(None::<RestoreDatabaseEncryptionConfig>);
-    /// ```
     pub fn set_or_clear_encryption_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::RestoreDatabaseEncryptionConfig>,
@@ -6180,13 +4793,6 @@ impl RestoreDatabaseRequest {
     ///
     /// Note that all the setters affecting `source` are mutually
     /// exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::RestoreDatabaseRequest;
-    /// use google_cloud_spanner_admin_database_v1::model::restore_database_request;
-    /// let x = RestoreDatabaseRequest::new().set_source(Some(restore_database_request::Source::Backup("example".to_string())));
-    /// ```
     pub fn set_source<
         T: std::convert::Into<std::option::Option<crate::model::restore_database_request::Source>>,
     >(
@@ -6215,13 +4821,6 @@ impl RestoreDatabaseRequest {
     ///
     /// Note that all the setters affecting `source` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::RestoreDatabaseRequest;
-    /// let x = RestoreDatabaseRequest::new().set_backup("example");
-    /// assert!(x.backup().is_some());
-    /// ```
     pub fn set_backup<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.source = std::option::Option::Some(
             crate::model::restore_database_request::Source::Backup(v.into()),
@@ -6294,15 +4893,6 @@ impl RestoreDatabaseEncryptionConfig {
     }
 
     /// Sets the value of [encryption_type][crate::model::RestoreDatabaseEncryptionConfig::encryption_type].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::RestoreDatabaseEncryptionConfig;
-    /// use google_cloud_spanner_admin_database_v1::model::restore_database_encryption_config::EncryptionType;
-    /// let x0 = RestoreDatabaseEncryptionConfig::new().set_encryption_type(EncryptionType::UseConfigDefaultOrBackupEncryption);
-    /// let x1 = RestoreDatabaseEncryptionConfig::new().set_encryption_type(EncryptionType::GoogleDefaultEncryption);
-    /// let x2 = RestoreDatabaseEncryptionConfig::new().set_encryption_type(EncryptionType::CustomerManagedEncryption);
-    /// ```
     pub fn set_encryption_type<
         T: std::convert::Into<crate::model::restore_database_encryption_config::EncryptionType>,
     >(
@@ -6314,24 +4904,12 @@ impl RestoreDatabaseEncryptionConfig {
     }
 
     /// Sets the value of [kms_key_name][crate::model::RestoreDatabaseEncryptionConfig::kms_key_name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::RestoreDatabaseEncryptionConfig;
-    /// let x = RestoreDatabaseEncryptionConfig::new().set_kms_key_name("example");
-    /// ```
     pub fn set_kms_key_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.kms_key_name = v.into();
         self
     }
 
     /// Sets the value of [kms_key_names][crate::model::RestoreDatabaseEncryptionConfig::kms_key_names].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::RestoreDatabaseEncryptionConfig;
-    /// let x = RestoreDatabaseEncryptionConfig::new().set_kms_key_names(["a", "b", "c"]);
-    /// ```
     pub fn set_kms_key_names<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -6575,25 +5153,12 @@ impl RestoreDatabaseMetadata {
     }
 
     /// Sets the value of [name][crate::model::RestoreDatabaseMetadata::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::RestoreDatabaseMetadata;
-    /// let x = RestoreDatabaseMetadata::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [source_type][crate::model::RestoreDatabaseMetadata::source_type].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::RestoreDatabaseMetadata;
-    /// use google_cloud_spanner_admin_database_v1::model::RestoreSourceType;
-    /// let x0 = RestoreDatabaseMetadata::new().set_source_type(RestoreSourceType::Backup);
-    /// ```
     pub fn set_source_type<T: std::convert::Into<crate::model::RestoreSourceType>>(
         mut self,
         v: T,
@@ -6603,13 +5168,6 @@ impl RestoreDatabaseMetadata {
     }
 
     /// Sets the value of [progress][crate::model::RestoreDatabaseMetadata::progress].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::RestoreDatabaseMetadata;
-    /// use google_cloud_spanner_admin_database_v1::model::OperationProgress;
-    /// let x = RestoreDatabaseMetadata::new().set_progress(OperationProgress::default()/* use setters */);
-    /// ```
     pub fn set_progress<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::OperationProgress>,
@@ -6619,14 +5177,6 @@ impl RestoreDatabaseMetadata {
     }
 
     /// Sets or clears the value of [progress][crate::model::RestoreDatabaseMetadata::progress].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::RestoreDatabaseMetadata;
-    /// use google_cloud_spanner_admin_database_v1::model::OperationProgress;
-    /// let x = RestoreDatabaseMetadata::new().set_or_clear_progress(Some(OperationProgress::default()/* use setters */));
-    /// let x = RestoreDatabaseMetadata::new().set_or_clear_progress(None::<OperationProgress>);
-    /// ```
     pub fn set_or_clear_progress<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::OperationProgress>,
@@ -6636,13 +5186,6 @@ impl RestoreDatabaseMetadata {
     }
 
     /// Sets the value of [cancel_time][crate::model::RestoreDatabaseMetadata::cancel_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::RestoreDatabaseMetadata;
-    /// use wkt::Timestamp;
-    /// let x = RestoreDatabaseMetadata::new().set_cancel_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_cancel_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -6652,14 +5195,6 @@ impl RestoreDatabaseMetadata {
     }
 
     /// Sets or clears the value of [cancel_time][crate::model::RestoreDatabaseMetadata::cancel_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::RestoreDatabaseMetadata;
-    /// use wkt::Timestamp;
-    /// let x = RestoreDatabaseMetadata::new().set_or_clear_cancel_time(Some(Timestamp::default()/* use setters */));
-    /// let x = RestoreDatabaseMetadata::new().set_or_clear_cancel_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_cancel_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -6669,12 +5204,6 @@ impl RestoreDatabaseMetadata {
     }
 
     /// Sets the value of [optimize_database_operation_name][crate::model::RestoreDatabaseMetadata::optimize_database_operation_name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::RestoreDatabaseMetadata;
-    /// let x = RestoreDatabaseMetadata::new().set_optimize_database_operation_name("example");
-    /// ```
     pub fn set_optimize_database_operation_name<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -6687,14 +5216,6 @@ impl RestoreDatabaseMetadata {
     ///
     /// Note that all the setters affecting `source_info` are mutually
     /// exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::RestoreDatabaseMetadata;
-    /// use google_cloud_spanner_admin_database_v1::model::restore_database_metadata;
-    /// use google_cloud_spanner_admin_database_v1::model::BackupInfo;
-    /// let x = RestoreDatabaseMetadata::new().set_source_info(Some(restore_database_metadata::SourceInfo::BackupInfo(BackupInfo::default().into())));
-    /// ```
     pub fn set_source_info<
         T: std::convert::Into<
                 std::option::Option<crate::model::restore_database_metadata::SourceInfo>,
@@ -6725,14 +5246,6 @@ impl RestoreDatabaseMetadata {
     ///
     /// Note that all the setters affecting `source_info` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::RestoreDatabaseMetadata;
-    /// use google_cloud_spanner_admin_database_v1::model::BackupInfo;
-    /// let x = RestoreDatabaseMetadata::new().set_backup_info(BackupInfo::default()/* use setters */);
-    /// assert!(x.backup_info().is_some());
-    /// ```
     pub fn set_backup_info<T: std::convert::Into<std::boxed::Box<crate::model::BackupInfo>>>(
         mut self,
         v: T,
@@ -6790,25 +5303,12 @@ impl OptimizeRestoredDatabaseMetadata {
     }
 
     /// Sets the value of [name][crate::model::OptimizeRestoredDatabaseMetadata::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::OptimizeRestoredDatabaseMetadata;
-    /// let x = OptimizeRestoredDatabaseMetadata::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [progress][crate::model::OptimizeRestoredDatabaseMetadata::progress].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::OptimizeRestoredDatabaseMetadata;
-    /// use google_cloud_spanner_admin_database_v1::model::OperationProgress;
-    /// let x = OptimizeRestoredDatabaseMetadata::new().set_progress(OperationProgress::default()/* use setters */);
-    /// ```
     pub fn set_progress<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::OperationProgress>,
@@ -6818,14 +5318,6 @@ impl OptimizeRestoredDatabaseMetadata {
     }
 
     /// Sets or clears the value of [progress][crate::model::OptimizeRestoredDatabaseMetadata::progress].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::OptimizeRestoredDatabaseMetadata;
-    /// use google_cloud_spanner_admin_database_v1::model::OperationProgress;
-    /// let x = OptimizeRestoredDatabaseMetadata::new().set_or_clear_progress(Some(OperationProgress::default()/* use setters */));
-    /// let x = OptimizeRestoredDatabaseMetadata::new().set_or_clear_progress(None::<OperationProgress>);
-    /// ```
     pub fn set_or_clear_progress<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::OperationProgress>,
@@ -6859,12 +5351,6 @@ impl DatabaseRole {
     }
 
     /// Sets the value of [name][crate::model::DatabaseRole::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::DatabaseRole;
-    /// let x = DatabaseRole::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -6911,36 +5397,18 @@ impl ListDatabaseRolesRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListDatabaseRolesRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::ListDatabaseRolesRequest;
-    /// let x = ListDatabaseRolesRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListDatabaseRolesRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::ListDatabaseRolesRequest;
-    /// let x = ListDatabaseRolesRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListDatabaseRolesRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::ListDatabaseRolesRequest;
-    /// let x = ListDatabaseRolesRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -6979,17 +5447,6 @@ impl ListDatabaseRolesResponse {
     }
 
     /// Sets the value of [database_roles][crate::model::ListDatabaseRolesResponse::database_roles].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::ListDatabaseRolesResponse;
-    /// use google_cloud_spanner_admin_database_v1::model::DatabaseRole;
-    /// let x = ListDatabaseRolesResponse::new()
-    ///     .set_database_roles([
-    ///         DatabaseRole::default()/* use setters */,
-    ///         DatabaseRole::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_database_roles<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -7001,12 +5458,6 @@ impl ListDatabaseRolesResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListDatabaseRolesResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::ListDatabaseRolesResponse;
-    /// let x = ListDatabaseRolesResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -7064,29 +5515,12 @@ impl AddSplitPointsRequest {
     }
 
     /// Sets the value of [database][crate::model::AddSplitPointsRequest::database].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::AddSplitPointsRequest;
-    /// let x = AddSplitPointsRequest::new().set_database("example");
-    /// ```
     pub fn set_database<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.database = v.into();
         self
     }
 
     /// Sets the value of [split_points][crate::model::AddSplitPointsRequest::split_points].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::AddSplitPointsRequest;
-    /// use google_cloud_spanner_admin_database_v1::model::SplitPoints;
-    /// let x = AddSplitPointsRequest::new()
-    ///     .set_split_points([
-    ///         SplitPoints::default()/* use setters */,
-    ///         SplitPoints::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_split_points<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -7098,12 +5532,6 @@ impl AddSplitPointsRequest {
     }
 
     /// Sets the value of [initiator][crate::model::AddSplitPointsRequest::initiator].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::AddSplitPointsRequest;
-    /// let x = AddSplitPointsRequest::new().set_initiator("example");
-    /// ```
     pub fn set_initiator<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.initiator = v.into();
         self
@@ -7167,41 +5595,18 @@ impl SplitPoints {
     }
 
     /// Sets the value of [table][crate::model::SplitPoints::table].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::SplitPoints;
-    /// let x = SplitPoints::new().set_table("example");
-    /// ```
     pub fn set_table<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.table = v.into();
         self
     }
 
     /// Sets the value of [index][crate::model::SplitPoints::index].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::SplitPoints;
-    /// let x = SplitPoints::new().set_index("example");
-    /// ```
     pub fn set_index<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.index = v.into();
         self
     }
 
     /// Sets the value of [keys][crate::model::SplitPoints::keys].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::SplitPoints;
-    /// use google_cloud_spanner_admin_database_v1::model::split_points::Key;
-    /// let x = SplitPoints::new()
-    ///     .set_keys([
-    ///         Key::default()/* use setters */,
-    ///         Key::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_keys<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -7213,13 +5618,6 @@ impl SplitPoints {
     }
 
     /// Sets the value of [expire_time][crate::model::SplitPoints::expire_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::SplitPoints;
-    /// use wkt::Timestamp;
-    /// let x = SplitPoints::new().set_expire_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_expire_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -7229,14 +5627,6 @@ impl SplitPoints {
     }
 
     /// Sets or clears the value of [expire_time][crate::model::SplitPoints::expire_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner_admin_database_v1::model::SplitPoints;
-    /// use wkt::Timestamp;
-    /// let x = SplitPoints::new().set_or_clear_expire_time(Some(Timestamp::default()/* use setters */));
-    /// let x = SplitPoints::new().set_or_clear_expire_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_expire_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -7273,13 +5663,6 @@ pub mod split_points {
         }
 
         /// Sets the value of [key_parts][crate::model::split_points::Key::key_parts].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_spanner_admin_database_v1::model::split_points::Key;
-        /// use wkt::ListValue;
-        /// let x = Key::new().set_key_parts(ListValue::default()/* use setters */);
-        /// ```
         pub fn set_key_parts<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::ListValue>,
@@ -7289,14 +5672,6 @@ pub mod split_points {
         }
 
         /// Sets or clears the value of [key_parts][crate::model::split_points::Key::key_parts].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_spanner_admin_database_v1::model::split_points::Key;
-        /// use wkt::ListValue;
-        /// let x = Key::new().set_or_clear_key_parts(Some(ListValue::default()/* use setters */));
-        /// let x = Key::new().set_or_clear_key_parts(None::<ListValue>);
-        /// ```
         pub fn set_or_clear_key_parts<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::ListValue>,

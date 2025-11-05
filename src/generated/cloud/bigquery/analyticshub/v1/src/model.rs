@@ -98,97 +98,48 @@ impl DataExchange {
     }
 
     /// Sets the value of [name][crate::model::DataExchange::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::DataExchange;
-    /// let x = DataExchange::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [display_name][crate::model::DataExchange::display_name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::DataExchange;
-    /// let x = DataExchange::new().set_display_name("example");
-    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
     }
 
     /// Sets the value of [description][crate::model::DataExchange::description].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::DataExchange;
-    /// let x = DataExchange::new().set_description("example");
-    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [primary_contact][crate::model::DataExchange::primary_contact].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::DataExchange;
-    /// let x = DataExchange::new().set_primary_contact("example");
-    /// ```
     pub fn set_primary_contact<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.primary_contact = v.into();
         self
     }
 
     /// Sets the value of [documentation][crate::model::DataExchange::documentation].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::DataExchange;
-    /// let x = DataExchange::new().set_documentation("example");
-    /// ```
     pub fn set_documentation<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.documentation = v.into();
         self
     }
 
     /// Sets the value of [listing_count][crate::model::DataExchange::listing_count].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::DataExchange;
-    /// let x = DataExchange::new().set_listing_count(42);
-    /// ```
     pub fn set_listing_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.listing_count = v.into();
         self
     }
 
     /// Sets the value of [icon][crate::model::DataExchange::icon].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::DataExchange;
-    /// let x = DataExchange::new().set_icon(bytes::Bytes::from_static(b"example"));
-    /// ```
     pub fn set_icon<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.icon = v.into();
         self
     }
 
     /// Sets the value of [sharing_environment_config][crate::model::DataExchange::sharing_environment_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::DataExchange;
-    /// use google_cloud_bigquery_analyticshub_v1::model::SharingEnvironmentConfig;
-    /// let x = DataExchange::new().set_sharing_environment_config(SharingEnvironmentConfig::default()/* use setters */);
-    /// ```
     pub fn set_sharing_environment_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::SharingEnvironmentConfig>,
@@ -198,14 +149,6 @@ impl DataExchange {
     }
 
     /// Sets or clears the value of [sharing_environment_config][crate::model::DataExchange::sharing_environment_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::DataExchange;
-    /// use google_cloud_bigquery_analyticshub_v1::model::SharingEnvironmentConfig;
-    /// let x = DataExchange::new().set_or_clear_sharing_environment_config(Some(SharingEnvironmentConfig::default()/* use setters */));
-    /// let x = DataExchange::new().set_or_clear_sharing_environment_config(None::<SharingEnvironmentConfig>);
-    /// ```
     pub fn set_or_clear_sharing_environment_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::SharingEnvironmentConfig>,
@@ -215,14 +158,6 @@ impl DataExchange {
     }
 
     /// Sets the value of [discovery_type][crate::model::DataExchange::discovery_type].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::DataExchange;
-    /// use google_cloud_bigquery_analyticshub_v1::model::DiscoveryType;
-    /// let x0 = DataExchange::new().set_discovery_type(DiscoveryType::Private);
-    /// let x1 = DataExchange::new().set_discovery_type(DiscoveryType::Public);
-    /// ```
     pub fn set_discovery_type<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::DiscoveryType>,
@@ -232,15 +167,6 @@ impl DataExchange {
     }
 
     /// Sets or clears the value of [discovery_type][crate::model::DataExchange::discovery_type].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::DataExchange;
-    /// use google_cloud_bigquery_analyticshub_v1::model::DiscoveryType;
-    /// let x0 = DataExchange::new().set_or_clear_discovery_type(Some(DiscoveryType::Private));
-    /// let x1 = DataExchange::new().set_or_clear_discovery_type(Some(DiscoveryType::Public));
-    /// let x_none = DataExchange::new().set_or_clear_discovery_type(None::<DiscoveryType>);
-    /// ```
     pub fn set_or_clear_discovery_type<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DiscoveryType>,
@@ -250,12 +176,6 @@ impl DataExchange {
     }
 
     /// Sets the value of [log_linked_dataset_query_user_email][crate::model::DataExchange::log_linked_dataset_query_user_email].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::DataExchange;
-    /// let x = DataExchange::new().set_log_linked_dataset_query_user_email(true);
-    /// ```
     pub fn set_log_linked_dataset_query_user_email<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<bool>,
@@ -265,13 +185,6 @@ impl DataExchange {
     }
 
     /// Sets or clears the value of [log_linked_dataset_query_user_email][crate::model::DataExchange::log_linked_dataset_query_user_email].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::DataExchange;
-    /// let x = DataExchange::new().set_or_clear_log_linked_dataset_query_user_email(Some(false));
-    /// let x = DataExchange::new().set_or_clear_log_linked_dataset_query_user_email(None::<bool>);
-    /// ```
     pub fn set_or_clear_log_linked_dataset_query_user_email<T>(
         mut self,
         v: std::option::Option<T>,
@@ -344,87 +257,42 @@ impl QueryTemplate {
     }
 
     /// Sets the value of [name][crate::model::QueryTemplate::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::QueryTemplate;
-    /// let x = QueryTemplate::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [display_name][crate::model::QueryTemplate::display_name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::QueryTemplate;
-    /// let x = QueryTemplate::new().set_display_name("example");
-    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
     }
 
     /// Sets the value of [description][crate::model::QueryTemplate::description].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::QueryTemplate;
-    /// let x = QueryTemplate::new().set_description("example");
-    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [proposer][crate::model::QueryTemplate::proposer].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::QueryTemplate;
-    /// let x = QueryTemplate::new().set_proposer("example");
-    /// ```
     pub fn set_proposer<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.proposer = v.into();
         self
     }
 
     /// Sets the value of [primary_contact][crate::model::QueryTemplate::primary_contact].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::QueryTemplate;
-    /// let x = QueryTemplate::new().set_primary_contact("example");
-    /// ```
     pub fn set_primary_contact<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.primary_contact = v.into();
         self
     }
 
     /// Sets the value of [documentation][crate::model::QueryTemplate::documentation].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::QueryTemplate;
-    /// let x = QueryTemplate::new().set_documentation("example");
-    /// ```
     pub fn set_documentation<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.documentation = v.into();
         self
     }
 
     /// Sets the value of [state][crate::model::QueryTemplate::state].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::QueryTemplate;
-    /// use google_cloud_bigquery_analyticshub_v1::model::query_template::State;
-    /// let x0 = QueryTemplate::new().set_state(State::Drafted);
-    /// let x1 = QueryTemplate::new().set_state(State::Pending);
-    /// let x2 = QueryTemplate::new().set_state(State::Deleted);
-    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::query_template::State>>(
         mut self,
         v: T,
@@ -434,13 +302,6 @@ impl QueryTemplate {
     }
 
     /// Sets the value of [routine][crate::model::QueryTemplate::routine].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::QueryTemplate;
-    /// use google_cloud_bigquery_analyticshub_v1::model::Routine;
-    /// let x = QueryTemplate::new().set_routine(Routine::default()/* use setters */);
-    /// ```
     pub fn set_routine<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Routine>,
@@ -450,14 +311,6 @@ impl QueryTemplate {
     }
 
     /// Sets or clears the value of [routine][crate::model::QueryTemplate::routine].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::QueryTemplate;
-    /// use google_cloud_bigquery_analyticshub_v1::model::Routine;
-    /// let x = QueryTemplate::new().set_or_clear_routine(Some(Routine::default()/* use setters */));
-    /// let x = QueryTemplate::new().set_or_clear_routine(None::<Routine>);
-    /// ```
     pub fn set_or_clear_routine<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Routine>,
@@ -467,13 +320,6 @@ impl QueryTemplate {
     }
 
     /// Sets the value of [create_time][crate::model::QueryTemplate::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::QueryTemplate;
-    /// use wkt::Timestamp;
-    /// let x = QueryTemplate::new().set_create_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -483,14 +329,6 @@ impl QueryTemplate {
     }
 
     /// Sets or clears the value of [create_time][crate::model::QueryTemplate::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::QueryTemplate;
-    /// use wkt::Timestamp;
-    /// let x = QueryTemplate::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
-    /// let x = QueryTemplate::new().set_or_clear_create_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -500,13 +338,6 @@ impl QueryTemplate {
     }
 
     /// Sets the value of [update_time][crate::model::QueryTemplate::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::QueryTemplate;
-    /// use wkt::Timestamp;
-    /// let x = QueryTemplate::new().set_update_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -516,14 +347,6 @@ impl QueryTemplate {
     }
 
     /// Sets or clears the value of [update_time][crate::model::QueryTemplate::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::QueryTemplate;
-    /// use wkt::Timestamp;
-    /// let x = QueryTemplate::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
-    /// let x = QueryTemplate::new().set_or_clear_update_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -710,13 +533,6 @@ impl Routine {
     }
 
     /// Sets the value of [routine_type][crate::model::Routine::routine_type].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::Routine;
-    /// use google_cloud_bigquery_analyticshub_v1::model::routine::RoutineType;
-    /// let x0 = Routine::new().set_routine_type(RoutineType::TableValuedFunction);
-    /// ```
     pub fn set_routine_type<T: std::convert::Into<crate::model::routine::RoutineType>>(
         mut self,
         v: T,
@@ -726,12 +542,6 @@ impl Routine {
     }
 
     /// Sets the value of [definition_body][crate::model::Routine::definition_body].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::Routine;
-    /// let x = Routine::new().set_definition_body("example");
-    /// ```
     pub fn set_definition_body<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.definition_body = v.into();
         self
@@ -901,24 +711,12 @@ impl CreateQueryTemplateRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateQueryTemplateRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::CreateQueryTemplateRequest;
-    /// let x = CreateQueryTemplateRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [query_template_id][crate::model::CreateQueryTemplateRequest::query_template_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::CreateQueryTemplateRequest;
-    /// let x = CreateQueryTemplateRequest::new().set_query_template_id("example");
-    /// ```
     pub fn set_query_template_id<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -928,13 +726,6 @@ impl CreateQueryTemplateRequest {
     }
 
     /// Sets the value of [query_template][crate::model::CreateQueryTemplateRequest::query_template].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::CreateQueryTemplateRequest;
-    /// use google_cloud_bigquery_analyticshub_v1::model::QueryTemplate;
-    /// let x = CreateQueryTemplateRequest::new().set_query_template(QueryTemplate::default()/* use setters */);
-    /// ```
     pub fn set_query_template<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::QueryTemplate>,
@@ -944,14 +735,6 @@ impl CreateQueryTemplateRequest {
     }
 
     /// Sets or clears the value of [query_template][crate::model::CreateQueryTemplateRequest::query_template].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::CreateQueryTemplateRequest;
-    /// use google_cloud_bigquery_analyticshub_v1::model::QueryTemplate;
-    /// let x = CreateQueryTemplateRequest::new().set_or_clear_query_template(Some(QueryTemplate::default()/* use setters */));
-    /// let x = CreateQueryTemplateRequest::new().set_or_clear_query_template(None::<QueryTemplate>);
-    /// ```
     pub fn set_or_clear_query_template<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::QueryTemplate>,
@@ -985,12 +768,6 @@ impl GetQueryTemplateRequest {
     }
 
     /// Sets the value of [name][crate::model::GetQueryTemplateRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::GetQueryTemplateRequest;
-    /// let x = GetQueryTemplateRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -1028,36 +805,18 @@ impl ListQueryTemplatesRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListQueryTemplatesRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::ListQueryTemplatesRequest;
-    /// let x = ListQueryTemplatesRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListQueryTemplatesRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::ListQueryTemplatesRequest;
-    /// let x = ListQueryTemplatesRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListQueryTemplatesRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::ListQueryTemplatesRequest;
-    /// let x = ListQueryTemplatesRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -1089,17 +848,6 @@ impl ListQueryTemplatesResponse {
     }
 
     /// Sets the value of [query_templates][crate::model::ListQueryTemplatesResponse::query_templates].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::ListQueryTemplatesResponse;
-    /// use google_cloud_bigquery_analyticshub_v1::model::QueryTemplate;
-    /// let x = ListQueryTemplatesResponse::new()
-    ///     .set_query_templates([
-    ///         QueryTemplate::default()/* use setters */,
-    ///         QueryTemplate::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_query_templates<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1111,12 +859,6 @@ impl ListQueryTemplatesResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListQueryTemplatesResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::ListQueryTemplatesResponse;
-    /// let x = ListQueryTemplatesResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -1164,13 +906,6 @@ impl UpdateQueryTemplateRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateQueryTemplateRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::UpdateQueryTemplateRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateQueryTemplateRequest::new().set_update_mask(FieldMask::default()/* use setters */);
-    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -1180,14 +915,6 @@ impl UpdateQueryTemplateRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateQueryTemplateRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::UpdateQueryTemplateRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateQueryTemplateRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
-    /// let x = UpdateQueryTemplateRequest::new().set_or_clear_update_mask(None::<FieldMask>);
-    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -1197,13 +924,6 @@ impl UpdateQueryTemplateRequest {
     }
 
     /// Sets the value of [query_template][crate::model::UpdateQueryTemplateRequest::query_template].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::UpdateQueryTemplateRequest;
-    /// use google_cloud_bigquery_analyticshub_v1::model::QueryTemplate;
-    /// let x = UpdateQueryTemplateRequest::new().set_query_template(QueryTemplate::default()/* use setters */);
-    /// ```
     pub fn set_query_template<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::QueryTemplate>,
@@ -1213,14 +933,6 @@ impl UpdateQueryTemplateRequest {
     }
 
     /// Sets or clears the value of [query_template][crate::model::UpdateQueryTemplateRequest::query_template].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::UpdateQueryTemplateRequest;
-    /// use google_cloud_bigquery_analyticshub_v1::model::QueryTemplate;
-    /// let x = UpdateQueryTemplateRequest::new().set_or_clear_query_template(Some(QueryTemplate::default()/* use setters */));
-    /// let x = UpdateQueryTemplateRequest::new().set_or_clear_query_template(None::<QueryTemplate>);
-    /// ```
     pub fn set_or_clear_query_template<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::QueryTemplate>,
@@ -1254,12 +966,6 @@ impl DeleteQueryTemplateRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteQueryTemplateRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::DeleteQueryTemplateRequest;
-    /// let x = DeleteQueryTemplateRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -1290,12 +996,6 @@ impl SubmitQueryTemplateRequest {
     }
 
     /// Sets the value of [name][crate::model::SubmitQueryTemplateRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::SubmitQueryTemplateRequest;
-    /// let x = SubmitQueryTemplateRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -1326,12 +1026,6 @@ impl ApproveQueryTemplateRequest {
     }
 
     /// Sets the value of [name][crate::model::ApproveQueryTemplateRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::ApproveQueryTemplateRequest;
-    /// let x = ApproveQueryTemplateRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -1363,14 +1057,6 @@ impl SharingEnvironmentConfig {
     ///
     /// Note that all the setters affecting `environment` are mutually
     /// exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::SharingEnvironmentConfig;
-    /// use google_cloud_bigquery_analyticshub_v1::model::sharing_environment_config;
-    /// use google_cloud_bigquery_analyticshub_v1::model::sharing_environment_config::DefaultExchangeConfig;
-    /// let x = SharingEnvironmentConfig::new().set_environment(Some(sharing_environment_config::Environment::DefaultExchangeConfig(DefaultExchangeConfig::default().into())));
-    /// ```
     pub fn set_environment<
         T: std::convert::Into<
                 std::option::Option<crate::model::sharing_environment_config::Environment>,
@@ -1405,15 +1091,6 @@ impl SharingEnvironmentConfig {
     ///
     /// Note that all the setters affecting `environment` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::SharingEnvironmentConfig;
-    /// use google_cloud_bigquery_analyticshub_v1::model::sharing_environment_config::DefaultExchangeConfig;
-    /// let x = SharingEnvironmentConfig::new().set_default_exchange_config(DefaultExchangeConfig::default()/* use setters */);
-    /// assert!(x.default_exchange_config().is_some());
-    /// assert!(x.dcr_exchange_config().is_none());
-    /// ```
     pub fn set_default_exchange_config<
         T: std::convert::Into<
                 std::boxed::Box<crate::model::sharing_environment_config::DefaultExchangeConfig>,
@@ -1450,15 +1127,6 @@ impl SharingEnvironmentConfig {
     ///
     /// Note that all the setters affecting `environment` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::SharingEnvironmentConfig;
-    /// use google_cloud_bigquery_analyticshub_v1::model::sharing_environment_config::DcrExchangeConfig;
-    /// let x = SharingEnvironmentConfig::new().set_dcr_exchange_config(DcrExchangeConfig::default()/* use setters */);
-    /// assert!(x.dcr_exchange_config().is_some());
-    /// assert!(x.default_exchange_config().is_none());
-    /// ```
     pub fn set_dcr_exchange_config<
         T: std::convert::Into<
                 std::boxed::Box<crate::model::sharing_environment_config::DcrExchangeConfig>,
@@ -1532,12 +1200,6 @@ pub mod sharing_environment_config {
         }
 
         /// Sets the value of [single_selected_resource_sharing_restriction][crate::model::sharing_environment_config::DcrExchangeConfig::single_selected_resource_sharing_restriction].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_bigquery_analyticshub_v1::model::sharing_environment_config::DcrExchangeConfig;
-        /// let x = DcrExchangeConfig::new().set_single_selected_resource_sharing_restriction(true);
-        /// ```
         pub fn set_single_selected_resource_sharing_restriction<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<bool>,
@@ -1547,13 +1209,6 @@ pub mod sharing_environment_config {
         }
 
         /// Sets or clears the value of [single_selected_resource_sharing_restriction][crate::model::sharing_environment_config::DcrExchangeConfig::single_selected_resource_sharing_restriction].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_bigquery_analyticshub_v1::model::sharing_environment_config::DcrExchangeConfig;
-        /// let x = DcrExchangeConfig::new().set_or_clear_single_selected_resource_sharing_restriction(Some(false));
-        /// let x = DcrExchangeConfig::new().set_or_clear_single_selected_resource_sharing_restriction(None::<bool>);
-        /// ```
         pub fn set_or_clear_single_selected_resource_sharing_restriction<T>(
             mut self,
             v: std::option::Option<T>,
@@ -1566,12 +1221,6 @@ pub mod sharing_environment_config {
         }
 
         /// Sets the value of [single_linked_dataset_per_cleanroom][crate::model::sharing_environment_config::DcrExchangeConfig::single_linked_dataset_per_cleanroom].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_bigquery_analyticshub_v1::model::sharing_environment_config::DcrExchangeConfig;
-        /// let x = DcrExchangeConfig::new().set_single_linked_dataset_per_cleanroom(true);
-        /// ```
         pub fn set_single_linked_dataset_per_cleanroom<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<bool>,
@@ -1581,13 +1230,6 @@ pub mod sharing_environment_config {
         }
 
         /// Sets or clears the value of [single_linked_dataset_per_cleanroom][crate::model::sharing_environment_config::DcrExchangeConfig::single_linked_dataset_per_cleanroom].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_bigquery_analyticshub_v1::model::sharing_environment_config::DcrExchangeConfig;
-        /// let x = DcrExchangeConfig::new().set_or_clear_single_linked_dataset_per_cleanroom(Some(false));
-        /// let x = DcrExchangeConfig::new().set_or_clear_single_linked_dataset_per_cleanroom(None::<bool>);
-        /// ```
         pub fn set_or_clear_single_linked_dataset_per_cleanroom<T>(
             mut self,
             v: std::option::Option<T>,
@@ -1640,24 +1282,12 @@ impl DataProvider {
     }
 
     /// Sets the value of [name][crate::model::DataProvider::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::DataProvider;
-    /// let x = DataProvider::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [primary_contact][crate::model::DataProvider::primary_contact].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::DataProvider;
-    /// let x = DataProvider::new().set_primary_contact("example");
-    /// ```
     pub fn set_primary_contact<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.primary_contact = v.into();
         self
@@ -1690,24 +1320,12 @@ impl Publisher {
     }
 
     /// Sets the value of [name][crate::model::Publisher::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::Publisher;
-    /// let x = Publisher::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [primary_contact][crate::model::Publisher::primary_contact].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::Publisher;
-    /// let x = Publisher::new().set_primary_contact("example");
-    /// ```
     pub fn set_primary_contact<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.primary_contact = v.into();
         self
@@ -1740,24 +1358,12 @@ impl DestinationDatasetReference {
     }
 
     /// Sets the value of [dataset_id][crate::model::DestinationDatasetReference::dataset_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::DestinationDatasetReference;
-    /// let x = DestinationDatasetReference::new().set_dataset_id("example");
-    /// ```
     pub fn set_dataset_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.dataset_id = v.into();
         self
     }
 
     /// Sets the value of [project_id][crate::model::DestinationDatasetReference::project_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::DestinationDatasetReference;
-    /// let x = DestinationDatasetReference::new().set_project_id("example");
-    /// ```
     pub fn set_project_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project_id = v.into();
         self
@@ -1809,13 +1415,6 @@ impl DestinationDataset {
     }
 
     /// Sets the value of [dataset_reference][crate::model::DestinationDataset::dataset_reference].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::DestinationDataset;
-    /// use google_cloud_bigquery_analyticshub_v1::model::DestinationDatasetReference;
-    /// let x = DestinationDataset::new().set_dataset_reference(DestinationDatasetReference::default()/* use setters */);
-    /// ```
     pub fn set_dataset_reference<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::DestinationDatasetReference>,
@@ -1825,14 +1424,6 @@ impl DestinationDataset {
     }
 
     /// Sets or clears the value of [dataset_reference][crate::model::DestinationDataset::dataset_reference].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::DestinationDataset;
-    /// use google_cloud_bigquery_analyticshub_v1::model::DestinationDatasetReference;
-    /// let x = DestinationDataset::new().set_or_clear_dataset_reference(Some(DestinationDatasetReference::default()/* use setters */));
-    /// let x = DestinationDataset::new().set_or_clear_dataset_reference(None::<DestinationDatasetReference>);
-    /// ```
     pub fn set_or_clear_dataset_reference<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DestinationDatasetReference>,
@@ -1842,13 +1433,6 @@ impl DestinationDataset {
     }
 
     /// Sets the value of [friendly_name][crate::model::DestinationDataset::friendly_name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::DestinationDataset;
-    /// use wkt::StringValue;
-    /// let x = DestinationDataset::new().set_friendly_name(StringValue::default()/* use setters */);
-    /// ```
     pub fn set_friendly_name<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::StringValue>,
@@ -1858,14 +1442,6 @@ impl DestinationDataset {
     }
 
     /// Sets or clears the value of [friendly_name][crate::model::DestinationDataset::friendly_name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::DestinationDataset;
-    /// use wkt::StringValue;
-    /// let x = DestinationDataset::new().set_or_clear_friendly_name(Some(StringValue::default()/* use setters */));
-    /// let x = DestinationDataset::new().set_or_clear_friendly_name(None::<StringValue>);
-    /// ```
     pub fn set_or_clear_friendly_name<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::StringValue>,
@@ -1875,13 +1451,6 @@ impl DestinationDataset {
     }
 
     /// Sets the value of [description][crate::model::DestinationDataset::description].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::DestinationDataset;
-    /// use wkt::StringValue;
-    /// let x = DestinationDataset::new().set_description(StringValue::default()/* use setters */);
-    /// ```
     pub fn set_description<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::StringValue>,
@@ -1891,14 +1460,6 @@ impl DestinationDataset {
     }
 
     /// Sets or clears the value of [description][crate::model::DestinationDataset::description].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::DestinationDataset;
-    /// use wkt::StringValue;
-    /// let x = DestinationDataset::new().set_or_clear_description(Some(StringValue::default()/* use setters */));
-    /// let x = DestinationDataset::new().set_or_clear_description(None::<StringValue>);
-    /// ```
     pub fn set_or_clear_description<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::StringValue>,
@@ -1908,15 +1469,6 @@ impl DestinationDataset {
     }
 
     /// Sets the value of [labels][crate::model::DestinationDataset::labels].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::DestinationDataset;
-    /// let x = DestinationDataset::new().set_labels([
-    ///     ("key0", "abc"),
-    ///     ("key1", "xyz"),
-    /// ]);
-    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -1929,24 +1481,12 @@ impl DestinationDataset {
     }
 
     /// Sets the value of [location][crate::model::DestinationDataset::location].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::DestinationDataset;
-    /// let x = DestinationDataset::new().set_location("example");
-    /// ```
     pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.location = v.into();
         self
     }
 
     /// Sets the value of [replica_locations][crate::model::DestinationDataset::replica_locations].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::DestinationDataset;
-    /// let x = DestinationDataset::new().set_replica_locations(["a", "b", "c"]);
-    /// ```
     pub fn set_replica_locations<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1980,13 +1520,6 @@ impl DestinationPubSubSubscription {
     }
 
     /// Sets the value of [pubsub_subscription][crate::model::DestinationPubSubSubscription::pubsub_subscription].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::DestinationPubSubSubscription;
-    /// use google_cloud_bigquery_analyticshub_v1::model::PubSubSubscription;
-    /// let x = DestinationPubSubSubscription::new().set_pubsub_subscription(PubSubSubscription::default()/* use setters */);
-    /// ```
     pub fn set_pubsub_subscription<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::PubSubSubscription>,
@@ -1996,14 +1529,6 @@ impl DestinationPubSubSubscription {
     }
 
     /// Sets or clears the value of [pubsub_subscription][crate::model::DestinationPubSubSubscription::pubsub_subscription].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::DestinationPubSubSubscription;
-    /// use google_cloud_bigquery_analyticshub_v1::model::PubSubSubscription;
-    /// let x = DestinationPubSubSubscription::new().set_or_clear_pubsub_subscription(Some(PubSubSubscription::default()/* use setters */));
-    /// let x = DestinationPubSubSubscription::new().set_or_clear_pubsub_subscription(None::<PubSubSubscription>);
-    /// ```
     pub fn set_or_clear_pubsub_subscription<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::PubSubSubscription>,
@@ -2109,98 +1634,48 @@ impl Listing {
     }
 
     /// Sets the value of [name][crate::model::Listing::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::Listing;
-    /// let x = Listing::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [display_name][crate::model::Listing::display_name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::Listing;
-    /// let x = Listing::new().set_display_name("example");
-    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
     }
 
     /// Sets the value of [description][crate::model::Listing::description].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::Listing;
-    /// let x = Listing::new().set_description("example");
-    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [primary_contact][crate::model::Listing::primary_contact].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::Listing;
-    /// let x = Listing::new().set_primary_contact("example");
-    /// ```
     pub fn set_primary_contact<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.primary_contact = v.into();
         self
     }
 
     /// Sets the value of [documentation][crate::model::Listing::documentation].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::Listing;
-    /// let x = Listing::new().set_documentation("example");
-    /// ```
     pub fn set_documentation<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.documentation = v.into();
         self
     }
 
     /// Sets the value of [state][crate::model::Listing::state].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::Listing;
-    /// use google_cloud_bigquery_analyticshub_v1::model::listing::State;
-    /// let x0 = Listing::new().set_state(State::Active);
-    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::listing::State>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
     }
 
     /// Sets the value of [icon][crate::model::Listing::icon].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::Listing;
-    /// let x = Listing::new().set_icon(bytes::Bytes::from_static(b"example"));
-    /// ```
     pub fn set_icon<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.icon = v.into();
         self
     }
 
     /// Sets the value of [data_provider][crate::model::Listing::data_provider].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::Listing;
-    /// use google_cloud_bigquery_analyticshub_v1::model::DataProvider;
-    /// let x = Listing::new().set_data_provider(DataProvider::default()/* use setters */);
-    /// ```
     pub fn set_data_provider<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::DataProvider>,
@@ -2210,14 +1685,6 @@ impl Listing {
     }
 
     /// Sets or clears the value of [data_provider][crate::model::Listing::data_provider].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::Listing;
-    /// use google_cloud_bigquery_analyticshub_v1::model::DataProvider;
-    /// let x = Listing::new().set_or_clear_data_provider(Some(DataProvider::default()/* use setters */));
-    /// let x = Listing::new().set_or_clear_data_provider(None::<DataProvider>);
-    /// ```
     pub fn set_or_clear_data_provider<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DataProvider>,
@@ -2227,17 +1694,6 @@ impl Listing {
     }
 
     /// Sets the value of [categories][crate::model::Listing::categories].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::Listing;
-    /// use google_cloud_bigquery_analyticshub_v1::model::listing::Category;
-    /// let x = Listing::new().set_categories([
-    ///     Category::Others,
-    ///     Category::AdvertisingAndMarketing,
-    ///     Category::Commerce,
-    /// ]);
-    /// ```
     pub fn set_categories<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2249,13 +1705,6 @@ impl Listing {
     }
 
     /// Sets the value of [publisher][crate::model::Listing::publisher].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::Listing;
-    /// use google_cloud_bigquery_analyticshub_v1::model::Publisher;
-    /// let x = Listing::new().set_publisher(Publisher::default()/* use setters */);
-    /// ```
     pub fn set_publisher<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Publisher>,
@@ -2265,14 +1714,6 @@ impl Listing {
     }
 
     /// Sets or clears the value of [publisher][crate::model::Listing::publisher].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::Listing;
-    /// use google_cloud_bigquery_analyticshub_v1::model::Publisher;
-    /// let x = Listing::new().set_or_clear_publisher(Some(Publisher::default()/* use setters */));
-    /// let x = Listing::new().set_or_clear_publisher(None::<Publisher>);
-    /// ```
     pub fn set_or_clear_publisher<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Publisher>,
@@ -2282,25 +1723,12 @@ impl Listing {
     }
 
     /// Sets the value of [request_access][crate::model::Listing::request_access].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::Listing;
-    /// let x = Listing::new().set_request_access("example");
-    /// ```
     pub fn set_request_access<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_access = v.into();
         self
     }
 
     /// Sets the value of [restricted_export_config][crate::model::Listing::restricted_export_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::Listing;
-    /// use google_cloud_bigquery_analyticshub_v1::model::listing::RestrictedExportConfig;
-    /// let x = Listing::new().set_restricted_export_config(RestrictedExportConfig::default()/* use setters */);
-    /// ```
     pub fn set_restricted_export_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::listing::RestrictedExportConfig>,
@@ -2310,14 +1738,6 @@ impl Listing {
     }
 
     /// Sets or clears the value of [restricted_export_config][crate::model::Listing::restricted_export_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::Listing;
-    /// use google_cloud_bigquery_analyticshub_v1::model::listing::RestrictedExportConfig;
-    /// let x = Listing::new().set_or_clear_restricted_export_config(Some(RestrictedExportConfig::default()/* use setters */));
-    /// let x = Listing::new().set_or_clear_restricted_export_config(None::<RestrictedExportConfig>);
-    /// ```
     pub fn set_or_clear_restricted_export_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::listing::RestrictedExportConfig>,
@@ -2327,14 +1747,6 @@ impl Listing {
     }
 
     /// Sets the value of [discovery_type][crate::model::Listing::discovery_type].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::Listing;
-    /// use google_cloud_bigquery_analyticshub_v1::model::DiscoveryType;
-    /// let x0 = Listing::new().set_discovery_type(DiscoveryType::Private);
-    /// let x1 = Listing::new().set_discovery_type(DiscoveryType::Public);
-    /// ```
     pub fn set_discovery_type<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::DiscoveryType>,
@@ -2344,15 +1756,6 @@ impl Listing {
     }
 
     /// Sets or clears the value of [discovery_type][crate::model::Listing::discovery_type].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::Listing;
-    /// use google_cloud_bigquery_analyticshub_v1::model::DiscoveryType;
-    /// let x0 = Listing::new().set_or_clear_discovery_type(Some(DiscoveryType::Private));
-    /// let x1 = Listing::new().set_or_clear_discovery_type(Some(DiscoveryType::Public));
-    /// let x_none = Listing::new().set_or_clear_discovery_type(None::<DiscoveryType>);
-    /// ```
     pub fn set_or_clear_discovery_type<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DiscoveryType>,
@@ -2362,14 +1765,6 @@ impl Listing {
     }
 
     /// Sets the value of [resource_type][crate::model::Listing::resource_type].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::Listing;
-    /// use google_cloud_bigquery_analyticshub_v1::model::SharedResourceType;
-    /// let x0 = Listing::new().set_resource_type(SharedResourceType::BigqueryDataset);
-    /// let x1 = Listing::new().set_resource_type(SharedResourceType::PubsubTopic);
-    /// ```
     pub fn set_resource_type<T: std::convert::Into<crate::model::SharedResourceType>>(
         mut self,
         v: T,
@@ -2379,13 +1774,6 @@ impl Listing {
     }
 
     /// Sets the value of [commercial_info][crate::model::Listing::commercial_info].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::Listing;
-    /// use google_cloud_bigquery_analyticshub_v1::model::listing::CommercialInfo;
-    /// let x = Listing::new().set_commercial_info(CommercialInfo::default()/* use setters */);
-    /// ```
     pub fn set_commercial_info<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::listing::CommercialInfo>,
@@ -2395,14 +1783,6 @@ impl Listing {
     }
 
     /// Sets or clears the value of [commercial_info][crate::model::Listing::commercial_info].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::Listing;
-    /// use google_cloud_bigquery_analyticshub_v1::model::listing::CommercialInfo;
-    /// let x = Listing::new().set_or_clear_commercial_info(Some(CommercialInfo::default()/* use setters */));
-    /// let x = Listing::new().set_or_clear_commercial_info(None::<CommercialInfo>);
-    /// ```
     pub fn set_or_clear_commercial_info<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::listing::CommercialInfo>,
@@ -2412,12 +1792,6 @@ impl Listing {
     }
 
     /// Sets the value of [log_linked_dataset_query_user_email][crate::model::Listing::log_linked_dataset_query_user_email].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::Listing;
-    /// let x = Listing::new().set_log_linked_dataset_query_user_email(true);
-    /// ```
     pub fn set_log_linked_dataset_query_user_email<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<bool>,
@@ -2427,13 +1801,6 @@ impl Listing {
     }
 
     /// Sets or clears the value of [log_linked_dataset_query_user_email][crate::model::Listing::log_linked_dataset_query_user_email].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::Listing;
-    /// let x = Listing::new().set_or_clear_log_linked_dataset_query_user_email(Some(false));
-    /// let x = Listing::new().set_or_clear_log_linked_dataset_query_user_email(None::<bool>);
-    /// ```
     pub fn set_or_clear_log_linked_dataset_query_user_email<T>(
         mut self,
         v: std::option::Option<T>,
@@ -2446,12 +1813,6 @@ impl Listing {
     }
 
     /// Sets the value of [allow_only_metadata_sharing][crate::model::Listing::allow_only_metadata_sharing].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::Listing;
-    /// let x = Listing::new().set_allow_only_metadata_sharing(true);
-    /// ```
     pub fn set_allow_only_metadata_sharing<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<bool>,
@@ -2461,13 +1822,6 @@ impl Listing {
     }
 
     /// Sets or clears the value of [allow_only_metadata_sharing][crate::model::Listing::allow_only_metadata_sharing].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::Listing;
-    /// let x = Listing::new().set_or_clear_allow_only_metadata_sharing(Some(false));
-    /// let x = Listing::new().set_or_clear_allow_only_metadata_sharing(None::<bool>);
-    /// ```
     pub fn set_or_clear_allow_only_metadata_sharing<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<bool>,
@@ -2480,14 +1834,6 @@ impl Listing {
     ///
     /// Note that all the setters affecting `source` are mutually
     /// exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::Listing;
-    /// use google_cloud_bigquery_analyticshub_v1::model::listing;
-    /// use google_cloud_bigquery_analyticshub_v1::model::listing::BigQueryDatasetSource;
-    /// let x = Listing::new().set_source(Some(listing::Source::BigqueryDataset(BigQueryDatasetSource::default().into())));
-    /// ```
     pub fn set_source<T: std::convert::Into<std::option::Option<crate::model::listing::Source>>>(
         mut self,
         v: T,
@@ -2514,15 +1860,6 @@ impl Listing {
     ///
     /// Note that all the setters affecting `source` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::Listing;
-    /// use google_cloud_bigquery_analyticshub_v1::model::listing::BigQueryDatasetSource;
-    /// let x = Listing::new().set_bigquery_dataset(BigQueryDatasetSource::default()/* use setters */);
-    /// assert!(x.bigquery_dataset().is_some());
-    /// assert!(x.pubsub_topic().is_none());
-    /// ```
     pub fn set_bigquery_dataset<
         T: std::convert::Into<std::boxed::Box<crate::model::listing::BigQueryDatasetSource>>,
     >(
@@ -2552,15 +1889,6 @@ impl Listing {
     ///
     /// Note that all the setters affecting `source` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::Listing;
-    /// use google_cloud_bigquery_analyticshub_v1::model::listing::PubSubTopicSource;
-    /// let x = Listing::new().set_pubsub_topic(PubSubTopicSource::default()/* use setters */);
-    /// assert!(x.pubsub_topic().is_some());
-    /// assert!(x.bigquery_dataset().is_none());
-    /// ```
     pub fn set_pubsub_topic<
         T: std::convert::Into<std::boxed::Box<crate::model::listing::PubSubTopicSource>>,
     >(
@@ -2629,29 +1957,12 @@ pub mod listing {
         }
 
         /// Sets the value of [dataset][crate::model::listing::BigQueryDatasetSource::dataset].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_bigquery_analyticshub_v1::model::listing::BigQueryDatasetSource;
-        /// let x = BigQueryDatasetSource::new().set_dataset("example");
-        /// ```
         pub fn set_dataset<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.dataset = v.into();
             self
         }
 
         /// Sets the value of [selected_resources][crate::model::listing::BigQueryDatasetSource::selected_resources].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_bigquery_analyticshub_v1::model::listing::BigQueryDatasetSource;
-        /// use google_cloud_bigquery_analyticshub_v1::model::listing::big_query_dataset_source::SelectedResource;
-        /// let x = BigQueryDatasetSource::new()
-        ///     .set_selected_resources([
-        ///         SelectedResource::default()/* use setters */,
-        ///         SelectedResource::default()/* use (different) setters */,
-        ///     ]);
-        /// ```
         pub fn set_selected_resources<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -2665,13 +1976,6 @@ pub mod listing {
         }
 
         /// Sets the value of [restricted_export_policy][crate::model::listing::BigQueryDatasetSource::restricted_export_policy].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_bigquery_analyticshub_v1::model::listing::BigQueryDatasetSource;
-        /// use google_cloud_bigquery_analyticshub_v1::model::listing::big_query_dataset_source::RestrictedExportPolicy;
-        /// let x = BigQueryDatasetSource::new().set_restricted_export_policy(RestrictedExportPolicy::default()/* use setters */);
-        /// ```
         pub fn set_restricted_export_policy<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<
@@ -2683,14 +1987,6 @@ pub mod listing {
         }
 
         /// Sets or clears the value of [restricted_export_policy][crate::model::listing::BigQueryDatasetSource::restricted_export_policy].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_bigquery_analyticshub_v1::model::listing::BigQueryDatasetSource;
-        /// use google_cloud_bigquery_analyticshub_v1::model::listing::big_query_dataset_source::RestrictedExportPolicy;
-        /// let x = BigQueryDatasetSource::new().set_or_clear_restricted_export_policy(Some(RestrictedExportPolicy::default()/* use setters */));
-        /// let x = BigQueryDatasetSource::new().set_or_clear_restricted_export_policy(None::<RestrictedExportPolicy>);
-        /// ```
         pub fn set_or_clear_restricted_export_policy<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<
@@ -2702,12 +1998,6 @@ pub mod listing {
         }
 
         /// Sets the value of [replica_locations][crate::model::listing::BigQueryDatasetSource::replica_locations].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_bigquery_analyticshub_v1::model::listing::BigQueryDatasetSource;
-        /// let x = BigQueryDatasetSource::new().set_replica_locations(["a", "b", "c"]);
-        /// ```
         pub fn set_replica_locations<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -2719,17 +2009,6 @@ pub mod listing {
         }
 
         /// Sets the value of [effective_replicas][crate::model::listing::BigQueryDatasetSource::effective_replicas].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_bigquery_analyticshub_v1::model::listing::BigQueryDatasetSource;
-        /// use google_cloud_bigquery_analyticshub_v1::model::listing::big_query_dataset_source::Replica;
-        /// let x = BigQueryDatasetSource::new()
-        ///     .set_effective_replicas([
-        ///         Replica::default()/* use setters */,
-        ///         Replica::default()/* use (different) setters */,
-        ///     ]);
-        /// ```
         pub fn set_effective_replicas<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -2772,13 +2051,6 @@ pub mod listing {
             ///
             /// Note that all the setters affecting `resource` are mutually
             /// exclusive.
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_bigquery_analyticshub_v1::model::listing::big_query_dataset_source::SelectedResource;
-            /// use google_cloud_bigquery_analyticshub_v1::model::listing::big_query_dataset_source::selected_resource;
-            /// let x = SelectedResource::new().set_resource(Some(listing::big_query_dataset_source::selected_resource::Resource::Table("example".to_string())));
-            /// ```
             pub fn set_resource<T: std::convert::Into<std::option::Option<crate::model::listing::big_query_dataset_source::selected_resource::Resource>>>(mut self, v: T) -> Self
             {
                 self.resource = v.into();
@@ -2801,14 +2073,6 @@ pub mod listing {
             ///
             /// Note that all the setters affecting `resource` are
             /// mutually exclusive.
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_bigquery_analyticshub_v1::model::listing::big_query_dataset_source::SelectedResource;
-            /// let x = SelectedResource::new().set_table("example");
-            /// assert!(x.table().is_some());
-            /// assert!(x.routine().is_none());
-            /// ```
             pub fn set_table<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
                 self.resource = std::option::Option::Some(
                     crate::model::listing::big_query_dataset_source::selected_resource::Resource::Table(
@@ -2834,14 +2098,6 @@ pub mod listing {
             ///
             /// Note that all the setters affecting `resource` are
             /// mutually exclusive.
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_bigquery_analyticshub_v1::model::listing::big_query_dataset_source::SelectedResource;
-            /// let x = SelectedResource::new().set_routine("example");
-            /// assert!(x.routine().is_some());
-            /// assert!(x.table().is_none());
-            /// ```
             pub fn set_routine<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
                 self.resource = std::option::Option::Some(
                     crate::model::listing::big_query_dataset_source::selected_resource::Resource::Routine(
@@ -2904,13 +2160,6 @@ pub mod listing {
             }
 
             /// Sets the value of [enabled][crate::model::listing::big_query_dataset_source::RestrictedExportPolicy::enabled].
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_bigquery_analyticshub_v1::model::listing::big_query_dataset_source::RestrictedExportPolicy;
-            /// use wkt::BoolValue;
-            /// let x = RestrictedExportPolicy::new().set_enabled(BoolValue::default()/* use setters */);
-            /// ```
             pub fn set_enabled<T>(mut self, v: T) -> Self
             where
                 T: std::convert::Into<wkt::BoolValue>,
@@ -2920,14 +2169,6 @@ pub mod listing {
             }
 
             /// Sets or clears the value of [enabled][crate::model::listing::big_query_dataset_source::RestrictedExportPolicy::enabled].
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_bigquery_analyticshub_v1::model::listing::big_query_dataset_source::RestrictedExportPolicy;
-            /// use wkt::BoolValue;
-            /// let x = RestrictedExportPolicy::new().set_or_clear_enabled(Some(BoolValue::default()/* use setters */));
-            /// let x = RestrictedExportPolicy::new().set_or_clear_enabled(None::<BoolValue>);
-            /// ```
             pub fn set_or_clear_enabled<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<wkt::BoolValue>,
@@ -2937,13 +2178,6 @@ pub mod listing {
             }
 
             /// Sets the value of [restrict_direct_table_access][crate::model::listing::big_query_dataset_source::RestrictedExportPolicy::restrict_direct_table_access].
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_bigquery_analyticshub_v1::model::listing::big_query_dataset_source::RestrictedExportPolicy;
-            /// use wkt::BoolValue;
-            /// let x = RestrictedExportPolicy::new().set_restrict_direct_table_access(BoolValue::default()/* use setters */);
-            /// ```
             pub fn set_restrict_direct_table_access<T>(mut self, v: T) -> Self
             where
                 T: std::convert::Into<wkt::BoolValue>,
@@ -2953,14 +2187,6 @@ pub mod listing {
             }
 
             /// Sets or clears the value of [restrict_direct_table_access][crate::model::listing::big_query_dataset_source::RestrictedExportPolicy::restrict_direct_table_access].
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_bigquery_analyticshub_v1::model::listing::big_query_dataset_source::RestrictedExportPolicy;
-            /// use wkt::BoolValue;
-            /// let x = RestrictedExportPolicy::new().set_or_clear_restrict_direct_table_access(Some(BoolValue::default()/* use setters */));
-            /// let x = RestrictedExportPolicy::new().set_or_clear_restrict_direct_table_access(None::<BoolValue>);
-            /// ```
             pub fn set_or_clear_restrict_direct_table_access<T>(
                 mut self,
                 v: std::option::Option<T>,
@@ -2973,13 +2199,6 @@ pub mod listing {
             }
 
             /// Sets the value of [restrict_query_result][crate::model::listing::big_query_dataset_source::RestrictedExportPolicy::restrict_query_result].
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_bigquery_analyticshub_v1::model::listing::big_query_dataset_source::RestrictedExportPolicy;
-            /// use wkt::BoolValue;
-            /// let x = RestrictedExportPolicy::new().set_restrict_query_result(BoolValue::default()/* use setters */);
-            /// ```
             pub fn set_restrict_query_result<T>(mut self, v: T) -> Self
             where
                 T: std::convert::Into<wkt::BoolValue>,
@@ -2989,14 +2208,6 @@ pub mod listing {
             }
 
             /// Sets or clears the value of [restrict_query_result][crate::model::listing::big_query_dataset_source::RestrictedExportPolicy::restrict_query_result].
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_bigquery_analyticshub_v1::model::listing::big_query_dataset_source::RestrictedExportPolicy;
-            /// use wkt::BoolValue;
-            /// let x = RestrictedExportPolicy::new().set_or_clear_restrict_query_result(Some(BoolValue::default()/* use setters */));
-            /// let x = RestrictedExportPolicy::new().set_or_clear_restrict_query_result(None::<BoolValue>);
-            /// ```
             pub fn set_or_clear_restrict_query_result<T>(
                 mut self,
                 v: std::option::Option<T>,
@@ -3046,12 +2257,6 @@ pub mod listing {
             }
 
             /// Sets the value of [location][crate::model::listing::big_query_dataset_source::Replica::location].
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_bigquery_analyticshub_v1::model::listing::big_query_dataset_source::Replica;
-            /// let x = Replica::new().set_location("example");
-            /// ```
             pub fn set_location<T: std::convert::Into<std::string::String>>(
                 mut self,
                 v: T,
@@ -3061,14 +2266,6 @@ pub mod listing {
             }
 
             /// Sets the value of [replica_state][crate::model::listing::big_query_dataset_source::Replica::replica_state].
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_bigquery_analyticshub_v1::model::listing::big_query_dataset_source::Replica;
-            /// use google_cloud_bigquery_analyticshub_v1::model::listing::big_query_dataset_source::replica::ReplicaState;
-            /// let x0 = Replica::new().set_replica_state(ReplicaState::ReadyToUse);
-            /// let x1 = Replica::new().set_replica_state(ReplicaState::Unavailable);
-            /// ```
             pub fn set_replica_state<
                 T: std::convert::Into<
                         crate::model::listing::big_query_dataset_source::replica::ReplicaState,
@@ -3082,13 +2279,6 @@ pub mod listing {
             }
 
             /// Sets the value of [primary_state][crate::model::listing::big_query_dataset_source::Replica::primary_state].
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_bigquery_analyticshub_v1::model::listing::big_query_dataset_source::Replica;
-            /// use google_cloud_bigquery_analyticshub_v1::model::listing::big_query_dataset_source::replica::PrimaryState;
-            /// let x0 = Replica::new().set_primary_state(PrimaryState::PrimaryReplica);
-            /// ```
             pub fn set_primary_state<T>(mut self, v: T) -> Self
             where
                 T: std::convert::Into<
@@ -3100,14 +2290,6 @@ pub mod listing {
             }
 
             /// Sets or clears the value of [primary_state][crate::model::listing::big_query_dataset_source::Replica::primary_state].
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_bigquery_analyticshub_v1::model::listing::big_query_dataset_source::Replica;
-            /// use google_cloud_bigquery_analyticshub_v1::model::listing::big_query_dataset_source::replica::PrimaryState;
-            /// let x0 = Replica::new().set_or_clear_primary_state(Some(PrimaryState::PrimaryReplica));
-            /// let x_none = Replica::new().set_or_clear_primary_state(None::<PrimaryState>);
-            /// ```
             pub fn set_or_clear_primary_state<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<
@@ -3416,24 +2598,12 @@ pub mod listing {
         }
 
         /// Sets the value of [topic][crate::model::listing::PubSubTopicSource::topic].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_bigquery_analyticshub_v1::model::listing::PubSubTopicSource;
-        /// let x = PubSubTopicSource::new().set_topic("example");
-        /// ```
         pub fn set_topic<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.topic = v.into();
             self
         }
 
         /// Sets the value of [data_affinity_regions][crate::model::listing::PubSubTopicSource::data_affinity_regions].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_bigquery_analyticshub_v1::model::listing::PubSubTopicSource;
-        /// let x = PubSubTopicSource::new().set_data_affinity_regions(["a", "b", "c"]);
-        /// ```
         pub fn set_data_affinity_regions<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -3476,24 +2646,12 @@ pub mod listing {
         }
 
         /// Sets the value of [enabled][crate::model::listing::RestrictedExportConfig::enabled].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_bigquery_analyticshub_v1::model::listing::RestrictedExportConfig;
-        /// let x = RestrictedExportConfig::new().set_enabled(true);
-        /// ```
         pub fn set_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.enabled = v.into();
             self
         }
 
         /// Sets the value of [restrict_direct_table_access][crate::model::listing::RestrictedExportConfig::restrict_direct_table_access].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_bigquery_analyticshub_v1::model::listing::RestrictedExportConfig;
-        /// let x = RestrictedExportConfig::new().set_restrict_direct_table_access(true);
-        /// ```
         pub fn set_restrict_direct_table_access<T: std::convert::Into<bool>>(
             mut self,
             v: T,
@@ -3503,12 +2661,6 @@ pub mod listing {
         }
 
         /// Sets the value of [restrict_query_result][crate::model::listing::RestrictedExportConfig::restrict_query_result].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_bigquery_analyticshub_v1::model::listing::RestrictedExportConfig;
-        /// let x = RestrictedExportConfig::new().set_restrict_query_result(true);
-        /// ```
         pub fn set_restrict_query_result<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.restrict_query_result = v.into();
             self
@@ -3540,13 +2692,6 @@ pub mod listing {
         }
 
         /// Sets the value of [cloud_marketplace][crate::model::listing::CommercialInfo::cloud_marketplace].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_bigquery_analyticshub_v1::model::listing::CommercialInfo;
-        /// use google_cloud_bigquery_analyticshub_v1::model::listing::commercial_info::GoogleCloudMarketplaceInfo;
-        /// let x = CommercialInfo::new().set_cloud_marketplace(GoogleCloudMarketplaceInfo::default()/* use setters */);
-        /// ```
         pub fn set_cloud_marketplace<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<
@@ -3558,14 +2703,6 @@ pub mod listing {
         }
 
         /// Sets or clears the value of [cloud_marketplace][crate::model::listing::CommercialInfo::cloud_marketplace].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_bigquery_analyticshub_v1::model::listing::CommercialInfo;
-        /// use google_cloud_bigquery_analyticshub_v1::model::listing::commercial_info::GoogleCloudMarketplaceInfo;
-        /// let x = CommercialInfo::new().set_or_clear_cloud_marketplace(Some(GoogleCloudMarketplaceInfo::default()/* use setters */));
-        /// let x = CommercialInfo::new().set_or_clear_cloud_marketplace(None::<GoogleCloudMarketplaceInfo>);
-        /// ```
         pub fn set_or_clear_cloud_marketplace<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<
@@ -3610,12 +2747,6 @@ pub mod listing {
             }
 
             /// Sets the value of [service][crate::model::listing::commercial_info::GoogleCloudMarketplaceInfo::service].
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_bigquery_analyticshub_v1::model::listing::commercial_info::GoogleCloudMarketplaceInfo;
-            /// let x = GoogleCloudMarketplaceInfo::new().set_service("example");
-            /// ```
             pub fn set_service<T>(mut self, v: T) -> Self
             where
                 T: std::convert::Into<std::string::String>,
@@ -3625,14 +2756,6 @@ pub mod listing {
             }
 
             /// Sets or clears the value of [service][crate::model::listing::commercial_info::GoogleCloudMarketplaceInfo::service].
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_bigquery_analyticshub_v1::model::listing::commercial_info::GoogleCloudMarketplaceInfo;
-            /// let x = GoogleCloudMarketplaceInfo::new().set_or_clear_service("example");
-            /// let x = GoogleCloudMarketplaceInfo::new().set_or_clear_service(Some("example"));
-            /// let x = GoogleCloudMarketplaceInfo::new().set_or_clear_service(None::<String>);
-            /// ```
             pub fn set_or_clear_service<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<std::string::String>,
@@ -3642,14 +2765,6 @@ pub mod listing {
             }
 
             /// Sets the value of [commercial_state][crate::model::listing::commercial_info::GoogleCloudMarketplaceInfo::commercial_state].
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_bigquery_analyticshub_v1::model::listing::commercial_info::GoogleCloudMarketplaceInfo;
-            /// use google_cloud_bigquery_analyticshub_v1::model::listing::commercial_info::google_cloud_marketplace_info::CommercialState;
-            /// let x0 = GoogleCloudMarketplaceInfo::new().set_commercial_state(CommercialState::Onboarding);
-            /// let x1 = GoogleCloudMarketplaceInfo::new().set_commercial_state(CommercialState::Active);
-            /// ```
             pub fn set_commercial_state<T>(mut self, v: T) -> Self
             where T: std::convert::Into<crate::model::listing::commercial_info::google_cloud_marketplace_info::CommercialState>
             {
@@ -3658,15 +2773,6 @@ pub mod listing {
             }
 
             /// Sets or clears the value of [commercial_state][crate::model::listing::commercial_info::GoogleCloudMarketplaceInfo::commercial_state].
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_bigquery_analyticshub_v1::model::listing::commercial_info::GoogleCloudMarketplaceInfo;
-            /// use google_cloud_bigquery_analyticshub_v1::model::listing::commercial_info::google_cloud_marketplace_info::CommercialState;
-            /// let x0 = GoogleCloudMarketplaceInfo::new().set_or_clear_commercial_state(Some(CommercialState::Onboarding));
-            /// let x1 = GoogleCloudMarketplaceInfo::new().set_or_clear_commercial_state(Some(CommercialState::Active));
-            /// let x_none = GoogleCloudMarketplaceInfo::new().set_or_clear_commercial_state(None::<CommercialState>);
-            /// ```
             pub fn set_or_clear_commercial_state<T>(mut self, v: std::option::Option<T>) -> Self
             where T: std::convert::Into<crate::model::listing::commercial_info::google_cloud_marketplace_info::CommercialState>
             {
@@ -4278,25 +3384,12 @@ impl Subscription {
     }
 
     /// Sets the value of [name][crate::model::Subscription::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::Subscription;
-    /// let x = Subscription::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [creation_time][crate::model::Subscription::creation_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::Subscription;
-    /// use wkt::Timestamp;
-    /// let x = Subscription::new().set_creation_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_creation_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4306,14 +3399,6 @@ impl Subscription {
     }
 
     /// Sets or clears the value of [creation_time][crate::model::Subscription::creation_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::Subscription;
-    /// use wkt::Timestamp;
-    /// let x = Subscription::new().set_or_clear_creation_time(Some(Timestamp::default()/* use setters */));
-    /// let x = Subscription::new().set_or_clear_creation_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_creation_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4323,13 +3408,6 @@ impl Subscription {
     }
 
     /// Sets the value of [last_modify_time][crate::model::Subscription::last_modify_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::Subscription;
-    /// use wkt::Timestamp;
-    /// let x = Subscription::new().set_last_modify_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_last_modify_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4339,14 +3417,6 @@ impl Subscription {
     }
 
     /// Sets or clears the value of [last_modify_time][crate::model::Subscription::last_modify_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::Subscription;
-    /// use wkt::Timestamp;
-    /// let x = Subscription::new().set_or_clear_last_modify_time(Some(Timestamp::default()/* use setters */));
-    /// let x = Subscription::new().set_or_clear_last_modify_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_last_modify_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4356,24 +3426,12 @@ impl Subscription {
     }
 
     /// Sets the value of [organization_id][crate::model::Subscription::organization_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::Subscription;
-    /// let x = Subscription::new().set_organization_id("example");
-    /// ```
     pub fn set_organization_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.organization_id = v.into();
         self
     }
 
     /// Sets the value of [organization_display_name][crate::model::Subscription::organization_display_name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::Subscription;
-    /// let x = Subscription::new().set_organization_display_name("example");
-    /// ```
     pub fn set_organization_display_name<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -4383,15 +3441,6 @@ impl Subscription {
     }
 
     /// Sets the value of [state][crate::model::Subscription::state].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::Subscription;
-    /// use google_cloud_bigquery_analyticshub_v1::model::subscription::State;
-    /// let x0 = Subscription::new().set_state(State::Active);
-    /// let x1 = Subscription::new().set_state(State::Stale);
-    /// let x2 = Subscription::new().set_state(State::Inactive);
-    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::subscription::State>>(
         mut self,
         v: T,
@@ -4401,16 +3450,6 @@ impl Subscription {
     }
 
     /// Sets the value of [linked_dataset_map][crate::model::Subscription::linked_dataset_map].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::Subscription;
-    /// use google_cloud_bigquery_analyticshub_v1::model::subscription::LinkedResource;
-    /// let x = Subscription::new().set_linked_dataset_map([
-    ///     ("key0", LinkedResource::default()/* use setters */),
-    ///     ("key1", LinkedResource::default()/* use (different) setters */),
-    /// ]);
-    /// ```
     pub fn set_linked_dataset_map<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -4423,12 +3462,6 @@ impl Subscription {
     }
 
     /// Sets the value of [subscriber_contact][crate::model::Subscription::subscriber_contact].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::Subscription;
-    /// let x = Subscription::new().set_subscriber_contact("example");
-    /// ```
     pub fn set_subscriber_contact<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -4438,17 +3471,6 @@ impl Subscription {
     }
 
     /// Sets the value of [linked_resources][crate::model::Subscription::linked_resources].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::Subscription;
-    /// use google_cloud_bigquery_analyticshub_v1::model::subscription::LinkedResource;
-    /// let x = Subscription::new()
-    ///     .set_linked_resources([
-    ///         LinkedResource::default()/* use setters */,
-    ///         LinkedResource::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_linked_resources<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4460,14 +3482,6 @@ impl Subscription {
     }
 
     /// Sets the value of [resource_type][crate::model::Subscription::resource_type].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::Subscription;
-    /// use google_cloud_bigquery_analyticshub_v1::model::SharedResourceType;
-    /// let x0 = Subscription::new().set_resource_type(SharedResourceType::BigqueryDataset);
-    /// let x1 = Subscription::new().set_resource_type(SharedResourceType::PubsubTopic);
-    /// ```
     pub fn set_resource_type<T: std::convert::Into<crate::model::SharedResourceType>>(
         mut self,
         v: T,
@@ -4477,13 +3491,6 @@ impl Subscription {
     }
 
     /// Sets the value of [commercial_info][crate::model::Subscription::commercial_info].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::Subscription;
-    /// use google_cloud_bigquery_analyticshub_v1::model::subscription::CommercialInfo;
-    /// let x = Subscription::new().set_commercial_info(CommercialInfo::default()/* use setters */);
-    /// ```
     pub fn set_commercial_info<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::subscription::CommercialInfo>,
@@ -4493,14 +3500,6 @@ impl Subscription {
     }
 
     /// Sets or clears the value of [commercial_info][crate::model::Subscription::commercial_info].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::Subscription;
-    /// use google_cloud_bigquery_analyticshub_v1::model::subscription::CommercialInfo;
-    /// let x = Subscription::new().set_or_clear_commercial_info(Some(CommercialInfo::default()/* use setters */));
-    /// let x = Subscription::new().set_or_clear_commercial_info(None::<CommercialInfo>);
-    /// ```
     pub fn set_or_clear_commercial_info<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::subscription::CommercialInfo>,
@@ -4510,12 +3509,6 @@ impl Subscription {
     }
 
     /// Sets the value of [log_linked_dataset_query_user_email][crate::model::Subscription::log_linked_dataset_query_user_email].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::Subscription;
-    /// let x = Subscription::new().set_log_linked_dataset_query_user_email(true);
-    /// ```
     pub fn set_log_linked_dataset_query_user_email<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<bool>,
@@ -4525,13 +3518,6 @@ impl Subscription {
     }
 
     /// Sets or clears the value of [log_linked_dataset_query_user_email][crate::model::Subscription::log_linked_dataset_query_user_email].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::Subscription;
-    /// let x = Subscription::new().set_or_clear_log_linked_dataset_query_user_email(Some(false));
-    /// let x = Subscription::new().set_or_clear_log_linked_dataset_query_user_email(None::<bool>);
-    /// ```
     pub fn set_or_clear_log_linked_dataset_query_user_email<T>(
         mut self,
         v: std::option::Option<T>,
@@ -4544,13 +3530,6 @@ impl Subscription {
     }
 
     /// Sets the value of [destination_dataset][crate::model::Subscription::destination_dataset].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::Subscription;
-    /// use google_cloud_bigquery_analyticshub_v1::model::DestinationDataset;
-    /// let x = Subscription::new().set_destination_dataset(DestinationDataset::default()/* use setters */);
-    /// ```
     pub fn set_destination_dataset<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::DestinationDataset>,
@@ -4560,14 +3539,6 @@ impl Subscription {
     }
 
     /// Sets or clears the value of [destination_dataset][crate::model::Subscription::destination_dataset].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::Subscription;
-    /// use google_cloud_bigquery_analyticshub_v1::model::DestinationDataset;
-    /// let x = Subscription::new().set_or_clear_destination_dataset(Some(DestinationDataset::default()/* use setters */));
-    /// let x = Subscription::new().set_or_clear_destination_dataset(None::<DestinationDataset>);
-    /// ```
     pub fn set_or_clear_destination_dataset<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DestinationDataset>,
@@ -4580,13 +3551,6 @@ impl Subscription {
     ///
     /// Note that all the setters affecting `resource_name` are mutually
     /// exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::Subscription;
-    /// use google_cloud_bigquery_analyticshub_v1::model::subscription;
-    /// let x = Subscription::new().set_resource_name(Some(subscription::ResourceName::Listing("example".to_string())));
-    /// ```
     pub fn set_resource_name<
         T: std::convert::Into<std::option::Option<crate::model::subscription::ResourceName>>,
     >(
@@ -4613,14 +3577,6 @@ impl Subscription {
     ///
     /// Note that all the setters affecting `resource_name` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::Subscription;
-    /// let x = Subscription::new().set_listing("example");
-    /// assert!(x.listing().is_some());
-    /// assert!(x.data_exchange().is_none());
-    /// ```
     pub fn set_listing<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.resource_name =
             std::option::Option::Some(crate::model::subscription::ResourceName::Listing(v.into()));
@@ -4645,14 +3601,6 @@ impl Subscription {
     ///
     /// Note that all the setters affecting `resource_name` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::Subscription;
-    /// let x = Subscription::new().set_data_exchange("example");
-    /// assert!(x.data_exchange().is_some());
-    /// assert!(x.listing().is_none());
-    /// ```
     pub fn set_data_exchange<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.resource_name = std::option::Option::Some(
             crate::model::subscription::ResourceName::DataExchange(v.into()),
@@ -4690,12 +3638,6 @@ pub mod subscription {
         }
 
         /// Sets the value of [listing][crate::model::subscription::LinkedResource::listing].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_bigquery_analyticshub_v1::model::subscription::LinkedResource;
-        /// let x = LinkedResource::new().set_listing("example");
-        /// ```
         pub fn set_listing<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.listing = v.into();
             self
@@ -4705,13 +3647,6 @@ pub mod subscription {
         ///
         /// Note that all the setters affecting `reference` are mutually
         /// exclusive.
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_bigquery_analyticshub_v1::model::subscription::LinkedResource;
-        /// use google_cloud_bigquery_analyticshub_v1::model::subscription::linked_resource;
-        /// let x = LinkedResource::new().set_reference(Some(subscription::linked_resource::Reference::LinkedDataset("example".to_string())));
-        /// ```
         pub fn set_reference<
             T: std::convert::Into<
                     std::option::Option<crate::model::subscription::linked_resource::Reference>,
@@ -4742,14 +3677,6 @@ pub mod subscription {
         ///
         /// Note that all the setters affecting `reference` are
         /// mutually exclusive.
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_bigquery_analyticshub_v1::model::subscription::LinkedResource;
-        /// let x = LinkedResource::new().set_linked_dataset("example");
-        /// assert!(x.linked_dataset().is_some());
-        /// assert!(x.linked_pubsub_subscription().is_none());
-        /// ```
         pub fn set_linked_dataset<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -4776,14 +3703,6 @@ pub mod subscription {
         ///
         /// Note that all the setters affecting `reference` are
         /// mutually exclusive.
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_bigquery_analyticshub_v1::model::subscription::LinkedResource;
-        /// let x = LinkedResource::new().set_linked_pubsub_subscription("example");
-        /// assert!(x.linked_pubsub_subscription().is_some());
-        /// assert!(x.linked_dataset().is_none());
-        /// ```
         pub fn set_linked_pubsub_subscription<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -4839,13 +3758,6 @@ pub mod subscription {
         }
 
         /// Sets the value of [cloud_marketplace][crate::model::subscription::CommercialInfo::cloud_marketplace].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_bigquery_analyticshub_v1::model::subscription::CommercialInfo;
-        /// use google_cloud_bigquery_analyticshub_v1::model::subscription::commercial_info::GoogleCloudMarketplaceInfo;
-        /// let x = CommercialInfo::new().set_cloud_marketplace(GoogleCloudMarketplaceInfo::default()/* use setters */);
-        /// ```
         pub fn set_cloud_marketplace<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<
@@ -4857,14 +3769,6 @@ pub mod subscription {
         }
 
         /// Sets or clears the value of [cloud_marketplace][crate::model::subscription::CommercialInfo::cloud_marketplace].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_bigquery_analyticshub_v1::model::subscription::CommercialInfo;
-        /// use google_cloud_bigquery_analyticshub_v1::model::subscription::commercial_info::GoogleCloudMarketplaceInfo;
-        /// let x = CommercialInfo::new().set_or_clear_cloud_marketplace(Some(GoogleCloudMarketplaceInfo::default()/* use setters */));
-        /// let x = CommercialInfo::new().set_or_clear_cloud_marketplace(None::<GoogleCloudMarketplaceInfo>);
-        /// ```
         pub fn set_or_clear_cloud_marketplace<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<
@@ -4903,12 +3807,6 @@ pub mod subscription {
             }
 
             /// Sets the value of [order][crate::model::subscription::commercial_info::GoogleCloudMarketplaceInfo::order].
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_bigquery_analyticshub_v1::model::subscription::commercial_info::GoogleCloudMarketplaceInfo;
-            /// let x = GoogleCloudMarketplaceInfo::new().set_order("example");
-            /// ```
             pub fn set_order<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
                 self.order = v.into();
                 self
@@ -5100,36 +3998,18 @@ impl ListDataExchangesRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListDataExchangesRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::ListDataExchangesRequest;
-    /// let x = ListDataExchangesRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListDataExchangesRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::ListDataExchangesRequest;
-    /// let x = ListDataExchangesRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListDataExchangesRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::ListDataExchangesRequest;
-    /// let x = ListDataExchangesRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -5161,17 +4041,6 @@ impl ListDataExchangesResponse {
     }
 
     /// Sets the value of [data_exchanges][crate::model::ListDataExchangesResponse::data_exchanges].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::ListDataExchangesResponse;
-    /// use google_cloud_bigquery_analyticshub_v1::model::DataExchange;
-    /// let x = ListDataExchangesResponse::new()
-    ///     .set_data_exchanges([
-    ///         DataExchange::default()/* use setters */,
-    ///         DataExchange::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_data_exchanges<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -5183,12 +4052,6 @@ impl ListDataExchangesResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListDataExchangesResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::ListDataExchangesResponse;
-    /// let x = ListDataExchangesResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -5241,36 +4104,18 @@ impl ListOrgDataExchangesRequest {
     }
 
     /// Sets the value of [organization][crate::model::ListOrgDataExchangesRequest::organization].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::ListOrgDataExchangesRequest;
-    /// let x = ListOrgDataExchangesRequest::new().set_organization("example");
-    /// ```
     pub fn set_organization<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.organization = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListOrgDataExchangesRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::ListOrgDataExchangesRequest;
-    /// let x = ListOrgDataExchangesRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListOrgDataExchangesRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::ListOrgDataExchangesRequest;
-    /// let x = ListOrgDataExchangesRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -5303,17 +4148,6 @@ impl ListOrgDataExchangesResponse {
     }
 
     /// Sets the value of [data_exchanges][crate::model::ListOrgDataExchangesResponse::data_exchanges].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::ListOrgDataExchangesResponse;
-    /// use google_cloud_bigquery_analyticshub_v1::model::DataExchange;
-    /// let x = ListOrgDataExchangesResponse::new()
-    ///     .set_data_exchanges([
-    ///         DataExchange::default()/* use setters */,
-    ///         DataExchange::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_data_exchanges<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -5325,12 +4159,6 @@ impl ListOrgDataExchangesResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListOrgDataExchangesResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::ListOrgDataExchangesResponse;
-    /// let x = ListOrgDataExchangesResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -5374,12 +4202,6 @@ impl GetDataExchangeRequest {
     }
 
     /// Sets the value of [name][crate::model::GetDataExchangeRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::GetDataExchangeRequest;
-    /// let x = GetDataExchangeRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -5417,24 +4239,12 @@ impl CreateDataExchangeRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateDataExchangeRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::CreateDataExchangeRequest;
-    /// let x = CreateDataExchangeRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [data_exchange_id][crate::model::CreateDataExchangeRequest::data_exchange_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::CreateDataExchangeRequest;
-    /// let x = CreateDataExchangeRequest::new().set_data_exchange_id("example");
-    /// ```
     pub fn set_data_exchange_id<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -5444,13 +4254,6 @@ impl CreateDataExchangeRequest {
     }
 
     /// Sets the value of [data_exchange][crate::model::CreateDataExchangeRequest::data_exchange].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::CreateDataExchangeRequest;
-    /// use google_cloud_bigquery_analyticshub_v1::model::DataExchange;
-    /// let x = CreateDataExchangeRequest::new().set_data_exchange(DataExchange::default()/* use setters */);
-    /// ```
     pub fn set_data_exchange<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::DataExchange>,
@@ -5460,14 +4263,6 @@ impl CreateDataExchangeRequest {
     }
 
     /// Sets or clears the value of [data_exchange][crate::model::CreateDataExchangeRequest::data_exchange].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::CreateDataExchangeRequest;
-    /// use google_cloud_bigquery_analyticshub_v1::model::DataExchange;
-    /// let x = CreateDataExchangeRequest::new().set_or_clear_data_exchange(Some(DataExchange::default()/* use setters */));
-    /// let x = CreateDataExchangeRequest::new().set_or_clear_data_exchange(None::<DataExchange>);
-    /// ```
     pub fn set_or_clear_data_exchange<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DataExchange>,
@@ -5504,13 +4299,6 @@ impl UpdateDataExchangeRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateDataExchangeRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::UpdateDataExchangeRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateDataExchangeRequest::new().set_update_mask(FieldMask::default()/* use setters */);
-    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -5520,14 +4308,6 @@ impl UpdateDataExchangeRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateDataExchangeRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::UpdateDataExchangeRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateDataExchangeRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
-    /// let x = UpdateDataExchangeRequest::new().set_or_clear_update_mask(None::<FieldMask>);
-    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -5537,13 +4317,6 @@ impl UpdateDataExchangeRequest {
     }
 
     /// Sets the value of [data_exchange][crate::model::UpdateDataExchangeRequest::data_exchange].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::UpdateDataExchangeRequest;
-    /// use google_cloud_bigquery_analyticshub_v1::model::DataExchange;
-    /// let x = UpdateDataExchangeRequest::new().set_data_exchange(DataExchange::default()/* use setters */);
-    /// ```
     pub fn set_data_exchange<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::DataExchange>,
@@ -5553,14 +4326,6 @@ impl UpdateDataExchangeRequest {
     }
 
     /// Sets or clears the value of [data_exchange][crate::model::UpdateDataExchangeRequest::data_exchange].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::UpdateDataExchangeRequest;
-    /// use google_cloud_bigquery_analyticshub_v1::model::DataExchange;
-    /// let x = UpdateDataExchangeRequest::new().set_or_clear_data_exchange(Some(DataExchange::default()/* use setters */));
-    /// let x = UpdateDataExchangeRequest::new().set_or_clear_data_exchange(None::<DataExchange>);
-    /// ```
     pub fn set_or_clear_data_exchange<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DataExchange>,
@@ -5593,12 +4358,6 @@ impl DeleteDataExchangeRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteDataExchangeRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::DeleteDataExchangeRequest;
-    /// let x = DeleteDataExchangeRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -5636,36 +4395,18 @@ impl ListListingsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListListingsRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::ListListingsRequest;
-    /// let x = ListListingsRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListListingsRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::ListListingsRequest;
-    /// let x = ListListingsRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListListingsRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::ListListingsRequest;
-    /// let x = ListListingsRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -5697,17 +4438,6 @@ impl ListListingsResponse {
     }
 
     /// Sets the value of [listings][crate::model::ListListingsResponse::listings].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::ListListingsResponse;
-    /// use google_cloud_bigquery_analyticshub_v1::model::Listing;
-    /// let x = ListListingsResponse::new()
-    ///     .set_listings([
-    ///         Listing::default()/* use setters */,
-    ///         Listing::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_listings<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -5719,12 +4449,6 @@ impl ListListingsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListListingsResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::ListListingsResponse;
-    /// let x = ListListingsResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -5768,12 +4492,6 @@ impl GetListingRequest {
     }
 
     /// Sets the value of [name][crate::model::GetListingRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::GetListingRequest;
-    /// let x = GetListingRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -5811,37 +4529,18 @@ impl CreateListingRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateListingRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::CreateListingRequest;
-    /// let x = CreateListingRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [listing_id][crate::model::CreateListingRequest::listing_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::CreateListingRequest;
-    /// let x = CreateListingRequest::new().set_listing_id("example");
-    /// ```
     pub fn set_listing_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.listing_id = v.into();
         self
     }
 
     /// Sets the value of [listing][crate::model::CreateListingRequest::listing].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::CreateListingRequest;
-    /// use google_cloud_bigquery_analyticshub_v1::model::Listing;
-    /// let x = CreateListingRequest::new().set_listing(Listing::default()/* use setters */);
-    /// ```
     pub fn set_listing<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Listing>,
@@ -5851,14 +4550,6 @@ impl CreateListingRequest {
     }
 
     /// Sets or clears the value of [listing][crate::model::CreateListingRequest::listing].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::CreateListingRequest;
-    /// use google_cloud_bigquery_analyticshub_v1::model::Listing;
-    /// let x = CreateListingRequest::new().set_or_clear_listing(Some(Listing::default()/* use setters */));
-    /// let x = CreateListingRequest::new().set_or_clear_listing(None::<Listing>);
-    /// ```
     pub fn set_or_clear_listing<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Listing>,
@@ -5895,13 +4586,6 @@ impl UpdateListingRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateListingRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::UpdateListingRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateListingRequest::new().set_update_mask(FieldMask::default()/* use setters */);
-    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -5911,14 +4595,6 @@ impl UpdateListingRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateListingRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::UpdateListingRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateListingRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
-    /// let x = UpdateListingRequest::new().set_or_clear_update_mask(None::<FieldMask>);
-    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -5928,13 +4604,6 @@ impl UpdateListingRequest {
     }
 
     /// Sets the value of [listing][crate::model::UpdateListingRequest::listing].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::UpdateListingRequest;
-    /// use google_cloud_bigquery_analyticshub_v1::model::Listing;
-    /// let x = UpdateListingRequest::new().set_listing(Listing::default()/* use setters */);
-    /// ```
     pub fn set_listing<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Listing>,
@@ -5944,14 +4613,6 @@ impl UpdateListingRequest {
     }
 
     /// Sets or clears the value of [listing][crate::model::UpdateListingRequest::listing].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::UpdateListingRequest;
-    /// use google_cloud_bigquery_analyticshub_v1::model::Listing;
-    /// let x = UpdateListingRequest::new().set_or_clear_listing(Some(Listing::default()/* use setters */));
-    /// let x = UpdateListingRequest::new().set_or_clear_listing(None::<Listing>);
-    /// ```
     pub fn set_or_clear_listing<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Listing>,
@@ -5989,24 +4650,12 @@ impl DeleteListingRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteListingRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::DeleteListingRequest;
-    /// let x = DeleteListingRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [delete_commercial][crate::model::DeleteListingRequest::delete_commercial].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::DeleteListingRequest;
-    /// let x = DeleteListingRequest::new().set_delete_commercial(true);
-    /// ```
     pub fn set_delete_commercial<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.delete_commercial = v.into();
         self
@@ -6039,12 +4688,6 @@ impl SubscribeListingRequest {
     }
 
     /// Sets the value of [name][crate::model::SubscribeListingRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::SubscribeListingRequest;
-    /// let x = SubscribeListingRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -6054,14 +4697,6 @@ impl SubscribeListingRequest {
     ///
     /// Note that all the setters affecting `destination` are mutually
     /// exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::SubscribeListingRequest;
-    /// use google_cloud_bigquery_analyticshub_v1::model::subscribe_listing_request;
-    /// use google_cloud_bigquery_analyticshub_v1::model::DestinationDataset;
-    /// let x = SubscribeListingRequest::new().set_destination(Some(subscribe_listing_request::Destination::DestinationDataset(DestinationDataset::default().into())));
-    /// ```
     pub fn set_destination<
         T: std::convert::Into<
                 std::option::Option<crate::model::subscribe_listing_request::Destination>,
@@ -6094,15 +4729,6 @@ impl SubscribeListingRequest {
     ///
     /// Note that all the setters affecting `destination` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::SubscribeListingRequest;
-    /// use google_cloud_bigquery_analyticshub_v1::model::DestinationDataset;
-    /// let x = SubscribeListingRequest::new().set_destination_dataset(DestinationDataset::default()/* use setters */);
-    /// assert!(x.destination_dataset().is_some());
-    /// assert!(x.destination_pubsub_subscription().is_none());
-    /// ```
     pub fn set_destination_dataset<
         T: std::convert::Into<std::boxed::Box<crate::model::DestinationDataset>>,
     >(
@@ -6135,15 +4761,6 @@ impl SubscribeListingRequest {
     ///
     /// Note that all the setters affecting `destination` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::SubscribeListingRequest;
-    /// use google_cloud_bigquery_analyticshub_v1::model::DestinationPubSubSubscription;
-    /// let x = SubscribeListingRequest::new().set_destination_pubsub_subscription(DestinationPubSubSubscription::default()/* use setters */);
-    /// assert!(x.destination_pubsub_subscription().is_some());
-    /// assert!(x.destination_dataset().is_none());
-    /// ```
     pub fn set_destination_pubsub_subscription<
         T: std::convert::Into<std::boxed::Box<crate::model::DestinationPubSubSubscription>>,
     >(
@@ -6198,13 +4815,6 @@ impl SubscribeListingResponse {
     }
 
     /// Sets the value of [subscription][crate::model::SubscribeListingResponse::subscription].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::SubscribeListingResponse;
-    /// use google_cloud_bigquery_analyticshub_v1::model::Subscription;
-    /// let x = SubscribeListingResponse::new().set_subscription(Subscription::default()/* use setters */);
-    /// ```
     pub fn set_subscription<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Subscription>,
@@ -6214,14 +4824,6 @@ impl SubscribeListingResponse {
     }
 
     /// Sets or clears the value of [subscription][crate::model::SubscribeListingResponse::subscription].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::SubscribeListingResponse;
-    /// use google_cloud_bigquery_analyticshub_v1::model::Subscription;
-    /// let x = SubscribeListingResponse::new().set_or_clear_subscription(Some(Subscription::default()/* use setters */));
-    /// let x = SubscribeListingResponse::new().set_or_clear_subscription(None::<Subscription>);
-    /// ```
     pub fn set_or_clear_subscription<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Subscription>,
@@ -6268,37 +4870,18 @@ impl SubscribeDataExchangeRequest {
     }
 
     /// Sets the value of [name][crate::model::SubscribeDataExchangeRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::SubscribeDataExchangeRequest;
-    /// let x = SubscribeDataExchangeRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [destination][crate::model::SubscribeDataExchangeRequest::destination].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::SubscribeDataExchangeRequest;
-    /// let x = SubscribeDataExchangeRequest::new().set_destination("example");
-    /// ```
     pub fn set_destination<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.destination = v.into();
         self
     }
 
     /// Sets the value of [destination_dataset][crate::model::SubscribeDataExchangeRequest::destination_dataset].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::SubscribeDataExchangeRequest;
-    /// use google_cloud_bigquery_analyticshub_v1::model::DestinationDataset;
-    /// let x = SubscribeDataExchangeRequest::new().set_destination_dataset(DestinationDataset::default()/* use setters */);
-    /// ```
     pub fn set_destination_dataset<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::DestinationDataset>,
@@ -6308,14 +4891,6 @@ impl SubscribeDataExchangeRequest {
     }
 
     /// Sets or clears the value of [destination_dataset][crate::model::SubscribeDataExchangeRequest::destination_dataset].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::SubscribeDataExchangeRequest;
-    /// use google_cloud_bigquery_analyticshub_v1::model::DestinationDataset;
-    /// let x = SubscribeDataExchangeRequest::new().set_or_clear_destination_dataset(Some(DestinationDataset::default()/* use setters */));
-    /// let x = SubscribeDataExchangeRequest::new().set_or_clear_destination_dataset(None::<DestinationDataset>);
-    /// ```
     pub fn set_or_clear_destination_dataset<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DestinationDataset>,
@@ -6325,24 +4900,12 @@ impl SubscribeDataExchangeRequest {
     }
 
     /// Sets the value of [subscription][crate::model::SubscribeDataExchangeRequest::subscription].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::SubscribeDataExchangeRequest;
-    /// let x = SubscribeDataExchangeRequest::new().set_subscription("example");
-    /// ```
     pub fn set_subscription<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.subscription = v.into();
         self
     }
 
     /// Sets the value of [subscriber_contact][crate::model::SubscribeDataExchangeRequest::subscriber_contact].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::SubscribeDataExchangeRequest;
-    /// let x = SubscribeDataExchangeRequest::new().set_subscriber_contact("example");
-    /// ```
     pub fn set_subscriber_contact<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -6374,13 +4937,6 @@ impl SubscribeDataExchangeResponse {
     }
 
     /// Sets the value of [subscription][crate::model::SubscribeDataExchangeResponse::subscription].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::SubscribeDataExchangeResponse;
-    /// use google_cloud_bigquery_analyticshub_v1::model::Subscription;
-    /// let x = SubscribeDataExchangeResponse::new().set_subscription(Subscription::default()/* use setters */);
-    /// ```
     pub fn set_subscription<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Subscription>,
@@ -6390,14 +4946,6 @@ impl SubscribeDataExchangeResponse {
     }
 
     /// Sets or clears the value of [subscription][crate::model::SubscribeDataExchangeResponse::subscription].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::SubscribeDataExchangeResponse;
-    /// use google_cloud_bigquery_analyticshub_v1::model::Subscription;
-    /// let x = SubscribeDataExchangeResponse::new().set_or_clear_subscription(Some(Subscription::default()/* use setters */));
-    /// let x = SubscribeDataExchangeResponse::new().set_or_clear_subscription(None::<Subscription>);
-    /// ```
     pub fn set_or_clear_subscription<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Subscription>,
@@ -6430,12 +4978,6 @@ impl RefreshSubscriptionRequest {
     }
 
     /// Sets the value of [name][crate::model::RefreshSubscriptionRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::RefreshSubscriptionRequest;
-    /// let x = RefreshSubscriptionRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -6464,13 +5006,6 @@ impl RefreshSubscriptionResponse {
     }
 
     /// Sets the value of [subscription][crate::model::RefreshSubscriptionResponse::subscription].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::RefreshSubscriptionResponse;
-    /// use google_cloud_bigquery_analyticshub_v1::model::Subscription;
-    /// let x = RefreshSubscriptionResponse::new().set_subscription(Subscription::default()/* use setters */);
-    /// ```
     pub fn set_subscription<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Subscription>,
@@ -6480,14 +5015,6 @@ impl RefreshSubscriptionResponse {
     }
 
     /// Sets or clears the value of [subscription][crate::model::RefreshSubscriptionResponse::subscription].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::RefreshSubscriptionResponse;
-    /// use google_cloud_bigquery_analyticshub_v1::model::Subscription;
-    /// let x = RefreshSubscriptionResponse::new().set_or_clear_subscription(Some(Subscription::default()/* use setters */));
-    /// let x = RefreshSubscriptionResponse::new().set_or_clear_subscription(None::<Subscription>);
-    /// ```
     pub fn set_or_clear_subscription<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Subscription>,
@@ -6520,12 +5047,6 @@ impl GetSubscriptionRequest {
     }
 
     /// Sets the value of [name][crate::model::GetSubscriptionRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::GetSubscriptionRequest;
-    /// let x = GetSubscriptionRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -6578,48 +5099,24 @@ impl ListSubscriptionsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListSubscriptionsRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::ListSubscriptionsRequest;
-    /// let x = ListSubscriptionsRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListSubscriptionsRequest::filter].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::ListSubscriptionsRequest;
-    /// let x = ListSubscriptionsRequest::new().set_filter("example");
-    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListSubscriptionsRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::ListSubscriptionsRequest;
-    /// let x = ListSubscriptionsRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListSubscriptionsRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::ListSubscriptionsRequest;
-    /// let x = ListSubscriptionsRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -6651,17 +5148,6 @@ impl ListSubscriptionsResponse {
     }
 
     /// Sets the value of [subscriptions][crate::model::ListSubscriptionsResponse::subscriptions].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::ListSubscriptionsResponse;
-    /// use google_cloud_bigquery_analyticshub_v1::model::Subscription;
-    /// let x = ListSubscriptionsResponse::new()
-    ///     .set_subscriptions([
-    ///         Subscription::default()/* use setters */,
-    ///         Subscription::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_subscriptions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -6673,12 +5159,6 @@ impl ListSubscriptionsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListSubscriptionsResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::ListSubscriptionsResponse;
-    /// let x = ListSubscriptionsResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -6734,48 +5214,24 @@ impl ListSharedResourceSubscriptionsRequest {
     }
 
     /// Sets the value of [resource][crate::model::ListSharedResourceSubscriptionsRequest::resource].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::ListSharedResourceSubscriptionsRequest;
-    /// let x = ListSharedResourceSubscriptionsRequest::new().set_resource("example");
-    /// ```
     pub fn set_resource<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.resource = v.into();
         self
     }
 
     /// Sets the value of [include_deleted_subscriptions][crate::model::ListSharedResourceSubscriptionsRequest::include_deleted_subscriptions].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::ListSharedResourceSubscriptionsRequest;
-    /// let x = ListSharedResourceSubscriptionsRequest::new().set_include_deleted_subscriptions(true);
-    /// ```
     pub fn set_include_deleted_subscriptions<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.include_deleted_subscriptions = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListSharedResourceSubscriptionsRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::ListSharedResourceSubscriptionsRequest;
-    /// let x = ListSharedResourceSubscriptionsRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListSharedResourceSubscriptionsRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::ListSharedResourceSubscriptionsRequest;
-    /// let x = ListSharedResourceSubscriptionsRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -6807,17 +5263,6 @@ impl ListSharedResourceSubscriptionsResponse {
     }
 
     /// Sets the value of [shared_resource_subscriptions][crate::model::ListSharedResourceSubscriptionsResponse::shared_resource_subscriptions].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::ListSharedResourceSubscriptionsResponse;
-    /// use google_cloud_bigquery_analyticshub_v1::model::Subscription;
-    /// let x = ListSharedResourceSubscriptionsResponse::new()
-    ///     .set_shared_resource_subscriptions([
-    ///         Subscription::default()/* use setters */,
-    ///         Subscription::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_shared_resource_subscriptions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -6829,12 +5274,6 @@ impl ListSharedResourceSubscriptionsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListSharedResourceSubscriptionsResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::ListSharedResourceSubscriptionsResponse;
-    /// let x = ListSharedResourceSubscriptionsResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -6883,24 +5322,12 @@ impl RevokeSubscriptionRequest {
     }
 
     /// Sets the value of [name][crate::model::RevokeSubscriptionRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::RevokeSubscriptionRequest;
-    /// let x = RevokeSubscriptionRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [revoke_commercial][crate::model::RevokeSubscriptionRequest::revoke_commercial].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::RevokeSubscriptionRequest;
-    /// let x = RevokeSubscriptionRequest::new().set_revoke_commercial(true);
-    /// ```
     pub fn set_revoke_commercial<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.revoke_commercial = v.into();
         self
@@ -6950,12 +5377,6 @@ impl DeleteSubscriptionRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteSubscriptionRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::DeleteSubscriptionRequest;
-    /// let x = DeleteSubscriptionRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -7008,13 +5429,6 @@ impl OperationMetadata {
     }
 
     /// Sets the value of [create_time][crate::model::OperationMetadata::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::OperationMetadata;
-    /// use wkt::Timestamp;
-    /// let x = OperationMetadata::new().set_create_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -7024,14 +5438,6 @@ impl OperationMetadata {
     }
 
     /// Sets or clears the value of [create_time][crate::model::OperationMetadata::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::OperationMetadata;
-    /// use wkt::Timestamp;
-    /// let x = OperationMetadata::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
-    /// let x = OperationMetadata::new().set_or_clear_create_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -7041,13 +5447,6 @@ impl OperationMetadata {
     }
 
     /// Sets the value of [end_time][crate::model::OperationMetadata::end_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::OperationMetadata;
-    /// use wkt::Timestamp;
-    /// let x = OperationMetadata::new().set_end_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -7057,14 +5456,6 @@ impl OperationMetadata {
     }
 
     /// Sets or clears the value of [end_time][crate::model::OperationMetadata::end_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::OperationMetadata;
-    /// use wkt::Timestamp;
-    /// let x = OperationMetadata::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
-    /// let x = OperationMetadata::new().set_or_clear_end_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -7074,60 +5465,30 @@ impl OperationMetadata {
     }
 
     /// Sets the value of [target][crate::model::OperationMetadata::target].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::OperationMetadata;
-    /// let x = OperationMetadata::new().set_target("example");
-    /// ```
     pub fn set_target<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.target = v.into();
         self
     }
 
     /// Sets the value of [verb][crate::model::OperationMetadata::verb].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::OperationMetadata;
-    /// let x = OperationMetadata::new().set_verb("example");
-    /// ```
     pub fn set_verb<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.verb = v.into();
         self
     }
 
     /// Sets the value of [status_message][crate::model::OperationMetadata::status_message].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::OperationMetadata;
-    /// let x = OperationMetadata::new().set_status_message("example");
-    /// ```
     pub fn set_status_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.status_message = v.into();
         self
     }
 
     /// Sets the value of [requested_cancellation][crate::model::OperationMetadata::requested_cancellation].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::OperationMetadata;
-    /// let x = OperationMetadata::new().set_requested_cancellation(true);
-    /// ```
     pub fn set_requested_cancellation<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.requested_cancellation = v.into();
         self
     }
 
     /// Sets the value of [api_version][crate::model::OperationMetadata::api_version].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::OperationMetadata;
-    /// let x = OperationMetadata::new().set_api_version("example");
-    /// ```
     pub fn set_api_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.api_version = v.into();
         self
@@ -7280,25 +5641,12 @@ impl PubSubSubscription {
     }
 
     /// Sets the value of [name][crate::model::PubSubSubscription::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::PubSubSubscription;
-    /// let x = PubSubSubscription::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [push_config][crate::model::PubSubSubscription::push_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::PubSubSubscription;
-    /// use google_cloud_bigquery_analyticshub_v1::model::PushConfig;
-    /// let x = PubSubSubscription::new().set_push_config(PushConfig::default()/* use setters */);
-    /// ```
     pub fn set_push_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::PushConfig>,
@@ -7308,14 +5656,6 @@ impl PubSubSubscription {
     }
 
     /// Sets or clears the value of [push_config][crate::model::PubSubSubscription::push_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::PubSubSubscription;
-    /// use google_cloud_bigquery_analyticshub_v1::model::PushConfig;
-    /// let x = PubSubSubscription::new().set_or_clear_push_config(Some(PushConfig::default()/* use setters */));
-    /// let x = PubSubSubscription::new().set_or_clear_push_config(None::<PushConfig>);
-    /// ```
     pub fn set_or_clear_push_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::PushConfig>,
@@ -7325,13 +5665,6 @@ impl PubSubSubscription {
     }
 
     /// Sets the value of [bigquery_config][crate::model::PubSubSubscription::bigquery_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::PubSubSubscription;
-    /// use google_cloud_bigquery_analyticshub_v1::model::BigQueryConfig;
-    /// let x = PubSubSubscription::new().set_bigquery_config(BigQueryConfig::default()/* use setters */);
-    /// ```
     pub fn set_bigquery_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::BigQueryConfig>,
@@ -7341,14 +5674,6 @@ impl PubSubSubscription {
     }
 
     /// Sets or clears the value of [bigquery_config][crate::model::PubSubSubscription::bigquery_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::PubSubSubscription;
-    /// use google_cloud_bigquery_analyticshub_v1::model::BigQueryConfig;
-    /// let x = PubSubSubscription::new().set_or_clear_bigquery_config(Some(BigQueryConfig::default()/* use setters */));
-    /// let x = PubSubSubscription::new().set_or_clear_bigquery_config(None::<BigQueryConfig>);
-    /// ```
     pub fn set_or_clear_bigquery_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::BigQueryConfig>,
@@ -7358,13 +5683,6 @@ impl PubSubSubscription {
     }
 
     /// Sets the value of [cloud_storage_config][crate::model::PubSubSubscription::cloud_storage_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::PubSubSubscription;
-    /// use google_cloud_bigquery_analyticshub_v1::model::CloudStorageConfig;
-    /// let x = PubSubSubscription::new().set_cloud_storage_config(CloudStorageConfig::default()/* use setters */);
-    /// ```
     pub fn set_cloud_storage_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::CloudStorageConfig>,
@@ -7374,14 +5692,6 @@ impl PubSubSubscription {
     }
 
     /// Sets or clears the value of [cloud_storage_config][crate::model::PubSubSubscription::cloud_storage_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::PubSubSubscription;
-    /// use google_cloud_bigquery_analyticshub_v1::model::CloudStorageConfig;
-    /// let x = PubSubSubscription::new().set_or_clear_cloud_storage_config(Some(CloudStorageConfig::default()/* use setters */));
-    /// let x = PubSubSubscription::new().set_or_clear_cloud_storage_config(None::<CloudStorageConfig>);
-    /// ```
     pub fn set_or_clear_cloud_storage_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CloudStorageConfig>,
@@ -7391,37 +5701,18 @@ impl PubSubSubscription {
     }
 
     /// Sets the value of [ack_deadline_seconds][crate::model::PubSubSubscription::ack_deadline_seconds].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::PubSubSubscription;
-    /// let x = PubSubSubscription::new().set_ack_deadline_seconds(42);
-    /// ```
     pub fn set_ack_deadline_seconds<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.ack_deadline_seconds = v.into();
         self
     }
 
     /// Sets the value of [retain_acked_messages][crate::model::PubSubSubscription::retain_acked_messages].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::PubSubSubscription;
-    /// let x = PubSubSubscription::new().set_retain_acked_messages(true);
-    /// ```
     pub fn set_retain_acked_messages<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.retain_acked_messages = v.into();
         self
     }
 
     /// Sets the value of [message_retention_duration][crate::model::PubSubSubscription::message_retention_duration].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::PubSubSubscription;
-    /// use wkt::Duration;
-    /// let x = PubSubSubscription::new().set_message_retention_duration(Duration::default()/* use setters */);
-    /// ```
     pub fn set_message_retention_duration<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -7431,14 +5722,6 @@ impl PubSubSubscription {
     }
 
     /// Sets or clears the value of [message_retention_duration][crate::model::PubSubSubscription::message_retention_duration].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::PubSubSubscription;
-    /// use wkt::Duration;
-    /// let x = PubSubSubscription::new().set_or_clear_message_retention_duration(Some(Duration::default()/* use setters */));
-    /// let x = PubSubSubscription::new().set_or_clear_message_retention_duration(None::<Duration>);
-    /// ```
     pub fn set_or_clear_message_retention_duration<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -7448,15 +5731,6 @@ impl PubSubSubscription {
     }
 
     /// Sets the value of [labels][crate::model::PubSubSubscription::labels].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::PubSubSubscription;
-    /// let x = PubSubSubscription::new().set_labels([
-    ///     ("key0", "abc"),
-    ///     ("key1", "xyz"),
-    /// ]);
-    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -7469,25 +5743,12 @@ impl PubSubSubscription {
     }
 
     /// Sets the value of [enable_message_ordering][crate::model::PubSubSubscription::enable_message_ordering].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::PubSubSubscription;
-    /// let x = PubSubSubscription::new().set_enable_message_ordering(true);
-    /// ```
     pub fn set_enable_message_ordering<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.enable_message_ordering = v.into();
         self
     }
 
     /// Sets the value of [expiration_policy][crate::model::PubSubSubscription::expiration_policy].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::PubSubSubscription;
-    /// use google_cloud_bigquery_analyticshub_v1::model::ExpirationPolicy;
-    /// let x = PubSubSubscription::new().set_expiration_policy(ExpirationPolicy::default()/* use setters */);
-    /// ```
     pub fn set_expiration_policy<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ExpirationPolicy>,
@@ -7497,14 +5758,6 @@ impl PubSubSubscription {
     }
 
     /// Sets or clears the value of [expiration_policy][crate::model::PubSubSubscription::expiration_policy].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::PubSubSubscription;
-    /// use google_cloud_bigquery_analyticshub_v1::model::ExpirationPolicy;
-    /// let x = PubSubSubscription::new().set_or_clear_expiration_policy(Some(ExpirationPolicy::default()/* use setters */));
-    /// let x = PubSubSubscription::new().set_or_clear_expiration_policy(None::<ExpirationPolicy>);
-    /// ```
     pub fn set_or_clear_expiration_policy<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ExpirationPolicy>,
@@ -7514,25 +5767,12 @@ impl PubSubSubscription {
     }
 
     /// Sets the value of [filter][crate::model::PubSubSubscription::filter].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::PubSubSubscription;
-    /// let x = PubSubSubscription::new().set_filter("example");
-    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [dead_letter_policy][crate::model::PubSubSubscription::dead_letter_policy].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::PubSubSubscription;
-    /// use google_cloud_bigquery_analyticshub_v1::model::DeadLetterPolicy;
-    /// let x = PubSubSubscription::new().set_dead_letter_policy(DeadLetterPolicy::default()/* use setters */);
-    /// ```
     pub fn set_dead_letter_policy<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::DeadLetterPolicy>,
@@ -7542,14 +5782,6 @@ impl PubSubSubscription {
     }
 
     /// Sets or clears the value of [dead_letter_policy][crate::model::PubSubSubscription::dead_letter_policy].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::PubSubSubscription;
-    /// use google_cloud_bigquery_analyticshub_v1::model::DeadLetterPolicy;
-    /// let x = PubSubSubscription::new().set_or_clear_dead_letter_policy(Some(DeadLetterPolicy::default()/* use setters */));
-    /// let x = PubSubSubscription::new().set_or_clear_dead_letter_policy(None::<DeadLetterPolicy>);
-    /// ```
     pub fn set_or_clear_dead_letter_policy<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DeadLetterPolicy>,
@@ -7559,13 +5791,6 @@ impl PubSubSubscription {
     }
 
     /// Sets the value of [retry_policy][crate::model::PubSubSubscription::retry_policy].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::PubSubSubscription;
-    /// use google_cloud_bigquery_analyticshub_v1::model::RetryPolicy;
-    /// let x = PubSubSubscription::new().set_retry_policy(RetryPolicy::default()/* use setters */);
-    /// ```
     pub fn set_retry_policy<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::RetryPolicy>,
@@ -7575,14 +5800,6 @@ impl PubSubSubscription {
     }
 
     /// Sets or clears the value of [retry_policy][crate::model::PubSubSubscription::retry_policy].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::PubSubSubscription;
-    /// use google_cloud_bigquery_analyticshub_v1::model::RetryPolicy;
-    /// let x = PubSubSubscription::new().set_or_clear_retry_policy(Some(RetryPolicy::default()/* use setters */));
-    /// let x = PubSubSubscription::new().set_or_clear_retry_policy(None::<RetryPolicy>);
-    /// ```
     pub fn set_or_clear_retry_policy<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::RetryPolicy>,
@@ -7592,41 +5809,18 @@ impl PubSubSubscription {
     }
 
     /// Sets the value of [detached][crate::model::PubSubSubscription::detached].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::PubSubSubscription;
-    /// let x = PubSubSubscription::new().set_detached(true);
-    /// ```
     pub fn set_detached<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.detached = v.into();
         self
     }
 
     /// Sets the value of [enable_exactly_once_delivery][crate::model::PubSubSubscription::enable_exactly_once_delivery].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::PubSubSubscription;
-    /// let x = PubSubSubscription::new().set_enable_exactly_once_delivery(true);
-    /// ```
     pub fn set_enable_exactly_once_delivery<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.enable_exactly_once_delivery = v.into();
         self
     }
 
     /// Sets the value of [message_transforms][crate::model::PubSubSubscription::message_transforms].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::PubSubSubscription;
-    /// use google_cloud_bigquery_analyticshub_v1::model::MessageTransform;
-    /// let x = PubSubSubscription::new()
-    ///     .set_message_transforms([
-    ///         MessageTransform::default()/* use setters */,
-    ///         MessageTransform::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_message_transforms<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -7676,13 +5870,6 @@ impl RetryPolicy {
     }
 
     /// Sets the value of [minimum_backoff][crate::model::RetryPolicy::minimum_backoff].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::RetryPolicy;
-    /// use wkt::Duration;
-    /// let x = RetryPolicy::new().set_minimum_backoff(Duration::default()/* use setters */);
-    /// ```
     pub fn set_minimum_backoff<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -7692,14 +5879,6 @@ impl RetryPolicy {
     }
 
     /// Sets or clears the value of [minimum_backoff][crate::model::RetryPolicy::minimum_backoff].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::RetryPolicy;
-    /// use wkt::Duration;
-    /// let x = RetryPolicy::new().set_or_clear_minimum_backoff(Some(Duration::default()/* use setters */));
-    /// let x = RetryPolicy::new().set_or_clear_minimum_backoff(None::<Duration>);
-    /// ```
     pub fn set_or_clear_minimum_backoff<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -7709,13 +5888,6 @@ impl RetryPolicy {
     }
 
     /// Sets the value of [maximum_backoff][crate::model::RetryPolicy::maximum_backoff].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::RetryPolicy;
-    /// use wkt::Duration;
-    /// let x = RetryPolicy::new().set_maximum_backoff(Duration::default()/* use setters */);
-    /// ```
     pub fn set_maximum_backoff<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -7725,14 +5897,6 @@ impl RetryPolicy {
     }
 
     /// Sets or clears the value of [maximum_backoff][crate::model::RetryPolicy::maximum_backoff].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::RetryPolicy;
-    /// use wkt::Duration;
-    /// let x = RetryPolicy::new().set_or_clear_maximum_backoff(Some(Duration::default()/* use setters */));
-    /// let x = RetryPolicy::new().set_or_clear_maximum_backoff(None::<Duration>);
-    /// ```
     pub fn set_or_clear_maximum_backoff<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -7791,12 +5955,6 @@ impl DeadLetterPolicy {
     }
 
     /// Sets the value of [dead_letter_topic][crate::model::DeadLetterPolicy::dead_letter_topic].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::DeadLetterPolicy;
-    /// let x = DeadLetterPolicy::new().set_dead_letter_topic("example");
-    /// ```
     pub fn set_dead_letter_topic<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -7806,12 +5964,6 @@ impl DeadLetterPolicy {
     }
 
     /// Sets the value of [max_delivery_attempts][crate::model::DeadLetterPolicy::max_delivery_attempts].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::DeadLetterPolicy;
-    /// let x = DeadLetterPolicy::new().set_max_delivery_attempts(42);
-    /// ```
     pub fn set_max_delivery_attempts<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.max_delivery_attempts = v.into();
         self
@@ -7846,13 +5998,6 @@ impl ExpirationPolicy {
     }
 
     /// Sets the value of [ttl][crate::model::ExpirationPolicy::ttl].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::ExpirationPolicy;
-    /// use wkt::Duration;
-    /// let x = ExpirationPolicy::new().set_ttl(Duration::default()/* use setters */);
-    /// ```
     pub fn set_ttl<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -7862,14 +6007,6 @@ impl ExpirationPolicy {
     }
 
     /// Sets or clears the value of [ttl][crate::model::ExpirationPolicy::ttl].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::ExpirationPolicy;
-    /// use wkt::Duration;
-    /// let x = ExpirationPolicy::new().set_or_clear_ttl(Some(Duration::default()/* use setters */));
-    /// let x = ExpirationPolicy::new().set_or_clear_ttl(None::<Duration>);
-    /// ```
     pub fn set_or_clear_ttl<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -7936,27 +6073,12 @@ impl PushConfig {
     }
 
     /// Sets the value of [push_endpoint][crate::model::PushConfig::push_endpoint].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::PushConfig;
-    /// let x = PushConfig::new().set_push_endpoint("example");
-    /// ```
     pub fn set_push_endpoint<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.push_endpoint = v.into();
         self
     }
 
     /// Sets the value of [attributes][crate::model::PushConfig::attributes].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::PushConfig;
-    /// let x = PushConfig::new().set_attributes([
-    ///     ("key0", "abc"),
-    ///     ("key1", "xyz"),
-    /// ]);
-    /// ```
     pub fn set_attributes<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -7972,14 +6094,6 @@ impl PushConfig {
     ///
     /// Note that all the setters affecting `authentication_method` are mutually
     /// exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::PushConfig;
-    /// use google_cloud_bigquery_analyticshub_v1::model::push_config;
-    /// use google_cloud_bigquery_analyticshub_v1::model::push_config::OidcToken;
-    /// let x = PushConfig::new().set_authentication_method(Some(push_config::AuthenticationMethod::OidcToken(OidcToken::default().into())));
-    /// ```
     pub fn set_authentication_method<
         T: std::convert::Into<std::option::Option<crate::model::push_config::AuthenticationMethod>>,
     >(
@@ -8010,14 +6124,6 @@ impl PushConfig {
     ///
     /// Note that all the setters affecting `authentication_method` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::PushConfig;
-    /// use google_cloud_bigquery_analyticshub_v1::model::push_config::OidcToken;
-    /// let x = PushConfig::new().set_oidc_token(OidcToken::default()/* use setters */);
-    /// assert!(x.oidc_token().is_some());
-    /// ```
     pub fn set_oidc_token<
         T: std::convert::Into<std::boxed::Box<crate::model::push_config::OidcToken>>,
     >(
@@ -8034,14 +6140,6 @@ impl PushConfig {
     ///
     /// Note that all the setters affecting `wrapper` are mutually
     /// exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::PushConfig;
-    /// use google_cloud_bigquery_analyticshub_v1::model::push_config;
-    /// use google_cloud_bigquery_analyticshub_v1::model::push_config::PubsubWrapper;
-    /// let x = PushConfig::new().set_wrapper(Some(push_config::Wrapper::PubsubWrapper(PubsubWrapper::default().into())));
-    /// ```
     pub fn set_wrapper<
         T: std::convert::Into<std::option::Option<crate::model::push_config::Wrapper>>,
     >(
@@ -8070,15 +6168,6 @@ impl PushConfig {
     ///
     /// Note that all the setters affecting `wrapper` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::PushConfig;
-    /// use google_cloud_bigquery_analyticshub_v1::model::push_config::PubsubWrapper;
-    /// let x = PushConfig::new().set_pubsub_wrapper(PubsubWrapper::default()/* use setters */);
-    /// assert!(x.pubsub_wrapper().is_some());
-    /// assert!(x.no_wrapper().is_none());
-    /// ```
     pub fn set_pubsub_wrapper<
         T: std::convert::Into<std::boxed::Box<crate::model::push_config::PubsubWrapper>>,
     >(
@@ -8108,15 +6197,6 @@ impl PushConfig {
     ///
     /// Note that all the setters affecting `wrapper` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::PushConfig;
-    /// use google_cloud_bigquery_analyticshub_v1::model::push_config::NoWrapper;
-    /// let x = PushConfig::new().set_no_wrapper(NoWrapper::default()/* use setters */);
-    /// assert!(x.no_wrapper().is_some());
-    /// assert!(x.pubsub_wrapper().is_none());
-    /// ```
     pub fn set_no_wrapper<
         T: std::convert::Into<std::boxed::Box<crate::model::push_config::NoWrapper>>,
     >(
@@ -8171,12 +6251,6 @@ pub mod push_config {
         }
 
         /// Sets the value of [service_account_email][crate::model::push_config::OidcToken::service_account_email].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_bigquery_analyticshub_v1::model::push_config::OidcToken;
-        /// let x = OidcToken::new().set_service_account_email("example");
-        /// ```
         pub fn set_service_account_email<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -8186,12 +6260,6 @@ pub mod push_config {
         }
 
         /// Sets the value of [audience][crate::model::push_config::OidcToken::audience].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_bigquery_analyticshub_v1::model::push_config::OidcToken;
-        /// let x = OidcToken::new().set_audience("example");
-        /// ```
         pub fn set_audience<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.audience = v.into();
             self
@@ -8243,12 +6311,6 @@ pub mod push_config {
         }
 
         /// Sets the value of [write_metadata][crate::model::push_config::NoWrapper::write_metadata].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_bigquery_analyticshub_v1::model::push_config::NoWrapper;
-        /// let x = NoWrapper::new().set_write_metadata(true);
-        /// ```
         pub fn set_write_metadata<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.write_metadata = v.into();
             self
@@ -8338,72 +6400,36 @@ impl BigQueryConfig {
     }
 
     /// Sets the value of [table][crate::model::BigQueryConfig::table].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::BigQueryConfig;
-    /// let x = BigQueryConfig::new().set_table("example");
-    /// ```
     pub fn set_table<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.table = v.into();
         self
     }
 
     /// Sets the value of [use_topic_schema][crate::model::BigQueryConfig::use_topic_schema].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::BigQueryConfig;
-    /// let x = BigQueryConfig::new().set_use_topic_schema(true);
-    /// ```
     pub fn set_use_topic_schema<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.use_topic_schema = v.into();
         self
     }
 
     /// Sets the value of [write_metadata][crate::model::BigQueryConfig::write_metadata].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::BigQueryConfig;
-    /// let x = BigQueryConfig::new().set_write_metadata(true);
-    /// ```
     pub fn set_write_metadata<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.write_metadata = v.into();
         self
     }
 
     /// Sets the value of [drop_unknown_fields][crate::model::BigQueryConfig::drop_unknown_fields].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::BigQueryConfig;
-    /// let x = BigQueryConfig::new().set_drop_unknown_fields(true);
-    /// ```
     pub fn set_drop_unknown_fields<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.drop_unknown_fields = v.into();
         self
     }
 
     /// Sets the value of [use_table_schema][crate::model::BigQueryConfig::use_table_schema].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::BigQueryConfig;
-    /// let x = BigQueryConfig::new().set_use_table_schema(true);
-    /// ```
     pub fn set_use_table_schema<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.use_table_schema = v.into();
         self
     }
 
     /// Sets the value of [service_account_email][crate::model::BigQueryConfig::service_account_email].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::BigQueryConfig;
-    /// let x = BigQueryConfig::new().set_service_account_email("example");
-    /// ```
     pub fn set_service_account_email<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -8482,48 +6508,24 @@ impl CloudStorageConfig {
     }
 
     /// Sets the value of [bucket][crate::model::CloudStorageConfig::bucket].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::CloudStorageConfig;
-    /// let x = CloudStorageConfig::new().set_bucket("example");
-    /// ```
     pub fn set_bucket<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.bucket = v.into();
         self
     }
 
     /// Sets the value of [filename_prefix][crate::model::CloudStorageConfig::filename_prefix].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::CloudStorageConfig;
-    /// let x = CloudStorageConfig::new().set_filename_prefix("example");
-    /// ```
     pub fn set_filename_prefix<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filename_prefix = v.into();
         self
     }
 
     /// Sets the value of [filename_suffix][crate::model::CloudStorageConfig::filename_suffix].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::CloudStorageConfig;
-    /// let x = CloudStorageConfig::new().set_filename_suffix("example");
-    /// ```
     pub fn set_filename_suffix<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filename_suffix = v.into();
         self
     }
 
     /// Sets the value of [filename_datetime_format][crate::model::CloudStorageConfig::filename_datetime_format].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::CloudStorageConfig;
-    /// let x = CloudStorageConfig::new().set_filename_datetime_format("example");
-    /// ```
     pub fn set_filename_datetime_format<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -8533,13 +6535,6 @@ impl CloudStorageConfig {
     }
 
     /// Sets the value of [max_duration][crate::model::CloudStorageConfig::max_duration].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::CloudStorageConfig;
-    /// use wkt::Duration;
-    /// let x = CloudStorageConfig::new().set_max_duration(Duration::default()/* use setters */);
-    /// ```
     pub fn set_max_duration<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -8549,14 +6544,6 @@ impl CloudStorageConfig {
     }
 
     /// Sets or clears the value of [max_duration][crate::model::CloudStorageConfig::max_duration].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::CloudStorageConfig;
-    /// use wkt::Duration;
-    /// let x = CloudStorageConfig::new().set_or_clear_max_duration(Some(Duration::default()/* use setters */));
-    /// let x = CloudStorageConfig::new().set_or_clear_max_duration(None::<Duration>);
-    /// ```
     pub fn set_or_clear_max_duration<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -8566,36 +6553,18 @@ impl CloudStorageConfig {
     }
 
     /// Sets the value of [max_bytes][crate::model::CloudStorageConfig::max_bytes].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::CloudStorageConfig;
-    /// let x = CloudStorageConfig::new().set_max_bytes(42);
-    /// ```
     pub fn set_max_bytes<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.max_bytes = v.into();
         self
     }
 
     /// Sets the value of [max_messages][crate::model::CloudStorageConfig::max_messages].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::CloudStorageConfig;
-    /// let x = CloudStorageConfig::new().set_max_messages(42);
-    /// ```
     pub fn set_max_messages<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.max_messages = v.into();
         self
     }
 
     /// Sets the value of [service_account_email][crate::model::CloudStorageConfig::service_account_email].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::CloudStorageConfig;
-    /// let x = CloudStorageConfig::new().set_service_account_email("example");
-    /// ```
     pub fn set_service_account_email<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -8608,14 +6577,6 @@ impl CloudStorageConfig {
     ///
     /// Note that all the setters affecting `output_format` are mutually
     /// exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::CloudStorageConfig;
-    /// use google_cloud_bigquery_analyticshub_v1::model::cloud_storage_config;
-    /// use google_cloud_bigquery_analyticshub_v1::model::cloud_storage_config::TextConfig;
-    /// let x = CloudStorageConfig::new().set_output_format(Some(cloud_storage_config::OutputFormat::TextConfig(TextConfig::default().into())));
-    /// ```
     pub fn set_output_format<
         T: std::convert::Into<std::option::Option<crate::model::cloud_storage_config::OutputFormat>>,
     >(
@@ -8646,15 +6607,6 @@ impl CloudStorageConfig {
     ///
     /// Note that all the setters affecting `output_format` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::CloudStorageConfig;
-    /// use google_cloud_bigquery_analyticshub_v1::model::cloud_storage_config::TextConfig;
-    /// let x = CloudStorageConfig::new().set_text_config(TextConfig::default()/* use setters */);
-    /// assert!(x.text_config().is_some());
-    /// assert!(x.avro_config().is_none());
-    /// ```
     pub fn set_text_config<
         T: std::convert::Into<std::boxed::Box<crate::model::cloud_storage_config::TextConfig>>,
     >(
@@ -8687,15 +6639,6 @@ impl CloudStorageConfig {
     ///
     /// Note that all the setters affecting `output_format` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::CloudStorageConfig;
-    /// use google_cloud_bigquery_analyticshub_v1::model::cloud_storage_config::AvroConfig;
-    /// let x = CloudStorageConfig::new().set_avro_config(AvroConfig::default()/* use setters */);
-    /// assert!(x.avro_config().is_some());
-    /// assert!(x.text_config().is_none());
-    /// ```
     pub fn set_avro_config<
         T: std::convert::Into<std::boxed::Box<crate::model::cloud_storage_config::AvroConfig>>,
     >(
@@ -8767,24 +6710,12 @@ pub mod cloud_storage_config {
         }
 
         /// Sets the value of [write_metadata][crate::model::cloud_storage_config::AvroConfig::write_metadata].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_bigquery_analyticshub_v1::model::cloud_storage_config::AvroConfig;
-        /// let x = AvroConfig::new().set_write_metadata(true);
-        /// ```
         pub fn set_write_metadata<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.write_metadata = v.into();
             self
         }
 
         /// Sets the value of [use_topic_schema][crate::model::cloud_storage_config::AvroConfig::use_topic_schema].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_bigquery_analyticshub_v1::model::cloud_storage_config::AvroConfig;
-        /// let x = AvroConfig::new().set_use_topic_schema(true);
-        /// ```
         pub fn set_use_topic_schema<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.use_topic_schema = v.into();
             self
@@ -8835,12 +6766,6 @@ impl MessageTransform {
     }
 
     /// Sets the value of [enabled][crate::model::MessageTransform::enabled].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::MessageTransform;
-    /// let x = MessageTransform::new().set_enabled(true);
-    /// ```
     #[deprecated]
     pub fn set_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.enabled = v.into();
@@ -8848,12 +6773,6 @@ impl MessageTransform {
     }
 
     /// Sets the value of [disabled][crate::model::MessageTransform::disabled].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::MessageTransform;
-    /// let x = MessageTransform::new().set_disabled(true);
-    /// ```
     pub fn set_disabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.disabled = v.into();
         self
@@ -8863,14 +6782,6 @@ impl MessageTransform {
     ///
     /// Note that all the setters affecting `transform` are mutually
     /// exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::MessageTransform;
-    /// use google_cloud_bigquery_analyticshub_v1::model::message_transform;
-    /// use google_cloud_bigquery_analyticshub_v1::model::JavaScriptUDF;
-    /// let x = MessageTransform::new().set_transform(Some(message_transform::Transform::JavascriptUdf(JavaScriptUDF::default().into())));
-    /// ```
     pub fn set_transform<
         T: std::convert::Into<std::option::Option<crate::model::message_transform::Transform>>,
     >(
@@ -8901,14 +6812,6 @@ impl MessageTransform {
     ///
     /// Note that all the setters affecting `transform` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::MessageTransform;
-    /// use google_cloud_bigquery_analyticshub_v1::model::JavaScriptUDF;
-    /// let x = MessageTransform::new().set_javascript_udf(JavaScriptUDF::default()/* use setters */);
-    /// assert!(x.javascript_udf().is_some());
-    /// ```
     pub fn set_javascript_udf<
         T: std::convert::Into<std::boxed::Box<crate::model::JavaScriptUDF>>,
     >(
@@ -8993,24 +6896,12 @@ impl JavaScriptUDF {
     }
 
     /// Sets the value of [function_name][crate::model::JavaScriptUDF::function_name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::JavaScriptUDF;
-    /// let x = JavaScriptUDF::new().set_function_name("example");
-    /// ```
     pub fn set_function_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.function_name = v.into();
         self
     }
 
     /// Sets the value of [code][crate::model::JavaScriptUDF::code].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_analyticshub_v1::model::JavaScriptUDF;
-    /// let x = JavaScriptUDF::new().set_code("example");
-    /// ```
     pub fn set_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.code = v.into();
         self

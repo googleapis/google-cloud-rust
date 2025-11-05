@@ -64,36 +64,18 @@ impl ListQuotaInfosRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListQuotaInfosRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_cloudquotas_v1::model::ListQuotaInfosRequest;
-    /// let x = ListQuotaInfosRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListQuotaInfosRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_cloudquotas_v1::model::ListQuotaInfosRequest;
-    /// let x = ListQuotaInfosRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListQuotaInfosRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_cloudquotas_v1::model::ListQuotaInfosRequest;
-    /// let x = ListQuotaInfosRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -126,17 +108,6 @@ impl ListQuotaInfosResponse {
     }
 
     /// Sets the value of [quota_infos][crate::model::ListQuotaInfosResponse::quota_infos].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_cloudquotas_v1::model::ListQuotaInfosResponse;
-    /// use google_cloud_api_cloudquotas_v1::model::QuotaInfo;
-    /// let x = ListQuotaInfosResponse::new()
-    ///     .set_quota_infos([
-    ///         QuotaInfo::default()/* use setters */,
-    ///         QuotaInfo::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_quota_infos<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -148,12 +119,6 @@ impl ListQuotaInfosResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListQuotaInfosResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_cloudquotas_v1::model::ListQuotaInfosResponse;
-    /// let x = ListQuotaInfosResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -199,12 +164,6 @@ impl GetQuotaInfoRequest {
     }
 
     /// Sets the value of [name][crate::model::GetQuotaInfoRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_cloudquotas_v1::model::GetQuotaInfoRequest;
-    /// let x = GetQuotaInfoRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -265,60 +224,30 @@ impl ListQuotaPreferencesRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListQuotaPreferencesRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_cloudquotas_v1::model::ListQuotaPreferencesRequest;
-    /// let x = ListQuotaPreferencesRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListQuotaPreferencesRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_cloudquotas_v1::model::ListQuotaPreferencesRequest;
-    /// let x = ListQuotaPreferencesRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListQuotaPreferencesRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_cloudquotas_v1::model::ListQuotaPreferencesRequest;
-    /// let x = ListQuotaPreferencesRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListQuotaPreferencesRequest::filter].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_cloudquotas_v1::model::ListQuotaPreferencesRequest;
-    /// let x = ListQuotaPreferencesRequest::new().set_filter("example");
-    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListQuotaPreferencesRequest::order_by].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_cloudquotas_v1::model::ListQuotaPreferencesRequest;
-    /// let x = ListQuotaPreferencesRequest::new().set_order_by("example");
-    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
@@ -354,17 +283,6 @@ impl ListQuotaPreferencesResponse {
     }
 
     /// Sets the value of [quota_preferences][crate::model::ListQuotaPreferencesResponse::quota_preferences].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_cloudquotas_v1::model::ListQuotaPreferencesResponse;
-    /// use google_cloud_api_cloudquotas_v1::model::QuotaPreference;
-    /// let x = ListQuotaPreferencesResponse::new()
-    ///     .set_quota_preferences([
-    ///         QuotaPreference::default()/* use setters */,
-    ///         QuotaPreference::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_quota_preferences<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -376,24 +294,12 @@ impl ListQuotaPreferencesResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListQuotaPreferencesResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_cloudquotas_v1::model::ListQuotaPreferencesResponse;
-    /// let x = ListQuotaPreferencesResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListQuotaPreferencesResponse::unreachable].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_cloudquotas_v1::model::ListQuotaPreferencesResponse;
-    /// let x = ListQuotaPreferencesResponse::new().set_unreachable(["a", "b", "c"]);
-    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -444,12 +350,6 @@ impl GetQuotaPreferenceRequest {
     }
 
     /// Sets the value of [name][crate::model::GetQuotaPreferenceRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_cloudquotas_v1::model::GetQuotaPreferenceRequest;
-    /// let x = GetQuotaPreferenceRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -491,24 +391,12 @@ impl CreateQuotaPreferenceRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateQuotaPreferenceRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_cloudquotas_v1::model::CreateQuotaPreferenceRequest;
-    /// let x = CreateQuotaPreferenceRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [quota_preference_id][crate::model::CreateQuotaPreferenceRequest::quota_preference_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_cloudquotas_v1::model::CreateQuotaPreferenceRequest;
-    /// let x = CreateQuotaPreferenceRequest::new().set_quota_preference_id("example");
-    /// ```
     pub fn set_quota_preference_id<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -518,13 +406,6 @@ impl CreateQuotaPreferenceRequest {
     }
 
     /// Sets the value of [quota_preference][crate::model::CreateQuotaPreferenceRequest::quota_preference].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_cloudquotas_v1::model::CreateQuotaPreferenceRequest;
-    /// use google_cloud_api_cloudquotas_v1::model::QuotaPreference;
-    /// let x = CreateQuotaPreferenceRequest::new().set_quota_preference(QuotaPreference::default()/* use setters */);
-    /// ```
     pub fn set_quota_preference<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::QuotaPreference>,
@@ -534,14 +415,6 @@ impl CreateQuotaPreferenceRequest {
     }
 
     /// Sets or clears the value of [quota_preference][crate::model::CreateQuotaPreferenceRequest::quota_preference].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_cloudquotas_v1::model::CreateQuotaPreferenceRequest;
-    /// use google_cloud_api_cloudquotas_v1::model::QuotaPreference;
-    /// let x = CreateQuotaPreferenceRequest::new().set_or_clear_quota_preference(Some(QuotaPreference::default()/* use setters */));
-    /// let x = CreateQuotaPreferenceRequest::new().set_or_clear_quota_preference(None::<QuotaPreference>);
-    /// ```
     pub fn set_or_clear_quota_preference<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::QuotaPreference>,
@@ -551,16 +424,6 @@ impl CreateQuotaPreferenceRequest {
     }
 
     /// Sets the value of [ignore_safety_checks][crate::model::CreateQuotaPreferenceRequest::ignore_safety_checks].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_cloudquotas_v1::model::CreateQuotaPreferenceRequest;
-    /// use google_cloud_api_cloudquotas_v1::model::QuotaSafetyCheck;
-    /// let x = CreateQuotaPreferenceRequest::new().set_ignore_safety_checks([
-    ///     QuotaSafetyCheck::QuotaDecreaseBelowUsage,
-    ///     QuotaSafetyCheck::QuotaDecreasePercentageTooHigh,
-    /// ]);
-    /// ```
     pub fn set_ignore_safety_checks<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -613,13 +476,6 @@ impl UpdateQuotaPreferenceRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateQuotaPreferenceRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_cloudquotas_v1::model::UpdateQuotaPreferenceRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateQuotaPreferenceRequest::new().set_update_mask(FieldMask::default()/* use setters */);
-    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -629,14 +485,6 @@ impl UpdateQuotaPreferenceRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateQuotaPreferenceRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_cloudquotas_v1::model::UpdateQuotaPreferenceRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateQuotaPreferenceRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
-    /// let x = UpdateQuotaPreferenceRequest::new().set_or_clear_update_mask(None::<FieldMask>);
-    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -646,13 +494,6 @@ impl UpdateQuotaPreferenceRequest {
     }
 
     /// Sets the value of [quota_preference][crate::model::UpdateQuotaPreferenceRequest::quota_preference].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_cloudquotas_v1::model::UpdateQuotaPreferenceRequest;
-    /// use google_cloud_api_cloudquotas_v1::model::QuotaPreference;
-    /// let x = UpdateQuotaPreferenceRequest::new().set_quota_preference(QuotaPreference::default()/* use setters */);
-    /// ```
     pub fn set_quota_preference<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::QuotaPreference>,
@@ -662,14 +503,6 @@ impl UpdateQuotaPreferenceRequest {
     }
 
     /// Sets or clears the value of [quota_preference][crate::model::UpdateQuotaPreferenceRequest::quota_preference].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_cloudquotas_v1::model::UpdateQuotaPreferenceRequest;
-    /// use google_cloud_api_cloudquotas_v1::model::QuotaPreference;
-    /// let x = UpdateQuotaPreferenceRequest::new().set_or_clear_quota_preference(Some(QuotaPreference::default()/* use setters */));
-    /// let x = UpdateQuotaPreferenceRequest::new().set_or_clear_quota_preference(None::<QuotaPreference>);
-    /// ```
     pub fn set_or_clear_quota_preference<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::QuotaPreference>,
@@ -679,40 +512,18 @@ impl UpdateQuotaPreferenceRequest {
     }
 
     /// Sets the value of [allow_missing][crate::model::UpdateQuotaPreferenceRequest::allow_missing].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_cloudquotas_v1::model::UpdateQuotaPreferenceRequest;
-    /// let x = UpdateQuotaPreferenceRequest::new().set_allow_missing(true);
-    /// ```
     pub fn set_allow_missing<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.allow_missing = v.into();
         self
     }
 
     /// Sets the value of [validate_only][crate::model::UpdateQuotaPreferenceRequest::validate_only].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_cloudquotas_v1::model::UpdateQuotaPreferenceRequest;
-    /// let x = UpdateQuotaPreferenceRequest::new().set_validate_only(true);
-    /// ```
     pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.validate_only = v.into();
         self
     }
 
     /// Sets the value of [ignore_safety_checks][crate::model::UpdateQuotaPreferenceRequest::ignore_safety_checks].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_cloudquotas_v1::model::UpdateQuotaPreferenceRequest;
-    /// use google_cloud_api_cloudquotas_v1::model::QuotaSafetyCheck;
-    /// let x = UpdateQuotaPreferenceRequest::new().set_ignore_safety_checks([
-    ///     QuotaSafetyCheck::QuotaDecreaseBelowUsage,
-    ///     QuotaSafetyCheck::QuotaDecreasePercentageTooHigh,
-    /// ]);
-    /// ```
     pub fn set_ignore_safety_checks<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -807,72 +618,36 @@ impl QuotaInfo {
     }
 
     /// Sets the value of [name][crate::model::QuotaInfo::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_cloudquotas_v1::model::QuotaInfo;
-    /// let x = QuotaInfo::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [quota_id][crate::model::QuotaInfo::quota_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_cloudquotas_v1::model::QuotaInfo;
-    /// let x = QuotaInfo::new().set_quota_id("example");
-    /// ```
     pub fn set_quota_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.quota_id = v.into();
         self
     }
 
     /// Sets the value of [metric][crate::model::QuotaInfo::metric].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_cloudquotas_v1::model::QuotaInfo;
-    /// let x = QuotaInfo::new().set_metric("example");
-    /// ```
     pub fn set_metric<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.metric = v.into();
         self
     }
 
     /// Sets the value of [service][crate::model::QuotaInfo::service].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_cloudquotas_v1::model::QuotaInfo;
-    /// let x = QuotaInfo::new().set_service("example");
-    /// ```
     pub fn set_service<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.service = v.into();
         self
     }
 
     /// Sets the value of [is_precise][crate::model::QuotaInfo::is_precise].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_cloudquotas_v1::model::QuotaInfo;
-    /// let x = QuotaInfo::new().set_is_precise(true);
-    /// ```
     pub fn set_is_precise<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.is_precise = v.into();
         self
     }
 
     /// Sets the value of [refresh_interval][crate::model::QuotaInfo::refresh_interval].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_cloudquotas_v1::model::QuotaInfo;
-    /// let x = QuotaInfo::new().set_refresh_interval("example");
-    /// ```
     pub fn set_refresh_interval<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -882,15 +657,6 @@ impl QuotaInfo {
     }
 
     /// Sets the value of [container_type][crate::model::QuotaInfo::container_type].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_cloudquotas_v1::model::QuotaInfo;
-    /// use google_cloud_api_cloudquotas_v1::model::quota_info::ContainerType;
-    /// let x0 = QuotaInfo::new().set_container_type(ContainerType::Project);
-    /// let x1 = QuotaInfo::new().set_container_type(ContainerType::Folder);
-    /// let x2 = QuotaInfo::new().set_container_type(ContainerType::Organization);
-    /// ```
     pub fn set_container_type<T: std::convert::Into<crate::model::quota_info::ContainerType>>(
         mut self,
         v: T,
@@ -900,12 +666,6 @@ impl QuotaInfo {
     }
 
     /// Sets the value of [dimensions][crate::model::QuotaInfo::dimensions].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_cloudquotas_v1::model::QuotaInfo;
-    /// let x = QuotaInfo::new().set_dimensions(["a", "b", "c"]);
-    /// ```
     pub fn set_dimensions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -917,12 +677,6 @@ impl QuotaInfo {
     }
 
     /// Sets the value of [metric_display_name][crate::model::QuotaInfo::metric_display_name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_cloudquotas_v1::model::QuotaInfo;
-    /// let x = QuotaInfo::new().set_metric_display_name("example");
-    /// ```
     pub fn set_metric_display_name<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -932,12 +686,6 @@ impl QuotaInfo {
     }
 
     /// Sets the value of [quota_display_name][crate::model::QuotaInfo::quota_display_name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_cloudquotas_v1::model::QuotaInfo;
-    /// let x = QuotaInfo::new().set_quota_display_name("example");
-    /// ```
     pub fn set_quota_display_name<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -947,25 +695,12 @@ impl QuotaInfo {
     }
 
     /// Sets the value of [metric_unit][crate::model::QuotaInfo::metric_unit].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_cloudquotas_v1::model::QuotaInfo;
-    /// let x = QuotaInfo::new().set_metric_unit("example");
-    /// ```
     pub fn set_metric_unit<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.metric_unit = v.into();
         self
     }
 
     /// Sets the value of [quota_increase_eligibility][crate::model::QuotaInfo::quota_increase_eligibility].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_cloudquotas_v1::model::QuotaInfo;
-    /// use google_cloud_api_cloudquotas_v1::model::QuotaIncreaseEligibility;
-    /// let x = QuotaInfo::new().set_quota_increase_eligibility(QuotaIncreaseEligibility::default()/* use setters */);
-    /// ```
     pub fn set_quota_increase_eligibility<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::QuotaIncreaseEligibility>,
@@ -975,14 +710,6 @@ impl QuotaInfo {
     }
 
     /// Sets or clears the value of [quota_increase_eligibility][crate::model::QuotaInfo::quota_increase_eligibility].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_cloudquotas_v1::model::QuotaInfo;
-    /// use google_cloud_api_cloudquotas_v1::model::QuotaIncreaseEligibility;
-    /// let x = QuotaInfo::new().set_or_clear_quota_increase_eligibility(Some(QuotaIncreaseEligibility::default()/* use setters */));
-    /// let x = QuotaInfo::new().set_or_clear_quota_increase_eligibility(None::<QuotaIncreaseEligibility>);
-    /// ```
     pub fn set_or_clear_quota_increase_eligibility<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::QuotaIncreaseEligibility>,
@@ -992,29 +719,12 @@ impl QuotaInfo {
     }
 
     /// Sets the value of [is_fixed][crate::model::QuotaInfo::is_fixed].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_cloudquotas_v1::model::QuotaInfo;
-    /// let x = QuotaInfo::new().set_is_fixed(true);
-    /// ```
     pub fn set_is_fixed<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.is_fixed = v.into();
         self
     }
 
     /// Sets the value of [dimensions_infos][crate::model::QuotaInfo::dimensions_infos].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_cloudquotas_v1::model::QuotaInfo;
-    /// use google_cloud_api_cloudquotas_v1::model::DimensionsInfo;
-    /// let x = QuotaInfo::new()
-    ///     .set_dimensions_infos([
-    ///         DimensionsInfo::default()/* use setters */,
-    ///         DimensionsInfo::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_dimensions_infos<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1026,24 +736,12 @@ impl QuotaInfo {
     }
 
     /// Sets the value of [is_concurrent][crate::model::QuotaInfo::is_concurrent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_cloudquotas_v1::model::QuotaInfo;
-    /// let x = QuotaInfo::new().set_is_concurrent(true);
-    /// ```
     pub fn set_is_concurrent<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.is_concurrent = v.into();
         self
     }
 
     /// Sets the value of [service_request_quota_uri][crate::model::QuotaInfo::service_request_quota_uri].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_cloudquotas_v1::model::QuotaInfo;
-    /// let x = QuotaInfo::new().set_service_request_quota_uri("example");
-    /// ```
     pub fn set_service_request_quota_uri<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -1225,27 +923,12 @@ impl QuotaIncreaseEligibility {
     }
 
     /// Sets the value of [is_eligible][crate::model::QuotaIncreaseEligibility::is_eligible].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_cloudquotas_v1::model::QuotaIncreaseEligibility;
-    /// let x = QuotaIncreaseEligibility::new().set_is_eligible(true);
-    /// ```
     pub fn set_is_eligible<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.is_eligible = v.into();
         self
     }
 
     /// Sets the value of [ineligibility_reason][crate::model::QuotaIncreaseEligibility::ineligibility_reason].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_cloudquotas_v1::model::QuotaIncreaseEligibility;
-    /// use google_cloud_api_cloudquotas_v1::model::quota_increase_eligibility::IneligibilityReason;
-    /// let x0 = QuotaIncreaseEligibility::new().set_ineligibility_reason(IneligibilityReason::NoValidBillingAccount);
-    /// let x1 = QuotaIncreaseEligibility::new().set_ineligibility_reason(IneligibilityReason::NotSupported);
-    /// let x2 = QuotaIncreaseEligibility::new().set_ineligibility_reason(IneligibilityReason::NotEnoughUsageHistory);
-    /// ```
     pub fn set_ineligibility_reason<
         T: std::convert::Into<crate::model::quota_increase_eligibility::IneligibilityReason>,
     >(
@@ -1498,27 +1181,12 @@ impl QuotaPreference {
     }
 
     /// Sets the value of [name][crate::model::QuotaPreference::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_cloudquotas_v1::model::QuotaPreference;
-    /// let x = QuotaPreference::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [dimensions][crate::model::QuotaPreference::dimensions].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_cloudquotas_v1::model::QuotaPreference;
-    /// let x = QuotaPreference::new().set_dimensions([
-    ///     ("key0", "abc"),
-    ///     ("key1", "xyz"),
-    /// ]);
-    /// ```
     pub fn set_dimensions<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -1531,13 +1199,6 @@ impl QuotaPreference {
     }
 
     /// Sets the value of [quota_config][crate::model::QuotaPreference::quota_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_cloudquotas_v1::model::QuotaPreference;
-    /// use google_cloud_api_cloudquotas_v1::model::QuotaConfig;
-    /// let x = QuotaPreference::new().set_quota_config(QuotaConfig::default()/* use setters */);
-    /// ```
     pub fn set_quota_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::QuotaConfig>,
@@ -1547,14 +1208,6 @@ impl QuotaPreference {
     }
 
     /// Sets or clears the value of [quota_config][crate::model::QuotaPreference::quota_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_cloudquotas_v1::model::QuotaPreference;
-    /// use google_cloud_api_cloudquotas_v1::model::QuotaConfig;
-    /// let x = QuotaPreference::new().set_or_clear_quota_config(Some(QuotaConfig::default()/* use setters */));
-    /// let x = QuotaPreference::new().set_or_clear_quota_config(None::<QuotaConfig>);
-    /// ```
     pub fn set_or_clear_quota_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::QuotaConfig>,
@@ -1564,25 +1217,12 @@ impl QuotaPreference {
     }
 
     /// Sets the value of [etag][crate::model::QuotaPreference::etag].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_cloudquotas_v1::model::QuotaPreference;
-    /// let x = QuotaPreference::new().set_etag("example");
-    /// ```
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::QuotaPreference::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_cloudquotas_v1::model::QuotaPreference;
-    /// use wkt::Timestamp;
-    /// let x = QuotaPreference::new().set_create_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1592,14 +1232,6 @@ impl QuotaPreference {
     }
 
     /// Sets or clears the value of [create_time][crate::model::QuotaPreference::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_cloudquotas_v1::model::QuotaPreference;
-    /// use wkt::Timestamp;
-    /// let x = QuotaPreference::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
-    /// let x = QuotaPreference::new().set_or_clear_create_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1609,13 +1241,6 @@ impl QuotaPreference {
     }
 
     /// Sets the value of [update_time][crate::model::QuotaPreference::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_cloudquotas_v1::model::QuotaPreference;
-    /// use wkt::Timestamp;
-    /// let x = QuotaPreference::new().set_update_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1625,14 +1250,6 @@ impl QuotaPreference {
     }
 
     /// Sets or clears the value of [update_time][crate::model::QuotaPreference::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_cloudquotas_v1::model::QuotaPreference;
-    /// use wkt::Timestamp;
-    /// let x = QuotaPreference::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
-    /// let x = QuotaPreference::new().set_or_clear_update_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1642,60 +1259,30 @@ impl QuotaPreference {
     }
 
     /// Sets the value of [service][crate::model::QuotaPreference::service].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_cloudquotas_v1::model::QuotaPreference;
-    /// let x = QuotaPreference::new().set_service("example");
-    /// ```
     pub fn set_service<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.service = v.into();
         self
     }
 
     /// Sets the value of [quota_id][crate::model::QuotaPreference::quota_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_cloudquotas_v1::model::QuotaPreference;
-    /// let x = QuotaPreference::new().set_quota_id("example");
-    /// ```
     pub fn set_quota_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.quota_id = v.into();
         self
     }
 
     /// Sets the value of [reconciling][crate::model::QuotaPreference::reconciling].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_cloudquotas_v1::model::QuotaPreference;
-    /// let x = QuotaPreference::new().set_reconciling(true);
-    /// ```
     pub fn set_reconciling<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.reconciling = v.into();
         self
     }
 
     /// Sets the value of [justification][crate::model::QuotaPreference::justification].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_cloudquotas_v1::model::QuotaPreference;
-    /// let x = QuotaPreference::new().set_justification("example");
-    /// ```
     pub fn set_justification<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.justification = v.into();
         self
     }
 
     /// Sets the value of [contact_email][crate::model::QuotaPreference::contact_email].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_cloudquotas_v1::model::QuotaPreference;
-    /// let x = QuotaPreference::new().set_contact_email("example");
-    /// ```
     pub fn set_contact_email<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.contact_email = v.into();
         self
@@ -1746,37 +1333,18 @@ impl QuotaConfig {
     }
 
     /// Sets the value of [preferred_value][crate::model::QuotaConfig::preferred_value].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_cloudquotas_v1::model::QuotaConfig;
-    /// let x = QuotaConfig::new().set_preferred_value(42);
-    /// ```
     pub fn set_preferred_value<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.preferred_value = v.into();
         self
     }
 
     /// Sets the value of [state_detail][crate::model::QuotaConfig::state_detail].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_cloudquotas_v1::model::QuotaConfig;
-    /// let x = QuotaConfig::new().set_state_detail("example");
-    /// ```
     pub fn set_state_detail<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.state_detail = v.into();
         self
     }
 
     /// Sets the value of [granted_value][crate::model::QuotaConfig::granted_value].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_cloudquotas_v1::model::QuotaConfig;
-    /// use wkt::Int64Value;
-    /// let x = QuotaConfig::new().set_granted_value(Int64Value::default()/* use setters */);
-    /// ```
     pub fn set_granted_value<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Int64Value>,
@@ -1786,14 +1354,6 @@ impl QuotaConfig {
     }
 
     /// Sets or clears the value of [granted_value][crate::model::QuotaConfig::granted_value].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_cloudquotas_v1::model::QuotaConfig;
-    /// use wkt::Int64Value;
-    /// let x = QuotaConfig::new().set_or_clear_granted_value(Some(Int64Value::default()/* use setters */));
-    /// let x = QuotaConfig::new().set_or_clear_granted_value(None::<Int64Value>);
-    /// ```
     pub fn set_or_clear_granted_value<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Int64Value>,
@@ -1803,27 +1363,12 @@ impl QuotaConfig {
     }
 
     /// Sets the value of [trace_id][crate::model::QuotaConfig::trace_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_cloudquotas_v1::model::QuotaConfig;
-    /// let x = QuotaConfig::new().set_trace_id("example");
-    /// ```
     pub fn set_trace_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.trace_id = v.into();
         self
     }
 
     /// Sets the value of [annotations][crate::model::QuotaConfig::annotations].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_cloudquotas_v1::model::QuotaConfig;
-    /// let x = QuotaConfig::new().set_annotations([
-    ///     ("key0", "abc"),
-    ///     ("key1", "xyz"),
-    /// ]);
-    /// ```
     pub fn set_annotations<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -1836,14 +1381,6 @@ impl QuotaConfig {
     }
 
     /// Sets the value of [request_origin][crate::model::QuotaConfig::request_origin].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_cloudquotas_v1::model::QuotaConfig;
-    /// use google_cloud_api_cloudquotas_v1::model::quota_config::Origin;
-    /// let x0 = QuotaConfig::new().set_request_origin(Origin::CloudConsole);
-    /// let x1 = QuotaConfig::new().set_request_origin(Origin::AutoAdjuster);
-    /// ```
     pub fn set_request_origin<T: std::convert::Into<crate::model::quota_config::Origin>>(
         mut self,
         v: T,
@@ -2030,15 +1567,6 @@ impl DimensionsInfo {
     }
 
     /// Sets the value of [dimensions][crate::model::DimensionsInfo::dimensions].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_cloudquotas_v1::model::DimensionsInfo;
-    /// let x = DimensionsInfo::new().set_dimensions([
-    ///     ("key0", "abc"),
-    ///     ("key1", "xyz"),
-    /// ]);
-    /// ```
     pub fn set_dimensions<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -2051,13 +1579,6 @@ impl DimensionsInfo {
     }
 
     /// Sets the value of [details][crate::model::DimensionsInfo::details].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_cloudquotas_v1::model::DimensionsInfo;
-    /// use google_cloud_api_cloudquotas_v1::model::QuotaDetails;
-    /// let x = DimensionsInfo::new().set_details(QuotaDetails::default()/* use setters */);
-    /// ```
     pub fn set_details<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::QuotaDetails>,
@@ -2067,14 +1588,6 @@ impl DimensionsInfo {
     }
 
     /// Sets or clears the value of [details][crate::model::DimensionsInfo::details].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_cloudquotas_v1::model::DimensionsInfo;
-    /// use google_cloud_api_cloudquotas_v1::model::QuotaDetails;
-    /// let x = DimensionsInfo::new().set_or_clear_details(Some(QuotaDetails::default()/* use setters */));
-    /// let x = DimensionsInfo::new().set_or_clear_details(None::<QuotaDetails>);
-    /// ```
     pub fn set_or_clear_details<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::QuotaDetails>,
@@ -2084,12 +1597,6 @@ impl DimensionsInfo {
     }
 
     /// Sets the value of [applicable_locations][crate::model::DimensionsInfo::applicable_locations].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_cloudquotas_v1::model::DimensionsInfo;
-    /// let x = DimensionsInfo::new().set_applicable_locations(["a", "b", "c"]);
-    /// ```
     pub fn set_applicable_locations<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2128,25 +1635,12 @@ impl QuotaDetails {
     }
 
     /// Sets the value of [value][crate::model::QuotaDetails::value].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_cloudquotas_v1::model::QuotaDetails;
-    /// let x = QuotaDetails::new().set_value(42);
-    /// ```
     pub fn set_value<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.value = v.into();
         self
     }
 
     /// Sets the value of [rollout_info][crate::model::QuotaDetails::rollout_info].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_cloudquotas_v1::model::QuotaDetails;
-    /// use google_cloud_api_cloudquotas_v1::model::RolloutInfo;
-    /// let x = QuotaDetails::new().set_rollout_info(RolloutInfo::default()/* use setters */);
-    /// ```
     pub fn set_rollout_info<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::RolloutInfo>,
@@ -2156,14 +1650,6 @@ impl QuotaDetails {
     }
 
     /// Sets or clears the value of [rollout_info][crate::model::QuotaDetails::rollout_info].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_cloudquotas_v1::model::QuotaDetails;
-    /// use google_cloud_api_cloudquotas_v1::model::RolloutInfo;
-    /// let x = QuotaDetails::new().set_or_clear_rollout_info(Some(RolloutInfo::default()/* use setters */));
-    /// let x = QuotaDetails::new().set_or_clear_rollout_info(None::<RolloutInfo>);
-    /// ```
     pub fn set_or_clear_rollout_info<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::RolloutInfo>,
@@ -2195,12 +1681,6 @@ impl RolloutInfo {
     }
 
     /// Sets the value of [ongoing_rollout][crate::model::RolloutInfo::ongoing_rollout].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_cloudquotas_v1::model::RolloutInfo;
-    /// let x = RolloutInfo::new().set_ongoing_rollout(true);
-    /// ```
     pub fn set_ongoing_rollout<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.ongoing_rollout = v.into();
         self

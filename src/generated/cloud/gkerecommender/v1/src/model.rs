@@ -70,12 +70,6 @@ impl FetchModelsRequest {
     }
 
     /// Sets the value of [page_size][crate::model::FetchModelsRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkerecommender_v1::model::FetchModelsRequest;
-    /// let x = FetchModelsRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<i32>,
@@ -85,13 +79,6 @@ impl FetchModelsRequest {
     }
 
     /// Sets or clears the value of [page_size][crate::model::FetchModelsRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkerecommender_v1::model::FetchModelsRequest;
-    /// let x = FetchModelsRequest::new().set_or_clear_page_size(Some(42));
-    /// let x = FetchModelsRequest::new().set_or_clear_page_size(None::<i32>);
-    /// ```
     pub fn set_or_clear_page_size<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i32>,
@@ -101,12 +88,6 @@ impl FetchModelsRequest {
     }
 
     /// Sets the value of [page_token][crate::model::FetchModelsRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkerecommender_v1::model::FetchModelsRequest;
-    /// let x = FetchModelsRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -116,14 +97,6 @@ impl FetchModelsRequest {
     }
 
     /// Sets or clears the value of [page_token][crate::model::FetchModelsRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkerecommender_v1::model::FetchModelsRequest;
-    /// let x = FetchModelsRequest::new().set_or_clear_page_token("example");
-    /// let x = FetchModelsRequest::new().set_or_clear_page_token(Some("example"));
-    /// let x = FetchModelsRequest::new().set_or_clear_page_token(None::<String>);
-    /// ```
     pub fn set_or_clear_page_token<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -166,12 +139,6 @@ impl FetchModelsResponse {
     }
 
     /// Sets the value of [models][crate::model::FetchModelsResponse::models].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkerecommender_v1::model::FetchModelsResponse;
-    /// let x = FetchModelsResponse::new().set_models(["a", "b", "c"]);
-    /// ```
     pub fn set_models<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -183,12 +150,6 @@ impl FetchModelsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::FetchModelsResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkerecommender_v1::model::FetchModelsResponse;
-    /// let x = FetchModelsResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -246,24 +207,12 @@ impl FetchModelServersRequest {
     }
 
     /// Sets the value of [model][crate::model::FetchModelServersRequest::model].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkerecommender_v1::model::FetchModelServersRequest;
-    /// let x = FetchModelServersRequest::new().set_model("example");
-    /// ```
     pub fn set_model<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.model = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::FetchModelServersRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkerecommender_v1::model::FetchModelServersRequest;
-    /// let x = FetchModelServersRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<i32>,
@@ -273,13 +222,6 @@ impl FetchModelServersRequest {
     }
 
     /// Sets or clears the value of [page_size][crate::model::FetchModelServersRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkerecommender_v1::model::FetchModelServersRequest;
-    /// let x = FetchModelServersRequest::new().set_or_clear_page_size(Some(42));
-    /// let x = FetchModelServersRequest::new().set_or_clear_page_size(None::<i32>);
-    /// ```
     pub fn set_or_clear_page_size<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i32>,
@@ -289,12 +231,6 @@ impl FetchModelServersRequest {
     }
 
     /// Sets the value of [page_token][crate::model::FetchModelServersRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkerecommender_v1::model::FetchModelServersRequest;
-    /// let x = FetchModelServersRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -304,14 +240,6 @@ impl FetchModelServersRequest {
     }
 
     /// Sets or clears the value of [page_token][crate::model::FetchModelServersRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkerecommender_v1::model::FetchModelServersRequest;
-    /// let x = FetchModelServersRequest::new().set_or_clear_page_token("example");
-    /// let x = FetchModelServersRequest::new().set_or_clear_page_token(Some("example"));
-    /// let x = FetchModelServersRequest::new().set_or_clear_page_token(None::<String>);
-    /// ```
     pub fn set_or_clear_page_token<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -354,12 +282,6 @@ impl FetchModelServersResponse {
     }
 
     /// Sets the value of [model_servers][crate::model::FetchModelServersResponse::model_servers].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkerecommender_v1::model::FetchModelServersResponse;
-    /// let x = FetchModelServersResponse::new().set_model_servers(["a", "b", "c"]);
-    /// ```
     pub fn set_model_servers<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -371,12 +293,6 @@ impl FetchModelServersResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::FetchModelServersResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkerecommender_v1::model::FetchModelServersResponse;
-    /// let x = FetchModelServersResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -442,36 +358,18 @@ impl FetchModelServerVersionsRequest {
     }
 
     /// Sets the value of [model][crate::model::FetchModelServerVersionsRequest::model].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkerecommender_v1::model::FetchModelServerVersionsRequest;
-    /// let x = FetchModelServerVersionsRequest::new().set_model("example");
-    /// ```
     pub fn set_model<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.model = v.into();
         self
     }
 
     /// Sets the value of [model_server][crate::model::FetchModelServerVersionsRequest::model_server].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkerecommender_v1::model::FetchModelServerVersionsRequest;
-    /// let x = FetchModelServerVersionsRequest::new().set_model_server("example");
-    /// ```
     pub fn set_model_server<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.model_server = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::FetchModelServerVersionsRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkerecommender_v1::model::FetchModelServerVersionsRequest;
-    /// let x = FetchModelServerVersionsRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<i32>,
@@ -481,13 +379,6 @@ impl FetchModelServerVersionsRequest {
     }
 
     /// Sets or clears the value of [page_size][crate::model::FetchModelServerVersionsRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkerecommender_v1::model::FetchModelServerVersionsRequest;
-    /// let x = FetchModelServerVersionsRequest::new().set_or_clear_page_size(Some(42));
-    /// let x = FetchModelServerVersionsRequest::new().set_or_clear_page_size(None::<i32>);
-    /// ```
     pub fn set_or_clear_page_size<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i32>,
@@ -497,12 +388,6 @@ impl FetchModelServerVersionsRequest {
     }
 
     /// Sets the value of [page_token][crate::model::FetchModelServerVersionsRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkerecommender_v1::model::FetchModelServerVersionsRequest;
-    /// let x = FetchModelServerVersionsRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -512,14 +397,6 @@ impl FetchModelServerVersionsRequest {
     }
 
     /// Sets or clears the value of [page_token][crate::model::FetchModelServerVersionsRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkerecommender_v1::model::FetchModelServerVersionsRequest;
-    /// let x = FetchModelServerVersionsRequest::new().set_or_clear_page_token("example");
-    /// let x = FetchModelServerVersionsRequest::new().set_or_clear_page_token(Some("example"));
-    /// let x = FetchModelServerVersionsRequest::new().set_or_clear_page_token(None::<String>);
-    /// ```
     pub fn set_or_clear_page_token<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -561,12 +438,6 @@ impl FetchModelServerVersionsResponse {
     }
 
     /// Sets the value of [model_server_versions][crate::model::FetchModelServerVersionsResponse::model_server_versions].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkerecommender_v1::model::FetchModelServerVersionsResponse;
-    /// let x = FetchModelServerVersionsResponse::new().set_model_server_versions(["a", "b", "c"]);
-    /// ```
     pub fn set_model_server_versions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -578,12 +449,6 @@ impl FetchModelServerVersionsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::FetchModelServerVersionsResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkerecommender_v1::model::FetchModelServerVersionsResponse;
-    /// let x = FetchModelServerVersionsResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -632,13 +497,6 @@ impl FetchBenchmarkingDataRequest {
     }
 
     /// Sets the value of [model_server_info][crate::model::FetchBenchmarkingDataRequest::model_server_info].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkerecommender_v1::model::FetchBenchmarkingDataRequest;
-    /// use google_cloud_gkerecommender_v1::model::ModelServerInfo;
-    /// let x = FetchBenchmarkingDataRequest::new().set_model_server_info(ModelServerInfo::default()/* use setters */);
-    /// ```
     pub fn set_model_server_info<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ModelServerInfo>,
@@ -648,14 +506,6 @@ impl FetchBenchmarkingDataRequest {
     }
 
     /// Sets or clears the value of [model_server_info][crate::model::FetchBenchmarkingDataRequest::model_server_info].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkerecommender_v1::model::FetchBenchmarkingDataRequest;
-    /// use google_cloud_gkerecommender_v1::model::ModelServerInfo;
-    /// let x = FetchBenchmarkingDataRequest::new().set_or_clear_model_server_info(Some(ModelServerInfo::default()/* use setters */));
-    /// let x = FetchBenchmarkingDataRequest::new().set_or_clear_model_server_info(None::<ModelServerInfo>);
-    /// ```
     pub fn set_or_clear_model_server_info<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ModelServerInfo>,
@@ -665,24 +515,12 @@ impl FetchBenchmarkingDataRequest {
     }
 
     /// Sets the value of [instance_type][crate::model::FetchBenchmarkingDataRequest::instance_type].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkerecommender_v1::model::FetchBenchmarkingDataRequest;
-    /// let x = FetchBenchmarkingDataRequest::new().set_instance_type("example");
-    /// ```
     pub fn set_instance_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.instance_type = v.into();
         self
     }
 
     /// Sets the value of [pricing_model][crate::model::FetchBenchmarkingDataRequest::pricing_model].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkerecommender_v1::model::FetchBenchmarkingDataRequest;
-    /// let x = FetchBenchmarkingDataRequest::new().set_pricing_model("example");
-    /// ```
     pub fn set_pricing_model<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.pricing_model = v.into();
         self
@@ -715,17 +553,6 @@ impl FetchBenchmarkingDataResponse {
     }
 
     /// Sets the value of [profile][crate::model::FetchBenchmarkingDataResponse::profile].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkerecommender_v1::model::FetchBenchmarkingDataResponse;
-    /// use google_cloud_gkerecommender_v1::model::Profile;
-    /// let x = FetchBenchmarkingDataResponse::new()
-    ///     .set_profile([
-    ///         Profile::default()/* use setters */,
-    ///         Profile::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_profile<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -810,36 +637,18 @@ impl FetchProfilesRequest {
     }
 
     /// Sets the value of [model][crate::model::FetchProfilesRequest::model].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkerecommender_v1::model::FetchProfilesRequest;
-    /// let x = FetchProfilesRequest::new().set_model("example");
-    /// ```
     pub fn set_model<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.model = v.into();
         self
     }
 
     /// Sets the value of [model_server][crate::model::FetchProfilesRequest::model_server].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkerecommender_v1::model::FetchProfilesRequest;
-    /// let x = FetchProfilesRequest::new().set_model_server("example");
-    /// ```
     pub fn set_model_server<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.model_server = v.into();
         self
     }
 
     /// Sets the value of [model_server_version][crate::model::FetchProfilesRequest::model_server_version].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkerecommender_v1::model::FetchProfilesRequest;
-    /// let x = FetchProfilesRequest::new().set_model_server_version("example");
-    /// ```
     pub fn set_model_server_version<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -849,13 +658,6 @@ impl FetchProfilesRequest {
     }
 
     /// Sets the value of [performance_requirements][crate::model::FetchProfilesRequest::performance_requirements].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkerecommender_v1::model::FetchProfilesRequest;
-    /// use google_cloud_gkerecommender_v1::model::PerformanceRequirements;
-    /// let x = FetchProfilesRequest::new().set_performance_requirements(PerformanceRequirements::default()/* use setters */);
-    /// ```
     pub fn set_performance_requirements<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::PerformanceRequirements>,
@@ -865,14 +667,6 @@ impl FetchProfilesRequest {
     }
 
     /// Sets or clears the value of [performance_requirements][crate::model::FetchProfilesRequest::performance_requirements].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkerecommender_v1::model::FetchProfilesRequest;
-    /// use google_cloud_gkerecommender_v1::model::PerformanceRequirements;
-    /// let x = FetchProfilesRequest::new().set_or_clear_performance_requirements(Some(PerformanceRequirements::default()/* use setters */));
-    /// let x = FetchProfilesRequest::new().set_or_clear_performance_requirements(None::<PerformanceRequirements>);
-    /// ```
     pub fn set_or_clear_performance_requirements<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::PerformanceRequirements>,
@@ -882,12 +676,6 @@ impl FetchProfilesRequest {
     }
 
     /// Sets the value of [page_size][crate::model::FetchProfilesRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkerecommender_v1::model::FetchProfilesRequest;
-    /// let x = FetchProfilesRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<i32>,
@@ -897,13 +685,6 @@ impl FetchProfilesRequest {
     }
 
     /// Sets or clears the value of [page_size][crate::model::FetchProfilesRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkerecommender_v1::model::FetchProfilesRequest;
-    /// let x = FetchProfilesRequest::new().set_or_clear_page_size(Some(42));
-    /// let x = FetchProfilesRequest::new().set_or_clear_page_size(None::<i32>);
-    /// ```
     pub fn set_or_clear_page_size<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i32>,
@@ -913,12 +694,6 @@ impl FetchProfilesRequest {
     }
 
     /// Sets the value of [page_token][crate::model::FetchProfilesRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkerecommender_v1::model::FetchProfilesRequest;
-    /// let x = FetchProfilesRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -928,14 +703,6 @@ impl FetchProfilesRequest {
     }
 
     /// Sets or clears the value of [page_token][crate::model::FetchProfilesRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkerecommender_v1::model::FetchProfilesRequest;
-    /// let x = FetchProfilesRequest::new().set_or_clear_page_token("example");
-    /// let x = FetchProfilesRequest::new().set_or_clear_page_token(Some("example"));
-    /// let x = FetchProfilesRequest::new().set_or_clear_page_token(None::<String>);
-    /// ```
     pub fn set_or_clear_page_token<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -978,12 +745,6 @@ impl PerformanceRequirements {
     }
 
     /// Sets the value of [target_ntpot_milliseconds][crate::model::PerformanceRequirements::target_ntpot_milliseconds].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkerecommender_v1::model::PerformanceRequirements;
-    /// let x = PerformanceRequirements::new().set_target_ntpot_milliseconds(42);
-    /// ```
     pub fn set_target_ntpot_milliseconds<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<i32>,
@@ -993,13 +754,6 @@ impl PerformanceRequirements {
     }
 
     /// Sets or clears the value of [target_ntpot_milliseconds][crate::model::PerformanceRequirements::target_ntpot_milliseconds].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkerecommender_v1::model::PerformanceRequirements;
-    /// let x = PerformanceRequirements::new().set_or_clear_target_ntpot_milliseconds(Some(42));
-    /// let x = PerformanceRequirements::new().set_or_clear_target_ntpot_milliseconds(None::<i32>);
-    /// ```
     pub fn set_or_clear_target_ntpot_milliseconds<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i32>,
@@ -1009,12 +763,6 @@ impl PerformanceRequirements {
     }
 
     /// Sets the value of [target_ttft_milliseconds][crate::model::PerformanceRequirements::target_ttft_milliseconds].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkerecommender_v1::model::PerformanceRequirements;
-    /// let x = PerformanceRequirements::new().set_target_ttft_milliseconds(42);
-    /// ```
     pub fn set_target_ttft_milliseconds<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<i32>,
@@ -1024,13 +772,6 @@ impl PerformanceRequirements {
     }
 
     /// Sets or clears the value of [target_ttft_milliseconds][crate::model::PerformanceRequirements::target_ttft_milliseconds].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkerecommender_v1::model::PerformanceRequirements;
-    /// let x = PerformanceRequirements::new().set_or_clear_target_ttft_milliseconds(Some(42));
-    /// let x = PerformanceRequirements::new().set_or_clear_target_ttft_milliseconds(None::<i32>);
-    /// ```
     pub fn set_or_clear_target_ttft_milliseconds<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i32>,
@@ -1040,13 +781,6 @@ impl PerformanceRequirements {
     }
 
     /// Sets the value of [target_cost][crate::model::PerformanceRequirements::target_cost].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkerecommender_v1::model::PerformanceRequirements;
-    /// use google_cloud_gkerecommender_v1::model::Cost;
-    /// let x = PerformanceRequirements::new().set_target_cost(Cost::default()/* use setters */);
-    /// ```
     pub fn set_target_cost<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Cost>,
@@ -1056,14 +790,6 @@ impl PerformanceRequirements {
     }
 
     /// Sets or clears the value of [target_cost][crate::model::PerformanceRequirements::target_cost].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkerecommender_v1::model::PerformanceRequirements;
-    /// use google_cloud_gkerecommender_v1::model::Cost;
-    /// let x = PerformanceRequirements::new().set_or_clear_target_cost(Some(Cost::default()/* use setters */));
-    /// let x = PerformanceRequirements::new().set_or_clear_target_cost(None::<Cost>);
-    /// ```
     pub fn set_or_clear_target_cost<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Cost>,
@@ -1104,24 +830,12 @@ impl Amount {
     }
 
     /// Sets the value of [units][crate::model::Amount::units].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkerecommender_v1::model::Amount;
-    /// let x = Amount::new().set_units(42);
-    /// ```
     pub fn set_units<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.units = v.into();
         self
     }
 
     /// Sets the value of [nanos][crate::model::Amount::nanos].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkerecommender_v1::model::Amount;
-    /// let x = Amount::new().set_nanos(42);
-    /// ```
     pub fn set_nanos<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.nanos = v.into();
         self
@@ -1167,13 +881,6 @@ impl Cost {
     }
 
     /// Sets the value of [cost_per_million_output_tokens][crate::model::Cost::cost_per_million_output_tokens].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkerecommender_v1::model::Cost;
-    /// use google_cloud_gkerecommender_v1::model::Amount;
-    /// let x = Cost::new().set_cost_per_million_output_tokens(Amount::default()/* use setters */);
-    /// ```
     pub fn set_cost_per_million_output_tokens<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Amount>,
@@ -1183,14 +890,6 @@ impl Cost {
     }
 
     /// Sets or clears the value of [cost_per_million_output_tokens][crate::model::Cost::cost_per_million_output_tokens].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkerecommender_v1::model::Cost;
-    /// use google_cloud_gkerecommender_v1::model::Amount;
-    /// let x = Cost::new().set_or_clear_cost_per_million_output_tokens(Some(Amount::default()/* use setters */));
-    /// let x = Cost::new().set_or_clear_cost_per_million_output_tokens(None::<Amount>);
-    /// ```
     pub fn set_or_clear_cost_per_million_output_tokens<T>(
         mut self,
         v: std::option::Option<T>,
@@ -1203,13 +902,6 @@ impl Cost {
     }
 
     /// Sets the value of [cost_per_million_input_tokens][crate::model::Cost::cost_per_million_input_tokens].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkerecommender_v1::model::Cost;
-    /// use google_cloud_gkerecommender_v1::model::Amount;
-    /// let x = Cost::new().set_cost_per_million_input_tokens(Amount::default()/* use setters */);
-    /// ```
     pub fn set_cost_per_million_input_tokens<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Amount>,
@@ -1219,14 +911,6 @@ impl Cost {
     }
 
     /// Sets or clears the value of [cost_per_million_input_tokens][crate::model::Cost::cost_per_million_input_tokens].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkerecommender_v1::model::Cost;
-    /// use google_cloud_gkerecommender_v1::model::Amount;
-    /// let x = Cost::new().set_or_clear_cost_per_million_input_tokens(Some(Amount::default()/* use setters */));
-    /// let x = Cost::new().set_or_clear_cost_per_million_input_tokens(None::<Amount>);
-    /// ```
     pub fn set_or_clear_cost_per_million_input_tokens<T>(
         mut self,
         v: std::option::Option<T>,
@@ -1239,24 +923,12 @@ impl Cost {
     }
 
     /// Sets the value of [pricing_model][crate::model::Cost::pricing_model].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkerecommender_v1::model::Cost;
-    /// let x = Cost::new().set_pricing_model("example");
-    /// ```
     pub fn set_pricing_model<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.pricing_model = v.into();
         self
     }
 
     /// Sets the value of [output_input_cost_ratio][crate::model::Cost::output_input_cost_ratio].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkerecommender_v1::model::Cost;
-    /// let x = Cost::new().set_output_input_cost_ratio(42.0);
-    /// ```
     pub fn set_output_input_cost_ratio<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<f32>,
@@ -1266,13 +938,6 @@ impl Cost {
     }
 
     /// Sets or clears the value of [output_input_cost_ratio][crate::model::Cost::output_input_cost_ratio].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkerecommender_v1::model::Cost;
-    /// let x = Cost::new().set_or_clear_output_input_cost_ratio(Some(42.0));
-    /// let x = Cost::new().set_or_clear_output_input_cost_ratio(None::<i32>);
-    /// ```
     pub fn set_or_clear_output_input_cost_ratio<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<f32>,
@@ -1307,24 +972,12 @@ impl TokensPerSecondRange {
     }
 
     /// Sets the value of [min][crate::model::TokensPerSecondRange::min].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkerecommender_v1::model::TokensPerSecondRange;
-    /// let x = TokensPerSecondRange::new().set_min(42);
-    /// ```
     pub fn set_min<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.min = v.into();
         self
     }
 
     /// Sets the value of [max][crate::model::TokensPerSecondRange::max].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkerecommender_v1::model::TokensPerSecondRange;
-    /// let x = TokensPerSecondRange::new().set_max(42);
-    /// ```
     pub fn set_max<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.max = v.into();
         self
@@ -1356,24 +1009,12 @@ impl MillisecondRange {
     }
 
     /// Sets the value of [min][crate::model::MillisecondRange::min].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkerecommender_v1::model::MillisecondRange;
-    /// let x = MillisecondRange::new().set_min(42);
-    /// ```
     pub fn set_min<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.min = v.into();
         self
     }
 
     /// Sets the value of [max][crate::model::MillisecondRange::max].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkerecommender_v1::model::MillisecondRange;
-    /// let x = MillisecondRange::new().set_max(42);
-    /// ```
     pub fn set_max<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.max = v.into();
         self
@@ -1413,13 +1054,6 @@ impl PerformanceRange {
     }
 
     /// Sets the value of [throughput_output_range][crate::model::PerformanceRange::throughput_output_range].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkerecommender_v1::model::PerformanceRange;
-    /// use google_cloud_gkerecommender_v1::model::TokensPerSecondRange;
-    /// let x = PerformanceRange::new().set_throughput_output_range(TokensPerSecondRange::default()/* use setters */);
-    /// ```
     pub fn set_throughput_output_range<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::TokensPerSecondRange>,
@@ -1429,14 +1063,6 @@ impl PerformanceRange {
     }
 
     /// Sets or clears the value of [throughput_output_range][crate::model::PerformanceRange::throughput_output_range].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkerecommender_v1::model::PerformanceRange;
-    /// use google_cloud_gkerecommender_v1::model::TokensPerSecondRange;
-    /// let x = PerformanceRange::new().set_or_clear_throughput_output_range(Some(TokensPerSecondRange::default()/* use setters */));
-    /// let x = PerformanceRange::new().set_or_clear_throughput_output_range(None::<TokensPerSecondRange>);
-    /// ```
     pub fn set_or_clear_throughput_output_range<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::TokensPerSecondRange>,
@@ -1446,13 +1072,6 @@ impl PerformanceRange {
     }
 
     /// Sets the value of [ttft_range][crate::model::PerformanceRange::ttft_range].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkerecommender_v1::model::PerformanceRange;
-    /// use google_cloud_gkerecommender_v1::model::MillisecondRange;
-    /// let x = PerformanceRange::new().set_ttft_range(MillisecondRange::default()/* use setters */);
-    /// ```
     pub fn set_ttft_range<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::MillisecondRange>,
@@ -1462,14 +1081,6 @@ impl PerformanceRange {
     }
 
     /// Sets or clears the value of [ttft_range][crate::model::PerformanceRange::ttft_range].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkerecommender_v1::model::PerformanceRange;
-    /// use google_cloud_gkerecommender_v1::model::MillisecondRange;
-    /// let x = PerformanceRange::new().set_or_clear_ttft_range(Some(MillisecondRange::default()/* use setters */));
-    /// let x = PerformanceRange::new().set_or_clear_ttft_range(None::<MillisecondRange>);
-    /// ```
     pub fn set_or_clear_ttft_range<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::MillisecondRange>,
@@ -1479,13 +1090,6 @@ impl PerformanceRange {
     }
 
     /// Sets the value of [ntpot_range][crate::model::PerformanceRange::ntpot_range].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkerecommender_v1::model::PerformanceRange;
-    /// use google_cloud_gkerecommender_v1::model::MillisecondRange;
-    /// let x = PerformanceRange::new().set_ntpot_range(MillisecondRange::default()/* use setters */);
-    /// ```
     pub fn set_ntpot_range<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::MillisecondRange>,
@@ -1495,14 +1099,6 @@ impl PerformanceRange {
     }
 
     /// Sets or clears the value of [ntpot_range][crate::model::PerformanceRange::ntpot_range].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkerecommender_v1::model::PerformanceRange;
-    /// use google_cloud_gkerecommender_v1::model::MillisecondRange;
-    /// let x = PerformanceRange::new().set_or_clear_ntpot_range(Some(MillisecondRange::default()/* use setters */));
-    /// let x = PerformanceRange::new().set_or_clear_ntpot_range(None::<MillisecondRange>);
-    /// ```
     pub fn set_or_clear_ntpot_range<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::MillisecondRange>,
@@ -1551,17 +1147,6 @@ impl FetchProfilesResponse {
     }
 
     /// Sets the value of [profile][crate::model::FetchProfilesResponse::profile].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkerecommender_v1::model::FetchProfilesResponse;
-    /// use google_cloud_gkerecommender_v1::model::Profile;
-    /// let x = FetchProfilesResponse::new()
-    ///     .set_profile([
-    ///         Profile::default()/* use setters */,
-    ///         Profile::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_profile<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1573,13 +1158,6 @@ impl FetchProfilesResponse {
     }
 
     /// Sets the value of [performance_range][crate::model::FetchProfilesResponse::performance_range].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkerecommender_v1::model::FetchProfilesResponse;
-    /// use google_cloud_gkerecommender_v1::model::PerformanceRange;
-    /// let x = FetchProfilesResponse::new().set_performance_range(PerformanceRange::default()/* use setters */);
-    /// ```
     pub fn set_performance_range<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::PerformanceRange>,
@@ -1589,14 +1167,6 @@ impl FetchProfilesResponse {
     }
 
     /// Sets or clears the value of [performance_range][crate::model::FetchProfilesResponse::performance_range].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkerecommender_v1::model::FetchProfilesResponse;
-    /// use google_cloud_gkerecommender_v1::model::PerformanceRange;
-    /// let x = FetchProfilesResponse::new().set_or_clear_performance_range(Some(PerformanceRange::default()/* use setters */));
-    /// let x = FetchProfilesResponse::new().set_or_clear_performance_range(None::<PerformanceRange>);
-    /// ```
     pub fn set_or_clear_performance_range<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::PerformanceRange>,
@@ -1606,24 +1176,12 @@ impl FetchProfilesResponse {
     }
 
     /// Sets the value of [comments][crate::model::FetchProfilesResponse::comments].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkerecommender_v1::model::FetchProfilesResponse;
-    /// let x = FetchProfilesResponse::new().set_comments("example");
-    /// ```
     pub fn set_comments<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.comments = v.into();
         self
     }
 
     /// Sets the value of [next_page_token][crate::model::FetchProfilesResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkerecommender_v1::model::FetchProfilesResponse;
-    /// let x = FetchProfilesResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -1691,36 +1249,18 @@ impl ModelServerInfo {
     }
 
     /// Sets the value of [model][crate::model::ModelServerInfo::model].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkerecommender_v1::model::ModelServerInfo;
-    /// let x = ModelServerInfo::new().set_model("example");
-    /// ```
     pub fn set_model<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.model = v.into();
         self
     }
 
     /// Sets the value of [model_server][crate::model::ModelServerInfo::model_server].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkerecommender_v1::model::ModelServerInfo;
-    /// let x = ModelServerInfo::new().set_model_server("example");
-    /// ```
     pub fn set_model_server<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.model_server = v.into();
         self
     }
 
     /// Sets the value of [model_server_version][crate::model::ModelServerInfo::model_server_version].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkerecommender_v1::model::ModelServerInfo;
-    /// let x = ModelServerInfo::new().set_model_server_version("example");
-    /// ```
     pub fn set_model_server_version<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -1753,12 +1293,6 @@ impl ResourcesUsed {
     }
 
     /// Sets the value of [accelerator_count][crate::model::ResourcesUsed::accelerator_count].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkerecommender_v1::model::ResourcesUsed;
-    /// let x = ResourcesUsed::new().set_accelerator_count(42);
-    /// ```
     pub fn set_accelerator_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.accelerator_count = v.into();
         self
@@ -1806,65 +1340,30 @@ impl PerformanceStats {
     }
 
     /// Sets the value of [queries_per_second][crate::model::PerformanceStats::queries_per_second].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkerecommender_v1::model::PerformanceStats;
-    /// let x = PerformanceStats::new().set_queries_per_second(42.0);
-    /// ```
     pub fn set_queries_per_second<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
         self.queries_per_second = v.into();
         self
     }
 
     /// Sets the value of [output_tokens_per_second][crate::model::PerformanceStats::output_tokens_per_second].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkerecommender_v1::model::PerformanceStats;
-    /// let x = PerformanceStats::new().set_output_tokens_per_second(42);
-    /// ```
     pub fn set_output_tokens_per_second<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.output_tokens_per_second = v.into();
         self
     }
 
     /// Sets the value of [ntpot_milliseconds][crate::model::PerformanceStats::ntpot_milliseconds].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkerecommender_v1::model::PerformanceStats;
-    /// let x = PerformanceStats::new().set_ntpot_milliseconds(42);
-    /// ```
     pub fn set_ntpot_milliseconds<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.ntpot_milliseconds = v.into();
         self
     }
 
     /// Sets the value of [ttft_milliseconds][crate::model::PerformanceStats::ttft_milliseconds].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkerecommender_v1::model::PerformanceStats;
-    /// let x = PerformanceStats::new().set_ttft_milliseconds(42);
-    /// ```
     pub fn set_ttft_milliseconds<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.ttft_milliseconds = v.into();
         self
     }
 
     /// Sets the value of [cost][crate::model::PerformanceStats::cost].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkerecommender_v1::model::PerformanceStats;
-    /// use google_cloud_gkerecommender_v1::model::Cost;
-    /// let x = PerformanceStats::new()
-    ///     .set_cost([
-    ///         Cost::default()/* use setters */,
-    ///         Cost::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_cost<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1917,13 +1416,6 @@ impl Profile {
     }
 
     /// Sets the value of [model_server_info][crate::model::Profile::model_server_info].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkerecommender_v1::model::Profile;
-    /// use google_cloud_gkerecommender_v1::model::ModelServerInfo;
-    /// let x = Profile::new().set_model_server_info(ModelServerInfo::default()/* use setters */);
-    /// ```
     pub fn set_model_server_info<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ModelServerInfo>,
@@ -1933,14 +1425,6 @@ impl Profile {
     }
 
     /// Sets or clears the value of [model_server_info][crate::model::Profile::model_server_info].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkerecommender_v1::model::Profile;
-    /// use google_cloud_gkerecommender_v1::model::ModelServerInfo;
-    /// let x = Profile::new().set_or_clear_model_server_info(Some(ModelServerInfo::default()/* use setters */));
-    /// let x = Profile::new().set_or_clear_model_server_info(None::<ModelServerInfo>);
-    /// ```
     pub fn set_or_clear_model_server_info<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ModelServerInfo>,
@@ -1950,12 +1434,6 @@ impl Profile {
     }
 
     /// Sets the value of [accelerator_type][crate::model::Profile::accelerator_type].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkerecommender_v1::model::Profile;
-    /// let x = Profile::new().set_accelerator_type("example");
-    /// ```
     pub fn set_accelerator_type<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -1965,37 +1443,18 @@ impl Profile {
     }
 
     /// Sets the value of [tpu_topology][crate::model::Profile::tpu_topology].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkerecommender_v1::model::Profile;
-    /// let x = Profile::new().set_tpu_topology("example");
-    /// ```
     pub fn set_tpu_topology<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.tpu_topology = v.into();
         self
     }
 
     /// Sets the value of [instance_type][crate::model::Profile::instance_type].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkerecommender_v1::model::Profile;
-    /// let x = Profile::new().set_instance_type("example");
-    /// ```
     pub fn set_instance_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.instance_type = v.into();
         self
     }
 
     /// Sets the value of [resources_used][crate::model::Profile::resources_used].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkerecommender_v1::model::Profile;
-    /// use google_cloud_gkerecommender_v1::model::ResourcesUsed;
-    /// let x = Profile::new().set_resources_used(ResourcesUsed::default()/* use setters */);
-    /// ```
     pub fn set_resources_used<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ResourcesUsed>,
@@ -2005,14 +1464,6 @@ impl Profile {
     }
 
     /// Sets or clears the value of [resources_used][crate::model::Profile::resources_used].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkerecommender_v1::model::Profile;
-    /// use google_cloud_gkerecommender_v1::model::ResourcesUsed;
-    /// let x = Profile::new().set_or_clear_resources_used(Some(ResourcesUsed::default()/* use setters */));
-    /// let x = Profile::new().set_or_clear_resources_used(None::<ResourcesUsed>);
-    /// ```
     pub fn set_or_clear_resources_used<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ResourcesUsed>,
@@ -2022,17 +1473,6 @@ impl Profile {
     }
 
     /// Sets the value of [performance_stats][crate::model::Profile::performance_stats].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkerecommender_v1::model::Profile;
-    /// use google_cloud_gkerecommender_v1::model::PerformanceStats;
-    /// let x = Profile::new()
-    ///     .set_performance_stats([
-    ///         PerformanceStats::default()/* use setters */,
-    ///         PerformanceStats::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_performance_stats<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2095,13 +1535,6 @@ impl GenerateOptimizedManifestRequest {
     }
 
     /// Sets the value of [model_server_info][crate::model::GenerateOptimizedManifestRequest::model_server_info].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkerecommender_v1::model::GenerateOptimizedManifestRequest;
-    /// use google_cloud_gkerecommender_v1::model::ModelServerInfo;
-    /// let x = GenerateOptimizedManifestRequest::new().set_model_server_info(ModelServerInfo::default()/* use setters */);
-    /// ```
     pub fn set_model_server_info<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ModelServerInfo>,
@@ -2111,14 +1544,6 @@ impl GenerateOptimizedManifestRequest {
     }
 
     /// Sets or clears the value of [model_server_info][crate::model::GenerateOptimizedManifestRequest::model_server_info].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkerecommender_v1::model::GenerateOptimizedManifestRequest;
-    /// use google_cloud_gkerecommender_v1::model::ModelServerInfo;
-    /// let x = GenerateOptimizedManifestRequest::new().set_or_clear_model_server_info(Some(ModelServerInfo::default()/* use setters */));
-    /// let x = GenerateOptimizedManifestRequest::new().set_or_clear_model_server_info(None::<ModelServerInfo>);
-    /// ```
     pub fn set_or_clear_model_server_info<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ModelServerInfo>,
@@ -2128,12 +1553,6 @@ impl GenerateOptimizedManifestRequest {
     }
 
     /// Sets the value of [accelerator_type][crate::model::GenerateOptimizedManifestRequest::accelerator_type].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkerecommender_v1::model::GenerateOptimizedManifestRequest;
-    /// let x = GenerateOptimizedManifestRequest::new().set_accelerator_type("example");
-    /// ```
     pub fn set_accelerator_type<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -2143,12 +1562,6 @@ impl GenerateOptimizedManifestRequest {
     }
 
     /// Sets the value of [kubernetes_namespace][crate::model::GenerateOptimizedManifestRequest::kubernetes_namespace].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkerecommender_v1::model::GenerateOptimizedManifestRequest;
-    /// let x = GenerateOptimizedManifestRequest::new().set_kubernetes_namespace("example");
-    /// ```
     pub fn set_kubernetes_namespace<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -2158,13 +1571,6 @@ impl GenerateOptimizedManifestRequest {
     }
 
     /// Sets the value of [performance_requirements][crate::model::GenerateOptimizedManifestRequest::performance_requirements].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkerecommender_v1::model::GenerateOptimizedManifestRequest;
-    /// use google_cloud_gkerecommender_v1::model::PerformanceRequirements;
-    /// let x = GenerateOptimizedManifestRequest::new().set_performance_requirements(PerformanceRequirements::default()/* use setters */);
-    /// ```
     pub fn set_performance_requirements<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::PerformanceRequirements>,
@@ -2174,14 +1580,6 @@ impl GenerateOptimizedManifestRequest {
     }
 
     /// Sets or clears the value of [performance_requirements][crate::model::GenerateOptimizedManifestRequest::performance_requirements].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkerecommender_v1::model::GenerateOptimizedManifestRequest;
-    /// use google_cloud_gkerecommender_v1::model::PerformanceRequirements;
-    /// let x = GenerateOptimizedManifestRequest::new().set_or_clear_performance_requirements(Some(PerformanceRequirements::default()/* use setters */));
-    /// let x = GenerateOptimizedManifestRequest::new().set_or_clear_performance_requirements(None::<PerformanceRequirements>);
-    /// ```
     pub fn set_or_clear_performance_requirements<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::PerformanceRequirements>,
@@ -2191,13 +1589,6 @@ impl GenerateOptimizedManifestRequest {
     }
 
     /// Sets the value of [storage_config][crate::model::GenerateOptimizedManifestRequest::storage_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkerecommender_v1::model::GenerateOptimizedManifestRequest;
-    /// use google_cloud_gkerecommender_v1::model::StorageConfig;
-    /// let x = GenerateOptimizedManifestRequest::new().set_storage_config(StorageConfig::default()/* use setters */);
-    /// ```
     pub fn set_storage_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::StorageConfig>,
@@ -2207,14 +1598,6 @@ impl GenerateOptimizedManifestRequest {
     }
 
     /// Sets or clears the value of [storage_config][crate::model::GenerateOptimizedManifestRequest::storage_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkerecommender_v1::model::GenerateOptimizedManifestRequest;
-    /// use google_cloud_gkerecommender_v1::model::StorageConfig;
-    /// let x = GenerateOptimizedManifestRequest::new().set_or_clear_storage_config(Some(StorageConfig::default()/* use setters */));
-    /// let x = GenerateOptimizedManifestRequest::new().set_or_clear_storage_config(None::<StorageConfig>);
-    /// ```
     pub fn set_or_clear_storage_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::StorageConfig>,
@@ -2252,36 +1635,18 @@ impl KubernetesManifest {
     }
 
     /// Sets the value of [kind][crate::model::KubernetesManifest::kind].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkerecommender_v1::model::KubernetesManifest;
-    /// let x = KubernetesManifest::new().set_kind("example");
-    /// ```
     pub fn set_kind<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.kind = v.into();
         self
     }
 
     /// Sets the value of [api_version][crate::model::KubernetesManifest::api_version].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkerecommender_v1::model::KubernetesManifest;
-    /// let x = KubernetesManifest::new().set_api_version("example");
-    /// ```
     pub fn set_api_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.api_version = v.into();
         self
     }
 
     /// Sets the value of [content][crate::model::KubernetesManifest::content].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkerecommender_v1::model::KubernetesManifest;
-    /// let x = KubernetesManifest::new().set_content("example");
-    /// ```
     pub fn set_content<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.content = v.into();
         self
@@ -2323,17 +1688,6 @@ impl GenerateOptimizedManifestResponse {
     }
 
     /// Sets the value of [kubernetes_manifests][crate::model::GenerateOptimizedManifestResponse::kubernetes_manifests].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkerecommender_v1::model::GenerateOptimizedManifestResponse;
-    /// use google_cloud_gkerecommender_v1::model::KubernetesManifest;
-    /// let x = GenerateOptimizedManifestResponse::new()
-    ///     .set_kubernetes_manifests([
-    ///         KubernetesManifest::default()/* use setters */,
-    ///         KubernetesManifest::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_kubernetes_manifests<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2345,12 +1699,6 @@ impl GenerateOptimizedManifestResponse {
     }
 
     /// Sets the value of [comments][crate::model::GenerateOptimizedManifestResponse::comments].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkerecommender_v1::model::GenerateOptimizedManifestResponse;
-    /// let x = GenerateOptimizedManifestResponse::new().set_comments(["a", "b", "c"]);
-    /// ```
     pub fn set_comments<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2362,12 +1710,6 @@ impl GenerateOptimizedManifestResponse {
     }
 
     /// Sets the value of [manifest_version][crate::model::GenerateOptimizedManifestResponse::manifest_version].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkerecommender_v1::model::GenerateOptimizedManifestResponse;
-    /// let x = GenerateOptimizedManifestResponse::new().set_manifest_version("example");
-    /// ```
     pub fn set_manifest_version<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -2409,12 +1751,6 @@ impl StorageConfig {
     }
 
     /// Sets the value of [model_bucket_uri][crate::model::StorageConfig::model_bucket_uri].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkerecommender_v1::model::StorageConfig;
-    /// let x = StorageConfig::new().set_model_bucket_uri("example");
-    /// ```
     pub fn set_model_bucket_uri<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -2424,12 +1760,6 @@ impl StorageConfig {
     }
 
     /// Sets the value of [xla_cache_bucket_uri][crate::model::StorageConfig::xla_cache_bucket_uri].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkerecommender_v1::model::StorageConfig;
-    /// let x = StorageConfig::new().set_xla_cache_bucket_uri("example");
-    /// ```
     pub fn set_xla_cache_bucket_uri<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,

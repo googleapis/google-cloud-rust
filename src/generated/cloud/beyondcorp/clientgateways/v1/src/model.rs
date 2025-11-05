@@ -71,25 +71,12 @@ impl ClientGateway {
     }
 
     /// Sets the value of [name][crate::model::ClientGateway::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_beyondcorp_clientgateways_v1::model::ClientGateway;
-    /// let x = ClientGateway::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::ClientGateway::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_beyondcorp_clientgateways_v1::model::ClientGateway;
-    /// use wkt::Timestamp;
-    /// let x = ClientGateway::new().set_create_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -99,14 +86,6 @@ impl ClientGateway {
     }
 
     /// Sets or clears the value of [create_time][crate::model::ClientGateway::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_beyondcorp_clientgateways_v1::model::ClientGateway;
-    /// use wkt::Timestamp;
-    /// let x = ClientGateway::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
-    /// let x = ClientGateway::new().set_or_clear_create_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -116,13 +95,6 @@ impl ClientGateway {
     }
 
     /// Sets the value of [update_time][crate::model::ClientGateway::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_beyondcorp_clientgateways_v1::model::ClientGateway;
-    /// use wkt::Timestamp;
-    /// let x = ClientGateway::new().set_update_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -132,14 +104,6 @@ impl ClientGateway {
     }
 
     /// Sets or clears the value of [update_time][crate::model::ClientGateway::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_beyondcorp_clientgateways_v1::model::ClientGateway;
-    /// use wkt::Timestamp;
-    /// let x = ClientGateway::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
-    /// let x = ClientGateway::new().set_or_clear_update_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -149,15 +113,6 @@ impl ClientGateway {
     }
 
     /// Sets the value of [state][crate::model::ClientGateway::state].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_beyondcorp_clientgateways_v1::model::ClientGateway;
-    /// use google_cloud_beyondcorp_clientgateways_v1::model::client_gateway::State;
-    /// let x0 = ClientGateway::new().set_state(State::Creating);
-    /// let x1 = ClientGateway::new().set_state(State::Updating);
-    /// let x2 = ClientGateway::new().set_state(State::Deleting);
-    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::client_gateway::State>>(
         mut self,
         v: T,
@@ -167,24 +122,12 @@ impl ClientGateway {
     }
 
     /// Sets the value of [id][crate::model::ClientGateway::id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_beyondcorp_clientgateways_v1::model::ClientGateway;
-    /// let x = ClientGateway::new().set_id("example");
-    /// ```
     pub fn set_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.id = v.into();
         self
     }
 
     /// Sets the value of [client_connector_service][crate::model::ClientGateway::client_connector_service].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_beyondcorp_clientgateways_v1::model::ClientGateway;
-    /// let x = ClientGateway::new().set_client_connector_service("example");
-    /// ```
     pub fn set_client_connector_service<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -396,60 +339,30 @@ impl ListClientGatewaysRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListClientGatewaysRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_beyondcorp_clientgateways_v1::model::ListClientGatewaysRequest;
-    /// let x = ListClientGatewaysRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListClientGatewaysRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_beyondcorp_clientgateways_v1::model::ListClientGatewaysRequest;
-    /// let x = ListClientGatewaysRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListClientGatewaysRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_beyondcorp_clientgateways_v1::model::ListClientGatewaysRequest;
-    /// let x = ListClientGatewaysRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListClientGatewaysRequest::filter].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_beyondcorp_clientgateways_v1::model::ListClientGatewaysRequest;
-    /// let x = ListClientGatewaysRequest::new().set_filter("example");
-    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListClientGatewaysRequest::order_by].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_beyondcorp_clientgateways_v1::model::ListClientGatewaysRequest;
-    /// let x = ListClientGatewaysRequest::new().set_order_by("example");
-    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
@@ -484,17 +397,6 @@ impl ListClientGatewaysResponse {
     }
 
     /// Sets the value of [client_gateways][crate::model::ListClientGatewaysResponse::client_gateways].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_beyondcorp_clientgateways_v1::model::ListClientGatewaysResponse;
-    /// use google_cloud_beyondcorp_clientgateways_v1::model::ClientGateway;
-    /// let x = ListClientGatewaysResponse::new()
-    ///     .set_client_gateways([
-    ///         ClientGateway::default()/* use setters */,
-    ///         ClientGateway::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_client_gateways<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -506,24 +408,12 @@ impl ListClientGatewaysResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListClientGatewaysResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_beyondcorp_clientgateways_v1::model::ListClientGatewaysResponse;
-    /// let x = ListClientGatewaysResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListClientGatewaysResponse::unreachable].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_beyondcorp_clientgateways_v1::model::ListClientGatewaysResponse;
-    /// let x = ListClientGatewaysResponse::new().set_unreachable(["a", "b", "c"]);
-    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -571,12 +461,6 @@ impl GetClientGatewayRequest {
     }
 
     /// Sets the value of [name][crate::model::GetClientGatewayRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_beyondcorp_clientgateways_v1::model::GetClientGatewayRequest;
-    /// let x = GetClientGatewayRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -634,24 +518,12 @@ impl CreateClientGatewayRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateClientGatewayRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_beyondcorp_clientgateways_v1::model::CreateClientGatewayRequest;
-    /// let x = CreateClientGatewayRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [client_gateway_id][crate::model::CreateClientGatewayRequest::client_gateway_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_beyondcorp_clientgateways_v1::model::CreateClientGatewayRequest;
-    /// let x = CreateClientGatewayRequest::new().set_client_gateway_id("example");
-    /// ```
     pub fn set_client_gateway_id<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -661,13 +533,6 @@ impl CreateClientGatewayRequest {
     }
 
     /// Sets the value of [client_gateway][crate::model::CreateClientGatewayRequest::client_gateway].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_beyondcorp_clientgateways_v1::model::CreateClientGatewayRequest;
-    /// use google_cloud_beyondcorp_clientgateways_v1::model::ClientGateway;
-    /// let x = CreateClientGatewayRequest::new().set_client_gateway(ClientGateway::default()/* use setters */);
-    /// ```
     pub fn set_client_gateway<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ClientGateway>,
@@ -677,14 +542,6 @@ impl CreateClientGatewayRequest {
     }
 
     /// Sets or clears the value of [client_gateway][crate::model::CreateClientGatewayRequest::client_gateway].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_beyondcorp_clientgateways_v1::model::CreateClientGatewayRequest;
-    /// use google_cloud_beyondcorp_clientgateways_v1::model::ClientGateway;
-    /// let x = CreateClientGatewayRequest::new().set_or_clear_client_gateway(Some(ClientGateway::default()/* use setters */));
-    /// let x = CreateClientGatewayRequest::new().set_or_clear_client_gateway(None::<ClientGateway>);
-    /// ```
     pub fn set_or_clear_client_gateway<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ClientGateway>,
@@ -694,24 +551,12 @@ impl CreateClientGatewayRequest {
     }
 
     /// Sets the value of [request_id][crate::model::CreateClientGatewayRequest::request_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_beyondcorp_clientgateways_v1::model::CreateClientGatewayRequest;
-    /// let x = CreateClientGatewayRequest::new().set_request_id("example");
-    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
     }
 
     /// Sets the value of [validate_only][crate::model::CreateClientGatewayRequest::validate_only].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_beyondcorp_clientgateways_v1::model::CreateClientGatewayRequest;
-    /// let x = CreateClientGatewayRequest::new().set_validate_only(true);
-    /// ```
     pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.validate_only = v.into();
         self
@@ -759,36 +604,18 @@ impl DeleteClientGatewayRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteClientGatewayRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_beyondcorp_clientgateways_v1::model::DeleteClientGatewayRequest;
-    /// let x = DeleteClientGatewayRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [request_id][crate::model::DeleteClientGatewayRequest::request_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_beyondcorp_clientgateways_v1::model::DeleteClientGatewayRequest;
-    /// let x = DeleteClientGatewayRequest::new().set_request_id("example");
-    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
     }
 
     /// Sets the value of [validate_only][crate::model::DeleteClientGatewayRequest::validate_only].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_beyondcorp_clientgateways_v1::model::DeleteClientGatewayRequest;
-    /// let x = DeleteClientGatewayRequest::new().set_validate_only(true);
-    /// ```
     pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.validate_only = v.into();
         self
@@ -841,13 +668,6 @@ impl ClientGatewayOperationMetadata {
     }
 
     /// Sets the value of [create_time][crate::model::ClientGatewayOperationMetadata::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_beyondcorp_clientgateways_v1::model::ClientGatewayOperationMetadata;
-    /// use wkt::Timestamp;
-    /// let x = ClientGatewayOperationMetadata::new().set_create_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -857,14 +677,6 @@ impl ClientGatewayOperationMetadata {
     }
 
     /// Sets or clears the value of [create_time][crate::model::ClientGatewayOperationMetadata::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_beyondcorp_clientgateways_v1::model::ClientGatewayOperationMetadata;
-    /// use wkt::Timestamp;
-    /// let x = ClientGatewayOperationMetadata::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
-    /// let x = ClientGatewayOperationMetadata::new().set_or_clear_create_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -874,13 +686,6 @@ impl ClientGatewayOperationMetadata {
     }
 
     /// Sets the value of [end_time][crate::model::ClientGatewayOperationMetadata::end_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_beyondcorp_clientgateways_v1::model::ClientGatewayOperationMetadata;
-    /// use wkt::Timestamp;
-    /// let x = ClientGatewayOperationMetadata::new().set_end_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -890,14 +695,6 @@ impl ClientGatewayOperationMetadata {
     }
 
     /// Sets or clears the value of [end_time][crate::model::ClientGatewayOperationMetadata::end_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_beyondcorp_clientgateways_v1::model::ClientGatewayOperationMetadata;
-    /// use wkt::Timestamp;
-    /// let x = ClientGatewayOperationMetadata::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
-    /// let x = ClientGatewayOperationMetadata::new().set_or_clear_end_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -907,60 +704,30 @@ impl ClientGatewayOperationMetadata {
     }
 
     /// Sets the value of [target][crate::model::ClientGatewayOperationMetadata::target].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_beyondcorp_clientgateways_v1::model::ClientGatewayOperationMetadata;
-    /// let x = ClientGatewayOperationMetadata::new().set_target("example");
-    /// ```
     pub fn set_target<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.target = v.into();
         self
     }
 
     /// Sets the value of [verb][crate::model::ClientGatewayOperationMetadata::verb].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_beyondcorp_clientgateways_v1::model::ClientGatewayOperationMetadata;
-    /// let x = ClientGatewayOperationMetadata::new().set_verb("example");
-    /// ```
     pub fn set_verb<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.verb = v.into();
         self
     }
 
     /// Sets the value of [status_message][crate::model::ClientGatewayOperationMetadata::status_message].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_beyondcorp_clientgateways_v1::model::ClientGatewayOperationMetadata;
-    /// let x = ClientGatewayOperationMetadata::new().set_status_message("example");
-    /// ```
     pub fn set_status_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.status_message = v.into();
         self
     }
 
     /// Sets the value of [requested_cancellation][crate::model::ClientGatewayOperationMetadata::requested_cancellation].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_beyondcorp_clientgateways_v1::model::ClientGatewayOperationMetadata;
-    /// let x = ClientGatewayOperationMetadata::new().set_requested_cancellation(true);
-    /// ```
     pub fn set_requested_cancellation<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.requested_cancellation = v.into();
         self
     }
 
     /// Sets the value of [api_version][crate::model::ClientGatewayOperationMetadata::api_version].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_beyondcorp_clientgateways_v1::model::ClientGatewayOperationMetadata;
-    /// let x = ClientGatewayOperationMetadata::new().set_api_version("example");
-    /// ```
     pub fn set_api_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.api_version = v.into();
         self

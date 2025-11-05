@@ -76,25 +76,12 @@ impl Api {
     }
 
     /// Sets the value of [name][crate::model::Api::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apigateway_v1::model::Api;
-    /// let x = Api::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::Api::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apigateway_v1::model::Api;
-    /// use wkt::Timestamp;
-    /// let x = Api::new().set_create_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -104,14 +91,6 @@ impl Api {
     }
 
     /// Sets or clears the value of [create_time][crate::model::Api::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apigateway_v1::model::Api;
-    /// use wkt::Timestamp;
-    /// let x = Api::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
-    /// let x = Api::new().set_or_clear_create_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -121,13 +100,6 @@ impl Api {
     }
 
     /// Sets the value of [update_time][crate::model::Api::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apigateway_v1::model::Api;
-    /// use wkt::Timestamp;
-    /// let x = Api::new().set_update_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -137,14 +109,6 @@ impl Api {
     }
 
     /// Sets or clears the value of [update_time][crate::model::Api::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apigateway_v1::model::Api;
-    /// use wkt::Timestamp;
-    /// let x = Api::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
-    /// let x = Api::new().set_or_clear_update_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -154,15 +118,6 @@ impl Api {
     }
 
     /// Sets the value of [labels][crate::model::Api::labels].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apigateway_v1::model::Api;
-    /// let x = Api::new().set_labels([
-    ///     ("key0", "abc"),
-    ///     ("key1", "xyz"),
-    /// ]);
-    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -175,39 +130,18 @@ impl Api {
     }
 
     /// Sets the value of [display_name][crate::model::Api::display_name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apigateway_v1::model::Api;
-    /// let x = Api::new().set_display_name("example");
-    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
     }
 
     /// Sets the value of [managed_service][crate::model::Api::managed_service].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apigateway_v1::model::Api;
-    /// let x = Api::new().set_managed_service("example");
-    /// ```
     pub fn set_managed_service<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.managed_service = v.into();
         self
     }
 
     /// Sets the value of [state][crate::model::Api::state].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apigateway_v1::model::Api;
-    /// use google_cloud_apigateway_v1::model::api::State;
-    /// let x0 = Api::new().set_state(State::Creating);
-    /// let x1 = Api::new().set_state(State::Active);
-    /// let x2 = Api::new().set_state(State::Failed);
-    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::api::State>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
@@ -450,25 +384,12 @@ impl ApiConfig {
     }
 
     /// Sets the value of [name][crate::model::ApiConfig::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apigateway_v1::model::ApiConfig;
-    /// let x = ApiConfig::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::ApiConfig::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apigateway_v1::model::ApiConfig;
-    /// use wkt::Timestamp;
-    /// let x = ApiConfig::new().set_create_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -478,14 +399,6 @@ impl ApiConfig {
     }
 
     /// Sets or clears the value of [create_time][crate::model::ApiConfig::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apigateway_v1::model::ApiConfig;
-    /// use wkt::Timestamp;
-    /// let x = ApiConfig::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
-    /// let x = ApiConfig::new().set_or_clear_create_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -495,13 +408,6 @@ impl ApiConfig {
     }
 
     /// Sets the value of [update_time][crate::model::ApiConfig::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apigateway_v1::model::ApiConfig;
-    /// use wkt::Timestamp;
-    /// let x = ApiConfig::new().set_update_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -511,14 +417,6 @@ impl ApiConfig {
     }
 
     /// Sets or clears the value of [update_time][crate::model::ApiConfig::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apigateway_v1::model::ApiConfig;
-    /// use wkt::Timestamp;
-    /// let x = ApiConfig::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
-    /// let x = ApiConfig::new().set_or_clear_update_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -528,15 +426,6 @@ impl ApiConfig {
     }
 
     /// Sets the value of [labels][crate::model::ApiConfig::labels].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apigateway_v1::model::ApiConfig;
-    /// let x = ApiConfig::new().set_labels([
-    ///     ("key0", "abc"),
-    ///     ("key1", "xyz"),
-    /// ]);
-    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -549,24 +438,12 @@ impl ApiConfig {
     }
 
     /// Sets the value of [display_name][crate::model::ApiConfig::display_name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apigateway_v1::model::ApiConfig;
-    /// let x = ApiConfig::new().set_display_name("example");
-    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
     }
 
     /// Sets the value of [gateway_service_account][crate::model::ApiConfig::gateway_service_account].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apigateway_v1::model::ApiConfig;
-    /// let x = ApiConfig::new().set_gateway_service_account("example");
-    /// ```
     pub fn set_gateway_service_account<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -576,12 +453,6 @@ impl ApiConfig {
     }
 
     /// Sets the value of [service_config_id][crate::model::ApiConfig::service_config_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apigateway_v1::model::ApiConfig;
-    /// let x = ApiConfig::new().set_service_config_id("example");
-    /// ```
     pub fn set_service_config_id<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -591,15 +462,6 @@ impl ApiConfig {
     }
 
     /// Sets the value of [state][crate::model::ApiConfig::state].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apigateway_v1::model::ApiConfig;
-    /// use google_cloud_apigateway_v1::model::api_config::State;
-    /// let x0 = ApiConfig::new().set_state(State::Creating);
-    /// let x1 = ApiConfig::new().set_state(State::Active);
-    /// let x2 = ApiConfig::new().set_state(State::Failed);
-    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::api_config::State>>(
         mut self,
         v: T,
@@ -609,17 +471,6 @@ impl ApiConfig {
     }
 
     /// Sets the value of [openapi_documents][crate::model::ApiConfig::openapi_documents].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apigateway_v1::model::ApiConfig;
-    /// use google_cloud_apigateway_v1::model::api_config::OpenApiDocument;
-    /// let x = ApiConfig::new()
-    ///     .set_openapi_documents([
-    ///         OpenApiDocument::default()/* use setters */,
-    ///         OpenApiDocument::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_openapi_documents<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -631,17 +482,6 @@ impl ApiConfig {
     }
 
     /// Sets the value of [grpc_services][crate::model::ApiConfig::grpc_services].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apigateway_v1::model::ApiConfig;
-    /// use google_cloud_apigateway_v1::model::api_config::GrpcServiceDefinition;
-    /// let x = ApiConfig::new()
-    ///     .set_grpc_services([
-    ///         GrpcServiceDefinition::default()/* use setters */,
-    ///         GrpcServiceDefinition::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_grpc_services<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -653,17 +493,6 @@ impl ApiConfig {
     }
 
     /// Sets the value of [managed_service_configs][crate::model::ApiConfig::managed_service_configs].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apigateway_v1::model::ApiConfig;
-    /// use google_cloud_apigateway_v1::model::api_config::File;
-    /// let x = ApiConfig::new()
-    ///     .set_managed_service_configs([
-    ///         File::default()/* use setters */,
-    ///         File::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_managed_service_configs<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -706,24 +535,12 @@ pub mod api_config {
         }
 
         /// Sets the value of [path][crate::model::api_config::File::path].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_apigateway_v1::model::api_config::File;
-        /// let x = File::new().set_path("example");
-        /// ```
         pub fn set_path<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.path = v.into();
             self
         }
 
         /// Sets the value of [contents][crate::model::api_config::File::contents].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_apigateway_v1::model::api_config::File;
-        /// let x = File::new().set_contents(bytes::Bytes::from_static(b"example"));
-        /// ```
         pub fn set_contents<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
             self.contents = v.into();
             self
@@ -752,13 +569,6 @@ pub mod api_config {
         }
 
         /// Sets the value of [document][crate::model::api_config::OpenApiDocument::document].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_apigateway_v1::model::api_config::OpenApiDocument;
-        /// use google_cloud_apigateway_v1::model::api_config::File;
-        /// let x = OpenApiDocument::new().set_document(File::default()/* use setters */);
-        /// ```
         pub fn set_document<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::api_config::File>,
@@ -768,14 +578,6 @@ pub mod api_config {
         }
 
         /// Sets or clears the value of [document][crate::model::api_config::OpenApiDocument::document].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_apigateway_v1::model::api_config::OpenApiDocument;
-        /// use google_cloud_apigateway_v1::model::api_config::File;
-        /// let x = OpenApiDocument::new().set_or_clear_document(Some(File::default()/* use setters */));
-        /// let x = OpenApiDocument::new().set_or_clear_document(None::<File>);
-        /// ```
         pub fn set_or_clear_document<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::api_config::File>,
@@ -819,13 +621,6 @@ pub mod api_config {
         }
 
         /// Sets the value of [file_descriptor_set][crate::model::api_config::GrpcServiceDefinition::file_descriptor_set].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_apigateway_v1::model::api_config::GrpcServiceDefinition;
-        /// use google_cloud_apigateway_v1::model::api_config::File;
-        /// let x = GrpcServiceDefinition::new().set_file_descriptor_set(File::default()/* use setters */);
-        /// ```
         pub fn set_file_descriptor_set<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::api_config::File>,
@@ -835,14 +630,6 @@ pub mod api_config {
         }
 
         /// Sets or clears the value of [file_descriptor_set][crate::model::api_config::GrpcServiceDefinition::file_descriptor_set].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_apigateway_v1::model::api_config::GrpcServiceDefinition;
-        /// use google_cloud_apigateway_v1::model::api_config::File;
-        /// let x = GrpcServiceDefinition::new().set_or_clear_file_descriptor_set(Some(File::default()/* use setters */));
-        /// let x = GrpcServiceDefinition::new().set_or_clear_file_descriptor_set(None::<File>);
-        /// ```
         pub fn set_or_clear_file_descriptor_set<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::api_config::File>,
@@ -852,17 +639,6 @@ pub mod api_config {
         }
 
         /// Sets the value of [source][crate::model::api_config::GrpcServiceDefinition::source].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_apigateway_v1::model::api_config::GrpcServiceDefinition;
-        /// use google_cloud_apigateway_v1::model::api_config::File;
-        /// let x = GrpcServiceDefinition::new()
-        ///     .set_source([
-        ///         File::default()/* use setters */,
-        ///         File::default()/* use (different) setters */,
-        ///     ]);
-        /// ```
         pub fn set_source<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -1086,25 +862,12 @@ impl Gateway {
     }
 
     /// Sets the value of [name][crate::model::Gateway::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apigateway_v1::model::Gateway;
-    /// let x = Gateway::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::Gateway::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apigateway_v1::model::Gateway;
-    /// use wkt::Timestamp;
-    /// let x = Gateway::new().set_create_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1114,14 +877,6 @@ impl Gateway {
     }
 
     /// Sets or clears the value of [create_time][crate::model::Gateway::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apigateway_v1::model::Gateway;
-    /// use wkt::Timestamp;
-    /// let x = Gateway::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
-    /// let x = Gateway::new().set_or_clear_create_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1131,13 +886,6 @@ impl Gateway {
     }
 
     /// Sets the value of [update_time][crate::model::Gateway::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apigateway_v1::model::Gateway;
-    /// use wkt::Timestamp;
-    /// let x = Gateway::new().set_update_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1147,14 +895,6 @@ impl Gateway {
     }
 
     /// Sets or clears the value of [update_time][crate::model::Gateway::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apigateway_v1::model::Gateway;
-    /// use wkt::Timestamp;
-    /// let x = Gateway::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
-    /// let x = Gateway::new().set_or_clear_update_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1164,15 +904,6 @@ impl Gateway {
     }
 
     /// Sets the value of [labels][crate::model::Gateway::labels].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apigateway_v1::model::Gateway;
-    /// let x = Gateway::new().set_labels([
-    ///     ("key0", "abc"),
-    ///     ("key1", "xyz"),
-    /// ]);
-    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -1185,51 +916,24 @@ impl Gateway {
     }
 
     /// Sets the value of [display_name][crate::model::Gateway::display_name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apigateway_v1::model::Gateway;
-    /// let x = Gateway::new().set_display_name("example");
-    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
     }
 
     /// Sets the value of [api_config][crate::model::Gateway::api_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apigateway_v1::model::Gateway;
-    /// let x = Gateway::new().set_api_config("example");
-    /// ```
     pub fn set_api_config<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.api_config = v.into();
         self
     }
 
     /// Sets the value of [state][crate::model::Gateway::state].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apigateway_v1::model::Gateway;
-    /// use google_cloud_apigateway_v1::model::gateway::State;
-    /// let x0 = Gateway::new().set_state(State::Creating);
-    /// let x1 = Gateway::new().set_state(State::Active);
-    /// let x2 = Gateway::new().set_state(State::Failed);
-    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::gateway::State>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
     }
 
     /// Sets the value of [default_hostname][crate::model::Gateway::default_hostname].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apigateway_v1::model::Gateway;
-    /// let x = Gateway::new().set_default_hostname("example");
-    /// ```
     pub fn set_default_hostname<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -1433,60 +1137,30 @@ impl ListGatewaysRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListGatewaysRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apigateway_v1::model::ListGatewaysRequest;
-    /// let x = ListGatewaysRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListGatewaysRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apigateway_v1::model::ListGatewaysRequest;
-    /// let x = ListGatewaysRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListGatewaysRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apigateway_v1::model::ListGatewaysRequest;
-    /// let x = ListGatewaysRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListGatewaysRequest::filter].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apigateway_v1::model::ListGatewaysRequest;
-    /// let x = ListGatewaysRequest::new().set_filter("example");
-    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListGatewaysRequest::order_by].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apigateway_v1::model::ListGatewaysRequest;
-    /// let x = ListGatewaysRequest::new().set_order_by("example");
-    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
@@ -1521,17 +1195,6 @@ impl ListGatewaysResponse {
     }
 
     /// Sets the value of [gateways][crate::model::ListGatewaysResponse::gateways].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apigateway_v1::model::ListGatewaysResponse;
-    /// use google_cloud_apigateway_v1::model::Gateway;
-    /// let x = ListGatewaysResponse::new()
-    ///     .set_gateways([
-    ///         Gateway::default()/* use setters */,
-    ///         Gateway::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_gateways<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1543,24 +1206,12 @@ impl ListGatewaysResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListGatewaysResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apigateway_v1::model::ListGatewaysResponse;
-    /// let x = ListGatewaysResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable_locations][crate::model::ListGatewaysResponse::unreachable_locations].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apigateway_v1::model::ListGatewaysResponse;
-    /// let x = ListGatewaysResponse::new().set_unreachable_locations(["a", "b", "c"]);
-    /// ```
     pub fn set_unreachable_locations<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1609,12 +1260,6 @@ impl GetGatewayRequest {
     }
 
     /// Sets the value of [name][crate::model::GetGatewayRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apigateway_v1::model::GetGatewayRequest;
-    /// let x = GetGatewayRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -1651,37 +1296,18 @@ impl CreateGatewayRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateGatewayRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apigateway_v1::model::CreateGatewayRequest;
-    /// let x = CreateGatewayRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [gateway_id][crate::model::CreateGatewayRequest::gateway_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apigateway_v1::model::CreateGatewayRequest;
-    /// let x = CreateGatewayRequest::new().set_gateway_id("example");
-    /// ```
     pub fn set_gateway_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.gateway_id = v.into();
         self
     }
 
     /// Sets the value of [gateway][crate::model::CreateGatewayRequest::gateway].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apigateway_v1::model::CreateGatewayRequest;
-    /// use google_cloud_apigateway_v1::model::Gateway;
-    /// let x = CreateGatewayRequest::new().set_gateway(Gateway::default()/* use setters */);
-    /// ```
     pub fn set_gateway<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Gateway>,
@@ -1691,14 +1317,6 @@ impl CreateGatewayRequest {
     }
 
     /// Sets or clears the value of [gateway][crate::model::CreateGatewayRequest::gateway].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apigateway_v1::model::CreateGatewayRequest;
-    /// use google_cloud_apigateway_v1::model::Gateway;
-    /// let x = CreateGatewayRequest::new().set_or_clear_gateway(Some(Gateway::default()/* use setters */));
-    /// let x = CreateGatewayRequest::new().set_or_clear_gateway(None::<Gateway>);
-    /// ```
     pub fn set_or_clear_gateway<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Gateway>,
@@ -1737,13 +1355,6 @@ impl UpdateGatewayRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateGatewayRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apigateway_v1::model::UpdateGatewayRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateGatewayRequest::new().set_update_mask(FieldMask::default()/* use setters */);
-    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -1753,14 +1364,6 @@ impl UpdateGatewayRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateGatewayRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apigateway_v1::model::UpdateGatewayRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateGatewayRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
-    /// let x = UpdateGatewayRequest::new().set_or_clear_update_mask(None::<FieldMask>);
-    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -1770,13 +1373,6 @@ impl UpdateGatewayRequest {
     }
 
     /// Sets the value of [gateway][crate::model::UpdateGatewayRequest::gateway].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apigateway_v1::model::UpdateGatewayRequest;
-    /// use google_cloud_apigateway_v1::model::Gateway;
-    /// let x = UpdateGatewayRequest::new().set_gateway(Gateway::default()/* use setters */);
-    /// ```
     pub fn set_gateway<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Gateway>,
@@ -1786,14 +1382,6 @@ impl UpdateGatewayRequest {
     }
 
     /// Sets or clears the value of [gateway][crate::model::UpdateGatewayRequest::gateway].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apigateway_v1::model::UpdateGatewayRequest;
-    /// use google_cloud_apigateway_v1::model::Gateway;
-    /// let x = UpdateGatewayRequest::new().set_or_clear_gateway(Some(Gateway::default()/* use setters */));
-    /// let x = UpdateGatewayRequest::new().set_or_clear_gateway(None::<Gateway>);
-    /// ```
     pub fn set_or_clear_gateway<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Gateway>,
@@ -1826,12 +1414,6 @@ impl DeleteGatewayRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteGatewayRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apigateway_v1::model::DeleteGatewayRequest;
-    /// let x = DeleteGatewayRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -1873,60 +1455,30 @@ impl ListApisRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListApisRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apigateway_v1::model::ListApisRequest;
-    /// let x = ListApisRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListApisRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apigateway_v1::model::ListApisRequest;
-    /// let x = ListApisRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListApisRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apigateway_v1::model::ListApisRequest;
-    /// let x = ListApisRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListApisRequest::filter].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apigateway_v1::model::ListApisRequest;
-    /// let x = ListApisRequest::new().set_filter("example");
-    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListApisRequest::order_by].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apigateway_v1::model::ListApisRequest;
-    /// let x = ListApisRequest::new().set_order_by("example");
-    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
@@ -1961,17 +1513,6 @@ impl ListApisResponse {
     }
 
     /// Sets the value of [apis][crate::model::ListApisResponse::apis].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apigateway_v1::model::ListApisResponse;
-    /// use google_cloud_apigateway_v1::model::Api;
-    /// let x = ListApisResponse::new()
-    ///     .set_apis([
-    ///         Api::default()/* use setters */,
-    ///         Api::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_apis<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1983,24 +1524,12 @@ impl ListApisResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListApisResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apigateway_v1::model::ListApisResponse;
-    /// let x = ListApisResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable_locations][crate::model::ListApisResponse::unreachable_locations].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apigateway_v1::model::ListApisResponse;
-    /// let x = ListApisResponse::new().set_unreachable_locations(["a", "b", "c"]);
-    /// ```
     pub fn set_unreachable_locations<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2049,12 +1578,6 @@ impl GetApiRequest {
     }
 
     /// Sets the value of [name][crate::model::GetApiRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apigateway_v1::model::GetApiRequest;
-    /// let x = GetApiRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -2091,37 +1614,18 @@ impl CreateApiRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateApiRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apigateway_v1::model::CreateApiRequest;
-    /// let x = CreateApiRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [api_id][crate::model::CreateApiRequest::api_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apigateway_v1::model::CreateApiRequest;
-    /// let x = CreateApiRequest::new().set_api_id("example");
-    /// ```
     pub fn set_api_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.api_id = v.into();
         self
     }
 
     /// Sets the value of [api][crate::model::CreateApiRequest::api].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apigateway_v1::model::CreateApiRequest;
-    /// use google_cloud_apigateway_v1::model::Api;
-    /// let x = CreateApiRequest::new().set_api(Api::default()/* use setters */);
-    /// ```
     pub fn set_api<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Api>,
@@ -2131,14 +1635,6 @@ impl CreateApiRequest {
     }
 
     /// Sets or clears the value of [api][crate::model::CreateApiRequest::api].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apigateway_v1::model::CreateApiRequest;
-    /// use google_cloud_apigateway_v1::model::Api;
-    /// let x = CreateApiRequest::new().set_or_clear_api(Some(Api::default()/* use setters */));
-    /// let x = CreateApiRequest::new().set_or_clear_api(None::<Api>);
-    /// ```
     pub fn set_or_clear_api<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Api>,
@@ -2177,13 +1673,6 @@ impl UpdateApiRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateApiRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apigateway_v1::model::UpdateApiRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateApiRequest::new().set_update_mask(FieldMask::default()/* use setters */);
-    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -2193,14 +1682,6 @@ impl UpdateApiRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateApiRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apigateway_v1::model::UpdateApiRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateApiRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
-    /// let x = UpdateApiRequest::new().set_or_clear_update_mask(None::<FieldMask>);
-    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -2210,13 +1691,6 @@ impl UpdateApiRequest {
     }
 
     /// Sets the value of [api][crate::model::UpdateApiRequest::api].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apigateway_v1::model::UpdateApiRequest;
-    /// use google_cloud_apigateway_v1::model::Api;
-    /// let x = UpdateApiRequest::new().set_api(Api::default()/* use setters */);
-    /// ```
     pub fn set_api<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Api>,
@@ -2226,14 +1700,6 @@ impl UpdateApiRequest {
     }
 
     /// Sets or clears the value of [api][crate::model::UpdateApiRequest::api].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apigateway_v1::model::UpdateApiRequest;
-    /// use google_cloud_apigateway_v1::model::Api;
-    /// let x = UpdateApiRequest::new().set_or_clear_api(Some(Api::default()/* use setters */));
-    /// let x = UpdateApiRequest::new().set_or_clear_api(None::<Api>);
-    /// ```
     pub fn set_or_clear_api<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Api>,
@@ -2266,12 +1732,6 @@ impl DeleteApiRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteApiRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apigateway_v1::model::DeleteApiRequest;
-    /// let x = DeleteApiRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -2313,60 +1773,30 @@ impl ListApiConfigsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListApiConfigsRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apigateway_v1::model::ListApiConfigsRequest;
-    /// let x = ListApiConfigsRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListApiConfigsRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apigateway_v1::model::ListApiConfigsRequest;
-    /// let x = ListApiConfigsRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListApiConfigsRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apigateway_v1::model::ListApiConfigsRequest;
-    /// let x = ListApiConfigsRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListApiConfigsRequest::filter].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apigateway_v1::model::ListApiConfigsRequest;
-    /// let x = ListApiConfigsRequest::new().set_filter("example");
-    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListApiConfigsRequest::order_by].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apigateway_v1::model::ListApiConfigsRequest;
-    /// let x = ListApiConfigsRequest::new().set_order_by("example");
-    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
@@ -2401,17 +1831,6 @@ impl ListApiConfigsResponse {
     }
 
     /// Sets the value of [api_configs][crate::model::ListApiConfigsResponse::api_configs].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apigateway_v1::model::ListApiConfigsResponse;
-    /// use google_cloud_apigateway_v1::model::ApiConfig;
-    /// let x = ListApiConfigsResponse::new()
-    ///     .set_api_configs([
-    ///         ApiConfig::default()/* use setters */,
-    ///         ApiConfig::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_api_configs<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2423,24 +1842,12 @@ impl ListApiConfigsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListApiConfigsResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apigateway_v1::model::ListApiConfigsResponse;
-    /// let x = ListApiConfigsResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable_locations][crate::model::ListApiConfigsResponse::unreachable_locations].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apigateway_v1::model::ListApiConfigsResponse;
-    /// let x = ListApiConfigsResponse::new().set_unreachable_locations(["a", "b", "c"]);
-    /// ```
     pub fn set_unreachable_locations<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2493,26 +1900,12 @@ impl GetApiConfigRequest {
     }
 
     /// Sets the value of [name][crate::model::GetApiConfigRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apigateway_v1::model::GetApiConfigRequest;
-    /// let x = GetApiConfigRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [view][crate::model::GetApiConfigRequest::view].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apigateway_v1::model::GetApiConfigRequest;
-    /// use google_cloud_apigateway_v1::model::get_api_config_request::ConfigView;
-    /// let x0 = GetApiConfigRequest::new().set_view(ConfigView::Basic);
-    /// let x1 = GetApiConfigRequest::new().set_view(ConfigView::Full);
-    /// ```
     pub fn set_view<T: std::convert::Into<crate::model::get_api_config_request::ConfigView>>(
         mut self,
         v: T,
@@ -2689,37 +2082,18 @@ impl CreateApiConfigRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateApiConfigRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apigateway_v1::model::CreateApiConfigRequest;
-    /// let x = CreateApiConfigRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [api_config_id][crate::model::CreateApiConfigRequest::api_config_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apigateway_v1::model::CreateApiConfigRequest;
-    /// let x = CreateApiConfigRequest::new().set_api_config_id("example");
-    /// ```
     pub fn set_api_config_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.api_config_id = v.into();
         self
     }
 
     /// Sets the value of [api_config][crate::model::CreateApiConfigRequest::api_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apigateway_v1::model::CreateApiConfigRequest;
-    /// use google_cloud_apigateway_v1::model::ApiConfig;
-    /// let x = CreateApiConfigRequest::new().set_api_config(ApiConfig::default()/* use setters */);
-    /// ```
     pub fn set_api_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ApiConfig>,
@@ -2729,14 +2103,6 @@ impl CreateApiConfigRequest {
     }
 
     /// Sets or clears the value of [api_config][crate::model::CreateApiConfigRequest::api_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apigateway_v1::model::CreateApiConfigRequest;
-    /// use google_cloud_apigateway_v1::model::ApiConfig;
-    /// let x = CreateApiConfigRequest::new().set_or_clear_api_config(Some(ApiConfig::default()/* use setters */));
-    /// let x = CreateApiConfigRequest::new().set_or_clear_api_config(None::<ApiConfig>);
-    /// ```
     pub fn set_or_clear_api_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ApiConfig>,
@@ -2775,13 +2141,6 @@ impl UpdateApiConfigRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateApiConfigRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apigateway_v1::model::UpdateApiConfigRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateApiConfigRequest::new().set_update_mask(FieldMask::default()/* use setters */);
-    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -2791,14 +2150,6 @@ impl UpdateApiConfigRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateApiConfigRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apigateway_v1::model::UpdateApiConfigRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateApiConfigRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
-    /// let x = UpdateApiConfigRequest::new().set_or_clear_update_mask(None::<FieldMask>);
-    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -2808,13 +2159,6 @@ impl UpdateApiConfigRequest {
     }
 
     /// Sets the value of [api_config][crate::model::UpdateApiConfigRequest::api_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apigateway_v1::model::UpdateApiConfigRequest;
-    /// use google_cloud_apigateway_v1::model::ApiConfig;
-    /// let x = UpdateApiConfigRequest::new().set_api_config(ApiConfig::default()/* use setters */);
-    /// ```
     pub fn set_api_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ApiConfig>,
@@ -2824,14 +2168,6 @@ impl UpdateApiConfigRequest {
     }
 
     /// Sets or clears the value of [api_config][crate::model::UpdateApiConfigRequest::api_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apigateway_v1::model::UpdateApiConfigRequest;
-    /// use google_cloud_apigateway_v1::model::ApiConfig;
-    /// let x = UpdateApiConfigRequest::new().set_or_clear_api_config(Some(ApiConfig::default()/* use setters */));
-    /// let x = UpdateApiConfigRequest::new().set_or_clear_api_config(None::<ApiConfig>);
-    /// ```
     pub fn set_or_clear_api_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ApiConfig>,
@@ -2864,12 +2200,6 @@ impl DeleteApiConfigRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteApiConfigRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apigateway_v1::model::DeleteApiConfigRequest;
-    /// let x = DeleteApiConfigRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -2924,13 +2254,6 @@ impl OperationMetadata {
     }
 
     /// Sets the value of [create_time][crate::model::OperationMetadata::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apigateway_v1::model::OperationMetadata;
-    /// use wkt::Timestamp;
-    /// let x = OperationMetadata::new().set_create_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2940,14 +2263,6 @@ impl OperationMetadata {
     }
 
     /// Sets or clears the value of [create_time][crate::model::OperationMetadata::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apigateway_v1::model::OperationMetadata;
-    /// use wkt::Timestamp;
-    /// let x = OperationMetadata::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
-    /// let x = OperationMetadata::new().set_or_clear_create_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2957,13 +2272,6 @@ impl OperationMetadata {
     }
 
     /// Sets the value of [end_time][crate::model::OperationMetadata::end_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apigateway_v1::model::OperationMetadata;
-    /// use wkt::Timestamp;
-    /// let x = OperationMetadata::new().set_end_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2973,14 +2281,6 @@ impl OperationMetadata {
     }
 
     /// Sets or clears the value of [end_time][crate::model::OperationMetadata::end_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apigateway_v1::model::OperationMetadata;
-    /// use wkt::Timestamp;
-    /// let x = OperationMetadata::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
-    /// let x = OperationMetadata::new().set_or_clear_end_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2990,77 +2290,36 @@ impl OperationMetadata {
     }
 
     /// Sets the value of [target][crate::model::OperationMetadata::target].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apigateway_v1::model::OperationMetadata;
-    /// let x = OperationMetadata::new().set_target("example");
-    /// ```
     pub fn set_target<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.target = v.into();
         self
     }
 
     /// Sets the value of [verb][crate::model::OperationMetadata::verb].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apigateway_v1::model::OperationMetadata;
-    /// let x = OperationMetadata::new().set_verb("example");
-    /// ```
     pub fn set_verb<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.verb = v.into();
         self
     }
 
     /// Sets the value of [status_message][crate::model::OperationMetadata::status_message].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apigateway_v1::model::OperationMetadata;
-    /// let x = OperationMetadata::new().set_status_message("example");
-    /// ```
     pub fn set_status_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.status_message = v.into();
         self
     }
 
     /// Sets the value of [requested_cancellation][crate::model::OperationMetadata::requested_cancellation].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apigateway_v1::model::OperationMetadata;
-    /// let x = OperationMetadata::new().set_requested_cancellation(true);
-    /// ```
     pub fn set_requested_cancellation<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.requested_cancellation = v.into();
         self
     }
 
     /// Sets the value of [api_version][crate::model::OperationMetadata::api_version].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apigateway_v1::model::OperationMetadata;
-    /// let x = OperationMetadata::new().set_api_version("example");
-    /// ```
     pub fn set_api_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.api_version = v.into();
         self
     }
 
     /// Sets the value of [diagnostics][crate::model::OperationMetadata::diagnostics].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apigateway_v1::model::OperationMetadata;
-    /// use google_cloud_apigateway_v1::model::operation_metadata::Diagnostic;
-    /// let x = OperationMetadata::new()
-    ///     .set_diagnostics([
-    ///         Diagnostic::default()/* use setters */,
-    ///         Diagnostic::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_diagnostics<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3102,24 +2361,12 @@ pub mod operation_metadata {
         }
 
         /// Sets the value of [location][crate::model::operation_metadata::Diagnostic::location].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_apigateway_v1::model::operation_metadata::Diagnostic;
-        /// let x = Diagnostic::new().set_location("example");
-        /// ```
         pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.location = v.into();
             self
         }
 
         /// Sets the value of [message][crate::model::operation_metadata::Diagnostic::message].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_apigateway_v1::model::operation_metadata::Diagnostic;
-        /// let x = Diagnostic::new().set_message("example");
-        /// ```
         pub fn set_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.message = v.into();
             self

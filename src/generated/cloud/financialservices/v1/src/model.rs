@@ -96,25 +96,12 @@ impl BacktestResult {
     }
 
     /// Sets the value of [name][crate::model::BacktestResult::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::BacktestResult;
-    /// let x = BacktestResult::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::BacktestResult::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::BacktestResult;
-    /// use wkt::Timestamp;
-    /// let x = BacktestResult::new().set_create_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -124,14 +111,6 @@ impl BacktestResult {
     }
 
     /// Sets or clears the value of [create_time][crate::model::BacktestResult::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::BacktestResult;
-    /// use wkt::Timestamp;
-    /// let x = BacktestResult::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
-    /// let x = BacktestResult::new().set_or_clear_create_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -141,13 +120,6 @@ impl BacktestResult {
     }
 
     /// Sets the value of [update_time][crate::model::BacktestResult::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::BacktestResult;
-    /// use wkt::Timestamp;
-    /// let x = BacktestResult::new().set_update_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -157,14 +129,6 @@ impl BacktestResult {
     }
 
     /// Sets or clears the value of [update_time][crate::model::BacktestResult::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::BacktestResult;
-    /// use wkt::Timestamp;
-    /// let x = BacktestResult::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
-    /// let x = BacktestResult::new().set_or_clear_update_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -174,15 +138,6 @@ impl BacktestResult {
     }
 
     /// Sets the value of [labels][crate::model::BacktestResult::labels].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::BacktestResult;
-    /// let x = BacktestResult::new().set_labels([
-    ///     ("key0", "abc"),
-    ///     ("key1", "xyz"),
-    /// ]);
-    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -195,15 +150,6 @@ impl BacktestResult {
     }
 
     /// Sets the value of [state][crate::model::BacktestResult::state].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::BacktestResult;
-    /// use google_cloud_financialservices_v1::model::backtest_result::State;
-    /// let x0 = BacktestResult::new().set_state(State::Creating);
-    /// let x1 = BacktestResult::new().set_state(State::Active);
-    /// let x2 = BacktestResult::new().set_state(State::Updating);
-    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::backtest_result::State>>(
         mut self,
         v: T,
@@ -213,37 +159,18 @@ impl BacktestResult {
     }
 
     /// Sets the value of [dataset][crate::model::BacktestResult::dataset].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::BacktestResult;
-    /// let x = BacktestResult::new().set_dataset("example");
-    /// ```
     pub fn set_dataset<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.dataset = v.into();
         self
     }
 
     /// Sets the value of [model][crate::model::BacktestResult::model].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::BacktestResult;
-    /// let x = BacktestResult::new().set_model("example");
-    /// ```
     pub fn set_model<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.model = v.into();
         self
     }
 
     /// Sets the value of [end_time][crate::model::BacktestResult::end_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::BacktestResult;
-    /// use wkt::Timestamp;
-    /// let x = BacktestResult::new().set_end_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -253,14 +180,6 @@ impl BacktestResult {
     }
 
     /// Sets or clears the value of [end_time][crate::model::BacktestResult::end_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::BacktestResult;
-    /// use wkt::Timestamp;
-    /// let x = BacktestResult::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
-    /// let x = BacktestResult::new().set_or_clear_end_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -270,25 +189,12 @@ impl BacktestResult {
     }
 
     /// Sets the value of [backtest_periods][crate::model::BacktestResult::backtest_periods].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::BacktestResult;
-    /// let x = BacktestResult::new().set_backtest_periods(42);
-    /// ```
     pub fn set_backtest_periods<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.backtest_periods = v.into();
         self
     }
 
     /// Sets the value of [performance_target][crate::model::BacktestResult::performance_target].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::BacktestResult;
-    /// use google_cloud_financialservices_v1::model::backtest_result::PerformanceTarget;
-    /// let x = BacktestResult::new().set_performance_target(PerformanceTarget::default()/* use setters */);
-    /// ```
     pub fn set_performance_target<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::backtest_result::PerformanceTarget>,
@@ -298,14 +204,6 @@ impl BacktestResult {
     }
 
     /// Sets or clears the value of [performance_target][crate::model::BacktestResult::performance_target].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::BacktestResult;
-    /// use google_cloud_financialservices_v1::model::backtest_result::PerformanceTarget;
-    /// let x = BacktestResult::new().set_or_clear_performance_target(Some(PerformanceTarget::default()/* use setters */));
-    /// let x = BacktestResult::new().set_or_clear_performance_target(None::<PerformanceTarget>);
-    /// ```
     pub fn set_or_clear_performance_target<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::backtest_result::PerformanceTarget>,
@@ -315,14 +213,6 @@ impl BacktestResult {
     }
 
     /// Sets the value of [line_of_business][crate::model::BacktestResult::line_of_business].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::BacktestResult;
-    /// use google_cloud_financialservices_v1::model::LineOfBusiness;
-    /// let x0 = BacktestResult::new().set_line_of_business(LineOfBusiness::Commercial);
-    /// let x1 = BacktestResult::new().set_line_of_business(LineOfBusiness::Retail);
-    /// ```
     pub fn set_line_of_business<T: std::convert::Into<crate::model::LineOfBusiness>>(
         mut self,
         v: T,
@@ -365,12 +255,6 @@ pub mod backtest_result {
         }
 
         /// Sets the value of [party_investigations_per_period_hint][crate::model::backtest_result::PerformanceTarget::party_investigations_per_period_hint].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_financialservices_v1::model::backtest_result::PerformanceTarget;
-        /// let x = PerformanceTarget::new().set_party_investigations_per_period_hint(42);
-        /// ```
         pub fn set_party_investigations_per_period_hint<T: std::convert::Into<i64>>(
             mut self,
             v: T,
@@ -568,60 +452,30 @@ impl ListBacktestResultsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListBacktestResultsRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::ListBacktestResultsRequest;
-    /// let x = ListBacktestResultsRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListBacktestResultsRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::ListBacktestResultsRequest;
-    /// let x = ListBacktestResultsRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListBacktestResultsRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::ListBacktestResultsRequest;
-    /// let x = ListBacktestResultsRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListBacktestResultsRequest::filter].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::ListBacktestResultsRequest;
-    /// let x = ListBacktestResultsRequest::new().set_filter("example");
-    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListBacktestResultsRequest::order_by].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::ListBacktestResultsRequest;
-    /// let x = ListBacktestResultsRequest::new().set_order_by("example");
-    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
@@ -658,17 +512,6 @@ impl ListBacktestResultsResponse {
     }
 
     /// Sets the value of [backtest_results][crate::model::ListBacktestResultsResponse::backtest_results].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::ListBacktestResultsResponse;
-    /// use google_cloud_financialservices_v1::model::BacktestResult;
-    /// let x = ListBacktestResultsResponse::new()
-    ///     .set_backtest_results([
-    ///         BacktestResult::default()/* use setters */,
-    ///         BacktestResult::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_backtest_results<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -680,24 +523,12 @@ impl ListBacktestResultsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListBacktestResultsResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::ListBacktestResultsResponse;
-    /// let x = ListBacktestResultsResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListBacktestResultsResponse::unreachable].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::ListBacktestResultsResponse;
-    /// let x = ListBacktestResultsResponse::new().set_unreachable(["a", "b", "c"]);
-    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -745,12 +576,6 @@ impl GetBacktestResultRequest {
     }
 
     /// Sets the value of [name][crate::model::GetBacktestResultRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::GetBacktestResultRequest;
-    /// let x = GetBacktestResultRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -800,24 +625,12 @@ impl CreateBacktestResultRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateBacktestResultRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::CreateBacktestResultRequest;
-    /// let x = CreateBacktestResultRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [backtest_result_id][crate::model::CreateBacktestResultRequest::backtest_result_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::CreateBacktestResultRequest;
-    /// let x = CreateBacktestResultRequest::new().set_backtest_result_id("example");
-    /// ```
     pub fn set_backtest_result_id<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -827,13 +640,6 @@ impl CreateBacktestResultRequest {
     }
 
     /// Sets the value of [backtest_result][crate::model::CreateBacktestResultRequest::backtest_result].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::CreateBacktestResultRequest;
-    /// use google_cloud_financialservices_v1::model::BacktestResult;
-    /// let x = CreateBacktestResultRequest::new().set_backtest_result(BacktestResult::default()/* use setters */);
-    /// ```
     pub fn set_backtest_result<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::BacktestResult>,
@@ -843,14 +649,6 @@ impl CreateBacktestResultRequest {
     }
 
     /// Sets or clears the value of [backtest_result][crate::model::CreateBacktestResultRequest::backtest_result].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::CreateBacktestResultRequest;
-    /// use google_cloud_financialservices_v1::model::BacktestResult;
-    /// let x = CreateBacktestResultRequest::new().set_or_clear_backtest_result(Some(BacktestResult::default()/* use setters */));
-    /// let x = CreateBacktestResultRequest::new().set_or_clear_backtest_result(None::<BacktestResult>);
-    /// ```
     pub fn set_or_clear_backtest_result<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::BacktestResult>,
@@ -860,12 +658,6 @@ impl CreateBacktestResultRequest {
     }
 
     /// Sets the value of [request_id][crate::model::CreateBacktestResultRequest::request_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::CreateBacktestResultRequest;
-    /// let x = CreateBacktestResultRequest::new().set_request_id("example");
-    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -917,13 +709,6 @@ impl UpdateBacktestResultRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateBacktestResultRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::UpdateBacktestResultRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateBacktestResultRequest::new().set_update_mask(FieldMask::default()/* use setters */);
-    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -933,14 +718,6 @@ impl UpdateBacktestResultRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateBacktestResultRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::UpdateBacktestResultRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateBacktestResultRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
-    /// let x = UpdateBacktestResultRequest::new().set_or_clear_update_mask(None::<FieldMask>);
-    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -950,13 +727,6 @@ impl UpdateBacktestResultRequest {
     }
 
     /// Sets the value of [backtest_result][crate::model::UpdateBacktestResultRequest::backtest_result].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::UpdateBacktestResultRequest;
-    /// use google_cloud_financialservices_v1::model::BacktestResult;
-    /// let x = UpdateBacktestResultRequest::new().set_backtest_result(BacktestResult::default()/* use setters */);
-    /// ```
     pub fn set_backtest_result<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::BacktestResult>,
@@ -966,14 +736,6 @@ impl UpdateBacktestResultRequest {
     }
 
     /// Sets or clears the value of [backtest_result][crate::model::UpdateBacktestResultRequest::backtest_result].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::UpdateBacktestResultRequest;
-    /// use google_cloud_financialservices_v1::model::BacktestResult;
-    /// let x = UpdateBacktestResultRequest::new().set_or_clear_backtest_result(Some(BacktestResult::default()/* use setters */));
-    /// let x = UpdateBacktestResultRequest::new().set_or_clear_backtest_result(None::<BacktestResult>);
-    /// ```
     pub fn set_or_clear_backtest_result<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::BacktestResult>,
@@ -983,12 +745,6 @@ impl UpdateBacktestResultRequest {
     }
 
     /// Sets the value of [request_id][crate::model::UpdateBacktestResultRequest::request_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::UpdateBacktestResultRequest;
-    /// let x = UpdateBacktestResultRequest::new().set_request_id("example");
-    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -1032,24 +788,12 @@ impl DeleteBacktestResultRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteBacktestResultRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::DeleteBacktestResultRequest;
-    /// let x = DeleteBacktestResultRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [request_id][crate::model::DeleteBacktestResultRequest::request_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::DeleteBacktestResultRequest;
-    /// let x = DeleteBacktestResultRequest::new().set_request_id("example");
-    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -1081,25 +825,12 @@ impl ExportBacktestResultMetadataRequest {
     }
 
     /// Sets the value of [backtest_result][crate::model::ExportBacktestResultMetadataRequest::backtest_result].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::ExportBacktestResultMetadataRequest;
-    /// let x = ExportBacktestResultMetadataRequest::new().set_backtest_result("example");
-    /// ```
     pub fn set_backtest_result<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.backtest_result = v.into();
         self
     }
 
     /// Sets the value of [structured_metadata_destination][crate::model::ExportBacktestResultMetadataRequest::structured_metadata_destination].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::ExportBacktestResultMetadataRequest;
-    /// use google_cloud_financialservices_v1::model::BigQueryDestination;
-    /// let x = ExportBacktestResultMetadataRequest::new().set_structured_metadata_destination(BigQueryDestination::default()/* use setters */);
-    /// ```
     pub fn set_structured_metadata_destination<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::BigQueryDestination>,
@@ -1109,14 +840,6 @@ impl ExportBacktestResultMetadataRequest {
     }
 
     /// Sets or clears the value of [structured_metadata_destination][crate::model::ExportBacktestResultMetadataRequest::structured_metadata_destination].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::ExportBacktestResultMetadataRequest;
-    /// use google_cloud_financialservices_v1::model::BigQueryDestination;
-    /// let x = ExportBacktestResultMetadataRequest::new().set_or_clear_structured_metadata_destination(Some(BigQueryDestination::default()/* use setters */));
-    /// let x = ExportBacktestResultMetadataRequest::new().set_or_clear_structured_metadata_destination(None::<BigQueryDestination>);
-    /// ```
     pub fn set_or_clear_structured_metadata_destination<T>(
         mut self,
         v: std::option::Option<T>,
@@ -1178,26 +901,12 @@ impl BigQueryDestination {
     }
 
     /// Sets the value of [table_uri][crate::model::BigQueryDestination::table_uri].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::BigQueryDestination;
-    /// let x = BigQueryDestination::new().set_table_uri("example");
-    /// ```
     pub fn set_table_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.table_uri = v.into();
         self
     }
 
     /// Sets the value of [write_disposition][crate::model::BigQueryDestination::write_disposition].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::BigQueryDestination;
-    /// use google_cloud_financialservices_v1::model::big_query_destination::WriteDisposition;
-    /// let x0 = BigQueryDestination::new().set_write_disposition(WriteDisposition::WriteEmpty);
-    /// let x1 = BigQueryDestination::new().set_write_disposition(WriteDisposition::WriteTruncate);
-    /// ```
     pub fn set_write_disposition<
         T: std::convert::Into<crate::model::big_query_destination::WriteDisposition>,
     >(
@@ -1403,25 +1112,12 @@ impl Dataset {
     }
 
     /// Sets the value of [name][crate::model::Dataset::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::Dataset;
-    /// let x = Dataset::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::Dataset::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::Dataset;
-    /// use wkt::Timestamp;
-    /// let x = Dataset::new().set_create_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1431,14 +1127,6 @@ impl Dataset {
     }
 
     /// Sets or clears the value of [create_time][crate::model::Dataset::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::Dataset;
-    /// use wkt::Timestamp;
-    /// let x = Dataset::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
-    /// let x = Dataset::new().set_or_clear_create_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1448,13 +1136,6 @@ impl Dataset {
     }
 
     /// Sets the value of [update_time][crate::model::Dataset::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::Dataset;
-    /// use wkt::Timestamp;
-    /// let x = Dataset::new().set_update_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1464,14 +1145,6 @@ impl Dataset {
     }
 
     /// Sets or clears the value of [update_time][crate::model::Dataset::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::Dataset;
-    /// use wkt::Timestamp;
-    /// let x = Dataset::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
-    /// let x = Dataset::new().set_or_clear_update_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1481,15 +1154,6 @@ impl Dataset {
     }
 
     /// Sets the value of [labels][crate::model::Dataset::labels].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::Dataset;
-    /// let x = Dataset::new().set_labels([
-    ///     ("key0", "abc"),
-    ///     ("key1", "xyz"),
-    /// ]);
-    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -1502,15 +1166,6 @@ impl Dataset {
     }
 
     /// Sets the value of [table_specs][crate::model::Dataset::table_specs].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::Dataset;
-    /// let x = Dataset::new().set_table_specs([
-    ///     ("key0", "abc"),
-    ///     ("key1", "xyz"),
-    /// ]);
-    /// ```
     pub fn set_table_specs<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -1523,28 +1178,12 @@ impl Dataset {
     }
 
     /// Sets the value of [state][crate::model::Dataset::state].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::Dataset;
-    /// use google_cloud_financialservices_v1::model::dataset::State;
-    /// let x0 = Dataset::new().set_state(State::Creating);
-    /// let x1 = Dataset::new().set_state(State::Active);
-    /// let x2 = Dataset::new().set_state(State::Updating);
-    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::dataset::State>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
     }
 
     /// Sets the value of [date_range][crate::model::Dataset::date_range].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::Dataset;
-    /// use gtype::model::Interval;
-    /// let x = Dataset::new().set_date_range(Interval::default()/* use setters */);
-    /// ```
     pub fn set_date_range<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<gtype::model::Interval>,
@@ -1554,14 +1193,6 @@ impl Dataset {
     }
 
     /// Sets or clears the value of [date_range][crate::model::Dataset::date_range].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::Dataset;
-    /// use gtype::model::Interval;
-    /// let x = Dataset::new().set_or_clear_date_range(Some(Interval::default()/* use setters */));
-    /// let x = Dataset::new().set_or_clear_date_range(None::<Interval>);
-    /// ```
     pub fn set_or_clear_date_range<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<gtype::model::Interval>,
@@ -1571,13 +1202,6 @@ impl Dataset {
     }
 
     /// Sets the value of [time_zone][crate::model::Dataset::time_zone].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::Dataset;
-    /// use gtype::model::TimeZone;
-    /// let x = Dataset::new().set_time_zone(TimeZone::default()/* use setters */);
-    /// ```
     pub fn set_time_zone<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<gtype::model::TimeZone>,
@@ -1587,14 +1211,6 @@ impl Dataset {
     }
 
     /// Sets or clears the value of [time_zone][crate::model::Dataset::time_zone].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::Dataset;
-    /// use gtype::model::TimeZone;
-    /// let x = Dataset::new().set_or_clear_time_zone(Some(TimeZone::default()/* use setters */));
-    /// let x = Dataset::new().set_or_clear_time_zone(None::<TimeZone>);
-    /// ```
     pub fn set_or_clear_time_zone<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<gtype::model::TimeZone>,
@@ -1796,60 +1412,30 @@ impl ListDatasetsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListDatasetsRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::ListDatasetsRequest;
-    /// let x = ListDatasetsRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListDatasetsRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::ListDatasetsRequest;
-    /// let x = ListDatasetsRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListDatasetsRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::ListDatasetsRequest;
-    /// let x = ListDatasetsRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListDatasetsRequest::filter].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::ListDatasetsRequest;
-    /// let x = ListDatasetsRequest::new().set_filter("example");
-    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListDatasetsRequest::order_by].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::ListDatasetsRequest;
-    /// let x = ListDatasetsRequest::new().set_order_by("example");
-    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
@@ -1885,17 +1471,6 @@ impl ListDatasetsResponse {
     }
 
     /// Sets the value of [datasets][crate::model::ListDatasetsResponse::datasets].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::ListDatasetsResponse;
-    /// use google_cloud_financialservices_v1::model::Dataset;
-    /// let x = ListDatasetsResponse::new()
-    ///     .set_datasets([
-    ///         Dataset::default()/* use setters */,
-    ///         Dataset::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_datasets<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1907,24 +1482,12 @@ impl ListDatasetsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListDatasetsResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::ListDatasetsResponse;
-    /// let x = ListDatasetsResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListDatasetsResponse::unreachable].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::ListDatasetsResponse;
-    /// let x = ListDatasetsResponse::new().set_unreachable(["a", "b", "c"]);
-    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1972,12 +1535,6 @@ impl GetDatasetRequest {
     }
 
     /// Sets the value of [name][crate::model::GetDatasetRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::GetDatasetRequest;
-    /// let x = GetDatasetRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -2027,37 +1584,18 @@ impl CreateDatasetRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateDatasetRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::CreateDatasetRequest;
-    /// let x = CreateDatasetRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [dataset_id][crate::model::CreateDatasetRequest::dataset_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::CreateDatasetRequest;
-    /// let x = CreateDatasetRequest::new().set_dataset_id("example");
-    /// ```
     pub fn set_dataset_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.dataset_id = v.into();
         self
     }
 
     /// Sets the value of [dataset][crate::model::CreateDatasetRequest::dataset].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::CreateDatasetRequest;
-    /// use google_cloud_financialservices_v1::model::Dataset;
-    /// let x = CreateDatasetRequest::new().set_dataset(Dataset::default()/* use setters */);
-    /// ```
     pub fn set_dataset<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Dataset>,
@@ -2067,14 +1605,6 @@ impl CreateDatasetRequest {
     }
 
     /// Sets or clears the value of [dataset][crate::model::CreateDatasetRequest::dataset].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::CreateDatasetRequest;
-    /// use google_cloud_financialservices_v1::model::Dataset;
-    /// let x = CreateDatasetRequest::new().set_or_clear_dataset(Some(Dataset::default()/* use setters */));
-    /// let x = CreateDatasetRequest::new().set_or_clear_dataset(None::<Dataset>);
-    /// ```
     pub fn set_or_clear_dataset<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Dataset>,
@@ -2084,12 +1614,6 @@ impl CreateDatasetRequest {
     }
 
     /// Sets the value of [request_id][crate::model::CreateDatasetRequest::request_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::CreateDatasetRequest;
-    /// let x = CreateDatasetRequest::new().set_request_id("example");
-    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -2141,13 +1665,6 @@ impl UpdateDatasetRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateDatasetRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::UpdateDatasetRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateDatasetRequest::new().set_update_mask(FieldMask::default()/* use setters */);
-    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -2157,14 +1674,6 @@ impl UpdateDatasetRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateDatasetRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::UpdateDatasetRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateDatasetRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
-    /// let x = UpdateDatasetRequest::new().set_or_clear_update_mask(None::<FieldMask>);
-    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -2174,13 +1683,6 @@ impl UpdateDatasetRequest {
     }
 
     /// Sets the value of [dataset][crate::model::UpdateDatasetRequest::dataset].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::UpdateDatasetRequest;
-    /// use google_cloud_financialservices_v1::model::Dataset;
-    /// let x = UpdateDatasetRequest::new().set_dataset(Dataset::default()/* use setters */);
-    /// ```
     pub fn set_dataset<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Dataset>,
@@ -2190,14 +1692,6 @@ impl UpdateDatasetRequest {
     }
 
     /// Sets or clears the value of [dataset][crate::model::UpdateDatasetRequest::dataset].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::UpdateDatasetRequest;
-    /// use google_cloud_financialservices_v1::model::Dataset;
-    /// let x = UpdateDatasetRequest::new().set_or_clear_dataset(Some(Dataset::default()/* use setters */));
-    /// let x = UpdateDatasetRequest::new().set_or_clear_dataset(None::<Dataset>);
-    /// ```
     pub fn set_or_clear_dataset<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Dataset>,
@@ -2207,12 +1701,6 @@ impl UpdateDatasetRequest {
     }
 
     /// Sets the value of [request_id][crate::model::UpdateDatasetRequest::request_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::UpdateDatasetRequest;
-    /// let x = UpdateDatasetRequest::new().set_request_id("example");
-    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -2256,24 +1744,12 @@ impl DeleteDatasetRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteDatasetRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::DeleteDatasetRequest;
-    /// let x = DeleteDatasetRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [request_id][crate::model::DeleteDatasetRequest::request_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::DeleteDatasetRequest;
-    /// let x = DeleteDatasetRequest::new().set_request_id("example");
-    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -2345,25 +1821,12 @@ impl EngineConfig {
     }
 
     /// Sets the value of [name][crate::model::EngineConfig::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::EngineConfig;
-    /// let x = EngineConfig::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::EngineConfig::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::EngineConfig;
-    /// use wkt::Timestamp;
-    /// let x = EngineConfig::new().set_create_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2373,14 +1836,6 @@ impl EngineConfig {
     }
 
     /// Sets or clears the value of [create_time][crate::model::EngineConfig::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::EngineConfig;
-    /// use wkt::Timestamp;
-    /// let x = EngineConfig::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
-    /// let x = EngineConfig::new().set_or_clear_create_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2390,13 +1845,6 @@ impl EngineConfig {
     }
 
     /// Sets the value of [update_time][crate::model::EngineConfig::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::EngineConfig;
-    /// use wkt::Timestamp;
-    /// let x = EngineConfig::new().set_update_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2406,14 +1854,6 @@ impl EngineConfig {
     }
 
     /// Sets or clears the value of [update_time][crate::model::EngineConfig::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::EngineConfig;
-    /// use wkt::Timestamp;
-    /// let x = EngineConfig::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
-    /// let x = EngineConfig::new().set_or_clear_update_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2423,15 +1863,6 @@ impl EngineConfig {
     }
 
     /// Sets the value of [labels][crate::model::EngineConfig::labels].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::EngineConfig;
-    /// let x = EngineConfig::new().set_labels([
-    ///     ("key0", "abc"),
-    ///     ("key1", "xyz"),
-    /// ]);
-    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -2444,15 +1875,6 @@ impl EngineConfig {
     }
 
     /// Sets the value of [state][crate::model::EngineConfig::state].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::EngineConfig;
-    /// use google_cloud_financialservices_v1::model::engine_config::State;
-    /// let x0 = EngineConfig::new().set_state(State::Creating);
-    /// let x1 = EngineConfig::new().set_state(State::Active);
-    /// let x2 = EngineConfig::new().set_state(State::Updating);
-    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::engine_config::State>>(
         mut self,
         v: T,
@@ -2462,25 +1884,12 @@ impl EngineConfig {
     }
 
     /// Sets the value of [engine_version][crate::model::EngineConfig::engine_version].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::EngineConfig;
-    /// let x = EngineConfig::new().set_engine_version("example");
-    /// ```
     pub fn set_engine_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.engine_version = v.into();
         self
     }
 
     /// Sets the value of [tuning][crate::model::EngineConfig::tuning].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::EngineConfig;
-    /// use google_cloud_financialservices_v1::model::engine_config::Tuning;
-    /// let x = EngineConfig::new().set_tuning(Tuning::default()/* use setters */);
-    /// ```
     pub fn set_tuning<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::engine_config::Tuning>,
@@ -2490,14 +1899,6 @@ impl EngineConfig {
     }
 
     /// Sets or clears the value of [tuning][crate::model::EngineConfig::tuning].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::EngineConfig;
-    /// use google_cloud_financialservices_v1::model::engine_config::Tuning;
-    /// let x = EngineConfig::new().set_or_clear_tuning(Some(Tuning::default()/* use setters */));
-    /// let x = EngineConfig::new().set_or_clear_tuning(None::<Tuning>);
-    /// ```
     pub fn set_or_clear_tuning<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::engine_config::Tuning>,
@@ -2507,13 +1908,6 @@ impl EngineConfig {
     }
 
     /// Sets the value of [performance_target][crate::model::EngineConfig::performance_target].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::EngineConfig;
-    /// use google_cloud_financialservices_v1::model::engine_config::PerformanceTarget;
-    /// let x = EngineConfig::new().set_performance_target(PerformanceTarget::default()/* use setters */);
-    /// ```
     pub fn set_performance_target<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::engine_config::PerformanceTarget>,
@@ -2523,14 +1917,6 @@ impl EngineConfig {
     }
 
     /// Sets or clears the value of [performance_target][crate::model::EngineConfig::performance_target].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::EngineConfig;
-    /// use google_cloud_financialservices_v1::model::engine_config::PerformanceTarget;
-    /// let x = EngineConfig::new().set_or_clear_performance_target(Some(PerformanceTarget::default()/* use setters */));
-    /// let x = EngineConfig::new().set_or_clear_performance_target(None::<PerformanceTarget>);
-    /// ```
     pub fn set_or_clear_performance_target<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::engine_config::PerformanceTarget>,
@@ -2540,14 +1926,6 @@ impl EngineConfig {
     }
 
     /// Sets the value of [line_of_business][crate::model::EngineConfig::line_of_business].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::EngineConfig;
-    /// use google_cloud_financialservices_v1::model::LineOfBusiness;
-    /// let x0 = EngineConfig::new().set_line_of_business(LineOfBusiness::Commercial);
-    /// let x1 = EngineConfig::new().set_line_of_business(LineOfBusiness::Retail);
-    /// ```
     pub fn set_line_of_business<T: std::convert::Into<crate::model::LineOfBusiness>>(
         mut self,
         v: T,
@@ -2557,14 +1935,6 @@ impl EngineConfig {
     }
 
     /// Sets the value of [hyperparameter_source_type][crate::model::EngineConfig::hyperparameter_source_type].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::EngineConfig;
-    /// use google_cloud_financialservices_v1::model::engine_config::HyperparameterSourceType;
-    /// let x0 = EngineConfig::new().set_hyperparameter_source_type(HyperparameterSourceType::Tuning);
-    /// let x1 = EngineConfig::new().set_hyperparameter_source_type(HyperparameterSourceType::Inherited);
-    /// ```
     pub fn set_hyperparameter_source_type<
         T: std::convert::Into<crate::model::engine_config::HyperparameterSourceType>,
     >(
@@ -2576,13 +1946,6 @@ impl EngineConfig {
     }
 
     /// Sets the value of [hyperparameter_source][crate::model::EngineConfig::hyperparameter_source].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::EngineConfig;
-    /// use google_cloud_financialservices_v1::model::engine_config::HyperparameterSource;
-    /// let x = EngineConfig::new().set_hyperparameter_source(HyperparameterSource::default()/* use setters */);
-    /// ```
     pub fn set_hyperparameter_source<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::engine_config::HyperparameterSource>,
@@ -2592,14 +1955,6 @@ impl EngineConfig {
     }
 
     /// Sets or clears the value of [hyperparameter_source][crate::model::EngineConfig::hyperparameter_source].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::EngineConfig;
-    /// use google_cloud_financialservices_v1::model::engine_config::HyperparameterSource;
-    /// let x = EngineConfig::new().set_or_clear_hyperparameter_source(Some(HyperparameterSource::default()/* use setters */));
-    /// let x = EngineConfig::new().set_or_clear_hyperparameter_source(None::<HyperparameterSource>);
-    /// ```
     pub fn set_or_clear_hyperparameter_source<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::engine_config::HyperparameterSource>,
@@ -2645,12 +2000,6 @@ pub mod engine_config {
         }
 
         /// Sets the value of [primary_dataset][crate::model::engine_config::Tuning::primary_dataset].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_financialservices_v1::model::engine_config::Tuning;
-        /// let x = Tuning::new().set_primary_dataset("example");
-        /// ```
         pub fn set_primary_dataset<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -2660,13 +2009,6 @@ pub mod engine_config {
         }
 
         /// Sets the value of [end_time][crate::model::engine_config::Tuning::end_time].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_financialservices_v1::model::engine_config::Tuning;
-        /// use wkt::Timestamp;
-        /// let x = Tuning::new().set_end_time(Timestamp::default()/* use setters */);
-        /// ```
         pub fn set_end_time<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -2676,14 +2018,6 @@ pub mod engine_config {
         }
 
         /// Sets or clears the value of [end_time][crate::model::engine_config::Tuning::end_time].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_financialservices_v1::model::engine_config::Tuning;
-        /// use wkt::Timestamp;
-        /// let x = Tuning::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
-        /// let x = Tuning::new().set_or_clear_end_time(None::<Timestamp>);
-        /// ```
         pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -2721,12 +2055,6 @@ pub mod engine_config {
         }
 
         /// Sets the value of [party_investigations_per_period_hint][crate::model::engine_config::PerformanceTarget::party_investigations_per_period_hint].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_financialservices_v1::model::engine_config::PerformanceTarget;
-        /// let x = PerformanceTarget::new().set_party_investigations_per_period_hint(42);
-        /// ```
         pub fn set_party_investigations_per_period_hint<T: std::convert::Into<i64>>(
             mut self,
             v: T,
@@ -2766,12 +2094,6 @@ pub mod engine_config {
         }
 
         /// Sets the value of [source_engine_config][crate::model::engine_config::HyperparameterSource::source_engine_config].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_financialservices_v1::model::engine_config::HyperparameterSource;
-        /// let x = HyperparameterSource::new().set_source_engine_config("example");
-        /// ```
         pub fn set_source_engine_config<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -2781,12 +2103,6 @@ pub mod engine_config {
         }
 
         /// Sets the value of [source_engine_version][crate::model::engine_config::HyperparameterSource::source_engine_version].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_financialservices_v1::model::engine_config::HyperparameterSource;
-        /// let x = HyperparameterSource::new().set_source_engine_version("example");
-        /// ```
         pub fn set_source_engine_version<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -3121,60 +2437,30 @@ impl ListEngineConfigsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListEngineConfigsRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::ListEngineConfigsRequest;
-    /// let x = ListEngineConfigsRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListEngineConfigsRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::ListEngineConfigsRequest;
-    /// let x = ListEngineConfigsRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListEngineConfigsRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::ListEngineConfigsRequest;
-    /// let x = ListEngineConfigsRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListEngineConfigsRequest::filter].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::ListEngineConfigsRequest;
-    /// let x = ListEngineConfigsRequest::new().set_filter("example");
-    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListEngineConfigsRequest::order_by].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::ListEngineConfigsRequest;
-    /// let x = ListEngineConfigsRequest::new().set_order_by("example");
-    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
@@ -3210,17 +2496,6 @@ impl ListEngineConfigsResponse {
     }
 
     /// Sets the value of [engine_configs][crate::model::ListEngineConfigsResponse::engine_configs].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::ListEngineConfigsResponse;
-    /// use google_cloud_financialservices_v1::model::EngineConfig;
-    /// let x = ListEngineConfigsResponse::new()
-    ///     .set_engine_configs([
-    ///         EngineConfig::default()/* use setters */,
-    ///         EngineConfig::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_engine_configs<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3232,24 +2507,12 @@ impl ListEngineConfigsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListEngineConfigsResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::ListEngineConfigsResponse;
-    /// let x = ListEngineConfigsResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListEngineConfigsResponse::unreachable].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::ListEngineConfigsResponse;
-    /// let x = ListEngineConfigsResponse::new().set_unreachable(["a", "b", "c"]);
-    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3297,12 +2560,6 @@ impl GetEngineConfigRequest {
     }
 
     /// Sets the value of [name][crate::model::GetEngineConfigRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::GetEngineConfigRequest;
-    /// let x = GetEngineConfigRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -3352,24 +2609,12 @@ impl CreateEngineConfigRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateEngineConfigRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::CreateEngineConfigRequest;
-    /// let x = CreateEngineConfigRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [engine_config_id][crate::model::CreateEngineConfigRequest::engine_config_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::CreateEngineConfigRequest;
-    /// let x = CreateEngineConfigRequest::new().set_engine_config_id("example");
-    /// ```
     pub fn set_engine_config_id<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -3379,13 +2624,6 @@ impl CreateEngineConfigRequest {
     }
 
     /// Sets the value of [engine_config][crate::model::CreateEngineConfigRequest::engine_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::CreateEngineConfigRequest;
-    /// use google_cloud_financialservices_v1::model::EngineConfig;
-    /// let x = CreateEngineConfigRequest::new().set_engine_config(EngineConfig::default()/* use setters */);
-    /// ```
     pub fn set_engine_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::EngineConfig>,
@@ -3395,14 +2633,6 @@ impl CreateEngineConfigRequest {
     }
 
     /// Sets or clears the value of [engine_config][crate::model::CreateEngineConfigRequest::engine_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::CreateEngineConfigRequest;
-    /// use google_cloud_financialservices_v1::model::EngineConfig;
-    /// let x = CreateEngineConfigRequest::new().set_or_clear_engine_config(Some(EngineConfig::default()/* use setters */));
-    /// let x = CreateEngineConfigRequest::new().set_or_clear_engine_config(None::<EngineConfig>);
-    /// ```
     pub fn set_or_clear_engine_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::EngineConfig>,
@@ -3412,12 +2642,6 @@ impl CreateEngineConfigRequest {
     }
 
     /// Sets the value of [request_id][crate::model::CreateEngineConfigRequest::request_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::CreateEngineConfigRequest;
-    /// let x = CreateEngineConfigRequest::new().set_request_id("example");
-    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -3469,13 +2693,6 @@ impl UpdateEngineConfigRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateEngineConfigRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::UpdateEngineConfigRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateEngineConfigRequest::new().set_update_mask(FieldMask::default()/* use setters */);
-    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -3485,14 +2702,6 @@ impl UpdateEngineConfigRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateEngineConfigRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::UpdateEngineConfigRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateEngineConfigRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
-    /// let x = UpdateEngineConfigRequest::new().set_or_clear_update_mask(None::<FieldMask>);
-    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -3502,13 +2711,6 @@ impl UpdateEngineConfigRequest {
     }
 
     /// Sets the value of [engine_config][crate::model::UpdateEngineConfigRequest::engine_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::UpdateEngineConfigRequest;
-    /// use google_cloud_financialservices_v1::model::EngineConfig;
-    /// let x = UpdateEngineConfigRequest::new().set_engine_config(EngineConfig::default()/* use setters */);
-    /// ```
     pub fn set_engine_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::EngineConfig>,
@@ -3518,14 +2720,6 @@ impl UpdateEngineConfigRequest {
     }
 
     /// Sets or clears the value of [engine_config][crate::model::UpdateEngineConfigRequest::engine_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::UpdateEngineConfigRequest;
-    /// use google_cloud_financialservices_v1::model::EngineConfig;
-    /// let x = UpdateEngineConfigRequest::new().set_or_clear_engine_config(Some(EngineConfig::default()/* use setters */));
-    /// let x = UpdateEngineConfigRequest::new().set_or_clear_engine_config(None::<EngineConfig>);
-    /// ```
     pub fn set_or_clear_engine_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::EngineConfig>,
@@ -3535,12 +2729,6 @@ impl UpdateEngineConfigRequest {
     }
 
     /// Sets the value of [request_id][crate::model::UpdateEngineConfigRequest::request_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::UpdateEngineConfigRequest;
-    /// let x = UpdateEngineConfigRequest::new().set_request_id("example");
-    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -3584,24 +2772,12 @@ impl DeleteEngineConfigRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteEngineConfigRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::DeleteEngineConfigRequest;
-    /// let x = DeleteEngineConfigRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [request_id][crate::model::DeleteEngineConfigRequest::request_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::DeleteEngineConfigRequest;
-    /// let x = DeleteEngineConfigRequest::new().set_request_id("example");
-    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -3633,25 +2809,12 @@ impl ExportEngineConfigMetadataRequest {
     }
 
     /// Sets the value of [engine_config][crate::model::ExportEngineConfigMetadataRequest::engine_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::ExportEngineConfigMetadataRequest;
-    /// let x = ExportEngineConfigMetadataRequest::new().set_engine_config("example");
-    /// ```
     pub fn set_engine_config<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.engine_config = v.into();
         self
     }
 
     /// Sets the value of [structured_metadata_destination][crate::model::ExportEngineConfigMetadataRequest::structured_metadata_destination].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::ExportEngineConfigMetadataRequest;
-    /// use google_cloud_financialservices_v1::model::BigQueryDestination;
-    /// let x = ExportEngineConfigMetadataRequest::new().set_structured_metadata_destination(BigQueryDestination::default()/* use setters */);
-    /// ```
     pub fn set_structured_metadata_destination<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::BigQueryDestination>,
@@ -3661,14 +2824,6 @@ impl ExportEngineConfigMetadataRequest {
     }
 
     /// Sets or clears the value of [structured_metadata_destination][crate::model::ExportEngineConfigMetadataRequest::structured_metadata_destination].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::ExportEngineConfigMetadataRequest;
-    /// use google_cloud_financialservices_v1::model::BigQueryDestination;
-    /// let x = ExportEngineConfigMetadataRequest::new().set_or_clear_structured_metadata_destination(Some(BigQueryDestination::default()/* use setters */));
-    /// let x = ExportEngineConfigMetadataRequest::new().set_or_clear_structured_metadata_destination(None::<BigQueryDestination>);
-    /// ```
     pub fn set_or_clear_structured_metadata_destination<T>(
         mut self,
         v: std::option::Option<T>,
@@ -3741,27 +2896,12 @@ impl EngineVersion {
     }
 
     /// Sets the value of [name][crate::model::EngineVersion::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::EngineVersion;
-    /// let x = EngineVersion::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [state][crate::model::EngineVersion::state].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::EngineVersion;
-    /// use google_cloud_financialservices_v1::model::engine_version::State;
-    /// let x0 = EngineVersion::new().set_state(State::Active);
-    /// let x1 = EngineVersion::new().set_state(State::Limited);
-    /// let x2 = EngineVersion::new().set_state(State::Decommissioned);
-    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::engine_version::State>>(
         mut self,
         v: T,
@@ -3771,13 +2911,6 @@ impl EngineVersion {
     }
 
     /// Sets the value of [expected_limitation_start_time][crate::model::EngineVersion::expected_limitation_start_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::EngineVersion;
-    /// use wkt::Timestamp;
-    /// let x = EngineVersion::new().set_expected_limitation_start_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_expected_limitation_start_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3787,14 +2920,6 @@ impl EngineVersion {
     }
 
     /// Sets or clears the value of [expected_limitation_start_time][crate::model::EngineVersion::expected_limitation_start_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::EngineVersion;
-    /// use wkt::Timestamp;
-    /// let x = EngineVersion::new().set_or_clear_expected_limitation_start_time(Some(Timestamp::default()/* use setters */));
-    /// let x = EngineVersion::new().set_or_clear_expected_limitation_start_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_expected_limitation_start_time<T>(
         mut self,
         v: std::option::Option<T>,
@@ -3807,13 +2932,6 @@ impl EngineVersion {
     }
 
     /// Sets the value of [expected_decommission_time][crate::model::EngineVersion::expected_decommission_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::EngineVersion;
-    /// use wkt::Timestamp;
-    /// let x = EngineVersion::new().set_expected_decommission_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_expected_decommission_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3823,14 +2941,6 @@ impl EngineVersion {
     }
 
     /// Sets or clears the value of [expected_decommission_time][crate::model::EngineVersion::expected_decommission_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::EngineVersion;
-    /// use wkt::Timestamp;
-    /// let x = EngineVersion::new().set_or_clear_expected_decommission_time(Some(Timestamp::default()/* use setters */));
-    /// let x = EngineVersion::new().set_or_clear_expected_decommission_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_expected_decommission_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3840,14 +2950,6 @@ impl EngineVersion {
     }
 
     /// Sets the value of [line_of_business][crate::model::EngineVersion::line_of_business].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::EngineVersion;
-    /// use google_cloud_financialservices_v1::model::LineOfBusiness;
-    /// let x0 = EngineVersion::new().set_line_of_business(LineOfBusiness::Commercial);
-    /// let x1 = EngineVersion::new().set_line_of_business(LineOfBusiness::Retail);
-    /// ```
     pub fn set_line_of_business<T: std::convert::Into<crate::model::LineOfBusiness>>(
         mut self,
         v: T,
@@ -4047,60 +3149,30 @@ impl ListEngineVersionsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListEngineVersionsRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::ListEngineVersionsRequest;
-    /// let x = ListEngineVersionsRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListEngineVersionsRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::ListEngineVersionsRequest;
-    /// let x = ListEngineVersionsRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListEngineVersionsRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::ListEngineVersionsRequest;
-    /// let x = ListEngineVersionsRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListEngineVersionsRequest::filter].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::ListEngineVersionsRequest;
-    /// let x = ListEngineVersionsRequest::new().set_filter("example");
-    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListEngineVersionsRequest::order_by].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::ListEngineVersionsRequest;
-    /// let x = ListEngineVersionsRequest::new().set_order_by("example");
-    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
@@ -4136,17 +3208,6 @@ impl ListEngineVersionsResponse {
     }
 
     /// Sets the value of [engine_versions][crate::model::ListEngineVersionsResponse::engine_versions].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::ListEngineVersionsResponse;
-    /// use google_cloud_financialservices_v1::model::EngineVersion;
-    /// let x = ListEngineVersionsResponse::new()
-    ///     .set_engine_versions([
-    ///         EngineVersion::default()/* use setters */,
-    ///         EngineVersion::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_engine_versions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4158,24 +3219,12 @@ impl ListEngineVersionsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListEngineVersionsResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::ListEngineVersionsResponse;
-    /// let x = ListEngineVersionsResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListEngineVersionsResponse::unreachable].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::ListEngineVersionsResponse;
-    /// let x = ListEngineVersionsResponse::new().set_unreachable(["a", "b", "c"]);
-    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4223,12 +3272,6 @@ impl GetEngineVersionRequest {
     }
 
     /// Sets the value of [name][crate::model::GetEngineVersionRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::GetEngineVersionRequest;
-    /// let x = GetEngineVersionRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -4283,25 +3326,12 @@ impl Instance {
     }
 
     /// Sets the value of [name][crate::model::Instance::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::Instance;
-    /// let x = Instance::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::Instance::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::Instance;
-    /// use wkt::Timestamp;
-    /// let x = Instance::new().set_create_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4311,14 +3341,6 @@ impl Instance {
     }
 
     /// Sets or clears the value of [create_time][crate::model::Instance::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::Instance;
-    /// use wkt::Timestamp;
-    /// let x = Instance::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
-    /// let x = Instance::new().set_or_clear_create_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4328,13 +3350,6 @@ impl Instance {
     }
 
     /// Sets the value of [update_time][crate::model::Instance::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::Instance;
-    /// use wkt::Timestamp;
-    /// let x = Instance::new().set_update_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4344,14 +3359,6 @@ impl Instance {
     }
 
     /// Sets or clears the value of [update_time][crate::model::Instance::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::Instance;
-    /// use wkt::Timestamp;
-    /// let x = Instance::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
-    /// let x = Instance::new().set_or_clear_update_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4361,30 +3368,12 @@ impl Instance {
     }
 
     /// Sets the value of [state][crate::model::Instance::state].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::Instance;
-    /// use google_cloud_financialservices_v1::model::instance::State;
-    /// let x0 = Instance::new().set_state(State::Creating);
-    /// let x1 = Instance::new().set_state(State::Active);
-    /// let x2 = Instance::new().set_state(State::Updating);
-    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::instance::State>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
     }
 
     /// Sets the value of [labels][crate::model::Instance::labels].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::Instance;
-    /// let x = Instance::new().set_labels([
-    ///     ("key0", "abc"),
-    ///     ("key1", "xyz"),
-    /// ]);
-    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -4397,12 +3386,6 @@ impl Instance {
     }
 
     /// Sets the value of [kms_key][crate::model::Instance::kms_key].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::Instance;
-    /// let x = Instance::new().set_kms_key("example");
-    /// ```
     pub fn set_kms_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.kms_key = v.into();
         self
@@ -4602,60 +3585,30 @@ impl ListInstancesRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListInstancesRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::ListInstancesRequest;
-    /// let x = ListInstancesRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListInstancesRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::ListInstancesRequest;
-    /// let x = ListInstancesRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListInstancesRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::ListInstancesRequest;
-    /// let x = ListInstancesRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListInstancesRequest::filter].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::ListInstancesRequest;
-    /// let x = ListInstancesRequest::new().set_filter("example");
-    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListInstancesRequest::order_by].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::ListInstancesRequest;
-    /// let x = ListInstancesRequest::new().set_order_by("example");
-    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
@@ -4691,17 +3644,6 @@ impl ListInstancesResponse {
     }
 
     /// Sets the value of [instances][crate::model::ListInstancesResponse::instances].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::ListInstancesResponse;
-    /// use google_cloud_financialservices_v1::model::Instance;
-    /// let x = ListInstancesResponse::new()
-    ///     .set_instances([
-    ///         Instance::default()/* use setters */,
-    ///         Instance::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_instances<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4713,24 +3655,12 @@ impl ListInstancesResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListInstancesResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::ListInstancesResponse;
-    /// let x = ListInstancesResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListInstancesResponse::unreachable].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::ListInstancesResponse;
-    /// let x = ListInstancesResponse::new().set_unreachable(["a", "b", "c"]);
-    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4778,12 +3708,6 @@ impl GetInstanceRequest {
     }
 
     /// Sets the value of [name][crate::model::GetInstanceRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::GetInstanceRequest;
-    /// let x = GetInstanceRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -4834,37 +3758,18 @@ impl CreateInstanceRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateInstanceRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::CreateInstanceRequest;
-    /// let x = CreateInstanceRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [instance_id][crate::model::CreateInstanceRequest::instance_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::CreateInstanceRequest;
-    /// let x = CreateInstanceRequest::new().set_instance_id("example");
-    /// ```
     pub fn set_instance_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.instance_id = v.into();
         self
     }
 
     /// Sets the value of [instance][crate::model::CreateInstanceRequest::instance].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::CreateInstanceRequest;
-    /// use google_cloud_financialservices_v1::model::Instance;
-    /// let x = CreateInstanceRequest::new().set_instance(Instance::default()/* use setters */);
-    /// ```
     pub fn set_instance<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Instance>,
@@ -4874,14 +3779,6 @@ impl CreateInstanceRequest {
     }
 
     /// Sets or clears the value of [instance][crate::model::CreateInstanceRequest::instance].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::CreateInstanceRequest;
-    /// use google_cloud_financialservices_v1::model::Instance;
-    /// let x = CreateInstanceRequest::new().set_or_clear_instance(Some(Instance::default()/* use setters */));
-    /// let x = CreateInstanceRequest::new().set_or_clear_instance(None::<Instance>);
-    /// ```
     pub fn set_or_clear_instance<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Instance>,
@@ -4891,12 +3788,6 @@ impl CreateInstanceRequest {
     }
 
     /// Sets the value of [request_id][crate::model::CreateInstanceRequest::request_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::CreateInstanceRequest;
-    /// let x = CreateInstanceRequest::new().set_request_id("example");
-    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -4948,13 +3839,6 @@ impl UpdateInstanceRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateInstanceRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::UpdateInstanceRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateInstanceRequest::new().set_update_mask(FieldMask::default()/* use setters */);
-    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -4964,14 +3848,6 @@ impl UpdateInstanceRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateInstanceRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::UpdateInstanceRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateInstanceRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
-    /// let x = UpdateInstanceRequest::new().set_or_clear_update_mask(None::<FieldMask>);
-    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -4981,13 +3857,6 @@ impl UpdateInstanceRequest {
     }
 
     /// Sets the value of [instance][crate::model::UpdateInstanceRequest::instance].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::UpdateInstanceRequest;
-    /// use google_cloud_financialservices_v1::model::Instance;
-    /// let x = UpdateInstanceRequest::new().set_instance(Instance::default()/* use setters */);
-    /// ```
     pub fn set_instance<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Instance>,
@@ -4997,14 +3866,6 @@ impl UpdateInstanceRequest {
     }
 
     /// Sets or clears the value of [instance][crate::model::UpdateInstanceRequest::instance].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::UpdateInstanceRequest;
-    /// use google_cloud_financialservices_v1::model::Instance;
-    /// let x = UpdateInstanceRequest::new().set_or_clear_instance(Some(Instance::default()/* use setters */));
-    /// let x = UpdateInstanceRequest::new().set_or_clear_instance(None::<Instance>);
-    /// ```
     pub fn set_or_clear_instance<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Instance>,
@@ -5014,12 +3875,6 @@ impl UpdateInstanceRequest {
     }
 
     /// Sets the value of [request_id][crate::model::UpdateInstanceRequest::request_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::UpdateInstanceRequest;
-    /// let x = UpdateInstanceRequest::new().set_request_id("example");
-    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -5063,24 +3918,12 @@ impl DeleteInstanceRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteInstanceRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::DeleteInstanceRequest;
-    /// let x = DeleteInstanceRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [request_id][crate::model::DeleteInstanceRequest::request_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::DeleteInstanceRequest;
-    /// let x = DeleteInstanceRequest::new().set_request_id("example");
-    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -5129,24 +3972,12 @@ impl ImportRegisteredPartiesRequest {
     }
 
     /// Sets the value of [name][crate::model::ImportRegisteredPartiesRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::ImportRegisteredPartiesRequest;
-    /// let x = ImportRegisteredPartiesRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [party_tables][crate::model::ImportRegisteredPartiesRequest::party_tables].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::ImportRegisteredPartiesRequest;
-    /// let x = ImportRegisteredPartiesRequest::new().set_party_tables(["a", "b", "c"]);
-    /// ```
     pub fn set_party_tables<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -5158,14 +3989,6 @@ impl ImportRegisteredPartiesRequest {
     }
 
     /// Sets the value of [mode][crate::model::ImportRegisteredPartiesRequest::mode].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::ImportRegisteredPartiesRequest;
-    /// use google_cloud_financialservices_v1::model::import_registered_parties_request::UpdateMode;
-    /// let x0 = ImportRegisteredPartiesRequest::new().set_mode(UpdateMode::Replace);
-    /// let x1 = ImportRegisteredPartiesRequest::new().set_mode(UpdateMode::Append);
-    /// ```
     pub fn set_mode<
         T: std::convert::Into<crate::model::import_registered_parties_request::UpdateMode>,
     >(
@@ -5177,26 +4000,12 @@ impl ImportRegisteredPartiesRequest {
     }
 
     /// Sets the value of [validate_only][crate::model::ImportRegisteredPartiesRequest::validate_only].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::ImportRegisteredPartiesRequest;
-    /// let x = ImportRegisteredPartiesRequest::new().set_validate_only(true);
-    /// ```
     pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.validate_only = v.into();
         self
     }
 
     /// Sets the value of [line_of_business][crate::model::ImportRegisteredPartiesRequest::line_of_business].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::ImportRegisteredPartiesRequest;
-    /// use google_cloud_financialservices_v1::model::LineOfBusiness;
-    /// let x0 = ImportRegisteredPartiesRequest::new().set_line_of_business(LineOfBusiness::Commercial);
-    /// let x1 = ImportRegisteredPartiesRequest::new().set_line_of_business(LineOfBusiness::Retail);
-    /// ```
     pub fn set_line_of_business<T: std::convert::Into<crate::model::LineOfBusiness>>(
         mut self,
         v: T,
@@ -5384,84 +4193,42 @@ impl ImportRegisteredPartiesResponse {
     }
 
     /// Sets the value of [parties_added][crate::model::ImportRegisteredPartiesResponse::parties_added].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::ImportRegisteredPartiesResponse;
-    /// let x = ImportRegisteredPartiesResponse::new().set_parties_added(42);
-    /// ```
     pub fn set_parties_added<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.parties_added = v.into();
         self
     }
 
     /// Sets the value of [parties_removed][crate::model::ImportRegisteredPartiesResponse::parties_removed].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::ImportRegisteredPartiesResponse;
-    /// let x = ImportRegisteredPartiesResponse::new().set_parties_removed(42);
-    /// ```
     pub fn set_parties_removed<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.parties_removed = v.into();
         self
     }
 
     /// Sets the value of [parties_total][crate::model::ImportRegisteredPartiesResponse::parties_total].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::ImportRegisteredPartiesResponse;
-    /// let x = ImportRegisteredPartiesResponse::new().set_parties_total(42);
-    /// ```
     pub fn set_parties_total<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.parties_total = v.into();
         self
     }
 
     /// Sets the value of [parties_failed_to_remove][crate::model::ImportRegisteredPartiesResponse::parties_failed_to_remove].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::ImportRegisteredPartiesResponse;
-    /// let x = ImportRegisteredPartiesResponse::new().set_parties_failed_to_remove(42);
-    /// ```
     pub fn set_parties_failed_to_remove<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.parties_failed_to_remove = v.into();
         self
     }
 
     /// Sets the value of [parties_uptiered][crate::model::ImportRegisteredPartiesResponse::parties_uptiered].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::ImportRegisteredPartiesResponse;
-    /// let x = ImportRegisteredPartiesResponse::new().set_parties_uptiered(42);
-    /// ```
     pub fn set_parties_uptiered<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.parties_uptiered = v.into();
         self
     }
 
     /// Sets the value of [parties_downtiered][crate::model::ImportRegisteredPartiesResponse::parties_downtiered].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::ImportRegisteredPartiesResponse;
-    /// let x = ImportRegisteredPartiesResponse::new().set_parties_downtiered(42);
-    /// ```
     pub fn set_parties_downtiered<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.parties_downtiered = v.into();
         self
     }
 
     /// Sets the value of [parties_failed_to_downtier][crate::model::ImportRegisteredPartiesResponse::parties_failed_to_downtier].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::ImportRegisteredPartiesResponse;
-    /// let x = ImportRegisteredPartiesResponse::new().set_parties_failed_to_downtier(42);
-    /// ```
     pub fn set_parties_failed_to_downtier<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.parties_failed_to_downtier = v.into();
         self
@@ -5497,25 +4264,12 @@ impl ExportRegisteredPartiesRequest {
     }
 
     /// Sets the value of [name][crate::model::ExportRegisteredPartiesRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::ExportRegisteredPartiesRequest;
-    /// let x = ExportRegisteredPartiesRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [dataset][crate::model::ExportRegisteredPartiesRequest::dataset].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::ExportRegisteredPartiesRequest;
-    /// use google_cloud_financialservices_v1::model::BigQueryDestination;
-    /// let x = ExportRegisteredPartiesRequest::new().set_dataset(BigQueryDestination::default()/* use setters */);
-    /// ```
     pub fn set_dataset<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::BigQueryDestination>,
@@ -5525,14 +4279,6 @@ impl ExportRegisteredPartiesRequest {
     }
 
     /// Sets or clears the value of [dataset][crate::model::ExportRegisteredPartiesRequest::dataset].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::ExportRegisteredPartiesRequest;
-    /// use google_cloud_financialservices_v1::model::BigQueryDestination;
-    /// let x = ExportRegisteredPartiesRequest::new().set_or_clear_dataset(Some(BigQueryDestination::default()/* use setters */));
-    /// let x = ExportRegisteredPartiesRequest::new().set_or_clear_dataset(None::<BigQueryDestination>);
-    /// ```
     pub fn set_or_clear_dataset<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::BigQueryDestination>,
@@ -5542,14 +4288,6 @@ impl ExportRegisteredPartiesRequest {
     }
 
     /// Sets the value of [line_of_business][crate::model::ExportRegisteredPartiesRequest::line_of_business].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::ExportRegisteredPartiesRequest;
-    /// use google_cloud_financialservices_v1::model::LineOfBusiness;
-    /// let x0 = ExportRegisteredPartiesRequest::new().set_line_of_business(LineOfBusiness::Commercial);
-    /// let x1 = ExportRegisteredPartiesRequest::new().set_line_of_business(LineOfBusiness::Retail);
-    /// ```
     pub fn set_line_of_business<T: std::convert::Into<crate::model::LineOfBusiness>>(
         mut self,
         v: T,
@@ -5638,25 +4376,12 @@ impl Model {
     }
 
     /// Sets the value of [name][crate::model::Model::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::Model;
-    /// let x = Model::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::Model::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::Model;
-    /// use wkt::Timestamp;
-    /// let x = Model::new().set_create_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -5666,14 +4391,6 @@ impl Model {
     }
 
     /// Sets or clears the value of [create_time][crate::model::Model::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::Model;
-    /// use wkt::Timestamp;
-    /// let x = Model::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
-    /// let x = Model::new().set_or_clear_create_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -5683,13 +4400,6 @@ impl Model {
     }
 
     /// Sets the value of [update_time][crate::model::Model::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::Model;
-    /// use wkt::Timestamp;
-    /// let x = Model::new().set_update_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -5699,14 +4409,6 @@ impl Model {
     }
 
     /// Sets or clears the value of [update_time][crate::model::Model::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::Model;
-    /// use wkt::Timestamp;
-    /// let x = Model::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
-    /// let x = Model::new().set_or_clear_update_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -5716,15 +4418,6 @@ impl Model {
     }
 
     /// Sets the value of [labels][crate::model::Model::labels].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::Model;
-    /// let x = Model::new().set_labels([
-    ///     ("key0", "abc"),
-    ///     ("key1", "xyz"),
-    /// ]);
-    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -5737,64 +4430,30 @@ impl Model {
     }
 
     /// Sets the value of [state][crate::model::Model::state].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::Model;
-    /// use google_cloud_financialservices_v1::model::model::State;
-    /// let x0 = Model::new().set_state(State::Creating);
-    /// let x1 = Model::new().set_state(State::Active);
-    /// let x2 = Model::new().set_state(State::Updating);
-    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::model::State>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
     }
 
     /// Sets the value of [engine_version][crate::model::Model::engine_version].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::Model;
-    /// let x = Model::new().set_engine_version("example");
-    /// ```
     pub fn set_engine_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.engine_version = v.into();
         self
     }
 
     /// Sets the value of [engine_config][crate::model::Model::engine_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::Model;
-    /// let x = Model::new().set_engine_config("example");
-    /// ```
     pub fn set_engine_config<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.engine_config = v.into();
         self
     }
 
     /// Sets the value of [primary_dataset][crate::model::Model::primary_dataset].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::Model;
-    /// let x = Model::new().set_primary_dataset("example");
-    /// ```
     pub fn set_primary_dataset<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.primary_dataset = v.into();
         self
     }
 
     /// Sets the value of [end_time][crate::model::Model::end_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::Model;
-    /// use wkt::Timestamp;
-    /// let x = Model::new().set_end_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -5804,14 +4463,6 @@ impl Model {
     }
 
     /// Sets or clears the value of [end_time][crate::model::Model::end_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::Model;
-    /// use wkt::Timestamp;
-    /// let x = Model::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
-    /// let x = Model::new().set_or_clear_end_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -5821,14 +4472,6 @@ impl Model {
     }
 
     /// Sets the value of [line_of_business][crate::model::Model::line_of_business].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::Model;
-    /// use google_cloud_financialservices_v1::model::LineOfBusiness;
-    /// let x0 = Model::new().set_line_of_business(LineOfBusiness::Commercial);
-    /// let x1 = Model::new().set_line_of_business(LineOfBusiness::Retail);
-    /// ```
     pub fn set_line_of_business<T: std::convert::Into<crate::model::LineOfBusiness>>(
         mut self,
         v: T,
@@ -6030,60 +4673,30 @@ impl ListModelsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListModelsRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::ListModelsRequest;
-    /// let x = ListModelsRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListModelsRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::ListModelsRequest;
-    /// let x = ListModelsRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListModelsRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::ListModelsRequest;
-    /// let x = ListModelsRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListModelsRequest::filter].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::ListModelsRequest;
-    /// let x = ListModelsRequest::new().set_filter("example");
-    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListModelsRequest::order_by].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::ListModelsRequest;
-    /// let x = ListModelsRequest::new().set_order_by("example");
-    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
@@ -6119,17 +4732,6 @@ impl ListModelsResponse {
     }
 
     /// Sets the value of [models][crate::model::ListModelsResponse::models].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::ListModelsResponse;
-    /// use google_cloud_financialservices_v1::model::Model;
-    /// let x = ListModelsResponse::new()
-    ///     .set_models([
-    ///         Model::default()/* use setters */,
-    ///         Model::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_models<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -6141,24 +4743,12 @@ impl ListModelsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListModelsResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::ListModelsResponse;
-    /// let x = ListModelsResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListModelsResponse::unreachable].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::ListModelsResponse;
-    /// let x = ListModelsResponse::new().set_unreachable(["a", "b", "c"]);
-    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -6206,12 +4796,6 @@ impl GetModelRequest {
     }
 
     /// Sets the value of [name][crate::model::GetModelRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::GetModelRequest;
-    /// let x = GetModelRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -6261,37 +4845,18 @@ impl CreateModelRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateModelRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::CreateModelRequest;
-    /// let x = CreateModelRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [model_id][crate::model::CreateModelRequest::model_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::CreateModelRequest;
-    /// let x = CreateModelRequest::new().set_model_id("example");
-    /// ```
     pub fn set_model_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.model_id = v.into();
         self
     }
 
     /// Sets the value of [model][crate::model::CreateModelRequest::model].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::CreateModelRequest;
-    /// use google_cloud_financialservices_v1::model::Model;
-    /// let x = CreateModelRequest::new().set_model(Model::default()/* use setters */);
-    /// ```
     pub fn set_model<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Model>,
@@ -6301,14 +4866,6 @@ impl CreateModelRequest {
     }
 
     /// Sets or clears the value of [model][crate::model::CreateModelRequest::model].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::CreateModelRequest;
-    /// use google_cloud_financialservices_v1::model::Model;
-    /// let x = CreateModelRequest::new().set_or_clear_model(Some(Model::default()/* use setters */));
-    /// let x = CreateModelRequest::new().set_or_clear_model(None::<Model>);
-    /// ```
     pub fn set_or_clear_model<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Model>,
@@ -6318,12 +4875,6 @@ impl CreateModelRequest {
     }
 
     /// Sets the value of [request_id][crate::model::CreateModelRequest::request_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::CreateModelRequest;
-    /// let x = CreateModelRequest::new().set_request_id("example");
-    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -6375,13 +4926,6 @@ impl UpdateModelRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateModelRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::UpdateModelRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateModelRequest::new().set_update_mask(FieldMask::default()/* use setters */);
-    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -6391,14 +4935,6 @@ impl UpdateModelRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateModelRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::UpdateModelRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateModelRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
-    /// let x = UpdateModelRequest::new().set_or_clear_update_mask(None::<FieldMask>);
-    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -6408,13 +4944,6 @@ impl UpdateModelRequest {
     }
 
     /// Sets the value of [model][crate::model::UpdateModelRequest::model].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::UpdateModelRequest;
-    /// use google_cloud_financialservices_v1::model::Model;
-    /// let x = UpdateModelRequest::new().set_model(Model::default()/* use setters */);
-    /// ```
     pub fn set_model<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Model>,
@@ -6424,14 +4953,6 @@ impl UpdateModelRequest {
     }
 
     /// Sets or clears the value of [model][crate::model::UpdateModelRequest::model].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::UpdateModelRequest;
-    /// use google_cloud_financialservices_v1::model::Model;
-    /// let x = UpdateModelRequest::new().set_or_clear_model(Some(Model::default()/* use setters */));
-    /// let x = UpdateModelRequest::new().set_or_clear_model(None::<Model>);
-    /// ```
     pub fn set_or_clear_model<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Model>,
@@ -6441,12 +4962,6 @@ impl UpdateModelRequest {
     }
 
     /// Sets the value of [request_id][crate::model::UpdateModelRequest::request_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::UpdateModelRequest;
-    /// let x = UpdateModelRequest::new().set_request_id("example");
-    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -6490,24 +5005,12 @@ impl DeleteModelRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteModelRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::DeleteModelRequest;
-    /// let x = DeleteModelRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [request_id][crate::model::DeleteModelRequest::request_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::DeleteModelRequest;
-    /// let x = DeleteModelRequest::new().set_request_id("example");
-    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -6539,25 +5042,12 @@ impl ExportModelMetadataRequest {
     }
 
     /// Sets the value of [model][crate::model::ExportModelMetadataRequest::model].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::ExportModelMetadataRequest;
-    /// let x = ExportModelMetadataRequest::new().set_model("example");
-    /// ```
     pub fn set_model<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.model = v.into();
         self
     }
 
     /// Sets the value of [structured_metadata_destination][crate::model::ExportModelMetadataRequest::structured_metadata_destination].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::ExportModelMetadataRequest;
-    /// use google_cloud_financialservices_v1::model::BigQueryDestination;
-    /// let x = ExportModelMetadataRequest::new().set_structured_metadata_destination(BigQueryDestination::default()/* use setters */);
-    /// ```
     pub fn set_structured_metadata_destination<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::BigQueryDestination>,
@@ -6567,14 +5057,6 @@ impl ExportModelMetadataRequest {
     }
 
     /// Sets or clears the value of [structured_metadata_destination][crate::model::ExportModelMetadataRequest::structured_metadata_destination].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::ExportModelMetadataRequest;
-    /// use google_cloud_financialservices_v1::model::BigQueryDestination;
-    /// let x = ExportModelMetadataRequest::new().set_or_clear_structured_metadata_destination(Some(BigQueryDestination::default()/* use setters */));
-    /// let x = ExportModelMetadataRequest::new().set_or_clear_structured_metadata_destination(None::<BigQueryDestination>);
-    /// ```
     pub fn set_or_clear_structured_metadata_destination<T>(
         mut self,
         v: std::option::Option<T>,
@@ -6676,25 +5158,12 @@ impl PredictionResult {
     }
 
     /// Sets the value of [name][crate::model::PredictionResult::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::PredictionResult;
-    /// let x = PredictionResult::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::PredictionResult::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::PredictionResult;
-    /// use wkt::Timestamp;
-    /// let x = PredictionResult::new().set_create_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -6704,14 +5173,6 @@ impl PredictionResult {
     }
 
     /// Sets or clears the value of [create_time][crate::model::PredictionResult::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::PredictionResult;
-    /// use wkt::Timestamp;
-    /// let x = PredictionResult::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
-    /// let x = PredictionResult::new().set_or_clear_create_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -6721,13 +5182,6 @@ impl PredictionResult {
     }
 
     /// Sets the value of [update_time][crate::model::PredictionResult::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::PredictionResult;
-    /// use wkt::Timestamp;
-    /// let x = PredictionResult::new().set_update_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -6737,14 +5191,6 @@ impl PredictionResult {
     }
 
     /// Sets or clears the value of [update_time][crate::model::PredictionResult::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::PredictionResult;
-    /// use wkt::Timestamp;
-    /// let x = PredictionResult::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
-    /// let x = PredictionResult::new().set_or_clear_update_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -6754,15 +5200,6 @@ impl PredictionResult {
     }
 
     /// Sets the value of [labels][crate::model::PredictionResult::labels].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::PredictionResult;
-    /// let x = PredictionResult::new().set_labels([
-    ///     ("key0", "abc"),
-    ///     ("key1", "xyz"),
-    /// ]);
-    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -6775,15 +5212,6 @@ impl PredictionResult {
     }
 
     /// Sets the value of [state][crate::model::PredictionResult::state].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::PredictionResult;
-    /// use google_cloud_financialservices_v1::model::prediction_result::State;
-    /// let x0 = PredictionResult::new().set_state(State::Creating);
-    /// let x1 = PredictionResult::new().set_state(State::Active);
-    /// let x2 = PredictionResult::new().set_state(State::Updating);
-    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::prediction_result::State>>(
         mut self,
         v: T,
@@ -6793,37 +5221,18 @@ impl PredictionResult {
     }
 
     /// Sets the value of [dataset][crate::model::PredictionResult::dataset].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::PredictionResult;
-    /// let x = PredictionResult::new().set_dataset("example");
-    /// ```
     pub fn set_dataset<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.dataset = v.into();
         self
     }
 
     /// Sets the value of [model][crate::model::PredictionResult::model].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::PredictionResult;
-    /// let x = PredictionResult::new().set_model("example");
-    /// ```
     pub fn set_model<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.model = v.into();
         self
     }
 
     /// Sets the value of [end_time][crate::model::PredictionResult::end_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::PredictionResult;
-    /// use wkt::Timestamp;
-    /// let x = PredictionResult::new().set_end_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -6833,14 +5242,6 @@ impl PredictionResult {
     }
 
     /// Sets or clears the value of [end_time][crate::model::PredictionResult::end_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::PredictionResult;
-    /// use wkt::Timestamp;
-    /// let x = PredictionResult::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
-    /// let x = PredictionResult::new().set_or_clear_end_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -6850,25 +5251,12 @@ impl PredictionResult {
     }
 
     /// Sets the value of [prediction_periods][crate::model::PredictionResult::prediction_periods].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::PredictionResult;
-    /// let x = PredictionResult::new().set_prediction_periods(42);
-    /// ```
     pub fn set_prediction_periods<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.prediction_periods = v.into();
         self
     }
 
     /// Sets the value of [outputs][crate::model::PredictionResult::outputs].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::PredictionResult;
-    /// use google_cloud_financialservices_v1::model::prediction_result::Outputs;
-    /// let x = PredictionResult::new().set_outputs(Outputs::default()/* use setters */);
-    /// ```
     pub fn set_outputs<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::prediction_result::Outputs>,
@@ -6878,14 +5266,6 @@ impl PredictionResult {
     }
 
     /// Sets or clears the value of [outputs][crate::model::PredictionResult::outputs].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::PredictionResult;
-    /// use google_cloud_financialservices_v1::model::prediction_result::Outputs;
-    /// let x = PredictionResult::new().set_or_clear_outputs(Some(Outputs::default()/* use setters */));
-    /// let x = PredictionResult::new().set_or_clear_outputs(None::<Outputs>);
-    /// ```
     pub fn set_or_clear_outputs<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::prediction_result::Outputs>,
@@ -6895,14 +5275,6 @@ impl PredictionResult {
     }
 
     /// Sets the value of [line_of_business][crate::model::PredictionResult::line_of_business].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::PredictionResult;
-    /// use google_cloud_financialservices_v1::model::LineOfBusiness;
-    /// let x0 = PredictionResult::new().set_line_of_business(LineOfBusiness::Commercial);
-    /// let x1 = PredictionResult::new().set_line_of_business(LineOfBusiness::Retail);
-    /// ```
     pub fn set_line_of_business<T: std::convert::Into<crate::model::LineOfBusiness>>(
         mut self,
         v: T,
@@ -6943,13 +5315,6 @@ pub mod prediction_result {
         }
 
         /// Sets the value of [prediction_destination][crate::model::prediction_result::Outputs::prediction_destination].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_financialservices_v1::model::prediction_result::Outputs;
-        /// use google_cloud_financialservices_v1::model::BigQueryDestination;
-        /// let x = Outputs::new().set_prediction_destination(BigQueryDestination::default()/* use setters */);
-        /// ```
         pub fn set_prediction_destination<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::BigQueryDestination>,
@@ -6959,14 +5324,6 @@ pub mod prediction_result {
         }
 
         /// Sets or clears the value of [prediction_destination][crate::model::prediction_result::Outputs::prediction_destination].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_financialservices_v1::model::prediction_result::Outputs;
-        /// use google_cloud_financialservices_v1::model::BigQueryDestination;
-        /// let x = Outputs::new().set_or_clear_prediction_destination(Some(BigQueryDestination::default()/* use setters */));
-        /// let x = Outputs::new().set_or_clear_prediction_destination(None::<BigQueryDestination>);
-        /// ```
         pub fn set_or_clear_prediction_destination<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::BigQueryDestination>,
@@ -6976,13 +5333,6 @@ pub mod prediction_result {
         }
 
         /// Sets the value of [explainability_destination][crate::model::prediction_result::Outputs::explainability_destination].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_financialservices_v1::model::prediction_result::Outputs;
-        /// use google_cloud_financialservices_v1::model::BigQueryDestination;
-        /// let x = Outputs::new().set_explainability_destination(BigQueryDestination::default()/* use setters */);
-        /// ```
         pub fn set_explainability_destination<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::BigQueryDestination>,
@@ -6992,14 +5342,6 @@ pub mod prediction_result {
         }
 
         /// Sets or clears the value of [explainability_destination][crate::model::prediction_result::Outputs::explainability_destination].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_financialservices_v1::model::prediction_result::Outputs;
-        /// use google_cloud_financialservices_v1::model::BigQueryDestination;
-        /// let x = Outputs::new().set_or_clear_explainability_destination(Some(BigQueryDestination::default()/* use setters */));
-        /// let x = Outputs::new().set_or_clear_explainability_destination(None::<BigQueryDestination>);
-        /// ```
         pub fn set_or_clear_explainability_destination<T>(
             mut self,
             v: std::option::Option<T>,
@@ -7200,60 +5542,30 @@ impl ListPredictionResultsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListPredictionResultsRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::ListPredictionResultsRequest;
-    /// let x = ListPredictionResultsRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListPredictionResultsRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::ListPredictionResultsRequest;
-    /// let x = ListPredictionResultsRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListPredictionResultsRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::ListPredictionResultsRequest;
-    /// let x = ListPredictionResultsRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListPredictionResultsRequest::filter].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::ListPredictionResultsRequest;
-    /// let x = ListPredictionResultsRequest::new().set_filter("example");
-    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListPredictionResultsRequest::order_by].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::ListPredictionResultsRequest;
-    /// let x = ListPredictionResultsRequest::new().set_order_by("example");
-    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
@@ -7290,17 +5602,6 @@ impl ListPredictionResultsResponse {
     }
 
     /// Sets the value of [prediction_results][crate::model::ListPredictionResultsResponse::prediction_results].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::ListPredictionResultsResponse;
-    /// use google_cloud_financialservices_v1::model::PredictionResult;
-    /// let x = ListPredictionResultsResponse::new()
-    ///     .set_prediction_results([
-    ///         PredictionResult::default()/* use setters */,
-    ///         PredictionResult::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_prediction_results<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -7312,24 +5613,12 @@ impl ListPredictionResultsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListPredictionResultsResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::ListPredictionResultsResponse;
-    /// let x = ListPredictionResultsResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListPredictionResultsResponse::unreachable].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::ListPredictionResultsResponse;
-    /// let x = ListPredictionResultsResponse::new().set_unreachable(["a", "b", "c"]);
-    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -7377,12 +5666,6 @@ impl GetPredictionResultRequest {
     }
 
     /// Sets the value of [name][crate::model::GetPredictionResultRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::GetPredictionResultRequest;
-    /// let x = GetPredictionResultRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -7432,24 +5715,12 @@ impl CreatePredictionResultRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreatePredictionResultRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::CreatePredictionResultRequest;
-    /// let x = CreatePredictionResultRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [prediction_result_id][crate::model::CreatePredictionResultRequest::prediction_result_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::CreatePredictionResultRequest;
-    /// let x = CreatePredictionResultRequest::new().set_prediction_result_id("example");
-    /// ```
     pub fn set_prediction_result_id<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -7459,13 +5730,6 @@ impl CreatePredictionResultRequest {
     }
 
     /// Sets the value of [prediction_result][crate::model::CreatePredictionResultRequest::prediction_result].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::CreatePredictionResultRequest;
-    /// use google_cloud_financialservices_v1::model::PredictionResult;
-    /// let x = CreatePredictionResultRequest::new().set_prediction_result(PredictionResult::default()/* use setters */);
-    /// ```
     pub fn set_prediction_result<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::PredictionResult>,
@@ -7475,14 +5739,6 @@ impl CreatePredictionResultRequest {
     }
 
     /// Sets or clears the value of [prediction_result][crate::model::CreatePredictionResultRequest::prediction_result].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::CreatePredictionResultRequest;
-    /// use google_cloud_financialservices_v1::model::PredictionResult;
-    /// let x = CreatePredictionResultRequest::new().set_or_clear_prediction_result(Some(PredictionResult::default()/* use setters */));
-    /// let x = CreatePredictionResultRequest::new().set_or_clear_prediction_result(None::<PredictionResult>);
-    /// ```
     pub fn set_or_clear_prediction_result<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::PredictionResult>,
@@ -7492,12 +5748,6 @@ impl CreatePredictionResultRequest {
     }
 
     /// Sets the value of [request_id][crate::model::CreatePredictionResultRequest::request_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::CreatePredictionResultRequest;
-    /// let x = CreatePredictionResultRequest::new().set_request_id("example");
-    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -7549,13 +5799,6 @@ impl UpdatePredictionResultRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdatePredictionResultRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::UpdatePredictionResultRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdatePredictionResultRequest::new().set_update_mask(FieldMask::default()/* use setters */);
-    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -7565,14 +5808,6 @@ impl UpdatePredictionResultRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdatePredictionResultRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::UpdatePredictionResultRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdatePredictionResultRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
-    /// let x = UpdatePredictionResultRequest::new().set_or_clear_update_mask(None::<FieldMask>);
-    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -7582,13 +5817,6 @@ impl UpdatePredictionResultRequest {
     }
 
     /// Sets the value of [prediction_result][crate::model::UpdatePredictionResultRequest::prediction_result].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::UpdatePredictionResultRequest;
-    /// use google_cloud_financialservices_v1::model::PredictionResult;
-    /// let x = UpdatePredictionResultRequest::new().set_prediction_result(PredictionResult::default()/* use setters */);
-    /// ```
     pub fn set_prediction_result<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::PredictionResult>,
@@ -7598,14 +5826,6 @@ impl UpdatePredictionResultRequest {
     }
 
     /// Sets or clears the value of [prediction_result][crate::model::UpdatePredictionResultRequest::prediction_result].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::UpdatePredictionResultRequest;
-    /// use google_cloud_financialservices_v1::model::PredictionResult;
-    /// let x = UpdatePredictionResultRequest::new().set_or_clear_prediction_result(Some(PredictionResult::default()/* use setters */));
-    /// let x = UpdatePredictionResultRequest::new().set_or_clear_prediction_result(None::<PredictionResult>);
-    /// ```
     pub fn set_or_clear_prediction_result<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::PredictionResult>,
@@ -7615,12 +5835,6 @@ impl UpdatePredictionResultRequest {
     }
 
     /// Sets the value of [request_id][crate::model::UpdatePredictionResultRequest::request_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::UpdatePredictionResultRequest;
-    /// let x = UpdatePredictionResultRequest::new().set_request_id("example");
-    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -7664,24 +5878,12 @@ impl DeletePredictionResultRequest {
     }
 
     /// Sets the value of [name][crate::model::DeletePredictionResultRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::DeletePredictionResultRequest;
-    /// let x = DeletePredictionResultRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [request_id][crate::model::DeletePredictionResultRequest::request_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::DeletePredictionResultRequest;
-    /// let x = DeletePredictionResultRequest::new().set_request_id("example");
-    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -7713,12 +5915,6 @@ impl ExportPredictionResultMetadataRequest {
     }
 
     /// Sets the value of [prediction_result][crate::model::ExportPredictionResultMetadataRequest::prediction_result].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::ExportPredictionResultMetadataRequest;
-    /// let x = ExportPredictionResultMetadataRequest::new().set_prediction_result("example");
-    /// ```
     pub fn set_prediction_result<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -7728,13 +5924,6 @@ impl ExportPredictionResultMetadataRequest {
     }
 
     /// Sets the value of [structured_metadata_destination][crate::model::ExportPredictionResultMetadataRequest::structured_metadata_destination].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::ExportPredictionResultMetadataRequest;
-    /// use google_cloud_financialservices_v1::model::BigQueryDestination;
-    /// let x = ExportPredictionResultMetadataRequest::new().set_structured_metadata_destination(BigQueryDestination::default()/* use setters */);
-    /// ```
     pub fn set_structured_metadata_destination<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::BigQueryDestination>,
@@ -7744,14 +5933,6 @@ impl ExportPredictionResultMetadataRequest {
     }
 
     /// Sets or clears the value of [structured_metadata_destination][crate::model::ExportPredictionResultMetadataRequest::structured_metadata_destination].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::ExportPredictionResultMetadataRequest;
-    /// use google_cloud_financialservices_v1::model::BigQueryDestination;
-    /// let x = ExportPredictionResultMetadataRequest::new().set_or_clear_structured_metadata_destination(Some(BigQueryDestination::default()/* use setters */));
-    /// let x = ExportPredictionResultMetadataRequest::new().set_or_clear_structured_metadata_destination(None::<BigQueryDestination>);
-    /// ```
     pub fn set_or_clear_structured_metadata_destination<T>(
         mut self,
         v: std::option::Option<T>,
@@ -7832,13 +6013,6 @@ impl OperationMetadata {
     }
 
     /// Sets the value of [create_time][crate::model::OperationMetadata::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::OperationMetadata;
-    /// use wkt::Timestamp;
-    /// let x = OperationMetadata::new().set_create_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -7848,14 +6022,6 @@ impl OperationMetadata {
     }
 
     /// Sets or clears the value of [create_time][crate::model::OperationMetadata::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::OperationMetadata;
-    /// use wkt::Timestamp;
-    /// let x = OperationMetadata::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
-    /// let x = OperationMetadata::new().set_or_clear_create_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -7865,13 +6031,6 @@ impl OperationMetadata {
     }
 
     /// Sets the value of [end_time][crate::model::OperationMetadata::end_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::OperationMetadata;
-    /// use wkt::Timestamp;
-    /// let x = OperationMetadata::new().set_end_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -7881,14 +6040,6 @@ impl OperationMetadata {
     }
 
     /// Sets or clears the value of [end_time][crate::model::OperationMetadata::end_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::OperationMetadata;
-    /// use wkt::Timestamp;
-    /// let x = OperationMetadata::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
-    /// let x = OperationMetadata::new().set_or_clear_end_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -7898,60 +6049,30 @@ impl OperationMetadata {
     }
 
     /// Sets the value of [target][crate::model::OperationMetadata::target].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::OperationMetadata;
-    /// let x = OperationMetadata::new().set_target("example");
-    /// ```
     pub fn set_target<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.target = v.into();
         self
     }
 
     /// Sets the value of [verb][crate::model::OperationMetadata::verb].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::OperationMetadata;
-    /// let x = OperationMetadata::new().set_verb("example");
-    /// ```
     pub fn set_verb<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.verb = v.into();
         self
     }
 
     /// Sets the value of [status_message][crate::model::OperationMetadata::status_message].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::OperationMetadata;
-    /// let x = OperationMetadata::new().set_status_message("example");
-    /// ```
     pub fn set_status_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.status_message = v.into();
         self
     }
 
     /// Sets the value of [requested_cancellation][crate::model::OperationMetadata::requested_cancellation].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::OperationMetadata;
-    /// let x = OperationMetadata::new().set_requested_cancellation(true);
-    /// ```
     pub fn set_requested_cancellation<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.requested_cancellation = v.into();
         self
     }
 
     /// Sets the value of [api_version][crate::model::OperationMetadata::api_version].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_financialservices_v1::model::OperationMetadata;
-    /// let x = OperationMetadata::new().set_api_version("example");
-    /// ```
     pub fn set_api_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.api_version = v.into();
         self

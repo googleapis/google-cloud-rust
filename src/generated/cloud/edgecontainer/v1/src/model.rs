@@ -137,25 +137,12 @@ impl Cluster {
     }
 
     /// Sets the value of [name][crate::model::Cluster::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_edgecontainer_v1::model::Cluster;
-    /// let x = Cluster::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::Cluster::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_edgecontainer_v1::model::Cluster;
-    /// use wkt::Timestamp;
-    /// let x = Cluster::new().set_create_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -165,14 +152,6 @@ impl Cluster {
     }
 
     /// Sets or clears the value of [create_time][crate::model::Cluster::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_edgecontainer_v1::model::Cluster;
-    /// use wkt::Timestamp;
-    /// let x = Cluster::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
-    /// let x = Cluster::new().set_or_clear_create_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -182,13 +161,6 @@ impl Cluster {
     }
 
     /// Sets the value of [update_time][crate::model::Cluster::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_edgecontainer_v1::model::Cluster;
-    /// use wkt::Timestamp;
-    /// let x = Cluster::new().set_update_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -198,14 +170,6 @@ impl Cluster {
     }
 
     /// Sets or clears the value of [update_time][crate::model::Cluster::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_edgecontainer_v1::model::Cluster;
-    /// use wkt::Timestamp;
-    /// let x = Cluster::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
-    /// let x = Cluster::new().set_or_clear_update_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -215,15 +179,6 @@ impl Cluster {
     }
 
     /// Sets the value of [labels][crate::model::Cluster::labels].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_edgecontainer_v1::model::Cluster;
-    /// let x = Cluster::new().set_labels([
-    ///     ("key0", "abc"),
-    ///     ("key1", "xyz"),
-    /// ]);
-    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -236,13 +191,6 @@ impl Cluster {
     }
 
     /// Sets the value of [fleet][crate::model::Cluster::fleet].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_edgecontainer_v1::model::Cluster;
-    /// use google_cloud_edgecontainer_v1::model::Fleet;
-    /// let x = Cluster::new().set_fleet(Fleet::default()/* use setters */);
-    /// ```
     pub fn set_fleet<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Fleet>,
@@ -252,14 +200,6 @@ impl Cluster {
     }
 
     /// Sets or clears the value of [fleet][crate::model::Cluster::fleet].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_edgecontainer_v1::model::Cluster;
-    /// use google_cloud_edgecontainer_v1::model::Fleet;
-    /// let x = Cluster::new().set_or_clear_fleet(Some(Fleet::default()/* use setters */));
-    /// let x = Cluster::new().set_or_clear_fleet(None::<Fleet>);
-    /// ```
     pub fn set_or_clear_fleet<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Fleet>,
@@ -269,13 +209,6 @@ impl Cluster {
     }
 
     /// Sets the value of [networking][crate::model::Cluster::networking].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_edgecontainer_v1::model::Cluster;
-    /// use google_cloud_edgecontainer_v1::model::ClusterNetworking;
-    /// let x = Cluster::new().set_networking(ClusterNetworking::default()/* use setters */);
-    /// ```
     pub fn set_networking<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ClusterNetworking>,
@@ -285,14 +218,6 @@ impl Cluster {
     }
 
     /// Sets or clears the value of [networking][crate::model::Cluster::networking].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_edgecontainer_v1::model::Cluster;
-    /// use google_cloud_edgecontainer_v1::model::ClusterNetworking;
-    /// let x = Cluster::new().set_or_clear_networking(Some(ClusterNetworking::default()/* use setters */));
-    /// let x = Cluster::new().set_or_clear_networking(None::<ClusterNetworking>);
-    /// ```
     pub fn set_or_clear_networking<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ClusterNetworking>,
@@ -302,13 +227,6 @@ impl Cluster {
     }
 
     /// Sets the value of [authorization][crate::model::Cluster::authorization].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_edgecontainer_v1::model::Cluster;
-    /// use google_cloud_edgecontainer_v1::model::Authorization;
-    /// let x = Cluster::new().set_authorization(Authorization::default()/* use setters */);
-    /// ```
     pub fn set_authorization<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Authorization>,
@@ -318,14 +236,6 @@ impl Cluster {
     }
 
     /// Sets or clears the value of [authorization][crate::model::Cluster::authorization].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_edgecontainer_v1::model::Cluster;
-    /// use google_cloud_edgecontainer_v1::model::Authorization;
-    /// let x = Cluster::new().set_or_clear_authorization(Some(Authorization::default()/* use setters */));
-    /// let x = Cluster::new().set_or_clear_authorization(None::<Authorization>);
-    /// ```
     pub fn set_or_clear_authorization<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Authorization>,
@@ -335,48 +245,24 @@ impl Cluster {
     }
 
     /// Sets the value of [default_max_pods_per_node][crate::model::Cluster::default_max_pods_per_node].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_edgecontainer_v1::model::Cluster;
-    /// let x = Cluster::new().set_default_max_pods_per_node(42);
-    /// ```
     pub fn set_default_max_pods_per_node<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.default_max_pods_per_node = v.into();
         self
     }
 
     /// Sets the value of [endpoint][crate::model::Cluster::endpoint].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_edgecontainer_v1::model::Cluster;
-    /// let x = Cluster::new().set_endpoint("example");
-    /// ```
     pub fn set_endpoint<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.endpoint = v.into();
         self
     }
 
     /// Sets the value of [port][crate::model::Cluster::port].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_edgecontainer_v1::model::Cluster;
-    /// let x = Cluster::new().set_port(42);
-    /// ```
     pub fn set_port<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.port = v.into();
         self
     }
 
     /// Sets the value of [cluster_ca_certificate][crate::model::Cluster::cluster_ca_certificate].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_edgecontainer_v1::model::Cluster;
-    /// let x = Cluster::new().set_cluster_ca_certificate("example");
-    /// ```
     pub fn set_cluster_ca_certificate<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -386,13 +272,6 @@ impl Cluster {
     }
 
     /// Sets the value of [maintenance_policy][crate::model::Cluster::maintenance_policy].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_edgecontainer_v1::model::Cluster;
-    /// use google_cloud_edgecontainer_v1::model::MaintenancePolicy;
-    /// let x = Cluster::new().set_maintenance_policy(MaintenancePolicy::default()/* use setters */);
-    /// ```
     pub fn set_maintenance_policy<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::MaintenancePolicy>,
@@ -402,14 +281,6 @@ impl Cluster {
     }
 
     /// Sets or clears the value of [maintenance_policy][crate::model::Cluster::maintenance_policy].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_edgecontainer_v1::model::Cluster;
-    /// use google_cloud_edgecontainer_v1::model::MaintenancePolicy;
-    /// let x = Cluster::new().set_or_clear_maintenance_policy(Some(MaintenancePolicy::default()/* use setters */));
-    /// let x = Cluster::new().set_or_clear_maintenance_policy(None::<MaintenancePolicy>);
-    /// ```
     pub fn set_or_clear_maintenance_policy<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::MaintenancePolicy>,
@@ -419,12 +290,6 @@ impl Cluster {
     }
 
     /// Sets the value of [control_plane_version][crate::model::Cluster::control_plane_version].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_edgecontainer_v1::model::Cluster;
-    /// let x = Cluster::new().set_control_plane_version("example");
-    /// ```
     pub fn set_control_plane_version<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -434,25 +299,12 @@ impl Cluster {
     }
 
     /// Sets the value of [node_version][crate::model::Cluster::node_version].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_edgecontainer_v1::model::Cluster;
-    /// let x = Cluster::new().set_node_version("example");
-    /// ```
     pub fn set_node_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.node_version = v.into();
         self
     }
 
     /// Sets the value of [control_plane][crate::model::Cluster::control_plane].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_edgecontainer_v1::model::Cluster;
-    /// use google_cloud_edgecontainer_v1::model::cluster::ControlPlane;
-    /// let x = Cluster::new().set_control_plane(ControlPlane::default()/* use setters */);
-    /// ```
     pub fn set_control_plane<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::cluster::ControlPlane>,
@@ -462,14 +314,6 @@ impl Cluster {
     }
 
     /// Sets or clears the value of [control_plane][crate::model::Cluster::control_plane].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_edgecontainer_v1::model::Cluster;
-    /// use google_cloud_edgecontainer_v1::model::cluster::ControlPlane;
-    /// let x = Cluster::new().set_or_clear_control_plane(Some(ControlPlane::default()/* use setters */));
-    /// let x = Cluster::new().set_or_clear_control_plane(None::<ControlPlane>);
-    /// ```
     pub fn set_or_clear_control_plane<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::cluster::ControlPlane>,
@@ -479,13 +323,6 @@ impl Cluster {
     }
 
     /// Sets the value of [system_addons_config][crate::model::Cluster::system_addons_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_edgecontainer_v1::model::Cluster;
-    /// use google_cloud_edgecontainer_v1::model::cluster::SystemAddonsConfig;
-    /// let x = Cluster::new().set_system_addons_config(SystemAddonsConfig::default()/* use setters */);
-    /// ```
     pub fn set_system_addons_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::cluster::SystemAddonsConfig>,
@@ -495,14 +332,6 @@ impl Cluster {
     }
 
     /// Sets or clears the value of [system_addons_config][crate::model::Cluster::system_addons_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_edgecontainer_v1::model::Cluster;
-    /// use google_cloud_edgecontainer_v1::model::cluster::SystemAddonsConfig;
-    /// let x = Cluster::new().set_or_clear_system_addons_config(Some(SystemAddonsConfig::default()/* use setters */));
-    /// let x = Cluster::new().set_or_clear_system_addons_config(None::<SystemAddonsConfig>);
-    /// ```
     pub fn set_or_clear_system_addons_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::cluster::SystemAddonsConfig>,
@@ -512,12 +341,6 @@ impl Cluster {
     }
 
     /// Sets the value of [external_load_balancer_ipv4_address_pools][crate::model::Cluster::external_load_balancer_ipv4_address_pools].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_edgecontainer_v1::model::Cluster;
-    /// let x = Cluster::new().set_external_load_balancer_ipv4_address_pools(["a", "b", "c"]);
-    /// ```
     pub fn set_external_load_balancer_ipv4_address_pools<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -529,13 +352,6 @@ impl Cluster {
     }
 
     /// Sets the value of [control_plane_encryption][crate::model::Cluster::control_plane_encryption].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_edgecontainer_v1::model::Cluster;
-    /// use google_cloud_edgecontainer_v1::model::cluster::ControlPlaneEncryption;
-    /// let x = Cluster::new().set_control_plane_encryption(ControlPlaneEncryption::default()/* use setters */);
-    /// ```
     pub fn set_control_plane_encryption<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::cluster::ControlPlaneEncryption>,
@@ -545,14 +361,6 @@ impl Cluster {
     }
 
     /// Sets or clears the value of [control_plane_encryption][crate::model::Cluster::control_plane_encryption].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_edgecontainer_v1::model::Cluster;
-    /// use google_cloud_edgecontainer_v1::model::cluster::ControlPlaneEncryption;
-    /// let x = Cluster::new().set_or_clear_control_plane_encryption(Some(ControlPlaneEncryption::default()/* use setters */));
-    /// let x = Cluster::new().set_or_clear_control_plane_encryption(None::<ControlPlaneEncryption>);
-    /// ```
     pub fn set_or_clear_control_plane_encryption<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::cluster::ControlPlaneEncryption>,
@@ -562,15 +370,6 @@ impl Cluster {
     }
 
     /// Sets the value of [status][crate::model::Cluster::status].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_edgecontainer_v1::model::Cluster;
-    /// use google_cloud_edgecontainer_v1::model::cluster::Status;
-    /// let x0 = Cluster::new().set_status(Status::Provisioning);
-    /// let x1 = Cluster::new().set_status(Status::Running);
-    /// let x2 = Cluster::new().set_status(Status::Deleting);
-    /// ```
     pub fn set_status<T: std::convert::Into<crate::model::cluster::Status>>(
         mut self,
         v: T,
@@ -580,17 +379,6 @@ impl Cluster {
     }
 
     /// Sets the value of [maintenance_events][crate::model::Cluster::maintenance_events].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_edgecontainer_v1::model::Cluster;
-    /// use google_cloud_edgecontainer_v1::model::cluster::MaintenanceEvent;
-    /// let x = Cluster::new()
-    ///     .set_maintenance_events([
-    ///         MaintenanceEvent::default()/* use setters */,
-    ///         MaintenanceEvent::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_maintenance_events<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -602,26 +390,12 @@ impl Cluster {
     }
 
     /// Sets the value of [target_version][crate::model::Cluster::target_version].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_edgecontainer_v1::model::Cluster;
-    /// let x = Cluster::new().set_target_version("example");
-    /// ```
     pub fn set_target_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.target_version = v.into();
         self
     }
 
     /// Sets the value of [release_channel][crate::model::Cluster::release_channel].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_edgecontainer_v1::model::Cluster;
-    /// use google_cloud_edgecontainer_v1::model::cluster::ReleaseChannel;
-    /// let x0 = Cluster::new().set_release_channel(ReleaseChannel::None);
-    /// let x1 = Cluster::new().set_release_channel(ReleaseChannel::Regular);
-    /// ```
     pub fn set_release_channel<T: std::convert::Into<crate::model::cluster::ReleaseChannel>>(
         mut self,
         v: T,
@@ -631,13 +405,6 @@ impl Cluster {
     }
 
     /// Sets the value of [survivability_config][crate::model::Cluster::survivability_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_edgecontainer_v1::model::Cluster;
-    /// use google_cloud_edgecontainer_v1::model::cluster::SurvivabilityConfig;
-    /// let x = Cluster::new().set_survivability_config(SurvivabilityConfig::default()/* use setters */);
-    /// ```
     pub fn set_survivability_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::cluster::SurvivabilityConfig>,
@@ -647,14 +414,6 @@ impl Cluster {
     }
 
     /// Sets or clears the value of [survivability_config][crate::model::Cluster::survivability_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_edgecontainer_v1::model::Cluster;
-    /// use google_cloud_edgecontainer_v1::model::cluster::SurvivabilityConfig;
-    /// let x = Cluster::new().set_or_clear_survivability_config(Some(SurvivabilityConfig::default()/* use setters */));
-    /// let x = Cluster::new().set_or_clear_survivability_config(None::<SurvivabilityConfig>);
-    /// ```
     pub fn set_or_clear_survivability_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::cluster::SurvivabilityConfig>,
@@ -664,12 +423,6 @@ impl Cluster {
     }
 
     /// Sets the value of [external_load_balancer_ipv6_address_pools][crate::model::Cluster::external_load_balancer_ipv6_address_pools].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_edgecontainer_v1::model::Cluster;
-    /// let x = Cluster::new().set_external_load_balancer_ipv6_address_pools(["a", "b", "c"]);
-    /// ```
     pub fn set_external_load_balancer_ipv6_address_pools<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -681,13 +434,6 @@ impl Cluster {
     }
 
     /// Sets the value of [connection_state][crate::model::Cluster::connection_state].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_edgecontainer_v1::model::Cluster;
-    /// use google_cloud_edgecontainer_v1::model::cluster::ConnectionState;
-    /// let x = Cluster::new().set_connection_state(ConnectionState::default()/* use setters */);
-    /// ```
     pub fn set_connection_state<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::cluster::ConnectionState>,
@@ -697,14 +443,6 @@ impl Cluster {
     }
 
     /// Sets or clears the value of [connection_state][crate::model::Cluster::connection_state].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_edgecontainer_v1::model::Cluster;
-    /// use google_cloud_edgecontainer_v1::model::cluster::ConnectionState;
-    /// let x = Cluster::new().set_or_clear_connection_state(Some(ConnectionState::default()/* use setters */));
-    /// let x = Cluster::new().set_or_clear_connection_state(None::<ConnectionState>);
-    /// ```
     pub fn set_or_clear_connection_state<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::cluster::ConnectionState>,
@@ -743,14 +481,6 @@ pub mod cluster {
         ///
         /// Note that all the setters affecting `config` are mutually
         /// exclusive.
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_edgecontainer_v1::model::cluster::ControlPlane;
-        /// use google_cloud_edgecontainer_v1::model::cluster::control_plane;
-        /// use google_cloud_edgecontainer_v1::model::cluster::control_plane::Remote;
-        /// let x = ControlPlane::new().set_config(Some(cluster::control_plane::Config::Remote(Remote::default().into())));
-        /// ```
         pub fn set_config<
             T: std::convert::Into<std::option::Option<crate::model::cluster::control_plane::Config>>,
         >(
@@ -782,15 +512,6 @@ pub mod cluster {
         ///
         /// Note that all the setters affecting `config` are
         /// mutually exclusive.
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_edgecontainer_v1::model::cluster::ControlPlane;
-        /// use google_cloud_edgecontainer_v1::model::cluster::control_plane::Remote;
-        /// let x = ControlPlane::new().set_remote(Remote::default()/* use setters */);
-        /// assert!(x.remote().is_some());
-        /// assert!(x.local().is_none());
-        /// ```
         pub fn set_remote<
             T: std::convert::Into<std::boxed::Box<crate::model::cluster::control_plane::Remote>>,
         >(
@@ -824,15 +545,6 @@ pub mod cluster {
         ///
         /// Note that all the setters affecting `config` are
         /// mutually exclusive.
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_edgecontainer_v1::model::cluster::ControlPlane;
-        /// use google_cloud_edgecontainer_v1::model::cluster::control_plane::Local;
-        /// let x = ControlPlane::new().set_local(Local::default()/* use setters */);
-        /// assert!(x.local().is_some());
-        /// assert!(x.remote().is_none());
-        /// ```
         pub fn set_local<
             T: std::convert::Into<std::boxed::Box<crate::model::cluster::control_plane::Local>>,
         >(
@@ -918,12 +630,6 @@ pub mod cluster {
             }
 
             /// Sets the value of [node_location][crate::model::cluster::control_plane::Local::node_location].
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_edgecontainer_v1::model::cluster::control_plane::Local;
-            /// let x = Local::new().set_node_location("example");
-            /// ```
             pub fn set_node_location<T: std::convert::Into<std::string::String>>(
                 mut self,
                 v: T,
@@ -933,24 +639,12 @@ pub mod cluster {
             }
 
             /// Sets the value of [node_count][crate::model::cluster::control_plane::Local::node_count].
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_edgecontainer_v1::model::cluster::control_plane::Local;
-            /// let x = Local::new().set_node_count(42);
-            /// ```
             pub fn set_node_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
                 self.node_count = v.into();
                 self
             }
 
             /// Sets the value of [machine_filter][crate::model::cluster::control_plane::Local::machine_filter].
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_edgecontainer_v1::model::cluster::control_plane::Local;
-            /// let x = Local::new().set_machine_filter("example");
-            /// ```
             pub fn set_machine_filter<T: std::convert::Into<std::string::String>>(
                 mut self,
                 v: T,
@@ -960,14 +654,6 @@ pub mod cluster {
             }
 
             /// Sets the value of [shared_deployment_policy][crate::model::cluster::control_plane::Local::shared_deployment_policy].
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_edgecontainer_v1::model::cluster::control_plane::Local;
-            /// use google_cloud_edgecontainer_v1::model::cluster::control_plane::SharedDeploymentPolicy;
-            /// let x0 = Local::new().set_shared_deployment_policy(SharedDeploymentPolicy::Allowed);
-            /// let x1 = Local::new().set_shared_deployment_policy(SharedDeploymentPolicy::Disallowed);
-            /// ```
             pub fn set_shared_deployment_policy<
                 T: std::convert::Into<crate::model::cluster::control_plane::SharedDeploymentPolicy>,
             >(
@@ -979,12 +665,6 @@ pub mod cluster {
             }
 
             /// Sets the value of [control_plane_node_storage_schema][crate::model::cluster::control_plane::Local::control_plane_node_storage_schema].
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_edgecontainer_v1::model::cluster::control_plane::Local;
-            /// let x = Local::new().set_control_plane_node_storage_schema("example");
-            /// ```
             pub fn set_control_plane_node_storage_schema<
                 T: std::convert::Into<std::string::String>,
             >(
@@ -1177,13 +857,6 @@ pub mod cluster {
         }
 
         /// Sets the value of [ingress][crate::model::cluster::SystemAddonsConfig::ingress].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_edgecontainer_v1::model::cluster::SystemAddonsConfig;
-        /// use google_cloud_edgecontainer_v1::model::cluster::system_addons_config::Ingress;
-        /// let x = SystemAddonsConfig::new().set_ingress(Ingress::default()/* use setters */);
-        /// ```
         pub fn set_ingress<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::cluster::system_addons_config::Ingress>,
@@ -1193,14 +866,6 @@ pub mod cluster {
         }
 
         /// Sets or clears the value of [ingress][crate::model::cluster::SystemAddonsConfig::ingress].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_edgecontainer_v1::model::cluster::SystemAddonsConfig;
-        /// use google_cloud_edgecontainer_v1::model::cluster::system_addons_config::Ingress;
-        /// let x = SystemAddonsConfig::new().set_or_clear_ingress(Some(Ingress::default()/* use setters */));
-        /// let x = SystemAddonsConfig::new().set_or_clear_ingress(None::<Ingress>);
-        /// ```
         pub fn set_or_clear_ingress<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::cluster::system_addons_config::Ingress>,
@@ -1210,13 +875,6 @@ pub mod cluster {
         }
 
         /// Sets the value of [vm_service_config][crate::model::cluster::SystemAddonsConfig::vm_service_config].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_edgecontainer_v1::model::cluster::SystemAddonsConfig;
-        /// use google_cloud_edgecontainer_v1::model::cluster::system_addons_config::VMServiceConfig;
-        /// let x = SystemAddonsConfig::new().set_vm_service_config(VMServiceConfig::default()/* use setters */);
-        /// ```
         pub fn set_vm_service_config<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::cluster::system_addons_config::VMServiceConfig>,
@@ -1226,14 +884,6 @@ pub mod cluster {
         }
 
         /// Sets or clears the value of [vm_service_config][crate::model::cluster::SystemAddonsConfig::vm_service_config].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_edgecontainer_v1::model::cluster::SystemAddonsConfig;
-        /// use google_cloud_edgecontainer_v1::model::cluster::system_addons_config::VMServiceConfig;
-        /// let x = SystemAddonsConfig::new().set_or_clear_vm_service_config(Some(VMServiceConfig::default()/* use setters */));
-        /// let x = SystemAddonsConfig::new().set_or_clear_vm_service_config(None::<VMServiceConfig>);
-        /// ```
         pub fn set_or_clear_vm_service_config<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::cluster::system_addons_config::VMServiceConfig>,
@@ -1275,24 +925,12 @@ pub mod cluster {
             }
 
             /// Sets the value of [disabled][crate::model::cluster::system_addons_config::Ingress::disabled].
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_edgecontainer_v1::model::cluster::system_addons_config::Ingress;
-            /// let x = Ingress::new().set_disabled(true);
-            /// ```
             pub fn set_disabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
                 self.disabled = v.into();
                 self
             }
 
             /// Sets the value of [ipv4_vip][crate::model::cluster::system_addons_config::Ingress::ipv4_vip].
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_edgecontainer_v1::model::cluster::system_addons_config::Ingress;
-            /// let x = Ingress::new().set_ipv4_vip("example");
-            /// ```
             pub fn set_ipv4_vip<T: std::convert::Into<std::string::String>>(
                 mut self,
                 v: T,
@@ -1324,12 +962,6 @@ pub mod cluster {
             }
 
             /// Sets the value of [vmm_enabled][crate::model::cluster::system_addons_config::VMServiceConfig::vmm_enabled].
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_edgecontainer_v1::model::cluster::system_addons_config::VMServiceConfig;
-            /// let x = VMServiceConfig::new().set_vmm_enabled(true);
-            /// ```
             pub fn set_vmm_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
                 self.vmm_enabled = v.into();
                 self
@@ -1381,24 +1013,12 @@ pub mod cluster {
         }
 
         /// Sets the value of [kms_key][crate::model::cluster::ControlPlaneEncryption::kms_key].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_edgecontainer_v1::model::cluster::ControlPlaneEncryption;
-        /// let x = ControlPlaneEncryption::new().set_kms_key("example");
-        /// ```
         pub fn set_kms_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.kms_key = v.into();
             self
         }
 
         /// Sets the value of [kms_key_active_version][crate::model::cluster::ControlPlaneEncryption::kms_key_active_version].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_edgecontainer_v1::model::cluster::ControlPlaneEncryption;
-        /// let x = ControlPlaneEncryption::new().set_kms_key_active_version("example");
-        /// ```
         pub fn set_kms_key_active_version<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -1408,14 +1028,6 @@ pub mod cluster {
         }
 
         /// Sets the value of [kms_key_state][crate::model::cluster::ControlPlaneEncryption::kms_key_state].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_edgecontainer_v1::model::cluster::ControlPlaneEncryption;
-        /// use google_cloud_edgecontainer_v1::model::KmsKeyState;
-        /// let x0 = ControlPlaneEncryption::new().set_kms_key_state(KmsKeyState::KeyAvailable);
-        /// let x1 = ControlPlaneEncryption::new().set_kms_key_state(KmsKeyState::KeyUnavailable);
-        /// ```
         pub fn set_kms_key_state<T: std::convert::Into<crate::model::KmsKeyState>>(
             mut self,
             v: T,
@@ -1425,13 +1037,6 @@ pub mod cluster {
         }
 
         /// Sets the value of [kms_status][crate::model::cluster::ControlPlaneEncryption::kms_status].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_edgecontainer_v1::model::cluster::ControlPlaneEncryption;
-        /// use rpc::model::Status;
-        /// let x = ControlPlaneEncryption::new().set_kms_status(Status::default()/* use setters */);
-        /// ```
         pub fn set_kms_status<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<rpc::model::Status>,
@@ -1441,14 +1046,6 @@ pub mod cluster {
         }
 
         /// Sets or clears the value of [kms_status][crate::model::cluster::ControlPlaneEncryption::kms_status].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_edgecontainer_v1::model::cluster::ControlPlaneEncryption;
-        /// use rpc::model::Status;
-        /// let x = ControlPlaneEncryption::new().set_or_clear_kms_status(Some(Status::default()/* use setters */));
-        /// let x = ControlPlaneEncryption::new().set_or_clear_kms_status(None::<Status>);
-        /// ```
         pub fn set_or_clear_kms_status<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<rpc::model::Status>,
@@ -1458,14 +1055,6 @@ pub mod cluster {
         }
 
         /// Sets the value of [resource_state][crate::model::cluster::ControlPlaneEncryption::resource_state].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_edgecontainer_v1::model::cluster::ControlPlaneEncryption;
-        /// use google_cloud_edgecontainer_v1::model::ResourceState;
-        /// let x0 = ControlPlaneEncryption::new().set_resource_state(ResourceState::LockDown);
-        /// let x1 = ControlPlaneEncryption::new().set_resource_state(ResourceState::LockDownPending);
-        /// ```
         pub fn set_resource_state<T: std::convert::Into<crate::model::ResourceState>>(
             mut self,
             v: T,
@@ -1532,24 +1121,12 @@ pub mod cluster {
         }
 
         /// Sets the value of [uuid][crate::model::cluster::MaintenanceEvent::uuid].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_edgecontainer_v1::model::cluster::MaintenanceEvent;
-        /// let x = MaintenanceEvent::new().set_uuid("example");
-        /// ```
         pub fn set_uuid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.uuid = v.into();
             self
         }
 
         /// Sets the value of [target_version][crate::model::cluster::MaintenanceEvent::target_version].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_edgecontainer_v1::model::cluster::MaintenanceEvent;
-        /// let x = MaintenanceEvent::new().set_target_version("example");
-        /// ```
         pub fn set_target_version<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -1559,26 +1136,12 @@ pub mod cluster {
         }
 
         /// Sets the value of [operation][crate::model::cluster::MaintenanceEvent::operation].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_edgecontainer_v1::model::cluster::MaintenanceEvent;
-        /// let x = MaintenanceEvent::new().set_operation("example");
-        /// ```
         pub fn set_operation<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.operation = v.into();
             self
         }
 
         /// Sets the value of [r#type][crate::model::cluster::MaintenanceEvent::type].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_edgecontainer_v1::model::cluster::MaintenanceEvent;
-        /// use google_cloud_edgecontainer_v1::model::cluster::maintenance_event::Type;
-        /// let x0 = MaintenanceEvent::new().set_type(Type::UserInitiatedUpgrade);
-        /// let x1 = MaintenanceEvent::new().set_type(Type::GoogleDrivenUpgrade);
-        /// ```
         pub fn set_type<T: std::convert::Into<crate::model::cluster::maintenance_event::Type>>(
             mut self,
             v: T,
@@ -1588,13 +1151,6 @@ pub mod cluster {
         }
 
         /// Sets the value of [schedule][crate::model::cluster::MaintenanceEvent::schedule].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_edgecontainer_v1::model::cluster::MaintenanceEvent;
-        /// use google_cloud_edgecontainer_v1::model::cluster::maintenance_event::Schedule;
-        /// let x0 = MaintenanceEvent::new().set_schedule(Schedule::Immediately);
-        /// ```
         pub fn set_schedule<
             T: std::convert::Into<crate::model::cluster::maintenance_event::Schedule>,
         >(
@@ -1606,15 +1162,6 @@ pub mod cluster {
         }
 
         /// Sets the value of [state][crate::model::cluster::MaintenanceEvent::state].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_edgecontainer_v1::model::cluster::MaintenanceEvent;
-        /// use google_cloud_edgecontainer_v1::model::cluster::maintenance_event::State;
-        /// let x0 = MaintenanceEvent::new().set_state(State::Reconciling);
-        /// let x1 = MaintenanceEvent::new().set_state(State::Succeeded);
-        /// let x2 = MaintenanceEvent::new().set_state(State::Failed);
-        /// ```
         pub fn set_state<T: std::convert::Into<crate::model::cluster::maintenance_event::State>>(
             mut self,
             v: T,
@@ -1624,13 +1171,6 @@ pub mod cluster {
         }
 
         /// Sets the value of [create_time][crate::model::cluster::MaintenanceEvent::create_time].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_edgecontainer_v1::model::cluster::MaintenanceEvent;
-        /// use wkt::Timestamp;
-        /// let x = MaintenanceEvent::new().set_create_time(Timestamp::default()/* use setters */);
-        /// ```
         pub fn set_create_time<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -1640,14 +1180,6 @@ pub mod cluster {
         }
 
         /// Sets or clears the value of [create_time][crate::model::cluster::MaintenanceEvent::create_time].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_edgecontainer_v1::model::cluster::MaintenanceEvent;
-        /// use wkt::Timestamp;
-        /// let x = MaintenanceEvent::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
-        /// let x = MaintenanceEvent::new().set_or_clear_create_time(None::<Timestamp>);
-        /// ```
         pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -1657,13 +1189,6 @@ pub mod cluster {
         }
 
         /// Sets the value of [start_time][crate::model::cluster::MaintenanceEvent::start_time].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_edgecontainer_v1::model::cluster::MaintenanceEvent;
-        /// use wkt::Timestamp;
-        /// let x = MaintenanceEvent::new().set_start_time(Timestamp::default()/* use setters */);
-        /// ```
         pub fn set_start_time<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -1673,14 +1198,6 @@ pub mod cluster {
         }
 
         /// Sets or clears the value of [start_time][crate::model::cluster::MaintenanceEvent::start_time].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_edgecontainer_v1::model::cluster::MaintenanceEvent;
-        /// use wkt::Timestamp;
-        /// let x = MaintenanceEvent::new().set_or_clear_start_time(Some(Timestamp::default()/* use setters */));
-        /// let x = MaintenanceEvent::new().set_or_clear_start_time(None::<Timestamp>);
-        /// ```
         pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -1690,13 +1207,6 @@ pub mod cluster {
         }
 
         /// Sets the value of [end_time][crate::model::cluster::MaintenanceEvent::end_time].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_edgecontainer_v1::model::cluster::MaintenanceEvent;
-        /// use wkt::Timestamp;
-        /// let x = MaintenanceEvent::new().set_end_time(Timestamp::default()/* use setters */);
-        /// ```
         pub fn set_end_time<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -1706,14 +1216,6 @@ pub mod cluster {
         }
 
         /// Sets or clears the value of [end_time][crate::model::cluster::MaintenanceEvent::end_time].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_edgecontainer_v1::model::cluster::MaintenanceEvent;
-        /// use wkt::Timestamp;
-        /// let x = MaintenanceEvent::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
-        /// let x = MaintenanceEvent::new().set_or_clear_end_time(None::<Timestamp>);
-        /// ```
         pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -1723,13 +1225,6 @@ pub mod cluster {
         }
 
         /// Sets the value of [update_time][crate::model::cluster::MaintenanceEvent::update_time].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_edgecontainer_v1::model::cluster::MaintenanceEvent;
-        /// use wkt::Timestamp;
-        /// let x = MaintenanceEvent::new().set_update_time(Timestamp::default()/* use setters */);
-        /// ```
         pub fn set_update_time<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -1739,14 +1234,6 @@ pub mod cluster {
         }
 
         /// Sets or clears the value of [update_time][crate::model::cluster::MaintenanceEvent::update_time].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_edgecontainer_v1::model::cluster::MaintenanceEvent;
-        /// use wkt::Timestamp;
-        /// let x = MaintenanceEvent::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
-        /// let x = MaintenanceEvent::new().set_or_clear_update_time(None::<Timestamp>);
-        /// ```
         pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -2194,13 +1681,6 @@ pub mod cluster {
         }
 
         /// Sets the value of [offline_reboot_ttl][crate::model::cluster::SurvivabilityConfig::offline_reboot_ttl].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_edgecontainer_v1::model::cluster::SurvivabilityConfig;
-        /// use wkt::Duration;
-        /// let x = SurvivabilityConfig::new().set_offline_reboot_ttl(Duration::default()/* use setters */);
-        /// ```
         pub fn set_offline_reboot_ttl<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
@@ -2210,14 +1690,6 @@ pub mod cluster {
         }
 
         /// Sets or clears the value of [offline_reboot_ttl][crate::model::cluster::SurvivabilityConfig::offline_reboot_ttl].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_edgecontainer_v1::model::cluster::SurvivabilityConfig;
-        /// use wkt::Duration;
-        /// let x = SurvivabilityConfig::new().set_or_clear_offline_reboot_ttl(Some(Duration::default()/* use setters */));
-        /// let x = SurvivabilityConfig::new().set_or_clear_offline_reboot_ttl(None::<Duration>);
-        /// ```
         pub fn set_or_clear_offline_reboot_ttl<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
@@ -2253,15 +1725,6 @@ pub mod cluster {
         }
 
         /// Sets the value of [state][crate::model::cluster::ConnectionState::state].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_edgecontainer_v1::model::cluster::ConnectionState;
-        /// use google_cloud_edgecontainer_v1::model::cluster::connection_state::State;
-        /// let x0 = ConnectionState::new().set_state(State::Disconnected);
-        /// let x1 = ConnectionState::new().set_state(State::Connected);
-        /// let x2 = ConnectionState::new().set_state(State::ConnectedAndSyncing);
-        /// ```
         pub fn set_state<T: std::convert::Into<crate::model::cluster::connection_state::State>>(
             mut self,
             v: T,
@@ -2271,13 +1734,6 @@ pub mod cluster {
         }
 
         /// Sets the value of [update_time][crate::model::cluster::ConnectionState::update_time].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_edgecontainer_v1::model::cluster::ConnectionState;
-        /// use wkt::Timestamp;
-        /// let x = ConnectionState::new().set_update_time(Timestamp::default()/* use setters */);
-        /// ```
         pub fn set_update_time<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -2287,14 +1743,6 @@ pub mod cluster {
         }
 
         /// Sets or clears the value of [update_time][crate::model::cluster::ConnectionState::update_time].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_edgecontainer_v1::model::cluster::ConnectionState;
-        /// use wkt::Timestamp;
-        /// let x = ConnectionState::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
-        /// let x = ConnectionState::new().set_or_clear_update_time(None::<Timestamp>);
-        /// ```
         pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -2769,12 +2217,6 @@ impl ClusterNetworking {
     }
 
     /// Sets the value of [cluster_ipv4_cidr_blocks][crate::model::ClusterNetworking::cluster_ipv4_cidr_blocks].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_edgecontainer_v1::model::ClusterNetworking;
-    /// let x = ClusterNetworking::new().set_cluster_ipv4_cidr_blocks(["a", "b", "c"]);
-    /// ```
     pub fn set_cluster_ipv4_cidr_blocks<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2786,12 +2228,6 @@ impl ClusterNetworking {
     }
 
     /// Sets the value of [services_ipv4_cidr_blocks][crate::model::ClusterNetworking::services_ipv4_cidr_blocks].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_edgecontainer_v1::model::ClusterNetworking;
-    /// let x = ClusterNetworking::new().set_services_ipv4_cidr_blocks(["a", "b", "c"]);
-    /// ```
     pub fn set_services_ipv4_cidr_blocks<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2840,24 +2276,12 @@ impl Fleet {
     }
 
     /// Sets the value of [project][crate::model::Fleet::project].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_edgecontainer_v1::model::Fleet;
-    /// let x = Fleet::new().set_project("example");
-    /// ```
     pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project = v.into();
         self
     }
 
     /// Sets the value of [membership][crate::model::Fleet::membership].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_edgecontainer_v1::model::Fleet;
-    /// let x = Fleet::new().set_membership("example");
-    /// ```
     pub fn set_membership<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.membership = v.into();
         self
@@ -2886,12 +2310,6 @@ impl ClusterUser {
     }
 
     /// Sets the value of [username][crate::model::ClusterUser::username].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_edgecontainer_v1::model::ClusterUser;
-    /// let x = ClusterUser::new().set_username("example");
-    /// ```
     pub fn set_username<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.username = v.into();
         self
@@ -2922,13 +2340,6 @@ impl Authorization {
     }
 
     /// Sets the value of [admin_users][crate::model::Authorization::admin_users].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_edgecontainer_v1::model::Authorization;
-    /// use google_cloud_edgecontainer_v1::model::ClusterUser;
-    /// let x = Authorization::new().set_admin_users(ClusterUser::default()/* use setters */);
-    /// ```
     pub fn set_admin_users<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ClusterUser>,
@@ -2938,14 +2349,6 @@ impl Authorization {
     }
 
     /// Sets or clears the value of [admin_users][crate::model::Authorization::admin_users].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_edgecontainer_v1::model::Authorization;
-    /// use google_cloud_edgecontainer_v1::model::ClusterUser;
-    /// let x = Authorization::new().set_or_clear_admin_users(Some(ClusterUser::default()/* use setters */));
-    /// let x = Authorization::new().set_or_clear_admin_users(None::<ClusterUser>);
-    /// ```
     pub fn set_or_clear_admin_users<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ClusterUser>,
@@ -3009,25 +2412,12 @@ impl NodePool {
     }
 
     /// Sets the value of [name][crate::model::NodePool::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_edgecontainer_v1::model::NodePool;
-    /// let x = NodePool::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::NodePool::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_edgecontainer_v1::model::NodePool;
-    /// use wkt::Timestamp;
-    /// let x = NodePool::new().set_create_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3037,14 +2427,6 @@ impl NodePool {
     }
 
     /// Sets or clears the value of [create_time][crate::model::NodePool::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_edgecontainer_v1::model::NodePool;
-    /// use wkt::Timestamp;
-    /// let x = NodePool::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
-    /// let x = NodePool::new().set_or_clear_create_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3054,13 +2436,6 @@ impl NodePool {
     }
 
     /// Sets the value of [update_time][crate::model::NodePool::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_edgecontainer_v1::model::NodePool;
-    /// use wkt::Timestamp;
-    /// let x = NodePool::new().set_update_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3070,14 +2445,6 @@ impl NodePool {
     }
 
     /// Sets or clears the value of [update_time][crate::model::NodePool::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_edgecontainer_v1::model::NodePool;
-    /// use wkt::Timestamp;
-    /// let x = NodePool::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
-    /// let x = NodePool::new().set_or_clear_update_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3087,15 +2454,6 @@ impl NodePool {
     }
 
     /// Sets the value of [labels][crate::model::NodePool::labels].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_edgecontainer_v1::model::NodePool;
-    /// let x = NodePool::new().set_labels([
-    ///     ("key0", "abc"),
-    ///     ("key1", "xyz"),
-    /// ]);
-    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -3108,49 +2466,24 @@ impl NodePool {
     }
 
     /// Sets the value of [node_location][crate::model::NodePool::node_location].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_edgecontainer_v1::model::NodePool;
-    /// let x = NodePool::new().set_node_location("example");
-    /// ```
     pub fn set_node_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.node_location = v.into();
         self
     }
 
     /// Sets the value of [node_count][crate::model::NodePool::node_count].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_edgecontainer_v1::model::NodePool;
-    /// let x = NodePool::new().set_node_count(42);
-    /// ```
     pub fn set_node_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.node_count = v.into();
         self
     }
 
     /// Sets the value of [machine_filter][crate::model::NodePool::machine_filter].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_edgecontainer_v1::model::NodePool;
-    /// let x = NodePool::new().set_machine_filter("example");
-    /// ```
     pub fn set_machine_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.machine_filter = v.into();
         self
     }
 
     /// Sets the value of [local_disk_encryption][crate::model::NodePool::local_disk_encryption].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_edgecontainer_v1::model::NodePool;
-    /// use google_cloud_edgecontainer_v1::model::node_pool::LocalDiskEncryption;
-    /// let x = NodePool::new().set_local_disk_encryption(LocalDiskEncryption::default()/* use setters */);
-    /// ```
     pub fn set_local_disk_encryption<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::node_pool::LocalDiskEncryption>,
@@ -3160,14 +2493,6 @@ impl NodePool {
     }
 
     /// Sets or clears the value of [local_disk_encryption][crate::model::NodePool::local_disk_encryption].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_edgecontainer_v1::model::NodePool;
-    /// use google_cloud_edgecontainer_v1::model::node_pool::LocalDiskEncryption;
-    /// let x = NodePool::new().set_or_clear_local_disk_encryption(Some(LocalDiskEncryption::default()/* use setters */));
-    /// let x = NodePool::new().set_or_clear_local_disk_encryption(None::<LocalDiskEncryption>);
-    /// ```
     pub fn set_or_clear_local_disk_encryption<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::node_pool::LocalDiskEncryption>,
@@ -3177,25 +2502,12 @@ impl NodePool {
     }
 
     /// Sets the value of [node_version][crate::model::NodePool::node_version].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_edgecontainer_v1::model::NodePool;
-    /// let x = NodePool::new().set_node_version("example");
-    /// ```
     pub fn set_node_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.node_version = v.into();
         self
     }
 
     /// Sets the value of [node_config][crate::model::NodePool::node_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_edgecontainer_v1::model::NodePool;
-    /// use google_cloud_edgecontainer_v1::model::node_pool::NodeConfig;
-    /// let x = NodePool::new().set_node_config(NodeConfig::default()/* use setters */);
-    /// ```
     pub fn set_node_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::node_pool::NodeConfig>,
@@ -3205,14 +2517,6 @@ impl NodePool {
     }
 
     /// Sets or clears the value of [node_config][crate::model::NodePool::node_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_edgecontainer_v1::model::NodePool;
-    /// use google_cloud_edgecontainer_v1::model::node_pool::NodeConfig;
-    /// let x = NodePool::new().set_or_clear_node_config(Some(NodeConfig::default()/* use setters */));
-    /// let x = NodePool::new().set_or_clear_node_config(None::<NodeConfig>);
-    /// ```
     pub fn set_or_clear_node_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::node_pool::NodeConfig>,
@@ -3271,24 +2575,12 @@ pub mod node_pool {
         }
 
         /// Sets the value of [kms_key][crate::model::node_pool::LocalDiskEncryption::kms_key].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_edgecontainer_v1::model::node_pool::LocalDiskEncryption;
-        /// let x = LocalDiskEncryption::new().set_kms_key("example");
-        /// ```
         pub fn set_kms_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.kms_key = v.into();
             self
         }
 
         /// Sets the value of [kms_key_active_version][crate::model::node_pool::LocalDiskEncryption::kms_key_active_version].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_edgecontainer_v1::model::node_pool::LocalDiskEncryption;
-        /// let x = LocalDiskEncryption::new().set_kms_key_active_version("example");
-        /// ```
         pub fn set_kms_key_active_version<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -3298,14 +2590,6 @@ pub mod node_pool {
         }
 
         /// Sets the value of [kms_key_state][crate::model::node_pool::LocalDiskEncryption::kms_key_state].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_edgecontainer_v1::model::node_pool::LocalDiskEncryption;
-        /// use google_cloud_edgecontainer_v1::model::KmsKeyState;
-        /// let x0 = LocalDiskEncryption::new().set_kms_key_state(KmsKeyState::KeyAvailable);
-        /// let x1 = LocalDiskEncryption::new().set_kms_key_state(KmsKeyState::KeyUnavailable);
-        /// ```
         pub fn set_kms_key_state<T: std::convert::Into<crate::model::KmsKeyState>>(
             mut self,
             v: T,
@@ -3315,13 +2599,6 @@ pub mod node_pool {
         }
 
         /// Sets the value of [kms_status][crate::model::node_pool::LocalDiskEncryption::kms_status].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_edgecontainer_v1::model::node_pool::LocalDiskEncryption;
-        /// use rpc::model::Status;
-        /// let x = LocalDiskEncryption::new().set_kms_status(Status::default()/* use setters */);
-        /// ```
         pub fn set_kms_status<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<rpc::model::Status>,
@@ -3331,14 +2608,6 @@ pub mod node_pool {
         }
 
         /// Sets or clears the value of [kms_status][crate::model::node_pool::LocalDiskEncryption::kms_status].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_edgecontainer_v1::model::node_pool::LocalDiskEncryption;
-        /// use rpc::model::Status;
-        /// let x = LocalDiskEncryption::new().set_or_clear_kms_status(Some(Status::default()/* use setters */));
-        /// let x = LocalDiskEncryption::new().set_or_clear_kms_status(None::<Status>);
-        /// ```
         pub fn set_or_clear_kms_status<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<rpc::model::Status>,
@@ -3348,14 +2617,6 @@ pub mod node_pool {
         }
 
         /// Sets the value of [resource_state][crate::model::node_pool::LocalDiskEncryption::resource_state].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_edgecontainer_v1::model::node_pool::LocalDiskEncryption;
-        /// use google_cloud_edgecontainer_v1::model::ResourceState;
-        /// let x0 = LocalDiskEncryption::new().set_resource_state(ResourceState::LockDown);
-        /// let x1 = LocalDiskEncryption::new().set_resource_state(ResourceState::LockDownPending);
-        /// ```
         pub fn set_resource_state<T: std::convert::Into<crate::model::ResourceState>>(
             mut self,
             v: T,
@@ -3394,15 +2655,6 @@ pub mod node_pool {
         }
 
         /// Sets the value of [labels][crate::model::node_pool::NodeConfig::labels].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_edgecontainer_v1::model::node_pool::NodeConfig;
-        /// let x = NodeConfig::new().set_labels([
-        ///     ("key0", "abc"),
-        ///     ("key1", "xyz"),
-        /// ]);
-        /// ```
         pub fn set_labels<T, K, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = (K, V)>,
@@ -3415,12 +2667,6 @@ pub mod node_pool {
         }
 
         /// Sets the value of [node_storage_schema][crate::model::node_pool::NodeConfig::node_storage_schema].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_edgecontainer_v1::model::node_pool::NodeConfig;
-        /// let x = NodeConfig::new().set_node_storage_schema("example");
-        /// ```
         pub fn set_node_storage_schema<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -3483,25 +2729,12 @@ impl Machine {
     }
 
     /// Sets the value of [name][crate::model::Machine::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_edgecontainer_v1::model::Machine;
-    /// let x = Machine::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::Machine::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_edgecontainer_v1::model::Machine;
-    /// use wkt::Timestamp;
-    /// let x = Machine::new().set_create_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3511,14 +2744,6 @@ impl Machine {
     }
 
     /// Sets or clears the value of [create_time][crate::model::Machine::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_edgecontainer_v1::model::Machine;
-    /// use wkt::Timestamp;
-    /// let x = Machine::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
-    /// let x = Machine::new().set_or_clear_create_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3528,13 +2753,6 @@ impl Machine {
     }
 
     /// Sets the value of [update_time][crate::model::Machine::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_edgecontainer_v1::model::Machine;
-    /// use wkt::Timestamp;
-    /// let x = Machine::new().set_update_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3544,14 +2762,6 @@ impl Machine {
     }
 
     /// Sets or clears the value of [update_time][crate::model::Machine::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_edgecontainer_v1::model::Machine;
-    /// use wkt::Timestamp;
-    /// let x = Machine::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
-    /// let x = Machine::new().set_or_clear_update_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3561,15 +2771,6 @@ impl Machine {
     }
 
     /// Sets the value of [labels][crate::model::Machine::labels].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_edgecontainer_v1::model::Machine;
-    /// let x = Machine::new().set_labels([
-    ///     ("key0", "abc"),
-    ///     ("key1", "xyz"),
-    /// ]);
-    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -3582,48 +2783,24 @@ impl Machine {
     }
 
     /// Sets the value of [hosted_node][crate::model::Machine::hosted_node].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_edgecontainer_v1::model::Machine;
-    /// let x = Machine::new().set_hosted_node("example");
-    /// ```
     pub fn set_hosted_node<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.hosted_node = v.into();
         self
     }
 
     /// Sets the value of [zone][crate::model::Machine::zone].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_edgecontainer_v1::model::Machine;
-    /// let x = Machine::new().set_zone("example");
-    /// ```
     pub fn set_zone<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.zone = v.into();
         self
     }
 
     /// Sets the value of [version][crate::model::Machine::version].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_edgecontainer_v1::model::Machine;
-    /// let x = Machine::new().set_version("example");
-    /// ```
     pub fn set_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.version = v.into();
         self
     }
 
     /// Sets the value of [disabled][crate::model::Machine::disabled].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_edgecontainer_v1::model::Machine;
-    /// let x = Machine::new().set_disabled(true);
-    /// ```
     pub fn set_disabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.disabled = v.into();
         self
@@ -3691,25 +2868,12 @@ impl VpnConnection {
     }
 
     /// Sets the value of [name][crate::model::VpnConnection::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_edgecontainer_v1::model::VpnConnection;
-    /// let x = VpnConnection::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::VpnConnection::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_edgecontainer_v1::model::VpnConnection;
-    /// use wkt::Timestamp;
-    /// let x = VpnConnection::new().set_create_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3719,14 +2883,6 @@ impl VpnConnection {
     }
 
     /// Sets or clears the value of [create_time][crate::model::VpnConnection::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_edgecontainer_v1::model::VpnConnection;
-    /// use wkt::Timestamp;
-    /// let x = VpnConnection::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
-    /// let x = VpnConnection::new().set_or_clear_create_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3736,13 +2892,6 @@ impl VpnConnection {
     }
 
     /// Sets the value of [update_time][crate::model::VpnConnection::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_edgecontainer_v1::model::VpnConnection;
-    /// use wkt::Timestamp;
-    /// let x = VpnConnection::new().set_update_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3752,14 +2901,6 @@ impl VpnConnection {
     }
 
     /// Sets or clears the value of [update_time][crate::model::VpnConnection::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_edgecontainer_v1::model::VpnConnection;
-    /// use wkt::Timestamp;
-    /// let x = VpnConnection::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
-    /// let x = VpnConnection::new().set_or_clear_update_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3769,15 +2910,6 @@ impl VpnConnection {
     }
 
     /// Sets the value of [labels][crate::model::VpnConnection::labels].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_edgecontainer_v1::model::VpnConnection;
-    /// let x = VpnConnection::new().set_labels([
-    ///     ("key0", "abc"),
-    ///     ("key1", "xyz"),
-    /// ]);
-    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -3790,26 +2922,12 @@ impl VpnConnection {
     }
 
     /// Sets the value of [nat_gateway_ip][crate::model::VpnConnection::nat_gateway_ip].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_edgecontainer_v1::model::VpnConnection;
-    /// let x = VpnConnection::new().set_nat_gateway_ip("example");
-    /// ```
     pub fn set_nat_gateway_ip<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.nat_gateway_ip = v.into();
         self
     }
 
     /// Sets the value of [bgp_routing_mode][crate::model::VpnConnection::bgp_routing_mode].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_edgecontainer_v1::model::VpnConnection;
-    /// use google_cloud_edgecontainer_v1::model::vpn_connection::BgpRoutingMode;
-    /// let x0 = VpnConnection::new().set_bgp_routing_mode(BgpRoutingMode::Regional);
-    /// let x1 = VpnConnection::new().set_bgp_routing_mode(BgpRoutingMode::Global);
-    /// ```
     #[deprecated]
     pub fn set_bgp_routing_mode<
         T: std::convert::Into<crate::model::vpn_connection::BgpRoutingMode>,
@@ -3822,37 +2940,18 @@ impl VpnConnection {
     }
 
     /// Sets the value of [cluster][crate::model::VpnConnection::cluster].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_edgecontainer_v1::model::VpnConnection;
-    /// let x = VpnConnection::new().set_cluster("example");
-    /// ```
     pub fn set_cluster<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.cluster = v.into();
         self
     }
 
     /// Sets the value of [vpc][crate::model::VpnConnection::vpc].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_edgecontainer_v1::model::VpnConnection;
-    /// let x = VpnConnection::new().set_vpc("example");
-    /// ```
     pub fn set_vpc<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.vpc = v.into();
         self
     }
 
     /// Sets the value of [vpc_project][crate::model::VpnConnection::vpc_project].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_edgecontainer_v1::model::VpnConnection;
-    /// use google_cloud_edgecontainer_v1::model::vpn_connection::VpcProject;
-    /// let x = VpnConnection::new().set_vpc_project(VpcProject::default()/* use setters */);
-    /// ```
     pub fn set_vpc_project<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::vpn_connection::VpcProject>,
@@ -3862,14 +2961,6 @@ impl VpnConnection {
     }
 
     /// Sets or clears the value of [vpc_project][crate::model::VpnConnection::vpc_project].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_edgecontainer_v1::model::VpnConnection;
-    /// use google_cloud_edgecontainer_v1::model::vpn_connection::VpcProject;
-    /// let x = VpnConnection::new().set_or_clear_vpc_project(Some(VpcProject::default()/* use setters */));
-    /// let x = VpnConnection::new().set_or_clear_vpc_project(None::<VpcProject>);
-    /// ```
     pub fn set_or_clear_vpc_project<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::vpn_connection::VpcProject>,
@@ -3879,37 +2970,18 @@ impl VpnConnection {
     }
 
     /// Sets the value of [enable_high_availability][crate::model::VpnConnection::enable_high_availability].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_edgecontainer_v1::model::VpnConnection;
-    /// let x = VpnConnection::new().set_enable_high_availability(true);
-    /// ```
     pub fn set_enable_high_availability<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.enable_high_availability = v.into();
         self
     }
 
     /// Sets the value of [router][crate::model::VpnConnection::router].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_edgecontainer_v1::model::VpnConnection;
-    /// let x = VpnConnection::new().set_router("example");
-    /// ```
     pub fn set_router<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.router = v.into();
         self
     }
 
     /// Sets the value of [details][crate::model::VpnConnection::details].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_edgecontainer_v1::model::VpnConnection;
-    /// use google_cloud_edgecontainer_v1::model::vpn_connection::Details;
-    /// let x = VpnConnection::new().set_details(Details::default()/* use setters */);
-    /// ```
     pub fn set_details<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::vpn_connection::Details>,
@@ -3919,14 +2991,6 @@ impl VpnConnection {
     }
 
     /// Sets or clears the value of [details][crate::model::VpnConnection::details].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_edgecontainer_v1::model::VpnConnection;
-    /// use google_cloud_edgecontainer_v1::model::vpn_connection::Details;
-    /// let x = VpnConnection::new().set_or_clear_details(Some(Details::default()/* use setters */));
-    /// let x = VpnConnection::new().set_or_clear_details(None::<Details>);
-    /// ```
     pub fn set_or_clear_details<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::vpn_connection::Details>,
@@ -3968,24 +3032,12 @@ pub mod vpn_connection {
         }
 
         /// Sets the value of [project_id][crate::model::vpn_connection::VpcProject::project_id].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_edgecontainer_v1::model::vpn_connection::VpcProject;
-        /// let x = VpcProject::new().set_project_id("example");
-        /// ```
         pub fn set_project_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.project_id = v.into();
             self
         }
 
         /// Sets the value of [service_account][crate::model::vpn_connection::VpcProject::service_account].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_edgecontainer_v1::model::vpn_connection::VpcProject;
-        /// let x = VpcProject::new().set_service_account("example");
-        /// ```
         #[deprecated]
         pub fn set_service_account<T: std::convert::Into<std::string::String>>(
             mut self,
@@ -4027,15 +3079,6 @@ pub mod vpn_connection {
         }
 
         /// Sets the value of [state][crate::model::vpn_connection::Details::state].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_edgecontainer_v1::model::vpn_connection::Details;
-        /// use google_cloud_edgecontainer_v1::model::vpn_connection::details::State;
-        /// let x0 = Details::new().set_state(State::Connected);
-        /// let x1 = Details::new().set_state(State::Connecting);
-        /// let x2 = Details::new().set_state(State::Error);
-        /// ```
         pub fn set_state<T: std::convert::Into<crate::model::vpn_connection::details::State>>(
             mut self,
             v: T,
@@ -4045,25 +3088,12 @@ pub mod vpn_connection {
         }
 
         /// Sets the value of [error][crate::model::vpn_connection::Details::error].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_edgecontainer_v1::model::vpn_connection::Details;
-        /// let x = Details::new().set_error("example");
-        /// ```
         pub fn set_error<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.error = v.into();
             self
         }
 
         /// Sets the value of [cloud_router][crate::model::vpn_connection::Details::cloud_router].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_edgecontainer_v1::model::vpn_connection::Details;
-        /// use google_cloud_edgecontainer_v1::model::vpn_connection::details::CloudRouter;
-        /// let x = Details::new().set_cloud_router(CloudRouter::default()/* use setters */);
-        /// ```
         pub fn set_cloud_router<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::vpn_connection::details::CloudRouter>,
@@ -4073,14 +3103,6 @@ pub mod vpn_connection {
         }
 
         /// Sets or clears the value of [cloud_router][crate::model::vpn_connection::Details::cloud_router].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_edgecontainer_v1::model::vpn_connection::Details;
-        /// use google_cloud_edgecontainer_v1::model::vpn_connection::details::CloudRouter;
-        /// let x = Details::new().set_or_clear_cloud_router(Some(CloudRouter::default()/* use setters */));
-        /// let x = Details::new().set_or_clear_cloud_router(None::<CloudRouter>);
-        /// ```
         pub fn set_or_clear_cloud_router<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::vpn_connection::details::CloudRouter>,
@@ -4090,17 +3112,6 @@ pub mod vpn_connection {
         }
 
         /// Sets the value of [cloud_vpns][crate::model::vpn_connection::Details::cloud_vpns].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_edgecontainer_v1::model::vpn_connection::Details;
-        /// use google_cloud_edgecontainer_v1::model::vpn_connection::details::CloudVpn;
-        /// let x = Details::new()
-        ///     .set_cloud_vpns([
-        ///         CloudVpn::default()/* use setters */,
-        ///         CloudVpn::default()/* use (different) setters */,
-        ///     ]);
-        /// ```
         pub fn set_cloud_vpns<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -4139,12 +3150,6 @@ pub mod vpn_connection {
             }
 
             /// Sets the value of [name][crate::model::vpn_connection::details::CloudRouter::name].
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_edgecontainer_v1::model::vpn_connection::details::CloudRouter;
-            /// let x = CloudRouter::new().set_name("example");
-            /// ```
             pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
                 self.name = v.into();
                 self
@@ -4173,12 +3178,6 @@ pub mod vpn_connection {
             }
 
             /// Sets the value of [gateway][crate::model::vpn_connection::details::CloudVpn::gateway].
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_edgecontainer_v1::model::vpn_connection::details::CloudVpn;
-            /// let x = CloudVpn::new().set_gateway("example");
-            /// ```
             pub fn set_gateway<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
                 self.gateway = v.into();
                 self
@@ -4487,16 +3486,6 @@ impl LocationMetadata {
     }
 
     /// Sets the value of [available_zones][crate::model::LocationMetadata::available_zones].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_edgecontainer_v1::model::LocationMetadata;
-    /// use google_cloud_edgecontainer_v1::model::ZoneMetadata;
-    /// let x = LocationMetadata::new().set_available_zones([
-    ///     ("key0", ZoneMetadata::default()/* use setters */),
-    ///     ("key1", ZoneMetadata::default()/* use (different) setters */),
-    /// ]);
-    /// ```
     pub fn set_available_zones<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -4538,17 +3527,6 @@ impl ZoneMetadata {
     }
 
     /// Sets the value of [quota][crate::model::ZoneMetadata::quota].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_edgecontainer_v1::model::ZoneMetadata;
-    /// use google_cloud_edgecontainer_v1::model::Quota;
-    /// let x = ZoneMetadata::new()
-    ///     .set_quota([
-    ///         Quota::default()/* use setters */,
-    ///         Quota::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_quota<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4560,16 +3538,6 @@ impl ZoneMetadata {
     }
 
     /// Sets the value of [rack_types][crate::model::ZoneMetadata::rack_types].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_edgecontainer_v1::model::ZoneMetadata;
-    /// use google_cloud_edgecontainer_v1::model::zone_metadata::RackType;
-    /// let x = ZoneMetadata::new().set_rack_types([
-    ///     ("key0", RackType::Base),
-    ///     ("key1", RackType::Expansion),
-    /// ]);
-    /// ```
     pub fn set_rack_types<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -4582,13 +3550,6 @@ impl ZoneMetadata {
     }
 
     /// Sets the value of [config_data][crate::model::ZoneMetadata::config_data].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_edgecontainer_v1::model::ZoneMetadata;
-    /// use google_cloud_edgecontainer_v1::model::ConfigData;
-    /// let x = ZoneMetadata::new().set_config_data(ConfigData::default()/* use setters */);
-    /// ```
     pub fn set_config_data<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ConfigData>,
@@ -4598,14 +3559,6 @@ impl ZoneMetadata {
     }
 
     /// Sets or clears the value of [config_data][crate::model::ZoneMetadata::config_data].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_edgecontainer_v1::model::ZoneMetadata;
-    /// use google_cloud_edgecontainer_v1::model::ConfigData;
-    /// let x = ZoneMetadata::new().set_or_clear_config_data(Some(ConfigData::default()/* use setters */));
-    /// let x = ZoneMetadata::new().set_or_clear_config_data(None::<ConfigData>);
-    /// ```
     pub fn set_or_clear_config_data<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ConfigData>,
@@ -4780,12 +3733,6 @@ impl ConfigData {
     }
 
     /// Sets the value of [available_external_lb_pools_ipv4][crate::model::ConfigData::available_external_lb_pools_ipv4].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_edgecontainer_v1::model::ConfigData;
-    /// let x = ConfigData::new().set_available_external_lb_pools_ipv4(["a", "b", "c"]);
-    /// ```
     pub fn set_available_external_lb_pools_ipv4<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4797,12 +3744,6 @@ impl ConfigData {
     }
 
     /// Sets the value of [available_external_lb_pools_ipv6][crate::model::ConfigData::available_external_lb_pools_ipv6].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_edgecontainer_v1::model::ConfigData;
-    /// let x = ConfigData::new().set_available_external_lb_pools_ipv6(["a", "b", "c"]);
-    /// ```
     pub fn set_available_external_lb_pools_ipv6<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4842,36 +3783,18 @@ impl Quota {
     }
 
     /// Sets the value of [metric][crate::model::Quota::metric].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_edgecontainer_v1::model::Quota;
-    /// let x = Quota::new().set_metric("example");
-    /// ```
     pub fn set_metric<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.metric = v.into();
         self
     }
 
     /// Sets the value of [limit][crate::model::Quota::limit].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_edgecontainer_v1::model::Quota;
-    /// let x = Quota::new().set_limit(42.0);
-    /// ```
     pub fn set_limit<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
         self.limit = v.into();
         self
     }
 
     /// Sets the value of [usage][crate::model::Quota::usage].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_edgecontainer_v1::model::Quota;
-    /// let x = Quota::new().set_usage(42.0);
-    /// ```
     pub fn set_usage<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
         self.usage = v.into();
         self
@@ -4906,13 +3829,6 @@ impl MaintenancePolicy {
     }
 
     /// Sets the value of [window][crate::model::MaintenancePolicy::window].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_edgecontainer_v1::model::MaintenancePolicy;
-    /// use google_cloud_edgecontainer_v1::model::MaintenanceWindow;
-    /// let x = MaintenancePolicy::new().set_window(MaintenanceWindow::default()/* use setters */);
-    /// ```
     pub fn set_window<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::MaintenanceWindow>,
@@ -4922,14 +3838,6 @@ impl MaintenancePolicy {
     }
 
     /// Sets or clears the value of [window][crate::model::MaintenancePolicy::window].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_edgecontainer_v1::model::MaintenancePolicy;
-    /// use google_cloud_edgecontainer_v1::model::MaintenanceWindow;
-    /// let x = MaintenancePolicy::new().set_or_clear_window(Some(MaintenanceWindow::default()/* use setters */));
-    /// let x = MaintenancePolicy::new().set_or_clear_window(None::<MaintenanceWindow>);
-    /// ```
     pub fn set_or_clear_window<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::MaintenanceWindow>,
@@ -4939,17 +3847,6 @@ impl MaintenancePolicy {
     }
 
     /// Sets the value of [maintenance_exclusions][crate::model::MaintenancePolicy::maintenance_exclusions].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_edgecontainer_v1::model::MaintenancePolicy;
-    /// use google_cloud_edgecontainer_v1::model::MaintenanceExclusionWindow;
-    /// let x = MaintenancePolicy::new()
-    ///     .set_maintenance_exclusions([
-    ///         MaintenanceExclusionWindow::default()/* use setters */,
-    ///         MaintenanceExclusionWindow::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_maintenance_exclusions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4983,13 +3880,6 @@ impl MaintenanceWindow {
     }
 
     /// Sets the value of [recurring_window][crate::model::MaintenanceWindow::recurring_window].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_edgecontainer_v1::model::MaintenanceWindow;
-    /// use google_cloud_edgecontainer_v1::model::RecurringTimeWindow;
-    /// let x = MaintenanceWindow::new().set_recurring_window(RecurringTimeWindow::default()/* use setters */);
-    /// ```
     pub fn set_recurring_window<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::RecurringTimeWindow>,
@@ -4999,14 +3889,6 @@ impl MaintenanceWindow {
     }
 
     /// Sets or clears the value of [recurring_window][crate::model::MaintenanceWindow::recurring_window].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_edgecontainer_v1::model::MaintenanceWindow;
-    /// use google_cloud_edgecontainer_v1::model::RecurringTimeWindow;
-    /// let x = MaintenanceWindow::new().set_or_clear_recurring_window(Some(RecurringTimeWindow::default()/* use setters */));
-    /// let x = MaintenanceWindow::new().set_or_clear_recurring_window(None::<RecurringTimeWindow>);
-    /// ```
     pub fn set_or_clear_recurring_window<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::RecurringTimeWindow>,
@@ -5043,13 +3925,6 @@ impl RecurringTimeWindow {
     }
 
     /// Sets the value of [window][crate::model::RecurringTimeWindow::window].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_edgecontainer_v1::model::RecurringTimeWindow;
-    /// use google_cloud_edgecontainer_v1::model::TimeWindow;
-    /// let x = RecurringTimeWindow::new().set_window(TimeWindow::default()/* use setters */);
-    /// ```
     pub fn set_window<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::TimeWindow>,
@@ -5059,14 +3934,6 @@ impl RecurringTimeWindow {
     }
 
     /// Sets or clears the value of [window][crate::model::RecurringTimeWindow::window].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_edgecontainer_v1::model::RecurringTimeWindow;
-    /// use google_cloud_edgecontainer_v1::model::TimeWindow;
-    /// let x = RecurringTimeWindow::new().set_or_clear_window(Some(TimeWindow::default()/* use setters */));
-    /// let x = RecurringTimeWindow::new().set_or_clear_window(None::<TimeWindow>);
-    /// ```
     pub fn set_or_clear_window<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::TimeWindow>,
@@ -5076,12 +3943,6 @@ impl RecurringTimeWindow {
     }
 
     /// Sets the value of [recurrence][crate::model::RecurringTimeWindow::recurrence].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_edgecontainer_v1::model::RecurringTimeWindow;
-    /// let x = RecurringTimeWindow::new().set_recurrence("example");
-    /// ```
     pub fn set_recurrence<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.recurrence = v.into();
         self
@@ -5113,13 +3974,6 @@ impl MaintenanceExclusionWindow {
     }
 
     /// Sets the value of [window][crate::model::MaintenanceExclusionWindow::window].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_edgecontainer_v1::model::MaintenanceExclusionWindow;
-    /// use google_cloud_edgecontainer_v1::model::TimeWindow;
-    /// let x = MaintenanceExclusionWindow::new().set_window(TimeWindow::default()/* use setters */);
-    /// ```
     pub fn set_window<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::TimeWindow>,
@@ -5129,14 +3983,6 @@ impl MaintenanceExclusionWindow {
     }
 
     /// Sets or clears the value of [window][crate::model::MaintenanceExclusionWindow::window].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_edgecontainer_v1::model::MaintenanceExclusionWindow;
-    /// use google_cloud_edgecontainer_v1::model::TimeWindow;
-    /// let x = MaintenanceExclusionWindow::new().set_or_clear_window(Some(TimeWindow::default()/* use setters */));
-    /// let x = MaintenanceExclusionWindow::new().set_or_clear_window(None::<TimeWindow>);
-    /// ```
     pub fn set_or_clear_window<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::TimeWindow>,
@@ -5146,12 +3992,6 @@ impl MaintenanceExclusionWindow {
     }
 
     /// Sets the value of [id][crate::model::MaintenanceExclusionWindow::id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_edgecontainer_v1::model::MaintenanceExclusionWindow;
-    /// let x = MaintenanceExclusionWindow::new().set_id("example");
-    /// ```
     pub fn set_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.id = v.into();
         self
@@ -5184,13 +4024,6 @@ impl TimeWindow {
     }
 
     /// Sets the value of [start_time][crate::model::TimeWindow::start_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_edgecontainer_v1::model::TimeWindow;
-    /// use wkt::Timestamp;
-    /// let x = TimeWindow::new().set_start_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_start_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -5200,14 +4033,6 @@ impl TimeWindow {
     }
 
     /// Sets or clears the value of [start_time][crate::model::TimeWindow::start_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_edgecontainer_v1::model::TimeWindow;
-    /// use wkt::Timestamp;
-    /// let x = TimeWindow::new().set_or_clear_start_time(Some(Timestamp::default()/* use setters */));
-    /// let x = TimeWindow::new().set_or_clear_start_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -5217,13 +4042,6 @@ impl TimeWindow {
     }
 
     /// Sets the value of [end_time][crate::model::TimeWindow::end_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_edgecontainer_v1::model::TimeWindow;
-    /// use wkt::Timestamp;
-    /// let x = TimeWindow::new().set_end_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -5233,14 +4051,6 @@ impl TimeWindow {
     }
 
     /// Sets or clears the value of [end_time][crate::model::TimeWindow::end_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_edgecontainer_v1::model::TimeWindow;
-    /// use wkt::Timestamp;
-    /// let x = TimeWindow::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
-    /// let x = TimeWindow::new().set_or_clear_end_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -5278,16 +4088,6 @@ impl ServerConfig {
     }
 
     /// Sets the value of [channels][crate::model::ServerConfig::channels].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_edgecontainer_v1::model::ServerConfig;
-    /// use google_cloud_edgecontainer_v1::model::ChannelConfig;
-    /// let x = ServerConfig::new().set_channels([
-    ///     ("key0", ChannelConfig::default()/* use setters */),
-    ///     ("key1", ChannelConfig::default()/* use (different) setters */),
-    /// ]);
-    /// ```
     pub fn set_channels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -5300,17 +4100,6 @@ impl ServerConfig {
     }
 
     /// Sets the value of [versions][crate::model::ServerConfig::versions].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_edgecontainer_v1::model::ServerConfig;
-    /// use google_cloud_edgecontainer_v1::model::Version;
-    /// let x = ServerConfig::new()
-    ///     .set_versions([
-    ///         Version::default()/* use setters */,
-    ///         Version::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_versions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -5322,12 +4111,6 @@ impl ServerConfig {
     }
 
     /// Sets the value of [default_version][crate::model::ServerConfig::default_version].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_edgecontainer_v1::model::ServerConfig;
-    /// let x = ServerConfig::new().set_default_version("example");
-    /// ```
     pub fn set_default_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.default_version = v.into();
         self
@@ -5356,12 +4139,6 @@ impl ChannelConfig {
     }
 
     /// Sets the value of [default_version][crate::model::ChannelConfig::default_version].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_edgecontainer_v1::model::ChannelConfig;
-    /// let x = ChannelConfig::new().set_default_version("example");
-    /// ```
     pub fn set_default_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.default_version = v.into();
         self
@@ -5390,12 +4167,6 @@ impl Version {
     }
 
     /// Sets the value of [name][crate::model::Version::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_edgecontainer_v1::model::Version;
-    /// let x = Version::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -5454,13 +4225,6 @@ impl OperationMetadata {
     }
 
     /// Sets the value of [create_time][crate::model::OperationMetadata::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_edgecontainer_v1::model::OperationMetadata;
-    /// use wkt::Timestamp;
-    /// let x = OperationMetadata::new().set_create_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -5470,14 +4234,6 @@ impl OperationMetadata {
     }
 
     /// Sets or clears the value of [create_time][crate::model::OperationMetadata::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_edgecontainer_v1::model::OperationMetadata;
-    /// use wkt::Timestamp;
-    /// let x = OperationMetadata::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
-    /// let x = OperationMetadata::new().set_or_clear_create_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -5487,13 +4243,6 @@ impl OperationMetadata {
     }
 
     /// Sets the value of [end_time][crate::model::OperationMetadata::end_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_edgecontainer_v1::model::OperationMetadata;
-    /// use wkt::Timestamp;
-    /// let x = OperationMetadata::new().set_end_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -5503,14 +4252,6 @@ impl OperationMetadata {
     }
 
     /// Sets or clears the value of [end_time][crate::model::OperationMetadata::end_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_edgecontainer_v1::model::OperationMetadata;
-    /// use wkt::Timestamp;
-    /// let x = OperationMetadata::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
-    /// let x = OperationMetadata::new().set_or_clear_end_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -5520,72 +4261,36 @@ impl OperationMetadata {
     }
 
     /// Sets the value of [target][crate::model::OperationMetadata::target].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_edgecontainer_v1::model::OperationMetadata;
-    /// let x = OperationMetadata::new().set_target("example");
-    /// ```
     pub fn set_target<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.target = v.into();
         self
     }
 
     /// Sets the value of [verb][crate::model::OperationMetadata::verb].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_edgecontainer_v1::model::OperationMetadata;
-    /// let x = OperationMetadata::new().set_verb("example");
-    /// ```
     pub fn set_verb<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.verb = v.into();
         self
     }
 
     /// Sets the value of [status_message][crate::model::OperationMetadata::status_message].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_edgecontainer_v1::model::OperationMetadata;
-    /// let x = OperationMetadata::new().set_status_message("example");
-    /// ```
     pub fn set_status_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.status_message = v.into();
         self
     }
 
     /// Sets the value of [requested_cancellation][crate::model::OperationMetadata::requested_cancellation].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_edgecontainer_v1::model::OperationMetadata;
-    /// let x = OperationMetadata::new().set_requested_cancellation(true);
-    /// ```
     pub fn set_requested_cancellation<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.requested_cancellation = v.into();
         self
     }
 
     /// Sets the value of [api_version][crate::model::OperationMetadata::api_version].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_edgecontainer_v1::model::OperationMetadata;
-    /// let x = OperationMetadata::new().set_api_version("example");
-    /// ```
     pub fn set_api_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.api_version = v.into();
         self
     }
 
     /// Sets the value of [warnings][crate::model::OperationMetadata::warnings].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_edgecontainer_v1::model::OperationMetadata;
-    /// let x = OperationMetadata::new().set_warnings(["a", "b", "c"]);
-    /// ```
     pub fn set_warnings<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -5597,13 +4302,6 @@ impl OperationMetadata {
     }
 
     /// Sets the value of [status_reason][crate::model::OperationMetadata::status_reason].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_edgecontainer_v1::model::OperationMetadata;
-    /// use google_cloud_edgecontainer_v1::model::operation_metadata::StatusReason;
-    /// let x0 = OperationMetadata::new().set_status_reason(StatusReason::UpgradePaused);
-    /// ```
     pub fn set_status_reason<
         T: std::convert::Into<crate::model::operation_metadata::StatusReason>,
     >(
@@ -5781,60 +4479,30 @@ impl ListClustersRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListClustersRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_edgecontainer_v1::model::ListClustersRequest;
-    /// let x = ListClustersRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListClustersRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_edgecontainer_v1::model::ListClustersRequest;
-    /// let x = ListClustersRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListClustersRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_edgecontainer_v1::model::ListClustersRequest;
-    /// let x = ListClustersRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListClustersRequest::filter].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_edgecontainer_v1::model::ListClustersRequest;
-    /// let x = ListClustersRequest::new().set_filter("example");
-    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListClustersRequest::order_by].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_edgecontainer_v1::model::ListClustersRequest;
-    /// let x = ListClustersRequest::new().set_order_by("example");
-    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
@@ -5869,17 +4537,6 @@ impl ListClustersResponse {
     }
 
     /// Sets the value of [clusters][crate::model::ListClustersResponse::clusters].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_edgecontainer_v1::model::ListClustersResponse;
-    /// use google_cloud_edgecontainer_v1::model::Cluster;
-    /// let x = ListClustersResponse::new()
-    ///     .set_clusters([
-    ///         Cluster::default()/* use setters */,
-    ///         Cluster::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_clusters<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -5891,24 +4548,12 @@ impl ListClustersResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListClustersResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_edgecontainer_v1::model::ListClustersResponse;
-    /// let x = ListClustersResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListClustersResponse::unreachable].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_edgecontainer_v1::model::ListClustersResponse;
-    /// let x = ListClustersResponse::new().set_unreachable(["a", "b", "c"]);
-    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -5956,12 +4601,6 @@ impl GetClusterRequest {
     }
 
     /// Sets the value of [name][crate::model::GetClusterRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_edgecontainer_v1::model::GetClusterRequest;
-    /// let x = GetClusterRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -6001,37 +4640,18 @@ impl CreateClusterRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateClusterRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_edgecontainer_v1::model::CreateClusterRequest;
-    /// let x = CreateClusterRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [cluster_id][crate::model::CreateClusterRequest::cluster_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_edgecontainer_v1::model::CreateClusterRequest;
-    /// let x = CreateClusterRequest::new().set_cluster_id("example");
-    /// ```
     pub fn set_cluster_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.cluster_id = v.into();
         self
     }
 
     /// Sets the value of [cluster][crate::model::CreateClusterRequest::cluster].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_edgecontainer_v1::model::CreateClusterRequest;
-    /// use google_cloud_edgecontainer_v1::model::Cluster;
-    /// let x = CreateClusterRequest::new().set_cluster(Cluster::default()/* use setters */);
-    /// ```
     pub fn set_cluster<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Cluster>,
@@ -6041,14 +4661,6 @@ impl CreateClusterRequest {
     }
 
     /// Sets or clears the value of [cluster][crate::model::CreateClusterRequest::cluster].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_edgecontainer_v1::model::CreateClusterRequest;
-    /// use google_cloud_edgecontainer_v1::model::Cluster;
-    /// let x = CreateClusterRequest::new().set_or_clear_cluster(Some(Cluster::default()/* use setters */));
-    /// let x = CreateClusterRequest::new().set_or_clear_cluster(None::<Cluster>);
-    /// ```
     pub fn set_or_clear_cluster<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Cluster>,
@@ -6058,12 +4670,6 @@ impl CreateClusterRequest {
     }
 
     /// Sets the value of [request_id][crate::model::CreateClusterRequest::request_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_edgecontainer_v1::model::CreateClusterRequest;
-    /// let x = CreateClusterRequest::new().set_request_id("example");
-    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -6104,13 +4710,6 @@ impl UpdateClusterRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateClusterRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_edgecontainer_v1::model::UpdateClusterRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateClusterRequest::new().set_update_mask(FieldMask::default()/* use setters */);
-    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -6120,14 +4719,6 @@ impl UpdateClusterRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateClusterRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_edgecontainer_v1::model::UpdateClusterRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateClusterRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
-    /// let x = UpdateClusterRequest::new().set_or_clear_update_mask(None::<FieldMask>);
-    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -6137,13 +4728,6 @@ impl UpdateClusterRequest {
     }
 
     /// Sets the value of [cluster][crate::model::UpdateClusterRequest::cluster].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_edgecontainer_v1::model::UpdateClusterRequest;
-    /// use google_cloud_edgecontainer_v1::model::Cluster;
-    /// let x = UpdateClusterRequest::new().set_cluster(Cluster::default()/* use setters */);
-    /// ```
     pub fn set_cluster<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Cluster>,
@@ -6153,14 +4737,6 @@ impl UpdateClusterRequest {
     }
 
     /// Sets or clears the value of [cluster][crate::model::UpdateClusterRequest::cluster].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_edgecontainer_v1::model::UpdateClusterRequest;
-    /// use google_cloud_edgecontainer_v1::model::Cluster;
-    /// let x = UpdateClusterRequest::new().set_or_clear_cluster(Some(Cluster::default()/* use setters */));
-    /// let x = UpdateClusterRequest::new().set_or_clear_cluster(None::<Cluster>);
-    /// ```
     pub fn set_or_clear_cluster<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Cluster>,
@@ -6170,12 +4746,6 @@ impl UpdateClusterRequest {
     }
 
     /// Sets the value of [request_id][crate::model::UpdateClusterRequest::request_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_edgecontainer_v1::model::UpdateClusterRequest;
-    /// let x = UpdateClusterRequest::new().set_request_id("example");
-    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -6215,37 +4785,18 @@ impl UpgradeClusterRequest {
     }
 
     /// Sets the value of [name][crate::model::UpgradeClusterRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_edgecontainer_v1::model::UpgradeClusterRequest;
-    /// let x = UpgradeClusterRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [target_version][crate::model::UpgradeClusterRequest::target_version].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_edgecontainer_v1::model::UpgradeClusterRequest;
-    /// let x = UpgradeClusterRequest::new().set_target_version("example");
-    /// ```
     pub fn set_target_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.target_version = v.into();
         self
     }
 
     /// Sets the value of [schedule][crate::model::UpgradeClusterRequest::schedule].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_edgecontainer_v1::model::UpgradeClusterRequest;
-    /// use google_cloud_edgecontainer_v1::model::upgrade_cluster_request::Schedule;
-    /// let x0 = UpgradeClusterRequest::new().set_schedule(Schedule::Immediately);
-    /// ```
     pub fn set_schedule<T: std::convert::Into<crate::model::upgrade_cluster_request::Schedule>>(
         mut self,
         v: T,
@@ -6255,12 +4806,6 @@ impl UpgradeClusterRequest {
     }
 
     /// Sets the value of [request_id][crate::model::UpgradeClusterRequest::request_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_edgecontainer_v1::model::UpgradeClusterRequest;
-    /// let x = UpgradeClusterRequest::new().set_request_id("example");
-    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -6427,24 +4972,12 @@ impl DeleteClusterRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteClusterRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_edgecontainer_v1::model::DeleteClusterRequest;
-    /// let x = DeleteClusterRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [request_id][crate::model::DeleteClusterRequest::request_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_edgecontainer_v1::model::DeleteClusterRequest;
-    /// let x = DeleteClusterRequest::new().set_request_id("example");
-    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -6473,12 +5006,6 @@ impl GenerateAccessTokenRequest {
     }
 
     /// Sets the value of [cluster][crate::model::GenerateAccessTokenRequest::cluster].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_edgecontainer_v1::model::GenerateAccessTokenRequest;
-    /// let x = GenerateAccessTokenRequest::new().set_cluster("example");
-    /// ```
     pub fn set_cluster<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.cluster = v.into();
         self
@@ -6510,25 +5037,12 @@ impl GenerateAccessTokenResponse {
     }
 
     /// Sets the value of [access_token][crate::model::GenerateAccessTokenResponse::access_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_edgecontainer_v1::model::GenerateAccessTokenResponse;
-    /// let x = GenerateAccessTokenResponse::new().set_access_token("example");
-    /// ```
     pub fn set_access_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.access_token = v.into();
         self
     }
 
     /// Sets the value of [expire_time][crate::model::GenerateAccessTokenResponse::expire_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_edgecontainer_v1::model::GenerateAccessTokenResponse;
-    /// use wkt::Timestamp;
-    /// let x = GenerateAccessTokenResponse::new().set_expire_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_expire_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -6538,14 +5052,6 @@ impl GenerateAccessTokenResponse {
     }
 
     /// Sets or clears the value of [expire_time][crate::model::GenerateAccessTokenResponse::expire_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_edgecontainer_v1::model::GenerateAccessTokenResponse;
-    /// use wkt::Timestamp;
-    /// let x = GenerateAccessTokenResponse::new().set_or_clear_expire_time(Some(Timestamp::default()/* use setters */));
-    /// let x = GenerateAccessTokenResponse::new().set_or_clear_expire_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_expire_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -6577,12 +5083,6 @@ impl GenerateOfflineCredentialRequest {
     }
 
     /// Sets the value of [cluster][crate::model::GenerateOfflineCredentialRequest::cluster].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_edgecontainer_v1::model::GenerateOfflineCredentialRequest;
-    /// let x = GenerateOfflineCredentialRequest::new().set_cluster("example");
-    /// ```
     pub fn set_cluster<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.cluster = v.into();
         self
@@ -6620,12 +5120,6 @@ impl GenerateOfflineCredentialResponse {
     }
 
     /// Sets the value of [client_certificate][crate::model::GenerateOfflineCredentialResponse::client_certificate].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_edgecontainer_v1::model::GenerateOfflineCredentialResponse;
-    /// let x = GenerateOfflineCredentialResponse::new().set_client_certificate("example");
-    /// ```
     pub fn set_client_certificate<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -6635,37 +5129,18 @@ impl GenerateOfflineCredentialResponse {
     }
 
     /// Sets the value of [client_key][crate::model::GenerateOfflineCredentialResponse::client_key].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_edgecontainer_v1::model::GenerateOfflineCredentialResponse;
-    /// let x = GenerateOfflineCredentialResponse::new().set_client_key("example");
-    /// ```
     pub fn set_client_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.client_key = v.into();
         self
     }
 
     /// Sets the value of [user_id][crate::model::GenerateOfflineCredentialResponse::user_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_edgecontainer_v1::model::GenerateOfflineCredentialResponse;
-    /// let x = GenerateOfflineCredentialResponse::new().set_user_id("example");
-    /// ```
     pub fn set_user_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.user_id = v.into();
         self
     }
 
     /// Sets the value of [expire_time][crate::model::GenerateOfflineCredentialResponse::expire_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_edgecontainer_v1::model::GenerateOfflineCredentialResponse;
-    /// use wkt::Timestamp;
-    /// let x = GenerateOfflineCredentialResponse::new().set_expire_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_expire_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -6675,14 +5150,6 @@ impl GenerateOfflineCredentialResponse {
     }
 
     /// Sets or clears the value of [expire_time][crate::model::GenerateOfflineCredentialResponse::expire_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_edgecontainer_v1::model::GenerateOfflineCredentialResponse;
-    /// use wkt::Timestamp;
-    /// let x = GenerateOfflineCredentialResponse::new().set_or_clear_expire_time(Some(Timestamp::default()/* use setters */));
-    /// let x = GenerateOfflineCredentialResponse::new().set_or_clear_expire_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_expire_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -6726,60 +5193,30 @@ impl ListNodePoolsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListNodePoolsRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_edgecontainer_v1::model::ListNodePoolsRequest;
-    /// let x = ListNodePoolsRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListNodePoolsRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_edgecontainer_v1::model::ListNodePoolsRequest;
-    /// let x = ListNodePoolsRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListNodePoolsRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_edgecontainer_v1::model::ListNodePoolsRequest;
-    /// let x = ListNodePoolsRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListNodePoolsRequest::filter].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_edgecontainer_v1::model::ListNodePoolsRequest;
-    /// let x = ListNodePoolsRequest::new().set_filter("example");
-    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListNodePoolsRequest::order_by].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_edgecontainer_v1::model::ListNodePoolsRequest;
-    /// let x = ListNodePoolsRequest::new().set_order_by("example");
-    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
@@ -6814,17 +5251,6 @@ impl ListNodePoolsResponse {
     }
 
     /// Sets the value of [node_pools][crate::model::ListNodePoolsResponse::node_pools].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_edgecontainer_v1::model::ListNodePoolsResponse;
-    /// use google_cloud_edgecontainer_v1::model::NodePool;
-    /// let x = ListNodePoolsResponse::new()
-    ///     .set_node_pools([
-    ///         NodePool::default()/* use setters */,
-    ///         NodePool::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_node_pools<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -6836,24 +5262,12 @@ impl ListNodePoolsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListNodePoolsResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_edgecontainer_v1::model::ListNodePoolsResponse;
-    /// let x = ListNodePoolsResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListNodePoolsResponse::unreachable].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_edgecontainer_v1::model::ListNodePoolsResponse;
-    /// let x = ListNodePoolsResponse::new().set_unreachable(["a", "b", "c"]);
-    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -6901,12 +5315,6 @@ impl GetNodePoolRequest {
     }
 
     /// Sets the value of [name][crate::model::GetNodePoolRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_edgecontainer_v1::model::GetNodePoolRequest;
-    /// let x = GetNodePoolRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -6946,37 +5354,18 @@ impl CreateNodePoolRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateNodePoolRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_edgecontainer_v1::model::CreateNodePoolRequest;
-    /// let x = CreateNodePoolRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [node_pool_id][crate::model::CreateNodePoolRequest::node_pool_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_edgecontainer_v1::model::CreateNodePoolRequest;
-    /// let x = CreateNodePoolRequest::new().set_node_pool_id("example");
-    /// ```
     pub fn set_node_pool_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.node_pool_id = v.into();
         self
     }
 
     /// Sets the value of [node_pool][crate::model::CreateNodePoolRequest::node_pool].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_edgecontainer_v1::model::CreateNodePoolRequest;
-    /// use google_cloud_edgecontainer_v1::model::NodePool;
-    /// let x = CreateNodePoolRequest::new().set_node_pool(NodePool::default()/* use setters */);
-    /// ```
     pub fn set_node_pool<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::NodePool>,
@@ -6986,14 +5375,6 @@ impl CreateNodePoolRequest {
     }
 
     /// Sets or clears the value of [node_pool][crate::model::CreateNodePoolRequest::node_pool].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_edgecontainer_v1::model::CreateNodePoolRequest;
-    /// use google_cloud_edgecontainer_v1::model::NodePool;
-    /// let x = CreateNodePoolRequest::new().set_or_clear_node_pool(Some(NodePool::default()/* use setters */));
-    /// let x = CreateNodePoolRequest::new().set_or_clear_node_pool(None::<NodePool>);
-    /// ```
     pub fn set_or_clear_node_pool<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::NodePool>,
@@ -7003,12 +5384,6 @@ impl CreateNodePoolRequest {
     }
 
     /// Sets the value of [request_id][crate::model::CreateNodePoolRequest::request_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_edgecontainer_v1::model::CreateNodePoolRequest;
-    /// let x = CreateNodePoolRequest::new().set_request_id("example");
-    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -7049,13 +5424,6 @@ impl UpdateNodePoolRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateNodePoolRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_edgecontainer_v1::model::UpdateNodePoolRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateNodePoolRequest::new().set_update_mask(FieldMask::default()/* use setters */);
-    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -7065,14 +5433,6 @@ impl UpdateNodePoolRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateNodePoolRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_edgecontainer_v1::model::UpdateNodePoolRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateNodePoolRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
-    /// let x = UpdateNodePoolRequest::new().set_or_clear_update_mask(None::<FieldMask>);
-    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -7082,13 +5442,6 @@ impl UpdateNodePoolRequest {
     }
 
     /// Sets the value of [node_pool][crate::model::UpdateNodePoolRequest::node_pool].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_edgecontainer_v1::model::UpdateNodePoolRequest;
-    /// use google_cloud_edgecontainer_v1::model::NodePool;
-    /// let x = UpdateNodePoolRequest::new().set_node_pool(NodePool::default()/* use setters */);
-    /// ```
     pub fn set_node_pool<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::NodePool>,
@@ -7098,14 +5451,6 @@ impl UpdateNodePoolRequest {
     }
 
     /// Sets or clears the value of [node_pool][crate::model::UpdateNodePoolRequest::node_pool].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_edgecontainer_v1::model::UpdateNodePoolRequest;
-    /// use google_cloud_edgecontainer_v1::model::NodePool;
-    /// let x = UpdateNodePoolRequest::new().set_or_clear_node_pool(Some(NodePool::default()/* use setters */));
-    /// let x = UpdateNodePoolRequest::new().set_or_clear_node_pool(None::<NodePool>);
-    /// ```
     pub fn set_or_clear_node_pool<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::NodePool>,
@@ -7115,12 +5460,6 @@ impl UpdateNodePoolRequest {
     }
 
     /// Sets the value of [request_id][crate::model::UpdateNodePoolRequest::request_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_edgecontainer_v1::model::UpdateNodePoolRequest;
-    /// let x = UpdateNodePoolRequest::new().set_request_id("example");
-    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -7154,24 +5493,12 @@ impl DeleteNodePoolRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteNodePoolRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_edgecontainer_v1::model::DeleteNodePoolRequest;
-    /// let x = DeleteNodePoolRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [request_id][crate::model::DeleteNodePoolRequest::request_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_edgecontainer_v1::model::DeleteNodePoolRequest;
-    /// let x = DeleteNodePoolRequest::new().set_request_id("example");
-    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -7212,60 +5539,30 @@ impl ListMachinesRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListMachinesRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_edgecontainer_v1::model::ListMachinesRequest;
-    /// let x = ListMachinesRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListMachinesRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_edgecontainer_v1::model::ListMachinesRequest;
-    /// let x = ListMachinesRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListMachinesRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_edgecontainer_v1::model::ListMachinesRequest;
-    /// let x = ListMachinesRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListMachinesRequest::filter].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_edgecontainer_v1::model::ListMachinesRequest;
-    /// let x = ListMachinesRequest::new().set_filter("example");
-    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListMachinesRequest::order_by].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_edgecontainer_v1::model::ListMachinesRequest;
-    /// let x = ListMachinesRequest::new().set_order_by("example");
-    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
@@ -7300,17 +5597,6 @@ impl ListMachinesResponse {
     }
 
     /// Sets the value of [machines][crate::model::ListMachinesResponse::machines].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_edgecontainer_v1::model::ListMachinesResponse;
-    /// use google_cloud_edgecontainer_v1::model::Machine;
-    /// let x = ListMachinesResponse::new()
-    ///     .set_machines([
-    ///         Machine::default()/* use setters */,
-    ///         Machine::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_machines<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -7322,24 +5608,12 @@ impl ListMachinesResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListMachinesResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_edgecontainer_v1::model::ListMachinesResponse;
-    /// let x = ListMachinesResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListMachinesResponse::unreachable].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_edgecontainer_v1::model::ListMachinesResponse;
-    /// let x = ListMachinesResponse::new().set_unreachable(["a", "b", "c"]);
-    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -7387,12 +5661,6 @@ impl GetMachineRequest {
     }
 
     /// Sets the value of [name][crate::model::GetMachineRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_edgecontainer_v1::model::GetMachineRequest;
-    /// let x = GetMachineRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -7434,60 +5702,30 @@ impl ListVpnConnectionsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListVpnConnectionsRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_edgecontainer_v1::model::ListVpnConnectionsRequest;
-    /// let x = ListVpnConnectionsRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListVpnConnectionsRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_edgecontainer_v1::model::ListVpnConnectionsRequest;
-    /// let x = ListVpnConnectionsRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListVpnConnectionsRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_edgecontainer_v1::model::ListVpnConnectionsRequest;
-    /// let x = ListVpnConnectionsRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListVpnConnectionsRequest::filter].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_edgecontainer_v1::model::ListVpnConnectionsRequest;
-    /// let x = ListVpnConnectionsRequest::new().set_filter("example");
-    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListVpnConnectionsRequest::order_by].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_edgecontainer_v1::model::ListVpnConnectionsRequest;
-    /// let x = ListVpnConnectionsRequest::new().set_order_by("example");
-    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
@@ -7522,17 +5760,6 @@ impl ListVpnConnectionsResponse {
     }
 
     /// Sets the value of [vpn_connections][crate::model::ListVpnConnectionsResponse::vpn_connections].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_edgecontainer_v1::model::ListVpnConnectionsResponse;
-    /// use google_cloud_edgecontainer_v1::model::VpnConnection;
-    /// let x = ListVpnConnectionsResponse::new()
-    ///     .set_vpn_connections([
-    ///         VpnConnection::default()/* use setters */,
-    ///         VpnConnection::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_vpn_connections<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -7544,24 +5771,12 @@ impl ListVpnConnectionsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListVpnConnectionsResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_edgecontainer_v1::model::ListVpnConnectionsResponse;
-    /// let x = ListVpnConnectionsResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListVpnConnectionsResponse::unreachable].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_edgecontainer_v1::model::ListVpnConnectionsResponse;
-    /// let x = ListVpnConnectionsResponse::new().set_unreachable(["a", "b", "c"]);
-    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -7609,12 +5824,6 @@ impl GetVpnConnectionRequest {
     }
 
     /// Sets the value of [name][crate::model::GetVpnConnectionRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_edgecontainer_v1::model::GetVpnConnectionRequest;
-    /// let x = GetVpnConnectionRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -7654,24 +5863,12 @@ impl CreateVpnConnectionRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateVpnConnectionRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_edgecontainer_v1::model::CreateVpnConnectionRequest;
-    /// let x = CreateVpnConnectionRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [vpn_connection_id][crate::model::CreateVpnConnectionRequest::vpn_connection_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_edgecontainer_v1::model::CreateVpnConnectionRequest;
-    /// let x = CreateVpnConnectionRequest::new().set_vpn_connection_id("example");
-    /// ```
     pub fn set_vpn_connection_id<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -7681,13 +5878,6 @@ impl CreateVpnConnectionRequest {
     }
 
     /// Sets the value of [vpn_connection][crate::model::CreateVpnConnectionRequest::vpn_connection].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_edgecontainer_v1::model::CreateVpnConnectionRequest;
-    /// use google_cloud_edgecontainer_v1::model::VpnConnection;
-    /// let x = CreateVpnConnectionRequest::new().set_vpn_connection(VpnConnection::default()/* use setters */);
-    /// ```
     pub fn set_vpn_connection<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::VpnConnection>,
@@ -7697,14 +5887,6 @@ impl CreateVpnConnectionRequest {
     }
 
     /// Sets or clears the value of [vpn_connection][crate::model::CreateVpnConnectionRequest::vpn_connection].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_edgecontainer_v1::model::CreateVpnConnectionRequest;
-    /// use google_cloud_edgecontainer_v1::model::VpnConnection;
-    /// let x = CreateVpnConnectionRequest::new().set_or_clear_vpn_connection(Some(VpnConnection::default()/* use setters */));
-    /// let x = CreateVpnConnectionRequest::new().set_or_clear_vpn_connection(None::<VpnConnection>);
-    /// ```
     pub fn set_or_clear_vpn_connection<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::VpnConnection>,
@@ -7714,12 +5896,6 @@ impl CreateVpnConnectionRequest {
     }
 
     /// Sets the value of [request_id][crate::model::CreateVpnConnectionRequest::request_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_edgecontainer_v1::model::CreateVpnConnectionRequest;
-    /// let x = CreateVpnConnectionRequest::new().set_request_id("example");
-    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -7753,24 +5929,12 @@ impl DeleteVpnConnectionRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteVpnConnectionRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_edgecontainer_v1::model::DeleteVpnConnectionRequest;
-    /// let x = DeleteVpnConnectionRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [request_id][crate::model::DeleteVpnConnectionRequest::request_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_edgecontainer_v1::model::DeleteVpnConnectionRequest;
-    /// let x = DeleteVpnConnectionRequest::new().set_request_id("example");
-    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -7800,12 +5964,6 @@ impl GetServerConfigRequest {
     }
 
     /// Sets the value of [name][crate::model::GetServerConfigRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_edgecontainer_v1::model::GetServerConfigRequest;
-    /// let x = GetServerConfigRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self

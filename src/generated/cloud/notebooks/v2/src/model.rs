@@ -83,60 +83,30 @@ impl DiagnosticConfig {
     }
 
     /// Sets the value of [gcs_bucket][crate::model::DiagnosticConfig::gcs_bucket].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_notebooks_v2::model::DiagnosticConfig;
-    /// let x = DiagnosticConfig::new().set_gcs_bucket("example");
-    /// ```
     pub fn set_gcs_bucket<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.gcs_bucket = v.into();
         self
     }
 
     /// Sets the value of [relative_path][crate::model::DiagnosticConfig::relative_path].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_notebooks_v2::model::DiagnosticConfig;
-    /// let x = DiagnosticConfig::new().set_relative_path("example");
-    /// ```
     pub fn set_relative_path<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.relative_path = v.into();
         self
     }
 
     /// Sets the value of [enable_repair_flag][crate::model::DiagnosticConfig::enable_repair_flag].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_notebooks_v2::model::DiagnosticConfig;
-    /// let x = DiagnosticConfig::new().set_enable_repair_flag(true);
-    /// ```
     pub fn set_enable_repair_flag<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.enable_repair_flag = v.into();
         self
     }
 
     /// Sets the value of [enable_packet_capture_flag][crate::model::DiagnosticConfig::enable_packet_capture_flag].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_notebooks_v2::model::DiagnosticConfig;
-    /// let x = DiagnosticConfig::new().set_enable_packet_capture_flag(true);
-    /// ```
     pub fn set_enable_packet_capture_flag<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.enable_packet_capture_flag = v.into();
         self
     }
 
     /// Sets the value of [enable_copy_home_files_flag][crate::model::DiagnosticConfig::enable_copy_home_files_flag].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_notebooks_v2::model::DiagnosticConfig;
-    /// let x = DiagnosticConfig::new().set_enable_copy_home_files_flag(true);
-    /// ```
     pub fn set_enable_copy_home_files_flag<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.enable_copy_home_files_flag = v.into();
         self
@@ -171,13 +141,6 @@ impl Event {
     }
 
     /// Sets the value of [report_time][crate::model::Event::report_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_notebooks_v2::model::Event;
-    /// use wkt::Timestamp;
-    /// let x = Event::new().set_report_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_report_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -187,14 +150,6 @@ impl Event {
     }
 
     /// Sets or clears the value of [report_time][crate::model::Event::report_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_notebooks_v2::model::Event;
-    /// use wkt::Timestamp;
-    /// let x = Event::new().set_or_clear_report_time(Some(Timestamp::default()/* use setters */));
-    /// let x = Event::new().set_or_clear_report_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_report_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -204,30 +159,12 @@ impl Event {
     }
 
     /// Sets the value of [r#type][crate::model::Event::type].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_notebooks_v2::model::Event;
-    /// use google_cloud_notebooks_v2::model::event::EventType;
-    /// let x0 = Event::new().set_type(EventType::Idle);
-    /// let x1 = Event::new().set_type(EventType::Heartbeat);
-    /// let x2 = Event::new().set_type(EventType::Health);
-    /// ```
     pub fn set_type<T: std::convert::Into<crate::model::event::EventType>>(mut self, v: T) -> Self {
         self.r#type = v.into();
         self
     }
 
     /// Sets the value of [details][crate::model::Event::details].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_notebooks_v2::model::Event;
-    /// let x = Event::new().set_details([
-    ///     ("key0", "abc"),
-    ///     ("key1", "xyz"),
-    /// ]);
-    /// ```
     pub fn set_details<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -440,38 +377,18 @@ impl NetworkInterface {
     }
 
     /// Sets the value of [network][crate::model::NetworkInterface::network].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_notebooks_v2::model::NetworkInterface;
-    /// let x = NetworkInterface::new().set_network("example");
-    /// ```
     pub fn set_network<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.network = v.into();
         self
     }
 
     /// Sets the value of [subnet][crate::model::NetworkInterface::subnet].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_notebooks_v2::model::NetworkInterface;
-    /// let x = NetworkInterface::new().set_subnet("example");
-    /// ```
     pub fn set_subnet<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.subnet = v.into();
         self
     }
 
     /// Sets the value of [nic_type][crate::model::NetworkInterface::nic_type].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_notebooks_v2::model::NetworkInterface;
-    /// use google_cloud_notebooks_v2::model::network_interface::NicType;
-    /// let x0 = NetworkInterface::new().set_nic_type(NicType::VirtioNet);
-    /// let x1 = NetworkInterface::new().set_nic_type(NicType::Gvnic);
-    /// ```
     pub fn set_nic_type<T: std::convert::Into<crate::model::network_interface::NicType>>(
         mut self,
         v: T,
@@ -647,12 +564,6 @@ impl VmImage {
     }
 
     /// Sets the value of [project][crate::model::VmImage::project].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_notebooks_v2::model::VmImage;
-    /// let x = VmImage::new().set_project("example");
-    /// ```
     pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project = v.into();
         self
@@ -662,13 +573,6 @@ impl VmImage {
     ///
     /// Note that all the setters affecting `image` are mutually
     /// exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_notebooks_v2::model::VmImage;
-    /// use google_cloud_notebooks_v2::model::vm_image;
-    /// let x = VmImage::new().set_image(Some(vm_image::Image::Name("example".to_string())));
-    /// ```
     pub fn set_image<T: std::convert::Into<std::option::Option<crate::model::vm_image::Image>>>(
         mut self,
         v: T,
@@ -693,14 +597,6 @@ impl VmImage {
     ///
     /// Note that all the setters affecting `image` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_notebooks_v2::model::VmImage;
-    /// let x = VmImage::new().set_name("example");
-    /// assert!(x.name().is_some());
-    /// assert!(x.family().is_none());
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.image = std::option::Option::Some(crate::model::vm_image::Image::Name(v.into()));
         self
@@ -722,14 +618,6 @@ impl VmImage {
     ///
     /// Note that all the setters affecting `image` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_notebooks_v2::model::VmImage;
-    /// let x = VmImage::new().set_family("example");
-    /// assert!(x.family().is_some());
-    /// assert!(x.name().is_none());
-    /// ```
     pub fn set_family<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.image = std::option::Option::Some(crate::model::vm_image::Image::Family(v.into()));
         self
@@ -781,24 +669,12 @@ impl ContainerImage {
     }
 
     /// Sets the value of [repository][crate::model::ContainerImage::repository].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_notebooks_v2::model::ContainerImage;
-    /// let x = ContainerImage::new().set_repository("example");
-    /// ```
     pub fn set_repository<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.repository = v.into();
         self
     }
 
     /// Sets the value of [tag][crate::model::ContainerImage::tag].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_notebooks_v2::model::ContainerImage;
-    /// let x = ContainerImage::new().set_tag("example");
-    /// ```
     pub fn set_tag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.tag = v.into();
         self
@@ -835,15 +711,6 @@ impl AcceleratorConfig {
     }
 
     /// Sets the value of [r#type][crate::model::AcceleratorConfig::type].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_notebooks_v2::model::AcceleratorConfig;
-    /// use google_cloud_notebooks_v2::model::accelerator_config::AcceleratorType;
-    /// let x0 = AcceleratorConfig::new().set_type(AcceleratorType::NvidiaTeslaP100);
-    /// let x1 = AcceleratorConfig::new().set_type(AcceleratorType::NvidiaTeslaV100);
-    /// let x2 = AcceleratorConfig::new().set_type(AcceleratorType::NvidiaTeslaP4);
-    /// ```
     pub fn set_type<T: std::convert::Into<crate::model::accelerator_config::AcceleratorType>>(
         mut self,
         v: T,
@@ -853,12 +720,6 @@ impl AcceleratorConfig {
     }
 
     /// Sets the value of [core_count][crate::model::AcceleratorConfig::core_count].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_notebooks_v2::model::AcceleratorConfig;
-    /// let x = AcceleratorConfig::new().set_core_count(42);
-    /// ```
     pub fn set_core_count<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.core_count = v.into();
         self
@@ -1101,36 +962,18 @@ impl ShieldedInstanceConfig {
     }
 
     /// Sets the value of [enable_secure_boot][crate::model::ShieldedInstanceConfig::enable_secure_boot].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_notebooks_v2::model::ShieldedInstanceConfig;
-    /// let x = ShieldedInstanceConfig::new().set_enable_secure_boot(true);
-    /// ```
     pub fn set_enable_secure_boot<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.enable_secure_boot = v.into();
         self
     }
 
     /// Sets the value of [enable_vtpm][crate::model::ShieldedInstanceConfig::enable_vtpm].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_notebooks_v2::model::ShieldedInstanceConfig;
-    /// let x = ShieldedInstanceConfig::new().set_enable_vtpm(true);
-    /// ```
     pub fn set_enable_vtpm<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.enable_vtpm = v.into();
         self
     }
 
     /// Sets the value of [enable_integrity_monitoring][crate::model::ShieldedInstanceConfig::enable_integrity_monitoring].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_notebooks_v2::model::ShieldedInstanceConfig;
-    /// let x = ShieldedInstanceConfig::new().set_enable_integrity_monitoring(true);
-    /// ```
     pub fn set_enable_integrity_monitoring<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.enable_integrity_monitoring = v.into();
         self
@@ -1166,24 +1009,12 @@ impl GPUDriverConfig {
     }
 
     /// Sets the value of [enable_gpu_driver][crate::model::GPUDriverConfig::enable_gpu_driver].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_notebooks_v2::model::GPUDriverConfig;
-    /// let x = GPUDriverConfig::new().set_enable_gpu_driver(true);
-    /// ```
     pub fn set_enable_gpu_driver<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.enable_gpu_driver = v.into();
         self
     }
 
     /// Sets the value of [custom_gpu_driver_path][crate::model::GPUDriverConfig::custom_gpu_driver_path].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_notebooks_v2::model::GPUDriverConfig;
-    /// let x = GPUDriverConfig::new().set_custom_gpu_driver_path("example");
-    /// ```
     pub fn set_custom_gpu_driver_path<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -1230,41 +1061,18 @@ impl DataDisk {
     }
 
     /// Sets the value of [disk_size_gb][crate::model::DataDisk::disk_size_gb].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_notebooks_v2::model::DataDisk;
-    /// let x = DataDisk::new().set_disk_size_gb(42);
-    /// ```
     pub fn set_disk_size_gb<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.disk_size_gb = v.into();
         self
     }
 
     /// Sets the value of [disk_type][crate::model::DataDisk::disk_type].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_notebooks_v2::model::DataDisk;
-    /// use google_cloud_notebooks_v2::model::DiskType;
-    /// let x0 = DataDisk::new().set_disk_type(DiskType::PdStandard);
-    /// let x1 = DataDisk::new().set_disk_type(DiskType::PdSsd);
-    /// let x2 = DataDisk::new().set_disk_type(DiskType::PdBalanced);
-    /// ```
     pub fn set_disk_type<T: std::convert::Into<crate::model::DiskType>>(mut self, v: T) -> Self {
         self.disk_type = v.into();
         self
     }
 
     /// Sets the value of [disk_encryption][crate::model::DataDisk::disk_encryption].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_notebooks_v2::model::DataDisk;
-    /// use google_cloud_notebooks_v2::model::DiskEncryption;
-    /// let x0 = DataDisk::new().set_disk_encryption(DiskEncryption::Gmek);
-    /// let x1 = DataDisk::new().set_disk_encryption(DiskEncryption::Cmek);
-    /// ```
     pub fn set_disk_encryption<T: std::convert::Into<crate::model::DiskEncryption>>(
         mut self,
         v: T,
@@ -1274,12 +1082,6 @@ impl DataDisk {
     }
 
     /// Sets the value of [kms_key][crate::model::DataDisk::kms_key].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_notebooks_v2::model::DataDisk;
-    /// let x = DataDisk::new().set_kms_key("example");
-    /// ```
     pub fn set_kms_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.kms_key = v.into();
         self
@@ -1324,41 +1126,18 @@ impl BootDisk {
     }
 
     /// Sets the value of [disk_size_gb][crate::model::BootDisk::disk_size_gb].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_notebooks_v2::model::BootDisk;
-    /// let x = BootDisk::new().set_disk_size_gb(42);
-    /// ```
     pub fn set_disk_size_gb<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.disk_size_gb = v.into();
         self
     }
 
     /// Sets the value of [disk_type][crate::model::BootDisk::disk_type].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_notebooks_v2::model::BootDisk;
-    /// use google_cloud_notebooks_v2::model::DiskType;
-    /// let x0 = BootDisk::new().set_disk_type(DiskType::PdStandard);
-    /// let x1 = BootDisk::new().set_disk_type(DiskType::PdSsd);
-    /// let x2 = BootDisk::new().set_disk_type(DiskType::PdBalanced);
-    /// ```
     pub fn set_disk_type<T: std::convert::Into<crate::model::DiskType>>(mut self, v: T) -> Self {
         self.disk_type = v.into();
         self
     }
 
     /// Sets the value of [disk_encryption][crate::model::BootDisk::disk_encryption].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_notebooks_v2::model::BootDisk;
-    /// use google_cloud_notebooks_v2::model::DiskEncryption;
-    /// let x0 = BootDisk::new().set_disk_encryption(DiskEncryption::Gmek);
-    /// let x1 = BootDisk::new().set_disk_encryption(DiskEncryption::Cmek);
-    /// ```
     pub fn set_disk_encryption<T: std::convert::Into<crate::model::DiskEncryption>>(
         mut self,
         v: T,
@@ -1368,12 +1147,6 @@ impl BootDisk {
     }
 
     /// Sets the value of [kms_key][crate::model::BootDisk::kms_key].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_notebooks_v2::model::BootDisk;
-    /// let x = BootDisk::new().set_kms_key("example");
-    /// ```
     pub fn set_kms_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.kms_key = v.into();
         self
@@ -1406,24 +1179,12 @@ impl ServiceAccount {
     }
 
     /// Sets the value of [email][crate::model::ServiceAccount::email].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_notebooks_v2::model::ServiceAccount;
-    /// let x = ServiceAccount::new().set_email("example");
-    /// ```
     pub fn set_email<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.email = v.into();
         self
     }
 
     /// Sets the value of [scopes][crate::model::ServiceAccount::scopes].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_notebooks_v2::model::ServiceAccount;
-    /// let x = ServiceAccount::new().set_scopes(["a", "b", "c"]);
-    /// ```
     pub fn set_scopes<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1506,29 +1267,12 @@ impl GceSetup {
     }
 
     /// Sets the value of [machine_type][crate::model::GceSetup::machine_type].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_notebooks_v2::model::GceSetup;
-    /// let x = GceSetup::new().set_machine_type("example");
-    /// ```
     pub fn set_machine_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.machine_type = v.into();
         self
     }
 
     /// Sets the value of [accelerator_configs][crate::model::GceSetup::accelerator_configs].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_notebooks_v2::model::GceSetup;
-    /// use google_cloud_notebooks_v2::model::AcceleratorConfig;
-    /// let x = GceSetup::new()
-    ///     .set_accelerator_configs([
-    ///         AcceleratorConfig::default()/* use setters */,
-    ///         AcceleratorConfig::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_accelerator_configs<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1540,17 +1284,6 @@ impl GceSetup {
     }
 
     /// Sets the value of [service_accounts][crate::model::GceSetup::service_accounts].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_notebooks_v2::model::GceSetup;
-    /// use google_cloud_notebooks_v2::model::ServiceAccount;
-    /// let x = GceSetup::new()
-    ///     .set_service_accounts([
-    ///         ServiceAccount::default()/* use setters */,
-    ///         ServiceAccount::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_service_accounts<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1562,13 +1295,6 @@ impl GceSetup {
     }
 
     /// Sets the value of [boot_disk][crate::model::GceSetup::boot_disk].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_notebooks_v2::model::GceSetup;
-    /// use google_cloud_notebooks_v2::model::BootDisk;
-    /// let x = GceSetup::new().set_boot_disk(BootDisk::default()/* use setters */);
-    /// ```
     pub fn set_boot_disk<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::BootDisk>,
@@ -1578,14 +1304,6 @@ impl GceSetup {
     }
 
     /// Sets or clears the value of [boot_disk][crate::model::GceSetup::boot_disk].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_notebooks_v2::model::GceSetup;
-    /// use google_cloud_notebooks_v2::model::BootDisk;
-    /// let x = GceSetup::new().set_or_clear_boot_disk(Some(BootDisk::default()/* use setters */));
-    /// let x = GceSetup::new().set_or_clear_boot_disk(None::<BootDisk>);
-    /// ```
     pub fn set_or_clear_boot_disk<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::BootDisk>,
@@ -1595,17 +1313,6 @@ impl GceSetup {
     }
 
     /// Sets the value of [data_disks][crate::model::GceSetup::data_disks].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_notebooks_v2::model::GceSetup;
-    /// use google_cloud_notebooks_v2::model::DataDisk;
-    /// let x = GceSetup::new()
-    ///     .set_data_disks([
-    ///         DataDisk::default()/* use setters */,
-    ///         DataDisk::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_data_disks<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1617,13 +1324,6 @@ impl GceSetup {
     }
 
     /// Sets the value of [shielded_instance_config][crate::model::GceSetup::shielded_instance_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_notebooks_v2::model::GceSetup;
-    /// use google_cloud_notebooks_v2::model::ShieldedInstanceConfig;
-    /// let x = GceSetup::new().set_shielded_instance_config(ShieldedInstanceConfig::default()/* use setters */);
-    /// ```
     pub fn set_shielded_instance_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ShieldedInstanceConfig>,
@@ -1633,14 +1333,6 @@ impl GceSetup {
     }
 
     /// Sets or clears the value of [shielded_instance_config][crate::model::GceSetup::shielded_instance_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_notebooks_v2::model::GceSetup;
-    /// use google_cloud_notebooks_v2::model::ShieldedInstanceConfig;
-    /// let x = GceSetup::new().set_or_clear_shielded_instance_config(Some(ShieldedInstanceConfig::default()/* use setters */));
-    /// let x = GceSetup::new().set_or_clear_shielded_instance_config(None::<ShieldedInstanceConfig>);
-    /// ```
     pub fn set_or_clear_shielded_instance_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ShieldedInstanceConfig>,
@@ -1650,17 +1342,6 @@ impl GceSetup {
     }
 
     /// Sets the value of [network_interfaces][crate::model::GceSetup::network_interfaces].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_notebooks_v2::model::GceSetup;
-    /// use google_cloud_notebooks_v2::model::NetworkInterface;
-    /// let x = GceSetup::new()
-    ///     .set_network_interfaces([
-    ///         NetworkInterface::default()/* use setters */,
-    ///         NetworkInterface::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_network_interfaces<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1672,24 +1353,12 @@ impl GceSetup {
     }
 
     /// Sets the value of [disable_public_ip][crate::model::GceSetup::disable_public_ip].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_notebooks_v2::model::GceSetup;
-    /// let x = GceSetup::new().set_disable_public_ip(true);
-    /// ```
     pub fn set_disable_public_ip<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.disable_public_ip = v.into();
         self
     }
 
     /// Sets the value of [tags][crate::model::GceSetup::tags].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_notebooks_v2::model::GceSetup;
-    /// let x = GceSetup::new().set_tags(["a", "b", "c"]);
-    /// ```
     pub fn set_tags<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1701,15 +1370,6 @@ impl GceSetup {
     }
 
     /// Sets the value of [metadata][crate::model::GceSetup::metadata].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_notebooks_v2::model::GceSetup;
-    /// let x = GceSetup::new().set_metadata([
-    ///     ("key0", "abc"),
-    ///     ("key1", "xyz"),
-    /// ]);
-    /// ```
     pub fn set_metadata<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -1722,25 +1382,12 @@ impl GceSetup {
     }
 
     /// Sets the value of [enable_ip_forwarding][crate::model::GceSetup::enable_ip_forwarding].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_notebooks_v2::model::GceSetup;
-    /// let x = GceSetup::new().set_enable_ip_forwarding(true);
-    /// ```
     pub fn set_enable_ip_forwarding<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.enable_ip_forwarding = v.into();
         self
     }
 
     /// Sets the value of [gpu_driver_config][crate::model::GceSetup::gpu_driver_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_notebooks_v2::model::GceSetup;
-    /// use google_cloud_notebooks_v2::model::GPUDriverConfig;
-    /// let x = GceSetup::new().set_gpu_driver_config(GPUDriverConfig::default()/* use setters */);
-    /// ```
     pub fn set_gpu_driver_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::GPUDriverConfig>,
@@ -1750,14 +1397,6 @@ impl GceSetup {
     }
 
     /// Sets or clears the value of [gpu_driver_config][crate::model::GceSetup::gpu_driver_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_notebooks_v2::model::GceSetup;
-    /// use google_cloud_notebooks_v2::model::GPUDriverConfig;
-    /// let x = GceSetup::new().set_or_clear_gpu_driver_config(Some(GPUDriverConfig::default()/* use setters */));
-    /// let x = GceSetup::new().set_or_clear_gpu_driver_config(None::<GPUDriverConfig>);
-    /// ```
     pub fn set_or_clear_gpu_driver_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::GPUDriverConfig>,
@@ -1770,14 +1409,6 @@ impl GceSetup {
     ///
     /// Note that all the setters affecting `image` are mutually
     /// exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_notebooks_v2::model::GceSetup;
-    /// use google_cloud_notebooks_v2::model::gce_setup;
-    /// use google_cloud_notebooks_v2::model::VmImage;
-    /// let x = GceSetup::new().set_image(Some(gce_setup::Image::VmImage(VmImage::default().into())));
-    /// ```
     pub fn set_image<T: std::convert::Into<std::option::Option<crate::model::gce_setup::Image>>>(
         mut self,
         v: T,
@@ -1802,15 +1433,6 @@ impl GceSetup {
     ///
     /// Note that all the setters affecting `image` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_notebooks_v2::model::GceSetup;
-    /// use google_cloud_notebooks_v2::model::VmImage;
-    /// let x = GceSetup::new().set_vm_image(VmImage::default()/* use setters */);
-    /// assert!(x.vm_image().is_some());
-    /// assert!(x.container_image().is_none());
-    /// ```
     pub fn set_vm_image<T: std::convert::Into<std::boxed::Box<crate::model::VmImage>>>(
         mut self,
         v: T,
@@ -1837,15 +1459,6 @@ impl GceSetup {
     ///
     /// Note that all the setters affecting `image` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_notebooks_v2::model::GceSetup;
-    /// use google_cloud_notebooks_v2::model::ContainerImage;
-    /// let x = GceSetup::new().set_container_image(ContainerImage::default()/* use setters */);
-    /// assert!(x.container_image().is_some());
-    /// assert!(x.vm_image().is_none());
-    /// ```
     pub fn set_container_image<
         T: std::convert::Into<std::boxed::Box<crate::model::ContainerImage>>,
     >(
@@ -1921,75 +1534,36 @@ impl UpgradeHistoryEntry {
     }
 
     /// Sets the value of [snapshot][crate::model::UpgradeHistoryEntry::snapshot].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_notebooks_v2::model::UpgradeHistoryEntry;
-    /// let x = UpgradeHistoryEntry::new().set_snapshot("example");
-    /// ```
     pub fn set_snapshot<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.snapshot = v.into();
         self
     }
 
     /// Sets the value of [vm_image][crate::model::UpgradeHistoryEntry::vm_image].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_notebooks_v2::model::UpgradeHistoryEntry;
-    /// let x = UpgradeHistoryEntry::new().set_vm_image("example");
-    /// ```
     pub fn set_vm_image<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.vm_image = v.into();
         self
     }
 
     /// Sets the value of [container_image][crate::model::UpgradeHistoryEntry::container_image].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_notebooks_v2::model::UpgradeHistoryEntry;
-    /// let x = UpgradeHistoryEntry::new().set_container_image("example");
-    /// ```
     pub fn set_container_image<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.container_image = v.into();
         self
     }
 
     /// Sets the value of [framework][crate::model::UpgradeHistoryEntry::framework].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_notebooks_v2::model::UpgradeHistoryEntry;
-    /// let x = UpgradeHistoryEntry::new().set_framework("example");
-    /// ```
     pub fn set_framework<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.framework = v.into();
         self
     }
 
     /// Sets the value of [version][crate::model::UpgradeHistoryEntry::version].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_notebooks_v2::model::UpgradeHistoryEntry;
-    /// let x = UpgradeHistoryEntry::new().set_version("example");
-    /// ```
     pub fn set_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.version = v.into();
         self
     }
 
     /// Sets the value of [state][crate::model::UpgradeHistoryEntry::state].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_notebooks_v2::model::UpgradeHistoryEntry;
-    /// use google_cloud_notebooks_v2::model::upgrade_history_entry::State;
-    /// let x0 = UpgradeHistoryEntry::new().set_state(State::Started);
-    /// let x1 = UpgradeHistoryEntry::new().set_state(State::Succeeded);
-    /// let x2 = UpgradeHistoryEntry::new().set_state(State::Failed);
-    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::upgrade_history_entry::State>>(
         mut self,
         v: T,
@@ -1999,13 +1573,6 @@ impl UpgradeHistoryEntry {
     }
 
     /// Sets the value of [create_time][crate::model::UpgradeHistoryEntry::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_notebooks_v2::model::UpgradeHistoryEntry;
-    /// use wkt::Timestamp;
-    /// let x = UpgradeHistoryEntry::new().set_create_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2015,14 +1582,6 @@ impl UpgradeHistoryEntry {
     }
 
     /// Sets or clears the value of [create_time][crate::model::UpgradeHistoryEntry::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_notebooks_v2::model::UpgradeHistoryEntry;
-    /// use wkt::Timestamp;
-    /// let x = UpgradeHistoryEntry::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
-    /// let x = UpgradeHistoryEntry::new().set_or_clear_create_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2032,14 +1591,6 @@ impl UpgradeHistoryEntry {
     }
 
     /// Sets the value of [action][crate::model::UpgradeHistoryEntry::action].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_notebooks_v2::model::UpgradeHistoryEntry;
-    /// use google_cloud_notebooks_v2::model::upgrade_history_entry::Action;
-    /// let x0 = UpgradeHistoryEntry::new().set_action(Action::Upgrade);
-    /// let x1 = UpgradeHistoryEntry::new().set_action(Action::Rollback);
-    /// ```
     pub fn set_action<T: std::convert::Into<crate::model::upgrade_history_entry::Action>>(
         mut self,
         v: T,
@@ -2049,12 +1600,6 @@ impl UpgradeHistoryEntry {
     }
 
     /// Sets the value of [target_version][crate::model::UpgradeHistoryEntry::target_version].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_notebooks_v2::model::UpgradeHistoryEntry;
-    /// let x = UpgradeHistoryEntry::new().set_target_version("example");
-    /// ```
     pub fn set_target_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.target_version = v.into();
         self
@@ -2419,36 +1964,18 @@ impl Instance {
     }
 
     /// Sets the value of [name][crate::model::Instance::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_notebooks_v2::model::Instance;
-    /// let x = Instance::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [proxy_uri][crate::model::Instance::proxy_uri].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_notebooks_v2::model::Instance;
-    /// let x = Instance::new().set_proxy_uri("example");
-    /// ```
     pub fn set_proxy_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.proxy_uri = v.into();
         self
     }
 
     /// Sets the value of [instance_owners][crate::model::Instance::instance_owners].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_notebooks_v2::model::Instance;
-    /// let x = Instance::new().set_instance_owners(["a", "b", "c"]);
-    /// ```
     pub fn set_instance_owners<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2460,44 +1987,18 @@ impl Instance {
     }
 
     /// Sets the value of [creator][crate::model::Instance::creator].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_notebooks_v2::model::Instance;
-    /// let x = Instance::new().set_creator("example");
-    /// ```
     pub fn set_creator<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.creator = v.into();
         self
     }
 
     /// Sets the value of [state][crate::model::Instance::state].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_notebooks_v2::model::Instance;
-    /// use google_cloud_notebooks_v2::model::State;
-    /// let x0 = Instance::new().set_state(State::Starting);
-    /// let x1 = Instance::new().set_state(State::Provisioning);
-    /// let x2 = Instance::new().set_state(State::Active);
-    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::State>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
     }
 
     /// Sets the value of [upgrade_history][crate::model::Instance::upgrade_history].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_notebooks_v2::model::Instance;
-    /// use google_cloud_notebooks_v2::model::UpgradeHistoryEntry;
-    /// let x = Instance::new()
-    ///     .set_upgrade_history([
-    ///         UpgradeHistoryEntry::default()/* use setters */,
-    ///         UpgradeHistoryEntry::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_upgrade_history<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2509,27 +2010,12 @@ impl Instance {
     }
 
     /// Sets the value of [id][crate::model::Instance::id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_notebooks_v2::model::Instance;
-    /// let x = Instance::new().set_id("example");
-    /// ```
     pub fn set_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.id = v.into();
         self
     }
 
     /// Sets the value of [health_state][crate::model::Instance::health_state].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_notebooks_v2::model::Instance;
-    /// use google_cloud_notebooks_v2::model::HealthState;
-    /// let x0 = Instance::new().set_health_state(HealthState::Healthy);
-    /// let x1 = Instance::new().set_health_state(HealthState::Unhealthy);
-    /// let x2 = Instance::new().set_health_state(HealthState::AgentNotInstalled);
-    /// ```
     pub fn set_health_state<T: std::convert::Into<crate::model::HealthState>>(
         mut self,
         v: T,
@@ -2539,15 +2025,6 @@ impl Instance {
     }
 
     /// Sets the value of [health_info][crate::model::Instance::health_info].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_notebooks_v2::model::Instance;
-    /// let x = Instance::new().set_health_info([
-    ///     ("key0", "abc"),
-    ///     ("key1", "xyz"),
-    /// ]);
-    /// ```
     pub fn set_health_info<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -2560,13 +2037,6 @@ impl Instance {
     }
 
     /// Sets the value of [create_time][crate::model::Instance::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_notebooks_v2::model::Instance;
-    /// use wkt::Timestamp;
-    /// let x = Instance::new().set_create_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2576,14 +2046,6 @@ impl Instance {
     }
 
     /// Sets or clears the value of [create_time][crate::model::Instance::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_notebooks_v2::model::Instance;
-    /// use wkt::Timestamp;
-    /// let x = Instance::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
-    /// let x = Instance::new().set_or_clear_create_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2593,13 +2055,6 @@ impl Instance {
     }
 
     /// Sets the value of [update_time][crate::model::Instance::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_notebooks_v2::model::Instance;
-    /// use wkt::Timestamp;
-    /// let x = Instance::new().set_update_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2609,14 +2064,6 @@ impl Instance {
     }
 
     /// Sets or clears the value of [update_time][crate::model::Instance::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_notebooks_v2::model::Instance;
-    /// use wkt::Timestamp;
-    /// let x = Instance::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
-    /// let x = Instance::new().set_or_clear_update_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2626,27 +2073,12 @@ impl Instance {
     }
 
     /// Sets the value of [disable_proxy_access][crate::model::Instance::disable_proxy_access].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_notebooks_v2::model::Instance;
-    /// let x = Instance::new().set_disable_proxy_access(true);
-    /// ```
     pub fn set_disable_proxy_access<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.disable_proxy_access = v.into();
         self
     }
 
     /// Sets the value of [labels][crate::model::Instance::labels].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_notebooks_v2::model::Instance;
-    /// let x = Instance::new().set_labels([
-    ///     ("key0", "abc"),
-    ///     ("key1", "xyz"),
-    /// ]);
-    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -2662,14 +2094,6 @@ impl Instance {
     ///
     /// Note that all the setters affecting `infrastructure` are mutually
     /// exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_notebooks_v2::model::Instance;
-    /// use google_cloud_notebooks_v2::model::instance;
-    /// use google_cloud_notebooks_v2::model::GceSetup;
-    /// let x = Instance::new().set_infrastructure(Some(instance::Infrastructure::GceSetup(GceSetup::default().into())));
-    /// ```
     pub fn set_infrastructure<
         T: std::convert::Into<std::option::Option<crate::model::instance::Infrastructure>>,
     >(
@@ -2696,14 +2120,6 @@ impl Instance {
     ///
     /// Note that all the setters affecting `infrastructure` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_notebooks_v2::model::Instance;
-    /// use google_cloud_notebooks_v2::model::GceSetup;
-    /// let x = Instance::new().set_gce_setup(GceSetup::default()/* use setters */);
-    /// assert!(x.gce_setup().is_some());
-    /// ```
     pub fn set_gce_setup<T: std::convert::Into<std::boxed::Box<crate::model::GceSetup>>>(
         mut self,
         v: T,
@@ -2778,13 +2194,6 @@ impl OperationMetadata {
     }
 
     /// Sets the value of [create_time][crate::model::OperationMetadata::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_notebooks_v2::model::OperationMetadata;
-    /// use wkt::Timestamp;
-    /// let x = OperationMetadata::new().set_create_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2794,14 +2203,6 @@ impl OperationMetadata {
     }
 
     /// Sets or clears the value of [create_time][crate::model::OperationMetadata::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_notebooks_v2::model::OperationMetadata;
-    /// use wkt::Timestamp;
-    /// let x = OperationMetadata::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
-    /// let x = OperationMetadata::new().set_or_clear_create_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2811,13 +2212,6 @@ impl OperationMetadata {
     }
 
     /// Sets the value of [end_time][crate::model::OperationMetadata::end_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_notebooks_v2::model::OperationMetadata;
-    /// use wkt::Timestamp;
-    /// let x = OperationMetadata::new().set_end_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2827,14 +2221,6 @@ impl OperationMetadata {
     }
 
     /// Sets or clears the value of [end_time][crate::model::OperationMetadata::end_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_notebooks_v2::model::OperationMetadata;
-    /// use wkt::Timestamp;
-    /// let x = OperationMetadata::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
-    /// let x = OperationMetadata::new().set_or_clear_end_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2844,72 +2230,36 @@ impl OperationMetadata {
     }
 
     /// Sets the value of [target][crate::model::OperationMetadata::target].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_notebooks_v2::model::OperationMetadata;
-    /// let x = OperationMetadata::new().set_target("example");
-    /// ```
     pub fn set_target<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.target = v.into();
         self
     }
 
     /// Sets the value of [verb][crate::model::OperationMetadata::verb].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_notebooks_v2::model::OperationMetadata;
-    /// let x = OperationMetadata::new().set_verb("example");
-    /// ```
     pub fn set_verb<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.verb = v.into();
         self
     }
 
     /// Sets the value of [status_message][crate::model::OperationMetadata::status_message].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_notebooks_v2::model::OperationMetadata;
-    /// let x = OperationMetadata::new().set_status_message("example");
-    /// ```
     pub fn set_status_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.status_message = v.into();
         self
     }
 
     /// Sets the value of [requested_cancellation][crate::model::OperationMetadata::requested_cancellation].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_notebooks_v2::model::OperationMetadata;
-    /// let x = OperationMetadata::new().set_requested_cancellation(true);
-    /// ```
     pub fn set_requested_cancellation<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.requested_cancellation = v.into();
         self
     }
 
     /// Sets the value of [api_version][crate::model::OperationMetadata::api_version].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_notebooks_v2::model::OperationMetadata;
-    /// let x = OperationMetadata::new().set_api_version("example");
-    /// ```
     pub fn set_api_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.api_version = v.into();
         self
     }
 
     /// Sets the value of [endpoint][crate::model::OperationMetadata::endpoint].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_notebooks_v2::model::OperationMetadata;
-    /// let x = OperationMetadata::new().set_endpoint("example");
-    /// ```
     pub fn set_endpoint<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.endpoint = v.into();
         self
@@ -2953,60 +2303,30 @@ impl ListInstancesRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListInstancesRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_notebooks_v2::model::ListInstancesRequest;
-    /// let x = ListInstancesRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListInstancesRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_notebooks_v2::model::ListInstancesRequest;
-    /// let x = ListInstancesRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListInstancesRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_notebooks_v2::model::ListInstancesRequest;
-    /// let x = ListInstancesRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListInstancesRequest::order_by].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_notebooks_v2::model::ListInstancesRequest;
-    /// let x = ListInstancesRequest::new().set_order_by("example");
-    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListInstancesRequest::filter].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_notebooks_v2::model::ListInstancesRequest;
-    /// let x = ListInstancesRequest::new().set_filter("example");
-    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
@@ -3044,17 +2364,6 @@ impl ListInstancesResponse {
     }
 
     /// Sets the value of [instances][crate::model::ListInstancesResponse::instances].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_notebooks_v2::model::ListInstancesResponse;
-    /// use google_cloud_notebooks_v2::model::Instance;
-    /// let x = ListInstancesResponse::new()
-    ///     .set_instances([
-    ///         Instance::default()/* use setters */,
-    ///         Instance::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_instances<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3066,24 +2375,12 @@ impl ListInstancesResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListInstancesResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_notebooks_v2::model::ListInstancesResponse;
-    /// let x = ListInstancesResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListInstancesResponse::unreachable].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_notebooks_v2::model::ListInstancesResponse;
-    /// let x = ListInstancesResponse::new().set_unreachable(["a", "b", "c"]);
-    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3132,12 +2429,6 @@ impl GetInstanceRequest {
     }
 
     /// Sets the value of [name][crate::model::GetInstanceRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_notebooks_v2::model::GetInstanceRequest;
-    /// let x = GetInstanceRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -3176,37 +2467,18 @@ impl CreateInstanceRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateInstanceRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_notebooks_v2::model::CreateInstanceRequest;
-    /// let x = CreateInstanceRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [instance_id][crate::model::CreateInstanceRequest::instance_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_notebooks_v2::model::CreateInstanceRequest;
-    /// let x = CreateInstanceRequest::new().set_instance_id("example");
-    /// ```
     pub fn set_instance_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.instance_id = v.into();
         self
     }
 
     /// Sets the value of [instance][crate::model::CreateInstanceRequest::instance].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_notebooks_v2::model::CreateInstanceRequest;
-    /// use google_cloud_notebooks_v2::model::Instance;
-    /// let x = CreateInstanceRequest::new().set_instance(Instance::default()/* use setters */);
-    /// ```
     pub fn set_instance<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Instance>,
@@ -3216,14 +2488,6 @@ impl CreateInstanceRequest {
     }
 
     /// Sets or clears the value of [instance][crate::model::CreateInstanceRequest::instance].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_notebooks_v2::model::CreateInstanceRequest;
-    /// use google_cloud_notebooks_v2::model::Instance;
-    /// let x = CreateInstanceRequest::new().set_or_clear_instance(Some(Instance::default()/* use setters */));
-    /// let x = CreateInstanceRequest::new().set_or_clear_instance(None::<Instance>);
-    /// ```
     pub fn set_or_clear_instance<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Instance>,
@@ -3233,12 +2497,6 @@ impl CreateInstanceRequest {
     }
 
     /// Sets the value of [request_id][crate::model::CreateInstanceRequest::request_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_notebooks_v2::model::CreateInstanceRequest;
-    /// let x = CreateInstanceRequest::new().set_request_id("example");
-    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -3273,13 +2531,6 @@ impl UpdateInstanceRequest {
     }
 
     /// Sets the value of [instance][crate::model::UpdateInstanceRequest::instance].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_notebooks_v2::model::UpdateInstanceRequest;
-    /// use google_cloud_notebooks_v2::model::Instance;
-    /// let x = UpdateInstanceRequest::new().set_instance(Instance::default()/* use setters */);
-    /// ```
     pub fn set_instance<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Instance>,
@@ -3289,14 +2540,6 @@ impl UpdateInstanceRequest {
     }
 
     /// Sets or clears the value of [instance][crate::model::UpdateInstanceRequest::instance].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_notebooks_v2::model::UpdateInstanceRequest;
-    /// use google_cloud_notebooks_v2::model::Instance;
-    /// let x = UpdateInstanceRequest::new().set_or_clear_instance(Some(Instance::default()/* use setters */));
-    /// let x = UpdateInstanceRequest::new().set_or_clear_instance(None::<Instance>);
-    /// ```
     pub fn set_or_clear_instance<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Instance>,
@@ -3306,13 +2549,6 @@ impl UpdateInstanceRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateInstanceRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_notebooks_v2::model::UpdateInstanceRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateInstanceRequest::new().set_update_mask(FieldMask::default()/* use setters */);
-    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -3322,14 +2558,6 @@ impl UpdateInstanceRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateInstanceRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_notebooks_v2::model::UpdateInstanceRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateInstanceRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
-    /// let x = UpdateInstanceRequest::new().set_or_clear_update_mask(None::<FieldMask>);
-    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -3339,12 +2567,6 @@ impl UpdateInstanceRequest {
     }
 
     /// Sets the value of [request_id][crate::model::UpdateInstanceRequest::request_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_notebooks_v2::model::UpdateInstanceRequest;
-    /// let x = UpdateInstanceRequest::new().set_request_id("example");
-    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -3377,24 +2599,12 @@ impl DeleteInstanceRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteInstanceRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_notebooks_v2::model::DeleteInstanceRequest;
-    /// let x = DeleteInstanceRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [request_id][crate::model::DeleteInstanceRequest::request_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_notebooks_v2::model::DeleteInstanceRequest;
-    /// let x = DeleteInstanceRequest::new().set_request_id("example");
-    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -3424,12 +2634,6 @@ impl StartInstanceRequest {
     }
 
     /// Sets the value of [name][crate::model::StartInstanceRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_notebooks_v2::model::StartInstanceRequest;
-    /// let x = StartInstanceRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -3459,12 +2663,6 @@ impl StopInstanceRequest {
     }
 
     /// Sets the value of [name][crate::model::StopInstanceRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_notebooks_v2::model::StopInstanceRequest;
-    /// let x = StopInstanceRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -3494,12 +2692,6 @@ impl ResetInstanceRequest {
     }
 
     /// Sets the value of [name][crate::model::ResetInstanceRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_notebooks_v2::model::ResetInstanceRequest;
-    /// let x = ResetInstanceRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -3529,12 +2721,6 @@ impl CheckInstanceUpgradabilityRequest {
     }
 
     /// Sets the value of [notebook_instance][crate::model::CheckInstanceUpgradabilityRequest::notebook_instance].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_notebooks_v2::model::CheckInstanceUpgradabilityRequest;
-    /// let x = CheckInstanceUpgradabilityRequest::new().set_notebook_instance("example");
-    /// ```
     pub fn set_notebook_instance<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -3578,48 +2764,24 @@ impl CheckInstanceUpgradabilityResponse {
     }
 
     /// Sets the value of [upgradeable][crate::model::CheckInstanceUpgradabilityResponse::upgradeable].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_notebooks_v2::model::CheckInstanceUpgradabilityResponse;
-    /// let x = CheckInstanceUpgradabilityResponse::new().set_upgradeable(true);
-    /// ```
     pub fn set_upgradeable<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.upgradeable = v.into();
         self
     }
 
     /// Sets the value of [upgrade_version][crate::model::CheckInstanceUpgradabilityResponse::upgrade_version].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_notebooks_v2::model::CheckInstanceUpgradabilityResponse;
-    /// let x = CheckInstanceUpgradabilityResponse::new().set_upgrade_version("example");
-    /// ```
     pub fn set_upgrade_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.upgrade_version = v.into();
         self
     }
 
     /// Sets the value of [upgrade_info][crate::model::CheckInstanceUpgradabilityResponse::upgrade_info].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_notebooks_v2::model::CheckInstanceUpgradabilityResponse;
-    /// let x = CheckInstanceUpgradabilityResponse::new().set_upgrade_info("example");
-    /// ```
     pub fn set_upgrade_info<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.upgrade_info = v.into();
         self
     }
 
     /// Sets the value of [upgrade_image][crate::model::CheckInstanceUpgradabilityResponse::upgrade_image].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_notebooks_v2::model::CheckInstanceUpgradabilityResponse;
-    /// let x = CheckInstanceUpgradabilityResponse::new().set_upgrade_image("example");
-    /// ```
     pub fn set_upgrade_image<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.upgrade_image = v.into();
         self
@@ -3649,12 +2811,6 @@ impl UpgradeInstanceRequest {
     }
 
     /// Sets the value of [name][crate::model::UpgradeInstanceRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_notebooks_v2::model::UpgradeInstanceRequest;
-    /// let x = UpgradeInstanceRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -3691,36 +2847,18 @@ impl RollbackInstanceRequest {
     }
 
     /// Sets the value of [name][crate::model::RollbackInstanceRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_notebooks_v2::model::RollbackInstanceRequest;
-    /// let x = RollbackInstanceRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [target_snapshot][crate::model::RollbackInstanceRequest::target_snapshot].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_notebooks_v2::model::RollbackInstanceRequest;
-    /// let x = RollbackInstanceRequest::new().set_target_snapshot("example");
-    /// ```
     pub fn set_target_snapshot<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.target_snapshot = v.into();
         self
     }
 
     /// Sets the value of [revision_id][crate::model::RollbackInstanceRequest::revision_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_notebooks_v2::model::RollbackInstanceRequest;
-    /// let x = RollbackInstanceRequest::new().set_revision_id("example");
-    /// ```
     pub fn set_revision_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.revision_id = v.into();
         self
@@ -3756,25 +2894,12 @@ impl DiagnoseInstanceRequest {
     }
 
     /// Sets the value of [name][crate::model::DiagnoseInstanceRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_notebooks_v2::model::DiagnoseInstanceRequest;
-    /// let x = DiagnoseInstanceRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [diagnostic_config][crate::model::DiagnoseInstanceRequest::diagnostic_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_notebooks_v2::model::DiagnoseInstanceRequest;
-    /// use google_cloud_notebooks_v2::model::DiagnosticConfig;
-    /// let x = DiagnoseInstanceRequest::new().set_diagnostic_config(DiagnosticConfig::default()/* use setters */);
-    /// ```
     pub fn set_diagnostic_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::DiagnosticConfig>,
@@ -3784,14 +2909,6 @@ impl DiagnoseInstanceRequest {
     }
 
     /// Sets or clears the value of [diagnostic_config][crate::model::DiagnoseInstanceRequest::diagnostic_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_notebooks_v2::model::DiagnoseInstanceRequest;
-    /// use google_cloud_notebooks_v2::model::DiagnosticConfig;
-    /// let x = DiagnoseInstanceRequest::new().set_or_clear_diagnostic_config(Some(DiagnosticConfig::default()/* use setters */));
-    /// let x = DiagnoseInstanceRequest::new().set_or_clear_diagnostic_config(None::<DiagnosticConfig>);
-    /// ```
     pub fn set_or_clear_diagnostic_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DiagnosticConfig>,
@@ -3801,12 +2918,6 @@ impl DiagnoseInstanceRequest {
     }
 
     /// Sets the value of [timeout_minutes][crate::model::DiagnoseInstanceRequest::timeout_minutes].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_notebooks_v2::model::DiagnoseInstanceRequest;
-    /// let x = DiagnoseInstanceRequest::new().set_timeout_minutes(42);
-    /// ```
     pub fn set_timeout_minutes<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.timeout_minutes = v.into();
         self

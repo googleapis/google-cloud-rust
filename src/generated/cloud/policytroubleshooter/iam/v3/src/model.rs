@@ -58,13 +58,6 @@ impl TroubleshootIamPolicyRequest {
     }
 
     /// Sets the value of [access_tuple][crate::model::TroubleshootIamPolicyRequest::access_tuple].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_policytroubleshooter_iam_v3::model::TroubleshootIamPolicyRequest;
-    /// use google_cloud_policytroubleshooter_iam_v3::model::AccessTuple;
-    /// let x = TroubleshootIamPolicyRequest::new().set_access_tuple(AccessTuple::default()/* use setters */);
-    /// ```
     pub fn set_access_tuple<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::AccessTuple>,
@@ -74,14 +67,6 @@ impl TroubleshootIamPolicyRequest {
     }
 
     /// Sets or clears the value of [access_tuple][crate::model::TroubleshootIamPolicyRequest::access_tuple].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_policytroubleshooter_iam_v3::model::TroubleshootIamPolicyRequest;
-    /// use google_cloud_policytroubleshooter_iam_v3::model::AccessTuple;
-    /// let x = TroubleshootIamPolicyRequest::new().set_or_clear_access_tuple(Some(AccessTuple::default()/* use setters */));
-    /// let x = TroubleshootIamPolicyRequest::new().set_or_clear_access_tuple(None::<AccessTuple>);
-    /// ```
     pub fn set_or_clear_access_tuple<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AccessTuple>,
@@ -130,15 +115,6 @@ impl TroubleshootIamPolicyResponse {
     }
 
     /// Sets the value of [overall_access_state][crate::model::TroubleshootIamPolicyResponse::overall_access_state].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_policytroubleshooter_iam_v3::model::TroubleshootIamPolicyResponse;
-    /// use google_cloud_policytroubleshooter_iam_v3::model::troubleshoot_iam_policy_response::OverallAccessState;
-    /// let x0 = TroubleshootIamPolicyResponse::new().set_overall_access_state(OverallAccessState::CanAccess);
-    /// let x1 = TroubleshootIamPolicyResponse::new().set_overall_access_state(OverallAccessState::CannotAccess);
-    /// let x2 = TroubleshootIamPolicyResponse::new().set_overall_access_state(OverallAccessState::UnknownInfo);
-    /// ```
     pub fn set_overall_access_state<
         T: std::convert::Into<crate::model::troubleshoot_iam_policy_response::OverallAccessState>,
     >(
@@ -150,13 +126,6 @@ impl TroubleshootIamPolicyResponse {
     }
 
     /// Sets the value of [access_tuple][crate::model::TroubleshootIamPolicyResponse::access_tuple].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_policytroubleshooter_iam_v3::model::TroubleshootIamPolicyResponse;
-    /// use google_cloud_policytroubleshooter_iam_v3::model::AccessTuple;
-    /// let x = TroubleshootIamPolicyResponse::new().set_access_tuple(AccessTuple::default()/* use setters */);
-    /// ```
     pub fn set_access_tuple<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::AccessTuple>,
@@ -166,14 +135,6 @@ impl TroubleshootIamPolicyResponse {
     }
 
     /// Sets or clears the value of [access_tuple][crate::model::TroubleshootIamPolicyResponse::access_tuple].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_policytroubleshooter_iam_v3::model::TroubleshootIamPolicyResponse;
-    /// use google_cloud_policytroubleshooter_iam_v3::model::AccessTuple;
-    /// let x = TroubleshootIamPolicyResponse::new().set_or_clear_access_tuple(Some(AccessTuple::default()/* use setters */));
-    /// let x = TroubleshootIamPolicyResponse::new().set_or_clear_access_tuple(None::<AccessTuple>);
-    /// ```
     pub fn set_or_clear_access_tuple<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AccessTuple>,
@@ -183,13 +144,6 @@ impl TroubleshootIamPolicyResponse {
     }
 
     /// Sets the value of [allow_policy_explanation][crate::model::TroubleshootIamPolicyResponse::allow_policy_explanation].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_policytroubleshooter_iam_v3::model::TroubleshootIamPolicyResponse;
-    /// use google_cloud_policytroubleshooter_iam_v3::model::AllowPolicyExplanation;
-    /// let x = TroubleshootIamPolicyResponse::new().set_allow_policy_explanation(AllowPolicyExplanation::default()/* use setters */);
-    /// ```
     pub fn set_allow_policy_explanation<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::AllowPolicyExplanation>,
@@ -199,14 +153,6 @@ impl TroubleshootIamPolicyResponse {
     }
 
     /// Sets or clears the value of [allow_policy_explanation][crate::model::TroubleshootIamPolicyResponse::allow_policy_explanation].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_policytroubleshooter_iam_v3::model::TroubleshootIamPolicyResponse;
-    /// use google_cloud_policytroubleshooter_iam_v3::model::AllowPolicyExplanation;
-    /// let x = TroubleshootIamPolicyResponse::new().set_or_clear_allow_policy_explanation(Some(AllowPolicyExplanation::default()/* use setters */));
-    /// let x = TroubleshootIamPolicyResponse::new().set_or_clear_allow_policy_explanation(None::<AllowPolicyExplanation>);
-    /// ```
     pub fn set_or_clear_allow_policy_explanation<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AllowPolicyExplanation>,
@@ -216,13 +162,6 @@ impl TroubleshootIamPolicyResponse {
     }
 
     /// Sets the value of [deny_policy_explanation][crate::model::TroubleshootIamPolicyResponse::deny_policy_explanation].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_policytroubleshooter_iam_v3::model::TroubleshootIamPolicyResponse;
-    /// use google_cloud_policytroubleshooter_iam_v3::model::DenyPolicyExplanation;
-    /// let x = TroubleshootIamPolicyResponse::new().set_deny_policy_explanation(DenyPolicyExplanation::default()/* use setters */);
-    /// ```
     pub fn set_deny_policy_explanation<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::DenyPolicyExplanation>,
@@ -232,14 +171,6 @@ impl TroubleshootIamPolicyResponse {
     }
 
     /// Sets or clears the value of [deny_policy_explanation][crate::model::TroubleshootIamPolicyResponse::deny_policy_explanation].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_policytroubleshooter_iam_v3::model::TroubleshootIamPolicyResponse;
-    /// use google_cloud_policytroubleshooter_iam_v3::model::DenyPolicyExplanation;
-    /// let x = TroubleshootIamPolicyResponse::new().set_or_clear_deny_policy_explanation(Some(DenyPolicyExplanation::default()/* use setters */));
-    /// let x = TroubleshootIamPolicyResponse::new().set_or_clear_deny_policy_explanation(None::<DenyPolicyExplanation>);
-    /// ```
     pub fn set_or_clear_deny_policy_explanation<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DenyPolicyExplanation>,
@@ -459,24 +390,12 @@ impl AccessTuple {
     }
 
     /// Sets the value of [principal][crate::model::AccessTuple::principal].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_policytroubleshooter_iam_v3::model::AccessTuple;
-    /// let x = AccessTuple::new().set_principal("example");
-    /// ```
     pub fn set_principal<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.principal = v.into();
         self
     }
 
     /// Sets the value of [full_resource_name][crate::model::AccessTuple::full_resource_name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_policytroubleshooter_iam_v3::model::AccessTuple;
-    /// let x = AccessTuple::new().set_full_resource_name("example");
-    /// ```
     pub fn set_full_resource_name<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -486,37 +405,18 @@ impl AccessTuple {
     }
 
     /// Sets the value of [permission][crate::model::AccessTuple::permission].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_policytroubleshooter_iam_v3::model::AccessTuple;
-    /// let x = AccessTuple::new().set_permission("example");
-    /// ```
     pub fn set_permission<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.permission = v.into();
         self
     }
 
     /// Sets the value of [permission_fqdn][crate::model::AccessTuple::permission_fqdn].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_policytroubleshooter_iam_v3::model::AccessTuple;
-    /// let x = AccessTuple::new().set_permission_fqdn("example");
-    /// ```
     pub fn set_permission_fqdn<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.permission_fqdn = v.into();
         self
     }
 
     /// Sets the value of [condition_context][crate::model::AccessTuple::condition_context].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_policytroubleshooter_iam_v3::model::AccessTuple;
-    /// use google_cloud_policytroubleshooter_iam_v3::model::ConditionContext;
-    /// let x = AccessTuple::new().set_condition_context(ConditionContext::default()/* use setters */);
-    /// ```
     pub fn set_condition_context<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ConditionContext>,
@@ -526,14 +426,6 @@ impl AccessTuple {
     }
 
     /// Sets or clears the value of [condition_context][crate::model::AccessTuple::condition_context].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_policytroubleshooter_iam_v3::model::AccessTuple;
-    /// use google_cloud_policytroubleshooter_iam_v3::model::ConditionContext;
-    /// let x = AccessTuple::new().set_or_clear_condition_context(Some(ConditionContext::default()/* use setters */));
-    /// let x = AccessTuple::new().set_or_clear_condition_context(None::<ConditionContext>);
-    /// ```
     pub fn set_or_clear_condition_context<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ConditionContext>,
@@ -580,13 +472,6 @@ impl ConditionContext {
     }
 
     /// Sets the value of [resource][crate::model::ConditionContext::resource].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_policytroubleshooter_iam_v3::model::ConditionContext;
-    /// use google_cloud_policytroubleshooter_iam_v3::model::condition_context::Resource;
-    /// let x = ConditionContext::new().set_resource(Resource::default()/* use setters */);
-    /// ```
     pub fn set_resource<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::condition_context::Resource>,
@@ -596,14 +481,6 @@ impl ConditionContext {
     }
 
     /// Sets or clears the value of [resource][crate::model::ConditionContext::resource].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_policytroubleshooter_iam_v3::model::ConditionContext;
-    /// use google_cloud_policytroubleshooter_iam_v3::model::condition_context::Resource;
-    /// let x = ConditionContext::new().set_or_clear_resource(Some(Resource::default()/* use setters */));
-    /// let x = ConditionContext::new().set_or_clear_resource(None::<Resource>);
-    /// ```
     pub fn set_or_clear_resource<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::condition_context::Resource>,
@@ -613,13 +490,6 @@ impl ConditionContext {
     }
 
     /// Sets the value of [destination][crate::model::ConditionContext::destination].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_policytroubleshooter_iam_v3::model::ConditionContext;
-    /// use google_cloud_policytroubleshooter_iam_v3::model::condition_context::Peer;
-    /// let x = ConditionContext::new().set_destination(Peer::default()/* use setters */);
-    /// ```
     pub fn set_destination<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::condition_context::Peer>,
@@ -629,14 +499,6 @@ impl ConditionContext {
     }
 
     /// Sets or clears the value of [destination][crate::model::ConditionContext::destination].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_policytroubleshooter_iam_v3::model::ConditionContext;
-    /// use google_cloud_policytroubleshooter_iam_v3::model::condition_context::Peer;
-    /// let x = ConditionContext::new().set_or_clear_destination(Some(Peer::default()/* use setters */));
-    /// let x = ConditionContext::new().set_or_clear_destination(None::<Peer>);
-    /// ```
     pub fn set_or_clear_destination<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::condition_context::Peer>,
@@ -646,13 +508,6 @@ impl ConditionContext {
     }
 
     /// Sets the value of [request][crate::model::ConditionContext::request].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_policytroubleshooter_iam_v3::model::ConditionContext;
-    /// use google_cloud_policytroubleshooter_iam_v3::model::condition_context::Request;
-    /// let x = ConditionContext::new().set_request(Request::default()/* use setters */);
-    /// ```
     pub fn set_request<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::condition_context::Request>,
@@ -662,14 +517,6 @@ impl ConditionContext {
     }
 
     /// Sets or clears the value of [request][crate::model::ConditionContext::request].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_policytroubleshooter_iam_v3::model::ConditionContext;
-    /// use google_cloud_policytroubleshooter_iam_v3::model::condition_context::Request;
-    /// let x = ConditionContext::new().set_or_clear_request(Some(Request::default()/* use setters */));
-    /// let x = ConditionContext::new().set_or_clear_request(None::<Request>);
-    /// ```
     pub fn set_or_clear_request<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::condition_context::Request>,
@@ -679,17 +526,6 @@ impl ConditionContext {
     }
 
     /// Sets the value of [effective_tags][crate::model::ConditionContext::effective_tags].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_policytroubleshooter_iam_v3::model::ConditionContext;
-    /// use google_cloud_policytroubleshooter_iam_v3::model::condition_context::EffectiveTag;
-    /// let x = ConditionContext::new()
-    ///     .set_effective_tags([
-    ///         EffectiveTag::default()/* use setters */,
-    ///         EffectiveTag::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_effective_tags<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -750,36 +586,18 @@ pub mod condition_context {
         }
 
         /// Sets the value of [service][crate::model::condition_context::Resource::service].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_policytroubleshooter_iam_v3::model::condition_context::Resource;
-        /// let x = Resource::new().set_service("example");
-        /// ```
         pub fn set_service<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.service = v.into();
             self
         }
 
         /// Sets the value of [name][crate::model::condition_context::Resource::name].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_policytroubleshooter_iam_v3::model::condition_context::Resource;
-        /// let x = Resource::new().set_name("example");
-        /// ```
         pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.name = v.into();
             self
         }
 
         /// Sets the value of [r#type][crate::model::condition_context::Resource::type].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_policytroubleshooter_iam_v3::model::condition_context::Resource;
-        /// let x = Resource::new().set_type("example");
-        /// ```
         pub fn set_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.r#type = v.into();
             self
@@ -814,24 +632,12 @@ pub mod condition_context {
         }
 
         /// Sets the value of [ip][crate::model::condition_context::Peer::ip].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_policytroubleshooter_iam_v3::model::condition_context::Peer;
-        /// let x = Peer::new().set_ip("example");
-        /// ```
         pub fn set_ip<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.ip = v.into();
             self
         }
 
         /// Sets the value of [port][crate::model::condition_context::Peer::port].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_policytroubleshooter_iam_v3::model::condition_context::Peer;
-        /// let x = Peer::new().set_port(42);
-        /// ```
         pub fn set_port<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
             self.port = v.into();
             self
@@ -863,13 +669,6 @@ pub mod condition_context {
         }
 
         /// Sets the value of [receive_time][crate::model::condition_context::Request::receive_time].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_policytroubleshooter_iam_v3::model::condition_context::Request;
-        /// use wkt::Timestamp;
-        /// let x = Request::new().set_receive_time(Timestamp::default()/* use setters */);
-        /// ```
         pub fn set_receive_time<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -879,14 +678,6 @@ pub mod condition_context {
         }
 
         /// Sets or clears the value of [receive_time][crate::model::condition_context::Request::receive_time].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_policytroubleshooter_iam_v3::model::condition_context::Request;
-        /// use wkt::Timestamp;
-        /// let x = Request::new().set_or_clear_receive_time(Some(Timestamp::default()/* use setters */));
-        /// let x = Request::new().set_or_clear_receive_time(None::<Timestamp>);
-        /// ```
         pub fn set_or_clear_receive_time<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -949,24 +740,12 @@ pub mod condition_context {
         }
 
         /// Sets the value of [tag_value][crate::model::condition_context::EffectiveTag::tag_value].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_policytroubleshooter_iam_v3::model::condition_context::EffectiveTag;
-        /// let x = EffectiveTag::new().set_tag_value("example");
-        /// ```
         pub fn set_tag_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.tag_value = v.into();
             self
         }
 
         /// Sets the value of [namespaced_tag_value][crate::model::condition_context::EffectiveTag::namespaced_tag_value].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_policytroubleshooter_iam_v3::model::condition_context::EffectiveTag;
-        /// let x = EffectiveTag::new().set_namespaced_tag_value("example");
-        /// ```
         pub fn set_namespaced_tag_value<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -976,24 +755,12 @@ pub mod condition_context {
         }
 
         /// Sets the value of [tag_key][crate::model::condition_context::EffectiveTag::tag_key].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_policytroubleshooter_iam_v3::model::condition_context::EffectiveTag;
-        /// let x = EffectiveTag::new().set_tag_key("example");
-        /// ```
         pub fn set_tag_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.tag_key = v.into();
             self
         }
 
         /// Sets the value of [namespaced_tag_key][crate::model::condition_context::EffectiveTag::namespaced_tag_key].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_policytroubleshooter_iam_v3::model::condition_context::EffectiveTag;
-        /// let x = EffectiveTag::new().set_namespaced_tag_key("example");
-        /// ```
         pub fn set_namespaced_tag_key<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -1003,12 +770,6 @@ pub mod condition_context {
         }
 
         /// Sets the value of [tag_key_parent_name][crate::model::condition_context::EffectiveTag::tag_key_parent_name].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_policytroubleshooter_iam_v3::model::condition_context::EffectiveTag;
-        /// let x = EffectiveTag::new().set_tag_key_parent_name("example");
-        /// ```
         pub fn set_tag_key_parent_name<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -1018,12 +779,6 @@ pub mod condition_context {
         }
 
         /// Sets the value of [inherited][crate::model::condition_context::EffectiveTag::inherited].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_policytroubleshooter_iam_v3::model::condition_context::EffectiveTag;
-        /// let x = EffectiveTag::new().set_inherited(true);
-        /// ```
         pub fn set_inherited<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.inherited = v.into();
             self
@@ -1070,15 +825,6 @@ impl AllowPolicyExplanation {
     }
 
     /// Sets the value of [allow_access_state][crate::model::AllowPolicyExplanation::allow_access_state].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_policytroubleshooter_iam_v3::model::AllowPolicyExplanation;
-    /// use google_cloud_policytroubleshooter_iam_v3::model::AllowAccessState;
-    /// let x0 = AllowPolicyExplanation::new().set_allow_access_state(AllowAccessState::Granted);
-    /// let x1 = AllowPolicyExplanation::new().set_allow_access_state(AllowAccessState::NotGranted);
-    /// let x2 = AllowPolicyExplanation::new().set_allow_access_state(AllowAccessState::UnknownConditional);
-    /// ```
     pub fn set_allow_access_state<T: std::convert::Into<crate::model::AllowAccessState>>(
         mut self,
         v: T,
@@ -1088,17 +834,6 @@ impl AllowPolicyExplanation {
     }
 
     /// Sets the value of [explained_policies][crate::model::AllowPolicyExplanation::explained_policies].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_policytroubleshooter_iam_v3::model::AllowPolicyExplanation;
-    /// use google_cloud_policytroubleshooter_iam_v3::model::ExplainedAllowPolicy;
-    /// let x = AllowPolicyExplanation::new()
-    ///     .set_explained_policies([
-    ///         ExplainedAllowPolicy::default()/* use setters */,
-    ///         ExplainedAllowPolicy::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_explained_policies<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1110,14 +845,6 @@ impl AllowPolicyExplanation {
     }
 
     /// Sets the value of [relevance][crate::model::AllowPolicyExplanation::relevance].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_policytroubleshooter_iam_v3::model::AllowPolicyExplanation;
-    /// use google_cloud_policytroubleshooter_iam_v3::model::HeuristicRelevance;
-    /// let x0 = AllowPolicyExplanation::new().set_relevance(HeuristicRelevance::Normal);
-    /// let x1 = AllowPolicyExplanation::new().set_relevance(HeuristicRelevance::High);
-    /// ```
     pub fn set_relevance<T: std::convert::Into<crate::model::HeuristicRelevance>>(
         mut self,
         v: T,
@@ -1192,15 +919,6 @@ impl ExplainedAllowPolicy {
     }
 
     /// Sets the value of [allow_access_state][crate::model::ExplainedAllowPolicy::allow_access_state].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_policytroubleshooter_iam_v3::model::ExplainedAllowPolicy;
-    /// use google_cloud_policytroubleshooter_iam_v3::model::AllowAccessState;
-    /// let x0 = ExplainedAllowPolicy::new().set_allow_access_state(AllowAccessState::Granted);
-    /// let x1 = ExplainedAllowPolicy::new().set_allow_access_state(AllowAccessState::NotGranted);
-    /// let x2 = ExplainedAllowPolicy::new().set_allow_access_state(AllowAccessState::UnknownConditional);
-    /// ```
     pub fn set_allow_access_state<T: std::convert::Into<crate::model::AllowAccessState>>(
         mut self,
         v: T,
@@ -1210,12 +928,6 @@ impl ExplainedAllowPolicy {
     }
 
     /// Sets the value of [full_resource_name][crate::model::ExplainedAllowPolicy::full_resource_name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_policytroubleshooter_iam_v3::model::ExplainedAllowPolicy;
-    /// let x = ExplainedAllowPolicy::new().set_full_resource_name("example");
-    /// ```
     pub fn set_full_resource_name<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -1225,17 +937,6 @@ impl ExplainedAllowPolicy {
     }
 
     /// Sets the value of [binding_explanations][crate::model::ExplainedAllowPolicy::binding_explanations].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_policytroubleshooter_iam_v3::model::ExplainedAllowPolicy;
-    /// use google_cloud_policytroubleshooter_iam_v3::model::AllowBindingExplanation;
-    /// let x = ExplainedAllowPolicy::new()
-    ///     .set_binding_explanations([
-    ///         AllowBindingExplanation::default()/* use setters */,
-    ///         AllowBindingExplanation::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_binding_explanations<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1247,14 +948,6 @@ impl ExplainedAllowPolicy {
     }
 
     /// Sets the value of [relevance][crate::model::ExplainedAllowPolicy::relevance].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_policytroubleshooter_iam_v3::model::ExplainedAllowPolicy;
-    /// use google_cloud_policytroubleshooter_iam_v3::model::HeuristicRelevance;
-    /// let x0 = ExplainedAllowPolicy::new().set_relevance(HeuristicRelevance::Normal);
-    /// let x1 = ExplainedAllowPolicy::new().set_relevance(HeuristicRelevance::High);
-    /// ```
     pub fn set_relevance<T: std::convert::Into<crate::model::HeuristicRelevance>>(
         mut self,
         v: T,
@@ -1264,13 +957,6 @@ impl ExplainedAllowPolicy {
     }
 
     /// Sets the value of [policy][crate::model::ExplainedAllowPolicy::policy].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_policytroubleshooter_iam_v3::model::ExplainedAllowPolicy;
-    /// use iam_v1::model::Policy;
-    /// let x = ExplainedAllowPolicy::new().set_policy(Policy::default()/* use setters */);
-    /// ```
     pub fn set_policy<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<iam_v1::model::Policy>,
@@ -1280,14 +966,6 @@ impl ExplainedAllowPolicy {
     }
 
     /// Sets or clears the value of [policy][crate::model::ExplainedAllowPolicy::policy].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_policytroubleshooter_iam_v3::model::ExplainedAllowPolicy;
-    /// use iam_v1::model::Policy;
-    /// let x = ExplainedAllowPolicy::new().set_or_clear_policy(Some(Policy::default()/* use setters */));
-    /// let x = ExplainedAllowPolicy::new().set_or_clear_policy(None::<Policy>);
-    /// ```
     pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<iam_v1::model::Policy>,
@@ -1387,15 +1065,6 @@ impl AllowBindingExplanation {
     }
 
     /// Sets the value of [allow_access_state][crate::model::AllowBindingExplanation::allow_access_state].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_policytroubleshooter_iam_v3::model::AllowBindingExplanation;
-    /// use google_cloud_policytroubleshooter_iam_v3::model::AllowAccessState;
-    /// let x0 = AllowBindingExplanation::new().set_allow_access_state(AllowAccessState::Granted);
-    /// let x1 = AllowBindingExplanation::new().set_allow_access_state(AllowAccessState::NotGranted);
-    /// let x2 = AllowBindingExplanation::new().set_allow_access_state(AllowAccessState::UnknownConditional);
-    /// ```
     pub fn set_allow_access_state<T: std::convert::Into<crate::model::AllowAccessState>>(
         mut self,
         v: T,
@@ -1405,27 +1074,12 @@ impl AllowBindingExplanation {
     }
 
     /// Sets the value of [role][crate::model::AllowBindingExplanation::role].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_policytroubleshooter_iam_v3::model::AllowBindingExplanation;
-    /// let x = AllowBindingExplanation::new().set_role("example");
-    /// ```
     pub fn set_role<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.role = v.into();
         self
     }
 
     /// Sets the value of [role_permission][crate::model::AllowBindingExplanation::role_permission].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_policytroubleshooter_iam_v3::model::AllowBindingExplanation;
-    /// use google_cloud_policytroubleshooter_iam_v3::model::RolePermissionInclusionState;
-    /// let x0 = AllowBindingExplanation::new().set_role_permission(RolePermissionInclusionState::RolePermissionIncluded);
-    /// let x1 = AllowBindingExplanation::new().set_role_permission(RolePermissionInclusionState::RolePermissionNotIncluded);
-    /// let x2 = AllowBindingExplanation::new().set_role_permission(RolePermissionInclusionState::RolePermissionUnknownInfo);
-    /// ```
     pub fn set_role_permission<
         T: std::convert::Into<crate::model::RolePermissionInclusionState>,
     >(
@@ -1437,14 +1091,6 @@ impl AllowBindingExplanation {
     }
 
     /// Sets the value of [role_permission_relevance][crate::model::AllowBindingExplanation::role_permission_relevance].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_policytroubleshooter_iam_v3::model::AllowBindingExplanation;
-    /// use google_cloud_policytroubleshooter_iam_v3::model::HeuristicRelevance;
-    /// let x0 = AllowBindingExplanation::new().set_role_permission_relevance(HeuristicRelevance::Normal);
-    /// let x1 = AllowBindingExplanation::new().set_role_permission_relevance(HeuristicRelevance::High);
-    /// ```
     pub fn set_role_permission_relevance<
         T: std::convert::Into<crate::model::HeuristicRelevance>,
     >(
@@ -1456,13 +1102,6 @@ impl AllowBindingExplanation {
     }
 
     /// Sets the value of [combined_membership][crate::model::AllowBindingExplanation::combined_membership].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_policytroubleshooter_iam_v3::model::AllowBindingExplanation;
-    /// use google_cloud_policytroubleshooter_iam_v3::model::allow_binding_explanation::AnnotatedAllowMembership;
-    /// let x = AllowBindingExplanation::new().set_combined_membership(AnnotatedAllowMembership::default()/* use setters */);
-    /// ```
     pub fn set_combined_membership<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::allow_binding_explanation::AnnotatedAllowMembership>,
@@ -1472,14 +1111,6 @@ impl AllowBindingExplanation {
     }
 
     /// Sets or clears the value of [combined_membership][crate::model::AllowBindingExplanation::combined_membership].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_policytroubleshooter_iam_v3::model::AllowBindingExplanation;
-    /// use google_cloud_policytroubleshooter_iam_v3::model::allow_binding_explanation::AnnotatedAllowMembership;
-    /// let x = AllowBindingExplanation::new().set_or_clear_combined_membership(Some(AnnotatedAllowMembership::default()/* use setters */));
-    /// let x = AllowBindingExplanation::new().set_or_clear_combined_membership(None::<AnnotatedAllowMembership>);
-    /// ```
     pub fn set_or_clear_combined_membership<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::allow_binding_explanation::AnnotatedAllowMembership>,
@@ -1489,16 +1120,6 @@ impl AllowBindingExplanation {
     }
 
     /// Sets the value of [memberships][crate::model::AllowBindingExplanation::memberships].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_policytroubleshooter_iam_v3::model::AllowBindingExplanation;
-    /// use google_cloud_policytroubleshooter_iam_v3::model::allow_binding_explanation::AnnotatedAllowMembership;
-    /// let x = AllowBindingExplanation::new().set_memberships([
-    ///     ("key0", AnnotatedAllowMembership::default()/* use setters */),
-    ///     ("key1", AnnotatedAllowMembership::default()/* use (different) setters */),
-    /// ]);
-    /// ```
     pub fn set_memberships<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -1511,14 +1132,6 @@ impl AllowBindingExplanation {
     }
 
     /// Sets the value of [relevance][crate::model::AllowBindingExplanation::relevance].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_policytroubleshooter_iam_v3::model::AllowBindingExplanation;
-    /// use google_cloud_policytroubleshooter_iam_v3::model::HeuristicRelevance;
-    /// let x0 = AllowBindingExplanation::new().set_relevance(HeuristicRelevance::Normal);
-    /// let x1 = AllowBindingExplanation::new().set_relevance(HeuristicRelevance::High);
-    /// ```
     pub fn set_relevance<T: std::convert::Into<crate::model::HeuristicRelevance>>(
         mut self,
         v: T,
@@ -1528,13 +1141,6 @@ impl AllowBindingExplanation {
     }
 
     /// Sets the value of [condition][crate::model::AllowBindingExplanation::condition].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_policytroubleshooter_iam_v3::model::AllowBindingExplanation;
-    /// use gtype::model::Expr;
-    /// let x = AllowBindingExplanation::new().set_condition(Expr::default()/* use setters */);
-    /// ```
     pub fn set_condition<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<gtype::model::Expr>,
@@ -1544,14 +1150,6 @@ impl AllowBindingExplanation {
     }
 
     /// Sets or clears the value of [condition][crate::model::AllowBindingExplanation::condition].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_policytroubleshooter_iam_v3::model::AllowBindingExplanation;
-    /// use gtype::model::Expr;
-    /// let x = AllowBindingExplanation::new().set_or_clear_condition(Some(Expr::default()/* use setters */));
-    /// let x = AllowBindingExplanation::new().set_or_clear_condition(None::<Expr>);
-    /// ```
     pub fn set_or_clear_condition<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<gtype::model::Expr>,
@@ -1561,13 +1159,6 @@ impl AllowBindingExplanation {
     }
 
     /// Sets the value of [condition_explanation][crate::model::AllowBindingExplanation::condition_explanation].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_policytroubleshooter_iam_v3::model::AllowBindingExplanation;
-    /// use google_cloud_policytroubleshooter_iam_v3::model::ConditionExplanation;
-    /// let x = AllowBindingExplanation::new().set_condition_explanation(ConditionExplanation::default()/* use setters */);
-    /// ```
     pub fn set_condition_explanation<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ConditionExplanation>,
@@ -1577,14 +1168,6 @@ impl AllowBindingExplanation {
     }
 
     /// Sets or clears the value of [condition_explanation][crate::model::AllowBindingExplanation::condition_explanation].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_policytroubleshooter_iam_v3::model::AllowBindingExplanation;
-    /// use google_cloud_policytroubleshooter_iam_v3::model::ConditionExplanation;
-    /// let x = AllowBindingExplanation::new().set_or_clear_condition_explanation(Some(ConditionExplanation::default()/* use setters */));
-    /// let x = AllowBindingExplanation::new().set_or_clear_condition_explanation(None::<ConditionExplanation>);
-    /// ```
     pub fn set_or_clear_condition_explanation<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ConditionExplanation>,
@@ -1625,15 +1208,6 @@ pub mod allow_binding_explanation {
         }
 
         /// Sets the value of [membership][crate::model::allow_binding_explanation::AnnotatedAllowMembership::membership].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_policytroubleshooter_iam_v3::model::allow_binding_explanation::AnnotatedAllowMembership;
-        /// use google_cloud_policytroubleshooter_iam_v3::model::MembershipMatchingState;
-        /// let x0 = AnnotatedAllowMembership::new().set_membership(MembershipMatchingState::MembershipMatched);
-        /// let x1 = AnnotatedAllowMembership::new().set_membership(MembershipMatchingState::MembershipNotMatched);
-        /// let x2 = AnnotatedAllowMembership::new().set_membership(MembershipMatchingState::MembershipUnknownInfo);
-        /// ```
         pub fn set_membership<T: std::convert::Into<crate::model::MembershipMatchingState>>(
             mut self,
             v: T,
@@ -1643,14 +1217,6 @@ pub mod allow_binding_explanation {
         }
 
         /// Sets the value of [relevance][crate::model::allow_binding_explanation::AnnotatedAllowMembership::relevance].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_policytroubleshooter_iam_v3::model::allow_binding_explanation::AnnotatedAllowMembership;
-        /// use google_cloud_policytroubleshooter_iam_v3::model::HeuristicRelevance;
-        /// let x0 = AnnotatedAllowMembership::new().set_relevance(HeuristicRelevance::Normal);
-        /// let x1 = AnnotatedAllowMembership::new().set_relevance(HeuristicRelevance::High);
-        /// ```
         pub fn set_relevance<T: std::convert::Into<crate::model::HeuristicRelevance>>(
             mut self,
             v: T,
@@ -1707,15 +1273,6 @@ impl DenyPolicyExplanation {
     }
 
     /// Sets the value of [deny_access_state][crate::model::DenyPolicyExplanation::deny_access_state].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_policytroubleshooter_iam_v3::model::DenyPolicyExplanation;
-    /// use google_cloud_policytroubleshooter_iam_v3::model::DenyAccessState;
-    /// let x0 = DenyPolicyExplanation::new().set_deny_access_state(DenyAccessState::Denied);
-    /// let x1 = DenyPolicyExplanation::new().set_deny_access_state(DenyAccessState::NotDenied);
-    /// let x2 = DenyPolicyExplanation::new().set_deny_access_state(DenyAccessState::UnknownConditional);
-    /// ```
     pub fn set_deny_access_state<T: std::convert::Into<crate::model::DenyAccessState>>(
         mut self,
         v: T,
@@ -1725,17 +1282,6 @@ impl DenyPolicyExplanation {
     }
 
     /// Sets the value of [explained_resources][crate::model::DenyPolicyExplanation::explained_resources].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_policytroubleshooter_iam_v3::model::DenyPolicyExplanation;
-    /// use google_cloud_policytroubleshooter_iam_v3::model::ExplainedDenyResource;
-    /// let x = DenyPolicyExplanation::new()
-    ///     .set_explained_resources([
-    ///         ExplainedDenyResource::default()/* use setters */,
-    ///         ExplainedDenyResource::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_explained_resources<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1747,14 +1293,6 @@ impl DenyPolicyExplanation {
     }
 
     /// Sets the value of [relevance][crate::model::DenyPolicyExplanation::relevance].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_policytroubleshooter_iam_v3::model::DenyPolicyExplanation;
-    /// use google_cloud_policytroubleshooter_iam_v3::model::HeuristicRelevance;
-    /// let x0 = DenyPolicyExplanation::new().set_relevance(HeuristicRelevance::Normal);
-    /// let x1 = DenyPolicyExplanation::new().set_relevance(HeuristicRelevance::High);
-    /// ```
     pub fn set_relevance<T: std::convert::Into<crate::model::HeuristicRelevance>>(
         mut self,
         v: T,
@@ -1764,12 +1302,6 @@ impl DenyPolicyExplanation {
     }
 
     /// Sets the value of [permission_deniable][crate::model::DenyPolicyExplanation::permission_deniable].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_policytroubleshooter_iam_v3::model::DenyPolicyExplanation;
-    /// let x = DenyPolicyExplanation::new().set_permission_deniable(true);
-    /// ```
     pub fn set_permission_deniable<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.permission_deniable = v.into();
         self
@@ -1833,15 +1365,6 @@ impl ExplainedDenyResource {
     }
 
     /// Sets the value of [deny_access_state][crate::model::ExplainedDenyResource::deny_access_state].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_policytroubleshooter_iam_v3::model::ExplainedDenyResource;
-    /// use google_cloud_policytroubleshooter_iam_v3::model::DenyAccessState;
-    /// let x0 = ExplainedDenyResource::new().set_deny_access_state(DenyAccessState::Denied);
-    /// let x1 = ExplainedDenyResource::new().set_deny_access_state(DenyAccessState::NotDenied);
-    /// let x2 = ExplainedDenyResource::new().set_deny_access_state(DenyAccessState::UnknownConditional);
-    /// ```
     pub fn set_deny_access_state<T: std::convert::Into<crate::model::DenyAccessState>>(
         mut self,
         v: T,
@@ -1851,12 +1374,6 @@ impl ExplainedDenyResource {
     }
 
     /// Sets the value of [full_resource_name][crate::model::ExplainedDenyResource::full_resource_name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_policytroubleshooter_iam_v3::model::ExplainedDenyResource;
-    /// let x = ExplainedDenyResource::new().set_full_resource_name("example");
-    /// ```
     pub fn set_full_resource_name<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -1866,17 +1383,6 @@ impl ExplainedDenyResource {
     }
 
     /// Sets the value of [explained_policies][crate::model::ExplainedDenyResource::explained_policies].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_policytroubleshooter_iam_v3::model::ExplainedDenyResource;
-    /// use google_cloud_policytroubleshooter_iam_v3::model::ExplainedDenyPolicy;
-    /// let x = ExplainedDenyResource::new()
-    ///     .set_explained_policies([
-    ///         ExplainedDenyPolicy::default()/* use setters */,
-    ///         ExplainedDenyPolicy::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_explained_policies<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1888,14 +1394,6 @@ impl ExplainedDenyResource {
     }
 
     /// Sets the value of [relevance][crate::model::ExplainedDenyResource::relevance].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_policytroubleshooter_iam_v3::model::ExplainedDenyResource;
-    /// use google_cloud_policytroubleshooter_iam_v3::model::HeuristicRelevance;
-    /// let x0 = ExplainedDenyResource::new().set_relevance(HeuristicRelevance::Normal);
-    /// let x1 = ExplainedDenyResource::new().set_relevance(HeuristicRelevance::High);
-    /// ```
     pub fn set_relevance<T: std::convert::Into<crate::model::HeuristicRelevance>>(
         mut self,
         v: T,
@@ -1962,15 +1460,6 @@ impl ExplainedDenyPolicy {
     }
 
     /// Sets the value of [deny_access_state][crate::model::ExplainedDenyPolicy::deny_access_state].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_policytroubleshooter_iam_v3::model::ExplainedDenyPolicy;
-    /// use google_cloud_policytroubleshooter_iam_v3::model::DenyAccessState;
-    /// let x0 = ExplainedDenyPolicy::new().set_deny_access_state(DenyAccessState::Denied);
-    /// let x1 = ExplainedDenyPolicy::new().set_deny_access_state(DenyAccessState::NotDenied);
-    /// let x2 = ExplainedDenyPolicy::new().set_deny_access_state(DenyAccessState::UnknownConditional);
-    /// ```
     pub fn set_deny_access_state<T: std::convert::Into<crate::model::DenyAccessState>>(
         mut self,
         v: T,
@@ -1980,13 +1469,6 @@ impl ExplainedDenyPolicy {
     }
 
     /// Sets the value of [policy][crate::model::ExplainedDenyPolicy::policy].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_policytroubleshooter_iam_v3::model::ExplainedDenyPolicy;
-    /// use iam_v2::model::Policy;
-    /// let x = ExplainedDenyPolicy::new().set_policy(Policy::default()/* use setters */);
-    /// ```
     pub fn set_policy<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<iam_v2::model::Policy>,
@@ -1996,14 +1478,6 @@ impl ExplainedDenyPolicy {
     }
 
     /// Sets or clears the value of [policy][crate::model::ExplainedDenyPolicy::policy].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_policytroubleshooter_iam_v3::model::ExplainedDenyPolicy;
-    /// use iam_v2::model::Policy;
-    /// let x = ExplainedDenyPolicy::new().set_or_clear_policy(Some(Policy::default()/* use setters */));
-    /// let x = ExplainedDenyPolicy::new().set_or_clear_policy(None::<Policy>);
-    /// ```
     pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<iam_v2::model::Policy>,
@@ -2013,17 +1487,6 @@ impl ExplainedDenyPolicy {
     }
 
     /// Sets the value of [rule_explanations][crate::model::ExplainedDenyPolicy::rule_explanations].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_policytroubleshooter_iam_v3::model::ExplainedDenyPolicy;
-    /// use google_cloud_policytroubleshooter_iam_v3::model::DenyRuleExplanation;
-    /// let x = ExplainedDenyPolicy::new()
-    ///     .set_rule_explanations([
-    ///         DenyRuleExplanation::default()/* use setters */,
-    ///         DenyRuleExplanation::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_rule_explanations<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2035,14 +1498,6 @@ impl ExplainedDenyPolicy {
     }
 
     /// Sets the value of [relevance][crate::model::ExplainedDenyPolicy::relevance].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_policytroubleshooter_iam_v3::model::ExplainedDenyPolicy;
-    /// use google_cloud_policytroubleshooter_iam_v3::model::HeuristicRelevance;
-    /// let x0 = ExplainedDenyPolicy::new().set_relevance(HeuristicRelevance::Normal);
-    /// let x1 = ExplainedDenyPolicy::new().set_relevance(HeuristicRelevance::High);
-    /// ```
     pub fn set_relevance<T: std::convert::Into<crate::model::HeuristicRelevance>>(
         mut self,
         v: T,
@@ -2164,15 +1619,6 @@ impl DenyRuleExplanation {
     }
 
     /// Sets the value of [deny_access_state][crate::model::DenyRuleExplanation::deny_access_state].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_policytroubleshooter_iam_v3::model::DenyRuleExplanation;
-    /// use google_cloud_policytroubleshooter_iam_v3::model::DenyAccessState;
-    /// let x0 = DenyRuleExplanation::new().set_deny_access_state(DenyAccessState::Denied);
-    /// let x1 = DenyRuleExplanation::new().set_deny_access_state(DenyAccessState::NotDenied);
-    /// let x2 = DenyRuleExplanation::new().set_deny_access_state(DenyAccessState::UnknownConditional);
-    /// ```
     pub fn set_deny_access_state<T: std::convert::Into<crate::model::DenyAccessState>>(
         mut self,
         v: T,
@@ -2182,13 +1628,6 @@ impl DenyRuleExplanation {
     }
 
     /// Sets the value of [combined_denied_permission][crate::model::DenyRuleExplanation::combined_denied_permission].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_policytroubleshooter_iam_v3::model::DenyRuleExplanation;
-    /// use google_cloud_policytroubleshooter_iam_v3::model::deny_rule_explanation::AnnotatedPermissionMatching;
-    /// let x = DenyRuleExplanation::new().set_combined_denied_permission(AnnotatedPermissionMatching::default()/* use setters */);
-    /// ```
     pub fn set_combined_denied_permission<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::deny_rule_explanation::AnnotatedPermissionMatching>,
@@ -2198,14 +1637,6 @@ impl DenyRuleExplanation {
     }
 
     /// Sets or clears the value of [combined_denied_permission][crate::model::DenyRuleExplanation::combined_denied_permission].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_policytroubleshooter_iam_v3::model::DenyRuleExplanation;
-    /// use google_cloud_policytroubleshooter_iam_v3::model::deny_rule_explanation::AnnotatedPermissionMatching;
-    /// let x = DenyRuleExplanation::new().set_or_clear_combined_denied_permission(Some(AnnotatedPermissionMatching::default()/* use setters */));
-    /// let x = DenyRuleExplanation::new().set_or_clear_combined_denied_permission(None::<AnnotatedPermissionMatching>);
-    /// ```
     pub fn set_or_clear_combined_denied_permission<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::deny_rule_explanation::AnnotatedPermissionMatching>,
@@ -2215,16 +1646,6 @@ impl DenyRuleExplanation {
     }
 
     /// Sets the value of [denied_permissions][crate::model::DenyRuleExplanation::denied_permissions].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_policytroubleshooter_iam_v3::model::DenyRuleExplanation;
-    /// use google_cloud_policytroubleshooter_iam_v3::model::deny_rule_explanation::AnnotatedPermissionMatching;
-    /// let x = DenyRuleExplanation::new().set_denied_permissions([
-    ///     ("key0", AnnotatedPermissionMatching::default()/* use setters */),
-    ///     ("key1", AnnotatedPermissionMatching::default()/* use (different) setters */),
-    /// ]);
-    /// ```
     pub fn set_denied_permissions<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -2237,13 +1658,6 @@ impl DenyRuleExplanation {
     }
 
     /// Sets the value of [combined_exception_permission][crate::model::DenyRuleExplanation::combined_exception_permission].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_policytroubleshooter_iam_v3::model::DenyRuleExplanation;
-    /// use google_cloud_policytroubleshooter_iam_v3::model::deny_rule_explanation::AnnotatedPermissionMatching;
-    /// let x = DenyRuleExplanation::new().set_combined_exception_permission(AnnotatedPermissionMatching::default()/* use setters */);
-    /// ```
     pub fn set_combined_exception_permission<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::deny_rule_explanation::AnnotatedPermissionMatching>,
@@ -2253,14 +1667,6 @@ impl DenyRuleExplanation {
     }
 
     /// Sets or clears the value of [combined_exception_permission][crate::model::DenyRuleExplanation::combined_exception_permission].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_policytroubleshooter_iam_v3::model::DenyRuleExplanation;
-    /// use google_cloud_policytroubleshooter_iam_v3::model::deny_rule_explanation::AnnotatedPermissionMatching;
-    /// let x = DenyRuleExplanation::new().set_or_clear_combined_exception_permission(Some(AnnotatedPermissionMatching::default()/* use setters */));
-    /// let x = DenyRuleExplanation::new().set_or_clear_combined_exception_permission(None::<AnnotatedPermissionMatching>);
-    /// ```
     pub fn set_or_clear_combined_exception_permission<T>(
         mut self,
         v: std::option::Option<T>,
@@ -2273,16 +1679,6 @@ impl DenyRuleExplanation {
     }
 
     /// Sets the value of [exception_permissions][crate::model::DenyRuleExplanation::exception_permissions].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_policytroubleshooter_iam_v3::model::DenyRuleExplanation;
-    /// use google_cloud_policytroubleshooter_iam_v3::model::deny_rule_explanation::AnnotatedPermissionMatching;
-    /// let x = DenyRuleExplanation::new().set_exception_permissions([
-    ///     ("key0", AnnotatedPermissionMatching::default()/* use setters */),
-    ///     ("key1", AnnotatedPermissionMatching::default()/* use (different) setters */),
-    /// ]);
-    /// ```
     pub fn set_exception_permissions<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -2295,13 +1691,6 @@ impl DenyRuleExplanation {
     }
 
     /// Sets the value of [combined_denied_principal][crate::model::DenyRuleExplanation::combined_denied_principal].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_policytroubleshooter_iam_v3::model::DenyRuleExplanation;
-    /// use google_cloud_policytroubleshooter_iam_v3::model::deny_rule_explanation::AnnotatedDenyPrincipalMatching;
-    /// let x = DenyRuleExplanation::new().set_combined_denied_principal(AnnotatedDenyPrincipalMatching::default()/* use setters */);
-    /// ```
     pub fn set_combined_denied_principal<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::deny_rule_explanation::AnnotatedDenyPrincipalMatching>,
@@ -2311,14 +1700,6 @@ impl DenyRuleExplanation {
     }
 
     /// Sets or clears the value of [combined_denied_principal][crate::model::DenyRuleExplanation::combined_denied_principal].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_policytroubleshooter_iam_v3::model::DenyRuleExplanation;
-    /// use google_cloud_policytroubleshooter_iam_v3::model::deny_rule_explanation::AnnotatedDenyPrincipalMatching;
-    /// let x = DenyRuleExplanation::new().set_or_clear_combined_denied_principal(Some(AnnotatedDenyPrincipalMatching::default()/* use setters */));
-    /// let x = DenyRuleExplanation::new().set_or_clear_combined_denied_principal(None::<AnnotatedDenyPrincipalMatching>);
-    /// ```
     pub fn set_or_clear_combined_denied_principal<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::deny_rule_explanation::AnnotatedDenyPrincipalMatching>,
@@ -2328,16 +1709,6 @@ impl DenyRuleExplanation {
     }
 
     /// Sets the value of [denied_principals][crate::model::DenyRuleExplanation::denied_principals].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_policytroubleshooter_iam_v3::model::DenyRuleExplanation;
-    /// use google_cloud_policytroubleshooter_iam_v3::model::deny_rule_explanation::AnnotatedDenyPrincipalMatching;
-    /// let x = DenyRuleExplanation::new().set_denied_principals([
-    ///     ("key0", AnnotatedDenyPrincipalMatching::default()/* use setters */),
-    ///     ("key1", AnnotatedDenyPrincipalMatching::default()/* use (different) setters */),
-    /// ]);
-    /// ```
     pub fn set_denied_principals<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -2350,13 +1721,6 @@ impl DenyRuleExplanation {
     }
 
     /// Sets the value of [combined_exception_principal][crate::model::DenyRuleExplanation::combined_exception_principal].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_policytroubleshooter_iam_v3::model::DenyRuleExplanation;
-    /// use google_cloud_policytroubleshooter_iam_v3::model::deny_rule_explanation::AnnotatedDenyPrincipalMatching;
-    /// let x = DenyRuleExplanation::new().set_combined_exception_principal(AnnotatedDenyPrincipalMatching::default()/* use setters */);
-    /// ```
     pub fn set_combined_exception_principal<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::deny_rule_explanation::AnnotatedDenyPrincipalMatching>,
@@ -2366,14 +1730,6 @@ impl DenyRuleExplanation {
     }
 
     /// Sets or clears the value of [combined_exception_principal][crate::model::DenyRuleExplanation::combined_exception_principal].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_policytroubleshooter_iam_v3::model::DenyRuleExplanation;
-    /// use google_cloud_policytroubleshooter_iam_v3::model::deny_rule_explanation::AnnotatedDenyPrincipalMatching;
-    /// let x = DenyRuleExplanation::new().set_or_clear_combined_exception_principal(Some(AnnotatedDenyPrincipalMatching::default()/* use setters */));
-    /// let x = DenyRuleExplanation::new().set_or_clear_combined_exception_principal(None::<AnnotatedDenyPrincipalMatching>);
-    /// ```
     pub fn set_or_clear_combined_exception_principal<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::deny_rule_explanation::AnnotatedDenyPrincipalMatching>,
@@ -2383,16 +1739,6 @@ impl DenyRuleExplanation {
     }
 
     /// Sets the value of [exception_principals][crate::model::DenyRuleExplanation::exception_principals].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_policytroubleshooter_iam_v3::model::DenyRuleExplanation;
-    /// use google_cloud_policytroubleshooter_iam_v3::model::deny_rule_explanation::AnnotatedDenyPrincipalMatching;
-    /// let x = DenyRuleExplanation::new().set_exception_principals([
-    ///     ("key0", AnnotatedDenyPrincipalMatching::default()/* use setters */),
-    ///     ("key1", AnnotatedDenyPrincipalMatching::default()/* use (different) setters */),
-    /// ]);
-    /// ```
     pub fn set_exception_principals<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -2405,14 +1751,6 @@ impl DenyRuleExplanation {
     }
 
     /// Sets the value of [relevance][crate::model::DenyRuleExplanation::relevance].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_policytroubleshooter_iam_v3::model::DenyRuleExplanation;
-    /// use google_cloud_policytroubleshooter_iam_v3::model::HeuristicRelevance;
-    /// let x0 = DenyRuleExplanation::new().set_relevance(HeuristicRelevance::Normal);
-    /// let x1 = DenyRuleExplanation::new().set_relevance(HeuristicRelevance::High);
-    /// ```
     pub fn set_relevance<T: std::convert::Into<crate::model::HeuristicRelevance>>(
         mut self,
         v: T,
@@ -2422,13 +1760,6 @@ impl DenyRuleExplanation {
     }
 
     /// Sets the value of [condition][crate::model::DenyRuleExplanation::condition].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_policytroubleshooter_iam_v3::model::DenyRuleExplanation;
-    /// use gtype::model::Expr;
-    /// let x = DenyRuleExplanation::new().set_condition(Expr::default()/* use setters */);
-    /// ```
     pub fn set_condition<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<gtype::model::Expr>,
@@ -2438,14 +1769,6 @@ impl DenyRuleExplanation {
     }
 
     /// Sets or clears the value of [condition][crate::model::DenyRuleExplanation::condition].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_policytroubleshooter_iam_v3::model::DenyRuleExplanation;
-    /// use gtype::model::Expr;
-    /// let x = DenyRuleExplanation::new().set_or_clear_condition(Some(Expr::default()/* use setters */));
-    /// let x = DenyRuleExplanation::new().set_or_clear_condition(None::<Expr>);
-    /// ```
     pub fn set_or_clear_condition<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<gtype::model::Expr>,
@@ -2455,13 +1778,6 @@ impl DenyRuleExplanation {
     }
 
     /// Sets the value of [condition_explanation][crate::model::DenyRuleExplanation::condition_explanation].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_policytroubleshooter_iam_v3::model::DenyRuleExplanation;
-    /// use google_cloud_policytroubleshooter_iam_v3::model::ConditionExplanation;
-    /// let x = DenyRuleExplanation::new().set_condition_explanation(ConditionExplanation::default()/* use setters */);
-    /// ```
     pub fn set_condition_explanation<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ConditionExplanation>,
@@ -2471,14 +1787,6 @@ impl DenyRuleExplanation {
     }
 
     /// Sets or clears the value of [condition_explanation][crate::model::DenyRuleExplanation::condition_explanation].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_policytroubleshooter_iam_v3::model::DenyRuleExplanation;
-    /// use google_cloud_policytroubleshooter_iam_v3::model::ConditionExplanation;
-    /// let x = DenyRuleExplanation::new().set_or_clear_condition_explanation(Some(ConditionExplanation::default()/* use setters */));
-    /// let x = DenyRuleExplanation::new().set_or_clear_condition_explanation(None::<ConditionExplanation>);
-    /// ```
     pub fn set_or_clear_condition_explanation<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ConditionExplanation>,
@@ -2521,14 +1829,6 @@ pub mod deny_rule_explanation {
         }
 
         /// Sets the value of [permission_matching_state][crate::model::deny_rule_explanation::AnnotatedPermissionMatching::permission_matching_state].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_policytroubleshooter_iam_v3::model::deny_rule_explanation::AnnotatedPermissionMatching;
-        /// use google_cloud_policytroubleshooter_iam_v3::model::PermissionPatternMatchingState;
-        /// let x0 = AnnotatedPermissionMatching::new().set_permission_matching_state(PermissionPatternMatchingState::PermissionPatternMatched);
-        /// let x1 = AnnotatedPermissionMatching::new().set_permission_matching_state(PermissionPatternMatchingState::PermissionPatternNotMatched);
-        /// ```
         pub fn set_permission_matching_state<
             T: std::convert::Into<crate::model::PermissionPatternMatchingState>,
         >(
@@ -2540,14 +1840,6 @@ pub mod deny_rule_explanation {
         }
 
         /// Sets the value of [relevance][crate::model::deny_rule_explanation::AnnotatedPermissionMatching::relevance].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_policytroubleshooter_iam_v3::model::deny_rule_explanation::AnnotatedPermissionMatching;
-        /// use google_cloud_policytroubleshooter_iam_v3::model::HeuristicRelevance;
-        /// let x0 = AnnotatedPermissionMatching::new().set_relevance(HeuristicRelevance::Normal);
-        /// let x1 = AnnotatedPermissionMatching::new().set_relevance(HeuristicRelevance::High);
-        /// ```
         pub fn set_relevance<T: std::convert::Into<crate::model::HeuristicRelevance>>(
             mut self,
             v: T,
@@ -2586,15 +1878,6 @@ pub mod deny_rule_explanation {
         }
 
         /// Sets the value of [membership][crate::model::deny_rule_explanation::AnnotatedDenyPrincipalMatching::membership].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_policytroubleshooter_iam_v3::model::deny_rule_explanation::AnnotatedDenyPrincipalMatching;
-        /// use google_cloud_policytroubleshooter_iam_v3::model::MembershipMatchingState;
-        /// let x0 = AnnotatedDenyPrincipalMatching::new().set_membership(MembershipMatchingState::MembershipMatched);
-        /// let x1 = AnnotatedDenyPrincipalMatching::new().set_membership(MembershipMatchingState::MembershipNotMatched);
-        /// let x2 = AnnotatedDenyPrincipalMatching::new().set_membership(MembershipMatchingState::MembershipUnknownInfo);
-        /// ```
         pub fn set_membership<T: std::convert::Into<crate::model::MembershipMatchingState>>(
             mut self,
             v: T,
@@ -2604,14 +1887,6 @@ pub mod deny_rule_explanation {
         }
 
         /// Sets the value of [relevance][crate::model::deny_rule_explanation::AnnotatedDenyPrincipalMatching::relevance].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_policytroubleshooter_iam_v3::model::deny_rule_explanation::AnnotatedDenyPrincipalMatching;
-        /// use google_cloud_policytroubleshooter_iam_v3::model::HeuristicRelevance;
-        /// let x0 = AnnotatedDenyPrincipalMatching::new().set_relevance(HeuristicRelevance::Normal);
-        /// let x1 = AnnotatedDenyPrincipalMatching::new().set_relevance(HeuristicRelevance::High);
-        /// ```
         pub fn set_relevance<T: std::convert::Into<crate::model::HeuristicRelevance>>(
             mut self,
             v: T,
@@ -2652,13 +1927,6 @@ impl ConditionExplanation {
     }
 
     /// Sets the value of [value][crate::model::ConditionExplanation::value].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_policytroubleshooter_iam_v3::model::ConditionExplanation;
-    /// use wkt::Value;
-    /// let x = ConditionExplanation::new().set_value(Value::default()/* use setters */);
-    /// ```
     pub fn set_value<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Value>,
@@ -2668,14 +1936,6 @@ impl ConditionExplanation {
     }
 
     /// Sets or clears the value of [value][crate::model::ConditionExplanation::value].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_policytroubleshooter_iam_v3::model::ConditionExplanation;
-    /// use wkt::Value;
-    /// let x = ConditionExplanation::new().set_or_clear_value(Some(Value::default()/* use setters */));
-    /// let x = ConditionExplanation::new().set_or_clear_value(None::<Value>);
-    /// ```
     pub fn set_or_clear_value<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Value>,
@@ -2685,17 +1945,6 @@ impl ConditionExplanation {
     }
 
     /// Sets the value of [errors][crate::model::ConditionExplanation::errors].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_policytroubleshooter_iam_v3::model::ConditionExplanation;
-    /// use rpc::model::Status;
-    /// let x = ConditionExplanation::new()
-    ///     .set_errors([
-    ///         Status::default()/* use setters */,
-    ///         Status::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_errors<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2707,17 +1956,6 @@ impl ConditionExplanation {
     }
 
     /// Sets the value of [evaluation_states][crate::model::ConditionExplanation::evaluation_states].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_policytroubleshooter_iam_v3::model::ConditionExplanation;
-    /// use google_cloud_policytroubleshooter_iam_v3::model::condition_explanation::EvaluationState;
-    /// let x = ConditionExplanation::new()
-    ///     .set_evaluation_states([
-    ///         EvaluationState::default()/* use setters */,
-    ///         EvaluationState::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_evaluation_states<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2768,37 +2006,18 @@ pub mod condition_explanation {
         }
 
         /// Sets the value of [start][crate::model::condition_explanation::EvaluationState::start].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_policytroubleshooter_iam_v3::model::condition_explanation::EvaluationState;
-        /// let x = EvaluationState::new().set_start(42);
-        /// ```
         pub fn set_start<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.start = v.into();
             self
         }
 
         /// Sets the value of [end][crate::model::condition_explanation::EvaluationState::end].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_policytroubleshooter_iam_v3::model::condition_explanation::EvaluationState;
-        /// let x = EvaluationState::new().set_end(42);
-        /// ```
         pub fn set_end<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.end = v.into();
             self
         }
 
         /// Sets the value of [value][crate::model::condition_explanation::EvaluationState::value].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_policytroubleshooter_iam_v3::model::condition_explanation::EvaluationState;
-        /// use wkt::Value;
-        /// let x = EvaluationState::new().set_value(Value::default()/* use setters */);
-        /// ```
         pub fn set_value<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Value>,
@@ -2808,14 +2027,6 @@ pub mod condition_explanation {
         }
 
         /// Sets or clears the value of [value][crate::model::condition_explanation::EvaluationState::value].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_policytroubleshooter_iam_v3::model::condition_explanation::EvaluationState;
-        /// use wkt::Value;
-        /// let x = EvaluationState::new().set_or_clear_value(Some(Value::default()/* use setters */));
-        /// let x = EvaluationState::new().set_or_clear_value(None::<Value>);
-        /// ```
         pub fn set_or_clear_value<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Value>,
@@ -2825,17 +2036,6 @@ pub mod condition_explanation {
         }
 
         /// Sets the value of [errors][crate::model::condition_explanation::EvaluationState::errors].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_policytroubleshooter_iam_v3::model::condition_explanation::EvaluationState;
-        /// use rpc::model::Status;
-        /// let x = EvaluationState::new()
-        ///     .set_errors([
-        ///         Status::default()/* use setters */,
-        ///         Status::default()/* use (different) setters */,
-        ///     ]);
-        /// ```
         pub fn set_errors<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,

@@ -76,24 +76,12 @@ impl GenerateAccessTokenRequest {
     }
 
     /// Sets the value of [name][crate::model::GenerateAccessTokenRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iam_credentials_v1::model::GenerateAccessTokenRequest;
-    /// let x = GenerateAccessTokenRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [delegates][crate::model::GenerateAccessTokenRequest::delegates].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iam_credentials_v1::model::GenerateAccessTokenRequest;
-    /// let x = GenerateAccessTokenRequest::new().set_delegates(["a", "b", "c"]);
-    /// ```
     pub fn set_delegates<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -105,12 +93,6 @@ impl GenerateAccessTokenRequest {
     }
 
     /// Sets the value of [scope][crate::model::GenerateAccessTokenRequest::scope].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iam_credentials_v1::model::GenerateAccessTokenRequest;
-    /// let x = GenerateAccessTokenRequest::new().set_scope(["a", "b", "c"]);
-    /// ```
     pub fn set_scope<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -122,13 +104,6 @@ impl GenerateAccessTokenRequest {
     }
 
     /// Sets the value of [lifetime][crate::model::GenerateAccessTokenRequest::lifetime].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iam_credentials_v1::model::GenerateAccessTokenRequest;
-    /// use wkt::Duration;
-    /// let x = GenerateAccessTokenRequest::new().set_lifetime(Duration::default()/* use setters */);
-    /// ```
     pub fn set_lifetime<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -138,14 +113,6 @@ impl GenerateAccessTokenRequest {
     }
 
     /// Sets or clears the value of [lifetime][crate::model::GenerateAccessTokenRequest::lifetime].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iam_credentials_v1::model::GenerateAccessTokenRequest;
-    /// use wkt::Duration;
-    /// let x = GenerateAccessTokenRequest::new().set_or_clear_lifetime(Some(Duration::default()/* use setters */));
-    /// let x = GenerateAccessTokenRequest::new().set_or_clear_lifetime(None::<Duration>);
-    /// ```
     pub fn set_or_clear_lifetime<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -180,25 +147,12 @@ impl GenerateAccessTokenResponse {
     }
 
     /// Sets the value of [access_token][crate::model::GenerateAccessTokenResponse::access_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iam_credentials_v1::model::GenerateAccessTokenResponse;
-    /// let x = GenerateAccessTokenResponse::new().set_access_token("example");
-    /// ```
     pub fn set_access_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.access_token = v.into();
         self
     }
 
     /// Sets the value of [expire_time][crate::model::GenerateAccessTokenResponse::expire_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iam_credentials_v1::model::GenerateAccessTokenResponse;
-    /// use wkt::Timestamp;
-    /// let x = GenerateAccessTokenResponse::new().set_expire_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_expire_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -208,14 +162,6 @@ impl GenerateAccessTokenResponse {
     }
 
     /// Sets or clears the value of [expire_time][crate::model::GenerateAccessTokenResponse::expire_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iam_credentials_v1::model::GenerateAccessTokenResponse;
-    /// use wkt::Timestamp;
-    /// let x = GenerateAccessTokenResponse::new().set_or_clear_expire_time(Some(Timestamp::default()/* use setters */));
-    /// let x = GenerateAccessTokenResponse::new().set_or_clear_expire_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_expire_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -264,24 +210,12 @@ impl SignBlobRequest {
     }
 
     /// Sets the value of [name][crate::model::SignBlobRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iam_credentials_v1::model::SignBlobRequest;
-    /// let x = SignBlobRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [delegates][crate::model::SignBlobRequest::delegates].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iam_credentials_v1::model::SignBlobRequest;
-    /// let x = SignBlobRequest::new().set_delegates(["a", "b", "c"]);
-    /// ```
     pub fn set_delegates<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -293,12 +227,6 @@ impl SignBlobRequest {
     }
 
     /// Sets the value of [payload][crate::model::SignBlobRequest::payload].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iam_credentials_v1::model::SignBlobRequest;
-    /// let x = SignBlobRequest::new().set_payload(bytes::Bytes::from_static(b"example"));
-    /// ```
     pub fn set_payload<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.payload = v.into();
         self
@@ -329,24 +257,12 @@ impl SignBlobResponse {
     }
 
     /// Sets the value of [key_id][crate::model::SignBlobResponse::key_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iam_credentials_v1::model::SignBlobResponse;
-    /// let x = SignBlobResponse::new().set_key_id("example");
-    /// ```
     pub fn set_key_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.key_id = v.into();
         self
     }
 
     /// Sets the value of [signed_blob][crate::model::SignBlobResponse::signed_blob].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iam_credentials_v1::model::SignBlobResponse;
-    /// let x = SignBlobResponse::new().set_signed_blob(bytes::Bytes::from_static(b"example"));
-    /// ```
     pub fn set_signed_blob<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.signed_blob = v.into();
         self
@@ -392,24 +308,12 @@ impl SignJwtRequest {
     }
 
     /// Sets the value of [name][crate::model::SignJwtRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iam_credentials_v1::model::SignJwtRequest;
-    /// let x = SignJwtRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [delegates][crate::model::SignJwtRequest::delegates].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iam_credentials_v1::model::SignJwtRequest;
-    /// let x = SignJwtRequest::new().set_delegates(["a", "b", "c"]);
-    /// ```
     pub fn set_delegates<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -421,12 +325,6 @@ impl SignJwtRequest {
     }
 
     /// Sets the value of [payload][crate::model::SignJwtRequest::payload].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iam_credentials_v1::model::SignJwtRequest;
-    /// let x = SignJwtRequest::new().set_payload("example");
-    /// ```
     pub fn set_payload<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.payload = v.into();
         self
@@ -457,24 +355,12 @@ impl SignJwtResponse {
     }
 
     /// Sets the value of [key_id][crate::model::SignJwtResponse::key_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iam_credentials_v1::model::SignJwtResponse;
-    /// let x = SignJwtResponse::new().set_key_id("example");
-    /// ```
     pub fn set_key_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.key_id = v.into();
         self
     }
 
     /// Sets the value of [signed_jwt][crate::model::SignJwtResponse::signed_jwt].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iam_credentials_v1::model::SignJwtResponse;
-    /// let x = SignJwtResponse::new().set_signed_jwt("example");
-    /// ```
     pub fn set_signed_jwt<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.signed_jwt = v.into();
         self
@@ -525,24 +411,12 @@ impl GenerateIdTokenRequest {
     }
 
     /// Sets the value of [name][crate::model::GenerateIdTokenRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iam_credentials_v1::model::GenerateIdTokenRequest;
-    /// let x = GenerateIdTokenRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [delegates][crate::model::GenerateIdTokenRequest::delegates].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iam_credentials_v1::model::GenerateIdTokenRequest;
-    /// let x = GenerateIdTokenRequest::new().set_delegates(["a", "b", "c"]);
-    /// ```
     pub fn set_delegates<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -554,24 +428,12 @@ impl GenerateIdTokenRequest {
     }
 
     /// Sets the value of [audience][crate::model::GenerateIdTokenRequest::audience].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iam_credentials_v1::model::GenerateIdTokenRequest;
-    /// let x = GenerateIdTokenRequest::new().set_audience("example");
-    /// ```
     pub fn set_audience<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.audience = v.into();
         self
     }
 
     /// Sets the value of [include_email][crate::model::GenerateIdTokenRequest::include_email].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iam_credentials_v1::model::GenerateIdTokenRequest;
-    /// let x = GenerateIdTokenRequest::new().set_include_email(true);
-    /// ```
     pub fn set_include_email<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.include_email = v.into();
         self
@@ -599,12 +461,6 @@ impl GenerateIdTokenResponse {
     }
 
     /// Sets the value of [token][crate::model::GenerateIdTokenResponse::token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_iam_credentials_v1::model::GenerateIdTokenResponse;
-    /// let x = GenerateIdTokenResponse::new().set_token("example");
-    /// ```
     pub fn set_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.token = v.into();
         self

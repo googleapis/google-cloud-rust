@@ -73,38 +73,18 @@ impl AptArtifact {
     }
 
     /// Sets the value of [name][crate::model::AptArtifact::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::AptArtifact;
-    /// let x = AptArtifact::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [package_name][crate::model::AptArtifact::package_name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::AptArtifact;
-    /// let x = AptArtifact::new().set_package_name("example");
-    /// ```
     pub fn set_package_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.package_name = v.into();
         self
     }
 
     /// Sets the value of [package_type][crate::model::AptArtifact::package_type].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::AptArtifact;
-    /// use google_cloud_artifactregistry_v1::model::apt_artifact::PackageType;
-    /// let x0 = AptArtifact::new().set_package_type(PackageType::Binary);
-    /// let x1 = AptArtifact::new().set_package_type(PackageType::Source);
-    /// ```
     pub fn set_package_type<T: std::convert::Into<crate::model::apt_artifact::PackageType>>(
         mut self,
         v: T,
@@ -114,36 +94,18 @@ impl AptArtifact {
     }
 
     /// Sets the value of [architecture][crate::model::AptArtifact::architecture].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::AptArtifact;
-    /// let x = AptArtifact::new().set_architecture("example");
-    /// ```
     pub fn set_architecture<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.architecture = v.into();
         self
     }
 
     /// Sets the value of [component][crate::model::AptArtifact::component].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::AptArtifact;
-    /// let x = AptArtifact::new().set_component("example");
-    /// ```
     pub fn set_component<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.component = v.into();
         self
     }
 
     /// Sets the value of [control_file][crate::model::AptArtifact::control_file].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::AptArtifact;
-    /// let x = AptArtifact::new().set_control_file(bytes::Bytes::from_static(b"example"));
-    /// ```
     pub fn set_control_file<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.control_file = v.into();
         self
@@ -313,12 +275,6 @@ impl ImportAptArtifactsGcsSource {
     }
 
     /// Sets the value of [uris][crate::model::ImportAptArtifactsGcsSource::uris].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::ImportAptArtifactsGcsSource;
-    /// let x = ImportAptArtifactsGcsSource::new().set_uris(["a", "b", "c"]);
-    /// ```
     pub fn set_uris<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -330,12 +286,6 @@ impl ImportAptArtifactsGcsSource {
     }
 
     /// Sets the value of [use_wildcards][crate::model::ImportAptArtifactsGcsSource::use_wildcards].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::ImportAptArtifactsGcsSource;
-    /// let x = ImportAptArtifactsGcsSource::new().set_use_wildcards(true);
-    /// ```
     pub fn set_use_wildcards<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.use_wildcards = v.into();
         self
@@ -367,12 +317,6 @@ impl ImportAptArtifactsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ImportAptArtifactsRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::ImportAptArtifactsRequest;
-    /// let x = ImportAptArtifactsRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
@@ -382,14 +326,6 @@ impl ImportAptArtifactsRequest {
     ///
     /// Note that all the setters affecting `source` are mutually
     /// exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::ImportAptArtifactsRequest;
-    /// use google_cloud_artifactregistry_v1::model::import_apt_artifacts_request;
-    /// use google_cloud_artifactregistry_v1::model::ImportAptArtifactsGcsSource;
-    /// let x = ImportAptArtifactsRequest::new().set_source(Some(import_apt_artifacts_request::Source::GcsSource(ImportAptArtifactsGcsSource::default().into())));
-    /// ```
     pub fn set_source<
         T: std::convert::Into<std::option::Option<crate::model::import_apt_artifacts_request::Source>>,
     >(
@@ -420,14 +356,6 @@ impl ImportAptArtifactsRequest {
     ///
     /// Note that all the setters affecting `source` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::ImportAptArtifactsRequest;
-    /// use google_cloud_artifactregistry_v1::model::ImportAptArtifactsGcsSource;
-    /// let x = ImportAptArtifactsRequest::new().set_gcs_source(ImportAptArtifactsGcsSource::default()/* use setters */);
-    /// assert!(x.gcs_source().is_some());
-    /// ```
     pub fn set_gcs_source<
         T: std::convert::Into<std::boxed::Box<crate::model::ImportAptArtifactsGcsSource>>,
     >(
@@ -480,13 +408,6 @@ impl ImportAptArtifactsErrorInfo {
     }
 
     /// Sets the value of [error][crate::model::ImportAptArtifactsErrorInfo::error].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::ImportAptArtifactsErrorInfo;
-    /// use rpc::model::Status;
-    /// let x = ImportAptArtifactsErrorInfo::new().set_error(Status::default()/* use setters */);
-    /// ```
     pub fn set_error<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<rpc::model::Status>,
@@ -496,14 +417,6 @@ impl ImportAptArtifactsErrorInfo {
     }
 
     /// Sets or clears the value of [error][crate::model::ImportAptArtifactsErrorInfo::error].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::ImportAptArtifactsErrorInfo;
-    /// use rpc::model::Status;
-    /// let x = ImportAptArtifactsErrorInfo::new().set_or_clear_error(Some(Status::default()/* use setters */));
-    /// let x = ImportAptArtifactsErrorInfo::new().set_or_clear_error(None::<Status>);
-    /// ```
     pub fn set_or_clear_error<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<rpc::model::Status>,
@@ -516,14 +429,6 @@ impl ImportAptArtifactsErrorInfo {
     ///
     /// Note that all the setters affecting `source` are mutually
     /// exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::ImportAptArtifactsErrorInfo;
-    /// use google_cloud_artifactregistry_v1::model::import_apt_artifacts_error_info;
-    /// use google_cloud_artifactregistry_v1::model::ImportAptArtifactsGcsSource;
-    /// let x = ImportAptArtifactsErrorInfo::new().set_source(Some(import_apt_artifacts_error_info::Source::GcsSource(ImportAptArtifactsGcsSource::default().into())));
-    /// ```
     pub fn set_source<
         T: std::convert::Into<
                 std::option::Option<crate::model::import_apt_artifacts_error_info::Source>,
@@ -556,14 +461,6 @@ impl ImportAptArtifactsErrorInfo {
     ///
     /// Note that all the setters affecting `source` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::ImportAptArtifactsErrorInfo;
-    /// use google_cloud_artifactregistry_v1::model::ImportAptArtifactsGcsSource;
-    /// let x = ImportAptArtifactsErrorInfo::new().set_gcs_source(ImportAptArtifactsGcsSource::default()/* use setters */);
-    /// assert!(x.gcs_source().is_some());
-    /// ```
     pub fn set_gcs_source<
         T: std::convert::Into<std::boxed::Box<crate::model::ImportAptArtifactsGcsSource>>,
     >(
@@ -616,17 +513,6 @@ impl ImportAptArtifactsResponse {
     }
 
     /// Sets the value of [apt_artifacts][crate::model::ImportAptArtifactsResponse::apt_artifacts].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::ImportAptArtifactsResponse;
-    /// use google_cloud_artifactregistry_v1::model::AptArtifact;
-    /// let x = ImportAptArtifactsResponse::new()
-    ///     .set_apt_artifacts([
-    ///         AptArtifact::default()/* use setters */,
-    ///         AptArtifact::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_apt_artifacts<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -638,17 +524,6 @@ impl ImportAptArtifactsResponse {
     }
 
     /// Sets the value of [errors][crate::model::ImportAptArtifactsResponse::errors].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::ImportAptArtifactsResponse;
-    /// use google_cloud_artifactregistry_v1::model::ImportAptArtifactsErrorInfo;
-    /// let x = ImportAptArtifactsResponse::new()
-    ///     .set_errors([
-    ///         ImportAptArtifactsErrorInfo::default()/* use setters */,
-    ///         ImportAptArtifactsErrorInfo::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_errors<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -748,36 +623,18 @@ impl DockerImage {
     }
 
     /// Sets the value of [name][crate::model::DockerImage::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::DockerImage;
-    /// let x = DockerImage::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [uri][crate::model::DockerImage::uri].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::DockerImage;
-    /// let x = DockerImage::new().set_uri("example");
-    /// ```
     pub fn set_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.uri = v.into();
         self
     }
 
     /// Sets the value of [tags][crate::model::DockerImage::tags].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::DockerImage;
-    /// let x = DockerImage::new().set_tags(["a", "b", "c"]);
-    /// ```
     pub fn set_tags<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -789,25 +646,12 @@ impl DockerImage {
     }
 
     /// Sets the value of [image_size_bytes][crate::model::DockerImage::image_size_bytes].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::DockerImage;
-    /// let x = DockerImage::new().set_image_size_bytes(42);
-    /// ```
     pub fn set_image_size_bytes<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.image_size_bytes = v.into();
         self
     }
 
     /// Sets the value of [upload_time][crate::model::DockerImage::upload_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::DockerImage;
-    /// use wkt::Timestamp;
-    /// let x = DockerImage::new().set_upload_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_upload_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -817,14 +661,6 @@ impl DockerImage {
     }
 
     /// Sets or clears the value of [upload_time][crate::model::DockerImage::upload_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::DockerImage;
-    /// use wkt::Timestamp;
-    /// let x = DockerImage::new().set_or_clear_upload_time(Some(Timestamp::default()/* use setters */));
-    /// let x = DockerImage::new().set_or_clear_upload_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_upload_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -834,25 +670,12 @@ impl DockerImage {
     }
 
     /// Sets the value of [media_type][crate::model::DockerImage::media_type].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::DockerImage;
-    /// let x = DockerImage::new().set_media_type("example");
-    /// ```
     pub fn set_media_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.media_type = v.into();
         self
     }
 
     /// Sets the value of [build_time][crate::model::DockerImage::build_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::DockerImage;
-    /// use wkt::Timestamp;
-    /// let x = DockerImage::new().set_build_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_build_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -862,14 +685,6 @@ impl DockerImage {
     }
 
     /// Sets or clears the value of [build_time][crate::model::DockerImage::build_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::DockerImage;
-    /// use wkt::Timestamp;
-    /// let x = DockerImage::new().set_or_clear_build_time(Some(Timestamp::default()/* use setters */));
-    /// let x = DockerImage::new().set_or_clear_build_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_build_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -879,13 +694,6 @@ impl DockerImage {
     }
 
     /// Sets the value of [update_time][crate::model::DockerImage::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::DockerImage;
-    /// use wkt::Timestamp;
-    /// let x = DockerImage::new().set_update_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -895,14 +703,6 @@ impl DockerImage {
     }
 
     /// Sets or clears the value of [update_time][crate::model::DockerImage::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::DockerImage;
-    /// use wkt::Timestamp;
-    /// let x = DockerImage::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
-    /// let x = DockerImage::new().set_or_clear_update_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -944,48 +744,24 @@ impl ListDockerImagesRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListDockerImagesRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::ListDockerImagesRequest;
-    /// let x = ListDockerImagesRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListDockerImagesRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::ListDockerImagesRequest;
-    /// let x = ListDockerImagesRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListDockerImagesRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::ListDockerImagesRequest;
-    /// let x = ListDockerImagesRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListDockerImagesRequest::order_by].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::ListDockerImagesRequest;
-    /// let x = ListDockerImagesRequest::new().set_order_by("example");
-    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
@@ -1018,17 +794,6 @@ impl ListDockerImagesResponse {
     }
 
     /// Sets the value of [docker_images][crate::model::ListDockerImagesResponse::docker_images].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::ListDockerImagesResponse;
-    /// use google_cloud_artifactregistry_v1::model::DockerImage;
-    /// let x = ListDockerImagesResponse::new()
-    ///     .set_docker_images([
-    ///         DockerImage::default()/* use setters */,
-    ///         DockerImage::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_docker_images<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1040,12 +805,6 @@ impl ListDockerImagesResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListDockerImagesResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::ListDockerImagesResponse;
-    /// let x = ListDockerImagesResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -1088,12 +847,6 @@ impl GetDockerImageRequest {
     }
 
     /// Sets the value of [name][crate::model::GetDockerImageRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::GetDockerImageRequest;
-    /// let x = GetDockerImageRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -1151,73 +904,36 @@ impl MavenArtifact {
     }
 
     /// Sets the value of [name][crate::model::MavenArtifact::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::MavenArtifact;
-    /// let x = MavenArtifact::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [pom_uri][crate::model::MavenArtifact::pom_uri].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::MavenArtifact;
-    /// let x = MavenArtifact::new().set_pom_uri("example");
-    /// ```
     pub fn set_pom_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.pom_uri = v.into();
         self
     }
 
     /// Sets the value of [group_id][crate::model::MavenArtifact::group_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::MavenArtifact;
-    /// let x = MavenArtifact::new().set_group_id("example");
-    /// ```
     pub fn set_group_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.group_id = v.into();
         self
     }
 
     /// Sets the value of [artifact_id][crate::model::MavenArtifact::artifact_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::MavenArtifact;
-    /// let x = MavenArtifact::new().set_artifact_id("example");
-    /// ```
     pub fn set_artifact_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.artifact_id = v.into();
         self
     }
 
     /// Sets the value of [version][crate::model::MavenArtifact::version].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::MavenArtifact;
-    /// let x = MavenArtifact::new().set_version("example");
-    /// ```
     pub fn set_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.version = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::MavenArtifact::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::MavenArtifact;
-    /// use wkt::Timestamp;
-    /// let x = MavenArtifact::new().set_create_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1227,14 +943,6 @@ impl MavenArtifact {
     }
 
     /// Sets or clears the value of [create_time][crate::model::MavenArtifact::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::MavenArtifact;
-    /// use wkt::Timestamp;
-    /// let x = MavenArtifact::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
-    /// let x = MavenArtifact::new().set_or_clear_create_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1244,13 +952,6 @@ impl MavenArtifact {
     }
 
     /// Sets the value of [update_time][crate::model::MavenArtifact::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::MavenArtifact;
-    /// use wkt::Timestamp;
-    /// let x = MavenArtifact::new().set_update_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1260,14 +961,6 @@ impl MavenArtifact {
     }
 
     /// Sets or clears the value of [update_time][crate::model::MavenArtifact::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::MavenArtifact;
-    /// use wkt::Timestamp;
-    /// let x = MavenArtifact::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
-    /// let x = MavenArtifact::new().set_or_clear_update_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1306,36 +999,18 @@ impl ListMavenArtifactsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListMavenArtifactsRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::ListMavenArtifactsRequest;
-    /// let x = ListMavenArtifactsRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListMavenArtifactsRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::ListMavenArtifactsRequest;
-    /// let x = ListMavenArtifactsRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListMavenArtifactsRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::ListMavenArtifactsRequest;
-    /// let x = ListMavenArtifactsRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -1368,17 +1043,6 @@ impl ListMavenArtifactsResponse {
     }
 
     /// Sets the value of [maven_artifacts][crate::model::ListMavenArtifactsResponse::maven_artifacts].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::ListMavenArtifactsResponse;
-    /// use google_cloud_artifactregistry_v1::model::MavenArtifact;
-    /// let x = ListMavenArtifactsResponse::new()
-    ///     .set_maven_artifacts([
-    ///         MavenArtifact::default()/* use setters */,
-    ///         MavenArtifact::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_maven_artifacts<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1390,12 +1054,6 @@ impl ListMavenArtifactsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListMavenArtifactsResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::ListMavenArtifactsResponse;
-    /// let x = ListMavenArtifactsResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -1438,12 +1096,6 @@ impl GetMavenArtifactRequest {
     }
 
     /// Sets the value of [name][crate::model::GetMavenArtifactRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::GetMavenArtifactRequest;
-    /// let x = GetMavenArtifactRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -1493,48 +1145,24 @@ impl NpmPackage {
     }
 
     /// Sets the value of [name][crate::model::NpmPackage::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::NpmPackage;
-    /// let x = NpmPackage::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [package_name][crate::model::NpmPackage::package_name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::NpmPackage;
-    /// let x = NpmPackage::new().set_package_name("example");
-    /// ```
     pub fn set_package_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.package_name = v.into();
         self
     }
 
     /// Sets the value of [version][crate::model::NpmPackage::version].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::NpmPackage;
-    /// let x = NpmPackage::new().set_version("example");
-    /// ```
     pub fn set_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.version = v.into();
         self
     }
 
     /// Sets the value of [tags][crate::model::NpmPackage::tags].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::NpmPackage;
-    /// let x = NpmPackage::new().set_tags(["a", "b", "c"]);
-    /// ```
     pub fn set_tags<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1546,13 +1174,6 @@ impl NpmPackage {
     }
 
     /// Sets the value of [create_time][crate::model::NpmPackage::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::NpmPackage;
-    /// use wkt::Timestamp;
-    /// let x = NpmPackage::new().set_create_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1562,14 +1183,6 @@ impl NpmPackage {
     }
 
     /// Sets or clears the value of [create_time][crate::model::NpmPackage::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::NpmPackage;
-    /// use wkt::Timestamp;
-    /// let x = NpmPackage::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
-    /// let x = NpmPackage::new().set_or_clear_create_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1579,13 +1192,6 @@ impl NpmPackage {
     }
 
     /// Sets the value of [update_time][crate::model::NpmPackage::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::NpmPackage;
-    /// use wkt::Timestamp;
-    /// let x = NpmPackage::new().set_update_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1595,14 +1201,6 @@ impl NpmPackage {
     }
 
     /// Sets or clears the value of [update_time][crate::model::NpmPackage::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::NpmPackage;
-    /// use wkt::Timestamp;
-    /// let x = NpmPackage::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
-    /// let x = NpmPackage::new().set_or_clear_update_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1641,36 +1239,18 @@ impl ListNpmPackagesRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListNpmPackagesRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::ListNpmPackagesRequest;
-    /// let x = ListNpmPackagesRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListNpmPackagesRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::ListNpmPackagesRequest;
-    /// let x = ListNpmPackagesRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListNpmPackagesRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::ListNpmPackagesRequest;
-    /// let x = ListNpmPackagesRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -1703,17 +1283,6 @@ impl ListNpmPackagesResponse {
     }
 
     /// Sets the value of [npm_packages][crate::model::ListNpmPackagesResponse::npm_packages].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::ListNpmPackagesResponse;
-    /// use google_cloud_artifactregistry_v1::model::NpmPackage;
-    /// let x = ListNpmPackagesResponse::new()
-    ///     .set_npm_packages([
-    ///         NpmPackage::default()/* use setters */,
-    ///         NpmPackage::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_npm_packages<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1725,12 +1294,6 @@ impl ListNpmPackagesResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListNpmPackagesResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::ListNpmPackagesResponse;
-    /// let x = ListNpmPackagesResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -1773,12 +1336,6 @@ impl GetNpmPackageRequest {
     }
 
     /// Sets the value of [name][crate::model::GetNpmPackageRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::GetNpmPackageRequest;
-    /// let x = GetNpmPackageRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -1832,61 +1389,30 @@ impl PythonPackage {
     }
 
     /// Sets the value of [name][crate::model::PythonPackage::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::PythonPackage;
-    /// let x = PythonPackage::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [uri][crate::model::PythonPackage::uri].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::PythonPackage;
-    /// let x = PythonPackage::new().set_uri("example");
-    /// ```
     pub fn set_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.uri = v.into();
         self
     }
 
     /// Sets the value of [package_name][crate::model::PythonPackage::package_name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::PythonPackage;
-    /// let x = PythonPackage::new().set_package_name("example");
-    /// ```
     pub fn set_package_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.package_name = v.into();
         self
     }
 
     /// Sets the value of [version][crate::model::PythonPackage::version].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::PythonPackage;
-    /// let x = PythonPackage::new().set_version("example");
-    /// ```
     pub fn set_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.version = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::PythonPackage::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::PythonPackage;
-    /// use wkt::Timestamp;
-    /// let x = PythonPackage::new().set_create_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1896,14 +1422,6 @@ impl PythonPackage {
     }
 
     /// Sets or clears the value of [create_time][crate::model::PythonPackage::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::PythonPackage;
-    /// use wkt::Timestamp;
-    /// let x = PythonPackage::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
-    /// let x = PythonPackage::new().set_or_clear_create_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1913,13 +1431,6 @@ impl PythonPackage {
     }
 
     /// Sets the value of [update_time][crate::model::PythonPackage::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::PythonPackage;
-    /// use wkt::Timestamp;
-    /// let x = PythonPackage::new().set_update_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1929,14 +1440,6 @@ impl PythonPackage {
     }
 
     /// Sets or clears the value of [update_time][crate::model::PythonPackage::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::PythonPackage;
-    /// use wkt::Timestamp;
-    /// let x = PythonPackage::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
-    /// let x = PythonPackage::new().set_or_clear_update_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1975,36 +1478,18 @@ impl ListPythonPackagesRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListPythonPackagesRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::ListPythonPackagesRequest;
-    /// let x = ListPythonPackagesRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListPythonPackagesRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::ListPythonPackagesRequest;
-    /// let x = ListPythonPackagesRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListPythonPackagesRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::ListPythonPackagesRequest;
-    /// let x = ListPythonPackagesRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -2037,17 +1522,6 @@ impl ListPythonPackagesResponse {
     }
 
     /// Sets the value of [python_packages][crate::model::ListPythonPackagesResponse::python_packages].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::ListPythonPackagesResponse;
-    /// use google_cloud_artifactregistry_v1::model::PythonPackage;
-    /// let x = ListPythonPackagesResponse::new()
-    ///     .set_python_packages([
-    ///         PythonPackage::default()/* use setters */,
-    ///         PythonPackage::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_python_packages<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2059,12 +1533,6 @@ impl ListPythonPackagesResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListPythonPackagesResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::ListPythonPackagesResponse;
-    /// let x = ListPythonPackagesResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -2107,12 +1575,6 @@ impl GetPythonPackageRequest {
     }
 
     /// Sets the value of [name][crate::model::GetPythonPackageRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::GetPythonPackageRequest;
-    /// let x = GetPythonPackageRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -2179,48 +1641,24 @@ impl Attachment {
     }
 
     /// Sets the value of [name][crate::model::Attachment::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::Attachment;
-    /// let x = Attachment::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [target][crate::model::Attachment::target].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::Attachment;
-    /// let x = Attachment::new().set_target("example");
-    /// ```
     pub fn set_target<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.target = v.into();
         self
     }
 
     /// Sets the value of [r#type][crate::model::Attachment::type].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::Attachment;
-    /// let x = Attachment::new().set_type("example");
-    /// ```
     pub fn set_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.r#type = v.into();
         self
     }
 
     /// Sets the value of [attachment_namespace][crate::model::Attachment::attachment_namespace].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::Attachment;
-    /// let x = Attachment::new().set_attachment_namespace("example");
-    /// ```
     pub fn set_attachment_namespace<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -2230,15 +1668,6 @@ impl Attachment {
     }
 
     /// Sets the value of [annotations][crate::model::Attachment::annotations].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::Attachment;
-    /// let x = Attachment::new().set_annotations([
-    ///     ("key0", "abc"),
-    ///     ("key1", "xyz"),
-    /// ]);
-    /// ```
     pub fn set_annotations<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -2251,13 +1680,6 @@ impl Attachment {
     }
 
     /// Sets the value of [create_time][crate::model::Attachment::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::Attachment;
-    /// use wkt::Timestamp;
-    /// let x = Attachment::new().set_create_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2267,14 +1689,6 @@ impl Attachment {
     }
 
     /// Sets or clears the value of [create_time][crate::model::Attachment::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::Attachment;
-    /// use wkt::Timestamp;
-    /// let x = Attachment::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
-    /// let x = Attachment::new().set_or_clear_create_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2284,13 +1698,6 @@ impl Attachment {
     }
 
     /// Sets the value of [update_time][crate::model::Attachment::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::Attachment;
-    /// use wkt::Timestamp;
-    /// let x = Attachment::new().set_update_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2300,14 +1707,6 @@ impl Attachment {
     }
 
     /// Sets or clears the value of [update_time][crate::model::Attachment::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::Attachment;
-    /// use wkt::Timestamp;
-    /// let x = Attachment::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
-    /// let x = Attachment::new().set_or_clear_update_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2317,12 +1716,6 @@ impl Attachment {
     }
 
     /// Sets the value of [files][crate::model::Attachment::files].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::Attachment;
-    /// let x = Attachment::new().set_files(["a", "b", "c"]);
-    /// ```
     pub fn set_files<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2334,12 +1727,6 @@ impl Attachment {
     }
 
     /// Sets the value of [oci_version_name][crate::model::Attachment::oci_version_name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::Attachment;
-    /// let x = Attachment::new().set_oci_version_name("example");
-    /// ```
     pub fn set_oci_version_name<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -2385,48 +1772,24 @@ impl ListAttachmentsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListAttachmentsRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::ListAttachmentsRequest;
-    /// let x = ListAttachmentsRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListAttachmentsRequest::filter].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::ListAttachmentsRequest;
-    /// let x = ListAttachmentsRequest::new().set_filter("example");
-    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListAttachmentsRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::ListAttachmentsRequest;
-    /// let x = ListAttachmentsRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListAttachmentsRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::ListAttachmentsRequest;
-    /// let x = ListAttachmentsRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -2459,17 +1822,6 @@ impl ListAttachmentsResponse {
     }
 
     /// Sets the value of [attachments][crate::model::ListAttachmentsResponse::attachments].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::ListAttachmentsResponse;
-    /// use google_cloud_artifactregistry_v1::model::Attachment;
-    /// let x = ListAttachmentsResponse::new()
-    ///     .set_attachments([
-    ///         Attachment::default()/* use setters */,
-    ///         Attachment::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_attachments<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2481,12 +1833,6 @@ impl ListAttachmentsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListAttachmentsResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::ListAttachmentsResponse;
-    /// let x = ListAttachmentsResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -2529,12 +1875,6 @@ impl GetAttachmentRequest {
     }
 
     /// Sets the value of [name][crate::model::GetAttachmentRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::GetAttachmentRequest;
-    /// let x = GetAttachmentRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -2570,37 +1910,18 @@ impl CreateAttachmentRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateAttachmentRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::CreateAttachmentRequest;
-    /// let x = CreateAttachmentRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [attachment_id][crate::model::CreateAttachmentRequest::attachment_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::CreateAttachmentRequest;
-    /// let x = CreateAttachmentRequest::new().set_attachment_id("example");
-    /// ```
     pub fn set_attachment_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.attachment_id = v.into();
         self
     }
 
     /// Sets the value of [attachment][crate::model::CreateAttachmentRequest::attachment].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::CreateAttachmentRequest;
-    /// use google_cloud_artifactregistry_v1::model::Attachment;
-    /// let x = CreateAttachmentRequest::new().set_attachment(Attachment::default()/* use setters */);
-    /// ```
     pub fn set_attachment<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Attachment>,
@@ -2610,14 +1931,6 @@ impl CreateAttachmentRequest {
     }
 
     /// Sets or clears the value of [attachment][crate::model::CreateAttachmentRequest::attachment].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::CreateAttachmentRequest;
-    /// use google_cloud_artifactregistry_v1::model::Attachment;
-    /// let x = CreateAttachmentRequest::new().set_or_clear_attachment(Some(Attachment::default()/* use setters */));
-    /// let x = CreateAttachmentRequest::new().set_or_clear_attachment(None::<Attachment>);
-    /// ```
     pub fn set_or_clear_attachment<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Attachment>,
@@ -2649,12 +1962,6 @@ impl DeleteAttachmentRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteAttachmentRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::DeleteAttachmentRequest;
-    /// let x = DeleteAttachmentRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -2686,26 +1993,12 @@ impl Hash {
     }
 
     /// Sets the value of [r#type][crate::model::Hash::type].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::Hash;
-    /// use google_cloud_artifactregistry_v1::model::hash::HashType;
-    /// let x0 = Hash::new().set_type(HashType::Sha256);
-    /// let x1 = Hash::new().set_type(HashType::Md5);
-    /// ```
     pub fn set_type<T: std::convert::Into<crate::model::hash::HashType>>(mut self, v: T) -> Self {
         self.r#type = v.into();
         self
     }
 
     /// Sets the value of [value][crate::model::Hash::value].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::Hash;
-    /// let x = Hash::new().set_value(bytes::Bytes::from_static(b"example"));
-    /// ```
     pub fn set_value<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.value = v.into();
         self
@@ -2896,41 +2189,18 @@ impl File {
     }
 
     /// Sets the value of [name][crate::model::File::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::File;
-    /// let x = File::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [size_bytes][crate::model::File::size_bytes].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::File;
-    /// let x = File::new().set_size_bytes(42);
-    /// ```
     pub fn set_size_bytes<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.size_bytes = v.into();
         self
     }
 
     /// Sets the value of [hashes][crate::model::File::hashes].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::File;
-    /// use google_cloud_artifactregistry_v1::model::Hash;
-    /// let x = File::new()
-    ///     .set_hashes([
-    ///         Hash::default()/* use setters */,
-    ///         Hash::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_hashes<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2942,13 +2212,6 @@ impl File {
     }
 
     /// Sets the value of [create_time][crate::model::File::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::File;
-    /// use wkt::Timestamp;
-    /// let x = File::new().set_create_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2958,14 +2221,6 @@ impl File {
     }
 
     /// Sets or clears the value of [create_time][crate::model::File::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::File;
-    /// use wkt::Timestamp;
-    /// let x = File::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
-    /// let x = File::new().set_or_clear_create_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2975,13 +2230,6 @@ impl File {
     }
 
     /// Sets the value of [update_time][crate::model::File::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::File;
-    /// use wkt::Timestamp;
-    /// let x = File::new().set_update_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2991,14 +2239,6 @@ impl File {
     }
 
     /// Sets or clears the value of [update_time][crate::model::File::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::File;
-    /// use wkt::Timestamp;
-    /// let x = File::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
-    /// let x = File::new().set_or_clear_update_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3008,25 +2248,12 @@ impl File {
     }
 
     /// Sets the value of [owner][crate::model::File::owner].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::File;
-    /// let x = File::new().set_owner("example");
-    /// ```
     pub fn set_owner<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.owner = v.into();
         self
     }
 
     /// Sets the value of [fetch_time][crate::model::File::fetch_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::File;
-    /// use wkt::Timestamp;
-    /// let x = File::new().set_fetch_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_fetch_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3036,14 +2263,6 @@ impl File {
     }
 
     /// Sets or clears the value of [fetch_time][crate::model::File::fetch_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::File;
-    /// use wkt::Timestamp;
-    /// let x = File::new().set_or_clear_fetch_time(Some(Timestamp::default()/* use setters */));
-    /// let x = File::new().set_or_clear_fetch_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_fetch_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3053,15 +2272,6 @@ impl File {
     }
 
     /// Sets the value of [annotations][crate::model::File::annotations].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::File;
-    /// let x = File::new().set_annotations([
-    ///     ("key0", "abc"),
-    ///     ("key1", "xyz"),
-    /// ]);
-    /// ```
     pub fn set_annotations<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -3158,60 +2368,30 @@ impl ListFilesRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListFilesRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::ListFilesRequest;
-    /// let x = ListFilesRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListFilesRequest::filter].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::ListFilesRequest;
-    /// let x = ListFilesRequest::new().set_filter("example");
-    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListFilesRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::ListFilesRequest;
-    /// let x = ListFilesRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListFilesRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::ListFilesRequest;
-    /// let x = ListFilesRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListFilesRequest::order_by].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::ListFilesRequest;
-    /// let x = ListFilesRequest::new().set_order_by("example");
-    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
@@ -3244,17 +2424,6 @@ impl ListFilesResponse {
     }
 
     /// Sets the value of [files][crate::model::ListFilesResponse::files].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::ListFilesResponse;
-    /// use google_cloud_artifactregistry_v1::model::File;
-    /// let x = ListFilesResponse::new()
-    ///     .set_files([
-    ///         File::default()/* use setters */,
-    ///         File::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_files<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3266,12 +2435,6 @@ impl ListFilesResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListFilesResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::ListFilesResponse;
-    /// let x = ListFilesResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -3314,12 +2477,6 @@ impl GetFileRequest {
     }
 
     /// Sets the value of [name][crate::model::GetFileRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::GetFileRequest;
-    /// let x = GetFileRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -3348,12 +2505,6 @@ impl DeleteFileRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteFileRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::DeleteFileRequest;
-    /// let x = DeleteFileRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -3387,13 +2538,6 @@ impl UpdateFileRequest {
     }
 
     /// Sets the value of [file][crate::model::UpdateFileRequest::file].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::UpdateFileRequest;
-    /// use google_cloud_artifactregistry_v1::model::File;
-    /// let x = UpdateFileRequest::new().set_file(File::default()/* use setters */);
-    /// ```
     pub fn set_file<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::File>,
@@ -3403,14 +2547,6 @@ impl UpdateFileRequest {
     }
 
     /// Sets or clears the value of [file][crate::model::UpdateFileRequest::file].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::UpdateFileRequest;
-    /// use google_cloud_artifactregistry_v1::model::File;
-    /// let x = UpdateFileRequest::new().set_or_clear_file(Some(File::default()/* use setters */));
-    /// let x = UpdateFileRequest::new().set_or_clear_file(None::<File>);
-    /// ```
     pub fn set_or_clear_file<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::File>,
@@ -3420,13 +2556,6 @@ impl UpdateFileRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateFileRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::UpdateFileRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateFileRequest::new().set_update_mask(FieldMask::default()/* use setters */);
-    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -3436,14 +2565,6 @@ impl UpdateFileRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateFileRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::UpdateFileRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateFileRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
-    /// let x = UpdateFileRequest::new().set_or_clear_update_mask(None::<FieldMask>);
-    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -3488,37 +2609,18 @@ impl GenericArtifact {
     }
 
     /// Sets the value of [name][crate::model::GenericArtifact::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::GenericArtifact;
-    /// let x = GenericArtifact::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [version][crate::model::GenericArtifact::version].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::GenericArtifact;
-    /// let x = GenericArtifact::new().set_version("example");
-    /// ```
     pub fn set_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.version = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::GenericArtifact::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::GenericArtifact;
-    /// use wkt::Timestamp;
-    /// let x = GenericArtifact::new().set_create_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3528,14 +2630,6 @@ impl GenericArtifact {
     }
 
     /// Sets or clears the value of [create_time][crate::model::GenericArtifact::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::GenericArtifact;
-    /// use wkt::Timestamp;
-    /// let x = GenericArtifact::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
-    /// let x = GenericArtifact::new().set_or_clear_create_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3545,13 +2639,6 @@ impl GenericArtifact {
     }
 
     /// Sets the value of [update_time][crate::model::GenericArtifact::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::GenericArtifact;
-    /// use wkt::Timestamp;
-    /// let x = GenericArtifact::new().set_update_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3561,14 +2648,6 @@ impl GenericArtifact {
     }
 
     /// Sets or clears the value of [update_time][crate::model::GenericArtifact::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::GenericArtifact;
-    /// use wkt::Timestamp;
-    /// let x = GenericArtifact::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
-    /// let x = GenericArtifact::new().set_or_clear_update_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3610,37 +2689,18 @@ impl GoModule {
     }
 
     /// Sets the value of [name][crate::model::GoModule::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::GoModule;
-    /// let x = GoModule::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [version][crate::model::GoModule::version].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::GoModule;
-    /// let x = GoModule::new().set_version("example");
-    /// ```
     pub fn set_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.version = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::GoModule::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::GoModule;
-    /// use wkt::Timestamp;
-    /// let x = GoModule::new().set_create_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3650,14 +2710,6 @@ impl GoModule {
     }
 
     /// Sets or clears the value of [create_time][crate::model::GoModule::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::GoModule;
-    /// use wkt::Timestamp;
-    /// let x = GoModule::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
-    /// let x = GoModule::new().set_or_clear_create_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3667,13 +2719,6 @@ impl GoModule {
     }
 
     /// Sets the value of [update_time][crate::model::GoModule::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::GoModule;
-    /// use wkt::Timestamp;
-    /// let x = GoModule::new().set_update_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3683,14 +2728,6 @@ impl GoModule {
     }
 
     /// Sets or clears the value of [update_time][crate::model::GoModule::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::GoModule;
-    /// use wkt::Timestamp;
-    /// let x = GoModule::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
-    /// let x = GoModule::new().set_or_clear_update_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3729,24 +2766,12 @@ impl KfpArtifact {
     }
 
     /// Sets the value of [name][crate::model::KfpArtifact::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::KfpArtifact;
-    /// let x = KfpArtifact::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [version][crate::model::KfpArtifact::version].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::KfpArtifact;
-    /// let x = KfpArtifact::new().set_version("example");
-    /// ```
     pub fn set_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.version = v.into();
         self
@@ -3790,37 +2815,18 @@ impl Package {
     }
 
     /// Sets the value of [name][crate::model::Package::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::Package;
-    /// let x = Package::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [display_name][crate::model::Package::display_name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::Package;
-    /// let x = Package::new().set_display_name("example");
-    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::Package::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::Package;
-    /// use wkt::Timestamp;
-    /// let x = Package::new().set_create_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3830,14 +2836,6 @@ impl Package {
     }
 
     /// Sets or clears the value of [create_time][crate::model::Package::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::Package;
-    /// use wkt::Timestamp;
-    /// let x = Package::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
-    /// let x = Package::new().set_or_clear_create_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3847,13 +2845,6 @@ impl Package {
     }
 
     /// Sets the value of [update_time][crate::model::Package::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::Package;
-    /// use wkt::Timestamp;
-    /// let x = Package::new().set_update_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3863,14 +2854,6 @@ impl Package {
     }
 
     /// Sets or clears the value of [update_time][crate::model::Package::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::Package;
-    /// use wkt::Timestamp;
-    /// let x = Package::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
-    /// let x = Package::new().set_or_clear_update_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3880,15 +2863,6 @@ impl Package {
     }
 
     /// Sets the value of [annotations][crate::model::Package::annotations].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::Package;
-    /// let x = Package::new().set_annotations([
-    ///     ("key0", "abc"),
-    ///     ("key1", "xyz"),
-    /// ]);
-    /// ```
     pub fn set_annotations<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -3979,60 +2953,30 @@ impl ListPackagesRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListPackagesRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::ListPackagesRequest;
-    /// let x = ListPackagesRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListPackagesRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::ListPackagesRequest;
-    /// let x = ListPackagesRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListPackagesRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::ListPackagesRequest;
-    /// let x = ListPackagesRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListPackagesRequest::filter].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::ListPackagesRequest;
-    /// let x = ListPackagesRequest::new().set_filter("example");
-    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListPackagesRequest::order_by].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::ListPackagesRequest;
-    /// let x = ListPackagesRequest::new().set_order_by("example");
-    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
@@ -4065,17 +3009,6 @@ impl ListPackagesResponse {
     }
 
     /// Sets the value of [packages][crate::model::ListPackagesResponse::packages].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::ListPackagesResponse;
-    /// use google_cloud_artifactregistry_v1::model::Package;
-    /// let x = ListPackagesResponse::new()
-    ///     .set_packages([
-    ///         Package::default()/* use setters */,
-    ///         Package::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_packages<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4087,12 +3020,6 @@ impl ListPackagesResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListPackagesResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::ListPackagesResponse;
-    /// let x = ListPackagesResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -4135,12 +3062,6 @@ impl GetPackageRequest {
     }
 
     /// Sets the value of [name][crate::model::GetPackageRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::GetPackageRequest;
-    /// let x = GetPackageRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -4169,12 +3090,6 @@ impl DeletePackageRequest {
     }
 
     /// Sets the value of [name][crate::model::DeletePackageRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::DeletePackageRequest;
-    /// let x = DeletePackageRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -4208,13 +3123,6 @@ impl UpdatePackageRequest {
     }
 
     /// Sets the value of [package][crate::model::UpdatePackageRequest::package].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::UpdatePackageRequest;
-    /// use google_cloud_artifactregistry_v1::model::Package;
-    /// let x = UpdatePackageRequest::new().set_package(Package::default()/* use setters */);
-    /// ```
     pub fn set_package<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Package>,
@@ -4224,14 +3132,6 @@ impl UpdatePackageRequest {
     }
 
     /// Sets or clears the value of [package][crate::model::UpdatePackageRequest::package].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::UpdatePackageRequest;
-    /// use google_cloud_artifactregistry_v1::model::Package;
-    /// let x = UpdatePackageRequest::new().set_or_clear_package(Some(Package::default()/* use setters */));
-    /// let x = UpdatePackageRequest::new().set_or_clear_package(None::<Package>);
-    /// ```
     pub fn set_or_clear_package<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Package>,
@@ -4241,13 +3141,6 @@ impl UpdatePackageRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdatePackageRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::UpdatePackageRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdatePackageRequest::new().set_update_mask(FieldMask::default()/* use setters */);
-    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -4257,14 +3150,6 @@ impl UpdatePackageRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdatePackageRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::UpdatePackageRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdatePackageRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
-    /// let x = UpdatePackageRequest::new().set_or_clear_update_mask(None::<FieldMask>);
-    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -4303,36 +3188,18 @@ impl UpstreamPolicy {
     }
 
     /// Sets the value of [id][crate::model::UpstreamPolicy::id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::UpstreamPolicy;
-    /// let x = UpstreamPolicy::new().set_id("example");
-    /// ```
     pub fn set_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.id = v.into();
         self
     }
 
     /// Sets the value of [repository][crate::model::UpstreamPolicy::repository].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::UpstreamPolicy;
-    /// let x = UpstreamPolicy::new().set_repository("example");
-    /// ```
     pub fn set_repository<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.repository = v.into();
         self
     }
 
     /// Sets the value of [priority][crate::model::UpstreamPolicy::priority].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::UpstreamPolicy;
-    /// let x = UpstreamPolicy::new().set_priority(42);
-    /// ```
     pub fn set_priority<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.priority = v.into();
         self
@@ -4378,15 +3245,6 @@ impl CleanupPolicyCondition {
     }
 
     /// Sets the value of [tag_state][crate::model::CleanupPolicyCondition::tag_state].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::CleanupPolicyCondition;
-    /// use google_cloud_artifactregistry_v1::model::cleanup_policy_condition::TagState;
-    /// let x0 = CleanupPolicyCondition::new().set_tag_state(TagState::Tagged);
-    /// let x1 = CleanupPolicyCondition::new().set_tag_state(TagState::Untagged);
-    /// let x2 = CleanupPolicyCondition::new().set_tag_state(TagState::Any);
-    /// ```
     pub fn set_tag_state<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::cleanup_policy_condition::TagState>,
@@ -4396,16 +3254,6 @@ impl CleanupPolicyCondition {
     }
 
     /// Sets or clears the value of [tag_state][crate::model::CleanupPolicyCondition::tag_state].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::CleanupPolicyCondition;
-    /// use google_cloud_artifactregistry_v1::model::cleanup_policy_condition::TagState;
-    /// let x0 = CleanupPolicyCondition::new().set_or_clear_tag_state(Some(TagState::Tagged));
-    /// let x1 = CleanupPolicyCondition::new().set_or_clear_tag_state(Some(TagState::Untagged));
-    /// let x2 = CleanupPolicyCondition::new().set_or_clear_tag_state(Some(TagState::Any));
-    /// let x_none = CleanupPolicyCondition::new().set_or_clear_tag_state(None::<TagState>);
-    /// ```
     pub fn set_or_clear_tag_state<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::cleanup_policy_condition::TagState>,
@@ -4415,12 +3263,6 @@ impl CleanupPolicyCondition {
     }
 
     /// Sets the value of [tag_prefixes][crate::model::CleanupPolicyCondition::tag_prefixes].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::CleanupPolicyCondition;
-    /// let x = CleanupPolicyCondition::new().set_tag_prefixes(["a", "b", "c"]);
-    /// ```
     pub fn set_tag_prefixes<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4432,12 +3274,6 @@ impl CleanupPolicyCondition {
     }
 
     /// Sets the value of [version_name_prefixes][crate::model::CleanupPolicyCondition::version_name_prefixes].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::CleanupPolicyCondition;
-    /// let x = CleanupPolicyCondition::new().set_version_name_prefixes(["a", "b", "c"]);
-    /// ```
     pub fn set_version_name_prefixes<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4449,12 +3285,6 @@ impl CleanupPolicyCondition {
     }
 
     /// Sets the value of [package_name_prefixes][crate::model::CleanupPolicyCondition::package_name_prefixes].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::CleanupPolicyCondition;
-    /// let x = CleanupPolicyCondition::new().set_package_name_prefixes(["a", "b", "c"]);
-    /// ```
     pub fn set_package_name_prefixes<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4466,13 +3296,6 @@ impl CleanupPolicyCondition {
     }
 
     /// Sets the value of [older_than][crate::model::CleanupPolicyCondition::older_than].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::CleanupPolicyCondition;
-    /// use wkt::Duration;
-    /// let x = CleanupPolicyCondition::new().set_older_than(Duration::default()/* use setters */);
-    /// ```
     pub fn set_older_than<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -4482,14 +3305,6 @@ impl CleanupPolicyCondition {
     }
 
     /// Sets or clears the value of [older_than][crate::model::CleanupPolicyCondition::older_than].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::CleanupPolicyCondition;
-    /// use wkt::Duration;
-    /// let x = CleanupPolicyCondition::new().set_or_clear_older_than(Some(Duration::default()/* use setters */));
-    /// let x = CleanupPolicyCondition::new().set_or_clear_older_than(None::<Duration>);
-    /// ```
     pub fn set_or_clear_older_than<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -4499,13 +3314,6 @@ impl CleanupPolicyCondition {
     }
 
     /// Sets the value of [newer_than][crate::model::CleanupPolicyCondition::newer_than].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::CleanupPolicyCondition;
-    /// use wkt::Duration;
-    /// let x = CleanupPolicyCondition::new().set_newer_than(Duration::default()/* use setters */);
-    /// ```
     pub fn set_newer_than<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -4515,14 +3323,6 @@ impl CleanupPolicyCondition {
     }
 
     /// Sets or clears the value of [newer_than][crate::model::CleanupPolicyCondition::newer_than].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::CleanupPolicyCondition;
-    /// use wkt::Duration;
-    /// let x = CleanupPolicyCondition::new().set_or_clear_newer_than(Some(Duration::default()/* use setters */));
-    /// let x = CleanupPolicyCondition::new().set_or_clear_newer_than(None::<Duration>);
-    /// ```
     pub fn set_or_clear_newer_than<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -4703,12 +3503,6 @@ impl CleanupPolicyMostRecentVersions {
     }
 
     /// Sets the value of [package_name_prefixes][crate::model::CleanupPolicyMostRecentVersions::package_name_prefixes].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::CleanupPolicyMostRecentVersions;
-    /// let x = CleanupPolicyMostRecentVersions::new().set_package_name_prefixes(["a", "b", "c"]);
-    /// ```
     pub fn set_package_name_prefixes<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4720,12 +3514,6 @@ impl CleanupPolicyMostRecentVersions {
     }
 
     /// Sets the value of [keep_count][crate::model::CleanupPolicyMostRecentVersions::keep_count].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::CleanupPolicyMostRecentVersions;
-    /// let x = CleanupPolicyMostRecentVersions::new().set_keep_count(42);
-    /// ```
     pub fn set_keep_count<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<i32>,
@@ -4735,13 +3523,6 @@ impl CleanupPolicyMostRecentVersions {
     }
 
     /// Sets or clears the value of [keep_count][crate::model::CleanupPolicyMostRecentVersions::keep_count].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::CleanupPolicyMostRecentVersions;
-    /// let x = CleanupPolicyMostRecentVersions::new().set_or_clear_keep_count(Some(42));
-    /// let x = CleanupPolicyMostRecentVersions::new().set_or_clear_keep_count(None::<i32>);
-    /// ```
     pub fn set_or_clear_keep_count<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i32>,
@@ -4778,26 +3559,12 @@ impl CleanupPolicy {
     }
 
     /// Sets the value of [id][crate::model::CleanupPolicy::id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::CleanupPolicy;
-    /// let x = CleanupPolicy::new().set_id("example");
-    /// ```
     pub fn set_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.id = v.into();
         self
     }
 
     /// Sets the value of [action][crate::model::CleanupPolicy::action].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::CleanupPolicy;
-    /// use google_cloud_artifactregistry_v1::model::cleanup_policy::Action;
-    /// let x0 = CleanupPolicy::new().set_action(Action::Delete);
-    /// let x1 = CleanupPolicy::new().set_action(Action::Keep);
-    /// ```
     pub fn set_action<T: std::convert::Into<crate::model::cleanup_policy::Action>>(
         mut self,
         v: T,
@@ -4810,14 +3577,6 @@ impl CleanupPolicy {
     ///
     /// Note that all the setters affecting `condition_type` are mutually
     /// exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::CleanupPolicy;
-    /// use google_cloud_artifactregistry_v1::model::cleanup_policy;
-    /// use google_cloud_artifactregistry_v1::model::CleanupPolicyCondition;
-    /// let x = CleanupPolicy::new().set_condition_type(Some(cleanup_policy::ConditionType::Condition(CleanupPolicyCondition::default().into())));
-    /// ```
     pub fn set_condition_type<
         T: std::convert::Into<std::option::Option<crate::model::cleanup_policy::ConditionType>>,
     >(
@@ -4848,15 +3607,6 @@ impl CleanupPolicy {
     ///
     /// Note that all the setters affecting `condition_type` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::CleanupPolicy;
-    /// use google_cloud_artifactregistry_v1::model::CleanupPolicyCondition;
-    /// let x = CleanupPolicy::new().set_condition(CleanupPolicyCondition::default()/* use setters */);
-    /// assert!(x.condition().is_some());
-    /// assert!(x.most_recent_versions().is_none());
-    /// ```
     pub fn set_condition<
         T: std::convert::Into<std::boxed::Box<crate::model::CleanupPolicyCondition>>,
     >(
@@ -4889,15 +3639,6 @@ impl CleanupPolicy {
     ///
     /// Note that all the setters affecting `condition_type` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::CleanupPolicy;
-    /// use google_cloud_artifactregistry_v1::model::CleanupPolicyMostRecentVersions;
-    /// let x = CleanupPolicy::new().set_most_recent_versions(CleanupPolicyMostRecentVersions::default()/* use setters */);
-    /// assert!(x.most_recent_versions().is_some());
-    /// assert!(x.condition().is_none());
-    /// ```
     pub fn set_most_recent_versions<
         T: std::convert::Into<std::boxed::Box<crate::model::CleanupPolicyMostRecentVersions>>,
     >(
@@ -5082,17 +3823,6 @@ impl VirtualRepositoryConfig {
     }
 
     /// Sets the value of [upstream_policies][crate::model::VirtualRepositoryConfig::upstream_policies].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::VirtualRepositoryConfig;
-    /// use google_cloud_artifactregistry_v1::model::UpstreamPolicy;
-    /// let x = VirtualRepositoryConfig::new()
-    ///     .set_upstream_policies([
-    ///         UpstreamPolicy::default()/* use setters */,
-    ///         UpstreamPolicy::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_upstream_policies<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -5137,25 +3867,12 @@ impl RemoteRepositoryConfig {
     }
 
     /// Sets the value of [description][crate::model::RemoteRepositoryConfig::description].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::RemoteRepositoryConfig;
-    /// let x = RemoteRepositoryConfig::new().set_description("example");
-    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [upstream_credentials][crate::model::RemoteRepositoryConfig::upstream_credentials].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::RemoteRepositoryConfig;
-    /// use google_cloud_artifactregistry_v1::model::remote_repository_config::UpstreamCredentials;
-    /// let x = RemoteRepositoryConfig::new().set_upstream_credentials(UpstreamCredentials::default()/* use setters */);
-    /// ```
     pub fn set_upstream_credentials<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::remote_repository_config::UpstreamCredentials>,
@@ -5165,14 +3882,6 @@ impl RemoteRepositoryConfig {
     }
 
     /// Sets or clears the value of [upstream_credentials][crate::model::RemoteRepositoryConfig::upstream_credentials].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::RemoteRepositoryConfig;
-    /// use google_cloud_artifactregistry_v1::model::remote_repository_config::UpstreamCredentials;
-    /// let x = RemoteRepositoryConfig::new().set_or_clear_upstream_credentials(Some(UpstreamCredentials::default()/* use setters */));
-    /// let x = RemoteRepositoryConfig::new().set_or_clear_upstream_credentials(None::<UpstreamCredentials>);
-    /// ```
     pub fn set_or_clear_upstream_credentials<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::remote_repository_config::UpstreamCredentials>,
@@ -5182,12 +3891,6 @@ impl RemoteRepositoryConfig {
     }
 
     /// Sets the value of [disable_upstream_validation][crate::model::RemoteRepositoryConfig::disable_upstream_validation].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::RemoteRepositoryConfig;
-    /// let x = RemoteRepositoryConfig::new().set_disable_upstream_validation(true);
-    /// ```
     pub fn set_disable_upstream_validation<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.disable_upstream_validation = v.into();
         self
@@ -5197,14 +3900,6 @@ impl RemoteRepositoryConfig {
     ///
     /// Note that all the setters affecting `remote_source` are mutually
     /// exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::RemoteRepositoryConfig;
-    /// use google_cloud_artifactregistry_v1::model::remote_repository_config;
-    /// use google_cloud_artifactregistry_v1::model::remote_repository_config::DockerRepository;
-    /// let x = RemoteRepositoryConfig::new().set_remote_source(Some(remote_repository_config::RemoteSource::DockerRepository(DockerRepository::default().into())));
-    /// ```
     pub fn set_remote_source<
         T: std::convert::Into<
                 std::option::Option<crate::model::remote_repository_config::RemoteSource>,
@@ -5239,20 +3934,6 @@ impl RemoteRepositoryConfig {
     ///
     /// Note that all the setters affecting `remote_source` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::RemoteRepositoryConfig;
-    /// use google_cloud_artifactregistry_v1::model::remote_repository_config::DockerRepository;
-    /// let x = RemoteRepositoryConfig::new().set_docker_repository(DockerRepository::default()/* use setters */);
-    /// assert!(x.docker_repository().is_some());
-    /// assert!(x.maven_repository().is_none());
-    /// assert!(x.npm_repository().is_none());
-    /// assert!(x.python_repository().is_none());
-    /// assert!(x.apt_repository().is_none());
-    /// assert!(x.yum_repository().is_none());
-    /// assert!(x.common_repository().is_none());
-    /// ```
     pub fn set_docker_repository<
         T: std::convert::Into<
                 std::boxed::Box<crate::model::remote_repository_config::DockerRepository>,
@@ -5289,20 +3970,6 @@ impl RemoteRepositoryConfig {
     ///
     /// Note that all the setters affecting `remote_source` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::RemoteRepositoryConfig;
-    /// use google_cloud_artifactregistry_v1::model::remote_repository_config::MavenRepository;
-    /// let x = RemoteRepositoryConfig::new().set_maven_repository(MavenRepository::default()/* use setters */);
-    /// assert!(x.maven_repository().is_some());
-    /// assert!(x.docker_repository().is_none());
-    /// assert!(x.npm_repository().is_none());
-    /// assert!(x.python_repository().is_none());
-    /// assert!(x.apt_repository().is_none());
-    /// assert!(x.yum_repository().is_none());
-    /// assert!(x.common_repository().is_none());
-    /// ```
     pub fn set_maven_repository<
         T: std::convert::Into<
                 std::boxed::Box<crate::model::remote_repository_config::MavenRepository>,
@@ -5338,20 +4005,6 @@ impl RemoteRepositoryConfig {
     ///
     /// Note that all the setters affecting `remote_source` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::RemoteRepositoryConfig;
-    /// use google_cloud_artifactregistry_v1::model::remote_repository_config::NpmRepository;
-    /// let x = RemoteRepositoryConfig::new().set_npm_repository(NpmRepository::default()/* use setters */);
-    /// assert!(x.npm_repository().is_some());
-    /// assert!(x.docker_repository().is_none());
-    /// assert!(x.maven_repository().is_none());
-    /// assert!(x.python_repository().is_none());
-    /// assert!(x.apt_repository().is_none());
-    /// assert!(x.yum_repository().is_none());
-    /// assert!(x.common_repository().is_none());
-    /// ```
     pub fn set_npm_repository<
         T: std::convert::Into<std::boxed::Box<crate::model::remote_repository_config::NpmRepository>>,
     >(
@@ -5386,20 +4039,6 @@ impl RemoteRepositoryConfig {
     ///
     /// Note that all the setters affecting `remote_source` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::RemoteRepositoryConfig;
-    /// use google_cloud_artifactregistry_v1::model::remote_repository_config::PythonRepository;
-    /// let x = RemoteRepositoryConfig::new().set_python_repository(PythonRepository::default()/* use setters */);
-    /// assert!(x.python_repository().is_some());
-    /// assert!(x.docker_repository().is_none());
-    /// assert!(x.maven_repository().is_none());
-    /// assert!(x.npm_repository().is_none());
-    /// assert!(x.apt_repository().is_none());
-    /// assert!(x.yum_repository().is_none());
-    /// assert!(x.common_repository().is_none());
-    /// ```
     pub fn set_python_repository<
         T: std::convert::Into<
                 std::boxed::Box<crate::model::remote_repository_config::PythonRepository>,
@@ -5435,20 +4074,6 @@ impl RemoteRepositoryConfig {
     ///
     /// Note that all the setters affecting `remote_source` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::RemoteRepositoryConfig;
-    /// use google_cloud_artifactregistry_v1::model::remote_repository_config::AptRepository;
-    /// let x = RemoteRepositoryConfig::new().set_apt_repository(AptRepository::default()/* use setters */);
-    /// assert!(x.apt_repository().is_some());
-    /// assert!(x.docker_repository().is_none());
-    /// assert!(x.maven_repository().is_none());
-    /// assert!(x.npm_repository().is_none());
-    /// assert!(x.python_repository().is_none());
-    /// assert!(x.yum_repository().is_none());
-    /// assert!(x.common_repository().is_none());
-    /// ```
     pub fn set_apt_repository<
         T: std::convert::Into<std::boxed::Box<crate::model::remote_repository_config::AptRepository>>,
     >(
@@ -5482,20 +4107,6 @@ impl RemoteRepositoryConfig {
     ///
     /// Note that all the setters affecting `remote_source` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::RemoteRepositoryConfig;
-    /// use google_cloud_artifactregistry_v1::model::remote_repository_config::YumRepository;
-    /// let x = RemoteRepositoryConfig::new().set_yum_repository(YumRepository::default()/* use setters */);
-    /// assert!(x.yum_repository().is_some());
-    /// assert!(x.docker_repository().is_none());
-    /// assert!(x.maven_repository().is_none());
-    /// assert!(x.npm_repository().is_none());
-    /// assert!(x.python_repository().is_none());
-    /// assert!(x.apt_repository().is_none());
-    /// assert!(x.common_repository().is_none());
-    /// ```
     pub fn set_yum_repository<
         T: std::convert::Into<std::boxed::Box<crate::model::remote_repository_config::YumRepository>>,
     >(
@@ -5530,20 +4141,6 @@ impl RemoteRepositoryConfig {
     ///
     /// Note that all the setters affecting `remote_source` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::RemoteRepositoryConfig;
-    /// use google_cloud_artifactregistry_v1::model::remote_repository_config::CommonRemoteRepository;
-    /// let x = RemoteRepositoryConfig::new().set_common_repository(CommonRemoteRepository::default()/* use setters */);
-    /// assert!(x.common_repository().is_some());
-    /// assert!(x.docker_repository().is_none());
-    /// assert!(x.maven_repository().is_none());
-    /// assert!(x.npm_repository().is_none());
-    /// assert!(x.python_repository().is_none());
-    /// assert!(x.apt_repository().is_none());
-    /// assert!(x.yum_repository().is_none());
-    /// ```
     pub fn set_common_repository<
         T: std::convert::Into<
                 std::boxed::Box<crate::model::remote_repository_config::CommonRemoteRepository>,
@@ -5590,14 +4187,6 @@ pub mod remote_repository_config {
         ///
         /// Note that all the setters affecting `credentials` are mutually
         /// exclusive.
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_artifactregistry_v1::model::remote_repository_config::UpstreamCredentials;
-        /// use google_cloud_artifactregistry_v1::model::remote_repository_config::upstream_credentials;
-        /// use google_cloud_artifactregistry_v1::model::remote_repository_config::upstream_credentials::UsernamePasswordCredentials;
-        /// let x = UpstreamCredentials::new().set_credentials(Some(remote_repository_config::upstream_credentials::Credentials::UsernamePasswordCredentials(UsernamePasswordCredentials::default().into())));
-        /// ```
         pub fn set_credentials<
             T: std::convert::Into<
                     std::option::Option<
@@ -5628,14 +4217,6 @@ pub mod remote_repository_config {
         ///
         /// Note that all the setters affecting `credentials` are
         /// mutually exclusive.
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_artifactregistry_v1::model::remote_repository_config::UpstreamCredentials;
-        /// use google_cloud_artifactregistry_v1::model::remote_repository_config::upstream_credentials::UsernamePasswordCredentials;
-        /// let x = UpstreamCredentials::new().set_username_password_credentials(UsernamePasswordCredentials::default()/* use setters */);
-        /// assert!(x.username_password_credentials().is_some());
-        /// ```
         pub fn set_username_password_credentials<T: std::convert::Into<std::boxed::Box<crate::model::remote_repository_config::upstream_credentials::UsernamePasswordCredentials>>>(mut self, v: T) -> Self{
             self.credentials = std::option::Option::Some(
                 crate::model::remote_repository_config::upstream_credentials::Credentials::UsernamePasswordCredentials(
@@ -5678,12 +4259,6 @@ pub mod remote_repository_config {
             }
 
             /// Sets the value of [username][crate::model::remote_repository_config::upstream_credentials::UsernamePasswordCredentials::username].
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_artifactregistry_v1::model::remote_repository_config::upstream_credentials::UsernamePasswordCredentials;
-            /// let x = UsernamePasswordCredentials::new().set_username("example");
-            /// ```
             pub fn set_username<T: std::convert::Into<std::string::String>>(
                 mut self,
                 v: T,
@@ -5693,12 +4268,6 @@ pub mod remote_repository_config {
             }
 
             /// Sets the value of [password_secret_version][crate::model::remote_repository_config::upstream_credentials::UsernamePasswordCredentials::password_secret_version].
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_artifactregistry_v1::model::remote_repository_config::upstream_credentials::UsernamePasswordCredentials;
-            /// let x = UsernamePasswordCredentials::new().set_password_secret_version("example");
-            /// ```
             pub fn set_password_secret_version<T: std::convert::Into<std::string::String>>(
                 mut self,
                 v: T,
@@ -5743,14 +4312,6 @@ pub mod remote_repository_config {
         ///
         /// Note that all the setters affecting `upstream` are mutually
         /// exclusive.
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_artifactregistry_v1::model::remote_repository_config::DockerRepository;
-        /// use google_cloud_artifactregistry_v1::model::remote_repository_config::docker_repository;
-        /// use google_cloud_artifactregistry_v1::model::remote_repository_config::docker_repository::PublicRepository;
-        /// let x0 = DockerRepository::new().set_upstream(Some(remote_repository_config::docker_repository::Upstream::PublicRepository(PublicRepository::DockerHub)));
-        /// ```
         pub fn set_upstream<
             T: std::convert::Into<
                     std::option::Option<
@@ -5785,15 +4346,6 @@ pub mod remote_repository_config {
         ///
         /// Note that all the setters affecting `upstream` are
         /// mutually exclusive.
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_artifactregistry_v1::model::remote_repository_config::DockerRepository;
-        /// use google_cloud_artifactregistry_v1::model::remote_repository_config::docker_repository::PublicRepository;
-        /// let x0 = DockerRepository::new().set_public_repository(PublicRepository::DockerHub);
-        /// assert!(x.public_repository().is_some());
-        /// assert!(x.custom_repository().is_none());
-        /// ```
         pub fn set_public_repository<
             T: std::convert::Into<
                     crate::model::remote_repository_config::docker_repository::PublicRepository,
@@ -5832,15 +4384,6 @@ pub mod remote_repository_config {
         ///
         /// Note that all the setters affecting `upstream` are
         /// mutually exclusive.
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_artifactregistry_v1::model::remote_repository_config::DockerRepository;
-        /// use google_cloud_artifactregistry_v1::model::remote_repository_config::docker_repository::CustomRepository;
-        /// let x = DockerRepository::new().set_custom_repository(CustomRepository::default()/* use setters */);
-        /// assert!(x.custom_repository().is_some());
-        /// assert!(x.public_repository().is_none());
-        /// ```
         pub fn set_custom_repository<
             T: std::convert::Into<
                     std::boxed::Box<
@@ -5888,12 +4431,6 @@ pub mod remote_repository_config {
             }
 
             /// Sets the value of [uri][crate::model::remote_repository_config::docker_repository::CustomRepository::uri].
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_artifactregistry_v1::model::remote_repository_config::docker_repository::CustomRepository;
-            /// let x = CustomRepository::new().set_uri("example");
-            /// ```
             pub fn set_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
                 self.uri = v.into();
                 self
@@ -6072,14 +4609,6 @@ pub mod remote_repository_config {
         ///
         /// Note that all the setters affecting `upstream` are mutually
         /// exclusive.
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_artifactregistry_v1::model::remote_repository_config::MavenRepository;
-        /// use google_cloud_artifactregistry_v1::model::remote_repository_config::maven_repository;
-        /// use google_cloud_artifactregistry_v1::model::remote_repository_config::maven_repository::PublicRepository;
-        /// let x0 = MavenRepository::new().set_upstream(Some(remote_repository_config::maven_repository::Upstream::PublicRepository(PublicRepository::MavenCentral)));
-        /// ```
         pub fn set_upstream<
             T: std::convert::Into<
                     std::option::Option<
@@ -6114,15 +4643,6 @@ pub mod remote_repository_config {
         ///
         /// Note that all the setters affecting `upstream` are
         /// mutually exclusive.
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_artifactregistry_v1::model::remote_repository_config::MavenRepository;
-        /// use google_cloud_artifactregistry_v1::model::remote_repository_config::maven_repository::PublicRepository;
-        /// let x0 = MavenRepository::new().set_public_repository(PublicRepository::MavenCentral);
-        /// assert!(x.public_repository().is_some());
-        /// assert!(x.custom_repository().is_none());
-        /// ```
         pub fn set_public_repository<
             T: std::convert::Into<
                     crate::model::remote_repository_config::maven_repository::PublicRepository,
@@ -6161,15 +4681,6 @@ pub mod remote_repository_config {
         ///
         /// Note that all the setters affecting `upstream` are
         /// mutually exclusive.
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_artifactregistry_v1::model::remote_repository_config::MavenRepository;
-        /// use google_cloud_artifactregistry_v1::model::remote_repository_config::maven_repository::CustomRepository;
-        /// let x = MavenRepository::new().set_custom_repository(CustomRepository::default()/* use setters */);
-        /// assert!(x.custom_repository().is_some());
-        /// assert!(x.public_repository().is_none());
-        /// ```
         pub fn set_custom_repository<
             T: std::convert::Into<
                     std::boxed::Box<
@@ -6217,12 +4728,6 @@ pub mod remote_repository_config {
             }
 
             /// Sets the value of [uri][crate::model::remote_repository_config::maven_repository::CustomRepository::uri].
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_artifactregistry_v1::model::remote_repository_config::maven_repository::CustomRepository;
-            /// let x = CustomRepository::new().set_uri("example");
-            /// ```
             pub fn set_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
                 self.uri = v.into();
                 self
@@ -6401,14 +4906,6 @@ pub mod remote_repository_config {
         ///
         /// Note that all the setters affecting `upstream` are mutually
         /// exclusive.
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_artifactregistry_v1::model::remote_repository_config::NpmRepository;
-        /// use google_cloud_artifactregistry_v1::model::remote_repository_config::npm_repository;
-        /// use google_cloud_artifactregistry_v1::model::remote_repository_config::npm_repository::PublicRepository;
-        /// let x0 = NpmRepository::new().set_upstream(Some(remote_repository_config::npm_repository::Upstream::PublicRepository(PublicRepository::Npmjs)));
-        /// ```
         pub fn set_upstream<
             T: std::convert::Into<
                     std::option::Option<
@@ -6443,15 +4940,6 @@ pub mod remote_repository_config {
         ///
         /// Note that all the setters affecting `upstream` are
         /// mutually exclusive.
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_artifactregistry_v1::model::remote_repository_config::NpmRepository;
-        /// use google_cloud_artifactregistry_v1::model::remote_repository_config::npm_repository::PublicRepository;
-        /// let x0 = NpmRepository::new().set_public_repository(PublicRepository::Npmjs);
-        /// assert!(x.public_repository().is_some());
-        /// assert!(x.custom_repository().is_none());
-        /// ```
         pub fn set_public_repository<
             T: std::convert::Into<
                     crate::model::remote_repository_config::npm_repository::PublicRepository,
@@ -6490,15 +4978,6 @@ pub mod remote_repository_config {
         ///
         /// Note that all the setters affecting `upstream` are
         /// mutually exclusive.
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_artifactregistry_v1::model::remote_repository_config::NpmRepository;
-        /// use google_cloud_artifactregistry_v1::model::remote_repository_config::npm_repository::CustomRepository;
-        /// let x = NpmRepository::new().set_custom_repository(CustomRepository::default()/* use setters */);
-        /// assert!(x.custom_repository().is_some());
-        /// assert!(x.public_repository().is_none());
-        /// ```
         pub fn set_custom_repository<
             T: std::convert::Into<
                     std::boxed::Box<
@@ -6546,12 +5025,6 @@ pub mod remote_repository_config {
             }
 
             /// Sets the value of [uri][crate::model::remote_repository_config::npm_repository::CustomRepository::uri].
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_artifactregistry_v1::model::remote_repository_config::npm_repository::CustomRepository;
-            /// let x = CustomRepository::new().set_uri("example");
-            /// ```
             pub fn set_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
                 self.uri = v.into();
                 self
@@ -6730,14 +5203,6 @@ pub mod remote_repository_config {
         ///
         /// Note that all the setters affecting `upstream` are mutually
         /// exclusive.
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_artifactregistry_v1::model::remote_repository_config::PythonRepository;
-        /// use google_cloud_artifactregistry_v1::model::remote_repository_config::python_repository;
-        /// use google_cloud_artifactregistry_v1::model::remote_repository_config::python_repository::PublicRepository;
-        /// let x0 = PythonRepository::new().set_upstream(Some(remote_repository_config::python_repository::Upstream::PublicRepository(PublicRepository::Pypi)));
-        /// ```
         pub fn set_upstream<
             T: std::convert::Into<
                     std::option::Option<
@@ -6772,15 +5237,6 @@ pub mod remote_repository_config {
         ///
         /// Note that all the setters affecting `upstream` are
         /// mutually exclusive.
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_artifactregistry_v1::model::remote_repository_config::PythonRepository;
-        /// use google_cloud_artifactregistry_v1::model::remote_repository_config::python_repository::PublicRepository;
-        /// let x0 = PythonRepository::new().set_public_repository(PublicRepository::Pypi);
-        /// assert!(x.public_repository().is_some());
-        /// assert!(x.custom_repository().is_none());
-        /// ```
         pub fn set_public_repository<
             T: std::convert::Into<
                     crate::model::remote_repository_config::python_repository::PublicRepository,
@@ -6819,15 +5275,6 @@ pub mod remote_repository_config {
         ///
         /// Note that all the setters affecting `upstream` are
         /// mutually exclusive.
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_artifactregistry_v1::model::remote_repository_config::PythonRepository;
-        /// use google_cloud_artifactregistry_v1::model::remote_repository_config::python_repository::CustomRepository;
-        /// let x = PythonRepository::new().set_custom_repository(CustomRepository::default()/* use setters */);
-        /// assert!(x.custom_repository().is_some());
-        /// assert!(x.public_repository().is_none());
-        /// ```
         pub fn set_custom_repository<
             T: std::convert::Into<
                     std::boxed::Box<
@@ -6875,12 +5322,6 @@ pub mod remote_repository_config {
             }
 
             /// Sets the value of [uri][crate::model::remote_repository_config::python_repository::CustomRepository::uri].
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_artifactregistry_v1::model::remote_repository_config::python_repository::CustomRepository;
-            /// let x = CustomRepository::new().set_uri("example");
-            /// ```
             pub fn set_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
                 self.uri = v.into();
                 self
@@ -7058,14 +5499,6 @@ pub mod remote_repository_config {
         ///
         /// Note that all the setters affecting `upstream` are mutually
         /// exclusive.
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_artifactregistry_v1::model::remote_repository_config::AptRepository;
-        /// use google_cloud_artifactregistry_v1::model::remote_repository_config::apt_repository;
-        /// use google_cloud_artifactregistry_v1::model::remote_repository_config::apt_repository::PublicRepository;
-        /// let x = AptRepository::new().set_upstream(Some(remote_repository_config::apt_repository::Upstream::PublicRepository(PublicRepository::default().into())));
-        /// ```
         pub fn set_upstream<
             T: std::convert::Into<
                     std::option::Option<
@@ -7102,15 +5535,6 @@ pub mod remote_repository_config {
         ///
         /// Note that all the setters affecting `upstream` are
         /// mutually exclusive.
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_artifactregistry_v1::model::remote_repository_config::AptRepository;
-        /// use google_cloud_artifactregistry_v1::model::remote_repository_config::apt_repository::PublicRepository;
-        /// let x = AptRepository::new().set_public_repository(PublicRepository::default()/* use setters */);
-        /// assert!(x.public_repository().is_some());
-        /// assert!(x.custom_repository().is_none());
-        /// ```
         pub fn set_public_repository<
             T: std::convert::Into<
                     std::boxed::Box<
@@ -7151,15 +5575,6 @@ pub mod remote_repository_config {
         ///
         /// Note that all the setters affecting `upstream` are
         /// mutually exclusive.
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_artifactregistry_v1::model::remote_repository_config::AptRepository;
-        /// use google_cloud_artifactregistry_v1::model::remote_repository_config::apt_repository::CustomRepository;
-        /// let x = AptRepository::new().set_custom_repository(CustomRepository::default()/* use setters */);
-        /// assert!(x.custom_repository().is_some());
-        /// assert!(x.public_repository().is_none());
-        /// ```
         pub fn set_custom_repository<
             T: std::convert::Into<
                     std::boxed::Box<
@@ -7211,27 +5626,12 @@ pub mod remote_repository_config {
             }
 
             /// Sets the value of [repository_base][crate::model::remote_repository_config::apt_repository::PublicRepository::repository_base].
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_artifactregistry_v1::model::remote_repository_config::apt_repository::PublicRepository;
-            /// use google_cloud_artifactregistry_v1::model::remote_repository_config::apt_repository::public_repository::RepositoryBase;
-            /// let x0 = PublicRepository::new().set_repository_base(RepositoryBase::Debian);
-            /// let x1 = PublicRepository::new().set_repository_base(RepositoryBase::Ubuntu);
-            /// let x2 = PublicRepository::new().set_repository_base(RepositoryBase::DebianSnapshot);
-            /// ```
             pub fn set_repository_base<T: std::convert::Into<crate::model::remote_repository_config::apt_repository::public_repository::RepositoryBase>>(mut self, v: T) -> Self{
                 self.repository_base = v.into();
                 self
             }
 
             /// Sets the value of [repository_path][crate::model::remote_repository_config::apt_repository::PublicRepository::repository_path].
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_artifactregistry_v1::model::remote_repository_config::apt_repository::PublicRepository;
-            /// let x = PublicRepository::new().set_repository_path("example");
-            /// ```
             pub fn set_repository_path<T: std::convert::Into<std::string::String>>(
                 mut self,
                 v: T,
@@ -7413,12 +5813,6 @@ pub mod remote_repository_config {
             }
 
             /// Sets the value of [uri][crate::model::remote_repository_config::apt_repository::CustomRepository::uri].
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_artifactregistry_v1::model::remote_repository_config::apt_repository::CustomRepository;
-            /// let x = CustomRepository::new().set_uri("example");
-            /// ```
             pub fn set_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
                 self.uri = v.into();
                 self
@@ -7471,14 +5865,6 @@ pub mod remote_repository_config {
         ///
         /// Note that all the setters affecting `upstream` are mutually
         /// exclusive.
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_artifactregistry_v1::model::remote_repository_config::YumRepository;
-        /// use google_cloud_artifactregistry_v1::model::remote_repository_config::yum_repository;
-        /// use google_cloud_artifactregistry_v1::model::remote_repository_config::yum_repository::PublicRepository;
-        /// let x = YumRepository::new().set_upstream(Some(remote_repository_config::yum_repository::Upstream::PublicRepository(PublicRepository::default().into())));
-        /// ```
         pub fn set_upstream<
             T: std::convert::Into<
                     std::option::Option<
@@ -7515,15 +5901,6 @@ pub mod remote_repository_config {
         ///
         /// Note that all the setters affecting `upstream` are
         /// mutually exclusive.
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_artifactregistry_v1::model::remote_repository_config::YumRepository;
-        /// use google_cloud_artifactregistry_v1::model::remote_repository_config::yum_repository::PublicRepository;
-        /// let x = YumRepository::new().set_public_repository(PublicRepository::default()/* use setters */);
-        /// assert!(x.public_repository().is_some());
-        /// assert!(x.custom_repository().is_none());
-        /// ```
         pub fn set_public_repository<
             T: std::convert::Into<
                     std::boxed::Box<
@@ -7564,15 +5941,6 @@ pub mod remote_repository_config {
         ///
         /// Note that all the setters affecting `upstream` are
         /// mutually exclusive.
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_artifactregistry_v1::model::remote_repository_config::YumRepository;
-        /// use google_cloud_artifactregistry_v1::model::remote_repository_config::yum_repository::CustomRepository;
-        /// let x = YumRepository::new().set_custom_repository(CustomRepository::default()/* use setters */);
-        /// assert!(x.custom_repository().is_some());
-        /// assert!(x.public_repository().is_none());
-        /// ```
         pub fn set_custom_repository<
             T: std::convert::Into<
                     std::boxed::Box<
@@ -7624,27 +5992,12 @@ pub mod remote_repository_config {
             }
 
             /// Sets the value of [repository_base][crate::model::remote_repository_config::yum_repository::PublicRepository::repository_base].
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_artifactregistry_v1::model::remote_repository_config::yum_repository::PublicRepository;
-            /// use google_cloud_artifactregistry_v1::model::remote_repository_config::yum_repository::public_repository::RepositoryBase;
-            /// let x0 = PublicRepository::new().set_repository_base(RepositoryBase::Centos);
-            /// let x1 = PublicRepository::new().set_repository_base(RepositoryBase::CentosDebug);
-            /// let x2 = PublicRepository::new().set_repository_base(RepositoryBase::CentosVault);
-            /// ```
             pub fn set_repository_base<T: std::convert::Into<crate::model::remote_repository_config::yum_repository::public_repository::RepositoryBase>>(mut self, v: T) -> Self{
                 self.repository_base = v.into();
                 self
             }
 
             /// Sets the value of [repository_path][crate::model::remote_repository_config::yum_repository::PublicRepository::repository_path].
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_artifactregistry_v1::model::remote_repository_config::yum_repository::PublicRepository;
-            /// let x = PublicRepository::new().set_repository_path("example");
-            /// ```
             pub fn set_repository_path<T: std::convert::Into<std::string::String>>(
                 mut self,
                 v: T,
@@ -7847,12 +6200,6 @@ pub mod remote_repository_config {
             }
 
             /// Sets the value of [uri][crate::model::remote_repository_config::yum_repository::CustomRepository::uri].
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_artifactregistry_v1::model::remote_repository_config::yum_repository::CustomRepository;
-            /// let x = CustomRepository::new().set_uri("example");
-            /// ```
             pub fn set_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
                 self.uri = v.into();
                 self
@@ -7901,12 +6248,6 @@ pub mod remote_repository_config {
         }
 
         /// Sets the value of [uri][crate::model::remote_repository_config::CommonRemoteRepository::uri].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_artifactregistry_v1::model::remote_repository_config::CommonRemoteRepository;
-        /// let x = CommonRemoteRepository::new().set_uri("example");
-        /// ```
         pub fn set_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.uri = v.into();
             self
@@ -8031,27 +6372,12 @@ impl Repository {
     }
 
     /// Sets the value of [name][crate::model::Repository::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::Repository;
-    /// let x = Repository::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [format][crate::model::Repository::format].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::Repository;
-    /// use google_cloud_artifactregistry_v1::model::repository::Format;
-    /// let x0 = Repository::new().set_format(Format::Docker);
-    /// let x1 = Repository::new().set_format(Format::Maven);
-    /// let x2 = Repository::new().set_format(Format::Npm);
-    /// ```
     pub fn set_format<T: std::convert::Into<crate::model::repository::Format>>(
         mut self,
         v: T,
@@ -8061,27 +6387,12 @@ impl Repository {
     }
 
     /// Sets the value of [description][crate::model::Repository::description].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::Repository;
-    /// let x = Repository::new().set_description("example");
-    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [labels][crate::model::Repository::labels].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::Repository;
-    /// let x = Repository::new().set_labels([
-    ///     ("key0", "abc"),
-    ///     ("key1", "xyz"),
-    /// ]);
-    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -8094,13 +6405,6 @@ impl Repository {
     }
 
     /// Sets the value of [create_time][crate::model::Repository::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::Repository;
-    /// use wkt::Timestamp;
-    /// let x = Repository::new().set_create_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -8110,14 +6414,6 @@ impl Repository {
     }
 
     /// Sets or clears the value of [create_time][crate::model::Repository::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::Repository;
-    /// use wkt::Timestamp;
-    /// let x = Repository::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
-    /// let x = Repository::new().set_or_clear_create_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -8127,13 +6423,6 @@ impl Repository {
     }
 
     /// Sets the value of [update_time][crate::model::Repository::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::Repository;
-    /// use wkt::Timestamp;
-    /// let x = Repository::new().set_update_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -8143,14 +6432,6 @@ impl Repository {
     }
 
     /// Sets or clears the value of [update_time][crate::model::Repository::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::Repository;
-    /// use wkt::Timestamp;
-    /// let x = Repository::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
-    /// let x = Repository::new().set_or_clear_update_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -8160,43 +6441,18 @@ impl Repository {
     }
 
     /// Sets the value of [kms_key_name][crate::model::Repository::kms_key_name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::Repository;
-    /// let x = Repository::new().set_kms_key_name("example");
-    /// ```
     pub fn set_kms_key_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.kms_key_name = v.into();
         self
     }
 
     /// Sets the value of [mode][crate::model::Repository::mode].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::Repository;
-    /// use google_cloud_artifactregistry_v1::model::repository::Mode;
-    /// let x0 = Repository::new().set_mode(Mode::StandardRepository);
-    /// let x1 = Repository::new().set_mode(Mode::VirtualRepository);
-    /// let x2 = Repository::new().set_mode(Mode::RemoteRepository);
-    /// ```
     pub fn set_mode<T: std::convert::Into<crate::model::repository::Mode>>(mut self, v: T) -> Self {
         self.mode = v.into();
         self
     }
 
     /// Sets the value of [cleanup_policies][crate::model::Repository::cleanup_policies].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::Repository;
-    /// use google_cloud_artifactregistry_v1::model::CleanupPolicy;
-    /// let x = Repository::new().set_cleanup_policies([
-    ///     ("key0", CleanupPolicy::default()/* use setters */),
-    ///     ("key1", CleanupPolicy::default()/* use (different) setters */),
-    /// ]);
-    /// ```
     pub fn set_cleanup_policies<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -8209,49 +6465,24 @@ impl Repository {
     }
 
     /// Sets the value of [size_bytes][crate::model::Repository::size_bytes].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::Repository;
-    /// let x = Repository::new().set_size_bytes(42);
-    /// ```
     pub fn set_size_bytes<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.size_bytes = v.into();
         self
     }
 
     /// Sets the value of [satisfies_pzs][crate::model::Repository::satisfies_pzs].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::Repository;
-    /// let x = Repository::new().set_satisfies_pzs(true);
-    /// ```
     pub fn set_satisfies_pzs<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.satisfies_pzs = v.into();
         self
     }
 
     /// Sets the value of [cleanup_policy_dry_run][crate::model::Repository::cleanup_policy_dry_run].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::Repository;
-    /// let x = Repository::new().set_cleanup_policy_dry_run(true);
-    /// ```
     pub fn set_cleanup_policy_dry_run<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.cleanup_policy_dry_run = v.into();
         self
     }
 
     /// Sets the value of [vulnerability_scanning_config][crate::model::Repository::vulnerability_scanning_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::Repository;
-    /// use google_cloud_artifactregistry_v1::model::repository::VulnerabilityScanningConfig;
-    /// let x = Repository::new().set_vulnerability_scanning_config(VulnerabilityScanningConfig::default()/* use setters */);
-    /// ```
     pub fn set_vulnerability_scanning_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::repository::VulnerabilityScanningConfig>,
@@ -8261,14 +6492,6 @@ impl Repository {
     }
 
     /// Sets or clears the value of [vulnerability_scanning_config][crate::model::Repository::vulnerability_scanning_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::Repository;
-    /// use google_cloud_artifactregistry_v1::model::repository::VulnerabilityScanningConfig;
-    /// let x = Repository::new().set_or_clear_vulnerability_scanning_config(Some(VulnerabilityScanningConfig::default()/* use setters */));
-    /// let x = Repository::new().set_or_clear_vulnerability_scanning_config(None::<VulnerabilityScanningConfig>);
-    /// ```
     pub fn set_or_clear_vulnerability_scanning_config<T>(
         mut self,
         v: std::option::Option<T>,
@@ -8281,36 +6504,18 @@ impl Repository {
     }
 
     /// Sets the value of [disallow_unspecified_mode][crate::model::Repository::disallow_unspecified_mode].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::Repository;
-    /// let x = Repository::new().set_disallow_unspecified_mode(true);
-    /// ```
     pub fn set_disallow_unspecified_mode<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.disallow_unspecified_mode = v.into();
         self
     }
 
     /// Sets the value of [satisfies_pzi][crate::model::Repository::satisfies_pzi].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::Repository;
-    /// let x = Repository::new().set_satisfies_pzi(true);
-    /// ```
     pub fn set_satisfies_pzi<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.satisfies_pzi = v.into();
         self
     }
 
     /// Sets the value of [registry_uri][crate::model::Repository::registry_uri].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::Repository;
-    /// let x = Repository::new().set_registry_uri("example");
-    /// ```
     pub fn set_registry_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.registry_uri = v.into();
         self
@@ -8320,14 +6525,6 @@ impl Repository {
     ///
     /// Note that all the setters affecting `format_config` are mutually
     /// exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::Repository;
-    /// use google_cloud_artifactregistry_v1::model::repository;
-    /// use google_cloud_artifactregistry_v1::model::repository::MavenRepositoryConfig;
-    /// let x = Repository::new().set_format_config(Some(repository::FormatConfig::MavenConfig(MavenRepositoryConfig::default().into())));
-    /// ```
     pub fn set_format_config<
         T: std::convert::Into<std::option::Option<crate::model::repository::FormatConfig>>,
     >(
@@ -8357,15 +6554,6 @@ impl Repository {
     ///
     /// Note that all the setters affecting `format_config` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::Repository;
-    /// use google_cloud_artifactregistry_v1::model::repository::MavenRepositoryConfig;
-    /// let x = Repository::new().set_maven_config(MavenRepositoryConfig::default()/* use setters */);
-    /// assert!(x.maven_config().is_some());
-    /// assert!(x.docker_config().is_none());
-    /// ```
     pub fn set_maven_config<
         T: std::convert::Into<std::boxed::Box<crate::model::repository::MavenRepositoryConfig>>,
     >(
@@ -8397,15 +6585,6 @@ impl Repository {
     ///
     /// Note that all the setters affecting `format_config` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::Repository;
-    /// use google_cloud_artifactregistry_v1::model::repository::DockerRepositoryConfig;
-    /// let x = Repository::new().set_docker_config(DockerRepositoryConfig::default()/* use setters */);
-    /// assert!(x.docker_config().is_some());
-    /// assert!(x.maven_config().is_none());
-    /// ```
     pub fn set_docker_config<
         T: std::convert::Into<std::boxed::Box<crate::model::repository::DockerRepositoryConfig>>,
     >(
@@ -8422,14 +6601,6 @@ impl Repository {
     ///
     /// Note that all the setters affecting `mode_config` are mutually
     /// exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::Repository;
-    /// use google_cloud_artifactregistry_v1::model::repository;
-    /// use google_cloud_artifactregistry_v1::model::VirtualRepositoryConfig;
-    /// let x = Repository::new().set_mode_config(Some(repository::ModeConfig::VirtualRepositoryConfig(VirtualRepositoryConfig::default().into())));
-    /// ```
     pub fn set_mode_config<
         T: std::convert::Into<std::option::Option<crate::model::repository::ModeConfig>>,
     >(
@@ -8460,15 +6631,6 @@ impl Repository {
     ///
     /// Note that all the setters affecting `mode_config` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::Repository;
-    /// use google_cloud_artifactregistry_v1::model::VirtualRepositoryConfig;
-    /// let x = Repository::new().set_virtual_repository_config(VirtualRepositoryConfig::default()/* use setters */);
-    /// assert!(x.virtual_repository_config().is_some());
-    /// assert!(x.remote_repository_config().is_none());
-    /// ```
     pub fn set_virtual_repository_config<
         T: std::convert::Into<std::boxed::Box<crate::model::VirtualRepositoryConfig>>,
     >(
@@ -8501,15 +6663,6 @@ impl Repository {
     ///
     /// Note that all the setters affecting `mode_config` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::Repository;
-    /// use google_cloud_artifactregistry_v1::model::RemoteRepositoryConfig;
-    /// let x = Repository::new().set_remote_repository_config(RemoteRepositoryConfig::default()/* use setters */);
-    /// assert!(x.remote_repository_config().is_some());
-    /// assert!(x.virtual_repository_config().is_none());
-    /// ```
     pub fn set_remote_repository_config<
         T: std::convert::Into<std::boxed::Box<crate::model::RemoteRepositoryConfig>>,
     >(
@@ -8556,26 +6709,12 @@ pub mod repository {
         }
 
         /// Sets the value of [allow_snapshot_overwrites][crate::model::repository::MavenRepositoryConfig::allow_snapshot_overwrites].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_artifactregistry_v1::model::repository::MavenRepositoryConfig;
-        /// let x = MavenRepositoryConfig::new().set_allow_snapshot_overwrites(true);
-        /// ```
         pub fn set_allow_snapshot_overwrites<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.allow_snapshot_overwrites = v.into();
             self
         }
 
         /// Sets the value of [version_policy][crate::model::repository::MavenRepositoryConfig::version_policy].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_artifactregistry_v1::model::repository::MavenRepositoryConfig;
-        /// use google_cloud_artifactregistry_v1::model::repository::maven_repository_config::VersionPolicy;
-        /// let x0 = MavenRepositoryConfig::new().set_version_policy(VersionPolicy::Release);
-        /// let x1 = MavenRepositoryConfig::new().set_version_policy(VersionPolicy::Snapshot);
-        /// ```
         pub fn set_version_policy<
             T: std::convert::Into<crate::model::repository::maven_repository_config::VersionPolicy>,
         >(
@@ -8755,12 +6894,6 @@ pub mod repository {
         }
 
         /// Sets the value of [immutable_tags][crate::model::repository::DockerRepositoryConfig::immutable_tags].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_artifactregistry_v1::model::repository::DockerRepositoryConfig;
-        /// let x = DockerRepositoryConfig::new().set_immutable_tags(true);
-        /// ```
         pub fn set_immutable_tags<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.immutable_tags = v.into();
             self
@@ -8803,14 +6936,6 @@ pub mod repository {
         }
 
         /// Sets the value of [enablement_config][crate::model::repository::VulnerabilityScanningConfig::enablement_config].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_artifactregistry_v1::model::repository::VulnerabilityScanningConfig;
-        /// use google_cloud_artifactregistry_v1::model::repository::vulnerability_scanning_config::EnablementConfig;
-        /// let x0 = VulnerabilityScanningConfig::new().set_enablement_config(EnablementConfig::Inherited);
-        /// let x1 = VulnerabilityScanningConfig::new().set_enablement_config(EnablementConfig::Disabled);
-        /// ```
         pub fn set_enablement_config<
             T: std::convert::Into<
                     crate::model::repository::vulnerability_scanning_config::EnablementConfig,
@@ -8824,13 +6949,6 @@ pub mod repository {
         }
 
         /// Sets the value of [last_enable_time][crate::model::repository::VulnerabilityScanningConfig::last_enable_time].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_artifactregistry_v1::model::repository::VulnerabilityScanningConfig;
-        /// use wkt::Timestamp;
-        /// let x = VulnerabilityScanningConfig::new().set_last_enable_time(Timestamp::default()/* use setters */);
-        /// ```
         pub fn set_last_enable_time<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -8840,14 +6958,6 @@ pub mod repository {
         }
 
         /// Sets or clears the value of [last_enable_time][crate::model::repository::VulnerabilityScanningConfig::last_enable_time].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_artifactregistry_v1::model::repository::VulnerabilityScanningConfig;
-        /// use wkt::Timestamp;
-        /// let x = VulnerabilityScanningConfig::new().set_or_clear_last_enable_time(Some(Timestamp::default()/* use setters */));
-        /// let x = VulnerabilityScanningConfig::new().set_or_clear_last_enable_time(None::<Timestamp>);
-        /// ```
         pub fn set_or_clear_last_enable_time<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -8857,15 +6967,6 @@ pub mod repository {
         }
 
         /// Sets the value of [enablement_state][crate::model::repository::VulnerabilityScanningConfig::enablement_state].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_artifactregistry_v1::model::repository::VulnerabilityScanningConfig;
-        /// use google_cloud_artifactregistry_v1::model::repository::vulnerability_scanning_config::EnablementState;
-        /// let x0 = VulnerabilityScanningConfig::new().set_enablement_state(EnablementState::ScanningUnsupported);
-        /// let x1 = VulnerabilityScanningConfig::new().set_enablement_state(EnablementState::ScanningDisabled);
-        /// let x2 = VulnerabilityScanningConfig::new().set_enablement_state(EnablementState::ScanningActive);
-        /// ```
         pub fn set_enablement_state<
             T: std::convert::Into<
                     crate::model::repository::vulnerability_scanning_config::EnablementState,
@@ -8879,12 +6980,6 @@ pub mod repository {
         }
 
         /// Sets the value of [enablement_state_reason][crate::model::repository::VulnerabilityScanningConfig::enablement_state_reason].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_artifactregistry_v1::model::repository::VulnerabilityScanningConfig;
-        /// let x = VulnerabilityScanningConfig::new().set_enablement_state_reason("example");
-        /// ```
         pub fn set_enablement_state_reason<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -9575,60 +7670,30 @@ impl ListRepositoriesRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListRepositoriesRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::ListRepositoriesRequest;
-    /// let x = ListRepositoriesRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListRepositoriesRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::ListRepositoriesRequest;
-    /// let x = ListRepositoriesRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListRepositoriesRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::ListRepositoriesRequest;
-    /// let x = ListRepositoriesRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListRepositoriesRequest::filter].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::ListRepositoriesRequest;
-    /// let x = ListRepositoriesRequest::new().set_filter("example");
-    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListRepositoriesRequest::order_by].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::ListRepositoriesRequest;
-    /// let x = ListRepositoriesRequest::new().set_order_by("example");
-    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
@@ -9661,17 +7726,6 @@ impl ListRepositoriesResponse {
     }
 
     /// Sets the value of [repositories][crate::model::ListRepositoriesResponse::repositories].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::ListRepositoriesResponse;
-    /// use google_cloud_artifactregistry_v1::model::Repository;
-    /// let x = ListRepositoriesResponse::new()
-    ///     .set_repositories([
-    ///         Repository::default()/* use setters */,
-    ///         Repository::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_repositories<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -9683,12 +7737,6 @@ impl ListRepositoriesResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListRepositoriesResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::ListRepositoriesResponse;
-    /// let x = ListRepositoriesResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -9731,12 +7779,6 @@ impl GetRepositoryRequest {
     }
 
     /// Sets the value of [name][crate::model::GetRepositoryRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::GetRepositoryRequest;
-    /// let x = GetRepositoryRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -9772,37 +7814,18 @@ impl CreateRepositoryRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateRepositoryRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::CreateRepositoryRequest;
-    /// let x = CreateRepositoryRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [repository_id][crate::model::CreateRepositoryRequest::repository_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::CreateRepositoryRequest;
-    /// let x = CreateRepositoryRequest::new().set_repository_id("example");
-    /// ```
     pub fn set_repository_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.repository_id = v.into();
         self
     }
 
     /// Sets the value of [repository][crate::model::CreateRepositoryRequest::repository].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::CreateRepositoryRequest;
-    /// use google_cloud_artifactregistry_v1::model::Repository;
-    /// let x = CreateRepositoryRequest::new().set_repository(Repository::default()/* use setters */);
-    /// ```
     pub fn set_repository<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Repository>,
@@ -9812,14 +7835,6 @@ impl CreateRepositoryRequest {
     }
 
     /// Sets or clears the value of [repository][crate::model::CreateRepositoryRequest::repository].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::CreateRepositoryRequest;
-    /// use google_cloud_artifactregistry_v1::model::Repository;
-    /// let x = CreateRepositoryRequest::new().set_or_clear_repository(Some(Repository::default()/* use setters */));
-    /// let x = CreateRepositoryRequest::new().set_or_clear_repository(None::<Repository>);
-    /// ```
     pub fn set_or_clear_repository<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Repository>,
@@ -9856,13 +7871,6 @@ impl UpdateRepositoryRequest {
     }
 
     /// Sets the value of [repository][crate::model::UpdateRepositoryRequest::repository].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::UpdateRepositoryRequest;
-    /// use google_cloud_artifactregistry_v1::model::Repository;
-    /// let x = UpdateRepositoryRequest::new().set_repository(Repository::default()/* use setters */);
-    /// ```
     pub fn set_repository<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Repository>,
@@ -9872,14 +7880,6 @@ impl UpdateRepositoryRequest {
     }
 
     /// Sets or clears the value of [repository][crate::model::UpdateRepositoryRequest::repository].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::UpdateRepositoryRequest;
-    /// use google_cloud_artifactregistry_v1::model::Repository;
-    /// let x = UpdateRepositoryRequest::new().set_or_clear_repository(Some(Repository::default()/* use setters */));
-    /// let x = UpdateRepositoryRequest::new().set_or_clear_repository(None::<Repository>);
-    /// ```
     pub fn set_or_clear_repository<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Repository>,
@@ -9889,13 +7889,6 @@ impl UpdateRepositoryRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateRepositoryRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::UpdateRepositoryRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateRepositoryRequest::new().set_update_mask(FieldMask::default()/* use setters */);
-    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -9905,14 +7898,6 @@ impl UpdateRepositoryRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateRepositoryRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::UpdateRepositoryRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateRepositoryRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
-    /// let x = UpdateRepositoryRequest::new().set_or_clear_update_mask(None::<FieldMask>);
-    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -9944,12 +7929,6 @@ impl DeleteRepositoryRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteRepositoryRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::DeleteRepositoryRequest;
-    /// let x = DeleteRepositoryRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -9994,39 +7973,18 @@ impl Rule {
     }
 
     /// Sets the value of [name][crate::model::Rule::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::Rule;
-    /// let x = Rule::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [action][crate::model::Rule::action].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::Rule;
-    /// use google_cloud_artifactregistry_v1::model::rule::Action;
-    /// let x0 = Rule::new().set_action(Action::Allow);
-    /// let x1 = Rule::new().set_action(Action::Deny);
-    /// ```
     pub fn set_action<T: std::convert::Into<crate::model::rule::Action>>(mut self, v: T) -> Self {
         self.action = v.into();
         self
     }
 
     /// Sets the value of [operation][crate::model::Rule::operation].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::Rule;
-    /// use google_cloud_artifactregistry_v1::model::rule::Operation;
-    /// let x0 = Rule::new().set_operation(Operation::Download);
-    /// ```
     pub fn set_operation<T: std::convert::Into<crate::model::rule::Operation>>(
         mut self,
         v: T,
@@ -10036,13 +7994,6 @@ impl Rule {
     }
 
     /// Sets the value of [condition][crate::model::Rule::condition].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::Rule;
-    /// use gtype::model::Expr;
-    /// let x = Rule::new().set_condition(Expr::default()/* use setters */);
-    /// ```
     pub fn set_condition<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<gtype::model::Expr>,
@@ -10052,14 +8003,6 @@ impl Rule {
     }
 
     /// Sets or clears the value of [condition][crate::model::Rule::condition].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::Rule;
-    /// use gtype::model::Expr;
-    /// let x = Rule::new().set_or_clear_condition(Some(Expr::default()/* use setters */));
-    /// let x = Rule::new().set_or_clear_condition(None::<Expr>);
-    /// ```
     pub fn set_or_clear_condition<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<gtype::model::Expr>,
@@ -10069,12 +8012,6 @@ impl Rule {
     }
 
     /// Sets the value of [package_id][crate::model::Rule::package_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::Rule;
-    /// let x = Rule::new().set_package_id("example");
-    /// ```
     pub fn set_package_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.package_id = v.into();
         self
@@ -10374,36 +8311,18 @@ impl ListRulesRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListRulesRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::ListRulesRequest;
-    /// let x = ListRulesRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListRulesRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::ListRulesRequest;
-    /// let x = ListRulesRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListRulesRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::ListRulesRequest;
-    /// let x = ListRulesRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -10436,17 +8355,6 @@ impl ListRulesResponse {
     }
 
     /// Sets the value of [rules][crate::model::ListRulesResponse::rules].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::ListRulesResponse;
-    /// use google_cloud_artifactregistry_v1::model::Rule;
-    /// let x = ListRulesResponse::new()
-    ///     .set_rules([
-    ///         Rule::default()/* use setters */,
-    ///         Rule::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_rules<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -10458,12 +8366,6 @@ impl ListRulesResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListRulesResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::ListRulesResponse;
-    /// let x = ListRulesResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -10506,12 +8408,6 @@ impl GetRuleRequest {
     }
 
     /// Sets the value of [name][crate::model::GetRuleRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::GetRuleRequest;
-    /// let x = GetRuleRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -10546,37 +8442,18 @@ impl CreateRuleRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateRuleRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::CreateRuleRequest;
-    /// let x = CreateRuleRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [rule_id][crate::model::CreateRuleRequest::rule_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::CreateRuleRequest;
-    /// let x = CreateRuleRequest::new().set_rule_id("example");
-    /// ```
     pub fn set_rule_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.rule_id = v.into();
         self
     }
 
     /// Sets the value of [rule][crate::model::CreateRuleRequest::rule].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::CreateRuleRequest;
-    /// use google_cloud_artifactregistry_v1::model::Rule;
-    /// let x = CreateRuleRequest::new().set_rule(Rule::default()/* use setters */);
-    /// ```
     pub fn set_rule<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Rule>,
@@ -10586,14 +8463,6 @@ impl CreateRuleRequest {
     }
 
     /// Sets or clears the value of [rule][crate::model::CreateRuleRequest::rule].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::CreateRuleRequest;
-    /// use google_cloud_artifactregistry_v1::model::Rule;
-    /// let x = CreateRuleRequest::new().set_or_clear_rule(Some(Rule::default()/* use setters */));
-    /// let x = CreateRuleRequest::new().set_or_clear_rule(None::<Rule>);
-    /// ```
     pub fn set_or_clear_rule<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Rule>,
@@ -10630,13 +8499,6 @@ impl UpdateRuleRequest {
     }
 
     /// Sets the value of [rule][crate::model::UpdateRuleRequest::rule].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::UpdateRuleRequest;
-    /// use google_cloud_artifactregistry_v1::model::Rule;
-    /// let x = UpdateRuleRequest::new().set_rule(Rule::default()/* use setters */);
-    /// ```
     pub fn set_rule<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Rule>,
@@ -10646,14 +8508,6 @@ impl UpdateRuleRequest {
     }
 
     /// Sets or clears the value of [rule][crate::model::UpdateRuleRequest::rule].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::UpdateRuleRequest;
-    /// use google_cloud_artifactregistry_v1::model::Rule;
-    /// let x = UpdateRuleRequest::new().set_or_clear_rule(Some(Rule::default()/* use setters */));
-    /// let x = UpdateRuleRequest::new().set_or_clear_rule(None::<Rule>);
-    /// ```
     pub fn set_or_clear_rule<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Rule>,
@@ -10663,13 +8517,6 @@ impl UpdateRuleRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateRuleRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::UpdateRuleRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateRuleRequest::new().set_update_mask(FieldMask::default()/* use setters */);
-    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -10679,14 +8526,6 @@ impl UpdateRuleRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateRuleRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::UpdateRuleRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateRuleRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
-    /// let x = UpdateRuleRequest::new().set_or_clear_update_mask(None::<FieldMask>);
-    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -10718,12 +8557,6 @@ impl DeleteRuleRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteRuleRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::DeleteRuleRequest;
-    /// let x = DeleteRuleRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -10784,27 +8617,12 @@ impl ProjectSettings {
     }
 
     /// Sets the value of [name][crate::model::ProjectSettings::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::ProjectSettings;
-    /// let x = ProjectSettings::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [legacy_redirection_state][crate::model::ProjectSettings::legacy_redirection_state].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::ProjectSettings;
-    /// use google_cloud_artifactregistry_v1::model::project_settings::RedirectionState;
-    /// let x0 = ProjectSettings::new().set_legacy_redirection_state(RedirectionState::RedirectionFromGcrIoDisabled);
-    /// let x1 = ProjectSettings::new().set_legacy_redirection_state(RedirectionState::RedirectionFromGcrIoEnabled);
-    /// let x2 = ProjectSettings::new().set_legacy_redirection_state(RedirectionState::RedirectionFromGcrIoEnabledAndCopying);
-    /// ```
     pub fn set_legacy_redirection_state<
         T: std::convert::Into<crate::model::project_settings::RedirectionState>,
     >(
@@ -10816,12 +8634,6 @@ impl ProjectSettings {
     }
 
     /// Sets the value of [pull_percent][crate::model::ProjectSettings::pull_percent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::ProjectSettings;
-    /// let x = ProjectSettings::new().set_pull_percent(42);
-    /// ```
     pub fn set_pull_percent<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.pull_percent = v.into();
         self
@@ -11024,12 +8836,6 @@ impl GetProjectSettingsRequest {
     }
 
     /// Sets the value of [name][crate::model::GetProjectSettingsRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::GetProjectSettingsRequest;
-    /// let x = GetProjectSettingsRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -11061,13 +8867,6 @@ impl UpdateProjectSettingsRequest {
     }
 
     /// Sets the value of [project_settings][crate::model::UpdateProjectSettingsRequest::project_settings].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::UpdateProjectSettingsRequest;
-    /// use google_cloud_artifactregistry_v1::model::ProjectSettings;
-    /// let x = UpdateProjectSettingsRequest::new().set_project_settings(ProjectSettings::default()/* use setters */);
-    /// ```
     pub fn set_project_settings<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ProjectSettings>,
@@ -11077,14 +8876,6 @@ impl UpdateProjectSettingsRequest {
     }
 
     /// Sets or clears the value of [project_settings][crate::model::UpdateProjectSettingsRequest::project_settings].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::UpdateProjectSettingsRequest;
-    /// use google_cloud_artifactregistry_v1::model::ProjectSettings;
-    /// let x = UpdateProjectSettingsRequest::new().set_or_clear_project_settings(Some(ProjectSettings::default()/* use setters */));
-    /// let x = UpdateProjectSettingsRequest::new().set_or_clear_project_settings(None::<ProjectSettings>);
-    /// ```
     pub fn set_or_clear_project_settings<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ProjectSettings>,
@@ -11094,13 +8885,6 @@ impl UpdateProjectSettingsRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateProjectSettingsRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::UpdateProjectSettingsRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateProjectSettingsRequest::new().set_update_mask(FieldMask::default()/* use setters */);
-    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -11110,14 +8894,6 @@ impl UpdateProjectSettingsRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateProjectSettingsRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::UpdateProjectSettingsRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateProjectSettingsRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
-    /// let x = UpdateProjectSettingsRequest::new().set_or_clear_update_mask(None::<FieldMask>);
-    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -11160,24 +8936,12 @@ impl Tag {
     }
 
     /// Sets the value of [name][crate::model::Tag::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::Tag;
-    /// let x = Tag::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [version][crate::model::Tag::version].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::Tag;
-    /// let x = Tag::new().set_version("example");
-    /// ```
     pub fn set_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.version = v.into();
         self
@@ -11243,48 +9007,24 @@ impl ListTagsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListTagsRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::ListTagsRequest;
-    /// let x = ListTagsRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListTagsRequest::filter].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::ListTagsRequest;
-    /// let x = ListTagsRequest::new().set_filter("example");
-    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListTagsRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::ListTagsRequest;
-    /// let x = ListTagsRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListTagsRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::ListTagsRequest;
-    /// let x = ListTagsRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -11317,17 +9057,6 @@ impl ListTagsResponse {
     }
 
     /// Sets the value of [tags][crate::model::ListTagsResponse::tags].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::ListTagsResponse;
-    /// use google_cloud_artifactregistry_v1::model::Tag;
-    /// let x = ListTagsResponse::new()
-    ///     .set_tags([
-    ///         Tag::default()/* use setters */,
-    ///         Tag::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_tags<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -11339,12 +9068,6 @@ impl ListTagsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListTagsResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::ListTagsResponse;
-    /// let x = ListTagsResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -11387,12 +9110,6 @@ impl GetTagRequest {
     }
 
     /// Sets the value of [name][crate::model::GetTagRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::GetTagRequest;
-    /// let x = GetTagRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -11427,37 +9144,18 @@ impl CreateTagRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateTagRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::CreateTagRequest;
-    /// let x = CreateTagRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [tag_id][crate::model::CreateTagRequest::tag_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::CreateTagRequest;
-    /// let x = CreateTagRequest::new().set_tag_id("example");
-    /// ```
     pub fn set_tag_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.tag_id = v.into();
         self
     }
 
     /// Sets the value of [tag][crate::model::CreateTagRequest::tag].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::CreateTagRequest;
-    /// use google_cloud_artifactregistry_v1::model::Tag;
-    /// let x = CreateTagRequest::new().set_tag(Tag::default()/* use setters */);
-    /// ```
     pub fn set_tag<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Tag>,
@@ -11467,14 +9165,6 @@ impl CreateTagRequest {
     }
 
     /// Sets or clears the value of [tag][crate::model::CreateTagRequest::tag].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::CreateTagRequest;
-    /// use google_cloud_artifactregistry_v1::model::Tag;
-    /// let x = CreateTagRequest::new().set_or_clear_tag(Some(Tag::default()/* use setters */));
-    /// let x = CreateTagRequest::new().set_or_clear_tag(None::<Tag>);
-    /// ```
     pub fn set_or_clear_tag<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Tag>,
@@ -11511,13 +9201,6 @@ impl UpdateTagRequest {
     }
 
     /// Sets the value of [tag][crate::model::UpdateTagRequest::tag].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::UpdateTagRequest;
-    /// use google_cloud_artifactregistry_v1::model::Tag;
-    /// let x = UpdateTagRequest::new().set_tag(Tag::default()/* use setters */);
-    /// ```
     pub fn set_tag<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Tag>,
@@ -11527,14 +9210,6 @@ impl UpdateTagRequest {
     }
 
     /// Sets or clears the value of [tag][crate::model::UpdateTagRequest::tag].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::UpdateTagRequest;
-    /// use google_cloud_artifactregistry_v1::model::Tag;
-    /// let x = UpdateTagRequest::new().set_or_clear_tag(Some(Tag::default()/* use setters */));
-    /// let x = UpdateTagRequest::new().set_or_clear_tag(None::<Tag>);
-    /// ```
     pub fn set_or_clear_tag<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Tag>,
@@ -11544,13 +9219,6 @@ impl UpdateTagRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateTagRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::UpdateTagRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateTagRequest::new().set_update_mask(FieldMask::default()/* use setters */);
-    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -11560,14 +9228,6 @@ impl UpdateTagRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateTagRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::UpdateTagRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateTagRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
-    /// let x = UpdateTagRequest::new().set_or_clear_update_mask(None::<FieldMask>);
-    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -11599,12 +9259,6 @@ impl DeleteTagRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteTagRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::DeleteTagRequest;
-    /// let x = DeleteTagRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -11664,37 +9318,18 @@ impl Version {
     }
 
     /// Sets the value of [name][crate::model::Version::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::Version;
-    /// let x = Version::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [description][crate::model::Version::description].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::Version;
-    /// let x = Version::new().set_description("example");
-    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::Version::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::Version;
-    /// use wkt::Timestamp;
-    /// let x = Version::new().set_create_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -11704,14 +9339,6 @@ impl Version {
     }
 
     /// Sets or clears the value of [create_time][crate::model::Version::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::Version;
-    /// use wkt::Timestamp;
-    /// let x = Version::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
-    /// let x = Version::new().set_or_clear_create_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -11721,13 +9348,6 @@ impl Version {
     }
 
     /// Sets the value of [update_time][crate::model::Version::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::Version;
-    /// use wkt::Timestamp;
-    /// let x = Version::new().set_update_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -11737,14 +9357,6 @@ impl Version {
     }
 
     /// Sets or clears the value of [update_time][crate::model::Version::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::Version;
-    /// use wkt::Timestamp;
-    /// let x = Version::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
-    /// let x = Version::new().set_or_clear_update_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -11754,17 +9366,6 @@ impl Version {
     }
 
     /// Sets the value of [related_tags][crate::model::Version::related_tags].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::Version;
-    /// use google_cloud_artifactregistry_v1::model::Tag;
-    /// let x = Version::new()
-    ///     .set_related_tags([
-    ///         Tag::default()/* use setters */,
-    ///         Tag::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_related_tags<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -11776,13 +9377,6 @@ impl Version {
     }
 
     /// Sets the value of [metadata][crate::model::Version::metadata].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::Version;
-    /// use wkt::Struct;
-    /// let x = Version::new().set_metadata(Struct::default()/* use setters */);
-    /// ```
     pub fn set_metadata<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Struct>,
@@ -11792,14 +9386,6 @@ impl Version {
     }
 
     /// Sets or clears the value of [metadata][crate::model::Version::metadata].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::Version;
-    /// use wkt::Struct;
-    /// let x = Version::new().set_or_clear_metadata(Some(Struct::default()/* use setters */));
-    /// let x = Version::new().set_or_clear_metadata(None::<Struct>);
-    /// ```
     pub fn set_or_clear_metadata<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Struct>,
@@ -11809,15 +9395,6 @@ impl Version {
     }
 
     /// Sets the value of [annotations][crate::model::Version::annotations].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::Version;
-    /// let x = Version::new().set_annotations([
-    ///     ("key0", "abc"),
-    ///     ("key1", "xyz"),
-    /// ]);
-    /// ```
     pub fn set_annotations<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -11911,74 +9488,36 @@ impl ListVersionsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListVersionsRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::ListVersionsRequest;
-    /// let x = ListVersionsRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListVersionsRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::ListVersionsRequest;
-    /// let x = ListVersionsRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListVersionsRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::ListVersionsRequest;
-    /// let x = ListVersionsRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [view][crate::model::ListVersionsRequest::view].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::ListVersionsRequest;
-    /// use google_cloud_artifactregistry_v1::model::VersionView;
-    /// let x0 = ListVersionsRequest::new().set_view(VersionView::Basic);
-    /// let x1 = ListVersionsRequest::new().set_view(VersionView::Full);
-    /// ```
     pub fn set_view<T: std::convert::Into<crate::model::VersionView>>(mut self, v: T) -> Self {
         self.view = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListVersionsRequest::order_by].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::ListVersionsRequest;
-    /// let x = ListVersionsRequest::new().set_order_by("example");
-    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListVersionsRequest::filter].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::ListVersionsRequest;
-    /// let x = ListVersionsRequest::new().set_filter("example");
-    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
@@ -12011,17 +9550,6 @@ impl ListVersionsResponse {
     }
 
     /// Sets the value of [versions][crate::model::ListVersionsResponse::versions].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::ListVersionsResponse;
-    /// use google_cloud_artifactregistry_v1::model::Version;
-    /// let x = ListVersionsResponse::new()
-    ///     .set_versions([
-    ///         Version::default()/* use setters */,
-    ///         Version::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_versions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -12033,12 +9561,6 @@ impl ListVersionsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListVersionsResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::ListVersionsResponse;
-    /// let x = ListVersionsResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -12084,26 +9606,12 @@ impl GetVersionRequest {
     }
 
     /// Sets the value of [name][crate::model::GetVersionRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::GetVersionRequest;
-    /// let x = GetVersionRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [view][crate::model::GetVersionRequest::view].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::GetVersionRequest;
-    /// use google_cloud_artifactregistry_v1::model::VersionView;
-    /// let x0 = GetVersionRequest::new().set_view(VersionView::Basic);
-    /// let x1 = GetVersionRequest::new().set_view(VersionView::Full);
-    /// ```
     pub fn set_view<T: std::convert::Into<crate::model::VersionView>>(mut self, v: T) -> Self {
         self.view = v.into();
         self
@@ -12136,24 +9644,12 @@ impl DeleteVersionRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteVersionRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::DeleteVersionRequest;
-    /// let x = DeleteVersionRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [force][crate::model::DeleteVersionRequest::force].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::DeleteVersionRequest;
-    /// let x = DeleteVersionRequest::new().set_force(true);
-    /// ```
     pub fn set_force<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.force = v.into();
         self
@@ -12190,24 +9686,12 @@ impl BatchDeleteVersionsRequest {
     }
 
     /// Sets the value of [parent][crate::model::BatchDeleteVersionsRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::BatchDeleteVersionsRequest;
-    /// let x = BatchDeleteVersionsRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [names][crate::model::BatchDeleteVersionsRequest::names].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::BatchDeleteVersionsRequest;
-    /// let x = BatchDeleteVersionsRequest::new().set_names(["a", "b", "c"]);
-    /// ```
     pub fn set_names<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -12219,12 +9703,6 @@ impl BatchDeleteVersionsRequest {
     }
 
     /// Sets the value of [validate_only][crate::model::BatchDeleteVersionsRequest::validate_only].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::BatchDeleteVersionsRequest;
-    /// let x = BatchDeleteVersionsRequest::new().set_validate_only(true);
-    /// ```
     pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.validate_only = v.into();
         self
@@ -12253,12 +9731,6 @@ impl BatchDeleteVersionsMetadata {
     }
 
     /// Sets the value of [failed_versions][crate::model::BatchDeleteVersionsMetadata::failed_versions].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::BatchDeleteVersionsMetadata;
-    /// let x = BatchDeleteVersionsMetadata::new().set_failed_versions(["a", "b", "c"]);
-    /// ```
     pub fn set_failed_versions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -12297,13 +9769,6 @@ impl UpdateVersionRequest {
     }
 
     /// Sets the value of [version][crate::model::UpdateVersionRequest::version].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::UpdateVersionRequest;
-    /// use google_cloud_artifactregistry_v1::model::Version;
-    /// let x = UpdateVersionRequest::new().set_version(Version::default()/* use setters */);
-    /// ```
     pub fn set_version<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Version>,
@@ -12313,14 +9778,6 @@ impl UpdateVersionRequest {
     }
 
     /// Sets or clears the value of [version][crate::model::UpdateVersionRequest::version].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::UpdateVersionRequest;
-    /// use google_cloud_artifactregistry_v1::model::Version;
-    /// let x = UpdateVersionRequest::new().set_or_clear_version(Some(Version::default()/* use setters */));
-    /// let x = UpdateVersionRequest::new().set_or_clear_version(None::<Version>);
-    /// ```
     pub fn set_or_clear_version<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Version>,
@@ -12330,13 +9787,6 @@ impl UpdateVersionRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateVersionRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::UpdateVersionRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateVersionRequest::new().set_update_mask(FieldMask::default()/* use setters */);
-    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -12346,14 +9796,6 @@ impl UpdateVersionRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateVersionRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::UpdateVersionRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateVersionRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
-    /// let x = UpdateVersionRequest::new().set_or_clear_update_mask(None::<FieldMask>);
-    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -12395,26 +9837,12 @@ impl VPCSCConfig {
     }
 
     /// Sets the value of [name][crate::model::VPCSCConfig::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::VPCSCConfig;
-    /// let x = VPCSCConfig::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [vpcsc_policy][crate::model::VPCSCConfig::vpcsc_policy].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::VPCSCConfig;
-    /// use google_cloud_artifactregistry_v1::model::vpcsc_config::VPCSCPolicy;
-    /// let x0 = VPCSCConfig::new().set_vpcsc_policy(VPCSCPolicy::Deny);
-    /// let x1 = VPCSCConfig::new().set_vpcsc_policy(VPCSCPolicy::Allow);
-    /// ```
     pub fn set_vpcsc_policy<T: std::convert::Into<crate::model::vpcsc_config::VPCSCPolicy>>(
         mut self,
         v: T,
@@ -12588,12 +10016,6 @@ impl GetVPCSCConfigRequest {
     }
 
     /// Sets the value of [name][crate::model::GetVPCSCConfigRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::GetVPCSCConfigRequest;
-    /// let x = GetVPCSCConfigRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -12625,13 +10047,6 @@ impl UpdateVPCSCConfigRequest {
     }
 
     /// Sets the value of [vpcsc_config][crate::model::UpdateVPCSCConfigRequest::vpcsc_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::UpdateVPCSCConfigRequest;
-    /// use google_cloud_artifactregistry_v1::model::VPCSCConfig;
-    /// let x = UpdateVPCSCConfigRequest::new().set_vpcsc_config(VPCSCConfig::default()/* use setters */);
-    /// ```
     pub fn set_vpcsc_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::VPCSCConfig>,
@@ -12641,14 +10056,6 @@ impl UpdateVPCSCConfigRequest {
     }
 
     /// Sets or clears the value of [vpcsc_config][crate::model::UpdateVPCSCConfigRequest::vpcsc_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::UpdateVPCSCConfigRequest;
-    /// use google_cloud_artifactregistry_v1::model::VPCSCConfig;
-    /// let x = UpdateVPCSCConfigRequest::new().set_or_clear_vpcsc_config(Some(VPCSCConfig::default()/* use setters */));
-    /// let x = UpdateVPCSCConfigRequest::new().set_or_clear_vpcsc_config(None::<VPCSCConfig>);
-    /// ```
     pub fn set_or_clear_vpcsc_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::VPCSCConfig>,
@@ -12658,13 +10065,6 @@ impl UpdateVPCSCConfigRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateVPCSCConfigRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::UpdateVPCSCConfigRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateVPCSCConfigRequest::new().set_update_mask(FieldMask::default()/* use setters */);
-    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -12674,14 +10074,6 @@ impl UpdateVPCSCConfigRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateVPCSCConfigRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::UpdateVPCSCConfigRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateVPCSCConfigRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
-    /// let x = UpdateVPCSCConfigRequest::new().set_or_clear_update_mask(None::<FieldMask>);
-    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -12722,38 +10114,18 @@ impl YumArtifact {
     }
 
     /// Sets the value of [name][crate::model::YumArtifact::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::YumArtifact;
-    /// let x = YumArtifact::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [package_name][crate::model::YumArtifact::package_name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::YumArtifact;
-    /// let x = YumArtifact::new().set_package_name("example");
-    /// ```
     pub fn set_package_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.package_name = v.into();
         self
     }
 
     /// Sets the value of [package_type][crate::model::YumArtifact::package_type].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::YumArtifact;
-    /// use google_cloud_artifactregistry_v1::model::yum_artifact::PackageType;
-    /// let x0 = YumArtifact::new().set_package_type(PackageType::Binary);
-    /// let x1 = YumArtifact::new().set_package_type(PackageType::Source);
-    /// ```
     pub fn set_package_type<T: std::convert::Into<crate::model::yum_artifact::PackageType>>(
         mut self,
         v: T,
@@ -12763,12 +10135,6 @@ impl YumArtifact {
     }
 
     /// Sets the value of [architecture][crate::model::YumArtifact::architecture].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::YumArtifact;
-    /// let x = YumArtifact::new().set_architecture("example");
-    /// ```
     pub fn set_architecture<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.architecture = v.into();
         self
@@ -12938,12 +10304,6 @@ impl ImportYumArtifactsGcsSource {
     }
 
     /// Sets the value of [uris][crate::model::ImportYumArtifactsGcsSource::uris].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::ImportYumArtifactsGcsSource;
-    /// let x = ImportYumArtifactsGcsSource::new().set_uris(["a", "b", "c"]);
-    /// ```
     pub fn set_uris<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -12955,12 +10315,6 @@ impl ImportYumArtifactsGcsSource {
     }
 
     /// Sets the value of [use_wildcards][crate::model::ImportYumArtifactsGcsSource::use_wildcards].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::ImportYumArtifactsGcsSource;
-    /// let x = ImportYumArtifactsGcsSource::new().set_use_wildcards(true);
-    /// ```
     pub fn set_use_wildcards<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.use_wildcards = v.into();
         self
@@ -12992,12 +10346,6 @@ impl ImportYumArtifactsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ImportYumArtifactsRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::ImportYumArtifactsRequest;
-    /// let x = ImportYumArtifactsRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
@@ -13007,14 +10355,6 @@ impl ImportYumArtifactsRequest {
     ///
     /// Note that all the setters affecting `source` are mutually
     /// exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::ImportYumArtifactsRequest;
-    /// use google_cloud_artifactregistry_v1::model::import_yum_artifacts_request;
-    /// use google_cloud_artifactregistry_v1::model::ImportYumArtifactsGcsSource;
-    /// let x = ImportYumArtifactsRequest::new().set_source(Some(import_yum_artifacts_request::Source::GcsSource(ImportYumArtifactsGcsSource::default().into())));
-    /// ```
     pub fn set_source<
         T: std::convert::Into<std::option::Option<crate::model::import_yum_artifacts_request::Source>>,
     >(
@@ -13045,14 +10385,6 @@ impl ImportYumArtifactsRequest {
     ///
     /// Note that all the setters affecting `source` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::ImportYumArtifactsRequest;
-    /// use google_cloud_artifactregistry_v1::model::ImportYumArtifactsGcsSource;
-    /// let x = ImportYumArtifactsRequest::new().set_gcs_source(ImportYumArtifactsGcsSource::default()/* use setters */);
-    /// assert!(x.gcs_source().is_some());
-    /// ```
     pub fn set_gcs_source<
         T: std::convert::Into<std::boxed::Box<crate::model::ImportYumArtifactsGcsSource>>,
     >(
@@ -13105,13 +10437,6 @@ impl ImportYumArtifactsErrorInfo {
     }
 
     /// Sets the value of [error][crate::model::ImportYumArtifactsErrorInfo::error].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::ImportYumArtifactsErrorInfo;
-    /// use rpc::model::Status;
-    /// let x = ImportYumArtifactsErrorInfo::new().set_error(Status::default()/* use setters */);
-    /// ```
     pub fn set_error<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<rpc::model::Status>,
@@ -13121,14 +10446,6 @@ impl ImportYumArtifactsErrorInfo {
     }
 
     /// Sets or clears the value of [error][crate::model::ImportYumArtifactsErrorInfo::error].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::ImportYumArtifactsErrorInfo;
-    /// use rpc::model::Status;
-    /// let x = ImportYumArtifactsErrorInfo::new().set_or_clear_error(Some(Status::default()/* use setters */));
-    /// let x = ImportYumArtifactsErrorInfo::new().set_or_clear_error(None::<Status>);
-    /// ```
     pub fn set_or_clear_error<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<rpc::model::Status>,
@@ -13141,14 +10458,6 @@ impl ImportYumArtifactsErrorInfo {
     ///
     /// Note that all the setters affecting `source` are mutually
     /// exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::ImportYumArtifactsErrorInfo;
-    /// use google_cloud_artifactregistry_v1::model::import_yum_artifacts_error_info;
-    /// use google_cloud_artifactregistry_v1::model::ImportYumArtifactsGcsSource;
-    /// let x = ImportYumArtifactsErrorInfo::new().set_source(Some(import_yum_artifacts_error_info::Source::GcsSource(ImportYumArtifactsGcsSource::default().into())));
-    /// ```
     pub fn set_source<
         T: std::convert::Into<
                 std::option::Option<crate::model::import_yum_artifacts_error_info::Source>,
@@ -13181,14 +10490,6 @@ impl ImportYumArtifactsErrorInfo {
     ///
     /// Note that all the setters affecting `source` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::ImportYumArtifactsErrorInfo;
-    /// use google_cloud_artifactregistry_v1::model::ImportYumArtifactsGcsSource;
-    /// let x = ImportYumArtifactsErrorInfo::new().set_gcs_source(ImportYumArtifactsGcsSource::default()/* use setters */);
-    /// assert!(x.gcs_source().is_some());
-    /// ```
     pub fn set_gcs_source<
         T: std::convert::Into<std::boxed::Box<crate::model::ImportYumArtifactsGcsSource>>,
     >(
@@ -13241,17 +10542,6 @@ impl ImportYumArtifactsResponse {
     }
 
     /// Sets the value of [yum_artifacts][crate::model::ImportYumArtifactsResponse::yum_artifacts].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::ImportYumArtifactsResponse;
-    /// use google_cloud_artifactregistry_v1::model::YumArtifact;
-    /// let x = ImportYumArtifactsResponse::new()
-    ///     .set_yum_artifacts([
-    ///         YumArtifact::default()/* use setters */,
-    ///         YumArtifact::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_yum_artifacts<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -13263,17 +10553,6 @@ impl ImportYumArtifactsResponse {
     }
 
     /// Sets the value of [errors][crate::model::ImportYumArtifactsResponse::errors].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_artifactregistry_v1::model::ImportYumArtifactsResponse;
-    /// use google_cloud_artifactregistry_v1::model::ImportYumArtifactsErrorInfo;
-    /// let x = ImportYumArtifactsResponse::new()
-    ///     .set_errors([
-    ///         ImportYumArtifactsErrorInfo::default()/* use setters */,
-    ///         ImportYumArtifactsErrorInfo::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_errors<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,

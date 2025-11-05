@@ -88,49 +88,24 @@ impl Policy {
     }
 
     /// Sets the value of [version][crate::model::Policy::version].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orgpolicy_v1::model::Policy;
-    /// let x = Policy::new().set_version(42);
-    /// ```
     pub fn set_version<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.version = v.into();
         self
     }
 
     /// Sets the value of [constraint][crate::model::Policy::constraint].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orgpolicy_v1::model::Policy;
-    /// let x = Policy::new().set_constraint("example");
-    /// ```
     pub fn set_constraint<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.constraint = v.into();
         self
     }
 
     /// Sets the value of [etag][crate::model::Policy::etag].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orgpolicy_v1::model::Policy;
-    /// let x = Policy::new().set_etag(bytes::Bytes::from_static(b"example"));
-    /// ```
     pub fn set_etag<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
     }
 
     /// Sets the value of [update_time][crate::model::Policy::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orgpolicy_v1::model::Policy;
-    /// use wkt::Timestamp;
-    /// let x = Policy::new().set_update_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -140,14 +115,6 @@ impl Policy {
     }
 
     /// Sets or clears the value of [update_time][crate::model::Policy::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orgpolicy_v1::model::Policy;
-    /// use wkt::Timestamp;
-    /// let x = Policy::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
-    /// let x = Policy::new().set_or_clear_update_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -160,14 +127,6 @@ impl Policy {
     ///
     /// Note that all the setters affecting `policy_type` are mutually
     /// exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orgpolicy_v1::model::Policy;
-    /// use google_cloud_orgpolicy_v1::model::policy;
-    /// use google_cloud_orgpolicy_v1::model::policy::ListPolicy;
-    /// let x = Policy::new().set_policy_type(Some(policy::PolicyType::ListPolicy(ListPolicy::default().into())));
-    /// ```
     pub fn set_policy_type<
         T: std::convert::Into<std::option::Option<crate::model::policy::PolicyType>>,
     >(
@@ -196,16 +155,6 @@ impl Policy {
     ///
     /// Note that all the setters affecting `policy_type` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orgpolicy_v1::model::Policy;
-    /// use google_cloud_orgpolicy_v1::model::policy::ListPolicy;
-    /// let x = Policy::new().set_list_policy(ListPolicy::default()/* use setters */);
-    /// assert!(x.list_policy().is_some());
-    /// assert!(x.boolean_policy().is_none());
-    /// assert!(x.restore_default().is_none());
-    /// ```
     pub fn set_list_policy<
         T: std::convert::Into<std::boxed::Box<crate::model::policy::ListPolicy>>,
     >(
@@ -235,16 +184,6 @@ impl Policy {
     ///
     /// Note that all the setters affecting `policy_type` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orgpolicy_v1::model::Policy;
-    /// use google_cloud_orgpolicy_v1::model::policy::BooleanPolicy;
-    /// let x = Policy::new().set_boolean_policy(BooleanPolicy::default()/* use setters */);
-    /// assert!(x.boolean_policy().is_some());
-    /// assert!(x.list_policy().is_none());
-    /// assert!(x.restore_default().is_none());
-    /// ```
     pub fn set_boolean_policy<
         T: std::convert::Into<std::boxed::Box<crate::model::policy::BooleanPolicy>>,
     >(
@@ -274,16 +213,6 @@ impl Policy {
     ///
     /// Note that all the setters affecting `policy_type` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_orgpolicy_v1::model::Policy;
-    /// use google_cloud_orgpolicy_v1::model::policy::RestoreDefault;
-    /// let x = Policy::new().set_restore_default(RestoreDefault::default()/* use setters */);
-    /// assert!(x.restore_default().is_some());
-    /// assert!(x.list_policy().is_none());
-    /// assert!(x.boolean_policy().is_none());
-    /// ```
     pub fn set_restore_default<
         T: std::convert::Into<std::boxed::Box<crate::model::policy::RestoreDefault>>,
     >(
@@ -458,12 +387,6 @@ pub mod policy {
         }
 
         /// Sets the value of [allowed_values][crate::model::policy::ListPolicy::allowed_values].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_orgpolicy_v1::model::policy::ListPolicy;
-        /// let x = ListPolicy::new().set_allowed_values(["a", "b", "c"]);
-        /// ```
         pub fn set_allowed_values<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -475,12 +398,6 @@ pub mod policy {
         }
 
         /// Sets the value of [denied_values][crate::model::policy::ListPolicy::denied_values].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_orgpolicy_v1::model::policy::ListPolicy;
-        /// let x = ListPolicy::new().set_denied_values(["a", "b", "c"]);
-        /// ```
         pub fn set_denied_values<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -492,14 +409,6 @@ pub mod policy {
         }
 
         /// Sets the value of [all_values][crate::model::policy::ListPolicy::all_values].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_orgpolicy_v1::model::policy::ListPolicy;
-        /// use google_cloud_orgpolicy_v1::model::policy::list_policy::AllValues;
-        /// let x0 = ListPolicy::new().set_all_values(AllValues::Allow);
-        /// let x1 = ListPolicy::new().set_all_values(AllValues::Deny);
-        /// ```
         pub fn set_all_values<
             T: std::convert::Into<crate::model::policy::list_policy::AllValues>,
         >(
@@ -511,12 +420,6 @@ pub mod policy {
         }
 
         /// Sets the value of [suggested_value][crate::model::policy::ListPolicy::suggested_value].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_orgpolicy_v1::model::policy::ListPolicy;
-        /// let x = ListPolicy::new().set_suggested_value("example");
-        /// ```
         pub fn set_suggested_value<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -526,12 +429,6 @@ pub mod policy {
         }
 
         /// Sets the value of [inherit_from_parent][crate::model::policy::ListPolicy::inherit_from_parent].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_orgpolicy_v1::model::policy::ListPolicy;
-        /// let x = ListPolicy::new().set_inherit_from_parent(true);
-        /// ```
         pub fn set_inherit_from_parent<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.inherit_from_parent = v.into();
             self
@@ -754,12 +651,6 @@ pub mod policy {
         }
 
         /// Sets the value of [enforced][crate::model::policy::BooleanPolicy::enforced].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_orgpolicy_v1::model::policy::BooleanPolicy;
-        /// let x = BooleanPolicy::new().set_enforced(true);
-        /// ```
         pub fn set_enforced<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.enforced = v.into();
             self

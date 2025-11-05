@@ -192,49 +192,24 @@ impl Color {
     }
 
     /// Sets the value of [red][crate::model::Color::red].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_type::model::Color;
-    /// let x = Color::new().set_red(42.0);
-    /// ```
     pub fn set_red<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
         self.red = v.into();
         self
     }
 
     /// Sets the value of [green][crate::model::Color::green].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_type::model::Color;
-    /// let x = Color::new().set_green(42.0);
-    /// ```
     pub fn set_green<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
         self.green = v.into();
         self
     }
 
     /// Sets the value of [blue][crate::model::Color::blue].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_type::model::Color;
-    /// let x = Color::new().set_blue(42.0);
-    /// ```
     pub fn set_blue<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
         self.blue = v.into();
         self
     }
 
     /// Sets the value of [alpha][crate::model::Color::alpha].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_type::model::Color;
-    /// use wkt::FloatValue;
-    /// let x = Color::new().set_alpha(FloatValue::default()/* use setters */);
-    /// ```
     pub fn set_alpha<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FloatValue>,
@@ -244,14 +219,6 @@ impl Color {
     }
 
     /// Sets or clears the value of [alpha][crate::model::Color::alpha].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_type::model::Color;
-    /// use wkt::FloatValue;
-    /// let x = Color::new().set_or_clear_alpha(Some(FloatValue::default()/* use setters */));
-    /// let x = Color::new().set_or_clear_alpha(None::<FloatValue>);
-    /// ```
     pub fn set_or_clear_alpha<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FloatValue>,
@@ -307,36 +274,18 @@ impl Date {
     }
 
     /// Sets the value of [year][crate::model::Date::year].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_type::model::Date;
-    /// let x = Date::new().set_year(42);
-    /// ```
     pub fn set_year<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.year = v.into();
         self
     }
 
     /// Sets the value of [month][crate::model::Date::month].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_type::model::Date;
-    /// let x = Date::new().set_month(42);
-    /// ```
     pub fn set_month<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.month = v.into();
         self
     }
 
     /// Sets the value of [day][crate::model::Date::day].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_type::model::Date;
-    /// let x = Date::new().set_day(42);
-    /// ```
     pub fn set_day<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.day = v.into();
         self
@@ -419,84 +368,42 @@ impl DateTime {
     }
 
     /// Sets the value of [year][crate::model::DateTime::year].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_type::model::DateTime;
-    /// let x = DateTime::new().set_year(42);
-    /// ```
     pub fn set_year<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.year = v.into();
         self
     }
 
     /// Sets the value of [month][crate::model::DateTime::month].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_type::model::DateTime;
-    /// let x = DateTime::new().set_month(42);
-    /// ```
     pub fn set_month<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.month = v.into();
         self
     }
 
     /// Sets the value of [day][crate::model::DateTime::day].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_type::model::DateTime;
-    /// let x = DateTime::new().set_day(42);
-    /// ```
     pub fn set_day<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.day = v.into();
         self
     }
 
     /// Sets the value of [hours][crate::model::DateTime::hours].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_type::model::DateTime;
-    /// let x = DateTime::new().set_hours(42);
-    /// ```
     pub fn set_hours<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.hours = v.into();
         self
     }
 
     /// Sets the value of [minutes][crate::model::DateTime::minutes].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_type::model::DateTime;
-    /// let x = DateTime::new().set_minutes(42);
-    /// ```
     pub fn set_minutes<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.minutes = v.into();
         self
     }
 
     /// Sets the value of [seconds][crate::model::DateTime::seconds].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_type::model::DateTime;
-    /// let x = DateTime::new().set_seconds(42);
-    /// ```
     pub fn set_seconds<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.seconds = v.into();
         self
     }
 
     /// Sets the value of [nanos][crate::model::DateTime::nanos].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_type::model::DateTime;
-    /// let x = DateTime::new().set_nanos(42);
-    /// ```
     pub fn set_nanos<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.nanos = v.into();
         self
@@ -506,14 +413,6 @@ impl DateTime {
     ///
     /// Note that all the setters affecting `time_offset` are mutually
     /// exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_type::model::DateTime;
-    /// use google_cloud_type::model::date_time;
-    /// use wkt::Duration;
-    /// let x = DateTime::new().set_time_offset(Some(date_time::TimeOffset::UtcOffset(Duration::default().into())));
-    /// ```
     pub fn set_time_offset<
         T: std::convert::Into<std::option::Option<crate::model::date_time::TimeOffset>>,
     >(
@@ -540,15 +439,6 @@ impl DateTime {
     ///
     /// Note that all the setters affecting `time_offset` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_type::model::DateTime;
-    /// use wkt::Duration;
-    /// let x = DateTime::new().set_utc_offset(Duration::default()/* use setters */);
-    /// assert!(x.utc_offset().is_some());
-    /// assert!(x.time_zone().is_none());
-    /// ```
     pub fn set_utc_offset<T: std::convert::Into<std::boxed::Box<wkt::Duration>>>(
         mut self,
         v: T,
@@ -574,15 +464,6 @@ impl DateTime {
     ///
     /// Note that all the setters affecting `time_offset` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_type::model::DateTime;
-    /// use google_cloud_type::model::TimeZone;
-    /// let x = DateTime::new().set_time_zone(TimeZone::default()/* use setters */);
-    /// assert!(x.time_zone().is_some());
-    /// assert!(x.utc_offset().is_none());
-    /// ```
     pub fn set_time_zone<T: std::convert::Into<std::boxed::Box<crate::model::TimeZone>>>(
         mut self,
         v: T,
@@ -641,24 +522,12 @@ impl TimeZone {
     }
 
     /// Sets the value of [id][crate::model::TimeZone::id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_type::model::TimeZone;
-    /// let x = TimeZone::new().set_id("example");
-    /// ```
     pub fn set_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.id = v.into();
         self
     }
 
     /// Sets the value of [version][crate::model::TimeZone::version].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_type::model::TimeZone;
-    /// let x = TimeZone::new().set_version("example");
-    /// ```
     pub fn set_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.version = v.into();
         self
@@ -755,12 +624,6 @@ impl Decimal {
     }
 
     /// Sets the value of [value][crate::model::Decimal::value].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_type::model::Decimal;
-    /// let x = Decimal::new().set_value("example");
-    /// ```
     pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.value = v.into();
         self
@@ -841,48 +704,24 @@ impl Expr {
     }
 
     /// Sets the value of [expression][crate::model::Expr::expression].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_type::model::Expr;
-    /// let x = Expr::new().set_expression("example");
-    /// ```
     pub fn set_expression<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.expression = v.into();
         self
     }
 
     /// Sets the value of [title][crate::model::Expr::title].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_type::model::Expr;
-    /// let x = Expr::new().set_title("example");
-    /// ```
     pub fn set_title<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.title = v.into();
         self
     }
 
     /// Sets the value of [description][crate::model::Expr::description].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_type::model::Expr;
-    /// let x = Expr::new().set_description("example");
-    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [location][crate::model::Expr::location].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_type::model::Expr;
-    /// let x = Expr::new().set_location("example");
-    /// ```
     pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.location = v.into();
         self
@@ -915,24 +754,12 @@ impl Fraction {
     }
 
     /// Sets the value of [numerator][crate::model::Fraction::numerator].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_type::model::Fraction;
-    /// let x = Fraction::new().set_numerator(42);
-    /// ```
     pub fn set_numerator<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.numerator = v.into();
         self
     }
 
     /// Sets the value of [denominator][crate::model::Fraction::denominator].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_type::model::Fraction;
-    /// let x = Fraction::new().set_denominator(42);
-    /// ```
     pub fn set_denominator<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.denominator = v.into();
         self
@@ -975,13 +802,6 @@ impl Interval {
     }
 
     /// Sets the value of [start_time][crate::model::Interval::start_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_type::model::Interval;
-    /// use wkt::Timestamp;
-    /// let x = Interval::new().set_start_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_start_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -991,14 +811,6 @@ impl Interval {
     }
 
     /// Sets or clears the value of [start_time][crate::model::Interval::start_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_type::model::Interval;
-    /// use wkt::Timestamp;
-    /// let x = Interval::new().set_or_clear_start_time(Some(Timestamp::default()/* use setters */));
-    /// let x = Interval::new().set_or_clear_start_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1008,13 +820,6 @@ impl Interval {
     }
 
     /// Sets the value of [end_time][crate::model::Interval::end_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_type::model::Interval;
-    /// use wkt::Timestamp;
-    /// let x = Interval::new().set_end_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1024,14 +829,6 @@ impl Interval {
     }
 
     /// Sets or clears the value of [end_time][crate::model::Interval::end_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_type::model::Interval;
-    /// use wkt::Timestamp;
-    /// let x = Interval::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
-    /// let x = Interval::new().set_or_clear_end_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1070,24 +867,12 @@ impl LatLng {
     }
 
     /// Sets the value of [latitude][crate::model::LatLng::latitude].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_type::model::LatLng;
-    /// let x = LatLng::new().set_latitude(42.0);
-    /// ```
     pub fn set_latitude<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
         self.latitude = v.into();
         self
     }
 
     /// Sets the value of [longitude][crate::model::LatLng::longitude].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_type::model::LatLng;
-    /// let x = LatLng::new().set_longitude(42.0);
-    /// ```
     pub fn set_longitude<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
         self.longitude = v.into();
         self
@@ -1122,24 +907,12 @@ impl LocalizedText {
     }
 
     /// Sets the value of [text][crate::model::LocalizedText::text].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_type::model::LocalizedText;
-    /// let x = LocalizedText::new().set_text("example");
-    /// ```
     pub fn set_text<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.text = v.into();
         self
     }
 
     /// Sets the value of [language_code][crate::model::LocalizedText::language_code].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_type::model::LocalizedText;
-    /// let x = LocalizedText::new().set_language_code("example");
-    /// ```
     pub fn set_language_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.language_code = v.into();
         self
@@ -1180,36 +953,18 @@ impl Money {
     }
 
     /// Sets the value of [currency_code][crate::model::Money::currency_code].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_type::model::Money;
-    /// let x = Money::new().set_currency_code("example");
-    /// ```
     pub fn set_currency_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.currency_code = v.into();
         self
     }
 
     /// Sets the value of [units][crate::model::Money::units].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_type::model::Money;
-    /// let x = Money::new().set_units(42);
-    /// ```
     pub fn set_units<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.units = v.into();
         self
     }
 
     /// Sets the value of [nanos][crate::model::Money::nanos].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_type::model::Money;
-    /// let x = Money::new().set_nanos(42);
-    /// ```
     pub fn set_nanos<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.nanos = v.into();
         self
@@ -1279,12 +1034,6 @@ impl PhoneNumber {
     }
 
     /// Sets the value of [extension][crate::model::PhoneNumber::extension].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_type::model::PhoneNumber;
-    /// let x = PhoneNumber::new().set_extension("example");
-    /// ```
     pub fn set_extension<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.extension = v.into();
         self
@@ -1294,13 +1043,6 @@ impl PhoneNumber {
     ///
     /// Note that all the setters affecting `kind` are mutually
     /// exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_type::model::PhoneNumber;
-    /// use google_cloud_type::model::phone_number;
-    /// let x = PhoneNumber::new().set_kind(Some(phone_number::Kind::E164Number("example".to_string())));
-    /// ```
     pub fn set_kind<
         T: std::convert::Into<std::option::Option<crate::model::phone_number::Kind>>,
     >(
@@ -1327,14 +1069,6 @@ impl PhoneNumber {
     ///
     /// Note that all the setters affecting `kind` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_type::model::PhoneNumber;
-    /// let x = PhoneNumber::new().set_e164_number("example");
-    /// assert!(x.e164_number().is_some());
-    /// assert!(x.short_code().is_none());
-    /// ```
     pub fn set_e164_number<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.kind =
             std::option::Option::Some(crate::model::phone_number::Kind::E164Number(v.into()));
@@ -1359,15 +1093,6 @@ impl PhoneNumber {
     ///
     /// Note that all the setters affecting `kind` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_type::model::PhoneNumber;
-    /// use google_cloud_type::model::phone_number::ShortCode;
-    /// let x = PhoneNumber::new().set_short_code(ShortCode::default()/* use setters */);
-    /// assert!(x.short_code().is_some());
-    /// assert!(x.e164_number().is_none());
-    /// ```
     pub fn set_short_code<
         T: std::convert::Into<std::boxed::Box<crate::model::phone_number::ShortCode>>,
     >(
@@ -1424,24 +1149,12 @@ pub mod phone_number {
         }
 
         /// Sets the value of [region_code][crate::model::phone_number::ShortCode::region_code].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_type::model::phone_number::ShortCode;
-        /// let x = ShortCode::new().set_region_code("example");
-        /// ```
         pub fn set_region_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.region_code = v.into();
             self
         }
 
         /// Sets the value of [number][crate::model::phone_number::ShortCode::number].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_type::model::phone_number::ShortCode;
-        /// let x = ShortCode::new().set_number("example");
-        /// ```
         pub fn set_number<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.number = v.into();
             self
@@ -1608,72 +1321,36 @@ impl PostalAddress {
     }
 
     /// Sets the value of [revision][crate::model::PostalAddress::revision].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_type::model::PostalAddress;
-    /// let x = PostalAddress::new().set_revision(42);
-    /// ```
     pub fn set_revision<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.revision = v.into();
         self
     }
 
     /// Sets the value of [region_code][crate::model::PostalAddress::region_code].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_type::model::PostalAddress;
-    /// let x = PostalAddress::new().set_region_code("example");
-    /// ```
     pub fn set_region_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.region_code = v.into();
         self
     }
 
     /// Sets the value of [language_code][crate::model::PostalAddress::language_code].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_type::model::PostalAddress;
-    /// let x = PostalAddress::new().set_language_code("example");
-    /// ```
     pub fn set_language_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.language_code = v.into();
         self
     }
 
     /// Sets the value of [postal_code][crate::model::PostalAddress::postal_code].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_type::model::PostalAddress;
-    /// let x = PostalAddress::new().set_postal_code("example");
-    /// ```
     pub fn set_postal_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.postal_code = v.into();
         self
     }
 
     /// Sets the value of [sorting_code][crate::model::PostalAddress::sorting_code].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_type::model::PostalAddress;
-    /// let x = PostalAddress::new().set_sorting_code("example");
-    /// ```
     pub fn set_sorting_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.sorting_code = v.into();
         self
     }
 
     /// Sets the value of [administrative_area][crate::model::PostalAddress::administrative_area].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_type::model::PostalAddress;
-    /// let x = PostalAddress::new().set_administrative_area("example");
-    /// ```
     pub fn set_administrative_area<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -1683,36 +1360,18 @@ impl PostalAddress {
     }
 
     /// Sets the value of [locality][crate::model::PostalAddress::locality].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_type::model::PostalAddress;
-    /// let x = PostalAddress::new().set_locality("example");
-    /// ```
     pub fn set_locality<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.locality = v.into();
         self
     }
 
     /// Sets the value of [sublocality][crate::model::PostalAddress::sublocality].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_type::model::PostalAddress;
-    /// let x = PostalAddress::new().set_sublocality("example");
-    /// ```
     pub fn set_sublocality<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.sublocality = v.into();
         self
     }
 
     /// Sets the value of [address_lines][crate::model::PostalAddress::address_lines].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_type::model::PostalAddress;
-    /// let x = PostalAddress::new().set_address_lines(["a", "b", "c"]);
-    /// ```
     pub fn set_address_lines<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1724,12 +1383,6 @@ impl PostalAddress {
     }
 
     /// Sets the value of [recipients][crate::model::PostalAddress::recipients].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_type::model::PostalAddress;
-    /// let x = PostalAddress::new().set_recipients(["a", "b", "c"]);
-    /// ```
     pub fn set_recipients<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1741,12 +1394,6 @@ impl PostalAddress {
     }
 
     /// Sets the value of [organization][crate::model::PostalAddress::organization].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_type::model::PostalAddress;
-    /// let x = PostalAddress::new().set_organization("example");
-    /// ```
     pub fn set_organization<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.organization = v.into();
         self
@@ -1842,48 +1489,24 @@ impl Quaternion {
     }
 
     /// Sets the value of [x][crate::model::Quaternion::x].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_type::model::Quaternion;
-    /// let x = Quaternion::new().set_x(42.0);
-    /// ```
     pub fn set_x<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
         self.x = v.into();
         self
     }
 
     /// Sets the value of [y][crate::model::Quaternion::y].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_type::model::Quaternion;
-    /// let x = Quaternion::new().set_y(42.0);
-    /// ```
     pub fn set_y<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
         self.y = v.into();
         self
     }
 
     /// Sets the value of [z][crate::model::Quaternion::z].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_type::model::Quaternion;
-    /// let x = Quaternion::new().set_z(42.0);
-    /// ```
     pub fn set_z<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
         self.z = v.into();
         self
     }
 
     /// Sets the value of [w][crate::model::Quaternion::w].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_type::model::Quaternion;
-    /// let x = Quaternion::new().set_w(42.0);
-    /// ```
     pub fn set_w<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
         self.w = v.into();
         self
@@ -1928,48 +1551,24 @@ impl TimeOfDay {
     }
 
     /// Sets the value of [hours][crate::model::TimeOfDay::hours].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_type::model::TimeOfDay;
-    /// let x = TimeOfDay::new().set_hours(42);
-    /// ```
     pub fn set_hours<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.hours = v.into();
         self
     }
 
     /// Sets the value of [minutes][crate::model::TimeOfDay::minutes].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_type::model::TimeOfDay;
-    /// let x = TimeOfDay::new().set_minutes(42);
-    /// ```
     pub fn set_minutes<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.minutes = v.into();
         self
     }
 
     /// Sets the value of [seconds][crate::model::TimeOfDay::seconds].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_type::model::TimeOfDay;
-    /// let x = TimeOfDay::new().set_seconds(42);
-    /// ```
     pub fn set_seconds<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.seconds = v.into();
         self
     }
 
     /// Sets the value of [nanos][crate::model::TimeOfDay::nanos].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_type::model::TimeOfDay;
-    /// let x = TimeOfDay::new().set_nanos(42);
-    /// ```
     pub fn set_nanos<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.nanos = v.into();
         self

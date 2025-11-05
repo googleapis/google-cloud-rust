@@ -74,40 +74,18 @@ impl MigrationWorkflow {
     }
 
     /// Sets the value of [name][crate::model::MigrationWorkflow::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_migration_v2::model::MigrationWorkflow;
-    /// let x = MigrationWorkflow::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [display_name][crate::model::MigrationWorkflow::display_name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_migration_v2::model::MigrationWorkflow;
-    /// let x = MigrationWorkflow::new().set_display_name("example");
-    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
     }
 
     /// Sets the value of [tasks][crate::model::MigrationWorkflow::tasks].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_migration_v2::model::MigrationWorkflow;
-    /// use google_cloud_bigquery_migration_v2::model::MigrationTask;
-    /// let x = MigrationWorkflow::new().set_tasks([
-    ///     ("key0", MigrationTask::default()/* use setters */),
-    ///     ("key1", MigrationTask::default()/* use (different) setters */),
-    /// ]);
-    /// ```
     pub fn set_tasks<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -120,15 +98,6 @@ impl MigrationWorkflow {
     }
 
     /// Sets the value of [state][crate::model::MigrationWorkflow::state].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_migration_v2::model::MigrationWorkflow;
-    /// use google_cloud_bigquery_migration_v2::model::migration_workflow::State;
-    /// let x0 = MigrationWorkflow::new().set_state(State::Draft);
-    /// let x1 = MigrationWorkflow::new().set_state(State::Running);
-    /// let x2 = MigrationWorkflow::new().set_state(State::Paused);
-    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::migration_workflow::State>>(
         mut self,
         v: T,
@@ -138,13 +107,6 @@ impl MigrationWorkflow {
     }
 
     /// Sets the value of [create_time][crate::model::MigrationWorkflow::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_migration_v2::model::MigrationWorkflow;
-    /// use wkt::Timestamp;
-    /// let x = MigrationWorkflow::new().set_create_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -154,14 +116,6 @@ impl MigrationWorkflow {
     }
 
     /// Sets or clears the value of [create_time][crate::model::MigrationWorkflow::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_migration_v2::model::MigrationWorkflow;
-    /// use wkt::Timestamp;
-    /// let x = MigrationWorkflow::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
-    /// let x = MigrationWorkflow::new().set_or_clear_create_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -171,13 +125,6 @@ impl MigrationWorkflow {
     }
 
     /// Sets the value of [last_update_time][crate::model::MigrationWorkflow::last_update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_migration_v2::model::MigrationWorkflow;
-    /// use wkt::Timestamp;
-    /// let x = MigrationWorkflow::new().set_last_update_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_last_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -187,14 +134,6 @@ impl MigrationWorkflow {
     }
 
     /// Sets or clears the value of [last_update_time][crate::model::MigrationWorkflow::last_update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_migration_v2::model::MigrationWorkflow;
-    /// use wkt::Timestamp;
-    /// let x = MigrationWorkflow::new().set_or_clear_last_update_time(Some(Timestamp::default()/* use setters */));
-    /// let x = MigrationWorkflow::new().set_or_clear_last_update_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_last_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -432,39 +371,18 @@ impl MigrationTask {
     }
 
     /// Sets the value of [id][crate::model::MigrationTask::id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_migration_v2::model::MigrationTask;
-    /// let x = MigrationTask::new().set_id("example");
-    /// ```
     pub fn set_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.id = v.into();
         self
     }
 
     /// Sets the value of [r#type][crate::model::MigrationTask::type].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_migration_v2::model::MigrationTask;
-    /// let x = MigrationTask::new().set_type("example");
-    /// ```
     pub fn set_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.r#type = v.into();
         self
     }
 
     /// Sets the value of [state][crate::model::MigrationTask::state].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_migration_v2::model::MigrationTask;
-    /// use google_cloud_bigquery_migration_v2::model::migration_task::State;
-    /// let x0 = MigrationTask::new().set_state(State::Pending);
-    /// let x1 = MigrationTask::new().set_state(State::Orchestrating);
-    /// let x2 = MigrationTask::new().set_state(State::Running);
-    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::migration_task::State>>(
         mut self,
         v: T,
@@ -474,13 +392,6 @@ impl MigrationTask {
     }
 
     /// Sets the value of [processing_error][crate::model::MigrationTask::processing_error].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_migration_v2::model::MigrationTask;
-    /// use rpc::model::ErrorInfo;
-    /// let x = MigrationTask::new().set_processing_error(ErrorInfo::default()/* use setters */);
-    /// ```
     pub fn set_processing_error<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<rpc::model::ErrorInfo>,
@@ -490,14 +401,6 @@ impl MigrationTask {
     }
 
     /// Sets or clears the value of [processing_error][crate::model::MigrationTask::processing_error].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_migration_v2::model::MigrationTask;
-    /// use rpc::model::ErrorInfo;
-    /// let x = MigrationTask::new().set_or_clear_processing_error(Some(ErrorInfo::default()/* use setters */));
-    /// let x = MigrationTask::new().set_or_clear_processing_error(None::<ErrorInfo>);
-    /// ```
     pub fn set_or_clear_processing_error<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<rpc::model::ErrorInfo>,
@@ -507,13 +410,6 @@ impl MigrationTask {
     }
 
     /// Sets the value of [create_time][crate::model::MigrationTask::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_migration_v2::model::MigrationTask;
-    /// use wkt::Timestamp;
-    /// let x = MigrationTask::new().set_create_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -523,14 +419,6 @@ impl MigrationTask {
     }
 
     /// Sets or clears the value of [create_time][crate::model::MigrationTask::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_migration_v2::model::MigrationTask;
-    /// use wkt::Timestamp;
-    /// let x = MigrationTask::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
-    /// let x = MigrationTask::new().set_or_clear_create_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -540,13 +428,6 @@ impl MigrationTask {
     }
 
     /// Sets the value of [last_update_time][crate::model::MigrationTask::last_update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_migration_v2::model::MigrationTask;
-    /// use wkt::Timestamp;
-    /// let x = MigrationTask::new().set_last_update_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_last_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -556,14 +437,6 @@ impl MigrationTask {
     }
 
     /// Sets or clears the value of [last_update_time][crate::model::MigrationTask::last_update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_migration_v2::model::MigrationTask;
-    /// use wkt::Timestamp;
-    /// let x = MigrationTask::new().set_or_clear_last_update_time(Some(Timestamp::default()/* use setters */));
-    /// let x = MigrationTask::new().set_or_clear_last_update_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_last_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -573,17 +446,6 @@ impl MigrationTask {
     }
 
     /// Sets the value of [resource_error_details][crate::model::MigrationTask::resource_error_details].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_migration_v2::model::MigrationTask;
-    /// use google_cloud_bigquery_migration_v2::model::ResourceErrorDetail;
-    /// let x = MigrationTask::new()
-    ///     .set_resource_error_details([
-    ///         ResourceErrorDetail::default()/* use setters */,
-    ///         ResourceErrorDetail::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_resource_error_details<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -595,29 +457,12 @@ impl MigrationTask {
     }
 
     /// Sets the value of [resource_error_count][crate::model::MigrationTask::resource_error_count].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_migration_v2::model::MigrationTask;
-    /// let x = MigrationTask::new().set_resource_error_count(42);
-    /// ```
     pub fn set_resource_error_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.resource_error_count = v.into();
         self
     }
 
     /// Sets the value of [metrics][crate::model::MigrationTask::metrics].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_migration_v2::model::MigrationTask;
-    /// use google_cloud_bigquery_migration_v2::model::TimeSeries;
-    /// let x = MigrationTask::new()
-    ///     .set_metrics([
-    ///         TimeSeries::default()/* use setters */,
-    ///         TimeSeries::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_metrics<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -629,13 +474,6 @@ impl MigrationTask {
     }
 
     /// Sets the value of [task_result][crate::model::MigrationTask::task_result].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_migration_v2::model::MigrationTask;
-    /// use google_cloud_bigquery_migration_v2::model::MigrationTaskResult;
-    /// let x = MigrationTask::new().set_task_result(MigrationTaskResult::default()/* use setters */);
-    /// ```
     pub fn set_task_result<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::MigrationTaskResult>,
@@ -645,14 +483,6 @@ impl MigrationTask {
     }
 
     /// Sets or clears the value of [task_result][crate::model::MigrationTask::task_result].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_migration_v2::model::MigrationTask;
-    /// use google_cloud_bigquery_migration_v2::model::MigrationTaskResult;
-    /// let x = MigrationTask::new().set_or_clear_task_result(Some(MigrationTaskResult::default()/* use setters */));
-    /// let x = MigrationTask::new().set_or_clear_task_result(None::<MigrationTaskResult>);
-    /// ```
     pub fn set_or_clear_task_result<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::MigrationTaskResult>,
@@ -662,24 +492,12 @@ impl MigrationTask {
     }
 
     /// Sets the value of [total_processing_error_count][crate::model::MigrationTask::total_processing_error_count].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_migration_v2::model::MigrationTask;
-    /// let x = MigrationTask::new().set_total_processing_error_count(42);
-    /// ```
     pub fn set_total_processing_error_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.total_processing_error_count = v.into();
         self
     }
 
     /// Sets the value of [total_resource_error_count][crate::model::MigrationTask::total_resource_error_count].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_migration_v2::model::MigrationTask;
-    /// let x = MigrationTask::new().set_total_resource_error_count(42);
-    /// ```
     pub fn set_total_resource_error_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.total_resource_error_count = v.into();
         self
@@ -689,14 +507,6 @@ impl MigrationTask {
     ///
     /// Note that all the setters affecting `task_details` are mutually
     /// exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_migration_v2::model::MigrationTask;
-    /// use google_cloud_bigquery_migration_v2::model::migration_task;
-    /// use google_cloud_bigquery_migration_v2::model::TranslationConfigDetails;
-    /// let x = MigrationTask::new().set_task_details(Some(migration_task::TaskDetails::TranslationConfigDetails(TranslationConfigDetails::default().into())));
-    /// ```
     pub fn set_task_details<
         T: std::convert::Into<std::option::Option<crate::model::migration_task::TaskDetails>>,
     >(
@@ -727,15 +537,6 @@ impl MigrationTask {
     ///
     /// Note that all the setters affecting `task_details` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_migration_v2::model::MigrationTask;
-    /// use google_cloud_bigquery_migration_v2::model::TranslationConfigDetails;
-    /// let x = MigrationTask::new().set_translation_config_details(TranslationConfigDetails::default()/* use setters */);
-    /// assert!(x.translation_config_details().is_some());
-    /// assert!(x.translation_details().is_none());
-    /// ```
     pub fn set_translation_config_details<
         T: std::convert::Into<std::boxed::Box<crate::model::TranslationConfigDetails>>,
     >(
@@ -768,15 +569,6 @@ impl MigrationTask {
     ///
     /// Note that all the setters affecting `task_details` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_migration_v2::model::MigrationTask;
-    /// use google_cloud_bigquery_migration_v2::model::TranslationDetails;
-    /// let x = MigrationTask::new().set_translation_details(TranslationDetails::default()/* use setters */);
-    /// assert!(x.translation_details().is_some());
-    /// assert!(x.translation_config_details().is_none());
-    /// ```
     pub fn set_translation_details<
         T: std::convert::Into<std::boxed::Box<crate::model::TranslationDetails>>,
     >(
@@ -1030,51 +822,24 @@ impl MigrationSubtask {
     }
 
     /// Sets the value of [name][crate::model::MigrationSubtask::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_migration_v2::model::MigrationSubtask;
-    /// let x = MigrationSubtask::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [task_id][crate::model::MigrationSubtask::task_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_migration_v2::model::MigrationSubtask;
-    /// let x = MigrationSubtask::new().set_task_id("example");
-    /// ```
     pub fn set_task_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.task_id = v.into();
         self
     }
 
     /// Sets the value of [r#type][crate::model::MigrationSubtask::type].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_migration_v2::model::MigrationSubtask;
-    /// let x = MigrationSubtask::new().set_type("example");
-    /// ```
     pub fn set_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.r#type = v.into();
         self
     }
 
     /// Sets the value of [state][crate::model::MigrationSubtask::state].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_migration_v2::model::MigrationSubtask;
-    /// use google_cloud_bigquery_migration_v2::model::migration_subtask::State;
-    /// let x0 = MigrationSubtask::new().set_state(State::Active);
-    /// let x1 = MigrationSubtask::new().set_state(State::Running);
-    /// let x2 = MigrationSubtask::new().set_state(State::Succeeded);
-    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::migration_subtask::State>>(
         mut self,
         v: T,
@@ -1084,13 +849,6 @@ impl MigrationSubtask {
     }
 
     /// Sets the value of [processing_error][crate::model::MigrationSubtask::processing_error].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_migration_v2::model::MigrationSubtask;
-    /// use rpc::model::ErrorInfo;
-    /// let x = MigrationSubtask::new().set_processing_error(ErrorInfo::default()/* use setters */);
-    /// ```
     pub fn set_processing_error<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<rpc::model::ErrorInfo>,
@@ -1100,14 +858,6 @@ impl MigrationSubtask {
     }
 
     /// Sets or clears the value of [processing_error][crate::model::MigrationSubtask::processing_error].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_migration_v2::model::MigrationSubtask;
-    /// use rpc::model::ErrorInfo;
-    /// let x = MigrationSubtask::new().set_or_clear_processing_error(Some(ErrorInfo::default()/* use setters */));
-    /// let x = MigrationSubtask::new().set_or_clear_processing_error(None::<ErrorInfo>);
-    /// ```
     pub fn set_or_clear_processing_error<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<rpc::model::ErrorInfo>,
@@ -1117,17 +867,6 @@ impl MigrationSubtask {
     }
 
     /// Sets the value of [resource_error_details][crate::model::MigrationSubtask::resource_error_details].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_migration_v2::model::MigrationSubtask;
-    /// use google_cloud_bigquery_migration_v2::model::ResourceErrorDetail;
-    /// let x = MigrationSubtask::new()
-    ///     .set_resource_error_details([
-    ///         ResourceErrorDetail::default()/* use setters */,
-    ///         ResourceErrorDetail::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_resource_error_details<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1139,25 +878,12 @@ impl MigrationSubtask {
     }
 
     /// Sets the value of [resource_error_count][crate::model::MigrationSubtask::resource_error_count].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_migration_v2::model::MigrationSubtask;
-    /// let x = MigrationSubtask::new().set_resource_error_count(42);
-    /// ```
     pub fn set_resource_error_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.resource_error_count = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::MigrationSubtask::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_migration_v2::model::MigrationSubtask;
-    /// use wkt::Timestamp;
-    /// let x = MigrationSubtask::new().set_create_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1167,14 +893,6 @@ impl MigrationSubtask {
     }
 
     /// Sets or clears the value of [create_time][crate::model::MigrationSubtask::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_migration_v2::model::MigrationSubtask;
-    /// use wkt::Timestamp;
-    /// let x = MigrationSubtask::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
-    /// let x = MigrationSubtask::new().set_or_clear_create_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1184,13 +902,6 @@ impl MigrationSubtask {
     }
 
     /// Sets the value of [last_update_time][crate::model::MigrationSubtask::last_update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_migration_v2::model::MigrationSubtask;
-    /// use wkt::Timestamp;
-    /// let x = MigrationSubtask::new().set_last_update_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_last_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1200,14 +911,6 @@ impl MigrationSubtask {
     }
 
     /// Sets or clears the value of [last_update_time][crate::model::MigrationSubtask::last_update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_migration_v2::model::MigrationSubtask;
-    /// use wkt::Timestamp;
-    /// let x = MigrationSubtask::new().set_or_clear_last_update_time(Some(Timestamp::default()/* use setters */));
-    /// let x = MigrationSubtask::new().set_or_clear_last_update_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_last_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1217,17 +920,6 @@ impl MigrationSubtask {
     }
 
     /// Sets the value of [metrics][crate::model::MigrationSubtask::metrics].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_migration_v2::model::MigrationSubtask;
-    /// use google_cloud_bigquery_migration_v2::model::TimeSeries;
-    /// let x = MigrationSubtask::new()
-    ///     .set_metrics([
-    ///         TimeSeries::default()/* use setters */,
-    ///         TimeSeries::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_metrics<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1432,14 +1124,6 @@ impl MigrationTaskResult {
     ///
     /// Note that all the setters affecting `details` are mutually
     /// exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_migration_v2::model::MigrationTaskResult;
-    /// use google_cloud_bigquery_migration_v2::model::migration_task_result;
-    /// use google_cloud_bigquery_migration_v2::model::TranslationTaskResult;
-    /// let x = MigrationTaskResult::new().set_details(Some(migration_task_result::Details::TranslationTaskResult(TranslationTaskResult::default().into())));
-    /// ```
     pub fn set_details<
         T: std::convert::Into<std::option::Option<crate::model::migration_task_result::Details>>,
     >(
@@ -1470,14 +1154,6 @@ impl MigrationTaskResult {
     ///
     /// Note that all the setters affecting `details` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_migration_v2::model::MigrationTaskResult;
-    /// use google_cloud_bigquery_migration_v2::model::TranslationTaskResult;
-    /// let x = MigrationTaskResult::new().set_translation_task_result(TranslationTaskResult::default()/* use setters */);
-    /// assert!(x.translation_task_result().is_some());
-    /// ```
     pub fn set_translation_task_result<
         T: std::convert::Into<std::boxed::Box<crate::model::TranslationTaskResult>>,
     >(
@@ -1530,17 +1206,6 @@ impl TranslationTaskResult {
     }
 
     /// Sets the value of [translated_literals][crate::model::TranslationTaskResult::translated_literals].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_migration_v2::model::TranslationTaskResult;
-    /// use google_cloud_bigquery_migration_v2::model::Literal;
-    /// let x = TranslationTaskResult::new()
-    ///     .set_translated_literals([
-    ///         Literal::default()/* use setters */,
-    ///         Literal::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_translated_literals<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1552,17 +1217,6 @@ impl TranslationTaskResult {
     }
 
     /// Sets the value of [report_log_messages][crate::model::TranslationTaskResult::report_log_messages].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_migration_v2::model::TranslationTaskResult;
-    /// use google_cloud_bigquery_migration_v2::model::GcsReportLogMessage;
-    /// let x = TranslationTaskResult::new()
-    ///     .set_report_log_messages([
-    ///         GcsReportLogMessage::default()/* use setters */,
-    ///         GcsReportLogMessage::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_report_log_messages<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1604,13 +1258,6 @@ impl ResourceErrorDetail {
     }
 
     /// Sets the value of [resource_info][crate::model::ResourceErrorDetail::resource_info].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_migration_v2::model::ResourceErrorDetail;
-    /// use rpc::model::ResourceInfo;
-    /// let x = ResourceErrorDetail::new().set_resource_info(ResourceInfo::default()/* use setters */);
-    /// ```
     pub fn set_resource_info<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<rpc::model::ResourceInfo>,
@@ -1620,14 +1267,6 @@ impl ResourceErrorDetail {
     }
 
     /// Sets or clears the value of [resource_info][crate::model::ResourceErrorDetail::resource_info].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_migration_v2::model::ResourceErrorDetail;
-    /// use rpc::model::ResourceInfo;
-    /// let x = ResourceErrorDetail::new().set_or_clear_resource_info(Some(ResourceInfo::default()/* use setters */));
-    /// let x = ResourceErrorDetail::new().set_or_clear_resource_info(None::<ResourceInfo>);
-    /// ```
     pub fn set_or_clear_resource_info<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<rpc::model::ResourceInfo>,
@@ -1637,17 +1276,6 @@ impl ResourceErrorDetail {
     }
 
     /// Sets the value of [error_details][crate::model::ResourceErrorDetail::error_details].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_migration_v2::model::ResourceErrorDetail;
-    /// use google_cloud_bigquery_migration_v2::model::ErrorDetail;
-    /// let x = ResourceErrorDetail::new()
-    ///     .set_error_details([
-    ///         ErrorDetail::default()/* use setters */,
-    ///         ErrorDetail::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_error_details<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1659,12 +1287,6 @@ impl ResourceErrorDetail {
     }
 
     /// Sets the value of [error_count][crate::model::ResourceErrorDetail::error_count].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_migration_v2::model::ResourceErrorDetail;
-    /// let x = ResourceErrorDetail::new().set_error_count(42);
-    /// ```
     pub fn set_error_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.error_count = v.into();
         self
@@ -1697,13 +1319,6 @@ impl ErrorDetail {
     }
 
     /// Sets the value of [location][crate::model::ErrorDetail::location].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_migration_v2::model::ErrorDetail;
-    /// use google_cloud_bigquery_migration_v2::model::ErrorLocation;
-    /// let x = ErrorDetail::new().set_location(ErrorLocation::default()/* use setters */);
-    /// ```
     pub fn set_location<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ErrorLocation>,
@@ -1713,14 +1328,6 @@ impl ErrorDetail {
     }
 
     /// Sets or clears the value of [location][crate::model::ErrorDetail::location].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_migration_v2::model::ErrorDetail;
-    /// use google_cloud_bigquery_migration_v2::model::ErrorLocation;
-    /// let x = ErrorDetail::new().set_or_clear_location(Some(ErrorLocation::default()/* use setters */));
-    /// let x = ErrorDetail::new().set_or_clear_location(None::<ErrorLocation>);
-    /// ```
     pub fn set_or_clear_location<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ErrorLocation>,
@@ -1730,13 +1337,6 @@ impl ErrorDetail {
     }
 
     /// Sets the value of [error_info][crate::model::ErrorDetail::error_info].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_migration_v2::model::ErrorDetail;
-    /// use rpc::model::ErrorInfo;
-    /// let x = ErrorDetail::new().set_error_info(ErrorInfo::default()/* use setters */);
-    /// ```
     pub fn set_error_info<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<rpc::model::ErrorInfo>,
@@ -1746,14 +1346,6 @@ impl ErrorDetail {
     }
 
     /// Sets or clears the value of [error_info][crate::model::ErrorDetail::error_info].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_migration_v2::model::ErrorDetail;
-    /// use rpc::model::ErrorInfo;
-    /// let x = ErrorDetail::new().set_or_clear_error_info(Some(ErrorInfo::default()/* use setters */));
-    /// let x = ErrorDetail::new().set_or_clear_error_info(None::<ErrorInfo>);
-    /// ```
     pub fn set_or_clear_error_info<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<rpc::model::ErrorInfo>,
@@ -1790,24 +1382,12 @@ impl ErrorLocation {
     }
 
     /// Sets the value of [line][crate::model::ErrorLocation::line].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_migration_v2::model::ErrorLocation;
-    /// let x = ErrorLocation::new().set_line(42);
-    /// ```
     pub fn set_line<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.line = v.into();
         self
     }
 
     /// Sets the value of [column][crate::model::ErrorLocation::column].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_migration_v2::model::ErrorLocation;
-    /// let x = ErrorLocation::new().set_column(42);
-    /// ```
     pub fn set_column<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.column = v.into();
         self
@@ -1859,27 +1439,12 @@ impl TimeSeries {
     }
 
     /// Sets the value of [metric][crate::model::TimeSeries::metric].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_migration_v2::model::TimeSeries;
-    /// let x = TimeSeries::new().set_metric("example");
-    /// ```
     pub fn set_metric<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.metric = v.into();
         self
     }
 
     /// Sets the value of [value_type][crate::model::TimeSeries::value_type].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_migration_v2::model::TimeSeries;
-    /// use api::model::metric_descriptor::ValueType;
-    /// let x0 = TimeSeries::new().set_value_type(ValueType::Bool);
-    /// let x1 = TimeSeries::new().set_value_type(ValueType::Int64);
-    /// let x2 = TimeSeries::new().set_value_type(ValueType::Double);
-    /// ```
     pub fn set_value_type<T: std::convert::Into<api::model::metric_descriptor::ValueType>>(
         mut self,
         v: T,
@@ -1889,15 +1454,6 @@ impl TimeSeries {
     }
 
     /// Sets the value of [metric_kind][crate::model::TimeSeries::metric_kind].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_migration_v2::model::TimeSeries;
-    /// use api::model::metric_descriptor::MetricKind;
-    /// let x0 = TimeSeries::new().set_metric_kind(MetricKind::Gauge);
-    /// let x1 = TimeSeries::new().set_metric_kind(MetricKind::Delta);
-    /// let x2 = TimeSeries::new().set_metric_kind(MetricKind::Cumulative);
-    /// ```
     pub fn set_metric_kind<T: std::convert::Into<api::model::metric_descriptor::MetricKind>>(
         mut self,
         v: T,
@@ -1907,17 +1463,6 @@ impl TimeSeries {
     }
 
     /// Sets the value of [points][crate::model::TimeSeries::points].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_migration_v2::model::TimeSeries;
-    /// use google_cloud_bigquery_migration_v2::model::Point;
-    /// let x = TimeSeries::new()
-    ///     .set_points([
-    ///         Point::default()/* use setters */,
-    ///         Point::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_points<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1962,13 +1507,6 @@ impl Point {
     }
 
     /// Sets the value of [interval][crate::model::Point::interval].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_migration_v2::model::Point;
-    /// use google_cloud_bigquery_migration_v2::model::TimeInterval;
-    /// let x = Point::new().set_interval(TimeInterval::default()/* use setters */);
-    /// ```
     pub fn set_interval<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::TimeInterval>,
@@ -1978,14 +1516,6 @@ impl Point {
     }
 
     /// Sets or clears the value of [interval][crate::model::Point::interval].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_migration_v2::model::Point;
-    /// use google_cloud_bigquery_migration_v2::model::TimeInterval;
-    /// let x = Point::new().set_or_clear_interval(Some(TimeInterval::default()/* use setters */));
-    /// let x = Point::new().set_or_clear_interval(None::<TimeInterval>);
-    /// ```
     pub fn set_or_clear_interval<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::TimeInterval>,
@@ -1995,13 +1525,6 @@ impl Point {
     }
 
     /// Sets the value of [value][crate::model::Point::value].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_migration_v2::model::Point;
-    /// use google_cloud_bigquery_migration_v2::model::TypedValue;
-    /// let x = Point::new().set_value(TypedValue::default()/* use setters */);
-    /// ```
     pub fn set_value<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::TypedValue>,
@@ -2011,14 +1534,6 @@ impl Point {
     }
 
     /// Sets or clears the value of [value][crate::model::Point::value].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_migration_v2::model::Point;
-    /// use google_cloud_bigquery_migration_v2::model::TypedValue;
-    /// let x = Point::new().set_or_clear_value(Some(TypedValue::default()/* use setters */));
-    /// let x = Point::new().set_or_clear_value(None::<TypedValue>);
-    /// ```
     pub fn set_or_clear_value<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::TypedValue>,
@@ -2057,13 +1572,6 @@ impl TimeInterval {
     }
 
     /// Sets the value of [start_time][crate::model::TimeInterval::start_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_migration_v2::model::TimeInterval;
-    /// use wkt::Timestamp;
-    /// let x = TimeInterval::new().set_start_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_start_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2073,14 +1581,6 @@ impl TimeInterval {
     }
 
     /// Sets or clears the value of [start_time][crate::model::TimeInterval::start_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_migration_v2::model::TimeInterval;
-    /// use wkt::Timestamp;
-    /// let x = TimeInterval::new().set_or_clear_start_time(Some(Timestamp::default()/* use setters */));
-    /// let x = TimeInterval::new().set_or_clear_start_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2090,13 +1590,6 @@ impl TimeInterval {
     }
 
     /// Sets the value of [end_time][crate::model::TimeInterval::end_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_migration_v2::model::TimeInterval;
-    /// use wkt::Timestamp;
-    /// let x = TimeInterval::new().set_end_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2106,14 +1599,6 @@ impl TimeInterval {
     }
 
     /// Sets or clears the value of [end_time][crate::model::TimeInterval::end_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_migration_v2::model::TimeInterval;
-    /// use wkt::Timestamp;
-    /// let x = TimeInterval::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
-    /// let x = TimeInterval::new().set_or_clear_end_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2148,13 +1633,6 @@ impl TypedValue {
     ///
     /// Note that all the setters affecting `value` are mutually
     /// exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_migration_v2::model::TypedValue;
-    /// use google_cloud_bigquery_migration_v2::model::typed_value;
-    /// let x = TypedValue::new().set_value(Some(typed_value::Value::BoolValue(true)));
-    /// ```
     pub fn set_value<
         T: std::convert::Into<std::option::Option<crate::model::typed_value::Value>>,
     >(
@@ -2181,17 +1659,6 @@ impl TypedValue {
     ///
     /// Note that all the setters affecting `value` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_migration_v2::model::TypedValue;
-    /// let x = TypedValue::new().set_bool_value(true);
-    /// assert!(x.bool_value().is_some());
-    /// assert!(x.int64_value().is_none());
-    /// assert!(x.double_value().is_none());
-    /// assert!(x.string_value().is_none());
-    /// assert!(x.distribution_value().is_none());
-    /// ```
     pub fn set_bool_value<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.value =
             std::option::Option::Some(crate::model::typed_value::Value::BoolValue(v.into()));
@@ -2214,17 +1681,6 @@ impl TypedValue {
     ///
     /// Note that all the setters affecting `value` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_migration_v2::model::TypedValue;
-    /// let x = TypedValue::new().set_int64_value(42);
-    /// assert!(x.int64_value().is_some());
-    /// assert!(x.bool_value().is_none());
-    /// assert!(x.double_value().is_none());
-    /// assert!(x.string_value().is_none());
-    /// assert!(x.distribution_value().is_none());
-    /// ```
     pub fn set_int64_value<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.value =
             std::option::Option::Some(crate::model::typed_value::Value::Int64Value(v.into()));
@@ -2247,17 +1703,6 @@ impl TypedValue {
     ///
     /// Note that all the setters affecting `value` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_migration_v2::model::TypedValue;
-    /// let x = TypedValue::new().set_double_value(42.0);
-    /// assert!(x.double_value().is_some());
-    /// assert!(x.bool_value().is_none());
-    /// assert!(x.int64_value().is_none());
-    /// assert!(x.string_value().is_none());
-    /// assert!(x.distribution_value().is_none());
-    /// ```
     pub fn set_double_value<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
         self.value =
             std::option::Option::Some(crate::model::typed_value::Value::DoubleValue(v.into()));
@@ -2280,17 +1725,6 @@ impl TypedValue {
     ///
     /// Note that all the setters affecting `value` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_migration_v2::model::TypedValue;
-    /// let x = TypedValue::new().set_string_value("example");
-    /// assert!(x.string_value().is_some());
-    /// assert!(x.bool_value().is_none());
-    /// assert!(x.int64_value().is_none());
-    /// assert!(x.double_value().is_none());
-    /// assert!(x.distribution_value().is_none());
-    /// ```
     pub fn set_string_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.value =
             std::option::Option::Some(crate::model::typed_value::Value::StringValue(v.into()));
@@ -2315,18 +1749,6 @@ impl TypedValue {
     ///
     /// Note that all the setters affecting `value` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_migration_v2::model::TypedValue;
-    /// use api::model::Distribution;
-    /// let x = TypedValue::new().set_distribution_value(Distribution::default()/* use setters */);
-    /// assert!(x.distribution_value().is_some());
-    /// assert!(x.bool_value().is_none());
-    /// assert!(x.int64_value().is_none());
-    /// assert!(x.double_value().is_none());
-    /// assert!(x.string_value().is_none());
-    /// ```
     pub fn set_distribution_value<
         T: std::convert::Into<std::boxed::Box<api::model::Distribution>>,
     >(
@@ -2390,25 +1812,12 @@ impl CreateMigrationWorkflowRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateMigrationWorkflowRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_migration_v2::model::CreateMigrationWorkflowRequest;
-    /// let x = CreateMigrationWorkflowRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [migration_workflow][crate::model::CreateMigrationWorkflowRequest::migration_workflow].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_migration_v2::model::CreateMigrationWorkflowRequest;
-    /// use google_cloud_bigquery_migration_v2::model::MigrationWorkflow;
-    /// let x = CreateMigrationWorkflowRequest::new().set_migration_workflow(MigrationWorkflow::default()/* use setters */);
-    /// ```
     pub fn set_migration_workflow<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::MigrationWorkflow>,
@@ -2418,14 +1827,6 @@ impl CreateMigrationWorkflowRequest {
     }
 
     /// Sets or clears the value of [migration_workflow][crate::model::CreateMigrationWorkflowRequest::migration_workflow].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_migration_v2::model::CreateMigrationWorkflowRequest;
-    /// use google_cloud_bigquery_migration_v2::model::MigrationWorkflow;
-    /// let x = CreateMigrationWorkflowRequest::new().set_or_clear_migration_workflow(Some(MigrationWorkflow::default()/* use setters */));
-    /// let x = CreateMigrationWorkflowRequest::new().set_or_clear_migration_workflow(None::<MigrationWorkflow>);
-    /// ```
     pub fn set_or_clear_migration_workflow<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::MigrationWorkflow>,
@@ -2461,25 +1862,12 @@ impl GetMigrationWorkflowRequest {
     }
 
     /// Sets the value of [name][crate::model::GetMigrationWorkflowRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_migration_v2::model::GetMigrationWorkflowRequest;
-    /// let x = GetMigrationWorkflowRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [read_mask][crate::model::GetMigrationWorkflowRequest::read_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_migration_v2::model::GetMigrationWorkflowRequest;
-    /// use wkt::FieldMask;
-    /// let x = GetMigrationWorkflowRequest::new().set_read_mask(FieldMask::default()/* use setters */);
-    /// ```
     pub fn set_read_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -2489,14 +1877,6 @@ impl GetMigrationWorkflowRequest {
     }
 
     /// Sets or clears the value of [read_mask][crate::model::GetMigrationWorkflowRequest::read_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_migration_v2::model::GetMigrationWorkflowRequest;
-    /// use wkt::FieldMask;
-    /// let x = GetMigrationWorkflowRequest::new().set_or_clear_read_mask(Some(FieldMask::default()/* use setters */));
-    /// let x = GetMigrationWorkflowRequest::new().set_or_clear_read_mask(None::<FieldMask>);
-    /// ```
     pub fn set_or_clear_read_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -2543,25 +1923,12 @@ impl ListMigrationWorkflowsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListMigrationWorkflowsRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_migration_v2::model::ListMigrationWorkflowsRequest;
-    /// let x = ListMigrationWorkflowsRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [read_mask][crate::model::ListMigrationWorkflowsRequest::read_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_migration_v2::model::ListMigrationWorkflowsRequest;
-    /// use wkt::FieldMask;
-    /// let x = ListMigrationWorkflowsRequest::new().set_read_mask(FieldMask::default()/* use setters */);
-    /// ```
     pub fn set_read_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -2571,14 +1938,6 @@ impl ListMigrationWorkflowsRequest {
     }
 
     /// Sets or clears the value of [read_mask][crate::model::ListMigrationWorkflowsRequest::read_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_migration_v2::model::ListMigrationWorkflowsRequest;
-    /// use wkt::FieldMask;
-    /// let x = ListMigrationWorkflowsRequest::new().set_or_clear_read_mask(Some(FieldMask::default()/* use setters */));
-    /// let x = ListMigrationWorkflowsRequest::new().set_or_clear_read_mask(None::<FieldMask>);
-    /// ```
     pub fn set_or_clear_read_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -2588,24 +1947,12 @@ impl ListMigrationWorkflowsRequest {
     }
 
     /// Sets the value of [page_size][crate::model::ListMigrationWorkflowsRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_migration_v2::model::ListMigrationWorkflowsRequest;
-    /// let x = ListMigrationWorkflowsRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListMigrationWorkflowsRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_migration_v2::model::ListMigrationWorkflowsRequest;
-    /// let x = ListMigrationWorkflowsRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -2638,17 +1985,6 @@ impl ListMigrationWorkflowsResponse {
     }
 
     /// Sets the value of [migration_workflows][crate::model::ListMigrationWorkflowsResponse::migration_workflows].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_migration_v2::model::ListMigrationWorkflowsResponse;
-    /// use google_cloud_bigquery_migration_v2::model::MigrationWorkflow;
-    /// let x = ListMigrationWorkflowsResponse::new()
-    ///     .set_migration_workflows([
-    ///         MigrationWorkflow::default()/* use setters */,
-    ///         MigrationWorkflow::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_migration_workflows<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2660,12 +1996,6 @@ impl ListMigrationWorkflowsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListMigrationWorkflowsResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_migration_v2::model::ListMigrationWorkflowsResponse;
-    /// let x = ListMigrationWorkflowsResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -2709,12 +2039,6 @@ impl DeleteMigrationWorkflowRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteMigrationWorkflowRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_migration_v2::model::DeleteMigrationWorkflowRequest;
-    /// let x = DeleteMigrationWorkflowRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -2744,12 +2068,6 @@ impl StartMigrationWorkflowRequest {
     }
 
     /// Sets the value of [name][crate::model::StartMigrationWorkflowRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_migration_v2::model::StartMigrationWorkflowRequest;
-    /// let x = StartMigrationWorkflowRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -2782,25 +2100,12 @@ impl GetMigrationSubtaskRequest {
     }
 
     /// Sets the value of [name][crate::model::GetMigrationSubtaskRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_migration_v2::model::GetMigrationSubtaskRequest;
-    /// let x = GetMigrationSubtaskRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [read_mask][crate::model::GetMigrationSubtaskRequest::read_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_migration_v2::model::GetMigrationSubtaskRequest;
-    /// use wkt::FieldMask;
-    /// let x = GetMigrationSubtaskRequest::new().set_read_mask(FieldMask::default()/* use setters */);
-    /// ```
     pub fn set_read_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -2810,14 +2115,6 @@ impl GetMigrationSubtaskRequest {
     }
 
     /// Sets or clears the value of [read_mask][crate::model::GetMigrationSubtaskRequest::read_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_migration_v2::model::GetMigrationSubtaskRequest;
-    /// use wkt::FieldMask;
-    /// let x = GetMigrationSubtaskRequest::new().set_or_clear_read_mask(Some(FieldMask::default()/* use setters */));
-    /// let x = GetMigrationSubtaskRequest::new().set_or_clear_read_mask(None::<FieldMask>);
-    /// ```
     pub fn set_or_clear_read_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -2869,25 +2166,12 @@ impl ListMigrationSubtasksRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListMigrationSubtasksRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_migration_v2::model::ListMigrationSubtasksRequest;
-    /// let x = ListMigrationSubtasksRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [read_mask][crate::model::ListMigrationSubtasksRequest::read_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_migration_v2::model::ListMigrationSubtasksRequest;
-    /// use wkt::FieldMask;
-    /// let x = ListMigrationSubtasksRequest::new().set_read_mask(FieldMask::default()/* use setters */);
-    /// ```
     pub fn set_read_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -2897,14 +2181,6 @@ impl ListMigrationSubtasksRequest {
     }
 
     /// Sets or clears the value of [read_mask][crate::model::ListMigrationSubtasksRequest::read_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_migration_v2::model::ListMigrationSubtasksRequest;
-    /// use wkt::FieldMask;
-    /// let x = ListMigrationSubtasksRequest::new().set_or_clear_read_mask(Some(FieldMask::default()/* use setters */));
-    /// let x = ListMigrationSubtasksRequest::new().set_or_clear_read_mask(None::<FieldMask>);
-    /// ```
     pub fn set_or_clear_read_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -2914,36 +2190,18 @@ impl ListMigrationSubtasksRequest {
     }
 
     /// Sets the value of [page_size][crate::model::ListMigrationSubtasksRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_migration_v2::model::ListMigrationSubtasksRequest;
-    /// let x = ListMigrationSubtasksRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListMigrationSubtasksRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_migration_v2::model::ListMigrationSubtasksRequest;
-    /// let x = ListMigrationSubtasksRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListMigrationSubtasksRequest::filter].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_migration_v2::model::ListMigrationSubtasksRequest;
-    /// let x = ListMigrationSubtasksRequest::new().set_filter("example");
-    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
@@ -2976,17 +2234,6 @@ impl ListMigrationSubtasksResponse {
     }
 
     /// Sets the value of [migration_subtasks][crate::model::ListMigrationSubtasksResponse::migration_subtasks].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_migration_v2::model::ListMigrationSubtasksResponse;
-    /// use google_cloud_bigquery_migration_v2::model::MigrationSubtask;
-    /// let x = ListMigrationSubtasksResponse::new()
-    ///     .set_migration_subtasks([
-    ///         MigrationSubtask::default()/* use setters */,
-    ///         MigrationSubtask::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_migration_subtasks<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2998,12 +2245,6 @@ impl ListMigrationSubtasksResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListMigrationSubtasksResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_migration_v2::model::ListMigrationSubtasksResponse;
-    /// let x = ListMigrationSubtasksResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -3075,13 +2316,6 @@ impl TranslationConfigDetails {
     }
 
     /// Sets the value of [source_dialect][crate::model::TranslationConfigDetails::source_dialect].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_migration_v2::model::TranslationConfigDetails;
-    /// use google_cloud_bigquery_migration_v2::model::Dialect;
-    /// let x = TranslationConfigDetails::new().set_source_dialect(Dialect::default()/* use setters */);
-    /// ```
     pub fn set_source_dialect<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Dialect>,
@@ -3091,14 +2325,6 @@ impl TranslationConfigDetails {
     }
 
     /// Sets or clears the value of [source_dialect][crate::model::TranslationConfigDetails::source_dialect].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_migration_v2::model::TranslationConfigDetails;
-    /// use google_cloud_bigquery_migration_v2::model::Dialect;
-    /// let x = TranslationConfigDetails::new().set_or_clear_source_dialect(Some(Dialect::default()/* use setters */));
-    /// let x = TranslationConfigDetails::new().set_or_clear_source_dialect(None::<Dialect>);
-    /// ```
     pub fn set_or_clear_source_dialect<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Dialect>,
@@ -3108,13 +2334,6 @@ impl TranslationConfigDetails {
     }
 
     /// Sets the value of [target_dialect][crate::model::TranslationConfigDetails::target_dialect].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_migration_v2::model::TranslationConfigDetails;
-    /// use google_cloud_bigquery_migration_v2::model::Dialect;
-    /// let x = TranslationConfigDetails::new().set_target_dialect(Dialect::default()/* use setters */);
-    /// ```
     pub fn set_target_dialect<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Dialect>,
@@ -3124,14 +2343,6 @@ impl TranslationConfigDetails {
     }
 
     /// Sets or clears the value of [target_dialect][crate::model::TranslationConfigDetails::target_dialect].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_migration_v2::model::TranslationConfigDetails;
-    /// use google_cloud_bigquery_migration_v2::model::Dialect;
-    /// let x = TranslationConfigDetails::new().set_or_clear_target_dialect(Some(Dialect::default()/* use setters */));
-    /// let x = TranslationConfigDetails::new().set_or_clear_target_dialect(None::<Dialect>);
-    /// ```
     pub fn set_or_clear_target_dialect<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Dialect>,
@@ -3141,13 +2352,6 @@ impl TranslationConfigDetails {
     }
 
     /// Sets the value of [source_env][crate::model::TranslationConfigDetails::source_env].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_migration_v2::model::TranslationConfigDetails;
-    /// use google_cloud_bigquery_migration_v2::model::SourceEnv;
-    /// let x = TranslationConfigDetails::new().set_source_env(SourceEnv::default()/* use setters */);
-    /// ```
     pub fn set_source_env<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::SourceEnv>,
@@ -3157,14 +2361,6 @@ impl TranslationConfigDetails {
     }
 
     /// Sets or clears the value of [source_env][crate::model::TranslationConfigDetails::source_env].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_migration_v2::model::TranslationConfigDetails;
-    /// use google_cloud_bigquery_migration_v2::model::SourceEnv;
-    /// let x = TranslationConfigDetails::new().set_or_clear_source_env(Some(SourceEnv::default()/* use setters */));
-    /// let x = TranslationConfigDetails::new().set_or_clear_source_env(None::<SourceEnv>);
-    /// ```
     pub fn set_or_clear_source_env<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::SourceEnv>,
@@ -3174,24 +2370,12 @@ impl TranslationConfigDetails {
     }
 
     /// Sets the value of [request_source][crate::model::TranslationConfigDetails::request_source].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_migration_v2::model::TranslationConfigDetails;
-    /// let x = TranslationConfigDetails::new().set_request_source("example");
-    /// ```
     pub fn set_request_source<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_source = v.into();
         self
     }
 
     /// Sets the value of [target_types][crate::model::TranslationConfigDetails::target_types].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_migration_v2::model::TranslationConfigDetails;
-    /// let x = TranslationConfigDetails::new().set_target_types(["a", "b", "c"]);
-    /// ```
     pub fn set_target_types<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3206,13 +2390,6 @@ impl TranslationConfigDetails {
     ///
     /// Note that all the setters affecting `source_location` are mutually
     /// exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_migration_v2::model::TranslationConfigDetails;
-    /// use google_cloud_bigquery_migration_v2::model::translation_config_details;
-    /// let x = TranslationConfigDetails::new().set_source_location(Some(translation_config_details::SourceLocation::GcsSourcePath("example".to_string())));
-    /// ```
     pub fn set_source_location<
         T: std::convert::Into<
                 std::option::Option<crate::model::translation_config_details::SourceLocation>,
@@ -3243,13 +2420,6 @@ impl TranslationConfigDetails {
     ///
     /// Note that all the setters affecting `source_location` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_migration_v2::model::TranslationConfigDetails;
-    /// let x = TranslationConfigDetails::new().set_gcs_source_path("example");
-    /// assert!(x.gcs_source_path().is_some());
-    /// ```
     pub fn set_gcs_source_path<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.source_location = std::option::Option::Some(
             crate::model::translation_config_details::SourceLocation::GcsSourcePath(v.into()),
@@ -3261,13 +2431,6 @@ impl TranslationConfigDetails {
     ///
     /// Note that all the setters affecting `target_location` are mutually
     /// exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_migration_v2::model::TranslationConfigDetails;
-    /// use google_cloud_bigquery_migration_v2::model::translation_config_details;
-    /// let x = TranslationConfigDetails::new().set_target_location(Some(translation_config_details::TargetLocation::GcsTargetPath("example".to_string())));
-    /// ```
     pub fn set_target_location<
         T: std::convert::Into<
                 std::option::Option<crate::model::translation_config_details::TargetLocation>,
@@ -3298,13 +2461,6 @@ impl TranslationConfigDetails {
     ///
     /// Note that all the setters affecting `target_location` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_migration_v2::model::TranslationConfigDetails;
-    /// let x = TranslationConfigDetails::new().set_gcs_target_path("example");
-    /// assert!(x.gcs_target_path().is_some());
-    /// ```
     pub fn set_gcs_target_path<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.target_location = std::option::Option::Some(
             crate::model::translation_config_details::TargetLocation::GcsTargetPath(v.into()),
@@ -3316,14 +2472,6 @@ impl TranslationConfigDetails {
     ///
     /// Note that all the setters affecting `output_name_mapping` are mutually
     /// exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_migration_v2::model::TranslationConfigDetails;
-    /// use google_cloud_bigquery_migration_v2::model::translation_config_details;
-    /// use google_cloud_bigquery_migration_v2::model::ObjectNameMappingList;
-    /// let x = TranslationConfigDetails::new().set_output_name_mapping(Some(translation_config_details::OutputNameMapping::NameMappingList(ObjectNameMappingList::default().into())));
-    /// ```
     pub fn set_output_name_mapping<
         T: std::convert::Into<
                 std::option::Option<crate::model::translation_config_details::OutputNameMapping>,
@@ -3356,14 +2504,6 @@ impl TranslationConfigDetails {
     ///
     /// Note that all the setters affecting `output_name_mapping` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_migration_v2::model::TranslationConfigDetails;
-    /// use google_cloud_bigquery_migration_v2::model::ObjectNameMappingList;
-    /// let x = TranslationConfigDetails::new().set_name_mapping_list(ObjectNameMappingList::default()/* use setters */);
-    /// assert!(x.name_mapping_list().is_some());
-    /// ```
     pub fn set_name_mapping_list<
         T: std::convert::Into<std::boxed::Box<crate::model::ObjectNameMappingList>>,
     >(
@@ -3433,14 +2573,6 @@ impl Dialect {
     ///
     /// Note that all the setters affecting `dialect_value` are mutually
     /// exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_migration_v2::model::Dialect;
-    /// use google_cloud_bigquery_migration_v2::model::dialect;
-    /// use google_cloud_bigquery_migration_v2::model::BigQueryDialect;
-    /// let x = Dialect::new().set_dialect_value(Some(dialect::DialectValue::BigqueryDialect(BigQueryDialect::default().into())));
-    /// ```
     pub fn set_dialect_value<
         T: std::convert::Into<std::option::Option<crate::model::dialect::DialectValue>>,
     >(
@@ -3469,30 +2601,6 @@ impl Dialect {
     ///
     /// Note that all the setters affecting `dialect_value` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_migration_v2::model::Dialect;
-    /// use google_cloud_bigquery_migration_v2::model::BigQueryDialect;
-    /// let x = Dialect::new().set_bigquery_dialect(BigQueryDialect::default()/* use setters */);
-    /// assert!(x.bigquery_dialect().is_some());
-    /// assert!(x.hiveql_dialect().is_none());
-    /// assert!(x.redshift_dialect().is_none());
-    /// assert!(x.teradata_dialect().is_none());
-    /// assert!(x.oracle_dialect().is_none());
-    /// assert!(x.sparksql_dialect().is_none());
-    /// assert!(x.snowflake_dialect().is_none());
-    /// assert!(x.netezza_dialect().is_none());
-    /// assert!(x.azure_synapse_dialect().is_none());
-    /// assert!(x.vertica_dialect().is_none());
-    /// assert!(x.sql_server_dialect().is_none());
-    /// assert!(x.postgresql_dialect().is_none());
-    /// assert!(x.presto_dialect().is_none());
-    /// assert!(x.mysql_dialect().is_none());
-    /// assert!(x.db2_dialect().is_none());
-    /// assert!(x.sqlite_dialect().is_none());
-    /// assert!(x.greenplum_dialect().is_none());
-    /// ```
     pub fn set_bigquery_dialect<
         T: std::convert::Into<std::boxed::Box<crate::model::BigQueryDialect>>,
     >(
@@ -3523,30 +2631,6 @@ impl Dialect {
     ///
     /// Note that all the setters affecting `dialect_value` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_migration_v2::model::Dialect;
-    /// use google_cloud_bigquery_migration_v2::model::HiveQLDialect;
-    /// let x = Dialect::new().set_hiveql_dialect(HiveQLDialect::default()/* use setters */);
-    /// assert!(x.hiveql_dialect().is_some());
-    /// assert!(x.bigquery_dialect().is_none());
-    /// assert!(x.redshift_dialect().is_none());
-    /// assert!(x.teradata_dialect().is_none());
-    /// assert!(x.oracle_dialect().is_none());
-    /// assert!(x.sparksql_dialect().is_none());
-    /// assert!(x.snowflake_dialect().is_none());
-    /// assert!(x.netezza_dialect().is_none());
-    /// assert!(x.azure_synapse_dialect().is_none());
-    /// assert!(x.vertica_dialect().is_none());
-    /// assert!(x.sql_server_dialect().is_none());
-    /// assert!(x.postgresql_dialect().is_none());
-    /// assert!(x.presto_dialect().is_none());
-    /// assert!(x.mysql_dialect().is_none());
-    /// assert!(x.db2_dialect().is_none());
-    /// assert!(x.sqlite_dialect().is_none());
-    /// assert!(x.greenplum_dialect().is_none());
-    /// ```
     pub fn set_hiveql_dialect<
         T: std::convert::Into<std::boxed::Box<crate::model::HiveQLDialect>>,
     >(
@@ -3576,30 +2660,6 @@ impl Dialect {
     ///
     /// Note that all the setters affecting `dialect_value` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_migration_v2::model::Dialect;
-    /// use google_cloud_bigquery_migration_v2::model::RedshiftDialect;
-    /// let x = Dialect::new().set_redshift_dialect(RedshiftDialect::default()/* use setters */);
-    /// assert!(x.redshift_dialect().is_some());
-    /// assert!(x.bigquery_dialect().is_none());
-    /// assert!(x.hiveql_dialect().is_none());
-    /// assert!(x.teradata_dialect().is_none());
-    /// assert!(x.oracle_dialect().is_none());
-    /// assert!(x.sparksql_dialect().is_none());
-    /// assert!(x.snowflake_dialect().is_none());
-    /// assert!(x.netezza_dialect().is_none());
-    /// assert!(x.azure_synapse_dialect().is_none());
-    /// assert!(x.vertica_dialect().is_none());
-    /// assert!(x.sql_server_dialect().is_none());
-    /// assert!(x.postgresql_dialect().is_none());
-    /// assert!(x.presto_dialect().is_none());
-    /// assert!(x.mysql_dialect().is_none());
-    /// assert!(x.db2_dialect().is_none());
-    /// assert!(x.sqlite_dialect().is_none());
-    /// assert!(x.greenplum_dialect().is_none());
-    /// ```
     pub fn set_redshift_dialect<
         T: std::convert::Into<std::boxed::Box<crate::model::RedshiftDialect>>,
     >(
@@ -3630,30 +2690,6 @@ impl Dialect {
     ///
     /// Note that all the setters affecting `dialect_value` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_migration_v2::model::Dialect;
-    /// use google_cloud_bigquery_migration_v2::model::TeradataDialect;
-    /// let x = Dialect::new().set_teradata_dialect(TeradataDialect::default()/* use setters */);
-    /// assert!(x.teradata_dialect().is_some());
-    /// assert!(x.bigquery_dialect().is_none());
-    /// assert!(x.hiveql_dialect().is_none());
-    /// assert!(x.redshift_dialect().is_none());
-    /// assert!(x.oracle_dialect().is_none());
-    /// assert!(x.sparksql_dialect().is_none());
-    /// assert!(x.snowflake_dialect().is_none());
-    /// assert!(x.netezza_dialect().is_none());
-    /// assert!(x.azure_synapse_dialect().is_none());
-    /// assert!(x.vertica_dialect().is_none());
-    /// assert!(x.sql_server_dialect().is_none());
-    /// assert!(x.postgresql_dialect().is_none());
-    /// assert!(x.presto_dialect().is_none());
-    /// assert!(x.mysql_dialect().is_none());
-    /// assert!(x.db2_dialect().is_none());
-    /// assert!(x.sqlite_dialect().is_none());
-    /// assert!(x.greenplum_dialect().is_none());
-    /// ```
     pub fn set_teradata_dialect<
         T: std::convert::Into<std::boxed::Box<crate::model::TeradataDialect>>,
     >(
@@ -3684,30 +2720,6 @@ impl Dialect {
     ///
     /// Note that all the setters affecting `dialect_value` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_migration_v2::model::Dialect;
-    /// use google_cloud_bigquery_migration_v2::model::OracleDialect;
-    /// let x = Dialect::new().set_oracle_dialect(OracleDialect::default()/* use setters */);
-    /// assert!(x.oracle_dialect().is_some());
-    /// assert!(x.bigquery_dialect().is_none());
-    /// assert!(x.hiveql_dialect().is_none());
-    /// assert!(x.redshift_dialect().is_none());
-    /// assert!(x.teradata_dialect().is_none());
-    /// assert!(x.sparksql_dialect().is_none());
-    /// assert!(x.snowflake_dialect().is_none());
-    /// assert!(x.netezza_dialect().is_none());
-    /// assert!(x.azure_synapse_dialect().is_none());
-    /// assert!(x.vertica_dialect().is_none());
-    /// assert!(x.sql_server_dialect().is_none());
-    /// assert!(x.postgresql_dialect().is_none());
-    /// assert!(x.presto_dialect().is_none());
-    /// assert!(x.mysql_dialect().is_none());
-    /// assert!(x.db2_dialect().is_none());
-    /// assert!(x.sqlite_dialect().is_none());
-    /// assert!(x.greenplum_dialect().is_none());
-    /// ```
     pub fn set_oracle_dialect<
         T: std::convert::Into<std::boxed::Box<crate::model::OracleDialect>>,
     >(
@@ -3737,30 +2749,6 @@ impl Dialect {
     ///
     /// Note that all the setters affecting `dialect_value` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_migration_v2::model::Dialect;
-    /// use google_cloud_bigquery_migration_v2::model::SparkSQLDialect;
-    /// let x = Dialect::new().set_sparksql_dialect(SparkSQLDialect::default()/* use setters */);
-    /// assert!(x.sparksql_dialect().is_some());
-    /// assert!(x.bigquery_dialect().is_none());
-    /// assert!(x.hiveql_dialect().is_none());
-    /// assert!(x.redshift_dialect().is_none());
-    /// assert!(x.teradata_dialect().is_none());
-    /// assert!(x.oracle_dialect().is_none());
-    /// assert!(x.snowflake_dialect().is_none());
-    /// assert!(x.netezza_dialect().is_none());
-    /// assert!(x.azure_synapse_dialect().is_none());
-    /// assert!(x.vertica_dialect().is_none());
-    /// assert!(x.sql_server_dialect().is_none());
-    /// assert!(x.postgresql_dialect().is_none());
-    /// assert!(x.presto_dialect().is_none());
-    /// assert!(x.mysql_dialect().is_none());
-    /// assert!(x.db2_dialect().is_none());
-    /// assert!(x.sqlite_dialect().is_none());
-    /// assert!(x.greenplum_dialect().is_none());
-    /// ```
     pub fn set_sparksql_dialect<
         T: std::convert::Into<std::boxed::Box<crate::model::SparkSQLDialect>>,
     >(
@@ -3793,30 +2781,6 @@ impl Dialect {
     ///
     /// Note that all the setters affecting `dialect_value` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_migration_v2::model::Dialect;
-    /// use google_cloud_bigquery_migration_v2::model::SnowflakeDialect;
-    /// let x = Dialect::new().set_snowflake_dialect(SnowflakeDialect::default()/* use setters */);
-    /// assert!(x.snowflake_dialect().is_some());
-    /// assert!(x.bigquery_dialect().is_none());
-    /// assert!(x.hiveql_dialect().is_none());
-    /// assert!(x.redshift_dialect().is_none());
-    /// assert!(x.teradata_dialect().is_none());
-    /// assert!(x.oracle_dialect().is_none());
-    /// assert!(x.sparksql_dialect().is_none());
-    /// assert!(x.netezza_dialect().is_none());
-    /// assert!(x.azure_synapse_dialect().is_none());
-    /// assert!(x.vertica_dialect().is_none());
-    /// assert!(x.sql_server_dialect().is_none());
-    /// assert!(x.postgresql_dialect().is_none());
-    /// assert!(x.presto_dialect().is_none());
-    /// assert!(x.mysql_dialect().is_none());
-    /// assert!(x.db2_dialect().is_none());
-    /// assert!(x.sqlite_dialect().is_none());
-    /// assert!(x.greenplum_dialect().is_none());
-    /// ```
     pub fn set_snowflake_dialect<
         T: std::convert::Into<std::boxed::Box<crate::model::SnowflakeDialect>>,
     >(
@@ -3847,30 +2811,6 @@ impl Dialect {
     ///
     /// Note that all the setters affecting `dialect_value` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_migration_v2::model::Dialect;
-    /// use google_cloud_bigquery_migration_v2::model::NetezzaDialect;
-    /// let x = Dialect::new().set_netezza_dialect(NetezzaDialect::default()/* use setters */);
-    /// assert!(x.netezza_dialect().is_some());
-    /// assert!(x.bigquery_dialect().is_none());
-    /// assert!(x.hiveql_dialect().is_none());
-    /// assert!(x.redshift_dialect().is_none());
-    /// assert!(x.teradata_dialect().is_none());
-    /// assert!(x.oracle_dialect().is_none());
-    /// assert!(x.sparksql_dialect().is_none());
-    /// assert!(x.snowflake_dialect().is_none());
-    /// assert!(x.azure_synapse_dialect().is_none());
-    /// assert!(x.vertica_dialect().is_none());
-    /// assert!(x.sql_server_dialect().is_none());
-    /// assert!(x.postgresql_dialect().is_none());
-    /// assert!(x.presto_dialect().is_none());
-    /// assert!(x.mysql_dialect().is_none());
-    /// assert!(x.db2_dialect().is_none());
-    /// assert!(x.sqlite_dialect().is_none());
-    /// assert!(x.greenplum_dialect().is_none());
-    /// ```
     pub fn set_netezza_dialect<
         T: std::convert::Into<std::boxed::Box<crate::model::NetezzaDialect>>,
     >(
@@ -3903,30 +2843,6 @@ impl Dialect {
     ///
     /// Note that all the setters affecting `dialect_value` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_migration_v2::model::Dialect;
-    /// use google_cloud_bigquery_migration_v2::model::AzureSynapseDialect;
-    /// let x = Dialect::new().set_azure_synapse_dialect(AzureSynapseDialect::default()/* use setters */);
-    /// assert!(x.azure_synapse_dialect().is_some());
-    /// assert!(x.bigquery_dialect().is_none());
-    /// assert!(x.hiveql_dialect().is_none());
-    /// assert!(x.redshift_dialect().is_none());
-    /// assert!(x.teradata_dialect().is_none());
-    /// assert!(x.oracle_dialect().is_none());
-    /// assert!(x.sparksql_dialect().is_none());
-    /// assert!(x.snowflake_dialect().is_none());
-    /// assert!(x.netezza_dialect().is_none());
-    /// assert!(x.vertica_dialect().is_none());
-    /// assert!(x.sql_server_dialect().is_none());
-    /// assert!(x.postgresql_dialect().is_none());
-    /// assert!(x.presto_dialect().is_none());
-    /// assert!(x.mysql_dialect().is_none());
-    /// assert!(x.db2_dialect().is_none());
-    /// assert!(x.sqlite_dialect().is_none());
-    /// assert!(x.greenplum_dialect().is_none());
-    /// ```
     pub fn set_azure_synapse_dialect<
         T: std::convert::Into<std::boxed::Box<crate::model::AzureSynapseDialect>>,
     >(
@@ -3957,30 +2873,6 @@ impl Dialect {
     ///
     /// Note that all the setters affecting `dialect_value` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_migration_v2::model::Dialect;
-    /// use google_cloud_bigquery_migration_v2::model::VerticaDialect;
-    /// let x = Dialect::new().set_vertica_dialect(VerticaDialect::default()/* use setters */);
-    /// assert!(x.vertica_dialect().is_some());
-    /// assert!(x.bigquery_dialect().is_none());
-    /// assert!(x.hiveql_dialect().is_none());
-    /// assert!(x.redshift_dialect().is_none());
-    /// assert!(x.teradata_dialect().is_none());
-    /// assert!(x.oracle_dialect().is_none());
-    /// assert!(x.sparksql_dialect().is_none());
-    /// assert!(x.snowflake_dialect().is_none());
-    /// assert!(x.netezza_dialect().is_none());
-    /// assert!(x.azure_synapse_dialect().is_none());
-    /// assert!(x.sql_server_dialect().is_none());
-    /// assert!(x.postgresql_dialect().is_none());
-    /// assert!(x.presto_dialect().is_none());
-    /// assert!(x.mysql_dialect().is_none());
-    /// assert!(x.db2_dialect().is_none());
-    /// assert!(x.sqlite_dialect().is_none());
-    /// assert!(x.greenplum_dialect().is_none());
-    /// ```
     pub fn set_vertica_dialect<
         T: std::convert::Into<std::boxed::Box<crate::model::VerticaDialect>>,
     >(
@@ -4013,30 +2905,6 @@ impl Dialect {
     ///
     /// Note that all the setters affecting `dialect_value` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_migration_v2::model::Dialect;
-    /// use google_cloud_bigquery_migration_v2::model::SQLServerDialect;
-    /// let x = Dialect::new().set_sql_server_dialect(SQLServerDialect::default()/* use setters */);
-    /// assert!(x.sql_server_dialect().is_some());
-    /// assert!(x.bigquery_dialect().is_none());
-    /// assert!(x.hiveql_dialect().is_none());
-    /// assert!(x.redshift_dialect().is_none());
-    /// assert!(x.teradata_dialect().is_none());
-    /// assert!(x.oracle_dialect().is_none());
-    /// assert!(x.sparksql_dialect().is_none());
-    /// assert!(x.snowflake_dialect().is_none());
-    /// assert!(x.netezza_dialect().is_none());
-    /// assert!(x.azure_synapse_dialect().is_none());
-    /// assert!(x.vertica_dialect().is_none());
-    /// assert!(x.postgresql_dialect().is_none());
-    /// assert!(x.presto_dialect().is_none());
-    /// assert!(x.mysql_dialect().is_none());
-    /// assert!(x.db2_dialect().is_none());
-    /// assert!(x.sqlite_dialect().is_none());
-    /// assert!(x.greenplum_dialect().is_none());
-    /// ```
     pub fn set_sql_server_dialect<
         T: std::convert::Into<std::boxed::Box<crate::model::SQLServerDialect>>,
     >(
@@ -4069,30 +2937,6 @@ impl Dialect {
     ///
     /// Note that all the setters affecting `dialect_value` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_migration_v2::model::Dialect;
-    /// use google_cloud_bigquery_migration_v2::model::PostgresqlDialect;
-    /// let x = Dialect::new().set_postgresql_dialect(PostgresqlDialect::default()/* use setters */);
-    /// assert!(x.postgresql_dialect().is_some());
-    /// assert!(x.bigquery_dialect().is_none());
-    /// assert!(x.hiveql_dialect().is_none());
-    /// assert!(x.redshift_dialect().is_none());
-    /// assert!(x.teradata_dialect().is_none());
-    /// assert!(x.oracle_dialect().is_none());
-    /// assert!(x.sparksql_dialect().is_none());
-    /// assert!(x.snowflake_dialect().is_none());
-    /// assert!(x.netezza_dialect().is_none());
-    /// assert!(x.azure_synapse_dialect().is_none());
-    /// assert!(x.vertica_dialect().is_none());
-    /// assert!(x.sql_server_dialect().is_none());
-    /// assert!(x.presto_dialect().is_none());
-    /// assert!(x.mysql_dialect().is_none());
-    /// assert!(x.db2_dialect().is_none());
-    /// assert!(x.sqlite_dialect().is_none());
-    /// assert!(x.greenplum_dialect().is_none());
-    /// ```
     pub fn set_postgresql_dialect<
         T: std::convert::Into<std::boxed::Box<crate::model::PostgresqlDialect>>,
     >(
@@ -4123,30 +2967,6 @@ impl Dialect {
     ///
     /// Note that all the setters affecting `dialect_value` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_migration_v2::model::Dialect;
-    /// use google_cloud_bigquery_migration_v2::model::PrestoDialect;
-    /// let x = Dialect::new().set_presto_dialect(PrestoDialect::default()/* use setters */);
-    /// assert!(x.presto_dialect().is_some());
-    /// assert!(x.bigquery_dialect().is_none());
-    /// assert!(x.hiveql_dialect().is_none());
-    /// assert!(x.redshift_dialect().is_none());
-    /// assert!(x.teradata_dialect().is_none());
-    /// assert!(x.oracle_dialect().is_none());
-    /// assert!(x.sparksql_dialect().is_none());
-    /// assert!(x.snowflake_dialect().is_none());
-    /// assert!(x.netezza_dialect().is_none());
-    /// assert!(x.azure_synapse_dialect().is_none());
-    /// assert!(x.vertica_dialect().is_none());
-    /// assert!(x.sql_server_dialect().is_none());
-    /// assert!(x.postgresql_dialect().is_none());
-    /// assert!(x.mysql_dialect().is_none());
-    /// assert!(x.db2_dialect().is_none());
-    /// assert!(x.sqlite_dialect().is_none());
-    /// assert!(x.greenplum_dialect().is_none());
-    /// ```
     pub fn set_presto_dialect<
         T: std::convert::Into<std::boxed::Box<crate::model::PrestoDialect>>,
     >(
@@ -4176,30 +2996,6 @@ impl Dialect {
     ///
     /// Note that all the setters affecting `dialect_value` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_migration_v2::model::Dialect;
-    /// use google_cloud_bigquery_migration_v2::model::MySQLDialect;
-    /// let x = Dialect::new().set_mysql_dialect(MySQLDialect::default()/* use setters */);
-    /// assert!(x.mysql_dialect().is_some());
-    /// assert!(x.bigquery_dialect().is_none());
-    /// assert!(x.hiveql_dialect().is_none());
-    /// assert!(x.redshift_dialect().is_none());
-    /// assert!(x.teradata_dialect().is_none());
-    /// assert!(x.oracle_dialect().is_none());
-    /// assert!(x.sparksql_dialect().is_none());
-    /// assert!(x.snowflake_dialect().is_none());
-    /// assert!(x.netezza_dialect().is_none());
-    /// assert!(x.azure_synapse_dialect().is_none());
-    /// assert!(x.vertica_dialect().is_none());
-    /// assert!(x.sql_server_dialect().is_none());
-    /// assert!(x.postgresql_dialect().is_none());
-    /// assert!(x.presto_dialect().is_none());
-    /// assert!(x.db2_dialect().is_none());
-    /// assert!(x.sqlite_dialect().is_none());
-    /// assert!(x.greenplum_dialect().is_none());
-    /// ```
     pub fn set_mysql_dialect<T: std::convert::Into<std::boxed::Box<crate::model::MySQLDialect>>>(
         mut self,
         v: T,
@@ -4225,30 +3021,6 @@ impl Dialect {
     ///
     /// Note that all the setters affecting `dialect_value` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_migration_v2::model::Dialect;
-    /// use google_cloud_bigquery_migration_v2::model::DB2Dialect;
-    /// let x = Dialect::new().set_db2_dialect(DB2Dialect::default()/* use setters */);
-    /// assert!(x.db2_dialect().is_some());
-    /// assert!(x.bigquery_dialect().is_none());
-    /// assert!(x.hiveql_dialect().is_none());
-    /// assert!(x.redshift_dialect().is_none());
-    /// assert!(x.teradata_dialect().is_none());
-    /// assert!(x.oracle_dialect().is_none());
-    /// assert!(x.sparksql_dialect().is_none());
-    /// assert!(x.snowflake_dialect().is_none());
-    /// assert!(x.netezza_dialect().is_none());
-    /// assert!(x.azure_synapse_dialect().is_none());
-    /// assert!(x.vertica_dialect().is_none());
-    /// assert!(x.sql_server_dialect().is_none());
-    /// assert!(x.postgresql_dialect().is_none());
-    /// assert!(x.presto_dialect().is_none());
-    /// assert!(x.mysql_dialect().is_none());
-    /// assert!(x.sqlite_dialect().is_none());
-    /// assert!(x.greenplum_dialect().is_none());
-    /// ```
     pub fn set_db2_dialect<T: std::convert::Into<std::boxed::Box<crate::model::DB2Dialect>>>(
         mut self,
         v: T,
@@ -4276,30 +3048,6 @@ impl Dialect {
     ///
     /// Note that all the setters affecting `dialect_value` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_migration_v2::model::Dialect;
-    /// use google_cloud_bigquery_migration_v2::model::SQLiteDialect;
-    /// let x = Dialect::new().set_sqlite_dialect(SQLiteDialect::default()/* use setters */);
-    /// assert!(x.sqlite_dialect().is_some());
-    /// assert!(x.bigquery_dialect().is_none());
-    /// assert!(x.hiveql_dialect().is_none());
-    /// assert!(x.redshift_dialect().is_none());
-    /// assert!(x.teradata_dialect().is_none());
-    /// assert!(x.oracle_dialect().is_none());
-    /// assert!(x.sparksql_dialect().is_none());
-    /// assert!(x.snowflake_dialect().is_none());
-    /// assert!(x.netezza_dialect().is_none());
-    /// assert!(x.azure_synapse_dialect().is_none());
-    /// assert!(x.vertica_dialect().is_none());
-    /// assert!(x.sql_server_dialect().is_none());
-    /// assert!(x.postgresql_dialect().is_none());
-    /// assert!(x.presto_dialect().is_none());
-    /// assert!(x.mysql_dialect().is_none());
-    /// assert!(x.db2_dialect().is_none());
-    /// assert!(x.greenplum_dialect().is_none());
-    /// ```
     pub fn set_sqlite_dialect<
         T: std::convert::Into<std::boxed::Box<crate::model::SQLiteDialect>>,
     >(
@@ -4331,30 +3079,6 @@ impl Dialect {
     ///
     /// Note that all the setters affecting `dialect_value` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_migration_v2::model::Dialect;
-    /// use google_cloud_bigquery_migration_v2::model::GreenplumDialect;
-    /// let x = Dialect::new().set_greenplum_dialect(GreenplumDialect::default()/* use setters */);
-    /// assert!(x.greenplum_dialect().is_some());
-    /// assert!(x.bigquery_dialect().is_none());
-    /// assert!(x.hiveql_dialect().is_none());
-    /// assert!(x.redshift_dialect().is_none());
-    /// assert!(x.teradata_dialect().is_none());
-    /// assert!(x.oracle_dialect().is_none());
-    /// assert!(x.sparksql_dialect().is_none());
-    /// assert!(x.snowflake_dialect().is_none());
-    /// assert!(x.netezza_dialect().is_none());
-    /// assert!(x.azure_synapse_dialect().is_none());
-    /// assert!(x.vertica_dialect().is_none());
-    /// assert!(x.sql_server_dialect().is_none());
-    /// assert!(x.postgresql_dialect().is_none());
-    /// assert!(x.presto_dialect().is_none());
-    /// assert!(x.mysql_dialect().is_none());
-    /// assert!(x.db2_dialect().is_none());
-    /// assert!(x.sqlite_dialect().is_none());
-    /// ```
     pub fn set_greenplum_dialect<
         T: std::convert::Into<std::boxed::Box<crate::model::GreenplumDialect>>,
     >(
@@ -4493,14 +3217,6 @@ impl TeradataDialect {
     }
 
     /// Sets the value of [mode][crate::model::TeradataDialect::mode].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_migration_v2::model::TeradataDialect;
-    /// use google_cloud_bigquery_migration_v2::model::teradata_dialect::Mode;
-    /// let x0 = TeradataDialect::new().set_mode(Mode::Sql);
-    /// let x1 = TeradataDialect::new().set_mode(Mode::Bteq);
-    /// ```
     pub fn set_mode<T: std::convert::Into<crate::model::teradata_dialect::Mode>>(
         mut self,
         v: T,
@@ -4918,17 +3634,6 @@ impl ObjectNameMappingList {
     }
 
     /// Sets the value of [name_map][crate::model::ObjectNameMappingList::name_map].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_migration_v2::model::ObjectNameMappingList;
-    /// use google_cloud_bigquery_migration_v2::model::ObjectNameMapping;
-    /// let x = ObjectNameMappingList::new()
-    ///     .set_name_map([
-    ///         ObjectNameMapping::default()/* use setters */,
-    ///         ObjectNameMapping::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_name_map<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4966,13 +3671,6 @@ impl ObjectNameMapping {
     }
 
     /// Sets the value of [source][crate::model::ObjectNameMapping::source].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_migration_v2::model::ObjectNameMapping;
-    /// use google_cloud_bigquery_migration_v2::model::NameMappingKey;
-    /// let x = ObjectNameMapping::new().set_source(NameMappingKey::default()/* use setters */);
-    /// ```
     pub fn set_source<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::NameMappingKey>,
@@ -4982,14 +3680,6 @@ impl ObjectNameMapping {
     }
 
     /// Sets or clears the value of [source][crate::model::ObjectNameMapping::source].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_migration_v2::model::ObjectNameMapping;
-    /// use google_cloud_bigquery_migration_v2::model::NameMappingKey;
-    /// let x = ObjectNameMapping::new().set_or_clear_source(Some(NameMappingKey::default()/* use setters */));
-    /// let x = ObjectNameMapping::new().set_or_clear_source(None::<NameMappingKey>);
-    /// ```
     pub fn set_or_clear_source<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::NameMappingKey>,
@@ -4999,13 +3689,6 @@ impl ObjectNameMapping {
     }
 
     /// Sets the value of [target][crate::model::ObjectNameMapping::target].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_migration_v2::model::ObjectNameMapping;
-    /// use google_cloud_bigquery_migration_v2::model::NameMappingValue;
-    /// let x = ObjectNameMapping::new().set_target(NameMappingValue::default()/* use setters */);
-    /// ```
     pub fn set_target<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::NameMappingValue>,
@@ -5015,14 +3698,6 @@ impl ObjectNameMapping {
     }
 
     /// Sets or clears the value of [target][crate::model::ObjectNameMapping::target].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_migration_v2::model::ObjectNameMapping;
-    /// use google_cloud_bigquery_migration_v2::model::NameMappingValue;
-    /// let x = ObjectNameMapping::new().set_or_clear_target(Some(NameMappingValue::default()/* use setters */));
-    /// let x = ObjectNameMapping::new().set_or_clear_target(None::<NameMappingValue>);
-    /// ```
     pub fn set_or_clear_target<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::NameMappingValue>,
@@ -5070,15 +3745,6 @@ impl NameMappingKey {
     }
 
     /// Sets the value of [r#type][crate::model::NameMappingKey::type].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_migration_v2::model::NameMappingKey;
-    /// use google_cloud_bigquery_migration_v2::model::name_mapping_key::Type;
-    /// let x0 = NameMappingKey::new().set_type(Type::Database);
-    /// let x1 = NameMappingKey::new().set_type(Type::Schema);
-    /// let x2 = NameMappingKey::new().set_type(Type::Relation);
-    /// ```
     pub fn set_type<T: std::convert::Into<crate::model::name_mapping_key::Type>>(
         mut self,
         v: T,
@@ -5088,48 +3754,24 @@ impl NameMappingKey {
     }
 
     /// Sets the value of [database][crate::model::NameMappingKey::database].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_migration_v2::model::NameMappingKey;
-    /// let x = NameMappingKey::new().set_database("example");
-    /// ```
     pub fn set_database<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.database = v.into();
         self
     }
 
     /// Sets the value of [schema][crate::model::NameMappingKey::schema].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_migration_v2::model::NameMappingKey;
-    /// let x = NameMappingKey::new().set_schema("example");
-    /// ```
     pub fn set_schema<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.schema = v.into();
         self
     }
 
     /// Sets the value of [relation][crate::model::NameMappingKey::relation].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_migration_v2::model::NameMappingKey;
-    /// let x = NameMappingKey::new().set_relation("example");
-    /// ```
     pub fn set_relation<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.relation = v.into();
         self
     }
 
     /// Sets the value of [attribute][crate::model::NameMappingKey::attribute].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_migration_v2::model::NameMappingKey;
-    /// let x = NameMappingKey::new().set_attribute("example");
-    /// ```
     pub fn set_attribute<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.attribute = v.into();
         self
@@ -5344,48 +3986,24 @@ impl NameMappingValue {
     }
 
     /// Sets the value of [database][crate::model::NameMappingValue::database].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_migration_v2::model::NameMappingValue;
-    /// let x = NameMappingValue::new().set_database("example");
-    /// ```
     pub fn set_database<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.database = v.into();
         self
     }
 
     /// Sets the value of [schema][crate::model::NameMappingValue::schema].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_migration_v2::model::NameMappingValue;
-    /// let x = NameMappingValue::new().set_schema("example");
-    /// ```
     pub fn set_schema<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.schema = v.into();
         self
     }
 
     /// Sets the value of [relation][crate::model::NameMappingValue::relation].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_migration_v2::model::NameMappingValue;
-    /// let x = NameMappingValue::new().set_relation("example");
-    /// ```
     pub fn set_relation<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.relation = v.into();
         self
     }
 
     /// Sets the value of [attribute][crate::model::NameMappingValue::attribute].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_migration_v2::model::NameMappingValue;
-    /// let x = NameMappingValue::new().set_attribute("example");
-    /// ```
     pub fn set_attribute<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.attribute = v.into();
         self
@@ -5427,12 +4045,6 @@ impl SourceEnv {
     }
 
     /// Sets the value of [default_database][crate::model::SourceEnv::default_database].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_migration_v2::model::SourceEnv;
-    /// let x = SourceEnv::new().set_default_database("example");
-    /// ```
     pub fn set_default_database<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -5442,12 +4054,6 @@ impl SourceEnv {
     }
 
     /// Sets the value of [schema_search_path][crate::model::SourceEnv::schema_search_path].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_migration_v2::model::SourceEnv;
-    /// let x = SourceEnv::new().set_schema_search_path(["a", "b", "c"]);
-    /// ```
     pub fn set_schema_search_path<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -5459,12 +4065,6 @@ impl SourceEnv {
     }
 
     /// Sets the value of [metadata_store_dataset][crate::model::SourceEnv::metadata_store_dataset].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_migration_v2::model::SourceEnv;
-    /// let x = SourceEnv::new().set_metadata_store_dataset("example");
-    /// ```
     pub fn set_metadata_store_dataset<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -5514,17 +4114,6 @@ impl TranslationDetails {
     }
 
     /// Sets the value of [source_target_mapping][crate::model::TranslationDetails::source_target_mapping].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_migration_v2::model::TranslationDetails;
-    /// use google_cloud_bigquery_migration_v2::model::SourceTargetMapping;
-    /// let x = TranslationDetails::new()
-    ///     .set_source_target_mapping([
-    ///         SourceTargetMapping::default()/* use setters */,
-    ///         SourceTargetMapping::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_source_target_mapping<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -5536,25 +4125,12 @@ impl TranslationDetails {
     }
 
     /// Sets the value of [target_base_uri][crate::model::TranslationDetails::target_base_uri].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_migration_v2::model::TranslationDetails;
-    /// let x = TranslationDetails::new().set_target_base_uri("example");
-    /// ```
     pub fn set_target_base_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.target_base_uri = v.into();
         self
     }
 
     /// Sets the value of [source_environment][crate::model::TranslationDetails::source_environment].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_migration_v2::model::TranslationDetails;
-    /// use google_cloud_bigquery_migration_v2::model::SourceEnvironment;
-    /// let x = TranslationDetails::new().set_source_environment(SourceEnvironment::default()/* use setters */);
-    /// ```
     pub fn set_source_environment<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::SourceEnvironment>,
@@ -5564,14 +4140,6 @@ impl TranslationDetails {
     }
 
     /// Sets or clears the value of [source_environment][crate::model::TranslationDetails::source_environment].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_migration_v2::model::TranslationDetails;
-    /// use google_cloud_bigquery_migration_v2::model::SourceEnvironment;
-    /// let x = TranslationDetails::new().set_or_clear_source_environment(Some(SourceEnvironment::default()/* use setters */));
-    /// let x = TranslationDetails::new().set_or_clear_source_environment(None::<SourceEnvironment>);
-    /// ```
     pub fn set_or_clear_source_environment<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::SourceEnvironment>,
@@ -5581,12 +4149,6 @@ impl TranslationDetails {
     }
 
     /// Sets the value of [target_return_literals][crate::model::TranslationDetails::target_return_literals].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_migration_v2::model::TranslationDetails;
-    /// let x = TranslationDetails::new().set_target_return_literals(["a", "b", "c"]);
-    /// ```
     pub fn set_target_return_literals<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -5598,12 +4160,6 @@ impl TranslationDetails {
     }
 
     /// Sets the value of [target_types][crate::model::TranslationDetails::target_types].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_migration_v2::model::TranslationDetails;
-    /// let x = TranslationDetails::new().set_target_types(["a", "b", "c"]);
-    /// ```
     pub fn set_target_types<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -5640,13 +4196,6 @@ impl SourceTargetMapping {
     }
 
     /// Sets the value of [source_spec][crate::model::SourceTargetMapping::source_spec].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_migration_v2::model::SourceTargetMapping;
-    /// use google_cloud_bigquery_migration_v2::model::SourceSpec;
-    /// let x = SourceTargetMapping::new().set_source_spec(SourceSpec::default()/* use setters */);
-    /// ```
     pub fn set_source_spec<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::SourceSpec>,
@@ -5656,14 +4205,6 @@ impl SourceTargetMapping {
     }
 
     /// Sets or clears the value of [source_spec][crate::model::SourceTargetMapping::source_spec].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_migration_v2::model::SourceTargetMapping;
-    /// use google_cloud_bigquery_migration_v2::model::SourceSpec;
-    /// let x = SourceTargetMapping::new().set_or_clear_source_spec(Some(SourceSpec::default()/* use setters */));
-    /// let x = SourceTargetMapping::new().set_or_clear_source_spec(None::<SourceSpec>);
-    /// ```
     pub fn set_or_clear_source_spec<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::SourceSpec>,
@@ -5673,13 +4214,6 @@ impl SourceTargetMapping {
     }
 
     /// Sets the value of [target_spec][crate::model::SourceTargetMapping::target_spec].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_migration_v2::model::SourceTargetMapping;
-    /// use google_cloud_bigquery_migration_v2::model::TargetSpec;
-    /// let x = SourceTargetMapping::new().set_target_spec(TargetSpec::default()/* use setters */);
-    /// ```
     pub fn set_target_spec<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::TargetSpec>,
@@ -5689,14 +4223,6 @@ impl SourceTargetMapping {
     }
 
     /// Sets or clears the value of [target_spec][crate::model::SourceTargetMapping::target_spec].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_migration_v2::model::SourceTargetMapping;
-    /// use google_cloud_bigquery_migration_v2::model::TargetSpec;
-    /// let x = SourceTargetMapping::new().set_or_clear_target_spec(Some(TargetSpec::default()/* use setters */));
-    /// let x = SourceTargetMapping::new().set_or_clear_target_spec(None::<TargetSpec>);
-    /// ```
     pub fn set_or_clear_target_spec<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::TargetSpec>,
@@ -5731,12 +4257,6 @@ impl SourceSpec {
     }
 
     /// Sets the value of [encoding][crate::model::SourceSpec::encoding].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_migration_v2::model::SourceSpec;
-    /// let x = SourceSpec::new().set_encoding("example");
-    /// ```
     pub fn set_encoding<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.encoding = v.into();
         self
@@ -5746,13 +4266,6 @@ impl SourceSpec {
     ///
     /// Note that all the setters affecting `source` are mutually
     /// exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_migration_v2::model::SourceSpec;
-    /// use google_cloud_bigquery_migration_v2::model::source_spec;
-    /// let x = SourceSpec::new().set_source(Some(source_spec::Source::BaseUri("example".to_string())));
-    /// ```
     pub fn set_source<
         T: std::convert::Into<std::option::Option<crate::model::source_spec::Source>>,
     >(
@@ -5779,14 +4292,6 @@ impl SourceSpec {
     ///
     /// Note that all the setters affecting `source` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_migration_v2::model::SourceSpec;
-    /// let x = SourceSpec::new().set_base_uri("example");
-    /// assert!(x.base_uri().is_some());
-    /// assert!(x.literal().is_none());
-    /// ```
     pub fn set_base_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.source =
             std::option::Option::Some(crate::model::source_spec::Source::BaseUri(v.into()));
@@ -5809,15 +4314,6 @@ impl SourceSpec {
     ///
     /// Note that all the setters affecting `source` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_migration_v2::model::SourceSpec;
-    /// use google_cloud_bigquery_migration_v2::model::Literal;
-    /// let x = SourceSpec::new().set_literal(Literal::default()/* use setters */);
-    /// assert!(x.literal().is_some());
-    /// assert!(x.base_uri().is_none());
-    /// ```
     pub fn set_literal<T: std::convert::Into<std::boxed::Box<crate::model::Literal>>>(
         mut self,
         v: T,
@@ -5868,12 +4364,6 @@ impl TargetSpec {
     }
 
     /// Sets the value of [relative_path][crate::model::TargetSpec::relative_path].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_migration_v2::model::TargetSpec;
-    /// let x = TargetSpec::new().set_relative_path("example");
-    /// ```
     pub fn set_relative_path<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.relative_path = v.into();
         self
@@ -5905,12 +4395,6 @@ impl Literal {
     }
 
     /// Sets the value of [relative_path][crate::model::Literal::relative_path].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_migration_v2::model::Literal;
-    /// let x = Literal::new().set_relative_path("example");
-    /// ```
     pub fn set_relative_path<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.relative_path = v.into();
         self
@@ -5920,13 +4404,6 @@ impl Literal {
     ///
     /// Note that all the setters affecting `literal_data` are mutually
     /// exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_migration_v2::model::Literal;
-    /// use google_cloud_bigquery_migration_v2::model::literal;
-    /// let x = Literal::new().set_literal_data(Some(literal::LiteralData::LiteralString("example".to_string())));
-    /// ```
     pub fn set_literal_data<
         T: std::convert::Into<std::option::Option<crate::model::literal::LiteralData>>,
     >(
@@ -5953,14 +4430,6 @@ impl Literal {
     ///
     /// Note that all the setters affecting `literal_data` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_migration_v2::model::Literal;
-    /// let x = Literal::new().set_literal_string("example");
-    /// assert!(x.literal_string().is_some());
-    /// assert!(x.literal_bytes().is_none());
-    /// ```
     pub fn set_literal_string<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.literal_data =
             std::option::Option::Some(crate::model::literal::LiteralData::LiteralString(v.into()));
@@ -5983,14 +4452,6 @@ impl Literal {
     ///
     /// Note that all the setters affecting `literal_data` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_migration_v2::model::Literal;
-    /// let x = Literal::new().set_literal_bytes(bytes::Bytes::from_static(b"example"));
-    /// assert!(x.literal_bytes().is_some());
-    /// assert!(x.literal_string().is_none());
-    /// ```
     pub fn set_literal_bytes<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.literal_data =
             std::option::Option::Some(crate::model::literal::LiteralData::LiteralBytes(v.into()));
@@ -6049,12 +4510,6 @@ impl SourceEnvironment {
     }
 
     /// Sets the value of [default_database][crate::model::SourceEnvironment::default_database].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_migration_v2::model::SourceEnvironment;
-    /// let x = SourceEnvironment::new().set_default_database("example");
-    /// ```
     pub fn set_default_database<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -6064,12 +4519,6 @@ impl SourceEnvironment {
     }
 
     /// Sets the value of [schema_search_path][crate::model::SourceEnvironment::schema_search_path].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_migration_v2::model::SourceEnvironment;
-    /// let x = SourceEnvironment::new().set_schema_search_path(["a", "b", "c"]);
-    /// ```
     pub fn set_schema_search_path<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -6081,12 +4530,6 @@ impl SourceEnvironment {
     }
 
     /// Sets the value of [metadata_store_dataset][crate::model::SourceEnvironment::metadata_store_dataset].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_migration_v2::model::SourceEnvironment;
-    /// let x = SourceEnvironment::new().set_metadata_store_dataset("example");
-    /// ```
     pub fn set_metadata_store_dataset<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -6132,15 +4575,6 @@ impl TranslationReportRecord {
     }
 
     /// Sets the value of [severity][crate::model::TranslationReportRecord::severity].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_migration_v2::model::TranslationReportRecord;
-    /// use google_cloud_bigquery_migration_v2::model::translation_report_record::Severity;
-    /// let x0 = TranslationReportRecord::new().set_severity(Severity::Info);
-    /// let x1 = TranslationReportRecord::new().set_severity(Severity::Warning);
-    /// let x2 = TranslationReportRecord::new().set_severity(Severity::Error);
-    /// ```
     pub fn set_severity<
         T: std::convert::Into<crate::model::translation_report_record::Severity>,
     >(
@@ -6152,48 +4586,24 @@ impl TranslationReportRecord {
     }
 
     /// Sets the value of [script_line][crate::model::TranslationReportRecord::script_line].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_migration_v2::model::TranslationReportRecord;
-    /// let x = TranslationReportRecord::new().set_script_line(42);
-    /// ```
     pub fn set_script_line<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.script_line = v.into();
         self
     }
 
     /// Sets the value of [script_column][crate::model::TranslationReportRecord::script_column].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_migration_v2::model::TranslationReportRecord;
-    /// let x = TranslationReportRecord::new().set_script_column(42);
-    /// ```
     pub fn set_script_column<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.script_column = v.into();
         self
     }
 
     /// Sets the value of [category][crate::model::TranslationReportRecord::category].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_migration_v2::model::TranslationReportRecord;
-    /// let x = TranslationReportRecord::new().set_category("example");
-    /// ```
     pub fn set_category<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.category = v.into();
         self
     }
 
     /// Sets the value of [message][crate::model::TranslationReportRecord::message].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_migration_v2::model::TranslationReportRecord;
-    /// let x = TranslationReportRecord::new().set_message("example");
-    /// ```
     pub fn set_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.message = v.into();
         self
@@ -6400,132 +4810,66 @@ impl GcsReportLogMessage {
     }
 
     /// Sets the value of [severity][crate::model::GcsReportLogMessage::severity].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_migration_v2::model::GcsReportLogMessage;
-    /// let x = GcsReportLogMessage::new().set_severity("example");
-    /// ```
     pub fn set_severity<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.severity = v.into();
         self
     }
 
     /// Sets the value of [category][crate::model::GcsReportLogMessage::category].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_migration_v2::model::GcsReportLogMessage;
-    /// let x = GcsReportLogMessage::new().set_category("example");
-    /// ```
     pub fn set_category<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.category = v.into();
         self
     }
 
     /// Sets the value of [file_path][crate::model::GcsReportLogMessage::file_path].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_migration_v2::model::GcsReportLogMessage;
-    /// let x = GcsReportLogMessage::new().set_file_path("example");
-    /// ```
     pub fn set_file_path<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.file_path = v.into();
         self
     }
 
     /// Sets the value of [filename][crate::model::GcsReportLogMessage::filename].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_migration_v2::model::GcsReportLogMessage;
-    /// let x = GcsReportLogMessage::new().set_filename("example");
-    /// ```
     pub fn set_filename<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filename = v.into();
         self
     }
 
     /// Sets the value of [source_script_line][crate::model::GcsReportLogMessage::source_script_line].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_migration_v2::model::GcsReportLogMessage;
-    /// let x = GcsReportLogMessage::new().set_source_script_line(42);
-    /// ```
     pub fn set_source_script_line<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.source_script_line = v.into();
         self
     }
 
     /// Sets the value of [source_script_column][crate::model::GcsReportLogMessage::source_script_column].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_migration_v2::model::GcsReportLogMessage;
-    /// let x = GcsReportLogMessage::new().set_source_script_column(42);
-    /// ```
     pub fn set_source_script_column<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.source_script_column = v.into();
         self
     }
 
     /// Sets the value of [message][crate::model::GcsReportLogMessage::message].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_migration_v2::model::GcsReportLogMessage;
-    /// let x = GcsReportLogMessage::new().set_message("example");
-    /// ```
     pub fn set_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.message = v.into();
         self
     }
 
     /// Sets the value of [script_context][crate::model::GcsReportLogMessage::script_context].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_migration_v2::model::GcsReportLogMessage;
-    /// let x = GcsReportLogMessage::new().set_script_context("example");
-    /// ```
     pub fn set_script_context<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.script_context = v.into();
         self
     }
 
     /// Sets the value of [action][crate::model::GcsReportLogMessage::action].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_migration_v2::model::GcsReportLogMessage;
-    /// let x = GcsReportLogMessage::new().set_action("example");
-    /// ```
     pub fn set_action<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.action = v.into();
         self
     }
 
     /// Sets the value of [effect][crate::model::GcsReportLogMessage::effect].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_migration_v2::model::GcsReportLogMessage;
-    /// let x = GcsReportLogMessage::new().set_effect("example");
-    /// ```
     pub fn set_effect<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.effect = v.into();
         self
     }
 
     /// Sets the value of [object_name][crate::model::GcsReportLogMessage::object_name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_bigquery_migration_v2::model::GcsReportLogMessage;
-    /// let x = GcsReportLogMessage::new().set_object_name("example");
-    /// ```
     pub fn set_object_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.object_name = v.into();
         self

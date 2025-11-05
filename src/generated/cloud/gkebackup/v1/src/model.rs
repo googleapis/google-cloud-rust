@@ -218,37 +218,18 @@ impl Backup {
     }
 
     /// Sets the value of [name][crate::model::Backup::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::Backup;
-    /// let x = Backup::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [uid][crate::model::Backup::uid].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::Backup;
-    /// let x = Backup::new().set_uid("example");
-    /// ```
     pub fn set_uid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.uid = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::Backup::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::Backup;
-    /// use wkt::Timestamp;
-    /// let x = Backup::new().set_create_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -258,14 +239,6 @@ impl Backup {
     }
 
     /// Sets or clears the value of [create_time][crate::model::Backup::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::Backup;
-    /// use wkt::Timestamp;
-    /// let x = Backup::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
-    /// let x = Backup::new().set_or_clear_create_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -275,13 +248,6 @@ impl Backup {
     }
 
     /// Sets the value of [update_time][crate::model::Backup::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::Backup;
-    /// use wkt::Timestamp;
-    /// let x = Backup::new().set_update_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -291,14 +257,6 @@ impl Backup {
     }
 
     /// Sets or clears the value of [update_time][crate::model::Backup::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::Backup;
-    /// use wkt::Timestamp;
-    /// let x = Backup::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
-    /// let x = Backup::new().set_or_clear_update_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -308,27 +266,12 @@ impl Backup {
     }
 
     /// Sets the value of [manual][crate::model::Backup::manual].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::Backup;
-    /// let x = Backup::new().set_manual(true);
-    /// ```
     pub fn set_manual<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.manual = v.into();
         self
     }
 
     /// Sets the value of [labels][crate::model::Backup::labels].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::Backup;
-    /// let x = Backup::new().set_labels([
-    ///     ("key0", "abc"),
-    ///     ("key1", "xyz"),
-    /// ]);
-    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -341,25 +284,12 @@ impl Backup {
     }
 
     /// Sets the value of [delete_lock_days][crate::model::Backup::delete_lock_days].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::Backup;
-    /// let x = Backup::new().set_delete_lock_days(42);
-    /// ```
     pub fn set_delete_lock_days<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.delete_lock_days = v.into();
         self
     }
 
     /// Sets the value of [delete_lock_expire_time][crate::model::Backup::delete_lock_expire_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::Backup;
-    /// use wkt::Timestamp;
-    /// let x = Backup::new().set_delete_lock_expire_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_delete_lock_expire_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -369,14 +299,6 @@ impl Backup {
     }
 
     /// Sets or clears the value of [delete_lock_expire_time][crate::model::Backup::delete_lock_expire_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::Backup;
-    /// use wkt::Timestamp;
-    /// let x = Backup::new().set_or_clear_delete_lock_expire_time(Some(Timestamp::default()/* use setters */));
-    /// let x = Backup::new().set_or_clear_delete_lock_expire_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_delete_lock_expire_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -386,25 +308,12 @@ impl Backup {
     }
 
     /// Sets the value of [retain_days][crate::model::Backup::retain_days].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::Backup;
-    /// let x = Backup::new().set_retain_days(42);
-    /// ```
     pub fn set_retain_days<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.retain_days = v.into();
         self
     }
 
     /// Sets the value of [retain_expire_time][crate::model::Backup::retain_expire_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::Backup;
-    /// use wkt::Timestamp;
-    /// let x = Backup::new().set_retain_expire_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_retain_expire_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -414,14 +323,6 @@ impl Backup {
     }
 
     /// Sets or clears the value of [retain_expire_time][crate::model::Backup::retain_expire_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::Backup;
-    /// use wkt::Timestamp;
-    /// let x = Backup::new().set_or_clear_retain_expire_time(Some(Timestamp::default()/* use setters */));
-    /// let x = Backup::new().set_or_clear_retain_expire_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_retain_expire_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -431,13 +332,6 @@ impl Backup {
     }
 
     /// Sets the value of [encryption_key][crate::model::Backup::encryption_key].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::Backup;
-    /// use google_cloud_gkebackup_v1::model::EncryptionKey;
-    /// let x = Backup::new().set_encryption_key(EncryptionKey::default()/* use setters */);
-    /// ```
     pub fn set_encryption_key<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::EncryptionKey>,
@@ -447,14 +341,6 @@ impl Backup {
     }
 
     /// Sets or clears the value of [encryption_key][crate::model::Backup::encryption_key].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::Backup;
-    /// use google_cloud_gkebackup_v1::model::EncryptionKey;
-    /// let x = Backup::new().set_or_clear_encryption_key(Some(EncryptionKey::default()/* use setters */));
-    /// let x = Backup::new().set_or_clear_encryption_key(None::<EncryptionKey>);
-    /// ```
     pub fn set_or_clear_encryption_key<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::EncryptionKey>,
@@ -464,37 +350,18 @@ impl Backup {
     }
 
     /// Sets the value of [contains_volume_data][crate::model::Backup::contains_volume_data].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::Backup;
-    /// let x = Backup::new().set_contains_volume_data(true);
-    /// ```
     pub fn set_contains_volume_data<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.contains_volume_data = v.into();
         self
     }
 
     /// Sets the value of [contains_secrets][crate::model::Backup::contains_secrets].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::Backup;
-    /// let x = Backup::new().set_contains_secrets(true);
-    /// ```
     pub fn set_contains_secrets<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.contains_secrets = v.into();
         self
     }
 
     /// Sets the value of [cluster_metadata][crate::model::Backup::cluster_metadata].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::Backup;
-    /// use google_cloud_gkebackup_v1::model::backup::ClusterMetadata;
-    /// let x = Backup::new().set_cluster_metadata(ClusterMetadata::default()/* use setters */);
-    /// ```
     pub fn set_cluster_metadata<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::backup::ClusterMetadata>,
@@ -504,14 +371,6 @@ impl Backup {
     }
 
     /// Sets or clears the value of [cluster_metadata][crate::model::Backup::cluster_metadata].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::Backup;
-    /// use google_cloud_gkebackup_v1::model::backup::ClusterMetadata;
-    /// let x = Backup::new().set_or_clear_cluster_metadata(Some(ClusterMetadata::default()/* use setters */));
-    /// let x = Backup::new().set_or_clear_cluster_metadata(None::<ClusterMetadata>);
-    /// ```
     pub fn set_or_clear_cluster_metadata<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::backup::ClusterMetadata>,
@@ -521,40 +380,18 @@ impl Backup {
     }
 
     /// Sets the value of [state][crate::model::Backup::state].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::Backup;
-    /// use google_cloud_gkebackup_v1::model::backup::State;
-    /// let x0 = Backup::new().set_state(State::Creating);
-    /// let x1 = Backup::new().set_state(State::InProgress);
-    /// let x2 = Backup::new().set_state(State::Succeeded);
-    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::backup::State>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
     }
 
     /// Sets the value of [state_reason][crate::model::Backup::state_reason].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::Backup;
-    /// let x = Backup::new().set_state_reason("example");
-    /// ```
     pub fn set_state_reason<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.state_reason = v.into();
         self
     }
 
     /// Sets the value of [complete_time][crate::model::Backup::complete_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::Backup;
-    /// use wkt::Timestamp;
-    /// let x = Backup::new().set_complete_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_complete_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -564,14 +401,6 @@ impl Backup {
     }
 
     /// Sets or clears the value of [complete_time][crate::model::Backup::complete_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::Backup;
-    /// use wkt::Timestamp;
-    /// let x = Backup::new().set_or_clear_complete_time(Some(Timestamp::default()/* use setters */));
-    /// let x = Backup::new().set_or_clear_complete_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_complete_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -581,120 +410,60 @@ impl Backup {
     }
 
     /// Sets the value of [resource_count][crate::model::Backup::resource_count].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::Backup;
-    /// let x = Backup::new().set_resource_count(42);
-    /// ```
     pub fn set_resource_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.resource_count = v.into();
         self
     }
 
     /// Sets the value of [volume_count][crate::model::Backup::volume_count].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::Backup;
-    /// let x = Backup::new().set_volume_count(42);
-    /// ```
     pub fn set_volume_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.volume_count = v.into();
         self
     }
 
     /// Sets the value of [size_bytes][crate::model::Backup::size_bytes].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::Backup;
-    /// let x = Backup::new().set_size_bytes(42);
-    /// ```
     pub fn set_size_bytes<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.size_bytes = v.into();
         self
     }
 
     /// Sets the value of [etag][crate::model::Backup::etag].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::Backup;
-    /// let x = Backup::new().set_etag("example");
-    /// ```
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
     }
 
     /// Sets the value of [description][crate::model::Backup::description].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::Backup;
-    /// let x = Backup::new().set_description("example");
-    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [pod_count][crate::model::Backup::pod_count].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::Backup;
-    /// let x = Backup::new().set_pod_count(42);
-    /// ```
     pub fn set_pod_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.pod_count = v.into();
         self
     }
 
     /// Sets the value of [config_backup_size_bytes][crate::model::Backup::config_backup_size_bytes].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::Backup;
-    /// let x = Backup::new().set_config_backup_size_bytes(42);
-    /// ```
     pub fn set_config_backup_size_bytes<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.config_backup_size_bytes = v.into();
         self
     }
 
     /// Sets the value of [permissive_mode][crate::model::Backup::permissive_mode].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::Backup;
-    /// let x = Backup::new().set_permissive_mode(true);
-    /// ```
     pub fn set_permissive_mode<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.permissive_mode = v.into();
         self
     }
 
     /// Sets the value of [satisfies_pzs][crate::model::Backup::satisfies_pzs].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::Backup;
-    /// let x = Backup::new().set_satisfies_pzs(true);
-    /// ```
     pub fn set_satisfies_pzs<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.satisfies_pzs = v.into();
         self
     }
 
     /// Sets the value of [satisfies_pzi][crate::model::Backup::satisfies_pzi].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::Backup;
-    /// let x = Backup::new().set_satisfies_pzi(true);
-    /// ```
     pub fn set_satisfies_pzi<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.satisfies_pzi = v.into();
         self
@@ -704,13 +473,6 @@ impl Backup {
     ///
     /// Note that all the setters affecting `backup_scope` are mutually
     /// exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::Backup;
-    /// use google_cloud_gkebackup_v1::model::backup;
-    /// let x = Backup::new().set_backup_scope(Some(backup::BackupScope::AllNamespaces(true)));
-    /// ```
     pub fn set_backup_scope<
         T: std::convert::Into<std::option::Option<crate::model::backup::BackupScope>>,
     >(
@@ -737,15 +499,6 @@ impl Backup {
     ///
     /// Note that all the setters affecting `backup_scope` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::Backup;
-    /// let x = Backup::new().set_all_namespaces(true);
-    /// assert!(x.all_namespaces().is_some());
-    /// assert!(x.selected_namespaces().is_none());
-    /// assert!(x.selected_applications().is_none());
-    /// ```
     pub fn set_all_namespaces<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.backup_scope =
             std::option::Option::Some(crate::model::backup::BackupScope::AllNamespaces(v.into()));
@@ -772,16 +525,6 @@ impl Backup {
     ///
     /// Note that all the setters affecting `backup_scope` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::Backup;
-    /// use google_cloud_gkebackup_v1::model::Namespaces;
-    /// let x = Backup::new().set_selected_namespaces(Namespaces::default()/* use setters */);
-    /// assert!(x.selected_namespaces().is_some());
-    /// assert!(x.all_namespaces().is_none());
-    /// assert!(x.selected_applications().is_none());
-    /// ```
     pub fn set_selected_namespaces<
         T: std::convert::Into<std::boxed::Box<crate::model::Namespaces>>,
     >(
@@ -814,16 +557,6 @@ impl Backup {
     ///
     /// Note that all the setters affecting `backup_scope` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::Backup;
-    /// use google_cloud_gkebackup_v1::model::NamespacedNames;
-    /// let x = Backup::new().set_selected_applications(NamespacedNames::default()/* use setters */);
-    /// assert!(x.selected_applications().is_some());
-    /// assert!(x.all_namespaces().is_none());
-    /// assert!(x.selected_namespaces().is_none());
-    /// ```
     pub fn set_selected_applications<
         T: std::convert::Into<std::boxed::Box<crate::model::NamespacedNames>>,
     >(
@@ -885,39 +618,18 @@ pub mod backup {
         }
 
         /// Sets the value of [cluster][crate::model::backup::ClusterMetadata::cluster].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_gkebackup_v1::model::backup::ClusterMetadata;
-        /// let x = ClusterMetadata::new().set_cluster("example");
-        /// ```
         pub fn set_cluster<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.cluster = v.into();
             self
         }
 
         /// Sets the value of [k8s_version][crate::model::backup::ClusterMetadata::k8s_version].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_gkebackup_v1::model::backup::ClusterMetadata;
-        /// let x = ClusterMetadata::new().set_k8s_version("example");
-        /// ```
         pub fn set_k8s_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.k8s_version = v.into();
             self
         }
 
         /// Sets the value of [backup_crd_versions][crate::model::backup::ClusterMetadata::backup_crd_versions].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_gkebackup_v1::model::backup::ClusterMetadata;
-        /// let x = ClusterMetadata::new().set_backup_crd_versions([
-        ///     ("key0", "abc"),
-        ///     ("key1", "xyz"),
-        /// ]);
-        /// ```
         pub fn set_backup_crd_versions<T, K, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = (K, V)>,
@@ -933,13 +645,6 @@ pub mod backup {
         ///
         /// Note that all the setters affecting `platform_version` are mutually
         /// exclusive.
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_gkebackup_v1::model::backup::ClusterMetadata;
-        /// use google_cloud_gkebackup_v1::model::backup::cluster_metadata;
-        /// let x = ClusterMetadata::new().set_platform_version(Some(backup::cluster_metadata::PlatformVersion::GkeVersion("example".to_string())));
-        /// ```
         pub fn set_platform_version<
             T: std::convert::Into<
                     std::option::Option<crate::model::backup::cluster_metadata::PlatformVersion>,
@@ -970,14 +675,6 @@ pub mod backup {
         ///
         /// Note that all the setters affecting `platform_version` are
         /// mutually exclusive.
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_gkebackup_v1::model::backup::ClusterMetadata;
-        /// let x = ClusterMetadata::new().set_gke_version("example");
-        /// assert!(x.gke_version().is_some());
-        /// assert!(x.anthos_version().is_none());
-        /// ```
         pub fn set_gke_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.platform_version = std::option::Option::Some(
                 crate::model::backup::cluster_metadata::PlatformVersion::GkeVersion(v.into()),
@@ -1003,14 +700,6 @@ pub mod backup {
         ///
         /// Note that all the setters affecting `platform_version` are
         /// mutually exclusive.
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_gkebackup_v1::model::backup::ClusterMetadata;
-        /// let x = ClusterMetadata::new().set_anthos_version("example");
-        /// assert!(x.anthos_version().is_some());
-        /// assert!(x.gke_version().is_none());
-        /// ```
         pub fn set_anthos_version<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -1279,24 +968,12 @@ impl BackupChannel {
     }
 
     /// Sets the value of [name][crate::model::BackupChannel::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::BackupChannel;
-    /// let x = BackupChannel::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [destination_project][crate::model::BackupChannel::destination_project].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::BackupChannel;
-    /// let x = BackupChannel::new().set_destination_project("example");
-    /// ```
     pub fn set_destination_project<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -1306,25 +983,12 @@ impl BackupChannel {
     }
 
     /// Sets the value of [uid][crate::model::BackupChannel::uid].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::BackupChannel;
-    /// let x = BackupChannel::new().set_uid("example");
-    /// ```
     pub fn set_uid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.uid = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::BackupChannel::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::BackupChannel;
-    /// use wkt::Timestamp;
-    /// let x = BackupChannel::new().set_create_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1334,14 +998,6 @@ impl BackupChannel {
     }
 
     /// Sets or clears the value of [create_time][crate::model::BackupChannel::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::BackupChannel;
-    /// use wkt::Timestamp;
-    /// let x = BackupChannel::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
-    /// let x = BackupChannel::new().set_or_clear_create_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1351,13 +1007,6 @@ impl BackupChannel {
     }
 
     /// Sets the value of [update_time][crate::model::BackupChannel::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::BackupChannel;
-    /// use wkt::Timestamp;
-    /// let x = BackupChannel::new().set_update_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1367,14 +1016,6 @@ impl BackupChannel {
     }
 
     /// Sets or clears the value of [update_time][crate::model::BackupChannel::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::BackupChannel;
-    /// use wkt::Timestamp;
-    /// let x = BackupChannel::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
-    /// let x = BackupChannel::new().set_or_clear_update_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1384,15 +1025,6 @@ impl BackupChannel {
     }
 
     /// Sets the value of [labels][crate::model::BackupChannel::labels].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::BackupChannel;
-    /// let x = BackupChannel::new().set_labels([
-    ///     ("key0", "abc"),
-    ///     ("key1", "xyz"),
-    /// ]);
-    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -1405,36 +1037,18 @@ impl BackupChannel {
     }
 
     /// Sets the value of [description][crate::model::BackupChannel::description].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::BackupChannel;
-    /// let x = BackupChannel::new().set_description("example");
-    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [etag][crate::model::BackupChannel::etag].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::BackupChannel;
-    /// let x = BackupChannel::new().set_etag("example");
-    /// ```
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
     }
 
     /// Sets the value of [destination_project_id][crate::model::BackupChannel::destination_project_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::BackupChannel;
-    /// let x = BackupChannel::new().set_destination_project_id("example");
-    /// ```
     pub fn set_destination_project_id<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -1557,37 +1171,18 @@ impl BackupPlan {
     }
 
     /// Sets the value of [name][crate::model::BackupPlan::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::BackupPlan;
-    /// let x = BackupPlan::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [uid][crate::model::BackupPlan::uid].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::BackupPlan;
-    /// let x = BackupPlan::new().set_uid("example");
-    /// ```
     pub fn set_uid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.uid = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::BackupPlan::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::BackupPlan;
-    /// use wkt::Timestamp;
-    /// let x = BackupPlan::new().set_create_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1597,14 +1192,6 @@ impl BackupPlan {
     }
 
     /// Sets or clears the value of [create_time][crate::model::BackupPlan::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::BackupPlan;
-    /// use wkt::Timestamp;
-    /// let x = BackupPlan::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
-    /// let x = BackupPlan::new().set_or_clear_create_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1614,13 +1201,6 @@ impl BackupPlan {
     }
 
     /// Sets the value of [update_time][crate::model::BackupPlan::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::BackupPlan;
-    /// use wkt::Timestamp;
-    /// let x = BackupPlan::new().set_update_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1630,14 +1210,6 @@ impl BackupPlan {
     }
 
     /// Sets or clears the value of [update_time][crate::model::BackupPlan::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::BackupPlan;
-    /// use wkt::Timestamp;
-    /// let x = BackupPlan::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
-    /// let x = BackupPlan::new().set_or_clear_update_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1647,37 +1219,18 @@ impl BackupPlan {
     }
 
     /// Sets the value of [description][crate::model::BackupPlan::description].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::BackupPlan;
-    /// let x = BackupPlan::new().set_description("example");
-    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [cluster][crate::model::BackupPlan::cluster].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::BackupPlan;
-    /// let x = BackupPlan::new().set_cluster("example");
-    /// ```
     pub fn set_cluster<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.cluster = v.into();
         self
     }
 
     /// Sets the value of [retention_policy][crate::model::BackupPlan::retention_policy].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::BackupPlan;
-    /// use google_cloud_gkebackup_v1::model::backup_plan::RetentionPolicy;
-    /// let x = BackupPlan::new().set_retention_policy(RetentionPolicy::default()/* use setters */);
-    /// ```
     pub fn set_retention_policy<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::backup_plan::RetentionPolicy>,
@@ -1687,14 +1240,6 @@ impl BackupPlan {
     }
 
     /// Sets or clears the value of [retention_policy][crate::model::BackupPlan::retention_policy].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::BackupPlan;
-    /// use google_cloud_gkebackup_v1::model::backup_plan::RetentionPolicy;
-    /// let x = BackupPlan::new().set_or_clear_retention_policy(Some(RetentionPolicy::default()/* use setters */));
-    /// let x = BackupPlan::new().set_or_clear_retention_policy(None::<RetentionPolicy>);
-    /// ```
     pub fn set_or_clear_retention_policy<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::backup_plan::RetentionPolicy>,
@@ -1704,15 +1249,6 @@ impl BackupPlan {
     }
 
     /// Sets the value of [labels][crate::model::BackupPlan::labels].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::BackupPlan;
-    /// let x = BackupPlan::new().set_labels([
-    ///     ("key0", "abc"),
-    ///     ("key1", "xyz"),
-    /// ]);
-    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -1725,13 +1261,6 @@ impl BackupPlan {
     }
 
     /// Sets the value of [backup_schedule][crate::model::BackupPlan::backup_schedule].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::BackupPlan;
-    /// use google_cloud_gkebackup_v1::model::backup_plan::Schedule;
-    /// let x = BackupPlan::new().set_backup_schedule(Schedule::default()/* use setters */);
-    /// ```
     pub fn set_backup_schedule<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::backup_plan::Schedule>,
@@ -1741,14 +1270,6 @@ impl BackupPlan {
     }
 
     /// Sets or clears the value of [backup_schedule][crate::model::BackupPlan::backup_schedule].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::BackupPlan;
-    /// use google_cloud_gkebackup_v1::model::backup_plan::Schedule;
-    /// let x = BackupPlan::new().set_or_clear_backup_schedule(Some(Schedule::default()/* use setters */));
-    /// let x = BackupPlan::new().set_or_clear_backup_schedule(None::<Schedule>);
-    /// ```
     pub fn set_or_clear_backup_schedule<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::backup_plan::Schedule>,
@@ -1758,37 +1279,18 @@ impl BackupPlan {
     }
 
     /// Sets the value of [etag][crate::model::BackupPlan::etag].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::BackupPlan;
-    /// let x = BackupPlan::new().set_etag("example");
-    /// ```
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
     }
 
     /// Sets the value of [deactivated][crate::model::BackupPlan::deactivated].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::BackupPlan;
-    /// let x = BackupPlan::new().set_deactivated(true);
-    /// ```
     pub fn set_deactivated<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.deactivated = v.into();
         self
     }
 
     /// Sets the value of [backup_config][crate::model::BackupPlan::backup_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::BackupPlan;
-    /// use google_cloud_gkebackup_v1::model::backup_plan::BackupConfig;
-    /// let x = BackupPlan::new().set_backup_config(BackupConfig::default()/* use setters */);
-    /// ```
     pub fn set_backup_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::backup_plan::BackupConfig>,
@@ -1798,14 +1300,6 @@ impl BackupPlan {
     }
 
     /// Sets or clears the value of [backup_config][crate::model::BackupPlan::backup_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::BackupPlan;
-    /// use google_cloud_gkebackup_v1::model::backup_plan::BackupConfig;
-    /// let x = BackupPlan::new().set_or_clear_backup_config(Some(BackupConfig::default()/* use setters */));
-    /// let x = BackupPlan::new().set_or_clear_backup_config(None::<BackupConfig>);
-    /// ```
     pub fn set_or_clear_backup_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::backup_plan::BackupConfig>,
@@ -1815,27 +1309,12 @@ impl BackupPlan {
     }
 
     /// Sets the value of [protected_pod_count][crate::model::BackupPlan::protected_pod_count].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::BackupPlan;
-    /// let x = BackupPlan::new().set_protected_pod_count(42);
-    /// ```
     pub fn set_protected_pod_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.protected_pod_count = v.into();
         self
     }
 
     /// Sets the value of [state][crate::model::BackupPlan::state].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::BackupPlan;
-    /// use google_cloud_gkebackup_v1::model::backup_plan::State;
-    /// let x0 = BackupPlan::new().set_state(State::ClusterPending);
-    /// let x1 = BackupPlan::new().set_state(State::Provisioning);
-    /// let x2 = BackupPlan::new().set_state(State::Ready);
-    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::backup_plan::State>>(
         mut self,
         v: T,
@@ -1845,61 +1324,30 @@ impl BackupPlan {
     }
 
     /// Sets the value of [state_reason][crate::model::BackupPlan::state_reason].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::BackupPlan;
-    /// let x = BackupPlan::new().set_state_reason("example");
-    /// ```
     pub fn set_state_reason<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.state_reason = v.into();
         self
     }
 
     /// Sets the value of [rpo_risk_level][crate::model::BackupPlan::rpo_risk_level].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::BackupPlan;
-    /// let x = BackupPlan::new().set_rpo_risk_level(42);
-    /// ```
     pub fn set_rpo_risk_level<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.rpo_risk_level = v.into();
         self
     }
 
     /// Sets the value of [rpo_risk_reason][crate::model::BackupPlan::rpo_risk_reason].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::BackupPlan;
-    /// let x = BackupPlan::new().set_rpo_risk_reason("example");
-    /// ```
     pub fn set_rpo_risk_reason<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.rpo_risk_reason = v.into();
         self
     }
 
     /// Sets the value of [backup_channel][crate::model::BackupPlan::backup_channel].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::BackupPlan;
-    /// let x = BackupPlan::new().set_backup_channel("example");
-    /// ```
     pub fn set_backup_channel<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.backup_channel = v.into();
         self
     }
 
     /// Sets the value of [last_successful_backup_time][crate::model::BackupPlan::last_successful_backup_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::BackupPlan;
-    /// use wkt::Timestamp;
-    /// let x = BackupPlan::new().set_last_successful_backup_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_last_successful_backup_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1909,14 +1357,6 @@ impl BackupPlan {
     }
 
     /// Sets or clears the value of [last_successful_backup_time][crate::model::BackupPlan::last_successful_backup_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::BackupPlan;
-    /// use wkt::Timestamp;
-    /// let x = BackupPlan::new().set_or_clear_last_successful_backup_time(Some(Timestamp::default()/* use setters */));
-    /// let x = BackupPlan::new().set_or_clear_last_successful_backup_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_last_successful_backup_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1993,36 +1433,18 @@ pub mod backup_plan {
         }
 
         /// Sets the value of [backup_delete_lock_days][crate::model::backup_plan::RetentionPolicy::backup_delete_lock_days].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_gkebackup_v1::model::backup_plan::RetentionPolicy;
-        /// let x = RetentionPolicy::new().set_backup_delete_lock_days(42);
-        /// ```
         pub fn set_backup_delete_lock_days<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.backup_delete_lock_days = v.into();
             self
         }
 
         /// Sets the value of [backup_retain_days][crate::model::backup_plan::RetentionPolicy::backup_retain_days].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_gkebackup_v1::model::backup_plan::RetentionPolicy;
-        /// let x = RetentionPolicy::new().set_backup_retain_days(42);
-        /// ```
         pub fn set_backup_retain_days<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.backup_retain_days = v.into();
             self
         }
 
         /// Sets the value of [locked][crate::model::backup_plan::RetentionPolicy::locked].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_gkebackup_v1::model::backup_plan::RetentionPolicy;
-        /// let x = RetentionPolicy::new().set_locked(true);
-        /// ```
         pub fn set_locked<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.locked = v.into();
             self
@@ -2088,12 +1510,6 @@ pub mod backup_plan {
         }
 
         /// Sets the value of [cron_schedule][crate::model::backup_plan::Schedule::cron_schedule].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_gkebackup_v1::model::backup_plan::Schedule;
-        /// let x = Schedule::new().set_cron_schedule("example");
-        /// ```
         pub fn set_cron_schedule<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -2103,25 +1519,12 @@ pub mod backup_plan {
         }
 
         /// Sets the value of [paused][crate::model::backup_plan::Schedule::paused].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_gkebackup_v1::model::backup_plan::Schedule;
-        /// let x = Schedule::new().set_paused(true);
-        /// ```
         pub fn set_paused<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.paused = v.into();
             self
         }
 
         /// Sets the value of [rpo_config][crate::model::backup_plan::Schedule::rpo_config].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_gkebackup_v1::model::backup_plan::Schedule;
-        /// use google_cloud_gkebackup_v1::model::RpoConfig;
-        /// let x = Schedule::new().set_rpo_config(RpoConfig::default()/* use setters */);
-        /// ```
         pub fn set_rpo_config<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::RpoConfig>,
@@ -2131,14 +1534,6 @@ pub mod backup_plan {
         }
 
         /// Sets or clears the value of [rpo_config][crate::model::backup_plan::Schedule::rpo_config].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_gkebackup_v1::model::backup_plan::Schedule;
-        /// use google_cloud_gkebackup_v1::model::RpoConfig;
-        /// let x = Schedule::new().set_or_clear_rpo_config(Some(RpoConfig::default()/* use setters */));
-        /// let x = Schedule::new().set_or_clear_rpo_config(None::<RpoConfig>);
-        /// ```
         pub fn set_or_clear_rpo_config<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::RpoConfig>,
@@ -2148,13 +1543,6 @@ pub mod backup_plan {
         }
 
         /// Sets the value of [next_scheduled_backup_time][crate::model::backup_plan::Schedule::next_scheduled_backup_time].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_gkebackup_v1::model::backup_plan::Schedule;
-        /// use wkt::Timestamp;
-        /// let x = Schedule::new().set_next_scheduled_backup_time(Timestamp::default()/* use setters */);
-        /// ```
         pub fn set_next_scheduled_backup_time<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -2164,14 +1552,6 @@ pub mod backup_plan {
         }
 
         /// Sets or clears the value of [next_scheduled_backup_time][crate::model::backup_plan::Schedule::next_scheduled_backup_time].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_gkebackup_v1::model::backup_plan::Schedule;
-        /// use wkt::Timestamp;
-        /// let x = Schedule::new().set_or_clear_next_scheduled_backup_time(Some(Timestamp::default()/* use setters */));
-        /// let x = Schedule::new().set_or_clear_next_scheduled_backup_time(None::<Timestamp>);
-        /// ```
         pub fn set_or_clear_next_scheduled_backup_time<T>(
             mut self,
             v: std::option::Option<T>,
@@ -2236,37 +1616,18 @@ pub mod backup_plan {
         }
 
         /// Sets the value of [include_volume_data][crate::model::backup_plan::BackupConfig::include_volume_data].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_gkebackup_v1::model::backup_plan::BackupConfig;
-        /// let x = BackupConfig::new().set_include_volume_data(true);
-        /// ```
         pub fn set_include_volume_data<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.include_volume_data = v.into();
             self
         }
 
         /// Sets the value of [include_secrets][crate::model::backup_plan::BackupConfig::include_secrets].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_gkebackup_v1::model::backup_plan::BackupConfig;
-        /// let x = BackupConfig::new().set_include_secrets(true);
-        /// ```
         pub fn set_include_secrets<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.include_secrets = v.into();
             self
         }
 
         /// Sets the value of [encryption_key][crate::model::backup_plan::BackupConfig::encryption_key].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_gkebackup_v1::model::backup_plan::BackupConfig;
-        /// use google_cloud_gkebackup_v1::model::EncryptionKey;
-        /// let x = BackupConfig::new().set_encryption_key(EncryptionKey::default()/* use setters */);
-        /// ```
         pub fn set_encryption_key<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::EncryptionKey>,
@@ -2276,14 +1637,6 @@ pub mod backup_plan {
         }
 
         /// Sets or clears the value of [encryption_key][crate::model::backup_plan::BackupConfig::encryption_key].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_gkebackup_v1::model::backup_plan::BackupConfig;
-        /// use google_cloud_gkebackup_v1::model::EncryptionKey;
-        /// let x = BackupConfig::new().set_or_clear_encryption_key(Some(EncryptionKey::default()/* use setters */));
-        /// let x = BackupConfig::new().set_or_clear_encryption_key(None::<EncryptionKey>);
-        /// ```
         pub fn set_or_clear_encryption_key<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::EncryptionKey>,
@@ -2293,12 +1646,6 @@ pub mod backup_plan {
         }
 
         /// Sets the value of [permissive_mode][crate::model::backup_plan::BackupConfig::permissive_mode].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_gkebackup_v1::model::backup_plan::BackupConfig;
-        /// let x = BackupConfig::new().set_permissive_mode(true);
-        /// ```
         pub fn set_permissive_mode<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.permissive_mode = v.into();
             self
@@ -2308,13 +1655,6 @@ pub mod backup_plan {
         ///
         /// Note that all the setters affecting `backup_scope` are mutually
         /// exclusive.
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_gkebackup_v1::model::backup_plan::BackupConfig;
-        /// use google_cloud_gkebackup_v1::model::backup_plan::backup_config;
-        /// let x = BackupConfig::new().set_backup_scope(Some(backup_plan::backup_config::BackupScope::AllNamespaces(true)));
-        /// ```
         pub fn set_backup_scope<
             T: std::convert::Into<
                     std::option::Option<crate::model::backup_plan::backup_config::BackupScope>,
@@ -2345,15 +1685,6 @@ pub mod backup_plan {
         ///
         /// Note that all the setters affecting `backup_scope` are
         /// mutually exclusive.
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_gkebackup_v1::model::backup_plan::BackupConfig;
-        /// let x = BackupConfig::new().set_all_namespaces(true);
-        /// assert!(x.all_namespaces().is_some());
-        /// assert!(x.selected_namespaces().is_none());
-        /// assert!(x.selected_applications().is_none());
-        /// ```
         pub fn set_all_namespaces<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.backup_scope = std::option::Option::Some(
                 crate::model::backup_plan::backup_config::BackupScope::AllNamespaces(v.into()),
@@ -2381,16 +1712,6 @@ pub mod backup_plan {
         ///
         /// Note that all the setters affecting `backup_scope` are
         /// mutually exclusive.
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_gkebackup_v1::model::backup_plan::BackupConfig;
-        /// use google_cloud_gkebackup_v1::model::Namespaces;
-        /// let x = BackupConfig::new().set_selected_namespaces(Namespaces::default()/* use setters */);
-        /// assert!(x.selected_namespaces().is_some());
-        /// assert!(x.all_namespaces().is_none());
-        /// assert!(x.selected_applications().is_none());
-        /// ```
         pub fn set_selected_namespaces<
             T: std::convert::Into<std::boxed::Box<crate::model::Namespaces>>,
         >(
@@ -2423,16 +1744,6 @@ pub mod backup_plan {
         ///
         /// Note that all the setters affecting `backup_scope` are
         /// mutually exclusive.
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_gkebackup_v1::model::backup_plan::BackupConfig;
-        /// use google_cloud_gkebackup_v1::model::NamespacedNames;
-        /// let x = BackupConfig::new().set_selected_applications(NamespacedNames::default()/* use setters */);
-        /// assert!(x.selected_applications().is_some());
-        /// assert!(x.all_namespaces().is_none());
-        /// assert!(x.selected_namespaces().is_none());
-        /// ```
         pub fn set_selected_applications<
             T: std::convert::Into<std::boxed::Box<crate::model::NamespacedNames>>,
         >(
@@ -2668,29 +1979,12 @@ impl RpoConfig {
     }
 
     /// Sets the value of [target_rpo_minutes][crate::model::RpoConfig::target_rpo_minutes].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::RpoConfig;
-    /// let x = RpoConfig::new().set_target_rpo_minutes(42);
-    /// ```
     pub fn set_target_rpo_minutes<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.target_rpo_minutes = v.into();
         self
     }
 
     /// Sets the value of [exclusion_windows][crate::model::RpoConfig::exclusion_windows].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::RpoConfig;
-    /// use google_cloud_gkebackup_v1::model::ExclusionWindow;
-    /// let x = RpoConfig::new()
-    ///     .set_exclusion_windows([
-    ///         ExclusionWindow::default()/* use setters */,
-    ///         ExclusionWindow::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_exclusion_windows<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2743,13 +2037,6 @@ impl ExclusionWindow {
     }
 
     /// Sets the value of [start_time][crate::model::ExclusionWindow::start_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::ExclusionWindow;
-    /// use gtype::model::TimeOfDay;
-    /// let x = ExclusionWindow::new().set_start_time(TimeOfDay::default()/* use setters */);
-    /// ```
     pub fn set_start_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<gtype::model::TimeOfDay>,
@@ -2759,14 +2046,6 @@ impl ExclusionWindow {
     }
 
     /// Sets or clears the value of [start_time][crate::model::ExclusionWindow::start_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::ExclusionWindow;
-    /// use gtype::model::TimeOfDay;
-    /// let x = ExclusionWindow::new().set_or_clear_start_time(Some(TimeOfDay::default()/* use setters */));
-    /// let x = ExclusionWindow::new().set_or_clear_start_time(None::<TimeOfDay>);
-    /// ```
     pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<gtype::model::TimeOfDay>,
@@ -2776,13 +2055,6 @@ impl ExclusionWindow {
     }
 
     /// Sets the value of [duration][crate::model::ExclusionWindow::duration].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::ExclusionWindow;
-    /// use wkt::Duration;
-    /// let x = ExclusionWindow::new().set_duration(Duration::default()/* use setters */);
-    /// ```
     pub fn set_duration<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -2792,14 +2064,6 @@ impl ExclusionWindow {
     }
 
     /// Sets or clears the value of [duration][crate::model::ExclusionWindow::duration].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::ExclusionWindow;
-    /// use wkt::Duration;
-    /// let x = ExclusionWindow::new().set_or_clear_duration(Some(Duration::default()/* use setters */));
-    /// let x = ExclusionWindow::new().set_or_clear_duration(None::<Duration>);
-    /// ```
     pub fn set_or_clear_duration<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -2812,13 +2076,6 @@ impl ExclusionWindow {
     ///
     /// Note that all the setters affecting `recurrence` are mutually
     /// exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::ExclusionWindow;
-    /// use google_cloud_gkebackup_v1::model::exclusion_window;
-    /// let x = ExclusionWindow::new().set_recurrence(Some(exclusion_window::Recurrence::Daily(true)));
-    /// ```
     pub fn set_recurrence<
         T: std::convert::Into<std::option::Option<crate::model::exclusion_window::Recurrence>>,
     >(
@@ -2849,16 +2106,6 @@ impl ExclusionWindow {
     ///
     /// Note that all the setters affecting `recurrence` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::ExclusionWindow;
-    /// use gtype::model::Date;
-    /// let x = ExclusionWindow::new().set_single_occurrence_date(Date::default()/* use setters */);
-    /// assert!(x.single_occurrence_date().is_some());
-    /// assert!(x.daily().is_none());
-    /// assert!(x.days_of_week().is_none());
-    /// ```
     pub fn set_single_occurrence_date<
         T: std::convert::Into<std::boxed::Box<gtype::model::Date>>,
     >(
@@ -2887,15 +2134,6 @@ impl ExclusionWindow {
     ///
     /// Note that all the setters affecting `recurrence` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::ExclusionWindow;
-    /// let x = ExclusionWindow::new().set_daily(true);
-    /// assert!(x.daily().is_some());
-    /// assert!(x.single_occurrence_date().is_none());
-    /// assert!(x.days_of_week().is_none());
-    /// ```
     pub fn set_daily<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.recurrence =
             std::option::Option::Some(crate::model::exclusion_window::Recurrence::Daily(v.into()));
@@ -2922,16 +2160,6 @@ impl ExclusionWindow {
     ///
     /// Note that all the setters affecting `recurrence` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::ExclusionWindow;
-    /// use google_cloud_gkebackup_v1::model::exclusion_window::DayOfWeekList;
-    /// let x = ExclusionWindow::new().set_days_of_week(DayOfWeekList::default()/* use setters */);
-    /// assert!(x.days_of_week().is_some());
-    /// assert!(x.single_occurrence_date().is_none());
-    /// assert!(x.daily().is_none());
-    /// ```
     pub fn set_days_of_week<
         T: std::convert::Into<std::boxed::Box<crate::model::exclusion_window::DayOfWeekList>>,
     >(
@@ -2972,17 +2200,6 @@ pub mod exclusion_window {
         }
 
         /// Sets the value of [days_of_week][crate::model::exclusion_window::DayOfWeekList::days_of_week].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_gkebackup_v1::model::exclusion_window::DayOfWeekList;
-        /// use gtype::model::DayOfWeek;
-        /// let x = DayOfWeekList::new().set_days_of_week([
-        ///     DayOfWeek::Monday,
-        ///     DayOfWeek::Tuesday,
-        ///     DayOfWeek::Wednesday,
-        /// ]);
-        /// ```
         pub fn set_days_of_week<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -3073,37 +2290,18 @@ impl BackupPlanBinding {
     }
 
     /// Sets the value of [name][crate::model::BackupPlanBinding::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::BackupPlanBinding;
-    /// let x = BackupPlanBinding::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [uid][crate::model::BackupPlanBinding::uid].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::BackupPlanBinding;
-    /// let x = BackupPlanBinding::new().set_uid("example");
-    /// ```
     pub fn set_uid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.uid = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::BackupPlanBinding::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::BackupPlanBinding;
-    /// use wkt::Timestamp;
-    /// let x = BackupPlanBinding::new().set_create_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3113,14 +2311,6 @@ impl BackupPlanBinding {
     }
 
     /// Sets or clears the value of [create_time][crate::model::BackupPlanBinding::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::BackupPlanBinding;
-    /// use wkt::Timestamp;
-    /// let x = BackupPlanBinding::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
-    /// let x = BackupPlanBinding::new().set_or_clear_create_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3130,13 +2320,6 @@ impl BackupPlanBinding {
     }
 
     /// Sets the value of [update_time][crate::model::BackupPlanBinding::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::BackupPlanBinding;
-    /// use wkt::Timestamp;
-    /// let x = BackupPlanBinding::new().set_update_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3146,14 +2329,6 @@ impl BackupPlanBinding {
     }
 
     /// Sets or clears the value of [update_time][crate::model::BackupPlanBinding::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::BackupPlanBinding;
-    /// use wkt::Timestamp;
-    /// let x = BackupPlanBinding::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
-    /// let x = BackupPlanBinding::new().set_or_clear_update_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3163,37 +2338,18 @@ impl BackupPlanBinding {
     }
 
     /// Sets the value of [backup_plan][crate::model::BackupPlanBinding::backup_plan].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::BackupPlanBinding;
-    /// let x = BackupPlanBinding::new().set_backup_plan("example");
-    /// ```
     pub fn set_backup_plan<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.backup_plan = v.into();
         self
     }
 
     /// Sets the value of [cluster][crate::model::BackupPlanBinding::cluster].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::BackupPlanBinding;
-    /// let x = BackupPlanBinding::new().set_cluster("example");
-    /// ```
     pub fn set_cluster<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.cluster = v.into();
         self
     }
 
     /// Sets the value of [backup_plan_details][crate::model::BackupPlanBinding::backup_plan_details].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::BackupPlanBinding;
-    /// use google_cloud_gkebackup_v1::model::backup_plan_binding::BackupPlanDetails;
-    /// let x = BackupPlanBinding::new().set_backup_plan_details(BackupPlanDetails::default()/* use setters */);
-    /// ```
     pub fn set_backup_plan_details<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::backup_plan_binding::BackupPlanDetails>,
@@ -3203,14 +2359,6 @@ impl BackupPlanBinding {
     }
 
     /// Sets or clears the value of [backup_plan_details][crate::model::BackupPlanBinding::backup_plan_details].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::BackupPlanBinding;
-    /// use google_cloud_gkebackup_v1::model::backup_plan_binding::BackupPlanDetails;
-    /// let x = BackupPlanBinding::new().set_or_clear_backup_plan_details(Some(BackupPlanDetails::default()/* use setters */));
-    /// let x = BackupPlanBinding::new().set_or_clear_backup_plan_details(None::<BackupPlanDetails>);
-    /// ```
     pub fn set_or_clear_backup_plan_details<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::backup_plan_binding::BackupPlanDetails>,
@@ -3220,12 +2368,6 @@ impl BackupPlanBinding {
     }
 
     /// Sets the value of [etag][crate::model::BackupPlanBinding::etag].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::BackupPlanBinding;
-    /// let x = BackupPlanBinding::new().set_etag("example");
-    /// ```
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
@@ -3293,27 +2435,12 @@ pub mod backup_plan_binding {
         }
 
         /// Sets the value of [protected_pod_count][crate::model::backup_plan_binding::BackupPlanDetails::protected_pod_count].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_gkebackup_v1::model::backup_plan_binding::BackupPlanDetails;
-        /// let x = BackupPlanDetails::new().set_protected_pod_count(42);
-        /// ```
         pub fn set_protected_pod_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.protected_pod_count = v.into();
             self
         }
 
         /// Sets the value of [state][crate::model::backup_plan_binding::BackupPlanDetails::state].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_gkebackup_v1::model::backup_plan_binding::BackupPlanDetails;
-        /// use google_cloud_gkebackup_v1::model::backup_plan_binding::backup_plan_details::State;
-        /// let x0 = BackupPlanDetails::new().set_state(State::ClusterPending);
-        /// let x1 = BackupPlanDetails::new().set_state(State::Provisioning);
-        /// let x2 = BackupPlanDetails::new().set_state(State::Ready);
-        /// ```
         pub fn set_state<
             T: std::convert::Into<crate::model::backup_plan_binding::backup_plan_details::State>,
         >(
@@ -3325,13 +2452,6 @@ pub mod backup_plan_binding {
         }
 
         /// Sets the value of [last_successful_backup_time][crate::model::backup_plan_binding::BackupPlanDetails::last_successful_backup_time].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_gkebackup_v1::model::backup_plan_binding::BackupPlanDetails;
-        /// use wkt::Timestamp;
-        /// let x = BackupPlanDetails::new().set_last_successful_backup_time(Timestamp::default()/* use setters */);
-        /// ```
         pub fn set_last_successful_backup_time<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -3341,14 +2461,6 @@ pub mod backup_plan_binding {
         }
 
         /// Sets or clears the value of [last_successful_backup_time][crate::model::backup_plan_binding::BackupPlanDetails::last_successful_backup_time].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_gkebackup_v1::model::backup_plan_binding::BackupPlanDetails;
-        /// use wkt::Timestamp;
-        /// let x = BackupPlanDetails::new().set_or_clear_last_successful_backup_time(Some(Timestamp::default()/* use setters */));
-        /// let x = BackupPlanDetails::new().set_or_clear_last_successful_backup_time(None::<Timestamp>);
-        /// ```
         pub fn set_or_clear_last_successful_backup_time<T>(
             mut self,
             v: std::option::Option<T>,
@@ -3361,13 +2473,6 @@ pub mod backup_plan_binding {
         }
 
         /// Sets the value of [next_scheduled_backup_time][crate::model::backup_plan_binding::BackupPlanDetails::next_scheduled_backup_time].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_gkebackup_v1::model::backup_plan_binding::BackupPlanDetails;
-        /// use wkt::Timestamp;
-        /// let x = BackupPlanDetails::new().set_next_scheduled_backup_time(Timestamp::default()/* use setters */);
-        /// ```
         pub fn set_next_scheduled_backup_time<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -3377,14 +2482,6 @@ pub mod backup_plan_binding {
         }
 
         /// Sets or clears the value of [next_scheduled_backup_time][crate::model::backup_plan_binding::BackupPlanDetails::next_scheduled_backup_time].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_gkebackup_v1::model::backup_plan_binding::BackupPlanDetails;
-        /// use wkt::Timestamp;
-        /// let x = BackupPlanDetails::new().set_or_clear_next_scheduled_backup_time(Some(Timestamp::default()/* use setters */));
-        /// let x = BackupPlanDetails::new().set_or_clear_next_scheduled_backup_time(None::<Timestamp>);
-        /// ```
         pub fn set_or_clear_next_scheduled_backup_time<T>(
             mut self,
             v: std::option::Option<T>,
@@ -3397,24 +2494,12 @@ pub mod backup_plan_binding {
         }
 
         /// Sets the value of [rpo_risk_level][crate::model::backup_plan_binding::BackupPlanDetails::rpo_risk_level].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_gkebackup_v1::model::backup_plan_binding::BackupPlanDetails;
-        /// let x = BackupPlanDetails::new().set_rpo_risk_level(42);
-        /// ```
         pub fn set_rpo_risk_level<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.rpo_risk_level = v.into();
             self
         }
 
         /// Sets the value of [last_successful_backup][crate::model::backup_plan_binding::BackupPlanDetails::last_successful_backup].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_gkebackup_v1::model::backup_plan_binding::BackupPlanDetails;
-        /// let x = BackupPlanDetails::new().set_last_successful_backup("example");
-        /// ```
         pub fn set_last_successful_backup<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -3424,13 +2509,6 @@ pub mod backup_plan_binding {
         }
 
         /// Sets the value of [backup_config_details][crate::model::backup_plan_binding::BackupPlanDetails::backup_config_details].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_gkebackup_v1::model::backup_plan_binding::BackupPlanDetails;
-        /// use google_cloud_gkebackup_v1::model::backup_plan_binding::backup_plan_details::BackupConfigDetails;
-        /// let x = BackupPlanDetails::new().set_backup_config_details(BackupConfigDetails::default()/* use setters */);
-        /// ```
         pub fn set_backup_config_details<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<
@@ -3442,14 +2520,6 @@ pub mod backup_plan_binding {
         }
 
         /// Sets or clears the value of [backup_config_details][crate::model::backup_plan_binding::BackupPlanDetails::backup_config_details].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_gkebackup_v1::model::backup_plan_binding::BackupPlanDetails;
-        /// use google_cloud_gkebackup_v1::model::backup_plan_binding::backup_plan_details::BackupConfigDetails;
-        /// let x = BackupPlanDetails::new().set_or_clear_backup_config_details(Some(BackupConfigDetails::default()/* use setters */));
-        /// let x = BackupPlanDetails::new().set_or_clear_backup_config_details(None::<BackupConfigDetails>);
-        /// ```
         pub fn set_or_clear_backup_config_details<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<
@@ -3461,13 +2531,6 @@ pub mod backup_plan_binding {
         }
 
         /// Sets the value of [retention_policy_details][crate::model::backup_plan_binding::BackupPlanDetails::retention_policy_details].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_gkebackup_v1::model::backup_plan_binding::BackupPlanDetails;
-        /// use google_cloud_gkebackup_v1::model::backup_plan_binding::backup_plan_details::RetentionPolicyDetails;
-        /// let x = BackupPlanDetails::new().set_retention_policy_details(RetentionPolicyDetails::default()/* use setters */);
-        /// ```
         pub fn set_retention_policy_details<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<
@@ -3479,14 +2542,6 @@ pub mod backup_plan_binding {
         }
 
         /// Sets or clears the value of [retention_policy_details][crate::model::backup_plan_binding::BackupPlanDetails::retention_policy_details].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_gkebackup_v1::model::backup_plan_binding::BackupPlanDetails;
-        /// use google_cloud_gkebackup_v1::model::backup_plan_binding::backup_plan_details::RetentionPolicyDetails;
-        /// let x = BackupPlanDetails::new().set_or_clear_retention_policy_details(Some(RetentionPolicyDetails::default()/* use setters */));
-        /// let x = BackupPlanDetails::new().set_or_clear_retention_policy_details(None::<RetentionPolicyDetails>);
-        /// ```
         pub fn set_or_clear_retention_policy_details<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<
@@ -3548,37 +2603,18 @@ pub mod backup_plan_binding {
             }
 
             /// Sets the value of [include_volume_data][crate::model::backup_plan_binding::backup_plan_details::BackupConfigDetails::include_volume_data].
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_gkebackup_v1::model::backup_plan_binding::backup_plan_details::BackupConfigDetails;
-            /// let x = BackupConfigDetails::new().set_include_volume_data(true);
-            /// ```
             pub fn set_include_volume_data<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
                 self.include_volume_data = v.into();
                 self
             }
 
             /// Sets the value of [include_secrets][crate::model::backup_plan_binding::backup_plan_details::BackupConfigDetails::include_secrets].
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_gkebackup_v1::model::backup_plan_binding::backup_plan_details::BackupConfigDetails;
-            /// let x = BackupConfigDetails::new().set_include_secrets(true);
-            /// ```
             pub fn set_include_secrets<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
                 self.include_secrets = v.into();
                 self
             }
 
             /// Sets the value of [encryption_key][crate::model::backup_plan_binding::backup_plan_details::BackupConfigDetails::encryption_key].
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_gkebackup_v1::model::backup_plan_binding::backup_plan_details::BackupConfigDetails;
-            /// use google_cloud_gkebackup_v1::model::EncryptionKey;
-            /// let x = BackupConfigDetails::new().set_encryption_key(EncryptionKey::default()/* use setters */);
-            /// ```
             pub fn set_encryption_key<T>(mut self, v: T) -> Self
             where
                 T: std::convert::Into<crate::model::EncryptionKey>,
@@ -3588,14 +2624,6 @@ pub mod backup_plan_binding {
             }
 
             /// Sets or clears the value of [encryption_key][crate::model::backup_plan_binding::backup_plan_details::BackupConfigDetails::encryption_key].
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_gkebackup_v1::model::backup_plan_binding::backup_plan_details::BackupConfigDetails;
-            /// use google_cloud_gkebackup_v1::model::EncryptionKey;
-            /// let x = BackupConfigDetails::new().set_or_clear_encryption_key(Some(EncryptionKey::default()/* use setters */));
-            /// let x = BackupConfigDetails::new().set_or_clear_encryption_key(None::<EncryptionKey>);
-            /// ```
             pub fn set_or_clear_encryption_key<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<crate::model::EncryptionKey>,
@@ -3608,13 +2636,6 @@ pub mod backup_plan_binding {
             ///
             /// Note that all the setters affecting `backup_scope` are mutually
             /// exclusive.
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_gkebackup_v1::model::backup_plan_binding::backup_plan_details::BackupConfigDetails;
-            /// use google_cloud_gkebackup_v1::model::backup_plan_binding::backup_plan_details::backup_config_details;
-            /// let x = BackupConfigDetails::new().set_backup_scope(Some(backup_plan_binding::backup_plan_details::backup_config_details::BackupScope::AllNamespaces(true)));
-            /// ```
             pub fn set_backup_scope<T: std::convert::Into<std::option::Option<crate::model::backup_plan_binding::backup_plan_details::backup_config_details::BackupScope>>>(mut self, v: T) -> Self
             {
                 self.backup_scope = v.into();
@@ -3637,15 +2658,6 @@ pub mod backup_plan_binding {
             ///
             /// Note that all the setters affecting `backup_scope` are
             /// mutually exclusive.
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_gkebackup_v1::model::backup_plan_binding::backup_plan_details::BackupConfigDetails;
-            /// let x = BackupConfigDetails::new().set_all_namespaces(true);
-            /// assert!(x.all_namespaces().is_some());
-            /// assert!(x.selected_namespaces().is_none());
-            /// assert!(x.selected_applications().is_none());
-            /// ```
             pub fn set_all_namespaces<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
                 self.backup_scope = std::option::Option::Some(
                     crate::model::backup_plan_binding::backup_plan_details::backup_config_details::BackupScope::AllNamespaces(
@@ -3673,16 +2685,6 @@ pub mod backup_plan_binding {
             ///
             /// Note that all the setters affecting `backup_scope` are
             /// mutually exclusive.
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_gkebackup_v1::model::backup_plan_binding::backup_plan_details::BackupConfigDetails;
-            /// use google_cloud_gkebackup_v1::model::Namespaces;
-            /// let x = BackupConfigDetails::new().set_selected_namespaces(Namespaces::default()/* use setters */);
-            /// assert!(x.selected_namespaces().is_some());
-            /// assert!(x.all_namespaces().is_none());
-            /// assert!(x.selected_applications().is_none());
-            /// ```
             pub fn set_selected_namespaces<
                 T: std::convert::Into<std::boxed::Box<crate::model::Namespaces>>,
             >(
@@ -3715,16 +2717,6 @@ pub mod backup_plan_binding {
             ///
             /// Note that all the setters affecting `backup_scope` are
             /// mutually exclusive.
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_gkebackup_v1::model::backup_plan_binding::backup_plan_details::BackupConfigDetails;
-            /// use google_cloud_gkebackup_v1::model::NamespacedNames;
-            /// let x = BackupConfigDetails::new().set_selected_applications(NamespacedNames::default()/* use setters */);
-            /// assert!(x.selected_applications().is_some());
-            /// assert!(x.all_namespaces().is_none());
-            /// assert!(x.selected_namespaces().is_none());
-            /// ```
             pub fn set_selected_applications<
                 T: std::convert::Into<std::boxed::Box<crate::model::NamespacedNames>>,
             >(
@@ -3802,24 +2794,12 @@ pub mod backup_plan_binding {
             }
 
             /// Sets the value of [backup_delete_lock_days][crate::model::backup_plan_binding::backup_plan_details::RetentionPolicyDetails::backup_delete_lock_days].
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_gkebackup_v1::model::backup_plan_binding::backup_plan_details::RetentionPolicyDetails;
-            /// let x = RetentionPolicyDetails::new().set_backup_delete_lock_days(42);
-            /// ```
             pub fn set_backup_delete_lock_days<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
                 self.backup_delete_lock_days = v.into();
                 self
             }
 
             /// Sets the value of [backup_retain_days][crate::model::backup_plan_binding::backup_plan_details::RetentionPolicyDetails::backup_retain_days].
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_gkebackup_v1::model::backup_plan_binding::backup_plan_details::RetentionPolicyDetails;
-            /// let x = RetentionPolicyDetails::new().set_backup_retain_days(42);
-            /// ```
             pub fn set_backup_retain_days<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
                 self.backup_retain_days = v.into();
                 self
@@ -4013,12 +2993,6 @@ impl Namespaces {
     }
 
     /// Sets the value of [namespaces][crate::model::Namespaces::namespaces].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::Namespaces;
-    /// let x = Namespaces::new().set_namespaces(["a", "b", "c"]);
-    /// ```
     pub fn set_namespaces<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4055,24 +3029,12 @@ impl NamespacedName {
     }
 
     /// Sets the value of [namespace][crate::model::NamespacedName::namespace].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::NamespacedName;
-    /// let x = NamespacedName::new().set_namespace("example");
-    /// ```
     pub fn set_namespace<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.namespace = v.into();
         self
     }
 
     /// Sets the value of [name][crate::model::NamespacedName::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::NamespacedName;
-    /// let x = NamespacedName::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -4101,17 +3063,6 @@ impl NamespacedNames {
     }
 
     /// Sets the value of [namespaced_names][crate::model::NamespacedNames::namespaced_names].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::NamespacedNames;
-    /// use google_cloud_gkebackup_v1::model::NamespacedName;
-    /// let x = NamespacedNames::new()
-    ///     .set_namespaced_names([
-    ///         NamespacedName::default()/* use setters */,
-    ///         NamespacedName::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_namespaced_names<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4147,12 +3098,6 @@ impl EncryptionKey {
     }
 
     /// Sets the value of [gcp_kms_encryption_key][crate::model::EncryptionKey::gcp_kms_encryption_key].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::EncryptionKey;
-    /// let x = EncryptionKey::new().set_gcp_kms_encryption_key("example");
-    /// ```
     pub fn set_gcp_kms_encryption_key<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -4360,13 +3305,6 @@ impl OperationMetadata {
     }
 
     /// Sets the value of [create_time][crate::model::OperationMetadata::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::OperationMetadata;
-    /// use wkt::Timestamp;
-    /// let x = OperationMetadata::new().set_create_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4376,14 +3314,6 @@ impl OperationMetadata {
     }
 
     /// Sets or clears the value of [create_time][crate::model::OperationMetadata::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::OperationMetadata;
-    /// use wkt::Timestamp;
-    /// let x = OperationMetadata::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
-    /// let x = OperationMetadata::new().set_or_clear_create_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4393,13 +3323,6 @@ impl OperationMetadata {
     }
 
     /// Sets the value of [end_time][crate::model::OperationMetadata::end_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::OperationMetadata;
-    /// use wkt::Timestamp;
-    /// let x = OperationMetadata::new().set_end_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4409,14 +3332,6 @@ impl OperationMetadata {
     }
 
     /// Sets or clears the value of [end_time][crate::model::OperationMetadata::end_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::OperationMetadata;
-    /// use wkt::Timestamp;
-    /// let x = OperationMetadata::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
-    /// let x = OperationMetadata::new().set_or_clear_end_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4426,60 +3341,30 @@ impl OperationMetadata {
     }
 
     /// Sets the value of [target][crate::model::OperationMetadata::target].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::OperationMetadata;
-    /// let x = OperationMetadata::new().set_target("example");
-    /// ```
     pub fn set_target<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.target = v.into();
         self
     }
 
     /// Sets the value of [verb][crate::model::OperationMetadata::verb].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::OperationMetadata;
-    /// let x = OperationMetadata::new().set_verb("example");
-    /// ```
     pub fn set_verb<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.verb = v.into();
         self
     }
 
     /// Sets the value of [status_message][crate::model::OperationMetadata::status_message].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::OperationMetadata;
-    /// let x = OperationMetadata::new().set_status_message("example");
-    /// ```
     pub fn set_status_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.status_message = v.into();
         self
     }
 
     /// Sets the value of [requested_cancellation][crate::model::OperationMetadata::requested_cancellation].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::OperationMetadata;
-    /// let x = OperationMetadata::new().set_requested_cancellation(true);
-    /// ```
     pub fn set_requested_cancellation<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.requested_cancellation = v.into();
         self
     }
 
     /// Sets the value of [api_version][crate::model::OperationMetadata::api_version].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::OperationMetadata;
-    /// let x = OperationMetadata::new().set_api_version("example");
-    /// ```
     pub fn set_api_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.api_version = v.into();
         self
@@ -4522,25 +3407,12 @@ impl CreateBackupPlanRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateBackupPlanRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::CreateBackupPlanRequest;
-    /// let x = CreateBackupPlanRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [backup_plan][crate::model::CreateBackupPlanRequest::backup_plan].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::CreateBackupPlanRequest;
-    /// use google_cloud_gkebackup_v1::model::BackupPlan;
-    /// let x = CreateBackupPlanRequest::new().set_backup_plan(BackupPlan::default()/* use setters */);
-    /// ```
     pub fn set_backup_plan<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::BackupPlan>,
@@ -4550,14 +3422,6 @@ impl CreateBackupPlanRequest {
     }
 
     /// Sets or clears the value of [backup_plan][crate::model::CreateBackupPlanRequest::backup_plan].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::CreateBackupPlanRequest;
-    /// use google_cloud_gkebackup_v1::model::BackupPlan;
-    /// let x = CreateBackupPlanRequest::new().set_or_clear_backup_plan(Some(BackupPlan::default()/* use setters */));
-    /// let x = CreateBackupPlanRequest::new().set_or_clear_backup_plan(None::<BackupPlan>);
-    /// ```
     pub fn set_or_clear_backup_plan<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::BackupPlan>,
@@ -4567,12 +3431,6 @@ impl CreateBackupPlanRequest {
     }
 
     /// Sets the value of [backup_plan_id][crate::model::CreateBackupPlanRequest::backup_plan_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::CreateBackupPlanRequest;
-    /// let x = CreateBackupPlanRequest::new().set_backup_plan_id("example");
-    /// ```
     pub fn set_backup_plan_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.backup_plan_id = v.into();
         self
@@ -4628,60 +3486,30 @@ impl ListBackupPlansRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListBackupPlansRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::ListBackupPlansRequest;
-    /// let x = ListBackupPlansRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListBackupPlansRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::ListBackupPlansRequest;
-    /// let x = ListBackupPlansRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListBackupPlansRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::ListBackupPlansRequest;
-    /// let x = ListBackupPlansRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListBackupPlansRequest::filter].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::ListBackupPlansRequest;
-    /// let x = ListBackupPlansRequest::new().set_filter("example");
-    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListBackupPlansRequest::order_by].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::ListBackupPlansRequest;
-    /// let x = ListBackupPlansRequest::new().set_order_by("example");
-    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
@@ -4722,17 +3550,6 @@ impl ListBackupPlansResponse {
     }
 
     /// Sets the value of [backup_plans][crate::model::ListBackupPlansResponse::backup_plans].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::ListBackupPlansResponse;
-    /// use google_cloud_gkebackup_v1::model::BackupPlan;
-    /// let x = ListBackupPlansResponse::new()
-    ///     .set_backup_plans([
-    ///         BackupPlan::default()/* use setters */,
-    ///         BackupPlan::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_backup_plans<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4744,24 +3561,12 @@ impl ListBackupPlansResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListBackupPlansResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::ListBackupPlansResponse;
-    /// let x = ListBackupPlansResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListBackupPlansResponse::unreachable].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::ListBackupPlansResponse;
-    /// let x = ListBackupPlansResponse::new().set_unreachable(["a", "b", "c"]);
-    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4810,12 +3615,6 @@ impl GetBackupPlanRequest {
     }
 
     /// Sets the value of [name][crate::model::GetBackupPlanRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::GetBackupPlanRequest;
-    /// let x = GetBackupPlanRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -4856,13 +3655,6 @@ impl UpdateBackupPlanRequest {
     }
 
     /// Sets the value of [backup_plan][crate::model::UpdateBackupPlanRequest::backup_plan].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::UpdateBackupPlanRequest;
-    /// use google_cloud_gkebackup_v1::model::BackupPlan;
-    /// let x = UpdateBackupPlanRequest::new().set_backup_plan(BackupPlan::default()/* use setters */);
-    /// ```
     pub fn set_backup_plan<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::BackupPlan>,
@@ -4872,14 +3664,6 @@ impl UpdateBackupPlanRequest {
     }
 
     /// Sets or clears the value of [backup_plan][crate::model::UpdateBackupPlanRequest::backup_plan].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::UpdateBackupPlanRequest;
-    /// use google_cloud_gkebackup_v1::model::BackupPlan;
-    /// let x = UpdateBackupPlanRequest::new().set_or_clear_backup_plan(Some(BackupPlan::default()/* use setters */));
-    /// let x = UpdateBackupPlanRequest::new().set_or_clear_backup_plan(None::<BackupPlan>);
-    /// ```
     pub fn set_or_clear_backup_plan<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::BackupPlan>,
@@ -4889,13 +3673,6 @@ impl UpdateBackupPlanRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateBackupPlanRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::UpdateBackupPlanRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateBackupPlanRequest::new().set_update_mask(FieldMask::default()/* use setters */);
-    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -4905,14 +3682,6 @@ impl UpdateBackupPlanRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateBackupPlanRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::UpdateBackupPlanRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateBackupPlanRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
-    /// let x = UpdateBackupPlanRequest::new().set_or_clear_update_mask(None::<FieldMask>);
-    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -4952,24 +3721,12 @@ impl DeleteBackupPlanRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteBackupPlanRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::DeleteBackupPlanRequest;
-    /// let x = DeleteBackupPlanRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [etag][crate::model::DeleteBackupPlanRequest::etag].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::DeleteBackupPlanRequest;
-    /// let x = DeleteBackupPlanRequest::new().set_etag("example");
-    /// ```
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
@@ -5013,25 +3770,12 @@ impl CreateBackupChannelRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateBackupChannelRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::CreateBackupChannelRequest;
-    /// let x = CreateBackupChannelRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [backup_channel][crate::model::CreateBackupChannelRequest::backup_channel].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::CreateBackupChannelRequest;
-    /// use google_cloud_gkebackup_v1::model::BackupChannel;
-    /// let x = CreateBackupChannelRequest::new().set_backup_channel(BackupChannel::default()/* use setters */);
-    /// ```
     pub fn set_backup_channel<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::BackupChannel>,
@@ -5041,14 +3785,6 @@ impl CreateBackupChannelRequest {
     }
 
     /// Sets or clears the value of [backup_channel][crate::model::CreateBackupChannelRequest::backup_channel].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::CreateBackupChannelRequest;
-    /// use google_cloud_gkebackup_v1::model::BackupChannel;
-    /// let x = CreateBackupChannelRequest::new().set_or_clear_backup_channel(Some(BackupChannel::default()/* use setters */));
-    /// let x = CreateBackupChannelRequest::new().set_or_clear_backup_channel(None::<BackupChannel>);
-    /// ```
     pub fn set_or_clear_backup_channel<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::BackupChannel>,
@@ -5058,12 +3794,6 @@ impl CreateBackupChannelRequest {
     }
 
     /// Sets the value of [backup_channel_id][crate::model::CreateBackupChannelRequest::backup_channel_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::CreateBackupChannelRequest;
-    /// let x = CreateBackupChannelRequest::new().set_backup_channel_id("example");
-    /// ```
     pub fn set_backup_channel_id<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -5123,60 +3853,30 @@ impl ListBackupChannelsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListBackupChannelsRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::ListBackupChannelsRequest;
-    /// let x = ListBackupChannelsRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListBackupChannelsRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::ListBackupChannelsRequest;
-    /// let x = ListBackupChannelsRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListBackupChannelsRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::ListBackupChannelsRequest;
-    /// let x = ListBackupChannelsRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListBackupChannelsRequest::filter].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::ListBackupChannelsRequest;
-    /// let x = ListBackupChannelsRequest::new().set_filter("example");
-    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListBackupChannelsRequest::order_by].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::ListBackupChannelsRequest;
-    /// let x = ListBackupChannelsRequest::new().set_order_by("example");
-    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
@@ -5217,17 +3917,6 @@ impl ListBackupChannelsResponse {
     }
 
     /// Sets the value of [backup_channels][crate::model::ListBackupChannelsResponse::backup_channels].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::ListBackupChannelsResponse;
-    /// use google_cloud_gkebackup_v1::model::BackupChannel;
-    /// let x = ListBackupChannelsResponse::new()
-    ///     .set_backup_channels([
-    ///         BackupChannel::default()/* use setters */,
-    ///         BackupChannel::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_backup_channels<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -5239,24 +3928,12 @@ impl ListBackupChannelsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListBackupChannelsResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::ListBackupChannelsResponse;
-    /// let x = ListBackupChannelsResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListBackupChannelsResponse::unreachable].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::ListBackupChannelsResponse;
-    /// let x = ListBackupChannelsResponse::new().set_unreachable(["a", "b", "c"]);
-    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -5305,12 +3982,6 @@ impl GetBackupChannelRequest {
     }
 
     /// Sets the value of [name][crate::model::GetBackupChannelRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::GetBackupChannelRequest;
-    /// let x = GetBackupChannelRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -5351,13 +4022,6 @@ impl UpdateBackupChannelRequest {
     }
 
     /// Sets the value of [backup_channel][crate::model::UpdateBackupChannelRequest::backup_channel].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::UpdateBackupChannelRequest;
-    /// use google_cloud_gkebackup_v1::model::BackupChannel;
-    /// let x = UpdateBackupChannelRequest::new().set_backup_channel(BackupChannel::default()/* use setters */);
-    /// ```
     pub fn set_backup_channel<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::BackupChannel>,
@@ -5367,14 +4031,6 @@ impl UpdateBackupChannelRequest {
     }
 
     /// Sets or clears the value of [backup_channel][crate::model::UpdateBackupChannelRequest::backup_channel].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::UpdateBackupChannelRequest;
-    /// use google_cloud_gkebackup_v1::model::BackupChannel;
-    /// let x = UpdateBackupChannelRequest::new().set_or_clear_backup_channel(Some(BackupChannel::default()/* use setters */));
-    /// let x = UpdateBackupChannelRequest::new().set_or_clear_backup_channel(None::<BackupChannel>);
-    /// ```
     pub fn set_or_clear_backup_channel<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::BackupChannel>,
@@ -5384,13 +4040,6 @@ impl UpdateBackupChannelRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateBackupChannelRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::UpdateBackupChannelRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateBackupChannelRequest::new().set_update_mask(FieldMask::default()/* use setters */);
-    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -5400,14 +4049,6 @@ impl UpdateBackupChannelRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateBackupChannelRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::UpdateBackupChannelRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateBackupChannelRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
-    /// let x = UpdateBackupChannelRequest::new().set_or_clear_update_mask(None::<FieldMask>);
-    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -5452,36 +4093,18 @@ impl DeleteBackupChannelRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteBackupChannelRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::DeleteBackupChannelRequest;
-    /// let x = DeleteBackupChannelRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [etag][crate::model::DeleteBackupChannelRequest::etag].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::DeleteBackupChannelRequest;
-    /// let x = DeleteBackupChannelRequest::new().set_etag("example");
-    /// ```
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
     }
 
     /// Sets the value of [force][crate::model::DeleteBackupChannelRequest::force].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::DeleteBackupChannelRequest;
-    /// let x = DeleteBackupChannelRequest::new().set_force(true);
-    /// ```
     pub fn set_force<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.force = v.into();
         self
@@ -5538,60 +4161,30 @@ impl ListBackupPlanBindingsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListBackupPlanBindingsRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::ListBackupPlanBindingsRequest;
-    /// let x = ListBackupPlanBindingsRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListBackupPlanBindingsRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::ListBackupPlanBindingsRequest;
-    /// let x = ListBackupPlanBindingsRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListBackupPlanBindingsRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::ListBackupPlanBindingsRequest;
-    /// let x = ListBackupPlanBindingsRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListBackupPlanBindingsRequest::filter].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::ListBackupPlanBindingsRequest;
-    /// let x = ListBackupPlanBindingsRequest::new().set_filter("example");
-    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListBackupPlanBindingsRequest::order_by].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::ListBackupPlanBindingsRequest;
-    /// let x = ListBackupPlanBindingsRequest::new().set_order_by("example");
-    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
@@ -5632,17 +4225,6 @@ impl ListBackupPlanBindingsResponse {
     }
 
     /// Sets the value of [backup_plan_bindings][crate::model::ListBackupPlanBindingsResponse::backup_plan_bindings].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::ListBackupPlanBindingsResponse;
-    /// use google_cloud_gkebackup_v1::model::BackupPlanBinding;
-    /// let x = ListBackupPlanBindingsResponse::new()
-    ///     .set_backup_plan_bindings([
-    ///         BackupPlanBinding::default()/* use setters */,
-    ///         BackupPlanBinding::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_backup_plan_bindings<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -5654,24 +4236,12 @@ impl ListBackupPlanBindingsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListBackupPlanBindingsResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::ListBackupPlanBindingsResponse;
-    /// let x = ListBackupPlanBindingsResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListBackupPlanBindingsResponse::unreachable].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::ListBackupPlanBindingsResponse;
-    /// let x = ListBackupPlanBindingsResponse::new().set_unreachable(["a", "b", "c"]);
-    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -5721,12 +4291,6 @@ impl GetBackupPlanBindingRequest {
     }
 
     /// Sets the value of [name][crate::model::GetBackupPlanBindingRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::GetBackupPlanBindingRequest;
-    /// let x = GetBackupPlanBindingRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -5769,25 +4333,12 @@ impl CreateBackupRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateBackupRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::CreateBackupRequest;
-    /// let x = CreateBackupRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [backup][crate::model::CreateBackupRequest::backup].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::CreateBackupRequest;
-    /// use google_cloud_gkebackup_v1::model::Backup;
-    /// let x = CreateBackupRequest::new().set_backup(Backup::default()/* use setters */);
-    /// ```
     pub fn set_backup<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Backup>,
@@ -5797,14 +4348,6 @@ impl CreateBackupRequest {
     }
 
     /// Sets or clears the value of [backup][crate::model::CreateBackupRequest::backup].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::CreateBackupRequest;
-    /// use google_cloud_gkebackup_v1::model::Backup;
-    /// let x = CreateBackupRequest::new().set_or_clear_backup(Some(Backup::default()/* use setters */));
-    /// let x = CreateBackupRequest::new().set_or_clear_backup(None::<Backup>);
-    /// ```
     pub fn set_or_clear_backup<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Backup>,
@@ -5814,12 +4357,6 @@ impl CreateBackupRequest {
     }
 
     /// Sets the value of [backup_id][crate::model::CreateBackupRequest::backup_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::CreateBackupRequest;
-    /// let x = CreateBackupRequest::new().set_backup_id("example");
-    /// ```
     pub fn set_backup_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.backup_id = v.into();
         self
@@ -5879,72 +4416,36 @@ impl ListBackupsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListBackupsRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::ListBackupsRequest;
-    /// let x = ListBackupsRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListBackupsRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::ListBackupsRequest;
-    /// let x = ListBackupsRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListBackupsRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::ListBackupsRequest;
-    /// let x = ListBackupsRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListBackupsRequest::filter].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::ListBackupsRequest;
-    /// let x = ListBackupsRequest::new().set_filter("example");
-    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListBackupsRequest::order_by].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::ListBackupsRequest;
-    /// let x = ListBackupsRequest::new().set_order_by("example");
-    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
     }
 
     /// Sets the value of [return_partial_success][crate::model::ListBackupsRequest::return_partial_success].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::ListBackupsRequest;
-    /// let x = ListBackupsRequest::new().set_return_partial_success(true);
-    /// ```
     pub fn set_return_partial_success<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.return_partial_success = v.into();
         self
@@ -5984,17 +4485,6 @@ impl ListBackupsResponse {
     }
 
     /// Sets the value of [backups][crate::model::ListBackupsResponse::backups].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::ListBackupsResponse;
-    /// use google_cloud_gkebackup_v1::model::Backup;
-    /// let x = ListBackupsResponse::new()
-    ///     .set_backups([
-    ///         Backup::default()/* use setters */,
-    ///         Backup::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_backups<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -6006,24 +4496,12 @@ impl ListBackupsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListBackupsResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::ListBackupsResponse;
-    /// let x = ListBackupsResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListBackupsResponse::unreachable].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::ListBackupsResponse;
-    /// let x = ListBackupsResponse::new().set_unreachable(["a", "b", "c"]);
-    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -6072,12 +4550,6 @@ impl GetBackupRequest {
     }
 
     /// Sets the value of [name][crate::model::GetBackupRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::GetBackupRequest;
-    /// let x = GetBackupRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -6117,13 +4589,6 @@ impl UpdateBackupRequest {
     }
 
     /// Sets the value of [backup][crate::model::UpdateBackupRequest::backup].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::UpdateBackupRequest;
-    /// use google_cloud_gkebackup_v1::model::Backup;
-    /// let x = UpdateBackupRequest::new().set_backup(Backup::default()/* use setters */);
-    /// ```
     pub fn set_backup<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Backup>,
@@ -6133,14 +4598,6 @@ impl UpdateBackupRequest {
     }
 
     /// Sets or clears the value of [backup][crate::model::UpdateBackupRequest::backup].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::UpdateBackupRequest;
-    /// use google_cloud_gkebackup_v1::model::Backup;
-    /// let x = UpdateBackupRequest::new().set_or_clear_backup(Some(Backup::default()/* use setters */));
-    /// let x = UpdateBackupRequest::new().set_or_clear_backup(None::<Backup>);
-    /// ```
     pub fn set_or_clear_backup<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Backup>,
@@ -6150,13 +4607,6 @@ impl UpdateBackupRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateBackupRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::UpdateBackupRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateBackupRequest::new().set_update_mask(FieldMask::default()/* use setters */);
-    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -6166,14 +4616,6 @@ impl UpdateBackupRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateBackupRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::UpdateBackupRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateBackupRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
-    /// let x = UpdateBackupRequest::new().set_or_clear_update_mask(None::<FieldMask>);
-    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -6218,36 +4660,18 @@ impl DeleteBackupRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteBackupRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::DeleteBackupRequest;
-    /// let x = DeleteBackupRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [etag][crate::model::DeleteBackupRequest::etag].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::DeleteBackupRequest;
-    /// let x = DeleteBackupRequest::new().set_etag("example");
-    /// ```
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
     }
 
     /// Sets the value of [force][crate::model::DeleteBackupRequest::force].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::DeleteBackupRequest;
-    /// let x = DeleteBackupRequest::new().set_force(true);
-    /// ```
     pub fn set_force<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.force = v.into();
         self
@@ -6303,60 +4727,30 @@ impl ListVolumeBackupsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListVolumeBackupsRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::ListVolumeBackupsRequest;
-    /// let x = ListVolumeBackupsRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListVolumeBackupsRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::ListVolumeBackupsRequest;
-    /// let x = ListVolumeBackupsRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListVolumeBackupsRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::ListVolumeBackupsRequest;
-    /// let x = ListVolumeBackupsRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListVolumeBackupsRequest::filter].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::ListVolumeBackupsRequest;
-    /// let x = ListVolumeBackupsRequest::new().set_filter("example");
-    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListVolumeBackupsRequest::order_by].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::ListVolumeBackupsRequest;
-    /// let x = ListVolumeBackupsRequest::new().set_order_by("example");
-    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
@@ -6394,17 +4788,6 @@ impl ListVolumeBackupsResponse {
     }
 
     /// Sets the value of [volume_backups][crate::model::ListVolumeBackupsResponse::volume_backups].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::ListVolumeBackupsResponse;
-    /// use google_cloud_gkebackup_v1::model::VolumeBackup;
-    /// let x = ListVolumeBackupsResponse::new()
-    ///     .set_volume_backups([
-    ///         VolumeBackup::default()/* use setters */,
-    ///         VolumeBackup::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_volume_backups<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -6416,12 +4799,6 @@ impl ListVolumeBackupsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListVolumeBackupsResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::ListVolumeBackupsResponse;
-    /// let x = ListVolumeBackupsResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -6465,12 +4842,6 @@ impl GetVolumeBackupRequest {
     }
 
     /// Sets the value of [name][crate::model::GetVolumeBackupRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::GetVolumeBackupRequest;
-    /// let x = GetVolumeBackupRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -6513,25 +4884,12 @@ impl CreateRestorePlanRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateRestorePlanRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::CreateRestorePlanRequest;
-    /// let x = CreateRestorePlanRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [restore_plan][crate::model::CreateRestorePlanRequest::restore_plan].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::CreateRestorePlanRequest;
-    /// use google_cloud_gkebackup_v1::model::RestorePlan;
-    /// let x = CreateRestorePlanRequest::new().set_restore_plan(RestorePlan::default()/* use setters */);
-    /// ```
     pub fn set_restore_plan<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::RestorePlan>,
@@ -6541,14 +4899,6 @@ impl CreateRestorePlanRequest {
     }
 
     /// Sets or clears the value of [restore_plan][crate::model::CreateRestorePlanRequest::restore_plan].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::CreateRestorePlanRequest;
-    /// use google_cloud_gkebackup_v1::model::RestorePlan;
-    /// let x = CreateRestorePlanRequest::new().set_or_clear_restore_plan(Some(RestorePlan::default()/* use setters */));
-    /// let x = CreateRestorePlanRequest::new().set_or_clear_restore_plan(None::<RestorePlan>);
-    /// ```
     pub fn set_or_clear_restore_plan<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::RestorePlan>,
@@ -6558,12 +4908,6 @@ impl CreateRestorePlanRequest {
     }
 
     /// Sets the value of [restore_plan_id][crate::model::CreateRestorePlanRequest::restore_plan_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::CreateRestorePlanRequest;
-    /// let x = CreateRestorePlanRequest::new().set_restore_plan_id("example");
-    /// ```
     pub fn set_restore_plan_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.restore_plan_id = v.into();
         self
@@ -6619,60 +4963,30 @@ impl ListRestorePlansRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListRestorePlansRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::ListRestorePlansRequest;
-    /// let x = ListRestorePlansRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListRestorePlansRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::ListRestorePlansRequest;
-    /// let x = ListRestorePlansRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListRestorePlansRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::ListRestorePlansRequest;
-    /// let x = ListRestorePlansRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListRestorePlansRequest::filter].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::ListRestorePlansRequest;
-    /// let x = ListRestorePlansRequest::new().set_filter("example");
-    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListRestorePlansRequest::order_by].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::ListRestorePlansRequest;
-    /// let x = ListRestorePlansRequest::new().set_order_by("example");
-    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
@@ -6713,17 +5027,6 @@ impl ListRestorePlansResponse {
     }
 
     /// Sets the value of [restore_plans][crate::model::ListRestorePlansResponse::restore_plans].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::ListRestorePlansResponse;
-    /// use google_cloud_gkebackup_v1::model::RestorePlan;
-    /// let x = ListRestorePlansResponse::new()
-    ///     .set_restore_plans([
-    ///         RestorePlan::default()/* use setters */,
-    ///         RestorePlan::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_restore_plans<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -6735,24 +5038,12 @@ impl ListRestorePlansResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListRestorePlansResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::ListRestorePlansResponse;
-    /// let x = ListRestorePlansResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListRestorePlansResponse::unreachable].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::ListRestorePlansResponse;
-    /// let x = ListRestorePlansResponse::new().set_unreachable(["a", "b", "c"]);
-    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -6801,12 +5092,6 @@ impl GetRestorePlanRequest {
     }
 
     /// Sets the value of [name][crate::model::GetRestorePlanRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::GetRestorePlanRequest;
-    /// let x = GetRestorePlanRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -6846,13 +5131,6 @@ impl UpdateRestorePlanRequest {
     }
 
     /// Sets the value of [restore_plan][crate::model::UpdateRestorePlanRequest::restore_plan].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::UpdateRestorePlanRequest;
-    /// use google_cloud_gkebackup_v1::model::RestorePlan;
-    /// let x = UpdateRestorePlanRequest::new().set_restore_plan(RestorePlan::default()/* use setters */);
-    /// ```
     pub fn set_restore_plan<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::RestorePlan>,
@@ -6862,14 +5140,6 @@ impl UpdateRestorePlanRequest {
     }
 
     /// Sets or clears the value of [restore_plan][crate::model::UpdateRestorePlanRequest::restore_plan].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::UpdateRestorePlanRequest;
-    /// use google_cloud_gkebackup_v1::model::RestorePlan;
-    /// let x = UpdateRestorePlanRequest::new().set_or_clear_restore_plan(Some(RestorePlan::default()/* use setters */));
-    /// let x = UpdateRestorePlanRequest::new().set_or_clear_restore_plan(None::<RestorePlan>);
-    /// ```
     pub fn set_or_clear_restore_plan<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::RestorePlan>,
@@ -6879,13 +5149,6 @@ impl UpdateRestorePlanRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateRestorePlanRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::UpdateRestorePlanRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateRestorePlanRequest::new().set_update_mask(FieldMask::default()/* use setters */);
-    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -6895,14 +5158,6 @@ impl UpdateRestorePlanRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateRestorePlanRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::UpdateRestorePlanRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateRestorePlanRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
-    /// let x = UpdateRestorePlanRequest::new().set_or_clear_update_mask(None::<FieldMask>);
-    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -6947,36 +5202,18 @@ impl DeleteRestorePlanRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteRestorePlanRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::DeleteRestorePlanRequest;
-    /// let x = DeleteRestorePlanRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [etag][crate::model::DeleteRestorePlanRequest::etag].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::DeleteRestorePlanRequest;
-    /// let x = DeleteRestorePlanRequest::new().set_etag("example");
-    /// ```
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
     }
 
     /// Sets the value of [force][crate::model::DeleteRestorePlanRequest::force].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::DeleteRestorePlanRequest;
-    /// let x = DeleteRestorePlanRequest::new().set_force(true);
-    /// ```
     pub fn set_force<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.force = v.into();
         self
@@ -7020,25 +5257,12 @@ impl CreateRestoreChannelRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateRestoreChannelRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::CreateRestoreChannelRequest;
-    /// let x = CreateRestoreChannelRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [restore_channel][crate::model::CreateRestoreChannelRequest::restore_channel].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::CreateRestoreChannelRequest;
-    /// use google_cloud_gkebackup_v1::model::RestoreChannel;
-    /// let x = CreateRestoreChannelRequest::new().set_restore_channel(RestoreChannel::default()/* use setters */);
-    /// ```
     pub fn set_restore_channel<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::RestoreChannel>,
@@ -7048,14 +5272,6 @@ impl CreateRestoreChannelRequest {
     }
 
     /// Sets or clears the value of [restore_channel][crate::model::CreateRestoreChannelRequest::restore_channel].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::CreateRestoreChannelRequest;
-    /// use google_cloud_gkebackup_v1::model::RestoreChannel;
-    /// let x = CreateRestoreChannelRequest::new().set_or_clear_restore_channel(Some(RestoreChannel::default()/* use setters */));
-    /// let x = CreateRestoreChannelRequest::new().set_or_clear_restore_channel(None::<RestoreChannel>);
-    /// ```
     pub fn set_or_clear_restore_channel<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::RestoreChannel>,
@@ -7065,12 +5281,6 @@ impl CreateRestoreChannelRequest {
     }
 
     /// Sets the value of [restore_channel_id][crate::model::CreateRestoreChannelRequest::restore_channel_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::CreateRestoreChannelRequest;
-    /// let x = CreateRestoreChannelRequest::new().set_restore_channel_id("example");
-    /// ```
     pub fn set_restore_channel_id<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -7130,60 +5340,30 @@ impl ListRestoreChannelsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListRestoreChannelsRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::ListRestoreChannelsRequest;
-    /// let x = ListRestoreChannelsRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListRestoreChannelsRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::ListRestoreChannelsRequest;
-    /// let x = ListRestoreChannelsRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListRestoreChannelsRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::ListRestoreChannelsRequest;
-    /// let x = ListRestoreChannelsRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListRestoreChannelsRequest::filter].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::ListRestoreChannelsRequest;
-    /// let x = ListRestoreChannelsRequest::new().set_filter("example");
-    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListRestoreChannelsRequest::order_by].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::ListRestoreChannelsRequest;
-    /// let x = ListRestoreChannelsRequest::new().set_order_by("example");
-    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
@@ -7224,17 +5404,6 @@ impl ListRestoreChannelsResponse {
     }
 
     /// Sets the value of [restore_channels][crate::model::ListRestoreChannelsResponse::restore_channels].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::ListRestoreChannelsResponse;
-    /// use google_cloud_gkebackup_v1::model::RestoreChannel;
-    /// let x = ListRestoreChannelsResponse::new()
-    ///     .set_restore_channels([
-    ///         RestoreChannel::default()/* use setters */,
-    ///         RestoreChannel::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_restore_channels<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -7246,24 +5415,12 @@ impl ListRestoreChannelsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListRestoreChannelsResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::ListRestoreChannelsResponse;
-    /// let x = ListRestoreChannelsResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListRestoreChannelsResponse::unreachable].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::ListRestoreChannelsResponse;
-    /// let x = ListRestoreChannelsResponse::new().set_unreachable(["a", "b", "c"]);
-    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -7312,12 +5469,6 @@ impl GetRestoreChannelRequest {
     }
 
     /// Sets the value of [name][crate::model::GetRestoreChannelRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::GetRestoreChannelRequest;
-    /// let x = GetRestoreChannelRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -7359,13 +5510,6 @@ impl UpdateRestoreChannelRequest {
     }
 
     /// Sets the value of [restore_channel][crate::model::UpdateRestoreChannelRequest::restore_channel].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::UpdateRestoreChannelRequest;
-    /// use google_cloud_gkebackup_v1::model::RestoreChannel;
-    /// let x = UpdateRestoreChannelRequest::new().set_restore_channel(RestoreChannel::default()/* use setters */);
-    /// ```
     pub fn set_restore_channel<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::RestoreChannel>,
@@ -7375,14 +5519,6 @@ impl UpdateRestoreChannelRequest {
     }
 
     /// Sets or clears the value of [restore_channel][crate::model::UpdateRestoreChannelRequest::restore_channel].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::UpdateRestoreChannelRequest;
-    /// use google_cloud_gkebackup_v1::model::RestoreChannel;
-    /// let x = UpdateRestoreChannelRequest::new().set_or_clear_restore_channel(Some(RestoreChannel::default()/* use setters */));
-    /// let x = UpdateRestoreChannelRequest::new().set_or_clear_restore_channel(None::<RestoreChannel>);
-    /// ```
     pub fn set_or_clear_restore_channel<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::RestoreChannel>,
@@ -7392,13 +5528,6 @@ impl UpdateRestoreChannelRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateRestoreChannelRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::UpdateRestoreChannelRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateRestoreChannelRequest::new().set_update_mask(FieldMask::default()/* use setters */);
-    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -7408,14 +5537,6 @@ impl UpdateRestoreChannelRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateRestoreChannelRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::UpdateRestoreChannelRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateRestoreChannelRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
-    /// let x = UpdateRestoreChannelRequest::new().set_or_clear_update_mask(None::<FieldMask>);
-    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -7456,24 +5577,12 @@ impl DeleteRestoreChannelRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteRestoreChannelRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::DeleteRestoreChannelRequest;
-    /// let x = DeleteRestoreChannelRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [etag][crate::model::DeleteRestoreChannelRequest::etag].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::DeleteRestoreChannelRequest;
-    /// let x = DeleteRestoreChannelRequest::new().set_etag("example");
-    /// ```
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
@@ -7530,60 +5639,30 @@ impl ListRestorePlanBindingsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListRestorePlanBindingsRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::ListRestorePlanBindingsRequest;
-    /// let x = ListRestorePlanBindingsRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListRestorePlanBindingsRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::ListRestorePlanBindingsRequest;
-    /// let x = ListRestorePlanBindingsRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListRestorePlanBindingsRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::ListRestorePlanBindingsRequest;
-    /// let x = ListRestorePlanBindingsRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListRestorePlanBindingsRequest::filter].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::ListRestorePlanBindingsRequest;
-    /// let x = ListRestorePlanBindingsRequest::new().set_filter("example");
-    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListRestorePlanBindingsRequest::order_by].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::ListRestorePlanBindingsRequest;
-    /// let x = ListRestorePlanBindingsRequest::new().set_order_by("example");
-    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
@@ -7624,17 +5703,6 @@ impl ListRestorePlanBindingsResponse {
     }
 
     /// Sets the value of [restore_plan_bindings][crate::model::ListRestorePlanBindingsResponse::restore_plan_bindings].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::ListRestorePlanBindingsResponse;
-    /// use google_cloud_gkebackup_v1::model::RestorePlanBinding;
-    /// let x = ListRestorePlanBindingsResponse::new()
-    ///     .set_restore_plan_bindings([
-    ///         RestorePlanBinding::default()/* use setters */,
-    ///         RestorePlanBinding::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_restore_plan_bindings<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -7646,24 +5714,12 @@ impl ListRestorePlanBindingsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListRestorePlanBindingsResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::ListRestorePlanBindingsResponse;
-    /// let x = ListRestorePlanBindingsResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListRestorePlanBindingsResponse::unreachable].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::ListRestorePlanBindingsResponse;
-    /// let x = ListRestorePlanBindingsResponse::new().set_unreachable(["a", "b", "c"]);
-    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -7713,12 +5769,6 @@ impl GetRestorePlanBindingRequest {
     }
 
     /// Sets the value of [name][crate::model::GetRestorePlanBindingRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::GetRestorePlanBindingRequest;
-    /// let x = GetRestorePlanBindingRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -7761,25 +5811,12 @@ impl CreateRestoreRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateRestoreRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::CreateRestoreRequest;
-    /// let x = CreateRestoreRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [restore][crate::model::CreateRestoreRequest::restore].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::CreateRestoreRequest;
-    /// use google_cloud_gkebackup_v1::model::Restore;
-    /// let x = CreateRestoreRequest::new().set_restore(Restore::default()/* use setters */);
-    /// ```
     pub fn set_restore<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Restore>,
@@ -7789,14 +5826,6 @@ impl CreateRestoreRequest {
     }
 
     /// Sets or clears the value of [restore][crate::model::CreateRestoreRequest::restore].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::CreateRestoreRequest;
-    /// use google_cloud_gkebackup_v1::model::Restore;
-    /// let x = CreateRestoreRequest::new().set_or_clear_restore(Some(Restore::default()/* use setters */));
-    /// let x = CreateRestoreRequest::new().set_or_clear_restore(None::<Restore>);
-    /// ```
     pub fn set_or_clear_restore<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Restore>,
@@ -7806,12 +5835,6 @@ impl CreateRestoreRequest {
     }
 
     /// Sets the value of [restore_id][crate::model::CreateRestoreRequest::restore_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::CreateRestoreRequest;
-    /// let x = CreateRestoreRequest::new().set_restore_id("example");
-    /// ```
     pub fn set_restore_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.restore_id = v.into();
         self
@@ -7867,60 +5890,30 @@ impl ListRestoresRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListRestoresRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::ListRestoresRequest;
-    /// let x = ListRestoresRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListRestoresRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::ListRestoresRequest;
-    /// let x = ListRestoresRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListRestoresRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::ListRestoresRequest;
-    /// let x = ListRestoresRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListRestoresRequest::filter].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::ListRestoresRequest;
-    /// let x = ListRestoresRequest::new().set_filter("example");
-    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListRestoresRequest::order_by].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::ListRestoresRequest;
-    /// let x = ListRestoresRequest::new().set_order_by("example");
-    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
@@ -7960,17 +5953,6 @@ impl ListRestoresResponse {
     }
 
     /// Sets the value of [restores][crate::model::ListRestoresResponse::restores].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::ListRestoresResponse;
-    /// use google_cloud_gkebackup_v1::model::Restore;
-    /// let x = ListRestoresResponse::new()
-    ///     .set_restores([
-    ///         Restore::default()/* use setters */,
-    ///         Restore::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_restores<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -7982,24 +5964,12 @@ impl ListRestoresResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListRestoresResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::ListRestoresResponse;
-    /// let x = ListRestoresResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListRestoresResponse::unreachable].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::ListRestoresResponse;
-    /// let x = ListRestoresResponse::new().set_unreachable(["a", "b", "c"]);
-    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -8048,12 +6018,6 @@ impl GetRestoreRequest {
     }
 
     /// Sets the value of [name][crate::model::GetRestoreRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::GetRestoreRequest;
-    /// let x = GetRestoreRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -8093,13 +6057,6 @@ impl UpdateRestoreRequest {
     }
 
     /// Sets the value of [restore][crate::model::UpdateRestoreRequest::restore].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::UpdateRestoreRequest;
-    /// use google_cloud_gkebackup_v1::model::Restore;
-    /// let x = UpdateRestoreRequest::new().set_restore(Restore::default()/* use setters */);
-    /// ```
     pub fn set_restore<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Restore>,
@@ -8109,14 +6066,6 @@ impl UpdateRestoreRequest {
     }
 
     /// Sets or clears the value of [restore][crate::model::UpdateRestoreRequest::restore].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::UpdateRestoreRequest;
-    /// use google_cloud_gkebackup_v1::model::Restore;
-    /// let x = UpdateRestoreRequest::new().set_or_clear_restore(Some(Restore::default()/* use setters */));
-    /// let x = UpdateRestoreRequest::new().set_or_clear_restore(None::<Restore>);
-    /// ```
     pub fn set_or_clear_restore<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Restore>,
@@ -8126,13 +6075,6 @@ impl UpdateRestoreRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateRestoreRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::UpdateRestoreRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateRestoreRequest::new().set_update_mask(FieldMask::default()/* use setters */);
-    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -8142,14 +6084,6 @@ impl UpdateRestoreRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateRestoreRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::UpdateRestoreRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateRestoreRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
-    /// let x = UpdateRestoreRequest::new().set_or_clear_update_mask(None::<FieldMask>);
-    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -8194,36 +6128,18 @@ impl DeleteRestoreRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteRestoreRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::DeleteRestoreRequest;
-    /// let x = DeleteRestoreRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [etag][crate::model::DeleteRestoreRequest::etag].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::DeleteRestoreRequest;
-    /// let x = DeleteRestoreRequest::new().set_etag("example");
-    /// ```
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
     }
 
     /// Sets the value of [force][crate::model::DeleteRestoreRequest::force].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::DeleteRestoreRequest;
-    /// let x = DeleteRestoreRequest::new().set_force(true);
-    /// ```
     pub fn set_force<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.force = v.into();
         self
@@ -8279,60 +6195,30 @@ impl ListVolumeRestoresRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListVolumeRestoresRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::ListVolumeRestoresRequest;
-    /// let x = ListVolumeRestoresRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListVolumeRestoresRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::ListVolumeRestoresRequest;
-    /// let x = ListVolumeRestoresRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListVolumeRestoresRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::ListVolumeRestoresRequest;
-    /// let x = ListVolumeRestoresRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListVolumeRestoresRequest::filter].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::ListVolumeRestoresRequest;
-    /// let x = ListVolumeRestoresRequest::new().set_filter("example");
-    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListVolumeRestoresRequest::order_by].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::ListVolumeRestoresRequest;
-    /// let x = ListVolumeRestoresRequest::new().set_order_by("example");
-    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
@@ -8370,17 +6256,6 @@ impl ListVolumeRestoresResponse {
     }
 
     /// Sets the value of [volume_restores][crate::model::ListVolumeRestoresResponse::volume_restores].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::ListVolumeRestoresResponse;
-    /// use google_cloud_gkebackup_v1::model::VolumeRestore;
-    /// let x = ListVolumeRestoresResponse::new()
-    ///     .set_volume_restores([
-    ///         VolumeRestore::default()/* use setters */,
-    ///         VolumeRestore::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_volume_restores<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -8392,12 +6267,6 @@ impl ListVolumeRestoresResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListVolumeRestoresResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::ListVolumeRestoresResponse;
-    /// let x = ListVolumeRestoresResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -8441,12 +6310,6 @@ impl GetVolumeRestoreRequest {
     }
 
     /// Sets the value of [name][crate::model::GetVolumeRestoreRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::GetVolumeRestoreRequest;
-    /// let x = GetVolumeRestoreRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -8477,12 +6340,6 @@ impl GetBackupIndexDownloadUrlRequest {
     }
 
     /// Sets the value of [backup][crate::model::GetBackupIndexDownloadUrlRequest::backup].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::GetBackupIndexDownloadUrlRequest;
-    /// let x = GetBackupIndexDownloadUrlRequest::new().set_backup("example");
-    /// ```
     pub fn set_backup<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.backup = v.into();
         self
@@ -8511,12 +6368,6 @@ impl GetBackupIndexDownloadUrlResponse {
     }
 
     /// Sets the value of [signed_url][crate::model::GetBackupIndexDownloadUrlResponse::signed_url].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::GetBackupIndexDownloadUrlResponse;
-    /// let x = GetBackupIndexDownloadUrlResponse::new().set_signed_url("example");
-    /// ```
     pub fn set_signed_url<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.signed_url = v.into();
         self
@@ -8646,37 +6497,18 @@ impl Restore {
     }
 
     /// Sets the value of [name][crate::model::Restore::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::Restore;
-    /// let x = Restore::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [uid][crate::model::Restore::uid].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::Restore;
-    /// let x = Restore::new().set_uid("example");
-    /// ```
     pub fn set_uid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.uid = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::Restore::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::Restore;
-    /// use wkt::Timestamp;
-    /// let x = Restore::new().set_create_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -8686,14 +6518,6 @@ impl Restore {
     }
 
     /// Sets or clears the value of [create_time][crate::model::Restore::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::Restore;
-    /// use wkt::Timestamp;
-    /// let x = Restore::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
-    /// let x = Restore::new().set_or_clear_create_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -8703,13 +6527,6 @@ impl Restore {
     }
 
     /// Sets the value of [update_time][crate::model::Restore::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::Restore;
-    /// use wkt::Timestamp;
-    /// let x = Restore::new().set_update_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -8719,14 +6536,6 @@ impl Restore {
     }
 
     /// Sets or clears the value of [update_time][crate::model::Restore::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::Restore;
-    /// use wkt::Timestamp;
-    /// let x = Restore::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
-    /// let x = Restore::new().set_or_clear_update_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -8736,49 +6545,24 @@ impl Restore {
     }
 
     /// Sets the value of [description][crate::model::Restore::description].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::Restore;
-    /// let x = Restore::new().set_description("example");
-    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [backup][crate::model::Restore::backup].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::Restore;
-    /// let x = Restore::new().set_backup("example");
-    /// ```
     pub fn set_backup<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.backup = v.into();
         self
     }
 
     /// Sets the value of [cluster][crate::model::Restore::cluster].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::Restore;
-    /// let x = Restore::new().set_cluster("example");
-    /// ```
     pub fn set_cluster<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.cluster = v.into();
         self
     }
 
     /// Sets the value of [restore_config][crate::model::Restore::restore_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::Restore;
-    /// use google_cloud_gkebackup_v1::model::RestoreConfig;
-    /// let x = Restore::new().set_restore_config(RestoreConfig::default()/* use setters */);
-    /// ```
     pub fn set_restore_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::RestoreConfig>,
@@ -8788,14 +6572,6 @@ impl Restore {
     }
 
     /// Sets or clears the value of [restore_config][crate::model::Restore::restore_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::Restore;
-    /// use google_cloud_gkebackup_v1::model::RestoreConfig;
-    /// let x = Restore::new().set_or_clear_restore_config(Some(RestoreConfig::default()/* use setters */));
-    /// let x = Restore::new().set_or_clear_restore_config(None::<RestoreConfig>);
-    /// ```
     pub fn set_or_clear_restore_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::RestoreConfig>,
@@ -8805,15 +6581,6 @@ impl Restore {
     }
 
     /// Sets the value of [labels][crate::model::Restore::labels].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::Restore;
-    /// let x = Restore::new().set_labels([
-    ///     ("key0", "abc"),
-    ///     ("key1", "xyz"),
-    /// ]);
-    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -8826,40 +6593,18 @@ impl Restore {
     }
 
     /// Sets the value of [state][crate::model::Restore::state].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::Restore;
-    /// use google_cloud_gkebackup_v1::model::restore::State;
-    /// let x0 = Restore::new().set_state(State::Creating);
-    /// let x1 = Restore::new().set_state(State::InProgress);
-    /// let x2 = Restore::new().set_state(State::Succeeded);
-    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::restore::State>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
     }
 
     /// Sets the value of [state_reason][crate::model::Restore::state_reason].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::Restore;
-    /// let x = Restore::new().set_state_reason("example");
-    /// ```
     pub fn set_state_reason<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.state_reason = v.into();
         self
     }
 
     /// Sets the value of [complete_time][crate::model::Restore::complete_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::Restore;
-    /// use wkt::Timestamp;
-    /// let x = Restore::new().set_complete_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_complete_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -8869,14 +6614,6 @@ impl Restore {
     }
 
     /// Sets or clears the value of [complete_time][crate::model::Restore::complete_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::Restore;
-    /// use wkt::Timestamp;
-    /// let x = Restore::new().set_or_clear_complete_time(Some(Timestamp::default()/* use setters */));
-    /// let x = Restore::new().set_or_clear_complete_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_complete_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -8886,73 +6623,36 @@ impl Restore {
     }
 
     /// Sets the value of [resources_restored_count][crate::model::Restore::resources_restored_count].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::Restore;
-    /// let x = Restore::new().set_resources_restored_count(42);
-    /// ```
     pub fn set_resources_restored_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.resources_restored_count = v.into();
         self
     }
 
     /// Sets the value of [resources_excluded_count][crate::model::Restore::resources_excluded_count].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::Restore;
-    /// let x = Restore::new().set_resources_excluded_count(42);
-    /// ```
     pub fn set_resources_excluded_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.resources_excluded_count = v.into();
         self
     }
 
     /// Sets the value of [resources_failed_count][crate::model::Restore::resources_failed_count].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::Restore;
-    /// let x = Restore::new().set_resources_failed_count(42);
-    /// ```
     pub fn set_resources_failed_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.resources_failed_count = v.into();
         self
     }
 
     /// Sets the value of [volumes_restored_count][crate::model::Restore::volumes_restored_count].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::Restore;
-    /// let x = Restore::new().set_volumes_restored_count(42);
-    /// ```
     pub fn set_volumes_restored_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.volumes_restored_count = v.into();
         self
     }
 
     /// Sets the value of [etag][crate::model::Restore::etag].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::Restore;
-    /// let x = Restore::new().set_etag("example");
-    /// ```
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::Restore::filter].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::Restore;
-    /// use google_cloud_gkebackup_v1::model::restore::Filter;
-    /// let x = Restore::new().set_filter(Filter::default()/* use setters */);
-    /// ```
     pub fn set_filter<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::restore::Filter>,
@@ -8962,14 +6662,6 @@ impl Restore {
     }
 
     /// Sets or clears the value of [filter][crate::model::Restore::filter].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::Restore;
-    /// use google_cloud_gkebackup_v1::model::restore::Filter;
-    /// let x = Restore::new().set_or_clear_filter(Some(Filter::default()/* use setters */));
-    /// let x = Restore::new().set_or_clear_filter(None::<Filter>);
-    /// ```
     pub fn set_or_clear_filter<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::restore::Filter>,
@@ -8979,17 +6671,6 @@ impl Restore {
     }
 
     /// Sets the value of [volume_data_restore_policy_overrides][crate::model::Restore::volume_data_restore_policy_overrides].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::Restore;
-    /// use google_cloud_gkebackup_v1::model::VolumeDataRestorePolicyOverride;
-    /// let x = Restore::new()
-    ///     .set_volume_data_restore_policy_overrides([
-    ///         VolumeDataRestorePolicyOverride::default()/* use setters */,
-    ///         VolumeDataRestorePolicyOverride::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_volume_data_restore_policy_overrides<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -9040,17 +6721,6 @@ pub mod restore {
         }
 
         /// Sets the value of [inclusion_filters][crate::model::restore::Filter::inclusion_filters].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_gkebackup_v1::model::restore::Filter;
-        /// use google_cloud_gkebackup_v1::model::ResourceSelector;
-        /// let x = Filter::new()
-        ///     .set_inclusion_filters([
-        ///         ResourceSelector::default()/* use setters */,
-        ///         ResourceSelector::default()/* use (different) setters */,
-        ///     ]);
-        /// ```
         pub fn set_inclusion_filters<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -9062,17 +6732,6 @@ pub mod restore {
         }
 
         /// Sets the value of [exclusion_filters][crate::model::restore::Filter::exclusion_filters].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_gkebackup_v1::model::restore::Filter;
-        /// use google_cloud_gkebackup_v1::model::ResourceSelector;
-        /// let x = Filter::new()
-        ///     .set_exclusion_filters([
-        ///         ResourceSelector::default()/* use setters */,
-        ///         ResourceSelector::default()/* use (different) setters */,
-        ///     ]);
-        /// ```
         pub fn set_exclusion_filters<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -9333,15 +6992,6 @@ impl RestoreConfig {
     }
 
     /// Sets the value of [volume_data_restore_policy][crate::model::RestoreConfig::volume_data_restore_policy].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::RestoreConfig;
-    /// use google_cloud_gkebackup_v1::model::restore_config::VolumeDataRestorePolicy;
-    /// let x0 = RestoreConfig::new().set_volume_data_restore_policy(VolumeDataRestorePolicy::RestoreVolumeDataFromBackup);
-    /// let x1 = RestoreConfig::new().set_volume_data_restore_policy(VolumeDataRestorePolicy::ReuseVolumeHandleFromBackup);
-    /// let x2 = RestoreConfig::new().set_volume_data_restore_policy(VolumeDataRestorePolicy::NoVolumeDataRestoration);
-    /// ```
     pub fn set_volume_data_restore_policy<
         T: std::convert::Into<crate::model::restore_config::VolumeDataRestorePolicy>,
     >(
@@ -9353,14 +7003,6 @@ impl RestoreConfig {
     }
 
     /// Sets the value of [cluster_resource_conflict_policy][crate::model::RestoreConfig::cluster_resource_conflict_policy].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::RestoreConfig;
-    /// use google_cloud_gkebackup_v1::model::restore_config::ClusterResourceConflictPolicy;
-    /// let x0 = RestoreConfig::new().set_cluster_resource_conflict_policy(ClusterResourceConflictPolicy::UseExistingVersion);
-    /// let x1 = RestoreConfig::new().set_cluster_resource_conflict_policy(ClusterResourceConflictPolicy::UseBackupVersion);
-    /// ```
     pub fn set_cluster_resource_conflict_policy<
         T: std::convert::Into<crate::model::restore_config::ClusterResourceConflictPolicy>,
     >(
@@ -9372,15 +7014,6 @@ impl RestoreConfig {
     }
 
     /// Sets the value of [namespaced_resource_restore_mode][crate::model::RestoreConfig::namespaced_resource_restore_mode].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::RestoreConfig;
-    /// use google_cloud_gkebackup_v1::model::restore_config::NamespacedResourceRestoreMode;
-    /// let x0 = RestoreConfig::new().set_namespaced_resource_restore_mode(NamespacedResourceRestoreMode::DeleteAndRestore);
-    /// let x1 = RestoreConfig::new().set_namespaced_resource_restore_mode(NamespacedResourceRestoreMode::FailOnConflict);
-    /// let x2 = RestoreConfig::new().set_namespaced_resource_restore_mode(NamespacedResourceRestoreMode::MergeSkipOnConflict);
-    /// ```
     pub fn set_namespaced_resource_restore_mode<
         T: std::convert::Into<crate::model::restore_config::NamespacedResourceRestoreMode>,
     >(
@@ -9392,13 +7025,6 @@ impl RestoreConfig {
     }
 
     /// Sets the value of [cluster_resource_restore_scope][crate::model::RestoreConfig::cluster_resource_restore_scope].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::RestoreConfig;
-    /// use google_cloud_gkebackup_v1::model::restore_config::ClusterResourceRestoreScope;
-    /// let x = RestoreConfig::new().set_cluster_resource_restore_scope(ClusterResourceRestoreScope::default()/* use setters */);
-    /// ```
     pub fn set_cluster_resource_restore_scope<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::restore_config::ClusterResourceRestoreScope>,
@@ -9408,14 +7034,6 @@ impl RestoreConfig {
     }
 
     /// Sets or clears the value of [cluster_resource_restore_scope][crate::model::RestoreConfig::cluster_resource_restore_scope].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::RestoreConfig;
-    /// use google_cloud_gkebackup_v1::model::restore_config::ClusterResourceRestoreScope;
-    /// let x = RestoreConfig::new().set_or_clear_cluster_resource_restore_scope(Some(ClusterResourceRestoreScope::default()/* use setters */));
-    /// let x = RestoreConfig::new().set_or_clear_cluster_resource_restore_scope(None::<ClusterResourceRestoreScope>);
-    /// ```
     pub fn set_or_clear_cluster_resource_restore_scope<T>(
         mut self,
         v: std::option::Option<T>,
@@ -9428,17 +7046,6 @@ impl RestoreConfig {
     }
 
     /// Sets the value of [substitution_rules][crate::model::RestoreConfig::substitution_rules].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::RestoreConfig;
-    /// use google_cloud_gkebackup_v1::model::restore_config::SubstitutionRule;
-    /// let x = RestoreConfig::new()
-    ///     .set_substitution_rules([
-    ///         SubstitutionRule::default()/* use setters */,
-    ///         SubstitutionRule::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_substitution_rules<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -9450,17 +7057,6 @@ impl RestoreConfig {
     }
 
     /// Sets the value of [transformation_rules][crate::model::RestoreConfig::transformation_rules].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::RestoreConfig;
-    /// use google_cloud_gkebackup_v1::model::restore_config::TransformationRule;
-    /// let x = RestoreConfig::new()
-    ///     .set_transformation_rules([
-    ///         TransformationRule::default()/* use setters */,
-    ///         TransformationRule::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_transformation_rules<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -9472,17 +7068,6 @@ impl RestoreConfig {
     }
 
     /// Sets the value of [volume_data_restore_policy_bindings][crate::model::RestoreConfig::volume_data_restore_policy_bindings].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::RestoreConfig;
-    /// use google_cloud_gkebackup_v1::model::restore_config::VolumeDataRestorePolicyBinding;
-    /// let x = RestoreConfig::new()
-    ///     .set_volume_data_restore_policy_bindings([
-    ///         VolumeDataRestorePolicyBinding::default()/* use setters */,
-    ///         VolumeDataRestorePolicyBinding::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_volume_data_restore_policy_bindings<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -9494,13 +7079,6 @@ impl RestoreConfig {
     }
 
     /// Sets the value of [restore_order][crate::model::RestoreConfig::restore_order].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::RestoreConfig;
-    /// use google_cloud_gkebackup_v1::model::restore_config::RestoreOrder;
-    /// let x = RestoreConfig::new().set_restore_order(RestoreOrder::default()/* use setters */);
-    /// ```
     pub fn set_restore_order<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::restore_config::RestoreOrder>,
@@ -9510,14 +7088,6 @@ impl RestoreConfig {
     }
 
     /// Sets or clears the value of [restore_order][crate::model::RestoreConfig::restore_order].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::RestoreConfig;
-    /// use google_cloud_gkebackup_v1::model::restore_config::RestoreOrder;
-    /// let x = RestoreConfig::new().set_or_clear_restore_order(Some(RestoreOrder::default()/* use setters */));
-    /// let x = RestoreConfig::new().set_or_clear_restore_order(None::<RestoreOrder>);
-    /// ```
     pub fn set_or_clear_restore_order<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::restore_config::RestoreOrder>,
@@ -9530,13 +7100,6 @@ impl RestoreConfig {
     ///
     /// Note that all the setters affecting `namespaced_resource_restore_scope` are mutually
     /// exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::RestoreConfig;
-    /// use google_cloud_gkebackup_v1::model::restore_config;
-    /// let x = RestoreConfig::new().set_namespaced_resource_restore_scope(Some(restore_config::NamespacedResourceRestoreScope::AllNamespaces(true)));
-    /// ```
     pub fn set_namespaced_resource_restore_scope<
         T: std::convert::Into<
                 std::option::Option<crate::model::restore_config::NamespacedResourceRestoreScope>,
@@ -9569,17 +7132,6 @@ impl RestoreConfig {
     ///
     /// Note that all the setters affecting `namespaced_resource_restore_scope` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::RestoreConfig;
-    /// let x = RestoreConfig::new().set_all_namespaces(true);
-    /// assert!(x.all_namespaces().is_some());
-    /// assert!(x.selected_namespaces().is_none());
-    /// assert!(x.selected_applications().is_none());
-    /// assert!(x.no_namespaces().is_none());
-    /// assert!(x.excluded_namespaces().is_none());
-    /// ```
     pub fn set_all_namespaces<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.namespaced_resource_restore_scope = std::option::Option::Some(
             crate::model::restore_config::NamespacedResourceRestoreScope::AllNamespaces(v.into()),
@@ -9605,18 +7157,6 @@ impl RestoreConfig {
     ///
     /// Note that all the setters affecting `namespaced_resource_restore_scope` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::RestoreConfig;
-    /// use google_cloud_gkebackup_v1::model::Namespaces;
-    /// let x = RestoreConfig::new().set_selected_namespaces(Namespaces::default()/* use setters */);
-    /// assert!(x.selected_namespaces().is_some());
-    /// assert!(x.all_namespaces().is_none());
-    /// assert!(x.selected_applications().is_none());
-    /// assert!(x.no_namespaces().is_none());
-    /// assert!(x.excluded_namespaces().is_none());
-    /// ```
     pub fn set_selected_namespaces<
         T: std::convert::Into<std::boxed::Box<crate::model::Namespaces>>,
     >(
@@ -9649,18 +7189,6 @@ impl RestoreConfig {
     ///
     /// Note that all the setters affecting `namespaced_resource_restore_scope` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::RestoreConfig;
-    /// use google_cloud_gkebackup_v1::model::NamespacedNames;
-    /// let x = RestoreConfig::new().set_selected_applications(NamespacedNames::default()/* use setters */);
-    /// assert!(x.selected_applications().is_some());
-    /// assert!(x.all_namespaces().is_none());
-    /// assert!(x.selected_namespaces().is_none());
-    /// assert!(x.no_namespaces().is_none());
-    /// assert!(x.excluded_namespaces().is_none());
-    /// ```
     pub fn set_selected_applications<
         T: std::convert::Into<std::boxed::Box<crate::model::NamespacedNames>>,
     >(
@@ -9695,17 +7223,6 @@ impl RestoreConfig {
     ///
     /// Note that all the setters affecting `namespaced_resource_restore_scope` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::RestoreConfig;
-    /// let x = RestoreConfig::new().set_no_namespaces(true);
-    /// assert!(x.no_namespaces().is_some());
-    /// assert!(x.all_namespaces().is_none());
-    /// assert!(x.selected_namespaces().is_none());
-    /// assert!(x.selected_applications().is_none());
-    /// assert!(x.excluded_namespaces().is_none());
-    /// ```
     pub fn set_no_namespaces<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.namespaced_resource_restore_scope = std::option::Option::Some(
             crate::model::restore_config::NamespacedResourceRestoreScope::NoNamespaces(v.into()),
@@ -9731,18 +7248,6 @@ impl RestoreConfig {
     ///
     /// Note that all the setters affecting `namespaced_resource_restore_scope` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::RestoreConfig;
-    /// use google_cloud_gkebackup_v1::model::Namespaces;
-    /// let x = RestoreConfig::new().set_excluded_namespaces(Namespaces::default()/* use setters */);
-    /// assert!(x.excluded_namespaces().is_some());
-    /// assert!(x.all_namespaces().is_none());
-    /// assert!(x.selected_namespaces().is_none());
-    /// assert!(x.selected_applications().is_none());
-    /// assert!(x.no_namespaces().is_none());
-    /// ```
     pub fn set_excluded_namespaces<
         T: std::convert::Into<std::boxed::Box<crate::model::Namespaces>>,
     >(
@@ -9794,12 +7299,6 @@ pub mod restore_config {
         }
 
         /// Sets the value of [resource_group][crate::model::restore_config::GroupKind::resource_group].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_gkebackup_v1::model::restore_config::GroupKind;
-        /// let x = GroupKind::new().set_resource_group("example");
-        /// ```
         pub fn set_resource_group<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -9809,12 +7308,6 @@ pub mod restore_config {
         }
 
         /// Sets the value of [resource_kind][crate::model::restore_config::GroupKind::resource_kind].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_gkebackup_v1::model::restore_config::GroupKind;
-        /// let x = GroupKind::new().set_resource_kind("example");
-        /// ```
         pub fn set_resource_kind<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -9884,17 +7377,6 @@ pub mod restore_config {
         }
 
         /// Sets the value of [selected_group_kinds][crate::model::restore_config::ClusterResourceRestoreScope::selected_group_kinds].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_gkebackup_v1::model::restore_config::ClusterResourceRestoreScope;
-        /// use google_cloud_gkebackup_v1::model::restore_config::GroupKind;
-        /// let x = ClusterResourceRestoreScope::new()
-        ///     .set_selected_group_kinds([
-        ///         GroupKind::default()/* use setters */,
-        ///         GroupKind::default()/* use (different) setters */,
-        ///     ]);
-        /// ```
         pub fn set_selected_group_kinds<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -9906,17 +7388,6 @@ pub mod restore_config {
         }
 
         /// Sets the value of [excluded_group_kinds][crate::model::restore_config::ClusterResourceRestoreScope::excluded_group_kinds].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_gkebackup_v1::model::restore_config::ClusterResourceRestoreScope;
-        /// use google_cloud_gkebackup_v1::model::restore_config::GroupKind;
-        /// let x = ClusterResourceRestoreScope::new()
-        ///     .set_excluded_group_kinds([
-        ///         GroupKind::default()/* use setters */,
-        ///         GroupKind::default()/* use (different) setters */,
-        ///     ]);
-        /// ```
         pub fn set_excluded_group_kinds<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -9928,24 +7399,12 @@ pub mod restore_config {
         }
 
         /// Sets the value of [all_group_kinds][crate::model::restore_config::ClusterResourceRestoreScope::all_group_kinds].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_gkebackup_v1::model::restore_config::ClusterResourceRestoreScope;
-        /// let x = ClusterResourceRestoreScope::new().set_all_group_kinds(true);
-        /// ```
         pub fn set_all_group_kinds<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.all_group_kinds = v.into();
             self
         }
 
         /// Sets the value of [no_group_kinds][crate::model::restore_config::ClusterResourceRestoreScope::no_group_kinds].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_gkebackup_v1::model::restore_config::ClusterResourceRestoreScope;
-        /// let x = ClusterResourceRestoreScope::new().set_no_group_kinds(true);
-        /// ```
         pub fn set_no_group_kinds<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.no_group_kinds = v.into();
             self
@@ -10014,12 +7473,6 @@ pub mod restore_config {
         }
 
         /// Sets the value of [target_namespaces][crate::model::restore_config::SubstitutionRule::target_namespaces].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_gkebackup_v1::model::restore_config::SubstitutionRule;
-        /// let x = SubstitutionRule::new().set_target_namespaces(["a", "b", "c"]);
-        /// ```
         pub fn set_target_namespaces<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -10031,17 +7484,6 @@ pub mod restore_config {
         }
 
         /// Sets the value of [target_group_kinds][crate::model::restore_config::SubstitutionRule::target_group_kinds].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_gkebackup_v1::model::restore_config::SubstitutionRule;
-        /// use google_cloud_gkebackup_v1::model::restore_config::GroupKind;
-        /// let x = SubstitutionRule::new()
-        ///     .set_target_group_kinds([
-        ///         GroupKind::default()/* use setters */,
-        ///         GroupKind::default()/* use (different) setters */,
-        ///     ]);
-        /// ```
         pub fn set_target_group_kinds<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -10053,12 +7495,6 @@ pub mod restore_config {
         }
 
         /// Sets the value of [target_json_path][crate::model::restore_config::SubstitutionRule::target_json_path].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_gkebackup_v1::model::restore_config::SubstitutionRule;
-        /// let x = SubstitutionRule::new().set_target_json_path("example");
-        /// ```
         pub fn set_target_json_path<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -10068,12 +7504,6 @@ pub mod restore_config {
         }
 
         /// Sets the value of [original_value_pattern][crate::model::restore_config::SubstitutionRule::original_value_pattern].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_gkebackup_v1::model::restore_config::SubstitutionRule;
-        /// let x = SubstitutionRule::new().set_original_value_pattern("example");
-        /// ```
         pub fn set_original_value_pattern<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -10083,12 +7513,6 @@ pub mod restore_config {
         }
 
         /// Sets the value of [new_value][crate::model::restore_config::SubstitutionRule::new_value].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_gkebackup_v1::model::restore_config::SubstitutionRule;
-        /// let x = SubstitutionRule::new().set_new_value("example");
-        /// ```
         pub fn set_new_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.new_value = v.into();
             self
@@ -10130,15 +7554,6 @@ pub mod restore_config {
         }
 
         /// Sets the value of [op][crate::model::restore_config::TransformationRuleAction::op].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_gkebackup_v1::model::restore_config::TransformationRuleAction;
-        /// use google_cloud_gkebackup_v1::model::restore_config::transformation_rule_action::Op;
-        /// let x0 = TransformationRuleAction::new().set_op(Op::Remove);
-        /// let x1 = TransformationRuleAction::new().set_op(Op::Move);
-        /// let x2 = TransformationRuleAction::new().set_op(Op::Copy);
-        /// ```
         pub fn set_op<
             T: std::convert::Into<crate::model::restore_config::transformation_rule_action::Op>,
         >(
@@ -10150,36 +7565,18 @@ pub mod restore_config {
         }
 
         /// Sets the value of [from_path][crate::model::restore_config::TransformationRuleAction::from_path].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_gkebackup_v1::model::restore_config::TransformationRuleAction;
-        /// let x = TransformationRuleAction::new().set_from_path("example");
-        /// ```
         pub fn set_from_path<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.from_path = v.into();
             self
         }
 
         /// Sets the value of [path][crate::model::restore_config::TransformationRuleAction::path].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_gkebackup_v1::model::restore_config::TransformationRuleAction;
-        /// let x = TransformationRuleAction::new().set_path("example");
-        /// ```
         pub fn set_path<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.path = v.into();
             self
         }
 
         /// Sets the value of [value][crate::model::restore_config::TransformationRuleAction::value].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_gkebackup_v1::model::restore_config::TransformationRuleAction;
-        /// let x = TransformationRuleAction::new().set_value("example");
-        /// ```
         pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.value = v.into();
             self
@@ -10410,12 +7807,6 @@ pub mod restore_config {
         }
 
         /// Sets the value of [namespaces][crate::model::restore_config::ResourceFilter::namespaces].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_gkebackup_v1::model::restore_config::ResourceFilter;
-        /// let x = ResourceFilter::new().set_namespaces(["a", "b", "c"]);
-        /// ```
         pub fn set_namespaces<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -10427,17 +7818,6 @@ pub mod restore_config {
         }
 
         /// Sets the value of [group_kinds][crate::model::restore_config::ResourceFilter::group_kinds].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_gkebackup_v1::model::restore_config::ResourceFilter;
-        /// use google_cloud_gkebackup_v1::model::restore_config::GroupKind;
-        /// let x = ResourceFilter::new()
-        ///     .set_group_kinds([
-        ///         GroupKind::default()/* use setters */,
-        ///         GroupKind::default()/* use (different) setters */,
-        ///     ]);
-        /// ```
         pub fn set_group_kinds<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -10449,12 +7829,6 @@ pub mod restore_config {
         }
 
         /// Sets the value of [json_path][crate::model::restore_config::ResourceFilter::json_path].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_gkebackup_v1::model::restore_config::ResourceFilter;
-        /// let x = ResourceFilter::new().set_json_path("example");
-        /// ```
         pub fn set_json_path<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.json_path = v.into();
             self
@@ -10498,17 +7872,6 @@ pub mod restore_config {
         }
 
         /// Sets the value of [field_actions][crate::model::restore_config::TransformationRule::field_actions].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_gkebackup_v1::model::restore_config::TransformationRule;
-        /// use google_cloud_gkebackup_v1::model::restore_config::TransformationRuleAction;
-        /// let x = TransformationRule::new()
-        ///     .set_field_actions([
-        ///         TransformationRuleAction::default()/* use setters */,
-        ///         TransformationRuleAction::default()/* use (different) setters */,
-        ///     ]);
-        /// ```
         pub fn set_field_actions<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -10520,13 +7883,6 @@ pub mod restore_config {
         }
 
         /// Sets the value of [resource_filter][crate::model::restore_config::TransformationRule::resource_filter].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_gkebackup_v1::model::restore_config::TransformationRule;
-        /// use google_cloud_gkebackup_v1::model::restore_config::ResourceFilter;
-        /// let x = TransformationRule::new().set_resource_filter(ResourceFilter::default()/* use setters */);
-        /// ```
         pub fn set_resource_filter<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::restore_config::ResourceFilter>,
@@ -10536,14 +7892,6 @@ pub mod restore_config {
         }
 
         /// Sets or clears the value of [resource_filter][crate::model::restore_config::TransformationRule::resource_filter].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_gkebackup_v1::model::restore_config::TransformationRule;
-        /// use google_cloud_gkebackup_v1::model::restore_config::ResourceFilter;
-        /// let x = TransformationRule::new().set_or_clear_resource_filter(Some(ResourceFilter::default()/* use setters */));
-        /// let x = TransformationRule::new().set_or_clear_resource_filter(None::<ResourceFilter>);
-        /// ```
         pub fn set_or_clear_resource_filter<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::restore_config::ResourceFilter>,
@@ -10553,12 +7901,6 @@ pub mod restore_config {
         }
 
         /// Sets the value of [description][crate::model::restore_config::TransformationRule::description].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_gkebackup_v1::model::restore_config::TransformationRule;
-        /// let x = TransformationRule::new().set_description("example");
-        /// ```
         pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.description = v.into();
             self
@@ -10592,15 +7934,6 @@ pub mod restore_config {
         }
 
         /// Sets the value of [policy][crate::model::restore_config::VolumeDataRestorePolicyBinding::policy].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_gkebackup_v1::model::restore_config::VolumeDataRestorePolicyBinding;
-        /// use google_cloud_gkebackup_v1::model::restore_config::VolumeDataRestorePolicy;
-        /// let x0 = VolumeDataRestorePolicyBinding::new().set_policy(VolumeDataRestorePolicy::RestoreVolumeDataFromBackup);
-        /// let x1 = VolumeDataRestorePolicyBinding::new().set_policy(VolumeDataRestorePolicy::ReuseVolumeHandleFromBackup);
-        /// let x2 = VolumeDataRestorePolicyBinding::new().set_policy(VolumeDataRestorePolicy::NoVolumeDataRestoration);
-        /// ```
         pub fn set_policy<
             T: std::convert::Into<crate::model::restore_config::VolumeDataRestorePolicy>,
         >(
@@ -10615,14 +7948,6 @@ pub mod restore_config {
         ///
         /// Note that all the setters affecting `scope` are mutually
         /// exclusive.
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_gkebackup_v1::model::restore_config::VolumeDataRestorePolicyBinding;
-        /// use google_cloud_gkebackup_v1::model::restore_config::volume_data_restore_policy_binding;
-        /// use google_cloud_gkebackup_v1::model::volume_type_enum::VolumeType;
-        /// let x0 = VolumeDataRestorePolicyBinding::new().set_scope(Some(restore_config::volume_data_restore_policy_binding::Scope::VolumeType(VolumeType::GcePersistentDisk)));
-        /// ```
         pub fn set_scope<
             T: std::convert::Into<
                     std::option::Option<
@@ -10655,14 +7980,6 @@ pub mod restore_config {
         ///
         /// Note that all the setters affecting `scope` are
         /// mutually exclusive.
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_gkebackup_v1::model::restore_config::VolumeDataRestorePolicyBinding;
-        /// use google_cloud_gkebackup_v1::model::volume_type_enum::VolumeType;
-        /// let x0 = VolumeDataRestorePolicyBinding::new().set_volume_type(VolumeType::GcePersistentDisk);
-        /// assert!(x.volume_type().is_some());
-        /// ```
         pub fn set_volume_type<
             T: std::convert::Into<crate::model::volume_type_enum::VolumeType>,
         >(
@@ -10718,17 +8035,6 @@ pub mod restore_config {
         }
 
         /// Sets the value of [group_kind_dependencies][crate::model::restore_config::RestoreOrder::group_kind_dependencies].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_gkebackup_v1::model::restore_config::RestoreOrder;
-        /// use google_cloud_gkebackup_v1::model::restore_config::restore_order::GroupKindDependency;
-        /// let x = RestoreOrder::new()
-        ///     .set_group_kind_dependencies([
-        ///         GroupKindDependency::default()/* use setters */,
-        ///         GroupKindDependency::default()/* use (different) setters */,
-        ///     ]);
-        /// ```
         pub fn set_group_kind_dependencies<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -10772,13 +8078,6 @@ pub mod restore_config {
             }
 
             /// Sets the value of [satisfying][crate::model::restore_config::restore_order::GroupKindDependency::satisfying].
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_gkebackup_v1::model::restore_config::restore_order::GroupKindDependency;
-            /// use google_cloud_gkebackup_v1::model::restore_config::GroupKind;
-            /// let x = GroupKindDependency::new().set_satisfying(GroupKind::default()/* use setters */);
-            /// ```
             pub fn set_satisfying<T>(mut self, v: T) -> Self
             where
                 T: std::convert::Into<crate::model::restore_config::GroupKind>,
@@ -10788,14 +8087,6 @@ pub mod restore_config {
             }
 
             /// Sets or clears the value of [satisfying][crate::model::restore_config::restore_order::GroupKindDependency::satisfying].
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_gkebackup_v1::model::restore_config::restore_order::GroupKindDependency;
-            /// use google_cloud_gkebackup_v1::model::restore_config::GroupKind;
-            /// let x = GroupKindDependency::new().set_or_clear_satisfying(Some(GroupKind::default()/* use setters */));
-            /// let x = GroupKindDependency::new().set_or_clear_satisfying(None::<GroupKind>);
-            /// ```
             pub fn set_or_clear_satisfying<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<crate::model::restore_config::GroupKind>,
@@ -10805,13 +8096,6 @@ pub mod restore_config {
             }
 
             /// Sets the value of [requiring][crate::model::restore_config::restore_order::GroupKindDependency::requiring].
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_gkebackup_v1::model::restore_config::restore_order::GroupKindDependency;
-            /// use google_cloud_gkebackup_v1::model::restore_config::GroupKind;
-            /// let x = GroupKindDependency::new().set_requiring(GroupKind::default()/* use setters */);
-            /// ```
             pub fn set_requiring<T>(mut self, v: T) -> Self
             where
                 T: std::convert::Into<crate::model::restore_config::GroupKind>,
@@ -10821,14 +8105,6 @@ pub mod restore_config {
             }
 
             /// Sets or clears the value of [requiring][crate::model::restore_config::restore_order::GroupKindDependency::requiring].
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_gkebackup_v1::model::restore_config::restore_order::GroupKindDependency;
-            /// use google_cloud_gkebackup_v1::model::restore_config::GroupKind;
-            /// let x = GroupKindDependency::new().set_or_clear_requiring(Some(GroupKind::default()/* use setters */));
-            /// let x = GroupKindDependency::new().set_or_clear_requiring(None::<GroupKind>);
-            /// ```
             pub fn set_or_clear_requiring<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<crate::model::restore_config::GroupKind>,
@@ -11413,13 +8689,6 @@ impl ResourceSelector {
     }
 
     /// Sets the value of [group_kind][crate::model::ResourceSelector::group_kind].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::ResourceSelector;
-    /// use google_cloud_gkebackup_v1::model::restore_config::GroupKind;
-    /// let x = ResourceSelector::new().set_group_kind(GroupKind::default()/* use setters */);
-    /// ```
     pub fn set_group_kind<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::restore_config::GroupKind>,
@@ -11429,14 +8698,6 @@ impl ResourceSelector {
     }
 
     /// Sets or clears the value of [group_kind][crate::model::ResourceSelector::group_kind].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::ResourceSelector;
-    /// use google_cloud_gkebackup_v1::model::restore_config::GroupKind;
-    /// let x = ResourceSelector::new().set_or_clear_group_kind(Some(GroupKind::default()/* use setters */));
-    /// let x = ResourceSelector::new().set_or_clear_group_kind(None::<GroupKind>);
-    /// ```
     pub fn set_or_clear_group_kind<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::restore_config::GroupKind>,
@@ -11446,39 +8707,18 @@ impl ResourceSelector {
     }
 
     /// Sets the value of [name][crate::model::ResourceSelector::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::ResourceSelector;
-    /// let x = ResourceSelector::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [namespace][crate::model::ResourceSelector::namespace].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::ResourceSelector;
-    /// let x = ResourceSelector::new().set_namespace("example");
-    /// ```
     pub fn set_namespace<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.namespace = v.into();
         self
     }
 
     /// Sets the value of [labels][crate::model::ResourceSelector::labels].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::ResourceSelector;
-    /// let x = ResourceSelector::new().set_labels([
-    ///     ("key0", "abc"),
-    ///     ("key1", "xyz"),
-    /// ]);
-    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -11516,15 +8756,6 @@ impl VolumeDataRestorePolicyOverride {
     }
 
     /// Sets the value of [policy][crate::model::VolumeDataRestorePolicyOverride::policy].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::VolumeDataRestorePolicyOverride;
-    /// use google_cloud_gkebackup_v1::model::restore_config::VolumeDataRestorePolicy;
-    /// let x0 = VolumeDataRestorePolicyOverride::new().set_policy(VolumeDataRestorePolicy::RestoreVolumeDataFromBackup);
-    /// let x1 = VolumeDataRestorePolicyOverride::new().set_policy(VolumeDataRestorePolicy::ReuseVolumeHandleFromBackup);
-    /// let x2 = VolumeDataRestorePolicyOverride::new().set_policy(VolumeDataRestorePolicy::NoVolumeDataRestoration);
-    /// ```
     pub fn set_policy<
         T: std::convert::Into<crate::model::restore_config::VolumeDataRestorePolicy>,
     >(
@@ -11539,14 +8770,6 @@ impl VolumeDataRestorePolicyOverride {
     ///
     /// Note that all the setters affecting `scope` are mutually
     /// exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::VolumeDataRestorePolicyOverride;
-    /// use google_cloud_gkebackup_v1::model::volume_data_restore_policy_override;
-    /// use google_cloud_gkebackup_v1::model::NamespacedNames;
-    /// let x = VolumeDataRestorePolicyOverride::new().set_scope(Some(volume_data_restore_policy_override::Scope::SelectedPvcs(NamespacedNames::default().into())));
-    /// ```
     pub fn set_scope<
         T: std::convert::Into<
                 std::option::Option<crate::model::volume_data_restore_policy_override::Scope>,
@@ -11579,14 +8802,6 @@ impl VolumeDataRestorePolicyOverride {
     ///
     /// Note that all the setters affecting `scope` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::VolumeDataRestorePolicyOverride;
-    /// use google_cloud_gkebackup_v1::model::NamespacedNames;
-    /// let x = VolumeDataRestorePolicyOverride::new().set_selected_pvcs(NamespacedNames::default()/* use setters */);
-    /// assert!(x.selected_pvcs().is_some());
-    /// ```
     pub fn set_selected_pvcs<
         T: std::convert::Into<std::boxed::Box<crate::model::NamespacedNames>>,
     >(
@@ -11676,24 +8891,12 @@ impl RestoreChannel {
     }
 
     /// Sets the value of [name][crate::model::RestoreChannel::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::RestoreChannel;
-    /// let x = RestoreChannel::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [destination_project][crate::model::RestoreChannel::destination_project].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::RestoreChannel;
-    /// let x = RestoreChannel::new().set_destination_project("example");
-    /// ```
     pub fn set_destination_project<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -11703,25 +8906,12 @@ impl RestoreChannel {
     }
 
     /// Sets the value of [uid][crate::model::RestoreChannel::uid].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::RestoreChannel;
-    /// let x = RestoreChannel::new().set_uid("example");
-    /// ```
     pub fn set_uid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.uid = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::RestoreChannel::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::RestoreChannel;
-    /// use wkt::Timestamp;
-    /// let x = RestoreChannel::new().set_create_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -11731,14 +8921,6 @@ impl RestoreChannel {
     }
 
     /// Sets or clears the value of [create_time][crate::model::RestoreChannel::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::RestoreChannel;
-    /// use wkt::Timestamp;
-    /// let x = RestoreChannel::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
-    /// let x = RestoreChannel::new().set_or_clear_create_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -11748,13 +8930,6 @@ impl RestoreChannel {
     }
 
     /// Sets the value of [update_time][crate::model::RestoreChannel::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::RestoreChannel;
-    /// use wkt::Timestamp;
-    /// let x = RestoreChannel::new().set_update_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -11764,14 +8939,6 @@ impl RestoreChannel {
     }
 
     /// Sets or clears the value of [update_time][crate::model::RestoreChannel::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::RestoreChannel;
-    /// use wkt::Timestamp;
-    /// let x = RestoreChannel::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
-    /// let x = RestoreChannel::new().set_or_clear_update_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -11781,15 +8948,6 @@ impl RestoreChannel {
     }
 
     /// Sets the value of [labels][crate::model::RestoreChannel::labels].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::RestoreChannel;
-    /// let x = RestoreChannel::new().set_labels([
-    ///     ("key0", "abc"),
-    ///     ("key1", "xyz"),
-    /// ]);
-    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -11802,36 +8960,18 @@ impl RestoreChannel {
     }
 
     /// Sets the value of [description][crate::model::RestoreChannel::description].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::RestoreChannel;
-    /// let x = RestoreChannel::new().set_description("example");
-    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [etag][crate::model::RestoreChannel::etag].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::RestoreChannel;
-    /// let x = RestoreChannel::new().set_etag("example");
-    /// ```
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
     }
 
     /// Sets the value of [destination_project_id][crate::model::RestoreChannel::destination_project_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::RestoreChannel;
-    /// let x = RestoreChannel::new().set_destination_project_id("example");
-    /// ```
     pub fn set_destination_project_id<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -11929,37 +9069,18 @@ impl RestorePlan {
     }
 
     /// Sets the value of [name][crate::model::RestorePlan::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::RestorePlan;
-    /// let x = RestorePlan::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [uid][crate::model::RestorePlan::uid].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::RestorePlan;
-    /// let x = RestorePlan::new().set_uid("example");
-    /// ```
     pub fn set_uid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.uid = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::RestorePlan::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::RestorePlan;
-    /// use wkt::Timestamp;
-    /// let x = RestorePlan::new().set_create_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -11969,14 +9090,6 @@ impl RestorePlan {
     }
 
     /// Sets or clears the value of [create_time][crate::model::RestorePlan::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::RestorePlan;
-    /// use wkt::Timestamp;
-    /// let x = RestorePlan::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
-    /// let x = RestorePlan::new().set_or_clear_create_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -11986,13 +9099,6 @@ impl RestorePlan {
     }
 
     /// Sets the value of [update_time][crate::model::RestorePlan::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::RestorePlan;
-    /// use wkt::Timestamp;
-    /// let x = RestorePlan::new().set_update_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -12002,14 +9108,6 @@ impl RestorePlan {
     }
 
     /// Sets or clears the value of [update_time][crate::model::RestorePlan::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::RestorePlan;
-    /// use wkt::Timestamp;
-    /// let x = RestorePlan::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
-    /// let x = RestorePlan::new().set_or_clear_update_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -12019,49 +9117,24 @@ impl RestorePlan {
     }
 
     /// Sets the value of [description][crate::model::RestorePlan::description].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::RestorePlan;
-    /// let x = RestorePlan::new().set_description("example");
-    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [backup_plan][crate::model::RestorePlan::backup_plan].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::RestorePlan;
-    /// let x = RestorePlan::new().set_backup_plan("example");
-    /// ```
     pub fn set_backup_plan<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.backup_plan = v.into();
         self
     }
 
     /// Sets the value of [cluster][crate::model::RestorePlan::cluster].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::RestorePlan;
-    /// let x = RestorePlan::new().set_cluster("example");
-    /// ```
     pub fn set_cluster<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.cluster = v.into();
         self
     }
 
     /// Sets the value of [restore_config][crate::model::RestorePlan::restore_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::RestorePlan;
-    /// use google_cloud_gkebackup_v1::model::RestoreConfig;
-    /// let x = RestorePlan::new().set_restore_config(RestoreConfig::default()/* use setters */);
-    /// ```
     pub fn set_restore_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::RestoreConfig>,
@@ -12071,14 +9144,6 @@ impl RestorePlan {
     }
 
     /// Sets or clears the value of [restore_config][crate::model::RestorePlan::restore_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::RestorePlan;
-    /// use google_cloud_gkebackup_v1::model::RestoreConfig;
-    /// let x = RestorePlan::new().set_or_clear_restore_config(Some(RestoreConfig::default()/* use setters */));
-    /// let x = RestorePlan::new().set_or_clear_restore_config(None::<RestoreConfig>);
-    /// ```
     pub fn set_or_clear_restore_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::RestoreConfig>,
@@ -12088,15 +9153,6 @@ impl RestorePlan {
     }
 
     /// Sets the value of [labels][crate::model::RestorePlan::labels].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::RestorePlan;
-    /// let x = RestorePlan::new().set_labels([
-    ///     ("key0", "abc"),
-    ///     ("key1", "xyz"),
-    /// ]);
-    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -12109,27 +9165,12 @@ impl RestorePlan {
     }
 
     /// Sets the value of [etag][crate::model::RestorePlan::etag].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::RestorePlan;
-    /// let x = RestorePlan::new().set_etag("example");
-    /// ```
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
     }
 
     /// Sets the value of [state][crate::model::RestorePlan::state].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::RestorePlan;
-    /// use google_cloud_gkebackup_v1::model::restore_plan::State;
-    /// let x0 = RestorePlan::new().set_state(State::ClusterPending);
-    /// let x1 = RestorePlan::new().set_state(State::Ready);
-    /// let x2 = RestorePlan::new().set_state(State::Failed);
-    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::restore_plan::State>>(
         mut self,
         v: T,
@@ -12139,24 +9180,12 @@ impl RestorePlan {
     }
 
     /// Sets the value of [state_reason][crate::model::RestorePlan::state_reason].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::RestorePlan;
-    /// let x = RestorePlan::new().set_state_reason("example");
-    /// ```
     pub fn set_state_reason<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.state_reason = v.into();
         self
     }
 
     /// Sets the value of [restore_channel][crate::model::RestorePlan::restore_channel].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::RestorePlan;
-    /// let x = RestorePlan::new().set_restore_channel("example");
-    /// ```
     pub fn set_restore_channel<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.restore_channel = v.into();
         self
@@ -12370,37 +9399,18 @@ impl RestorePlanBinding {
     }
 
     /// Sets the value of [name][crate::model::RestorePlanBinding::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::RestorePlanBinding;
-    /// let x = RestorePlanBinding::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [uid][crate::model::RestorePlanBinding::uid].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::RestorePlanBinding;
-    /// let x = RestorePlanBinding::new().set_uid("example");
-    /// ```
     pub fn set_uid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.uid = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::RestorePlanBinding::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::RestorePlanBinding;
-    /// use wkt::Timestamp;
-    /// let x = RestorePlanBinding::new().set_create_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -12410,14 +9420,6 @@ impl RestorePlanBinding {
     }
 
     /// Sets or clears the value of [create_time][crate::model::RestorePlanBinding::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::RestorePlanBinding;
-    /// use wkt::Timestamp;
-    /// let x = RestorePlanBinding::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
-    /// let x = RestorePlanBinding::new().set_or_clear_create_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -12427,13 +9429,6 @@ impl RestorePlanBinding {
     }
 
     /// Sets the value of [update_time][crate::model::RestorePlanBinding::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::RestorePlanBinding;
-    /// use wkt::Timestamp;
-    /// let x = RestorePlanBinding::new().set_update_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -12443,14 +9438,6 @@ impl RestorePlanBinding {
     }
 
     /// Sets or clears the value of [update_time][crate::model::RestorePlanBinding::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::RestorePlanBinding;
-    /// use wkt::Timestamp;
-    /// let x = RestorePlanBinding::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
-    /// let x = RestorePlanBinding::new().set_or_clear_update_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -12460,36 +9447,18 @@ impl RestorePlanBinding {
     }
 
     /// Sets the value of [restore_plan][crate::model::RestorePlanBinding::restore_plan].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::RestorePlanBinding;
-    /// let x = RestorePlanBinding::new().set_restore_plan("example");
-    /// ```
     pub fn set_restore_plan<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.restore_plan = v.into();
         self
     }
 
     /// Sets the value of [etag][crate::model::RestorePlanBinding::etag].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::RestorePlanBinding;
-    /// let x = RestorePlanBinding::new().set_etag("example");
-    /// ```
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
     }
 
     /// Sets the value of [backup_plan][crate::model::RestorePlanBinding::backup_plan].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::RestorePlanBinding;
-    /// let x = RestorePlanBinding::new().set_backup_plan("example");
-    /// ```
     pub fn set_backup_plan<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.backup_plan = v.into();
         self
@@ -12581,37 +9550,18 @@ impl VolumeBackup {
     }
 
     /// Sets the value of [name][crate::model::VolumeBackup::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::VolumeBackup;
-    /// let x = VolumeBackup::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [uid][crate::model::VolumeBackup::uid].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::VolumeBackup;
-    /// let x = VolumeBackup::new().set_uid("example");
-    /// ```
     pub fn set_uid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.uid = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::VolumeBackup::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::VolumeBackup;
-    /// use wkt::Timestamp;
-    /// let x = VolumeBackup::new().set_create_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -12621,14 +9571,6 @@ impl VolumeBackup {
     }
 
     /// Sets or clears the value of [create_time][crate::model::VolumeBackup::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::VolumeBackup;
-    /// use wkt::Timestamp;
-    /// let x = VolumeBackup::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
-    /// let x = VolumeBackup::new().set_or_clear_create_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -12638,13 +9580,6 @@ impl VolumeBackup {
     }
 
     /// Sets the value of [update_time][crate::model::VolumeBackup::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::VolumeBackup;
-    /// use wkt::Timestamp;
-    /// let x = VolumeBackup::new().set_update_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -12654,14 +9589,6 @@ impl VolumeBackup {
     }
 
     /// Sets or clears the value of [update_time][crate::model::VolumeBackup::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::VolumeBackup;
-    /// use wkt::Timestamp;
-    /// let x = VolumeBackup::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
-    /// let x = VolumeBackup::new().set_or_clear_update_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -12671,13 +9598,6 @@ impl VolumeBackup {
     }
 
     /// Sets the value of [source_pvc][crate::model::VolumeBackup::source_pvc].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::VolumeBackup;
-    /// use google_cloud_gkebackup_v1::model::NamespacedName;
-    /// let x = VolumeBackup::new().set_source_pvc(NamespacedName::default()/* use setters */);
-    /// ```
     pub fn set_source_pvc<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::NamespacedName>,
@@ -12687,14 +9607,6 @@ impl VolumeBackup {
     }
 
     /// Sets or clears the value of [source_pvc][crate::model::VolumeBackup::source_pvc].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::VolumeBackup;
-    /// use google_cloud_gkebackup_v1::model::NamespacedName;
-    /// let x = VolumeBackup::new().set_or_clear_source_pvc(Some(NamespacedName::default()/* use setters */));
-    /// let x = VolumeBackup::new().set_or_clear_source_pvc(None::<NamespacedName>);
-    /// ```
     pub fn set_or_clear_source_pvc<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::NamespacedName>,
@@ -12704,12 +9616,6 @@ impl VolumeBackup {
     }
 
     /// Sets the value of [volume_backup_handle][crate::model::VolumeBackup::volume_backup_handle].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::VolumeBackup;
-    /// let x = VolumeBackup::new().set_volume_backup_handle("example");
-    /// ```
     pub fn set_volume_backup_handle<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -12719,13 +9625,6 @@ impl VolumeBackup {
     }
 
     /// Sets the value of [format][crate::model::VolumeBackup::format].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::VolumeBackup;
-    /// use google_cloud_gkebackup_v1::model::volume_backup::VolumeBackupFormat;
-    /// let x0 = VolumeBackup::new().set_format(VolumeBackupFormat::GcePersistentDisk);
-    /// ```
     pub fn set_format<T: std::convert::Into<crate::model::volume_backup::VolumeBackupFormat>>(
         mut self,
         v: T,
@@ -12735,37 +9634,18 @@ impl VolumeBackup {
     }
 
     /// Sets the value of [storage_bytes][crate::model::VolumeBackup::storage_bytes].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::VolumeBackup;
-    /// let x = VolumeBackup::new().set_storage_bytes(42);
-    /// ```
     pub fn set_storage_bytes<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.storage_bytes = v.into();
         self
     }
 
     /// Sets the value of [disk_size_bytes][crate::model::VolumeBackup::disk_size_bytes].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::VolumeBackup;
-    /// let x = VolumeBackup::new().set_disk_size_bytes(42);
-    /// ```
     pub fn set_disk_size_bytes<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.disk_size_bytes = v.into();
         self
     }
 
     /// Sets the value of [complete_time][crate::model::VolumeBackup::complete_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::VolumeBackup;
-    /// use wkt::Timestamp;
-    /// let x = VolumeBackup::new().set_complete_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_complete_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -12775,14 +9655,6 @@ impl VolumeBackup {
     }
 
     /// Sets or clears the value of [complete_time][crate::model::VolumeBackup::complete_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::VolumeBackup;
-    /// use wkt::Timestamp;
-    /// let x = VolumeBackup::new().set_or_clear_complete_time(Some(Timestamp::default()/* use setters */));
-    /// let x = VolumeBackup::new().set_or_clear_complete_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_complete_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -12792,15 +9664,6 @@ impl VolumeBackup {
     }
 
     /// Sets the value of [state][crate::model::VolumeBackup::state].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::VolumeBackup;
-    /// use google_cloud_gkebackup_v1::model::volume_backup::State;
-    /// let x0 = VolumeBackup::new().set_state(State::Creating);
-    /// let x1 = VolumeBackup::new().set_state(State::Snapshotting);
-    /// let x2 = VolumeBackup::new().set_state(State::Uploading);
-    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::volume_backup::State>>(
         mut self,
         v: T,
@@ -12810,48 +9673,24 @@ impl VolumeBackup {
     }
 
     /// Sets the value of [state_message][crate::model::VolumeBackup::state_message].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::VolumeBackup;
-    /// let x = VolumeBackup::new().set_state_message("example");
-    /// ```
     pub fn set_state_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.state_message = v.into();
         self
     }
 
     /// Sets the value of [etag][crate::model::VolumeBackup::etag].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::VolumeBackup;
-    /// let x = VolumeBackup::new().set_etag("example");
-    /// ```
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
     }
 
     /// Sets the value of [satisfies_pzs][crate::model::VolumeBackup::satisfies_pzs].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::VolumeBackup;
-    /// let x = VolumeBackup::new().set_satisfies_pzs(true);
-    /// ```
     pub fn set_satisfies_pzs<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.satisfies_pzs = v.into();
         self
     }
 
     /// Sets the value of [satisfies_pzi][crate::model::VolumeBackup::satisfies_pzi].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::VolumeBackup;
-    /// let x = VolumeBackup::new().set_satisfies_pzi(true);
-    /// ```
     pub fn set_satisfies_pzi<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.satisfies_pzi = v.into();
         self
@@ -13231,37 +10070,18 @@ impl VolumeRestore {
     }
 
     /// Sets the value of [name][crate::model::VolumeRestore::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::VolumeRestore;
-    /// let x = VolumeRestore::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [uid][crate::model::VolumeRestore::uid].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::VolumeRestore;
-    /// let x = VolumeRestore::new().set_uid("example");
-    /// ```
     pub fn set_uid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.uid = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::VolumeRestore::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::VolumeRestore;
-    /// use wkt::Timestamp;
-    /// let x = VolumeRestore::new().set_create_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -13271,14 +10091,6 @@ impl VolumeRestore {
     }
 
     /// Sets or clears the value of [create_time][crate::model::VolumeRestore::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::VolumeRestore;
-    /// use wkt::Timestamp;
-    /// let x = VolumeRestore::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
-    /// let x = VolumeRestore::new().set_or_clear_create_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -13288,13 +10100,6 @@ impl VolumeRestore {
     }
 
     /// Sets the value of [update_time][crate::model::VolumeRestore::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::VolumeRestore;
-    /// use wkt::Timestamp;
-    /// let x = VolumeRestore::new().set_update_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -13304,14 +10109,6 @@ impl VolumeRestore {
     }
 
     /// Sets or clears the value of [update_time][crate::model::VolumeRestore::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::VolumeRestore;
-    /// use wkt::Timestamp;
-    /// let x = VolumeRestore::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
-    /// let x = VolumeRestore::new().set_or_clear_update_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -13321,25 +10118,12 @@ impl VolumeRestore {
     }
 
     /// Sets the value of [volume_backup][crate::model::VolumeRestore::volume_backup].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::VolumeRestore;
-    /// let x = VolumeRestore::new().set_volume_backup("example");
-    /// ```
     pub fn set_volume_backup<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.volume_backup = v.into();
         self
     }
 
     /// Sets the value of [target_pvc][crate::model::VolumeRestore::target_pvc].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::VolumeRestore;
-    /// use google_cloud_gkebackup_v1::model::NamespacedName;
-    /// let x = VolumeRestore::new().set_target_pvc(NamespacedName::default()/* use setters */);
-    /// ```
     pub fn set_target_pvc<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::NamespacedName>,
@@ -13349,14 +10133,6 @@ impl VolumeRestore {
     }
 
     /// Sets or clears the value of [target_pvc][crate::model::VolumeRestore::target_pvc].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::VolumeRestore;
-    /// use google_cloud_gkebackup_v1::model::NamespacedName;
-    /// let x = VolumeRestore::new().set_or_clear_target_pvc(Some(NamespacedName::default()/* use setters */));
-    /// let x = VolumeRestore::new().set_or_clear_target_pvc(None::<NamespacedName>);
-    /// ```
     pub fn set_or_clear_target_pvc<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::NamespacedName>,
@@ -13366,25 +10142,12 @@ impl VolumeRestore {
     }
 
     /// Sets the value of [volume_handle][crate::model::VolumeRestore::volume_handle].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::VolumeRestore;
-    /// let x = VolumeRestore::new().set_volume_handle("example");
-    /// ```
     pub fn set_volume_handle<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.volume_handle = v.into();
         self
     }
 
     /// Sets the value of [volume_type][crate::model::VolumeRestore::volume_type].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::VolumeRestore;
-    /// use google_cloud_gkebackup_v1::model::volume_restore::VolumeType;
-    /// let x0 = VolumeRestore::new().set_volume_type(VolumeType::GcePersistentDisk);
-    /// ```
     pub fn set_volume_type<T: std::convert::Into<crate::model::volume_restore::VolumeType>>(
         mut self,
         v: T,
@@ -13394,13 +10157,6 @@ impl VolumeRestore {
     }
 
     /// Sets the value of [complete_time][crate::model::VolumeRestore::complete_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::VolumeRestore;
-    /// use wkt::Timestamp;
-    /// let x = VolumeRestore::new().set_complete_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_complete_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -13410,14 +10166,6 @@ impl VolumeRestore {
     }
 
     /// Sets or clears the value of [complete_time][crate::model::VolumeRestore::complete_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::VolumeRestore;
-    /// use wkt::Timestamp;
-    /// let x = VolumeRestore::new().set_or_clear_complete_time(Some(Timestamp::default()/* use setters */));
-    /// let x = VolumeRestore::new().set_or_clear_complete_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_complete_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -13427,15 +10175,6 @@ impl VolumeRestore {
     }
 
     /// Sets the value of [state][crate::model::VolumeRestore::state].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::VolumeRestore;
-    /// use google_cloud_gkebackup_v1::model::volume_restore::State;
-    /// let x0 = VolumeRestore::new().set_state(State::Creating);
-    /// let x1 = VolumeRestore::new().set_state(State::Restoring);
-    /// let x2 = VolumeRestore::new().set_state(State::Succeeded);
-    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::volume_restore::State>>(
         mut self,
         v: T,
@@ -13445,24 +10184,12 @@ impl VolumeRestore {
     }
 
     /// Sets the value of [state_message][crate::model::VolumeRestore::state_message].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::VolumeRestore;
-    /// let x = VolumeRestore::new().set_state_message("example");
-    /// ```
     pub fn set_state_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.state_message = v.into();
         self
     }
 
     /// Sets the value of [etag][crate::model::VolumeRestore::etag].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gkebackup_v1::model::VolumeRestore;
-    /// let x = VolumeRestore::new().set_etag("example");
-    /// ```
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self

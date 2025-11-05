@@ -55,27 +55,12 @@ impl ActionLog {
     }
 
     /// Sets the value of [actor][crate::model::ActionLog::actor].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_recommender_logging_v1::model::ActionLog;
-    /// let x = ActionLog::new().set_actor("example");
-    /// ```
     pub fn set_actor<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.actor = v.into();
         self
     }
 
     /// Sets the value of [state][crate::model::ActionLog::state].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_recommender_logging_v1::model::ActionLog;
-    /// use recommender::model::recommendation_state_info::State;
-    /// let x0 = ActionLog::new().set_state(State::Active);
-    /// let x1 = ActionLog::new().set_state(State::Claimed);
-    /// let x2 = ActionLog::new().set_state(State::Succeeded);
-    /// ```
     pub fn set_state<
         T: std::convert::Into<recommender::model::recommendation_state_info::State>,
     >(
@@ -87,15 +72,6 @@ impl ActionLog {
     }
 
     /// Sets the value of [state_metadata][crate::model::ActionLog::state_metadata].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_recommender_logging_v1::model::ActionLog;
-    /// let x = ActionLog::new().set_state_metadata([
-    ///     ("key0", "abc"),
-    ///     ("key1", "xyz"),
-    /// ]);
-    /// ```
     pub fn set_state_metadata<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -108,12 +84,6 @@ impl ActionLog {
     }
 
     /// Sets the value of [recommendation_name][crate::model::ActionLog::recommendation_name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_recommender_logging_v1::model::ActionLog;
-    /// let x = ActionLog::new().set_recommendation_name("example");
-    /// ```
     pub fn set_recommendation_name<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -155,27 +125,12 @@ impl InsightActionLog {
     }
 
     /// Sets the value of [actor][crate::model::InsightActionLog::actor].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_recommender_logging_v1::model::InsightActionLog;
-    /// let x = InsightActionLog::new().set_actor("example");
-    /// ```
     pub fn set_actor<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.actor = v.into();
         self
     }
 
     /// Sets the value of [state][crate::model::InsightActionLog::state].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_recommender_logging_v1::model::InsightActionLog;
-    /// use recommender::model::insight_state_info::State;
-    /// let x0 = InsightActionLog::new().set_state(State::Active);
-    /// let x1 = InsightActionLog::new().set_state(State::Accepted);
-    /// let x2 = InsightActionLog::new().set_state(State::Dismissed);
-    /// ```
     pub fn set_state<T: std::convert::Into<recommender::model::insight_state_info::State>>(
         mut self,
         v: T,
@@ -185,15 +140,6 @@ impl InsightActionLog {
     }
 
     /// Sets the value of [state_metadata][crate::model::InsightActionLog::state_metadata].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_recommender_logging_v1::model::InsightActionLog;
-    /// let x = InsightActionLog::new().set_state_metadata([
-    ///     ("key0", "abc"),
-    ///     ("key1", "xyz"),
-    /// ]);
-    /// ```
     pub fn set_state_metadata<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -206,12 +152,6 @@ impl InsightActionLog {
     }
 
     /// Sets the value of [insight][crate::model::InsightActionLog::insight].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_recommender_logging_v1::model::InsightActionLog;
-    /// let x = InsightActionLog::new().set_insight("example");
-    /// ```
     pub fn set_insight<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.insight = v.into();
         self

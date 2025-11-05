@@ -90,27 +90,12 @@ impl NetworkConfig {
     }
 
     /// Sets the value of [network][crate::model::NetworkConfig::network].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_filestore_v1::model::NetworkConfig;
-    /// let x = NetworkConfig::new().set_network("example");
-    /// ```
     pub fn set_network<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.network = v.into();
         self
     }
 
     /// Sets the value of [modes][crate::model::NetworkConfig::modes].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_filestore_v1::model::NetworkConfig;
-    /// use google_cloud_filestore_v1::model::network_config::AddressMode;
-    /// let x = NetworkConfig::new().set_modes([
-    ///     AddressMode::ModeIpv4,
-    /// ]);
-    /// ```
     pub fn set_modes<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -122,12 +107,6 @@ impl NetworkConfig {
     }
 
     /// Sets the value of [reserved_ip_range][crate::model::NetworkConfig::reserved_ip_range].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_filestore_v1::model::NetworkConfig;
-    /// let x = NetworkConfig::new().set_reserved_ip_range("example");
-    /// ```
     pub fn set_reserved_ip_range<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -137,12 +116,6 @@ impl NetworkConfig {
     }
 
     /// Sets the value of [ip_addresses][crate::model::NetworkConfig::ip_addresses].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_filestore_v1::model::NetworkConfig;
-    /// let x = NetworkConfig::new().set_ip_addresses(["a", "b", "c"]);
-    /// ```
     pub fn set_ip_addresses<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -154,14 +127,6 @@ impl NetworkConfig {
     }
 
     /// Sets the value of [connect_mode][crate::model::NetworkConfig::connect_mode].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_filestore_v1::model::NetworkConfig;
-    /// use google_cloud_filestore_v1::model::network_config::ConnectMode;
-    /// let x0 = NetworkConfig::new().set_connect_mode(ConnectMode::DirectPeering);
-    /// let x1 = NetworkConfig::new().set_connect_mode(ConnectMode::PrivateServiceAccess);
-    /// ```
     pub fn set_connect_mode<T: std::convert::Into<crate::model::network_config::ConnectMode>>(
         mut self,
         v: T,
@@ -473,41 +438,18 @@ impl FileShareConfig {
     }
 
     /// Sets the value of [name][crate::model::FileShareConfig::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_filestore_v1::model::FileShareConfig;
-    /// let x = FileShareConfig::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [capacity_gb][crate::model::FileShareConfig::capacity_gb].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_filestore_v1::model::FileShareConfig;
-    /// let x = FileShareConfig::new().set_capacity_gb(42);
-    /// ```
     pub fn set_capacity_gb<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.capacity_gb = v.into();
         self
     }
 
     /// Sets the value of [nfs_export_options][crate::model::FileShareConfig::nfs_export_options].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_filestore_v1::model::FileShareConfig;
-    /// use google_cloud_filestore_v1::model::NfsExportOptions;
-    /// let x = FileShareConfig::new()
-    ///     .set_nfs_export_options([
-    ///         NfsExportOptions::default()/* use setters */,
-    ///         NfsExportOptions::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_nfs_export_options<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -522,13 +464,6 @@ impl FileShareConfig {
     ///
     /// Note that all the setters affecting `source` are mutually
     /// exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_filestore_v1::model::FileShareConfig;
-    /// use google_cloud_filestore_v1::model::file_share_config;
-    /// let x = FileShareConfig::new().set_source(Some(file_share_config::Source::SourceBackup("example".to_string())));
-    /// ```
     pub fn set_source<
         T: std::convert::Into<std::option::Option<crate::model::file_share_config::Source>>,
     >(
@@ -557,13 +492,6 @@ impl FileShareConfig {
     ///
     /// Note that all the setters affecting `source` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_filestore_v1::model::FileShareConfig;
-    /// let x = FileShareConfig::new().set_source_backup("example");
-    /// assert!(x.source_backup().is_some());
-    /// ```
     pub fn set_source_backup<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.source = std::option::Option::Some(
             crate::model::file_share_config::Source::SourceBackup(v.into()),
@@ -640,12 +568,6 @@ impl NfsExportOptions {
     }
 
     /// Sets the value of [ip_ranges][crate::model::NfsExportOptions::ip_ranges].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_filestore_v1::model::NfsExportOptions;
-    /// let x = NfsExportOptions::new().set_ip_ranges(["a", "b", "c"]);
-    /// ```
     pub fn set_ip_ranges<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -657,14 +579,6 @@ impl NfsExportOptions {
     }
 
     /// Sets the value of [access_mode][crate::model::NfsExportOptions::access_mode].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_filestore_v1::model::NfsExportOptions;
-    /// use google_cloud_filestore_v1::model::nfs_export_options::AccessMode;
-    /// let x0 = NfsExportOptions::new().set_access_mode(AccessMode::ReadOnly);
-    /// let x1 = NfsExportOptions::new().set_access_mode(AccessMode::ReadWrite);
-    /// ```
     pub fn set_access_mode<T: std::convert::Into<crate::model::nfs_export_options::AccessMode>>(
         mut self,
         v: T,
@@ -674,14 +588,6 @@ impl NfsExportOptions {
     }
 
     /// Sets the value of [squash_mode][crate::model::NfsExportOptions::squash_mode].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_filestore_v1::model::NfsExportOptions;
-    /// use google_cloud_filestore_v1::model::nfs_export_options::SquashMode;
-    /// let x0 = NfsExportOptions::new().set_squash_mode(SquashMode::NoRootSquash);
-    /// let x1 = NfsExportOptions::new().set_squash_mode(SquashMode::RootSquash);
-    /// ```
     pub fn set_squash_mode<T: std::convert::Into<crate::model::nfs_export_options::SquashMode>>(
         mut self,
         v: T,
@@ -691,24 +597,12 @@ impl NfsExportOptions {
     }
 
     /// Sets the value of [anon_uid][crate::model::NfsExportOptions::anon_uid].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_filestore_v1::model::NfsExportOptions;
-    /// let x = NfsExportOptions::new().set_anon_uid(42);
-    /// ```
     pub fn set_anon_uid<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.anon_uid = v.into();
         self
     }
 
     /// Sets the value of [anon_gid][crate::model::NfsExportOptions::anon_gid].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_filestore_v1::model::NfsExportOptions;
-    /// let x = NfsExportOptions::new().set_anon_gid(42);
-    /// ```
     pub fn set_anon_gid<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.anon_gid = v.into();
         self
@@ -1018,15 +912,6 @@ impl ReplicaConfig {
     }
 
     /// Sets the value of [state][crate::model::ReplicaConfig::state].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_filestore_v1::model::ReplicaConfig;
-    /// use google_cloud_filestore_v1::model::replica_config::State;
-    /// let x0 = ReplicaConfig::new().set_state(State::Creating);
-    /// let x1 = ReplicaConfig::new().set_state(State::Ready);
-    /// let x2 = ReplicaConfig::new().set_state(State::Removing);
-    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::replica_config::State>>(
         mut self,
         v: T,
@@ -1036,16 +921,6 @@ impl ReplicaConfig {
     }
 
     /// Sets the value of [state_reasons][crate::model::ReplicaConfig::state_reasons].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_filestore_v1::model::ReplicaConfig;
-    /// use google_cloud_filestore_v1::model::replica_config::StateReason;
-    /// let x = ReplicaConfig::new().set_state_reasons([
-    ///     StateReason::PeerInstanceUnreachable,
-    ///     StateReason::RemoveFailed,
-    /// ]);
-    /// ```
     pub fn set_state_reasons<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1057,25 +932,12 @@ impl ReplicaConfig {
     }
 
     /// Sets the value of [peer_instance][crate::model::ReplicaConfig::peer_instance].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_filestore_v1::model::ReplicaConfig;
-    /// let x = ReplicaConfig::new().set_peer_instance("example");
-    /// ```
     pub fn set_peer_instance<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.peer_instance = v.into();
         self
     }
 
     /// Sets the value of [last_active_sync_time][crate::model::ReplicaConfig::last_active_sync_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_filestore_v1::model::ReplicaConfig;
-    /// use wkt::Timestamp;
-    /// let x = ReplicaConfig::new().set_last_active_sync_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_last_active_sync_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1085,14 +947,6 @@ impl ReplicaConfig {
     }
 
     /// Sets or clears the value of [last_active_sync_time][crate::model::ReplicaConfig::last_active_sync_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_filestore_v1::model::ReplicaConfig;
-    /// use wkt::Timestamp;
-    /// let x = ReplicaConfig::new().set_or_clear_last_active_sync_time(Some(Timestamp::default()/* use setters */));
-    /// let x = ReplicaConfig::new().set_or_clear_last_active_sync_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_last_active_sync_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1416,14 +1270,6 @@ impl Replication {
     }
 
     /// Sets the value of [role][crate::model::Replication::role].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_filestore_v1::model::Replication;
-    /// use google_cloud_filestore_v1::model::replication::Role;
-    /// let x0 = Replication::new().set_role(Role::Active);
-    /// let x1 = Replication::new().set_role(Role::Standby);
-    /// ```
     pub fn set_role<T: std::convert::Into<crate::model::replication::Role>>(
         mut self,
         v: T,
@@ -1433,17 +1279,6 @@ impl Replication {
     }
 
     /// Sets the value of [replicas][crate::model::Replication::replicas].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_filestore_v1::model::Replication;
-    /// use google_cloud_filestore_v1::model::ReplicaConfig;
-    /// let x = Replication::new()
-    ///     .set_replicas([
-    ///         ReplicaConfig::default()/* use setters */,
-    ///         ReplicaConfig::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_replicas<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1699,64 +1534,30 @@ impl Instance {
     }
 
     /// Sets the value of [name][crate::model::Instance::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_filestore_v1::model::Instance;
-    /// let x = Instance::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [description][crate::model::Instance::description].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_filestore_v1::model::Instance;
-    /// let x = Instance::new().set_description("example");
-    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [state][crate::model::Instance::state].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_filestore_v1::model::Instance;
-    /// use google_cloud_filestore_v1::model::instance::State;
-    /// let x0 = Instance::new().set_state(State::Creating);
-    /// let x1 = Instance::new().set_state(State::Ready);
-    /// let x2 = Instance::new().set_state(State::Repairing);
-    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::instance::State>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
     }
 
     /// Sets the value of [status_message][crate::model::Instance::status_message].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_filestore_v1::model::Instance;
-    /// let x = Instance::new().set_status_message("example");
-    /// ```
     pub fn set_status_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.status_message = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::Instance::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_filestore_v1::model::Instance;
-    /// use wkt::Timestamp;
-    /// let x = Instance::new().set_create_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1766,14 +1567,6 @@ impl Instance {
     }
 
     /// Sets or clears the value of [create_time][crate::model::Instance::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_filestore_v1::model::Instance;
-    /// use wkt::Timestamp;
-    /// let x = Instance::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
-    /// let x = Instance::new().set_or_clear_create_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1783,30 +1576,12 @@ impl Instance {
     }
 
     /// Sets the value of [tier][crate::model::Instance::tier].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_filestore_v1::model::Instance;
-    /// use google_cloud_filestore_v1::model::instance::Tier;
-    /// let x0 = Instance::new().set_tier(Tier::Standard);
-    /// let x1 = Instance::new().set_tier(Tier::Premium);
-    /// let x2 = Instance::new().set_tier(Tier::BasicHdd);
-    /// ```
     pub fn set_tier<T: std::convert::Into<crate::model::instance::Tier>>(mut self, v: T) -> Self {
         self.tier = v.into();
         self
     }
 
     /// Sets the value of [labels][crate::model::Instance::labels].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_filestore_v1::model::Instance;
-    /// let x = Instance::new().set_labels([
-    ///     ("key0", "abc"),
-    ///     ("key1", "xyz"),
-    /// ]);
-    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -1819,17 +1594,6 @@ impl Instance {
     }
 
     /// Sets the value of [file_shares][crate::model::Instance::file_shares].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_filestore_v1::model::Instance;
-    /// use google_cloud_filestore_v1::model::FileShareConfig;
-    /// let x = Instance::new()
-    ///     .set_file_shares([
-    ///         FileShareConfig::default()/* use setters */,
-    ///         FileShareConfig::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_file_shares<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1841,17 +1605,6 @@ impl Instance {
     }
 
     /// Sets the value of [networks][crate::model::Instance::networks].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_filestore_v1::model::Instance;
-    /// use google_cloud_filestore_v1::model::NetworkConfig;
-    /// let x = Instance::new()
-    ///     .set_networks([
-    ///         NetworkConfig::default()/* use setters */,
-    ///         NetworkConfig::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_networks<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1863,25 +1616,12 @@ impl Instance {
     }
 
     /// Sets the value of [etag][crate::model::Instance::etag].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_filestore_v1::model::Instance;
-    /// let x = Instance::new().set_etag("example");
-    /// ```
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
     }
 
     /// Sets the value of [satisfies_pzs][crate::model::Instance::satisfies_pzs].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_filestore_v1::model::Instance;
-    /// use wkt::BoolValue;
-    /// let x = Instance::new().set_satisfies_pzs(BoolValue::default()/* use setters */);
-    /// ```
     pub fn set_satisfies_pzs<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::BoolValue>,
@@ -1891,14 +1631,6 @@ impl Instance {
     }
 
     /// Sets or clears the value of [satisfies_pzs][crate::model::Instance::satisfies_pzs].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_filestore_v1::model::Instance;
-    /// use wkt::BoolValue;
-    /// let x = Instance::new().set_or_clear_satisfies_pzs(Some(BoolValue::default()/* use setters */));
-    /// let x = Instance::new().set_or_clear_satisfies_pzs(None::<BoolValue>);
-    /// ```
     pub fn set_or_clear_satisfies_pzs<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::BoolValue>,
@@ -1908,39 +1640,18 @@ impl Instance {
     }
 
     /// Sets the value of [satisfies_pzi][crate::model::Instance::satisfies_pzi].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_filestore_v1::model::Instance;
-    /// let x = Instance::new().set_satisfies_pzi(true);
-    /// ```
     pub fn set_satisfies_pzi<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.satisfies_pzi = v.into();
         self
     }
 
     /// Sets the value of [kms_key_name][crate::model::Instance::kms_key_name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_filestore_v1::model::Instance;
-    /// let x = Instance::new().set_kms_key_name("example");
-    /// ```
     pub fn set_kms_key_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.kms_key_name = v.into();
         self
     }
 
     /// Sets the value of [suspension_reasons][crate::model::Instance::suspension_reasons].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_filestore_v1::model::Instance;
-    /// use google_cloud_filestore_v1::model::instance::SuspensionReason;
-    /// let x = Instance::new().set_suspension_reasons([
-    ///     SuspensionReason::KmsKeyIssue,
-    /// ]);
-    /// ```
     pub fn set_suspension_reasons<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1952,13 +1663,6 @@ impl Instance {
     }
 
     /// Sets the value of [replication][crate::model::Instance::replication].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_filestore_v1::model::Instance;
-    /// use google_cloud_filestore_v1::model::Replication;
-    /// let x = Instance::new().set_replication(Replication::default()/* use setters */);
-    /// ```
     pub fn set_replication<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Replication>,
@@ -1968,14 +1672,6 @@ impl Instance {
     }
 
     /// Sets or clears the value of [replication][crate::model::Instance::replication].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_filestore_v1::model::Instance;
-    /// use google_cloud_filestore_v1::model::Replication;
-    /// let x = Instance::new().set_or_clear_replication(Some(Replication::default()/* use setters */));
-    /// let x = Instance::new().set_or_clear_replication(None::<Replication>);
-    /// ```
     pub fn set_or_clear_replication<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Replication>,
@@ -1985,15 +1681,6 @@ impl Instance {
     }
 
     /// Sets the value of [tags][crate::model::Instance::tags].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_filestore_v1::model::Instance;
-    /// let x = Instance::new().set_tags([
-    ///     ("key0", "abc"),
-    ///     ("key1", "xyz"),
-    /// ]);
-    /// ```
     pub fn set_tags<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -2006,14 +1693,6 @@ impl Instance {
     }
 
     /// Sets the value of [protocol][crate::model::Instance::protocol].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_filestore_v1::model::Instance;
-    /// use google_cloud_filestore_v1::model::instance::FileProtocol;
-    /// let x0 = Instance::new().set_protocol(FileProtocol::NfsV3);
-    /// let x1 = Instance::new().set_protocol(FileProtocol::NfsV41);
-    /// ```
     pub fn set_protocol<T: std::convert::Into<crate::model::instance::FileProtocol>>(
         mut self,
         v: T,
@@ -2023,25 +1702,12 @@ impl Instance {
     }
 
     /// Sets the value of [custom_performance_supported][crate::model::Instance::custom_performance_supported].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_filestore_v1::model::Instance;
-    /// let x = Instance::new().set_custom_performance_supported(true);
-    /// ```
     pub fn set_custom_performance_supported<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.custom_performance_supported = v.into();
         self
     }
 
     /// Sets the value of [performance_config][crate::model::Instance::performance_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_filestore_v1::model::Instance;
-    /// use google_cloud_filestore_v1::model::instance::PerformanceConfig;
-    /// let x = Instance::new().set_performance_config(PerformanceConfig::default()/* use setters */);
-    /// ```
     pub fn set_performance_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::instance::PerformanceConfig>,
@@ -2051,14 +1717,6 @@ impl Instance {
     }
 
     /// Sets or clears the value of [performance_config][crate::model::Instance::performance_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_filestore_v1::model::Instance;
-    /// use google_cloud_filestore_v1::model::instance::PerformanceConfig;
-    /// let x = Instance::new().set_or_clear_performance_config(Some(PerformanceConfig::default()/* use setters */));
-    /// let x = Instance::new().set_or_clear_performance_config(None::<PerformanceConfig>);
-    /// ```
     pub fn set_or_clear_performance_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::instance::PerformanceConfig>,
@@ -2068,13 +1726,6 @@ impl Instance {
     }
 
     /// Sets the value of [performance_limits][crate::model::Instance::performance_limits].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_filestore_v1::model::Instance;
-    /// use google_cloud_filestore_v1::model::instance::PerformanceLimits;
-    /// let x = Instance::new().set_performance_limits(PerformanceLimits::default()/* use setters */);
-    /// ```
     pub fn set_performance_limits<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::instance::PerformanceLimits>,
@@ -2084,14 +1735,6 @@ impl Instance {
     }
 
     /// Sets or clears the value of [performance_limits][crate::model::Instance::performance_limits].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_filestore_v1::model::Instance;
-    /// use google_cloud_filestore_v1::model::instance::PerformanceLimits;
-    /// let x = Instance::new().set_or_clear_performance_limits(Some(PerformanceLimits::default()/* use setters */));
-    /// let x = Instance::new().set_or_clear_performance_limits(None::<PerformanceLimits>);
-    /// ```
     pub fn set_or_clear_performance_limits<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::instance::PerformanceLimits>,
@@ -2101,24 +1744,12 @@ impl Instance {
     }
 
     /// Sets the value of [deletion_protection_enabled][crate::model::Instance::deletion_protection_enabled].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_filestore_v1::model::Instance;
-    /// let x = Instance::new().set_deletion_protection_enabled(true);
-    /// ```
     pub fn set_deletion_protection_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.deletion_protection_enabled = v.into();
         self
     }
 
     /// Sets the value of [deletion_protection_reason][crate::model::Instance::deletion_protection_reason].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_filestore_v1::model::Instance;
-    /// let x = Instance::new().set_deletion_protection_reason("example");
-    /// ```
     pub fn set_deletion_protection_reason<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -2156,12 +1787,6 @@ pub mod instance {
         }
 
         /// Sets the value of [max_iops_per_tb][crate::model::instance::IOPSPerTB::max_iops_per_tb].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_filestore_v1::model::instance::IOPSPerTB;
-        /// let x = IOPSPerTB::new().set_max_iops_per_tb(42);
-        /// ```
         pub fn set_max_iops_per_tb<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
             self.max_iops_per_tb = v.into();
             self
@@ -2190,12 +1815,6 @@ pub mod instance {
         }
 
         /// Sets the value of [max_iops][crate::model::instance::FixedIOPS::max_iops].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_filestore_v1::model::instance::FixedIOPS;
-        /// let x = FixedIOPS::new().set_max_iops(42);
-        /// ```
         pub fn set_max_iops<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
             self.max_iops = v.into();
             self
@@ -2232,14 +1851,6 @@ pub mod instance {
         ///
         /// Note that all the setters affecting `mode` are mutually
         /// exclusive.
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_filestore_v1::model::instance::PerformanceConfig;
-        /// use google_cloud_filestore_v1::model::instance::performance_config;
-        /// use google_cloud_filestore_v1::model::instance::IOPSPerTB;
-        /// let x = PerformanceConfig::new().set_mode(Some(instance::performance_config::Mode::IopsPerTb(IOPSPerTB::default().into())));
-        /// ```
         pub fn set_mode<
             T: std::convert::Into<
                     std::option::Option<crate::model::instance::performance_config::Mode>,
@@ -2272,15 +1883,6 @@ pub mod instance {
         ///
         /// Note that all the setters affecting `mode` are
         /// mutually exclusive.
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_filestore_v1::model::instance::PerformanceConfig;
-        /// use google_cloud_filestore_v1::model::instance::IOPSPerTB;
-        /// let x = PerformanceConfig::new().set_iops_per_tb(IOPSPerTB::default()/* use setters */);
-        /// assert!(x.iops_per_tb().is_some());
-        /// assert!(x.fixed_iops().is_none());
-        /// ```
         pub fn set_iops_per_tb<
             T: std::convert::Into<std::boxed::Box<crate::model::instance::IOPSPerTB>>,
         >(
@@ -2313,15 +1915,6 @@ pub mod instance {
         ///
         /// Note that all the setters affecting `mode` are
         /// mutually exclusive.
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_filestore_v1::model::instance::PerformanceConfig;
-        /// use google_cloud_filestore_v1::model::instance::FixedIOPS;
-        /// let x = PerformanceConfig::new().set_fixed_iops(FixedIOPS::default()/* use setters */);
-        /// assert!(x.fixed_iops().is_some());
-        /// assert!(x.iops_per_tb().is_none());
-        /// ```
         pub fn set_fixed_iops<
             T: std::convert::Into<std::boxed::Box<crate::model::instance::FixedIOPS>>,
         >(
@@ -2403,60 +1996,30 @@ pub mod instance {
         }
 
         /// Sets the value of [max_iops][crate::model::instance::PerformanceLimits::max_iops].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_filestore_v1::model::instance::PerformanceLimits;
-        /// let x = PerformanceLimits::new().set_max_iops(42);
-        /// ```
         pub fn set_max_iops<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
             self.max_iops = v.into();
             self
         }
 
         /// Sets the value of [max_read_iops][crate::model::instance::PerformanceLimits::max_read_iops].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_filestore_v1::model::instance::PerformanceLimits;
-        /// let x = PerformanceLimits::new().set_max_read_iops(42);
-        /// ```
         pub fn set_max_read_iops<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
             self.max_read_iops = v.into();
             self
         }
 
         /// Sets the value of [max_write_iops][crate::model::instance::PerformanceLimits::max_write_iops].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_filestore_v1::model::instance::PerformanceLimits;
-        /// let x = PerformanceLimits::new().set_max_write_iops(42);
-        /// ```
         pub fn set_max_write_iops<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
             self.max_write_iops = v.into();
             self
         }
 
         /// Sets the value of [max_read_throughput_bps][crate::model::instance::PerformanceLimits::max_read_throughput_bps].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_filestore_v1::model::instance::PerformanceLimits;
-        /// let x = PerformanceLimits::new().set_max_read_throughput_bps(42);
-        /// ```
         pub fn set_max_read_throughput_bps<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
             self.max_read_throughput_bps = v.into();
             self
         }
 
         /// Sets the value of [max_write_throughput_bps][crate::model::instance::PerformanceLimits::max_write_throughput_bps].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_filestore_v1::model::instance::PerformanceLimits;
-        /// let x = PerformanceLimits::new().set_max_write_throughput_bps(42);
-        /// ```
         pub fn set_max_write_throughput_bps<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
             self.max_write_throughput_bps = v.into();
             self
@@ -3137,37 +2700,18 @@ impl CreateInstanceRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateInstanceRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_filestore_v1::model::CreateInstanceRequest;
-    /// let x = CreateInstanceRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [instance_id][crate::model::CreateInstanceRequest::instance_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_filestore_v1::model::CreateInstanceRequest;
-    /// let x = CreateInstanceRequest::new().set_instance_id("example");
-    /// ```
     pub fn set_instance_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.instance_id = v.into();
         self
     }
 
     /// Sets the value of [instance][crate::model::CreateInstanceRequest::instance].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_filestore_v1::model::CreateInstanceRequest;
-    /// use google_cloud_filestore_v1::model::Instance;
-    /// let x = CreateInstanceRequest::new().set_instance(Instance::default()/* use setters */);
-    /// ```
     pub fn set_instance<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Instance>,
@@ -3177,14 +2721,6 @@ impl CreateInstanceRequest {
     }
 
     /// Sets or clears the value of [instance][crate::model::CreateInstanceRequest::instance].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_filestore_v1::model::CreateInstanceRequest;
-    /// use google_cloud_filestore_v1::model::Instance;
-    /// let x = CreateInstanceRequest::new().set_or_clear_instance(Some(Instance::default()/* use setters */));
-    /// let x = CreateInstanceRequest::new().set_or_clear_instance(None::<Instance>);
-    /// ```
     pub fn set_or_clear_instance<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Instance>,
@@ -3217,12 +2753,6 @@ impl GetInstanceRequest {
     }
 
     /// Sets the value of [name][crate::model::GetInstanceRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_filestore_v1::model::GetInstanceRequest;
-    /// let x = GetInstanceRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -3263,13 +2793,6 @@ impl UpdateInstanceRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateInstanceRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_filestore_v1::model::UpdateInstanceRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateInstanceRequest::new().set_update_mask(FieldMask::default()/* use setters */);
-    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -3279,14 +2802,6 @@ impl UpdateInstanceRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateInstanceRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_filestore_v1::model::UpdateInstanceRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateInstanceRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
-    /// let x = UpdateInstanceRequest::new().set_or_clear_update_mask(None::<FieldMask>);
-    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -3296,13 +2811,6 @@ impl UpdateInstanceRequest {
     }
 
     /// Sets the value of [instance][crate::model::UpdateInstanceRequest::instance].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_filestore_v1::model::UpdateInstanceRequest;
-    /// use google_cloud_filestore_v1::model::Instance;
-    /// let x = UpdateInstanceRequest::new().set_instance(Instance::default()/* use setters */);
-    /// ```
     pub fn set_instance<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Instance>,
@@ -3312,14 +2820,6 @@ impl UpdateInstanceRequest {
     }
 
     /// Sets or clears the value of [instance][crate::model::UpdateInstanceRequest::instance].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_filestore_v1::model::UpdateInstanceRequest;
-    /// use google_cloud_filestore_v1::model::Instance;
-    /// let x = UpdateInstanceRequest::new().set_or_clear_instance(Some(Instance::default()/* use setters */));
-    /// let x = UpdateInstanceRequest::new().set_or_clear_instance(None::<Instance>);
-    /// ```
     pub fn set_or_clear_instance<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Instance>,
@@ -3359,24 +2859,12 @@ impl RestoreInstanceRequest {
     }
 
     /// Sets the value of [name][crate::model::RestoreInstanceRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_filestore_v1::model::RestoreInstanceRequest;
-    /// let x = RestoreInstanceRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [file_share][crate::model::RestoreInstanceRequest::file_share].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_filestore_v1::model::RestoreInstanceRequest;
-    /// let x = RestoreInstanceRequest::new().set_file_share("example");
-    /// ```
     pub fn set_file_share<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.file_share = v.into();
         self
@@ -3386,13 +2874,6 @@ impl RestoreInstanceRequest {
     ///
     /// Note that all the setters affecting `source` are mutually
     /// exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_filestore_v1::model::RestoreInstanceRequest;
-    /// use google_cloud_filestore_v1::model::restore_instance_request;
-    /// let x = RestoreInstanceRequest::new().set_source(Some(restore_instance_request::Source::SourceBackup("example".to_string())));
-    /// ```
     pub fn set_source<
         T: std::convert::Into<std::option::Option<crate::model::restore_instance_request::Source>>,
     >(
@@ -3421,13 +2902,6 @@ impl RestoreInstanceRequest {
     ///
     /// Note that all the setters affecting `source` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_filestore_v1::model::RestoreInstanceRequest;
-    /// let x = RestoreInstanceRequest::new().set_source_backup("example");
-    /// assert!(x.source_backup().is_some());
-    /// ```
     pub fn set_source_backup<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.source = std::option::Option::Some(
             crate::model::restore_instance_request::Source::SourceBackup(v.into()),
@@ -3479,24 +2953,12 @@ impl RevertInstanceRequest {
     }
 
     /// Sets the value of [name][crate::model::RevertInstanceRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_filestore_v1::model::RevertInstanceRequest;
-    /// let x = RevertInstanceRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [target_snapshot_id][crate::model::RevertInstanceRequest::target_snapshot_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_filestore_v1::model::RevertInstanceRequest;
-    /// let x = RevertInstanceRequest::new().set_target_snapshot_id("example");
-    /// ```
     pub fn set_target_snapshot_id<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -3533,24 +2995,12 @@ impl DeleteInstanceRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteInstanceRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_filestore_v1::model::DeleteInstanceRequest;
-    /// let x = DeleteInstanceRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [force][crate::model::DeleteInstanceRequest::force].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_filestore_v1::model::DeleteInstanceRequest;
-    /// let x = DeleteInstanceRequest::new().set_force(true);
-    /// ```
     pub fn set_force<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.force = v.into();
         self
@@ -3597,60 +3047,30 @@ impl ListInstancesRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListInstancesRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_filestore_v1::model::ListInstancesRequest;
-    /// let x = ListInstancesRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListInstancesRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_filestore_v1::model::ListInstancesRequest;
-    /// let x = ListInstancesRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListInstancesRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_filestore_v1::model::ListInstancesRequest;
-    /// let x = ListInstancesRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListInstancesRequest::order_by].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_filestore_v1::model::ListInstancesRequest;
-    /// let x = ListInstancesRequest::new().set_order_by("example");
-    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListInstancesRequest::filter].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_filestore_v1::model::ListInstancesRequest;
-    /// let x = ListInstancesRequest::new().set_filter("example");
-    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
@@ -3691,17 +3111,6 @@ impl ListInstancesResponse {
     }
 
     /// Sets the value of [instances][crate::model::ListInstancesResponse::instances].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_filestore_v1::model::ListInstancesResponse;
-    /// use google_cloud_filestore_v1::model::Instance;
-    /// let x = ListInstancesResponse::new()
-    ///     .set_instances([
-    ///         Instance::default()/* use setters */,
-    ///         Instance::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_instances<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3713,24 +3122,12 @@ impl ListInstancesResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListInstancesResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_filestore_v1::model::ListInstancesResponse;
-    /// let x = ListInstancesResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListInstancesResponse::unreachable].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_filestore_v1::model::ListInstancesResponse;
-    /// let x = ListInstancesResponse::new().set_unreachable(["a", "b", "c"]);
-    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3809,52 +3206,24 @@ impl Snapshot {
     }
 
     /// Sets the value of [name][crate::model::Snapshot::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_filestore_v1::model::Snapshot;
-    /// let x = Snapshot::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [description][crate::model::Snapshot::description].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_filestore_v1::model::Snapshot;
-    /// let x = Snapshot::new().set_description("example");
-    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [state][crate::model::Snapshot::state].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_filestore_v1::model::Snapshot;
-    /// use google_cloud_filestore_v1::model::snapshot::State;
-    /// let x0 = Snapshot::new().set_state(State::Creating);
-    /// let x1 = Snapshot::new().set_state(State::Ready);
-    /// let x2 = Snapshot::new().set_state(State::Deleting);
-    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::snapshot::State>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::Snapshot::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_filestore_v1::model::Snapshot;
-    /// use wkt::Timestamp;
-    /// let x = Snapshot::new().set_create_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3864,14 +3233,6 @@ impl Snapshot {
     }
 
     /// Sets or clears the value of [create_time][crate::model::Snapshot::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_filestore_v1::model::Snapshot;
-    /// use wkt::Timestamp;
-    /// let x = Snapshot::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
-    /// let x = Snapshot::new().set_or_clear_create_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3881,15 +3242,6 @@ impl Snapshot {
     }
 
     /// Sets the value of [labels][crate::model::Snapshot::labels].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_filestore_v1::model::Snapshot;
-    /// let x = Snapshot::new().set_labels([
-    ///     ("key0", "abc"),
-    ///     ("key1", "xyz"),
-    /// ]);
-    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -3902,27 +3254,12 @@ impl Snapshot {
     }
 
     /// Sets the value of [filesystem_used_bytes][crate::model::Snapshot::filesystem_used_bytes].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_filestore_v1::model::Snapshot;
-    /// let x = Snapshot::new().set_filesystem_used_bytes(42);
-    /// ```
     pub fn set_filesystem_used_bytes<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.filesystem_used_bytes = v.into();
         self
     }
 
     /// Sets the value of [tags][crate::model::Snapshot::tags].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_filestore_v1::model::Snapshot;
-    /// let x = Snapshot::new().set_tags([
-    ///     ("key0", "abc"),
-    ///     ("key1", "xyz"),
-    /// ]);
-    /// ```
     pub fn set_tags<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -4113,37 +3450,18 @@ impl CreateSnapshotRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateSnapshotRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_filestore_v1::model::CreateSnapshotRequest;
-    /// let x = CreateSnapshotRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [snapshot_id][crate::model::CreateSnapshotRequest::snapshot_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_filestore_v1::model::CreateSnapshotRequest;
-    /// let x = CreateSnapshotRequest::new().set_snapshot_id("example");
-    /// ```
     pub fn set_snapshot_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.snapshot_id = v.into();
         self
     }
 
     /// Sets the value of [snapshot][crate::model::CreateSnapshotRequest::snapshot].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_filestore_v1::model::CreateSnapshotRequest;
-    /// use google_cloud_filestore_v1::model::Snapshot;
-    /// let x = CreateSnapshotRequest::new().set_snapshot(Snapshot::default()/* use setters */);
-    /// ```
     pub fn set_snapshot<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Snapshot>,
@@ -4153,14 +3471,6 @@ impl CreateSnapshotRequest {
     }
 
     /// Sets or clears the value of [snapshot][crate::model::CreateSnapshotRequest::snapshot].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_filestore_v1::model::CreateSnapshotRequest;
-    /// use google_cloud_filestore_v1::model::Snapshot;
-    /// let x = CreateSnapshotRequest::new().set_or_clear_snapshot(Some(Snapshot::default()/* use setters */));
-    /// let x = CreateSnapshotRequest::new().set_or_clear_snapshot(None::<Snapshot>);
-    /// ```
     pub fn set_or_clear_snapshot<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Snapshot>,
@@ -4193,12 +3503,6 @@ impl GetSnapshotRequest {
     }
 
     /// Sets the value of [name][crate::model::GetSnapshotRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_filestore_v1::model::GetSnapshotRequest;
-    /// let x = GetSnapshotRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -4228,12 +3532,6 @@ impl DeleteSnapshotRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteSnapshotRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_filestore_v1::model::DeleteSnapshotRequest;
-    /// let x = DeleteSnapshotRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -4266,13 +3564,6 @@ impl UpdateSnapshotRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateSnapshotRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_filestore_v1::model::UpdateSnapshotRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateSnapshotRequest::new().set_update_mask(FieldMask::default()/* use setters */);
-    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -4282,14 +3573,6 @@ impl UpdateSnapshotRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateSnapshotRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_filestore_v1::model::UpdateSnapshotRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateSnapshotRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
-    /// let x = UpdateSnapshotRequest::new().set_or_clear_update_mask(None::<FieldMask>);
-    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -4299,13 +3582,6 @@ impl UpdateSnapshotRequest {
     }
 
     /// Sets the value of [snapshot][crate::model::UpdateSnapshotRequest::snapshot].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_filestore_v1::model::UpdateSnapshotRequest;
-    /// use google_cloud_filestore_v1::model::Snapshot;
-    /// let x = UpdateSnapshotRequest::new().set_snapshot(Snapshot::default()/* use setters */);
-    /// ```
     pub fn set_snapshot<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Snapshot>,
@@ -4315,14 +3591,6 @@ impl UpdateSnapshotRequest {
     }
 
     /// Sets or clears the value of [snapshot][crate::model::UpdateSnapshotRequest::snapshot].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_filestore_v1::model::UpdateSnapshotRequest;
-    /// use google_cloud_filestore_v1::model::Snapshot;
-    /// let x = UpdateSnapshotRequest::new().set_or_clear_snapshot(Some(Snapshot::default()/* use setters */));
-    /// let x = UpdateSnapshotRequest::new().set_or_clear_snapshot(None::<Snapshot>);
-    /// ```
     pub fn set_or_clear_snapshot<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Snapshot>,
@@ -4373,72 +3641,36 @@ impl ListSnapshotsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListSnapshotsRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_filestore_v1::model::ListSnapshotsRequest;
-    /// let x = ListSnapshotsRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListSnapshotsRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_filestore_v1::model::ListSnapshotsRequest;
-    /// let x = ListSnapshotsRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListSnapshotsRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_filestore_v1::model::ListSnapshotsRequest;
-    /// let x = ListSnapshotsRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListSnapshotsRequest::order_by].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_filestore_v1::model::ListSnapshotsRequest;
-    /// let x = ListSnapshotsRequest::new().set_order_by("example");
-    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListSnapshotsRequest::filter].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_filestore_v1::model::ListSnapshotsRequest;
-    /// let x = ListSnapshotsRequest::new().set_filter("example");
-    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [return_partial_success][crate::model::ListSnapshotsRequest::return_partial_success].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_filestore_v1::model::ListSnapshotsRequest;
-    /// let x = ListSnapshotsRequest::new().set_return_partial_success(true);
-    /// ```
     pub fn set_return_partial_success<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.return_partial_success = v.into();
         self
@@ -4474,17 +3706,6 @@ impl ListSnapshotsResponse {
     }
 
     /// Sets the value of [snapshots][crate::model::ListSnapshotsResponse::snapshots].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_filestore_v1::model::ListSnapshotsResponse;
-    /// use google_cloud_filestore_v1::model::Snapshot;
-    /// let x = ListSnapshotsResponse::new()
-    ///     .set_snapshots([
-    ///         Snapshot::default()/* use setters */,
-    ///         Snapshot::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_snapshots<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4496,24 +3717,12 @@ impl ListSnapshotsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListSnapshotsResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_filestore_v1::model::ListSnapshotsResponse;
-    /// let x = ListSnapshotsResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListSnapshotsResponse::unreachable].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_filestore_v1::model::ListSnapshotsResponse;
-    /// let x = ListSnapshotsResponse::new().set_unreachable(["a", "b", "c"]);
-    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4626,52 +3835,24 @@ impl Backup {
     }
 
     /// Sets the value of [name][crate::model::Backup::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_filestore_v1::model::Backup;
-    /// let x = Backup::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [description][crate::model::Backup::description].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_filestore_v1::model::Backup;
-    /// let x = Backup::new().set_description("example");
-    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [state][crate::model::Backup::state].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_filestore_v1::model::Backup;
-    /// use google_cloud_filestore_v1::model::backup::State;
-    /// let x0 = Backup::new().set_state(State::Creating);
-    /// let x1 = Backup::new().set_state(State::Finalizing);
-    /// let x2 = Backup::new().set_state(State::Ready);
-    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::backup::State>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::Backup::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_filestore_v1::model::Backup;
-    /// use wkt::Timestamp;
-    /// let x = Backup::new().set_create_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4681,14 +3862,6 @@ impl Backup {
     }
 
     /// Sets or clears the value of [create_time][crate::model::Backup::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_filestore_v1::model::Backup;
-    /// use wkt::Timestamp;
-    /// let x = Backup::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
-    /// let x = Backup::new().set_or_clear_create_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4698,15 +3871,6 @@ impl Backup {
     }
 
     /// Sets the value of [labels][crate::model::Backup::labels].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_filestore_v1::model::Backup;
-    /// let x = Backup::new().set_labels([
-    ///     ("key0", "abc"),
-    ///     ("key1", "xyz"),
-    /// ]);
-    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -4719,48 +3883,24 @@ impl Backup {
     }
 
     /// Sets the value of [capacity_gb][crate::model::Backup::capacity_gb].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_filestore_v1::model::Backup;
-    /// let x = Backup::new().set_capacity_gb(42);
-    /// ```
     pub fn set_capacity_gb<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.capacity_gb = v.into();
         self
     }
 
     /// Sets the value of [storage_bytes][crate::model::Backup::storage_bytes].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_filestore_v1::model::Backup;
-    /// let x = Backup::new().set_storage_bytes(42);
-    /// ```
     pub fn set_storage_bytes<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.storage_bytes = v.into();
         self
     }
 
     /// Sets the value of [source_instance][crate::model::Backup::source_instance].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_filestore_v1::model::Backup;
-    /// let x = Backup::new().set_source_instance("example");
-    /// ```
     pub fn set_source_instance<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.source_instance = v.into();
         self
     }
 
     /// Sets the value of [source_file_share][crate::model::Backup::source_file_share].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_filestore_v1::model::Backup;
-    /// let x = Backup::new().set_source_file_share("example");
-    /// ```
     pub fn set_source_file_share<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -4770,15 +3910,6 @@ impl Backup {
     }
 
     /// Sets the value of [source_instance_tier][crate::model::Backup::source_instance_tier].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_filestore_v1::model::Backup;
-    /// use google_cloud_filestore_v1::model::instance::Tier;
-    /// let x0 = Backup::new().set_source_instance_tier(Tier::Standard);
-    /// let x1 = Backup::new().set_source_instance_tier(Tier::Premium);
-    /// let x2 = Backup::new().set_source_instance_tier(Tier::BasicHdd);
-    /// ```
     pub fn set_source_instance_tier<T: std::convert::Into<crate::model::instance::Tier>>(
         mut self,
         v: T,
@@ -4788,25 +3919,12 @@ impl Backup {
     }
 
     /// Sets the value of [download_bytes][crate::model::Backup::download_bytes].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_filestore_v1::model::Backup;
-    /// let x = Backup::new().set_download_bytes(42);
-    /// ```
     pub fn set_download_bytes<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.download_bytes = v.into();
         self
     }
 
     /// Sets the value of [satisfies_pzs][crate::model::Backup::satisfies_pzs].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_filestore_v1::model::Backup;
-    /// use wkt::BoolValue;
-    /// let x = Backup::new().set_satisfies_pzs(BoolValue::default()/* use setters */);
-    /// ```
     pub fn set_satisfies_pzs<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::BoolValue>,
@@ -4816,14 +3934,6 @@ impl Backup {
     }
 
     /// Sets or clears the value of [satisfies_pzs][crate::model::Backup::satisfies_pzs].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_filestore_v1::model::Backup;
-    /// use wkt::BoolValue;
-    /// let x = Backup::new().set_or_clear_satisfies_pzs(Some(BoolValue::default()/* use setters */));
-    /// let x = Backup::new().set_or_clear_satisfies_pzs(None::<BoolValue>);
-    /// ```
     pub fn set_or_clear_satisfies_pzs<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::BoolValue>,
@@ -4833,39 +3943,18 @@ impl Backup {
     }
 
     /// Sets the value of [satisfies_pzi][crate::model::Backup::satisfies_pzi].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_filestore_v1::model::Backup;
-    /// let x = Backup::new().set_satisfies_pzi(true);
-    /// ```
     pub fn set_satisfies_pzi<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.satisfies_pzi = v.into();
         self
     }
 
     /// Sets the value of [kms_key][crate::model::Backup::kms_key].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_filestore_v1::model::Backup;
-    /// let x = Backup::new().set_kms_key("example");
-    /// ```
     pub fn set_kms_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.kms_key = v.into();
         self
     }
 
     /// Sets the value of [tags][crate::model::Backup::tags].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_filestore_v1::model::Backup;
-    /// let x = Backup::new().set_tags([
-    ///     ("key0", "abc"),
-    ///     ("key1", "xyz"),
-    /// ]);
-    /// ```
     pub fn set_tags<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -4878,14 +3967,6 @@ impl Backup {
     }
 
     /// Sets the value of [file_system_protocol][crate::model::Backup::file_system_protocol].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_filestore_v1::model::Backup;
-    /// use google_cloud_filestore_v1::model::instance::FileProtocol;
-    /// let x0 = Backup::new().set_file_system_protocol(FileProtocol::NfsV3);
-    /// let x1 = Backup::new().set_file_system_protocol(FileProtocol::NfsV41);
-    /// ```
     pub fn set_file_system_protocol<T: std::convert::Into<crate::model::instance::FileProtocol>>(
         mut self,
         v: T,
@@ -5094,25 +4175,12 @@ impl CreateBackupRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateBackupRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_filestore_v1::model::CreateBackupRequest;
-    /// let x = CreateBackupRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [backup][crate::model::CreateBackupRequest::backup].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_filestore_v1::model::CreateBackupRequest;
-    /// use google_cloud_filestore_v1::model::Backup;
-    /// let x = CreateBackupRequest::new().set_backup(Backup::default()/* use setters */);
-    /// ```
     pub fn set_backup<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Backup>,
@@ -5122,14 +4190,6 @@ impl CreateBackupRequest {
     }
 
     /// Sets or clears the value of [backup][crate::model::CreateBackupRequest::backup].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_filestore_v1::model::CreateBackupRequest;
-    /// use google_cloud_filestore_v1::model::Backup;
-    /// let x = CreateBackupRequest::new().set_or_clear_backup(Some(Backup::default()/* use setters */));
-    /// let x = CreateBackupRequest::new().set_or_clear_backup(None::<Backup>);
-    /// ```
     pub fn set_or_clear_backup<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Backup>,
@@ -5139,12 +4199,6 @@ impl CreateBackupRequest {
     }
 
     /// Sets the value of [backup_id][crate::model::CreateBackupRequest::backup_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_filestore_v1::model::CreateBackupRequest;
-    /// let x = CreateBackupRequest::new().set_backup_id("example");
-    /// ```
     pub fn set_backup_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.backup_id = v.into();
         self
@@ -5174,12 +4228,6 @@ impl DeleteBackupRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteBackupRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_filestore_v1::model::DeleteBackupRequest;
-    /// let x = DeleteBackupRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -5214,13 +4262,6 @@ impl UpdateBackupRequest {
     }
 
     /// Sets the value of [backup][crate::model::UpdateBackupRequest::backup].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_filestore_v1::model::UpdateBackupRequest;
-    /// use google_cloud_filestore_v1::model::Backup;
-    /// let x = UpdateBackupRequest::new().set_backup(Backup::default()/* use setters */);
-    /// ```
     pub fn set_backup<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Backup>,
@@ -5230,14 +4271,6 @@ impl UpdateBackupRequest {
     }
 
     /// Sets or clears the value of [backup][crate::model::UpdateBackupRequest::backup].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_filestore_v1::model::UpdateBackupRequest;
-    /// use google_cloud_filestore_v1::model::Backup;
-    /// let x = UpdateBackupRequest::new().set_or_clear_backup(Some(Backup::default()/* use setters */));
-    /// let x = UpdateBackupRequest::new().set_or_clear_backup(None::<Backup>);
-    /// ```
     pub fn set_or_clear_backup<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Backup>,
@@ -5247,13 +4280,6 @@ impl UpdateBackupRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateBackupRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_filestore_v1::model::UpdateBackupRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateBackupRequest::new().set_update_mask(FieldMask::default()/* use setters */);
-    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -5263,14 +4289,6 @@ impl UpdateBackupRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateBackupRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_filestore_v1::model::UpdateBackupRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateBackupRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
-    /// let x = UpdateBackupRequest::new().set_or_clear_update_mask(None::<FieldMask>);
-    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -5309,24 +4327,12 @@ impl PromoteReplicaRequest {
     }
 
     /// Sets the value of [name][crate::model::PromoteReplicaRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_filestore_v1::model::PromoteReplicaRequest;
-    /// let x = PromoteReplicaRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [peer_instance][crate::model::PromoteReplicaRequest::peer_instance].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_filestore_v1::model::PromoteReplicaRequest;
-    /// let x = PromoteReplicaRequest::new().set_peer_instance("example");
-    /// ```
     pub fn set_peer_instance<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.peer_instance = v.into();
         self
@@ -5356,12 +4362,6 @@ impl GetBackupRequest {
     }
 
     /// Sets the value of [name][crate::model::GetBackupRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_filestore_v1::model::GetBackupRequest;
-    /// let x = GetBackupRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -5408,60 +4408,30 @@ impl ListBackupsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListBackupsRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_filestore_v1::model::ListBackupsRequest;
-    /// let x = ListBackupsRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListBackupsRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_filestore_v1::model::ListBackupsRequest;
-    /// let x = ListBackupsRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListBackupsRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_filestore_v1::model::ListBackupsRequest;
-    /// let x = ListBackupsRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListBackupsRequest::order_by].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_filestore_v1::model::ListBackupsRequest;
-    /// let x = ListBackupsRequest::new().set_order_by("example");
-    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListBackupsRequest::filter].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_filestore_v1::model::ListBackupsRequest;
-    /// let x = ListBackupsRequest::new().set_filter("example");
-    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
@@ -5503,17 +4473,6 @@ impl ListBackupsResponse {
     }
 
     /// Sets the value of [backups][crate::model::ListBackupsResponse::backups].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_filestore_v1::model::ListBackupsResponse;
-    /// use google_cloud_filestore_v1::model::Backup;
-    /// let x = ListBackupsResponse::new()
-    ///     .set_backups([
-    ///         Backup::default()/* use setters */,
-    ///         Backup::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_backups<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -5525,24 +4484,12 @@ impl ListBackupsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListBackupsResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_filestore_v1::model::ListBackupsResponse;
-    /// let x = ListBackupsResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListBackupsResponse::unreachable].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_filestore_v1::model::ListBackupsResponse;
-    /// let x = ListBackupsResponse::new().set_unreachable(["a", "b", "c"]);
-    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,

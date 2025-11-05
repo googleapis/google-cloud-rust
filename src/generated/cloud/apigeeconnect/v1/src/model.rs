@@ -64,36 +64,18 @@ impl ListConnectionsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListConnectionsRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apigeeconnect_v1::model::ListConnectionsRequest;
-    /// let x = ListConnectionsRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListConnectionsRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apigeeconnect_v1::model::ListConnectionsRequest;
-    /// let x = ListConnectionsRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListConnectionsRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apigeeconnect_v1::model::ListConnectionsRequest;
-    /// let x = ListConnectionsRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -127,17 +109,6 @@ impl ListConnectionsResponse {
     }
 
     /// Sets the value of [connections][crate::model::ListConnectionsResponse::connections].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apigeeconnect_v1::model::ListConnectionsResponse;
-    /// use google_cloud_apigeeconnect_v1::model::Connection;
-    /// let x = ListConnectionsResponse::new()
-    ///     .set_connections([
-    ///         Connection::default()/* use setters */,
-    ///         Connection::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_connections<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -149,12 +120,6 @@ impl ListConnectionsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListConnectionsResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apigeeconnect_v1::model::ListConnectionsResponse;
-    /// let x = ListConnectionsResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -203,25 +168,12 @@ impl Connection {
     }
 
     /// Sets the value of [endpoint][crate::model::Connection::endpoint].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apigeeconnect_v1::model::Connection;
-    /// let x = Connection::new().set_endpoint("example");
-    /// ```
     pub fn set_endpoint<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.endpoint = v.into();
         self
     }
 
     /// Sets the value of [cluster][crate::model::Connection::cluster].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apigeeconnect_v1::model::Connection;
-    /// use google_cloud_apigeeconnect_v1::model::Cluster;
-    /// let x = Connection::new().set_cluster(Cluster::default()/* use setters */);
-    /// ```
     pub fn set_cluster<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Cluster>,
@@ -231,14 +183,6 @@ impl Connection {
     }
 
     /// Sets or clears the value of [cluster][crate::model::Connection::cluster].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apigeeconnect_v1::model::Connection;
-    /// use google_cloud_apigeeconnect_v1::model::Cluster;
-    /// let x = Connection::new().set_or_clear_cluster(Some(Cluster::default()/* use setters */));
-    /// let x = Connection::new().set_or_clear_cluster(None::<Cluster>);
-    /// ```
     pub fn set_or_clear_cluster<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Cluster>,
@@ -248,12 +192,6 @@ impl Connection {
     }
 
     /// Sets the value of [stream_count][crate::model::Connection::stream_count].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apigeeconnect_v1::model::Connection;
-    /// let x = Connection::new().set_stream_count(42);
-    /// ```
     pub fn set_stream_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.stream_count = v.into();
         self
@@ -284,24 +222,12 @@ impl Cluster {
     }
 
     /// Sets the value of [name][crate::model::Cluster::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apigeeconnect_v1::model::Cluster;
-    /// let x = Cluster::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [region][crate::model::Cluster::region].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apigeeconnect_v1::model::Cluster;
-    /// let x = Cluster::new().set_region("example");
-    /// ```
     pub fn set_region<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.region = v.into();
         self
@@ -346,25 +272,12 @@ impl EgressRequest {
     }
 
     /// Sets the value of [id][crate::model::EgressRequest::id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apigeeconnect_v1::model::EgressRequest;
-    /// let x = EgressRequest::new().set_id("example");
-    /// ```
     pub fn set_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.id = v.into();
         self
     }
 
     /// Sets the value of [payload][crate::model::EgressRequest::payload].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apigeeconnect_v1::model::EgressRequest;
-    /// use google_cloud_apigeeconnect_v1::model::Payload;
-    /// let x = EgressRequest::new().set_payload(Payload::default()/* use setters */);
-    /// ```
     pub fn set_payload<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Payload>,
@@ -374,14 +287,6 @@ impl EgressRequest {
     }
 
     /// Sets or clears the value of [payload][crate::model::EgressRequest::payload].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apigeeconnect_v1::model::EgressRequest;
-    /// use google_cloud_apigeeconnect_v1::model::Payload;
-    /// let x = EgressRequest::new().set_or_clear_payload(Some(Payload::default()/* use setters */));
-    /// let x = EgressRequest::new().set_or_clear_payload(None::<Payload>);
-    /// ```
     pub fn set_or_clear_payload<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Payload>,
@@ -391,15 +296,6 @@ impl EgressRequest {
     }
 
     /// Sets the value of [endpoint][crate::model::EgressRequest::endpoint].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apigeeconnect_v1::model::EgressRequest;
-    /// use google_cloud_apigeeconnect_v1::model::TetherEndpoint;
-    /// let x0 = EgressRequest::new().set_endpoint(TetherEndpoint::ApigeeMart);
-    /// let x1 = EgressRequest::new().set_endpoint(TetherEndpoint::ApigeeRuntime);
-    /// let x2 = EgressRequest::new().set_endpoint(TetherEndpoint::ApigeeMintRating);
-    /// ```
     pub fn set_endpoint<T: std::convert::Into<crate::model::TetherEndpoint>>(
         mut self,
         v: T,
@@ -409,37 +305,18 @@ impl EgressRequest {
     }
 
     /// Sets the value of [project][crate::model::EgressRequest::project].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apigeeconnect_v1::model::EgressRequest;
-    /// let x = EgressRequest::new().set_project("example");
-    /// ```
     pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project = v.into();
         self
     }
 
     /// Sets the value of [trace_id][crate::model::EgressRequest::trace_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apigeeconnect_v1::model::EgressRequest;
-    /// let x = EgressRequest::new().set_trace_id("example");
-    /// ```
     pub fn set_trace_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.trace_id = v.into();
         self
     }
 
     /// Sets the value of [timeout][crate::model::EgressRequest::timeout].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apigeeconnect_v1::model::EgressRequest;
-    /// use wkt::Duration;
-    /// let x = EgressRequest::new().set_timeout(Duration::default()/* use setters */);
-    /// ```
     pub fn set_timeout<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -449,14 +326,6 @@ impl EgressRequest {
     }
 
     /// Sets or clears the value of [timeout][crate::model::EgressRequest::timeout].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apigeeconnect_v1::model::EgressRequest;
-    /// use wkt::Duration;
-    /// let x = EgressRequest::new().set_or_clear_timeout(Some(Duration::default()/* use setters */));
-    /// let x = EgressRequest::new().set_or_clear_timeout(None::<Duration>);
-    /// ```
     pub fn set_or_clear_timeout<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -491,14 +360,6 @@ impl Payload {
     ///
     /// Note that all the setters affecting `kind` are mutually
     /// exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apigeeconnect_v1::model::Payload;
-    /// use google_cloud_apigeeconnect_v1::model::payload;
-    /// use google_cloud_apigeeconnect_v1::model::Action;
-    /// let x0 = Payload::new().set_kind(Some(payload::Kind::Action(Action::OpenNewStream)));
-    /// ```
     pub fn set_kind<T: std::convert::Into<std::option::Option<crate::model::payload::Kind>>>(
         mut self,
         v: T,
@@ -523,16 +384,6 @@ impl Payload {
     ///
     /// Note that all the setters affecting `kind` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apigeeconnect_v1::model::Payload;
-    /// use google_cloud_apigeeconnect_v1::model::HttpRequest;
-    /// let x = Payload::new().set_http_request(HttpRequest::default()/* use setters */);
-    /// assert!(x.http_request().is_some());
-    /// assert!(x.stream_info().is_none());
-    /// assert!(x.action().is_none());
-    /// ```
     pub fn set_http_request<T: std::convert::Into<std::boxed::Box<crate::model::HttpRequest>>>(
         mut self,
         v: T,
@@ -557,16 +408,6 @@ impl Payload {
     ///
     /// Note that all the setters affecting `kind` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apigeeconnect_v1::model::Payload;
-    /// use google_cloud_apigeeconnect_v1::model::StreamInfo;
-    /// let x = Payload::new().set_stream_info(StreamInfo::default()/* use setters */);
-    /// assert!(x.stream_info().is_some());
-    /// assert!(x.http_request().is_none());
-    /// assert!(x.action().is_none());
-    /// ```
     pub fn set_stream_info<T: std::convert::Into<std::boxed::Box<crate::model::StreamInfo>>>(
         mut self,
         v: T,
@@ -591,16 +432,6 @@ impl Payload {
     ///
     /// Note that all the setters affecting `kind` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apigeeconnect_v1::model::Payload;
-    /// use google_cloud_apigeeconnect_v1::model::Action;
-    /// let x0 = Payload::new().set_action(Action::OpenNewStream);
-    /// assert!(x.action().is_some());
-    /// assert!(x.http_request().is_none());
-    /// assert!(x.stream_info().is_none());
-    /// ```
     pub fn set_action<T: std::convert::Into<crate::model::Action>>(mut self, v: T) -> Self {
         self.kind = std::option::Option::Some(crate::model::payload::Kind::Action(v.into()));
         self
@@ -647,12 +478,6 @@ impl StreamInfo {
     }
 
     /// Sets the value of [id][crate::model::StreamInfo::id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apigeeconnect_v1::model::StreamInfo;
-    /// let x = StreamInfo::new().set_id("example");
-    /// ```
     pub fn set_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.id = v.into();
         self
@@ -702,25 +527,12 @@ impl EgressResponse {
     }
 
     /// Sets the value of [id][crate::model::EgressResponse::id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apigeeconnect_v1::model::EgressResponse;
-    /// let x = EgressResponse::new().set_id("example");
-    /// ```
     pub fn set_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.id = v.into();
         self
     }
 
     /// Sets the value of [http_response][crate::model::EgressResponse::http_response].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apigeeconnect_v1::model::EgressResponse;
-    /// use google_cloud_apigeeconnect_v1::model::HttpResponse;
-    /// let x = EgressResponse::new().set_http_response(HttpResponse::default()/* use setters */);
-    /// ```
     pub fn set_http_response<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::HttpResponse>,
@@ -730,14 +542,6 @@ impl EgressResponse {
     }
 
     /// Sets or clears the value of [http_response][crate::model::EgressResponse::http_response].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apigeeconnect_v1::model::EgressResponse;
-    /// use google_cloud_apigeeconnect_v1::model::HttpResponse;
-    /// let x = EgressResponse::new().set_or_clear_http_response(Some(HttpResponse::default()/* use setters */));
-    /// let x = EgressResponse::new().set_or_clear_http_response(None::<HttpResponse>);
-    /// ```
     pub fn set_or_clear_http_response<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::HttpResponse>,
@@ -747,13 +551,6 @@ impl EgressResponse {
     }
 
     /// Sets the value of [status][crate::model::EgressResponse::status].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apigeeconnect_v1::model::EgressResponse;
-    /// use rpc::model::Status;
-    /// let x = EgressResponse::new().set_status(Status::default()/* use setters */);
-    /// ```
     pub fn set_status<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<rpc::model::Status>,
@@ -763,14 +560,6 @@ impl EgressResponse {
     }
 
     /// Sets or clears the value of [status][crate::model::EgressResponse::status].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apigeeconnect_v1::model::EgressResponse;
-    /// use rpc::model::Status;
-    /// let x = EgressResponse::new().set_or_clear_status(Some(Status::default()/* use setters */));
-    /// let x = EgressResponse::new().set_or_clear_status(None::<Status>);
-    /// ```
     pub fn set_or_clear_status<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<rpc::model::Status>,
@@ -780,39 +569,18 @@ impl EgressResponse {
     }
 
     /// Sets the value of [project][crate::model::EgressResponse::project].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apigeeconnect_v1::model::EgressResponse;
-    /// let x = EgressResponse::new().set_project("example");
-    /// ```
     pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project = v.into();
         self
     }
 
     /// Sets the value of [trace_id][crate::model::EgressResponse::trace_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apigeeconnect_v1::model::EgressResponse;
-    /// let x = EgressResponse::new().set_trace_id("example");
-    /// ```
     pub fn set_trace_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.trace_id = v.into();
         self
     }
 
     /// Sets the value of [endpoint][crate::model::EgressResponse::endpoint].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apigeeconnect_v1::model::EgressResponse;
-    /// use google_cloud_apigeeconnect_v1::model::TetherEndpoint;
-    /// let x0 = EgressResponse::new().set_endpoint(TetherEndpoint::ApigeeMart);
-    /// let x1 = EgressResponse::new().set_endpoint(TetherEndpoint::ApigeeRuntime);
-    /// let x2 = EgressResponse::new().set_endpoint(TetherEndpoint::ApigeeMintRating);
-    /// ```
     pub fn set_endpoint<T: std::convert::Into<crate::model::TetherEndpoint>>(
         mut self,
         v: T,
@@ -822,12 +590,6 @@ impl EgressResponse {
     }
 
     /// Sets the value of [name][crate::model::EgressResponse::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apigeeconnect_v1::model::EgressResponse;
-    /// let x = EgressResponse::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -869,37 +631,18 @@ impl HttpRequest {
     }
 
     /// Sets the value of [id][crate::model::HttpRequest::id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apigeeconnect_v1::model::HttpRequest;
-    /// let x = HttpRequest::new().set_id("example");
-    /// ```
     pub fn set_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.id = v.into();
         self
     }
 
     /// Sets the value of [method][crate::model::HttpRequest::method].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apigeeconnect_v1::model::HttpRequest;
-    /// let x = HttpRequest::new().set_method("example");
-    /// ```
     pub fn set_method<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.method = v.into();
         self
     }
 
     /// Sets the value of [url][crate::model::HttpRequest::url].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apigeeconnect_v1::model::HttpRequest;
-    /// use google_cloud_apigeeconnect_v1::model::Url;
-    /// let x = HttpRequest::new().set_url(Url::default()/* use setters */);
-    /// ```
     pub fn set_url<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Url>,
@@ -909,14 +652,6 @@ impl HttpRequest {
     }
 
     /// Sets or clears the value of [url][crate::model::HttpRequest::url].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apigeeconnect_v1::model::HttpRequest;
-    /// use google_cloud_apigeeconnect_v1::model::Url;
-    /// let x = HttpRequest::new().set_or_clear_url(Some(Url::default()/* use setters */));
-    /// let x = HttpRequest::new().set_or_clear_url(None::<Url>);
-    /// ```
     pub fn set_or_clear_url<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Url>,
@@ -926,17 +661,6 @@ impl HttpRequest {
     }
 
     /// Sets the value of [headers][crate::model::HttpRequest::headers].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apigeeconnect_v1::model::HttpRequest;
-    /// use google_cloud_apigeeconnect_v1::model::Header;
-    /// let x = HttpRequest::new()
-    ///     .set_headers([
-    ///         Header::default()/* use setters */,
-    ///         Header::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_headers<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -948,12 +672,6 @@ impl HttpRequest {
     }
 
     /// Sets the value of [body][crate::model::HttpRequest::body].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apigeeconnect_v1::model::HttpRequest;
-    /// let x = HttpRequest::new().set_body(bytes::Bytes::from_static(b"example"));
-    /// ```
     pub fn set_body<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.body = v.into();
         self
@@ -993,37 +711,18 @@ impl Url {
     }
 
     /// Sets the value of [scheme][crate::model::Url::scheme].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apigeeconnect_v1::model::Url;
-    /// use google_cloud_apigeeconnect_v1::model::Scheme;
-    /// let x0 = Url::new().set_scheme(Scheme::Https);
-    /// ```
     pub fn set_scheme<T: std::convert::Into<crate::model::Scheme>>(mut self, v: T) -> Self {
         self.scheme = v.into();
         self
     }
 
     /// Sets the value of [host][crate::model::Url::host].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apigeeconnect_v1::model::Url;
-    /// let x = Url::new().set_host("example");
-    /// ```
     pub fn set_host<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.host = v.into();
         self
     }
 
     /// Sets the value of [path][crate::model::Url::path].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apigeeconnect_v1::model::Url;
-    /// let x = Url::new().set_path("example");
-    /// ```
     pub fn set_path<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.path = v.into();
         self
@@ -1053,24 +752,12 @@ impl Header {
     }
 
     /// Sets the value of [key][crate::model::Header::key].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apigeeconnect_v1::model::Header;
-    /// let x = Header::new().set_key("example");
-    /// ```
     pub fn set_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.key = v.into();
         self
     }
 
     /// Sets the value of [values][crate::model::Header::values].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apigeeconnect_v1::model::Header;
-    /// let x = Header::new().set_values(["a", "b", "c"]);
-    /// ```
     pub fn set_values<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1122,65 +809,30 @@ impl HttpResponse {
     }
 
     /// Sets the value of [id][crate::model::HttpResponse::id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apigeeconnect_v1::model::HttpResponse;
-    /// let x = HttpResponse::new().set_id("example");
-    /// ```
     pub fn set_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.id = v.into();
         self
     }
 
     /// Sets the value of [status][crate::model::HttpResponse::status].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apigeeconnect_v1::model::HttpResponse;
-    /// let x = HttpResponse::new().set_status("example");
-    /// ```
     pub fn set_status<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.status = v.into();
         self
     }
 
     /// Sets the value of [status_code][crate::model::HttpResponse::status_code].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apigeeconnect_v1::model::HttpResponse;
-    /// let x = HttpResponse::new().set_status_code(42);
-    /// ```
     pub fn set_status_code<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.status_code = v.into();
         self
     }
 
     /// Sets the value of [body][crate::model::HttpResponse::body].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apigeeconnect_v1::model::HttpResponse;
-    /// let x = HttpResponse::new().set_body(bytes::Bytes::from_static(b"example"));
-    /// ```
     pub fn set_body<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.body = v.into();
         self
     }
 
     /// Sets the value of [headers][crate::model::HttpResponse::headers].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apigeeconnect_v1::model::HttpResponse;
-    /// use google_cloud_apigeeconnect_v1::model::Header;
-    /// let x = HttpResponse::new()
-    ///     .set_headers([
-    ///         Header::default()/* use setters */,
-    ///         Header::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_headers<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1192,12 +844,6 @@ impl HttpResponse {
     }
 
     /// Sets the value of [content_length][crate::model::HttpResponse::content_length].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_apigeeconnect_v1::model::HttpResponse;
-    /// let x = HttpResponse::new().set_content_length(42);
-    /// ```
     pub fn set_content_length<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.content_length = v.into();
         self

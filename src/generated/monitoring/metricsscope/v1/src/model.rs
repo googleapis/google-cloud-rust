@@ -69,25 +69,12 @@ impl MetricsScope {
     }
 
     /// Sets the value of [name][crate::model::MetricsScope::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_monitoring_metricsscope_v1::model::MetricsScope;
-    /// let x = MetricsScope::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::MetricsScope::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_monitoring_metricsscope_v1::model::MetricsScope;
-    /// use wkt::Timestamp;
-    /// let x = MetricsScope::new().set_create_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -97,14 +84,6 @@ impl MetricsScope {
     }
 
     /// Sets or clears the value of [create_time][crate::model::MetricsScope::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_monitoring_metricsscope_v1::model::MetricsScope;
-    /// use wkt::Timestamp;
-    /// let x = MetricsScope::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
-    /// let x = MetricsScope::new().set_or_clear_create_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -114,13 +93,6 @@ impl MetricsScope {
     }
 
     /// Sets the value of [update_time][crate::model::MetricsScope::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_monitoring_metricsscope_v1::model::MetricsScope;
-    /// use wkt::Timestamp;
-    /// let x = MetricsScope::new().set_update_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -130,14 +102,6 @@ impl MetricsScope {
     }
 
     /// Sets or clears the value of [update_time][crate::model::MetricsScope::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_monitoring_metricsscope_v1::model::MetricsScope;
-    /// use wkt::Timestamp;
-    /// let x = MetricsScope::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
-    /// let x = MetricsScope::new().set_or_clear_update_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -147,17 +111,6 @@ impl MetricsScope {
     }
 
     /// Sets the value of [monitored_projects][crate::model::MetricsScope::monitored_projects].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_monitoring_metricsscope_v1::model::MetricsScope;
-    /// use google_cloud_monitoring_metricsscope_v1::model::MonitoredProject;
-    /// let x = MetricsScope::new()
-    ///     .set_monitored_projects([
-    ///         MonitoredProject::default()/* use setters */,
-    ///         MonitoredProject::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_monitored_projects<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -200,25 +153,12 @@ impl MonitoredProject {
     }
 
     /// Sets the value of [name][crate::model::MonitoredProject::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_monitoring_metricsscope_v1::model::MonitoredProject;
-    /// let x = MonitoredProject::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::MonitoredProject::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_monitoring_metricsscope_v1::model::MonitoredProject;
-    /// use wkt::Timestamp;
-    /// let x = MonitoredProject::new().set_create_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -228,14 +168,6 @@ impl MonitoredProject {
     }
 
     /// Sets or clears the value of [create_time][crate::model::MonitoredProject::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_monitoring_metricsscope_v1::model::MonitoredProject;
-    /// use wkt::Timestamp;
-    /// let x = MonitoredProject::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
-    /// let x = MonitoredProject::new().set_or_clear_create_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -269,12 +201,6 @@ impl GetMetricsScopeRequest {
     }
 
     /// Sets the value of [name][crate::model::GetMetricsScopeRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_monitoring_metricsscope_v1::model::GetMetricsScopeRequest;
-    /// let x = GetMetricsScopeRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -305,12 +231,6 @@ impl ListMetricsScopesByMonitoredProjectRequest {
     }
 
     /// Sets the value of [monitored_resource_container][crate::model::ListMetricsScopesByMonitoredProjectRequest::monitored_resource_container].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_monitoring_metricsscope_v1::model::ListMetricsScopesByMonitoredProjectRequest;
-    /// let x = ListMetricsScopesByMonitoredProjectRequest::new().set_monitored_resource_container("example");
-    /// ```
     pub fn set_monitored_resource_container<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -343,17 +263,6 @@ impl ListMetricsScopesByMonitoredProjectResponse {
     }
 
     /// Sets the value of [metrics_scopes][crate::model::ListMetricsScopesByMonitoredProjectResponse::metrics_scopes].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_monitoring_metricsscope_v1::model::ListMetricsScopesByMonitoredProjectResponse;
-    /// use google_cloud_monitoring_metricsscope_v1::model::MetricsScope;
-    /// let x = ListMetricsScopesByMonitoredProjectResponse::new()
-    ///     .set_metrics_scopes([
-    ///         MetricsScope::default()/* use setters */,
-    ///         MetricsScope::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_metrics_scopes<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -396,25 +305,12 @@ impl CreateMonitoredProjectRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateMonitoredProjectRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_monitoring_metricsscope_v1::model::CreateMonitoredProjectRequest;
-    /// let x = CreateMonitoredProjectRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [monitored_project][crate::model::CreateMonitoredProjectRequest::monitored_project].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_monitoring_metricsscope_v1::model::CreateMonitoredProjectRequest;
-    /// use google_cloud_monitoring_metricsscope_v1::model::MonitoredProject;
-    /// let x = CreateMonitoredProjectRequest::new().set_monitored_project(MonitoredProject::default()/* use setters */);
-    /// ```
     pub fn set_monitored_project<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::MonitoredProject>,
@@ -424,14 +320,6 @@ impl CreateMonitoredProjectRequest {
     }
 
     /// Sets or clears the value of [monitored_project][crate::model::CreateMonitoredProjectRequest::monitored_project].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_monitoring_metricsscope_v1::model::CreateMonitoredProjectRequest;
-    /// use google_cloud_monitoring_metricsscope_v1::model::MonitoredProject;
-    /// let x = CreateMonitoredProjectRequest::new().set_or_clear_monitored_project(Some(MonitoredProject::default()/* use setters */));
-    /// let x = CreateMonitoredProjectRequest::new().set_or_clear_monitored_project(None::<MonitoredProject>);
-    /// ```
     pub fn set_or_clear_monitored_project<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::MonitoredProject>,
@@ -469,12 +357,6 @@ impl DeleteMonitoredProjectRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteMonitoredProjectRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_monitoring_metricsscope_v1::model::DeleteMonitoredProjectRequest;
-    /// let x = DeleteMonitoredProjectRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -510,15 +392,6 @@ impl OperationMetadata {
     }
 
     /// Sets the value of [state][crate::model::OperationMetadata::state].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_monitoring_metricsscope_v1::model::OperationMetadata;
-    /// use google_cloud_monitoring_metricsscope_v1::model::operation_metadata::State;
-    /// let x0 = OperationMetadata::new().set_state(State::Created);
-    /// let x1 = OperationMetadata::new().set_state(State::Running);
-    /// let x2 = OperationMetadata::new().set_state(State::Done);
-    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::operation_metadata::State>>(
         mut self,
         v: T,
@@ -528,13 +401,6 @@ impl OperationMetadata {
     }
 
     /// Sets the value of [create_time][crate::model::OperationMetadata::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_monitoring_metricsscope_v1::model::OperationMetadata;
-    /// use wkt::Timestamp;
-    /// let x = OperationMetadata::new().set_create_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -544,14 +410,6 @@ impl OperationMetadata {
     }
 
     /// Sets or clears the value of [create_time][crate::model::OperationMetadata::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_monitoring_metricsscope_v1::model::OperationMetadata;
-    /// use wkt::Timestamp;
-    /// let x = OperationMetadata::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
-    /// let x = OperationMetadata::new().set_or_clear_create_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -561,13 +419,6 @@ impl OperationMetadata {
     }
 
     /// Sets the value of [update_time][crate::model::OperationMetadata::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_monitoring_metricsscope_v1::model::OperationMetadata;
-    /// use wkt::Timestamp;
-    /// let x = OperationMetadata::new().set_update_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -577,14 +428,6 @@ impl OperationMetadata {
     }
 
     /// Sets or clears the value of [update_time][crate::model::OperationMetadata::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_monitoring_metricsscope_v1::model::OperationMetadata;
-    /// use wkt::Timestamp;
-    /// let x = OperationMetadata::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
-    /// let x = OperationMetadata::new().set_or_clear_update_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,

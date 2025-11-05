@@ -60,32 +60,12 @@ impl AuthConfig {
     }
 
     /// Sets the value of [auth_type][crate::model::AuthConfig::auth_type].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::AuthConfig;
-    /// use google_cloud_connectors_v1::model::AuthType;
-    /// let x0 = AuthConfig::new().set_auth_type(AuthType::UserPassword);
-    /// let x1 = AuthConfig::new().set_auth_type(AuthType::Oauth2JwtBearer);
-    /// let x2 = AuthConfig::new().set_auth_type(AuthType::Oauth2ClientCredentials);
-    /// ```
     pub fn set_auth_type<T: std::convert::Into<crate::model::AuthType>>(mut self, v: T) -> Self {
         self.auth_type = v.into();
         self
     }
 
     /// Sets the value of [additional_variables][crate::model::AuthConfig::additional_variables].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::AuthConfig;
-    /// use google_cloud_connectors_v1::model::ConfigVariable;
-    /// let x = AuthConfig::new()
-    ///     .set_additional_variables([
-    ///         ConfigVariable::default()/* use setters */,
-    ///         ConfigVariable::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_additional_variables<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -100,14 +80,6 @@ impl AuthConfig {
     ///
     /// Note that all the setters affecting `r#type` are mutually
     /// exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::AuthConfig;
-    /// use google_cloud_connectors_v1::model::auth_config;
-    /// use google_cloud_connectors_v1::model::auth_config::UserPassword;
-    /// let x = AuthConfig::new().set_type(Some(auth_config::Type::UserPassword(UserPassword::default().into())));
-    /// ```
     pub fn set_type<T: std::convert::Into<std::option::Option<crate::model::auth_config::Type>>>(
         mut self,
         v: T,
@@ -134,17 +106,6 @@ impl AuthConfig {
     ///
     /// Note that all the setters affecting `r#type` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::AuthConfig;
-    /// use google_cloud_connectors_v1::model::auth_config::UserPassword;
-    /// let x = AuthConfig::new().set_user_password(UserPassword::default()/* use setters */);
-    /// assert!(x.user_password().is_some());
-    /// assert!(x.oauth2_jwt_bearer().is_none());
-    /// assert!(x.oauth2_client_credentials().is_none());
-    /// assert!(x.ssh_public_key().is_none());
-    /// ```
     pub fn set_user_password<
         T: std::convert::Into<std::boxed::Box<crate::model::auth_config::UserPassword>>,
     >(
@@ -174,17 +135,6 @@ impl AuthConfig {
     ///
     /// Note that all the setters affecting `r#type` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::AuthConfig;
-    /// use google_cloud_connectors_v1::model::auth_config::Oauth2JwtBearer;
-    /// let x = AuthConfig::new().set_oauth2_jwt_bearer(Oauth2JwtBearer::default()/* use setters */);
-    /// assert!(x.oauth2_jwt_bearer().is_some());
-    /// assert!(x.user_password().is_none());
-    /// assert!(x.oauth2_client_credentials().is_none());
-    /// assert!(x.ssh_public_key().is_none());
-    /// ```
     pub fn set_oauth2_jwt_bearer<
         T: std::convert::Into<std::boxed::Box<crate::model::auth_config::Oauth2JwtBearer>>,
     >(
@@ -217,17 +167,6 @@ impl AuthConfig {
     ///
     /// Note that all the setters affecting `r#type` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::AuthConfig;
-    /// use google_cloud_connectors_v1::model::auth_config::Oauth2ClientCredentials;
-    /// let x = AuthConfig::new().set_oauth2_client_credentials(Oauth2ClientCredentials::default()/* use setters */);
-    /// assert!(x.oauth2_client_credentials().is_some());
-    /// assert!(x.user_password().is_none());
-    /// assert!(x.oauth2_jwt_bearer().is_none());
-    /// assert!(x.ssh_public_key().is_none());
-    /// ```
     pub fn set_oauth2_client_credentials<
         T: std::convert::Into<std::boxed::Box<crate::model::auth_config::Oauth2ClientCredentials>>,
     >(
@@ -258,17 +197,6 @@ impl AuthConfig {
     ///
     /// Note that all the setters affecting `r#type` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::AuthConfig;
-    /// use google_cloud_connectors_v1::model::auth_config::SshPublicKey;
-    /// let x = AuthConfig::new().set_ssh_public_key(SshPublicKey::default()/* use setters */);
-    /// assert!(x.ssh_public_key().is_some());
-    /// assert!(x.user_password().is_none());
-    /// assert!(x.oauth2_jwt_bearer().is_none());
-    /// assert!(x.oauth2_client_credentials().is_none());
-    /// ```
     pub fn set_ssh_public_key<
         T: std::convert::Into<std::boxed::Box<crate::model::auth_config::SshPublicKey>>,
     >(
@@ -311,25 +239,12 @@ pub mod auth_config {
         }
 
         /// Sets the value of [username][crate::model::auth_config::UserPassword::username].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_connectors_v1::model::auth_config::UserPassword;
-        /// let x = UserPassword::new().set_username("example");
-        /// ```
         pub fn set_username<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.username = v.into();
             self
         }
 
         /// Sets the value of [password][crate::model::auth_config::UserPassword::password].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_connectors_v1::model::auth_config::UserPassword;
-        /// use google_cloud_connectors_v1::model::Secret;
-        /// let x = UserPassword::new().set_password(Secret::default()/* use setters */);
-        /// ```
         pub fn set_password<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::Secret>,
@@ -339,14 +254,6 @@ pub mod auth_config {
         }
 
         /// Sets or clears the value of [password][crate::model::auth_config::UserPassword::password].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_connectors_v1::model::auth_config::UserPassword;
-        /// use google_cloud_connectors_v1::model::Secret;
-        /// let x = UserPassword::new().set_or_clear_password(Some(Secret::default()/* use setters */));
-        /// let x = UserPassword::new().set_or_clear_password(None::<Secret>);
-        /// ```
         pub fn set_or_clear_password<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Secret>,
@@ -387,13 +294,6 @@ pub mod auth_config {
         }
 
         /// Sets the value of [client_key][crate::model::auth_config::Oauth2JwtBearer::client_key].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_connectors_v1::model::auth_config::Oauth2JwtBearer;
-        /// use google_cloud_connectors_v1::model::Secret;
-        /// let x = Oauth2JwtBearer::new().set_client_key(Secret::default()/* use setters */);
-        /// ```
         pub fn set_client_key<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::Secret>,
@@ -403,14 +303,6 @@ pub mod auth_config {
         }
 
         /// Sets or clears the value of [client_key][crate::model::auth_config::Oauth2JwtBearer::client_key].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_connectors_v1::model::auth_config::Oauth2JwtBearer;
-        /// use google_cloud_connectors_v1::model::Secret;
-        /// let x = Oauth2JwtBearer::new().set_or_clear_client_key(Some(Secret::default()/* use setters */));
-        /// let x = Oauth2JwtBearer::new().set_or_clear_client_key(None::<Secret>);
-        /// ```
         pub fn set_or_clear_client_key<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Secret>,
@@ -420,13 +312,6 @@ pub mod auth_config {
         }
 
         /// Sets the value of [jwt_claims][crate::model::auth_config::Oauth2JwtBearer::jwt_claims].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_connectors_v1::model::auth_config::Oauth2JwtBearer;
-        /// use google_cloud_connectors_v1::model::auth_config::oauth_2_jwt_bearer::JwtClaims;
-        /// let x = Oauth2JwtBearer::new().set_jwt_claims(JwtClaims::default()/* use setters */);
-        /// ```
         pub fn set_jwt_claims<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::auth_config::oauth_2_jwt_bearer::JwtClaims>,
@@ -436,14 +321,6 @@ pub mod auth_config {
         }
 
         /// Sets or clears the value of [jwt_claims][crate::model::auth_config::Oauth2JwtBearer::jwt_claims].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_connectors_v1::model::auth_config::Oauth2JwtBearer;
-        /// use google_cloud_connectors_v1::model::auth_config::oauth_2_jwt_bearer::JwtClaims;
-        /// let x = Oauth2JwtBearer::new().set_or_clear_jwt_claims(Some(JwtClaims::default()/* use setters */));
-        /// let x = Oauth2JwtBearer::new().set_or_clear_jwt_claims(None::<JwtClaims>);
-        /// ```
         pub fn set_or_clear_jwt_claims<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::auth_config::oauth_2_jwt_bearer::JwtClaims>,
@@ -486,36 +363,18 @@ pub mod auth_config {
             }
 
             /// Sets the value of [issuer][crate::model::auth_config::oauth_2_jwt_bearer::JwtClaims::issuer].
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_connectors_v1::model::auth_config::oauth_2_jwt_bearer::JwtClaims;
-            /// let x = JwtClaims::new().set_issuer("example");
-            /// ```
             pub fn set_issuer<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
                 self.issuer = v.into();
                 self
             }
 
             /// Sets the value of [subject][crate::model::auth_config::oauth_2_jwt_bearer::JwtClaims::subject].
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_connectors_v1::model::auth_config::oauth_2_jwt_bearer::JwtClaims;
-            /// let x = JwtClaims::new().set_subject("example");
-            /// ```
             pub fn set_subject<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
                 self.subject = v.into();
                 self
             }
 
             /// Sets the value of [audience][crate::model::auth_config::oauth_2_jwt_bearer::JwtClaims::audience].
-            ///
-            /// # Example
-            /// ```
-            /// # use google_cloud_connectors_v1::model::auth_config::oauth_2_jwt_bearer::JwtClaims;
-            /// let x = JwtClaims::new().set_audience("example");
-            /// ```
             pub fn set_audience<T: std::convert::Into<std::string::String>>(
                 mut self,
                 v: T,
@@ -552,25 +411,12 @@ pub mod auth_config {
         }
 
         /// Sets the value of [client_id][crate::model::auth_config::Oauth2ClientCredentials::client_id].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_connectors_v1::model::auth_config::Oauth2ClientCredentials;
-        /// let x = Oauth2ClientCredentials::new().set_client_id("example");
-        /// ```
         pub fn set_client_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.client_id = v.into();
             self
         }
 
         /// Sets the value of [client_secret][crate::model::auth_config::Oauth2ClientCredentials::client_secret].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_connectors_v1::model::auth_config::Oauth2ClientCredentials;
-        /// use google_cloud_connectors_v1::model::Secret;
-        /// let x = Oauth2ClientCredentials::new().set_client_secret(Secret::default()/* use setters */);
-        /// ```
         pub fn set_client_secret<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::Secret>,
@@ -580,14 +426,6 @@ pub mod auth_config {
         }
 
         /// Sets or clears the value of [client_secret][crate::model::auth_config::Oauth2ClientCredentials::client_secret].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_connectors_v1::model::auth_config::Oauth2ClientCredentials;
-        /// use google_cloud_connectors_v1::model::Secret;
-        /// let x = Oauth2ClientCredentials::new().set_or_clear_client_secret(Some(Secret::default()/* use setters */));
-        /// let x = Oauth2ClientCredentials::new().set_or_clear_client_secret(None::<Secret>);
-        /// ```
         pub fn set_or_clear_client_secret<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Secret>,
@@ -628,25 +466,12 @@ pub mod auth_config {
         }
 
         /// Sets the value of [username][crate::model::auth_config::SshPublicKey::username].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_connectors_v1::model::auth_config::SshPublicKey;
-        /// let x = SshPublicKey::new().set_username("example");
-        /// ```
         pub fn set_username<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.username = v.into();
             self
         }
 
         /// Sets the value of [ssh_client_cert][crate::model::auth_config::SshPublicKey::ssh_client_cert].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_connectors_v1::model::auth_config::SshPublicKey;
-        /// use google_cloud_connectors_v1::model::Secret;
-        /// let x = SshPublicKey::new().set_ssh_client_cert(Secret::default()/* use setters */);
-        /// ```
         pub fn set_ssh_client_cert<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::Secret>,
@@ -656,14 +481,6 @@ pub mod auth_config {
         }
 
         /// Sets or clears the value of [ssh_client_cert][crate::model::auth_config::SshPublicKey::ssh_client_cert].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_connectors_v1::model::auth_config::SshPublicKey;
-        /// use google_cloud_connectors_v1::model::Secret;
-        /// let x = SshPublicKey::new().set_or_clear_ssh_client_cert(Some(Secret::default()/* use setters */));
-        /// let x = SshPublicKey::new().set_or_clear_ssh_client_cert(None::<Secret>);
-        /// ```
         pub fn set_or_clear_ssh_client_cert<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Secret>,
@@ -673,25 +490,12 @@ pub mod auth_config {
         }
 
         /// Sets the value of [cert_type][crate::model::auth_config::SshPublicKey::cert_type].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_connectors_v1::model::auth_config::SshPublicKey;
-        /// let x = SshPublicKey::new().set_cert_type("example");
-        /// ```
         pub fn set_cert_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.cert_type = v.into();
             self
         }
 
         /// Sets the value of [ssh_client_cert_pass][crate::model::auth_config::SshPublicKey::ssh_client_cert_pass].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_connectors_v1::model::auth_config::SshPublicKey;
-        /// use google_cloud_connectors_v1::model::Secret;
-        /// let x = SshPublicKey::new().set_ssh_client_cert_pass(Secret::default()/* use setters */);
-        /// ```
         pub fn set_ssh_client_cert_pass<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::Secret>,
@@ -701,14 +505,6 @@ pub mod auth_config {
         }
 
         /// Sets or clears the value of [ssh_client_cert_pass][crate::model::auth_config::SshPublicKey::ssh_client_cert_pass].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_connectors_v1::model::auth_config::SshPublicKey;
-        /// use google_cloud_connectors_v1::model::Secret;
-        /// let x = SshPublicKey::new().set_or_clear_ssh_client_cert_pass(Some(Secret::default()/* use setters */));
-        /// let x = SshPublicKey::new().set_or_clear_ssh_client_cert_pass(None::<Secret>);
-        /// ```
         pub fn set_or_clear_ssh_client_cert_pass<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Secret>,
@@ -766,32 +562,12 @@ impl AuthConfigTemplate {
     }
 
     /// Sets the value of [auth_type][crate::model::AuthConfigTemplate::auth_type].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::AuthConfigTemplate;
-    /// use google_cloud_connectors_v1::model::AuthType;
-    /// let x0 = AuthConfigTemplate::new().set_auth_type(AuthType::UserPassword);
-    /// let x1 = AuthConfigTemplate::new().set_auth_type(AuthType::Oauth2JwtBearer);
-    /// let x2 = AuthConfigTemplate::new().set_auth_type(AuthType::Oauth2ClientCredentials);
-    /// ```
     pub fn set_auth_type<T: std::convert::Into<crate::model::AuthType>>(mut self, v: T) -> Self {
         self.auth_type = v.into();
         self
     }
 
     /// Sets the value of [config_variable_templates][crate::model::AuthConfigTemplate::config_variable_templates].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::AuthConfigTemplate;
-    /// use google_cloud_connectors_v1::model::ConfigVariableTemplate;
-    /// let x = AuthConfigTemplate::new()
-    ///     .set_config_variable_templates([
-    ///         ConfigVariableTemplate::default()/* use setters */,
-    ///         ConfigVariableTemplate::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_config_variable_templates<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -803,24 +579,12 @@ impl AuthConfigTemplate {
     }
 
     /// Sets the value of [display_name][crate::model::AuthConfigTemplate::display_name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::AuthConfigTemplate;
-    /// let x = AuthConfigTemplate::new().set_display_name("example");
-    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
     }
 
     /// Sets the value of [description][crate::model::AuthConfigTemplate::description].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::AuthConfigTemplate;
-    /// let x = AuthConfigTemplate::new().set_description("example");
-    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
@@ -873,13 +637,6 @@ impl OperationMetadata {
     }
 
     /// Sets the value of [create_time][crate::model::OperationMetadata::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::OperationMetadata;
-    /// use wkt::Timestamp;
-    /// let x = OperationMetadata::new().set_create_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -889,14 +646,6 @@ impl OperationMetadata {
     }
 
     /// Sets or clears the value of [create_time][crate::model::OperationMetadata::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::OperationMetadata;
-    /// use wkt::Timestamp;
-    /// let x = OperationMetadata::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
-    /// let x = OperationMetadata::new().set_or_clear_create_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -906,13 +655,6 @@ impl OperationMetadata {
     }
 
     /// Sets the value of [end_time][crate::model::OperationMetadata::end_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::OperationMetadata;
-    /// use wkt::Timestamp;
-    /// let x = OperationMetadata::new().set_end_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -922,14 +664,6 @@ impl OperationMetadata {
     }
 
     /// Sets or clears the value of [end_time][crate::model::OperationMetadata::end_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::OperationMetadata;
-    /// use wkt::Timestamp;
-    /// let x = OperationMetadata::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
-    /// let x = OperationMetadata::new().set_or_clear_end_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -939,60 +673,30 @@ impl OperationMetadata {
     }
 
     /// Sets the value of [target][crate::model::OperationMetadata::target].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::OperationMetadata;
-    /// let x = OperationMetadata::new().set_target("example");
-    /// ```
     pub fn set_target<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.target = v.into();
         self
     }
 
     /// Sets the value of [verb][crate::model::OperationMetadata::verb].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::OperationMetadata;
-    /// let x = OperationMetadata::new().set_verb("example");
-    /// ```
     pub fn set_verb<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.verb = v.into();
         self
     }
 
     /// Sets the value of [status_message][crate::model::OperationMetadata::status_message].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::OperationMetadata;
-    /// let x = OperationMetadata::new().set_status_message("example");
-    /// ```
     pub fn set_status_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.status_message = v.into();
         self
     }
 
     /// Sets the value of [requested_cancellation][crate::model::OperationMetadata::requested_cancellation].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::OperationMetadata;
-    /// let x = OperationMetadata::new().set_requested_cancellation(true);
-    /// ```
     pub fn set_requested_cancellation<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.requested_cancellation = v.into();
         self
     }
 
     /// Sets the value of [api_version][crate::model::OperationMetadata::api_version].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::OperationMetadata;
-    /// let x = OperationMetadata::new().set_api_version("example");
-    /// ```
     pub fn set_api_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.api_version = v.into();
         self
@@ -1056,27 +760,12 @@ impl ConfigVariableTemplate {
     }
 
     /// Sets the value of [key][crate::model::ConfigVariableTemplate::key].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::ConfigVariableTemplate;
-    /// let x = ConfigVariableTemplate::new().set_key("example");
-    /// ```
     pub fn set_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.key = v.into();
         self
     }
 
     /// Sets the value of [value_type][crate::model::ConfigVariableTemplate::value_type].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::ConfigVariableTemplate;
-    /// use google_cloud_connectors_v1::model::config_variable_template::ValueType;
-    /// let x0 = ConfigVariableTemplate::new().set_value_type(ValueType::String);
-    /// let x1 = ConfigVariableTemplate::new().set_value_type(ValueType::Int);
-    /// let x2 = ConfigVariableTemplate::new().set_value_type(ValueType::Bool);
-    /// ```
     pub fn set_value_type<
         T: std::convert::Into<crate::model::config_variable_template::ValueType>,
     >(
@@ -1088,36 +777,18 @@ impl ConfigVariableTemplate {
     }
 
     /// Sets the value of [display_name][crate::model::ConfigVariableTemplate::display_name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::ConfigVariableTemplate;
-    /// let x = ConfigVariableTemplate::new().set_display_name("example");
-    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
     }
 
     /// Sets the value of [description][crate::model::ConfigVariableTemplate::description].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::ConfigVariableTemplate;
-    /// let x = ConfigVariableTemplate::new().set_description("example");
-    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [validation_regex][crate::model::ConfigVariableTemplate::validation_regex].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::ConfigVariableTemplate;
-    /// let x = ConfigVariableTemplate::new().set_validation_regex("example");
-    /// ```
     pub fn set_validation_regex<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -1127,25 +798,12 @@ impl ConfigVariableTemplate {
     }
 
     /// Sets the value of [required][crate::model::ConfigVariableTemplate::required].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::ConfigVariableTemplate;
-    /// let x = ConfigVariableTemplate::new().set_required(true);
-    /// ```
     pub fn set_required<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.required = v.into();
         self
     }
 
     /// Sets the value of [role_grant][crate::model::ConfigVariableTemplate::role_grant].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::ConfigVariableTemplate;
-    /// use google_cloud_connectors_v1::model::RoleGrant;
-    /// let x = ConfigVariableTemplate::new().set_role_grant(RoleGrant::default()/* use setters */);
-    /// ```
     pub fn set_role_grant<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::RoleGrant>,
@@ -1155,14 +813,6 @@ impl ConfigVariableTemplate {
     }
 
     /// Sets or clears the value of [role_grant][crate::model::ConfigVariableTemplate::role_grant].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::ConfigVariableTemplate;
-    /// use google_cloud_connectors_v1::model::RoleGrant;
-    /// let x = ConfigVariableTemplate::new().set_or_clear_role_grant(Some(RoleGrant::default()/* use setters */));
-    /// let x = ConfigVariableTemplate::new().set_or_clear_role_grant(None::<RoleGrant>);
-    /// ```
     pub fn set_or_clear_role_grant<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::RoleGrant>,
@@ -1172,17 +822,6 @@ impl ConfigVariableTemplate {
     }
 
     /// Sets the value of [enum_options][crate::model::ConfigVariableTemplate::enum_options].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::ConfigVariableTemplate;
-    /// use google_cloud_connectors_v1::model::EnumOption;
-    /// let x = ConfigVariableTemplate::new()
-    ///     .set_enum_options([
-    ///         EnumOption::default()/* use setters */,
-    ///         EnumOption::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_enum_options<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1194,13 +833,6 @@ impl ConfigVariableTemplate {
     }
 
     /// Sets the value of [authorization_code_link][crate::model::ConfigVariableTemplate::authorization_code_link].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::ConfigVariableTemplate;
-    /// use google_cloud_connectors_v1::model::AuthorizationCodeLink;
-    /// let x = ConfigVariableTemplate::new().set_authorization_code_link(AuthorizationCodeLink::default()/* use setters */);
-    /// ```
     pub fn set_authorization_code_link<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::AuthorizationCodeLink>,
@@ -1210,14 +842,6 @@ impl ConfigVariableTemplate {
     }
 
     /// Sets or clears the value of [authorization_code_link][crate::model::ConfigVariableTemplate::authorization_code_link].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::ConfigVariableTemplate;
-    /// use google_cloud_connectors_v1::model::AuthorizationCodeLink;
-    /// let x = ConfigVariableTemplate::new().set_or_clear_authorization_code_link(Some(AuthorizationCodeLink::default()/* use setters */));
-    /// let x = ConfigVariableTemplate::new().set_or_clear_authorization_code_link(None::<AuthorizationCodeLink>);
-    /// ```
     pub fn set_or_clear_authorization_code_link<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AuthorizationCodeLink>,
@@ -1227,14 +851,6 @@ impl ConfigVariableTemplate {
     }
 
     /// Sets the value of [state][crate::model::ConfigVariableTemplate::state].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::ConfigVariableTemplate;
-    /// use google_cloud_connectors_v1::model::config_variable_template::State;
-    /// let x0 = ConfigVariableTemplate::new().set_state(State::Active);
-    /// let x1 = ConfigVariableTemplate::new().set_state(State::Deprecated);
-    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::config_variable_template::State>>(
         mut self,
         v: T,
@@ -1244,12 +860,6 @@ impl ConfigVariableTemplate {
     }
 
     /// Sets the value of [is_advanced][crate::model::ConfigVariableTemplate::is_advanced].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::ConfigVariableTemplate;
-    /// let x = ConfigVariableTemplate::new().set_is_advanced(true);
-    /// ```
     pub fn set_is_advanced<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.is_advanced = v.into();
         self
@@ -1577,12 +1187,6 @@ impl Secret {
     }
 
     /// Sets the value of [secret_version][crate::model::Secret::secret_version].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::Secret;
-    /// let x = Secret::new().set_secret_version("example");
-    /// ```
     pub fn set_secret_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.secret_version = v.into();
         self
@@ -1614,24 +1218,12 @@ impl EnumOption {
     }
 
     /// Sets the value of [id][crate::model::EnumOption::id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::EnumOption;
-    /// let x = EnumOption::new().set_id("example");
-    /// ```
     pub fn set_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.id = v.into();
         self
     }
 
     /// Sets the value of [display_name][crate::model::EnumOption::display_name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::EnumOption;
-    /// let x = EnumOption::new().set_display_name("example");
-    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
@@ -1664,12 +1256,6 @@ impl ConfigVariable {
     }
 
     /// Sets the value of [key][crate::model::ConfigVariable::key].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::ConfigVariable;
-    /// let x = ConfigVariable::new().set_key("example");
-    /// ```
     pub fn set_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.key = v.into();
         self
@@ -1679,13 +1265,6 @@ impl ConfigVariable {
     ///
     /// Note that all the setters affecting `value` are mutually
     /// exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::ConfigVariable;
-    /// use google_cloud_connectors_v1::model::config_variable;
-    /// let x = ConfigVariable::new().set_value(Some(config_variable::Value::IntValue(42)));
-    /// ```
     pub fn set_value<
         T: std::convert::Into<std::option::Option<crate::model::config_variable::Value>>,
     >(
@@ -1712,16 +1291,6 @@ impl ConfigVariable {
     ///
     /// Note that all the setters affecting `value` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::ConfigVariable;
-    /// let x = ConfigVariable::new().set_int_value(42);
-    /// assert!(x.int_value().is_some());
-    /// assert!(x.bool_value().is_none());
-    /// assert!(x.string_value().is_none());
-    /// assert!(x.secret_value().is_none());
-    /// ```
     pub fn set_int_value<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.value =
             std::option::Option::Some(crate::model::config_variable::Value::IntValue(v.into()));
@@ -1744,16 +1313,6 @@ impl ConfigVariable {
     ///
     /// Note that all the setters affecting `value` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::ConfigVariable;
-    /// let x = ConfigVariable::new().set_bool_value(true);
-    /// assert!(x.bool_value().is_some());
-    /// assert!(x.int_value().is_none());
-    /// assert!(x.string_value().is_none());
-    /// assert!(x.secret_value().is_none());
-    /// ```
     pub fn set_bool_value<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.value =
             std::option::Option::Some(crate::model::config_variable::Value::BoolValue(v.into()));
@@ -1776,16 +1335,6 @@ impl ConfigVariable {
     ///
     /// Note that all the setters affecting `value` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::ConfigVariable;
-    /// let x = ConfigVariable::new().set_string_value("example");
-    /// assert!(x.string_value().is_some());
-    /// assert!(x.int_value().is_none());
-    /// assert!(x.bool_value().is_none());
-    /// assert!(x.secret_value().is_none());
-    /// ```
     pub fn set_string_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.value =
             std::option::Option::Some(crate::model::config_variable::Value::StringValue(v.into()));
@@ -1808,17 +1357,6 @@ impl ConfigVariable {
     ///
     /// Note that all the setters affecting `value` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::ConfigVariable;
-    /// use google_cloud_connectors_v1::model::Secret;
-    /// let x = ConfigVariable::new().set_secret_value(Secret::default()/* use setters */);
-    /// assert!(x.secret_value().is_some());
-    /// assert!(x.int_value().is_none());
-    /// assert!(x.bool_value().is_none());
-    /// assert!(x.string_value().is_none());
-    /// ```
     pub fn set_secret_value<T: std::convert::Into<std::boxed::Box<crate::model::Secret>>>(
         mut self,
         v: T,
@@ -1884,13 +1422,6 @@ impl RoleGrant {
     }
 
     /// Sets the value of [principal][crate::model::RoleGrant::principal].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::RoleGrant;
-    /// use google_cloud_connectors_v1::model::role_grant::Principal;
-    /// let x0 = RoleGrant::new().set_principal(Principal::ConnectorSa);
-    /// ```
     pub fn set_principal<T: std::convert::Into<crate::model::role_grant::Principal>>(
         mut self,
         v: T,
@@ -1900,12 +1431,6 @@ impl RoleGrant {
     }
 
     /// Sets the value of [roles][crate::model::RoleGrant::roles].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::RoleGrant;
-    /// let x = RoleGrant::new().set_roles(["a", "b", "c"]);
-    /// ```
     pub fn set_roles<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1917,13 +1442,6 @@ impl RoleGrant {
     }
 
     /// Sets the value of [resource][crate::model::RoleGrant::resource].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::RoleGrant;
-    /// use google_cloud_connectors_v1::model::role_grant::Resource;
-    /// let x = RoleGrant::new().set_resource(Resource::default()/* use setters */);
-    /// ```
     pub fn set_resource<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::role_grant::Resource>,
@@ -1933,14 +1451,6 @@ impl RoleGrant {
     }
 
     /// Sets or clears the value of [resource][crate::model::RoleGrant::resource].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::RoleGrant;
-    /// use google_cloud_connectors_v1::model::role_grant::Resource;
-    /// let x = RoleGrant::new().set_or_clear_resource(Some(Resource::default()/* use setters */));
-    /// let x = RoleGrant::new().set_or_clear_resource(None::<Resource>);
-    /// ```
     pub fn set_or_clear_resource<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::role_grant::Resource>,
@@ -1950,12 +1460,6 @@ impl RoleGrant {
     }
 
     /// Sets the value of [helper_text_template][crate::model::RoleGrant::helper_text_template].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::RoleGrant;
-    /// let x = RoleGrant::new().set_helper_text_template("example");
-    /// ```
     pub fn set_helper_text_template<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -1997,15 +1501,6 @@ pub mod role_grant {
         }
 
         /// Sets the value of [r#type][crate::model::role_grant::Resource::type].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_connectors_v1::model::role_grant::Resource;
-        /// use google_cloud_connectors_v1::model::role_grant::resource::Type;
-        /// let x0 = Resource::new().set_type(Type::GcpProject);
-        /// let x1 = Resource::new().set_type(Type::GcpResource);
-        /// let x2 = Resource::new().set_type(Type::GcpSecretmanagerSecret);
-        /// ```
         pub fn set_type<T: std::convert::Into<crate::model::role_grant::resource::Type>>(
             mut self,
             v: T,
@@ -2015,12 +1510,6 @@ pub mod role_grant {
         }
 
         /// Sets the value of [path_template][crate::model::role_grant::Resource::path_template].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_connectors_v1::model::role_grant::Resource;
-        /// let x = Resource::new().set_path_template("example");
-        /// ```
         pub fn set_path_template<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -2352,24 +1841,12 @@ impl AuthorizationCodeLink {
     }
 
     /// Sets the value of [uri][crate::model::AuthorizationCodeLink::uri].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::AuthorizationCodeLink;
-    /// let x = AuthorizationCodeLink::new().set_uri("example");
-    /// ```
     pub fn set_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.uri = v.into();
         self
     }
 
     /// Sets the value of [scopes][crate::model::AuthorizationCodeLink::scopes].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::AuthorizationCodeLink;
-    /// let x = AuthorizationCodeLink::new().set_scopes(["a", "b", "c"]);
-    /// ```
     pub fn set_scopes<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2381,24 +1858,12 @@ impl AuthorizationCodeLink {
     }
 
     /// Sets the value of [client_id][crate::model::AuthorizationCodeLink::client_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::AuthorizationCodeLink;
-    /// let x = AuthorizationCodeLink::new().set_client_id("example");
-    /// ```
     pub fn set_client_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.client_id = v.into();
         self
     }
 
     /// Sets the value of [enable_pkce][crate::model::AuthorizationCodeLink::enable_pkce].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::AuthorizationCodeLink;
-    /// let x = AuthorizationCodeLink::new().set_enable_pkce(true);
-    /// ```
     pub fn set_enable_pkce<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.enable_pkce = v.into();
         self
@@ -2493,25 +1958,12 @@ impl Connection {
     }
 
     /// Sets the value of [name][crate::model::Connection::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::Connection;
-    /// let x = Connection::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::Connection::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::Connection;
-    /// use wkt::Timestamp;
-    /// let x = Connection::new().set_create_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2521,14 +1973,6 @@ impl Connection {
     }
 
     /// Sets or clears the value of [create_time][crate::model::Connection::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::Connection;
-    /// use wkt::Timestamp;
-    /// let x = Connection::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
-    /// let x = Connection::new().set_or_clear_create_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2538,13 +1982,6 @@ impl Connection {
     }
 
     /// Sets the value of [update_time][crate::model::Connection::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::Connection;
-    /// use wkt::Timestamp;
-    /// let x = Connection::new().set_update_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2554,14 +1991,6 @@ impl Connection {
     }
 
     /// Sets or clears the value of [update_time][crate::model::Connection::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::Connection;
-    /// use wkt::Timestamp;
-    /// let x = Connection::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
-    /// let x = Connection::new().set_or_clear_update_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2571,15 +2000,6 @@ impl Connection {
     }
 
     /// Sets the value of [labels][crate::model::Connection::labels].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::Connection;
-    /// let x = Connection::new().set_labels([
-    ///     ("key0", "abc"),
-    ///     ("key1", "xyz"),
-    /// ]);
-    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -2592,24 +2012,12 @@ impl Connection {
     }
 
     /// Sets the value of [description][crate::model::Connection::description].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::Connection;
-    /// let x = Connection::new().set_description("example");
-    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [connector_version][crate::model::Connection::connector_version].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::Connection;
-    /// let x = Connection::new().set_connector_version("example");
-    /// ```
     pub fn set_connector_version<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -2619,13 +2027,6 @@ impl Connection {
     }
 
     /// Sets the value of [status][crate::model::Connection::status].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::Connection;
-    /// use google_cloud_connectors_v1::model::ConnectionStatus;
-    /// let x = Connection::new().set_status(ConnectionStatus::default()/* use setters */);
-    /// ```
     pub fn set_status<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ConnectionStatus>,
@@ -2635,14 +2036,6 @@ impl Connection {
     }
 
     /// Sets or clears the value of [status][crate::model::Connection::status].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::Connection;
-    /// use google_cloud_connectors_v1::model::ConnectionStatus;
-    /// let x = Connection::new().set_or_clear_status(Some(ConnectionStatus::default()/* use setters */));
-    /// let x = Connection::new().set_or_clear_status(None::<ConnectionStatus>);
-    /// ```
     pub fn set_or_clear_status<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ConnectionStatus>,
@@ -2652,17 +2045,6 @@ impl Connection {
     }
 
     /// Sets the value of [config_variables][crate::model::Connection::config_variables].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::Connection;
-    /// use google_cloud_connectors_v1::model::ConfigVariable;
-    /// let x = Connection::new()
-    ///     .set_config_variables([
-    ///         ConfigVariable::default()/* use setters */,
-    ///         ConfigVariable::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_config_variables<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2674,13 +2056,6 @@ impl Connection {
     }
 
     /// Sets the value of [auth_config][crate::model::Connection::auth_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::Connection;
-    /// use google_cloud_connectors_v1::model::AuthConfig;
-    /// let x = Connection::new().set_auth_config(AuthConfig::default()/* use setters */);
-    /// ```
     pub fn set_auth_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::AuthConfig>,
@@ -2690,14 +2065,6 @@ impl Connection {
     }
 
     /// Sets or clears the value of [auth_config][crate::model::Connection::auth_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::Connection;
-    /// use google_cloud_connectors_v1::model::AuthConfig;
-    /// let x = Connection::new().set_or_clear_auth_config(Some(AuthConfig::default()/* use setters */));
-    /// let x = Connection::new().set_or_clear_auth_config(None::<AuthConfig>);
-    /// ```
     pub fn set_or_clear_auth_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AuthConfig>,
@@ -2707,13 +2074,6 @@ impl Connection {
     }
 
     /// Sets the value of [lock_config][crate::model::Connection::lock_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::Connection;
-    /// use google_cloud_connectors_v1::model::LockConfig;
-    /// let x = Connection::new().set_lock_config(LockConfig::default()/* use setters */);
-    /// ```
     pub fn set_lock_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::LockConfig>,
@@ -2723,14 +2083,6 @@ impl Connection {
     }
 
     /// Sets or clears the value of [lock_config][crate::model::Connection::lock_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::Connection;
-    /// use google_cloud_connectors_v1::model::LockConfig;
-    /// let x = Connection::new().set_or_clear_lock_config(Some(LockConfig::default()/* use setters */));
-    /// let x = Connection::new().set_or_clear_lock_config(None::<LockConfig>);
-    /// ```
     pub fn set_or_clear_lock_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::LockConfig>,
@@ -2740,17 +2092,6 @@ impl Connection {
     }
 
     /// Sets the value of [destination_configs][crate::model::Connection::destination_configs].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::Connection;
-    /// use google_cloud_connectors_v1::model::DestinationConfig;
-    /// let x = Connection::new()
-    ///     .set_destination_configs([
-    ///         DestinationConfig::default()/* use setters */,
-    ///         DestinationConfig::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_destination_configs<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2762,36 +2103,18 @@ impl Connection {
     }
 
     /// Sets the value of [image_location][crate::model::Connection::image_location].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::Connection;
-    /// let x = Connection::new().set_image_location("example");
-    /// ```
     pub fn set_image_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.image_location = v.into();
         self
     }
 
     /// Sets the value of [service_account][crate::model::Connection::service_account].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::Connection;
-    /// let x = Connection::new().set_service_account("example");
-    /// ```
     pub fn set_service_account<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.service_account = v.into();
         self
     }
 
     /// Sets the value of [service_directory][crate::model::Connection::service_directory].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::Connection;
-    /// let x = Connection::new().set_service_directory("example");
-    /// ```
     pub fn set_service_directory<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -2801,12 +2124,6 @@ impl Connection {
     }
 
     /// Sets the value of [envoy_image_location][crate::model::Connection::envoy_image_location].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::Connection;
-    /// let x = Connection::new().set_envoy_image_location("example");
-    /// ```
     pub fn set_envoy_image_location<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -2816,25 +2133,12 @@ impl Connection {
     }
 
     /// Sets the value of [suspended][crate::model::Connection::suspended].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::Connection;
-    /// let x = Connection::new().set_suspended(true);
-    /// ```
     pub fn set_suspended<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.suspended = v.into();
         self
     }
 
     /// Sets the value of [node_config][crate::model::Connection::node_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::Connection;
-    /// use google_cloud_connectors_v1::model::NodeConfig;
-    /// let x = Connection::new().set_node_config(NodeConfig::default()/* use setters */);
-    /// ```
     pub fn set_node_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::NodeConfig>,
@@ -2844,14 +2148,6 @@ impl Connection {
     }
 
     /// Sets or clears the value of [node_config][crate::model::Connection::node_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::Connection;
-    /// use google_cloud_connectors_v1::model::NodeConfig;
-    /// let x = Connection::new().set_or_clear_node_config(Some(NodeConfig::default()/* use setters */));
-    /// let x = Connection::new().set_or_clear_node_config(None::<NodeConfig>);
-    /// ```
     pub fn set_or_clear_node_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::NodeConfig>,
@@ -2861,13 +2157,6 @@ impl Connection {
     }
 
     /// Sets the value of [ssl_config][crate::model::Connection::ssl_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::Connection;
-    /// use google_cloud_connectors_v1::model::SslConfig;
-    /// let x = Connection::new().set_ssl_config(SslConfig::default()/* use setters */);
-    /// ```
     pub fn set_ssl_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::SslConfig>,
@@ -2877,14 +2166,6 @@ impl Connection {
     }
 
     /// Sets or clears the value of [ssl_config][crate::model::Connection::ssl_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::Connection;
-    /// use google_cloud_connectors_v1::model::SslConfig;
-    /// let x = Connection::new().set_or_clear_ssl_config(Some(SslConfig::default()/* use setters */));
-    /// let x = Connection::new().set_or_clear_ssl_config(None::<SslConfig>);
-    /// ```
     pub fn set_or_clear_ssl_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::SslConfig>,
@@ -2919,24 +2200,12 @@ impl NodeConfig {
     }
 
     /// Sets the value of [min_node_count][crate::model::NodeConfig::min_node_count].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::NodeConfig;
-    /// let x = NodeConfig::new().set_min_node_count(42);
-    /// ```
     pub fn set_min_node_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.min_node_count = v.into();
         self
     }
 
     /// Sets the value of [max_node_count][crate::model::NodeConfig::max_node_count].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::NodeConfig;
-    /// let x = NodeConfig::new().set_max_node_count(42);
-    /// ```
     pub fn set_max_node_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.max_node_count = v.into();
         self
@@ -2985,12 +2254,6 @@ impl ConnectionSchemaMetadata {
     }
 
     /// Sets the value of [entities][crate::model::ConnectionSchemaMetadata::entities].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::ConnectionSchemaMetadata;
-    /// let x = ConnectionSchemaMetadata::new().set_entities(["a", "b", "c"]);
-    /// ```
     pub fn set_entities<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3002,12 +2265,6 @@ impl ConnectionSchemaMetadata {
     }
 
     /// Sets the value of [actions][crate::model::ConnectionSchemaMetadata::actions].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::ConnectionSchemaMetadata;
-    /// let x = ConnectionSchemaMetadata::new().set_actions(["a", "b", "c"]);
-    /// ```
     pub fn set_actions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3019,25 +2276,12 @@ impl ConnectionSchemaMetadata {
     }
 
     /// Sets the value of [name][crate::model::ConnectionSchemaMetadata::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::ConnectionSchemaMetadata;
-    /// let x = ConnectionSchemaMetadata::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [update_time][crate::model::ConnectionSchemaMetadata::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::ConnectionSchemaMetadata;
-    /// use wkt::Timestamp;
-    /// let x = ConnectionSchemaMetadata::new().set_update_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3047,14 +2291,6 @@ impl ConnectionSchemaMetadata {
     }
 
     /// Sets or clears the value of [update_time][crate::model::ConnectionSchemaMetadata::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::ConnectionSchemaMetadata;
-    /// use wkt::Timestamp;
-    /// let x = ConnectionSchemaMetadata::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
-    /// let x = ConnectionSchemaMetadata::new().set_or_clear_update_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3064,13 +2300,6 @@ impl ConnectionSchemaMetadata {
     }
 
     /// Sets the value of [refresh_time][crate::model::ConnectionSchemaMetadata::refresh_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::ConnectionSchemaMetadata;
-    /// use wkt::Timestamp;
-    /// let x = ConnectionSchemaMetadata::new().set_refresh_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_refresh_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3080,14 +2309,6 @@ impl ConnectionSchemaMetadata {
     }
 
     /// Sets or clears the value of [refresh_time][crate::model::ConnectionSchemaMetadata::refresh_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::ConnectionSchemaMetadata;
-    /// use wkt::Timestamp;
-    /// let x = ConnectionSchemaMetadata::new().set_or_clear_refresh_time(Some(Timestamp::default()/* use setters */));
-    /// let x = ConnectionSchemaMetadata::new().set_or_clear_refresh_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_refresh_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3097,14 +2318,6 @@ impl ConnectionSchemaMetadata {
     }
 
     /// Sets the value of [state][crate::model::ConnectionSchemaMetadata::state].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::ConnectionSchemaMetadata;
-    /// use google_cloud_connectors_v1::model::connection_schema_metadata::State;
-    /// let x0 = ConnectionSchemaMetadata::new().set_state(State::Refreshing);
-    /// let x1 = ConnectionSchemaMetadata::new().set_state(State::Updated);
-    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::connection_schema_metadata::State>>(
         mut self,
         v: T,
@@ -3277,29 +2490,12 @@ impl RuntimeEntitySchema {
     }
 
     /// Sets the value of [entity][crate::model::RuntimeEntitySchema::entity].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::RuntimeEntitySchema;
-    /// let x = RuntimeEntitySchema::new().set_entity("example");
-    /// ```
     pub fn set_entity<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.entity = v.into();
         self
     }
 
     /// Sets the value of [fields][crate::model::RuntimeEntitySchema::fields].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::RuntimeEntitySchema;
-    /// use google_cloud_connectors_v1::model::runtime_entity_schema::Field;
-    /// let x = RuntimeEntitySchema::new()
-    ///     .set_fields([
-    ///         Field::default()/* use setters */,
-    ///         Field::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_fields<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3363,39 +2559,18 @@ pub mod runtime_entity_schema {
         }
 
         /// Sets the value of [field][crate::model::runtime_entity_schema::Field::field].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_connectors_v1::model::runtime_entity_schema::Field;
-        /// let x = Field::new().set_field("example");
-        /// ```
         pub fn set_field<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.field = v.into();
             self
         }
 
         /// Sets the value of [description][crate::model::runtime_entity_schema::Field::description].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_connectors_v1::model::runtime_entity_schema::Field;
-        /// let x = Field::new().set_description("example");
-        /// ```
         pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.description = v.into();
             self
         }
 
         /// Sets the value of [data_type][crate::model::runtime_entity_schema::Field::data_type].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_connectors_v1::model::runtime_entity_schema::Field;
-        /// use google_cloud_connectors_v1::model::DataType;
-        /// let x0 = Field::new().set_data_type(DataType::Smallint);
-        /// let x1 = Field::new().set_data_type(DataType::Double);
-        /// let x2 = Field::new().set_data_type(DataType::Date);
-        /// ```
         pub fn set_data_type<T: std::convert::Into<crate::model::DataType>>(
             mut self,
             v: T,
@@ -3405,49 +2580,24 @@ pub mod runtime_entity_schema {
         }
 
         /// Sets the value of [key][crate::model::runtime_entity_schema::Field::key].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_connectors_v1::model::runtime_entity_schema::Field;
-        /// let x = Field::new().set_key(true);
-        /// ```
         pub fn set_key<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.key = v.into();
             self
         }
 
         /// Sets the value of [readonly][crate::model::runtime_entity_schema::Field::readonly].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_connectors_v1::model::runtime_entity_schema::Field;
-        /// let x = Field::new().set_readonly(true);
-        /// ```
         pub fn set_readonly<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.readonly = v.into();
             self
         }
 
         /// Sets the value of [nullable][crate::model::runtime_entity_schema::Field::nullable].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_connectors_v1::model::runtime_entity_schema::Field;
-        /// let x = Field::new().set_nullable(true);
-        /// ```
         pub fn set_nullable<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.nullable = v.into();
             self
         }
 
         /// Sets the value of [default_value][crate::model::runtime_entity_schema::Field::default_value].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_connectors_v1::model::runtime_entity_schema::Field;
-        /// use wkt::Value;
-        /// let x = Field::new().set_default_value(Value::default()/* use setters */);
-        /// ```
         pub fn set_default_value<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Value>,
@@ -3457,14 +2607,6 @@ pub mod runtime_entity_schema {
         }
 
         /// Sets or clears the value of [default_value][crate::model::runtime_entity_schema::Field::default_value].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_connectors_v1::model::runtime_entity_schema::Field;
-        /// use wkt::Value;
-        /// let x = Field::new().set_or_clear_default_value(Some(Value::default()/* use setters */));
-        /// let x = Field::new().set_or_clear_default_value(None::<Value>);
-        /// ```
         pub fn set_or_clear_default_value<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Value>,
@@ -3474,13 +2616,6 @@ pub mod runtime_entity_schema {
         }
 
         /// Sets the value of [additional_details][crate::model::runtime_entity_schema::Field::additional_details].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_connectors_v1::model::runtime_entity_schema::Field;
-        /// use wkt::Struct;
-        /// let x = Field::new().set_additional_details(Struct::default()/* use setters */);
-        /// ```
         pub fn set_additional_details<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Struct>,
@@ -3490,14 +2625,6 @@ pub mod runtime_entity_schema {
         }
 
         /// Sets or clears the value of [additional_details][crate::model::runtime_entity_schema::Field::additional_details].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_connectors_v1::model::runtime_entity_schema::Field;
-        /// use wkt::Struct;
-        /// let x = Field::new().set_or_clear_additional_details(Some(Struct::default()/* use setters */));
-        /// let x = Field::new().set_or_clear_additional_details(None::<Struct>);
-        /// ```
         pub fn set_or_clear_additional_details<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Struct>,
@@ -3536,29 +2663,12 @@ impl RuntimeActionSchema {
     }
 
     /// Sets the value of [action][crate::model::RuntimeActionSchema::action].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::RuntimeActionSchema;
-    /// let x = RuntimeActionSchema::new().set_action("example");
-    /// ```
     pub fn set_action<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.action = v.into();
         self
     }
 
     /// Sets the value of [input_parameters][crate::model::RuntimeActionSchema::input_parameters].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::RuntimeActionSchema;
-    /// use google_cloud_connectors_v1::model::runtime_action_schema::InputParameter;
-    /// let x = RuntimeActionSchema::new()
-    ///     .set_input_parameters([
-    ///         InputParameter::default()/* use setters */,
-    ///         InputParameter::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_input_parameters<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3570,17 +2680,6 @@ impl RuntimeActionSchema {
     }
 
     /// Sets the value of [result_metadata][crate::model::RuntimeActionSchema::result_metadata].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::RuntimeActionSchema;
-    /// use google_cloud_connectors_v1::model::runtime_action_schema::ResultMetadata;
-    /// let x = RuntimeActionSchema::new()
-    ///     .set_result_metadata([
-    ///         ResultMetadata::default()/* use setters */,
-    ///         ResultMetadata::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_result_metadata<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3632,39 +2731,18 @@ pub mod runtime_action_schema {
         }
 
         /// Sets the value of [parameter][crate::model::runtime_action_schema::InputParameter::parameter].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_connectors_v1::model::runtime_action_schema::InputParameter;
-        /// let x = InputParameter::new().set_parameter("example");
-        /// ```
         pub fn set_parameter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.parameter = v.into();
             self
         }
 
         /// Sets the value of [description][crate::model::runtime_action_schema::InputParameter::description].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_connectors_v1::model::runtime_action_schema::InputParameter;
-        /// let x = InputParameter::new().set_description("example");
-        /// ```
         pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.description = v.into();
             self
         }
 
         /// Sets the value of [data_type][crate::model::runtime_action_schema::InputParameter::data_type].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_connectors_v1::model::runtime_action_schema::InputParameter;
-        /// use google_cloud_connectors_v1::model::DataType;
-        /// let x0 = InputParameter::new().set_data_type(DataType::Smallint);
-        /// let x1 = InputParameter::new().set_data_type(DataType::Double);
-        /// let x2 = InputParameter::new().set_data_type(DataType::Date);
-        /// ```
         pub fn set_data_type<T: std::convert::Into<crate::model::DataType>>(
             mut self,
             v: T,
@@ -3674,25 +2752,12 @@ pub mod runtime_action_schema {
         }
 
         /// Sets the value of [nullable][crate::model::runtime_action_schema::InputParameter::nullable].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_connectors_v1::model::runtime_action_schema::InputParameter;
-        /// let x = InputParameter::new().set_nullable(true);
-        /// ```
         pub fn set_nullable<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.nullable = v.into();
             self
         }
 
         /// Sets the value of [default_value][crate::model::runtime_action_schema::InputParameter::default_value].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_connectors_v1::model::runtime_action_schema::InputParameter;
-        /// use wkt::Value;
-        /// let x = InputParameter::new().set_default_value(Value::default()/* use setters */);
-        /// ```
         pub fn set_default_value<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Value>,
@@ -3702,14 +2767,6 @@ pub mod runtime_action_schema {
         }
 
         /// Sets or clears the value of [default_value][crate::model::runtime_action_schema::InputParameter::default_value].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_connectors_v1::model::runtime_action_schema::InputParameter;
-        /// use wkt::Value;
-        /// let x = InputParameter::new().set_or_clear_default_value(Some(Value::default()/* use setters */));
-        /// let x = InputParameter::new().set_or_clear_default_value(None::<Value>);
-        /// ```
         pub fn set_or_clear_default_value<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Value>,
@@ -3747,39 +2804,18 @@ pub mod runtime_action_schema {
         }
 
         /// Sets the value of [field][crate::model::runtime_action_schema::ResultMetadata::field].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_connectors_v1::model::runtime_action_schema::ResultMetadata;
-        /// let x = ResultMetadata::new().set_field("example");
-        /// ```
         pub fn set_field<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.field = v.into();
             self
         }
 
         /// Sets the value of [description][crate::model::runtime_action_schema::ResultMetadata::description].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_connectors_v1::model::runtime_action_schema::ResultMetadata;
-        /// let x = ResultMetadata::new().set_description("example");
-        /// ```
         pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.description = v.into();
             self
         }
 
         /// Sets the value of [data_type][crate::model::runtime_action_schema::ResultMetadata::data_type].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_connectors_v1::model::runtime_action_schema::ResultMetadata;
-        /// use google_cloud_connectors_v1::model::DataType;
-        /// let x0 = ResultMetadata::new().set_data_type(DataType::Smallint);
-        /// let x1 = ResultMetadata::new().set_data_type(DataType::Double);
-        /// let x2 = ResultMetadata::new().set_data_type(DataType::Date);
-        /// ```
         pub fn set_data_type<T: std::convert::Into<crate::model::DataType>>(
             mut self,
             v: T,
@@ -3816,24 +2852,12 @@ impl LockConfig {
     }
 
     /// Sets the value of [locked][crate::model::LockConfig::locked].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::LockConfig;
-    /// let x = LockConfig::new().set_locked(true);
-    /// ```
     pub fn set_locked<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.locked = v.into();
         self
     }
 
     /// Sets the value of [reason][crate::model::LockConfig::reason].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::LockConfig;
-    /// let x = LockConfig::new().set_reason("example");
-    /// ```
     pub fn set_reason<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.reason = v.into();
         self
@@ -3879,74 +2903,36 @@ impl ListConnectionsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListConnectionsRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::ListConnectionsRequest;
-    /// let x = ListConnectionsRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListConnectionsRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::ListConnectionsRequest;
-    /// let x = ListConnectionsRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListConnectionsRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::ListConnectionsRequest;
-    /// let x = ListConnectionsRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListConnectionsRequest::filter].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::ListConnectionsRequest;
-    /// let x = ListConnectionsRequest::new().set_filter("example");
-    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListConnectionsRequest::order_by].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::ListConnectionsRequest;
-    /// let x = ListConnectionsRequest::new().set_order_by("example");
-    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
     }
 
     /// Sets the value of [view][crate::model::ListConnectionsRequest::view].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::ListConnectionsRequest;
-    /// use google_cloud_connectors_v1::model::ConnectionView;
-    /// let x0 = ListConnectionsRequest::new().set_view(ConnectionView::Basic);
-    /// let x1 = ListConnectionsRequest::new().set_view(ConnectionView::Full);
-    /// ```
     pub fn set_view<T: std::convert::Into<crate::model::ConnectionView>>(mut self, v: T) -> Self {
         self.view = v.into();
         self
@@ -3981,17 +2967,6 @@ impl ListConnectionsResponse {
     }
 
     /// Sets the value of [connections][crate::model::ListConnectionsResponse::connections].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::ListConnectionsResponse;
-    /// use google_cloud_connectors_v1::model::Connection;
-    /// let x = ListConnectionsResponse::new()
-    ///     .set_connections([
-    ///         Connection::default()/* use setters */,
-    ///         Connection::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_connections<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4003,24 +2978,12 @@ impl ListConnectionsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListConnectionsResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::ListConnectionsResponse;
-    /// let x = ListConnectionsResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListConnectionsResponse::unreachable].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::ListConnectionsResponse;
-    /// let x = ListConnectionsResponse::new().set_unreachable(["a", "b", "c"]);
-    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4073,26 +3036,12 @@ impl GetConnectionRequest {
     }
 
     /// Sets the value of [name][crate::model::GetConnectionRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::GetConnectionRequest;
-    /// let x = GetConnectionRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [view][crate::model::GetConnectionRequest::view].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::GetConnectionRequest;
-    /// use google_cloud_connectors_v1::model::ConnectionView;
-    /// let x0 = GetConnectionRequest::new().set_view(ConnectionView::Basic);
-    /// let x1 = GetConnectionRequest::new().set_view(ConnectionView::Full);
-    /// ```
     pub fn set_view<T: std::convert::Into<crate::model::ConnectionView>>(mut self, v: T) -> Self {
         self.view = v.into();
         self
@@ -4129,37 +3078,18 @@ impl CreateConnectionRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateConnectionRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::CreateConnectionRequest;
-    /// let x = CreateConnectionRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [connection_id][crate::model::CreateConnectionRequest::connection_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::CreateConnectionRequest;
-    /// let x = CreateConnectionRequest::new().set_connection_id("example");
-    /// ```
     pub fn set_connection_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.connection_id = v.into();
         self
     }
 
     /// Sets the value of [connection][crate::model::CreateConnectionRequest::connection].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::CreateConnectionRequest;
-    /// use google_cloud_connectors_v1::model::Connection;
-    /// let x = CreateConnectionRequest::new().set_connection(Connection::default()/* use setters */);
-    /// ```
     pub fn set_connection<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Connection>,
@@ -4169,14 +3099,6 @@ impl CreateConnectionRequest {
     }
 
     /// Sets or clears the value of [connection][crate::model::CreateConnectionRequest::connection].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::CreateConnectionRequest;
-    /// use google_cloud_connectors_v1::model::Connection;
-    /// let x = CreateConnectionRequest::new().set_or_clear_connection(Some(Connection::default()/* use setters */));
-    /// let x = CreateConnectionRequest::new().set_or_clear_connection(None::<Connection>);
-    /// ```
     pub fn set_or_clear_connection<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Connection>,
@@ -4229,13 +3151,6 @@ impl UpdateConnectionRequest {
     }
 
     /// Sets the value of [connection][crate::model::UpdateConnectionRequest::connection].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::UpdateConnectionRequest;
-    /// use google_cloud_connectors_v1::model::Connection;
-    /// let x = UpdateConnectionRequest::new().set_connection(Connection::default()/* use setters */);
-    /// ```
     pub fn set_connection<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Connection>,
@@ -4245,14 +3160,6 @@ impl UpdateConnectionRequest {
     }
 
     /// Sets or clears the value of [connection][crate::model::UpdateConnectionRequest::connection].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::UpdateConnectionRequest;
-    /// use google_cloud_connectors_v1::model::Connection;
-    /// let x = UpdateConnectionRequest::new().set_or_clear_connection(Some(Connection::default()/* use setters */));
-    /// let x = UpdateConnectionRequest::new().set_or_clear_connection(None::<Connection>);
-    /// ```
     pub fn set_or_clear_connection<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Connection>,
@@ -4262,13 +3169,6 @@ impl UpdateConnectionRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateConnectionRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::UpdateConnectionRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateConnectionRequest::new().set_update_mask(FieldMask::default()/* use setters */);
-    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -4278,14 +3178,6 @@ impl UpdateConnectionRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateConnectionRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::UpdateConnectionRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateConnectionRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
-    /// let x = UpdateConnectionRequest::new().set_or_clear_update_mask(None::<FieldMask>);
-    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -4318,12 +3210,6 @@ impl DeleteConnectionRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteConnectionRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::DeleteConnectionRequest;
-    /// let x = DeleteConnectionRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -4354,12 +3240,6 @@ impl GetConnectionSchemaMetadataRequest {
     }
 
     /// Sets the value of [name][crate::model::GetConnectionSchemaMetadataRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::GetConnectionSchemaMetadataRequest;
-    /// let x = GetConnectionSchemaMetadataRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -4390,12 +3270,6 @@ impl RefreshConnectionSchemaMetadataRequest {
     }
 
     /// Sets the value of [name][crate::model::RefreshConnectionSchemaMetadataRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::RefreshConnectionSchemaMetadataRequest;
-    /// let x = RefreshConnectionSchemaMetadataRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -4443,48 +3317,24 @@ impl ListRuntimeEntitySchemasRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListRuntimeEntitySchemasRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::ListRuntimeEntitySchemasRequest;
-    /// let x = ListRuntimeEntitySchemasRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListRuntimeEntitySchemasRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::ListRuntimeEntitySchemasRequest;
-    /// let x = ListRuntimeEntitySchemasRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListRuntimeEntitySchemasRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::ListRuntimeEntitySchemasRequest;
-    /// let x = ListRuntimeEntitySchemasRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListRuntimeEntitySchemasRequest::filter].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::ListRuntimeEntitySchemasRequest;
-    /// let x = ListRuntimeEntitySchemasRequest::new().set_filter("example");
-    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
@@ -4516,17 +3366,6 @@ impl ListRuntimeEntitySchemasResponse {
     }
 
     /// Sets the value of [runtime_entity_schemas][crate::model::ListRuntimeEntitySchemasResponse::runtime_entity_schemas].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::ListRuntimeEntitySchemasResponse;
-    /// use google_cloud_connectors_v1::model::RuntimeEntitySchema;
-    /// let x = ListRuntimeEntitySchemasResponse::new()
-    ///     .set_runtime_entity_schemas([
-    ///         RuntimeEntitySchema::default()/* use setters */,
-    ///         RuntimeEntitySchema::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_runtime_entity_schemas<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4538,12 +3377,6 @@ impl ListRuntimeEntitySchemasResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListRuntimeEntitySchemasResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::ListRuntimeEntitySchemasResponse;
-    /// let x = ListRuntimeEntitySchemasResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -4605,48 +3438,24 @@ impl ListRuntimeActionSchemasRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListRuntimeActionSchemasRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::ListRuntimeActionSchemasRequest;
-    /// let x = ListRuntimeActionSchemasRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListRuntimeActionSchemasRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::ListRuntimeActionSchemasRequest;
-    /// let x = ListRuntimeActionSchemasRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListRuntimeActionSchemasRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::ListRuntimeActionSchemasRequest;
-    /// let x = ListRuntimeActionSchemasRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListRuntimeActionSchemasRequest::filter].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::ListRuntimeActionSchemasRequest;
-    /// let x = ListRuntimeActionSchemasRequest::new().set_filter("example");
-    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
@@ -4678,17 +3487,6 @@ impl ListRuntimeActionSchemasResponse {
     }
 
     /// Sets the value of [runtime_action_schemas][crate::model::ListRuntimeActionSchemasResponse::runtime_action_schemas].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::ListRuntimeActionSchemasResponse;
-    /// use google_cloud_connectors_v1::model::RuntimeActionSchema;
-    /// let x = ListRuntimeActionSchemasResponse::new()
-    ///     .set_runtime_action_schemas([
-    ///         RuntimeActionSchema::default()/* use setters */,
-    ///         RuntimeActionSchema::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_runtime_action_schemas<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4700,12 +3498,6 @@ impl ListRuntimeActionSchemasResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListRuntimeActionSchemasResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::ListRuntimeActionSchemasResponse;
-    /// let x = ListRuntimeActionSchemasResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -4754,15 +3546,6 @@ impl ConnectionStatus {
     }
 
     /// Sets the value of [state][crate::model::ConnectionStatus::state].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::ConnectionStatus;
-    /// use google_cloud_connectors_v1::model::connection_status::State;
-    /// let x0 = ConnectionStatus::new().set_state(State::Creating);
-    /// let x1 = ConnectionStatus::new().set_state(State::Active);
-    /// let x2 = ConnectionStatus::new().set_state(State::Inactive);
-    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::connection_status::State>>(
         mut self,
         v: T,
@@ -4772,24 +3555,12 @@ impl ConnectionStatus {
     }
 
     /// Sets the value of [description][crate::model::ConnectionStatus::description].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::ConnectionStatus;
-    /// let x = ConnectionStatus::new().set_description("example");
-    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [status][crate::model::ConnectionStatus::status].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::ConnectionStatus;
-    /// let x = ConnectionStatus::new().set_status("example");
-    /// ```
     pub fn set_status<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.status = v.into();
         self
@@ -5024,25 +3795,12 @@ impl Connector {
     }
 
     /// Sets the value of [name][crate::model::Connector::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::Connector;
-    /// let x = Connector::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::Connector::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::Connector;
-    /// use wkt::Timestamp;
-    /// let x = Connector::new().set_create_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -5052,14 +3810,6 @@ impl Connector {
     }
 
     /// Sets or clears the value of [create_time][crate::model::Connector::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::Connector;
-    /// use wkt::Timestamp;
-    /// let x = Connector::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
-    /// let x = Connector::new().set_or_clear_create_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -5069,13 +3819,6 @@ impl Connector {
     }
 
     /// Sets the value of [update_time][crate::model::Connector::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::Connector;
-    /// use wkt::Timestamp;
-    /// let x = Connector::new().set_update_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -5085,14 +3828,6 @@ impl Connector {
     }
 
     /// Sets or clears the value of [update_time][crate::model::Connector::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::Connector;
-    /// use wkt::Timestamp;
-    /// let x = Connector::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
-    /// let x = Connector::new().set_or_clear_update_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -5102,15 +3837,6 @@ impl Connector {
     }
 
     /// Sets the value of [labels][crate::model::Connector::labels].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::Connector;
-    /// let x = Connector::new().set_labels([
-    ///     ("key0", "abc"),
-    ///     ("key1", "xyz"),
-    /// ]);
-    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -5123,12 +3849,6 @@ impl Connector {
     }
 
     /// Sets the value of [documentation_uri][crate::model::Connector::documentation_uri].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::Connector;
-    /// let x = Connector::new().set_documentation_uri("example");
-    /// ```
     pub fn set_documentation_uri<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -5138,36 +3858,18 @@ impl Connector {
     }
 
     /// Sets the value of [external_uri][crate::model::Connector::external_uri].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::Connector;
-    /// let x = Connector::new().set_external_uri("example");
-    /// ```
     pub fn set_external_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.external_uri = v.into();
         self
     }
 
     /// Sets the value of [description][crate::model::Connector::description].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::Connector;
-    /// let x = Connector::new().set_description("example");
-    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [web_assets_location][crate::model::Connector::web_assets_location].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::Connector;
-    /// let x = Connector::new().set_web_assets_location("example");
-    /// ```
     pub fn set_web_assets_location<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -5177,27 +3879,12 @@ impl Connector {
     }
 
     /// Sets the value of [display_name][crate::model::Connector::display_name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::Connector;
-    /// let x = Connector::new().set_display_name("example");
-    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
     }
 
     /// Sets the value of [launch_stage][crate::model::Connector::launch_stage].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::Connector;
-    /// use google_cloud_connectors_v1::model::LaunchStage;
-    /// let x0 = Connector::new().set_launch_stage(LaunchStage::Preview);
-    /// let x1 = Connector::new().set_launch_stage(LaunchStage::Ga);
-    /// let x2 = Connector::new().set_launch_stage(LaunchStage::Deprecated);
-    /// ```
     pub fn set_launch_stage<T: std::convert::Into<crate::model::LaunchStage>>(
         mut self,
         v: T,
@@ -5231,12 +3918,6 @@ impl GetConnectorRequest {
     }
 
     /// Sets the value of [name][crate::model::GetConnectorRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::GetConnectorRequest;
-    /// let x = GetConnectorRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -5273,36 +3954,18 @@ impl ListConnectorsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListConnectorsRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::ListConnectorsRequest;
-    /// let x = ListConnectorsRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListConnectorsRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::ListConnectorsRequest;
-    /// let x = ListConnectorsRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListConnectorsRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::ListConnectorsRequest;
-    /// let x = ListConnectorsRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -5337,17 +4000,6 @@ impl ListConnectorsResponse {
     }
 
     /// Sets the value of [connectors][crate::model::ListConnectorsResponse::connectors].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::ListConnectorsResponse;
-    /// use google_cloud_connectors_v1::model::Connector;
-    /// let x = ListConnectorsResponse::new()
-    ///     .set_connectors([
-    ///         Connector::default()/* use setters */,
-    ///         Connector::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_connectors<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -5359,24 +4011,12 @@ impl ListConnectorsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListConnectorsResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::ListConnectorsResponse;
-    /// let x = ListConnectorsResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListConnectorsResponse::unreachable].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::ListConnectorsResponse;
-    /// let x = ListConnectorsResponse::new().set_unreachable(["a", "b", "c"]);
-    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -5470,25 +4110,12 @@ impl ConnectorVersion {
     }
 
     /// Sets the value of [name][crate::model::ConnectorVersion::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::ConnectorVersion;
-    /// let x = ConnectorVersion::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::ConnectorVersion::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::ConnectorVersion;
-    /// use wkt::Timestamp;
-    /// let x = ConnectorVersion::new().set_create_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -5498,14 +4125,6 @@ impl ConnectorVersion {
     }
 
     /// Sets or clears the value of [create_time][crate::model::ConnectorVersion::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::ConnectorVersion;
-    /// use wkt::Timestamp;
-    /// let x = ConnectorVersion::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
-    /// let x = ConnectorVersion::new().set_or_clear_create_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -5515,13 +4134,6 @@ impl ConnectorVersion {
     }
 
     /// Sets the value of [update_time][crate::model::ConnectorVersion::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::ConnectorVersion;
-    /// use wkt::Timestamp;
-    /// let x = ConnectorVersion::new().set_update_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -5531,14 +4143,6 @@ impl ConnectorVersion {
     }
 
     /// Sets or clears the value of [update_time][crate::model::ConnectorVersion::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::ConnectorVersion;
-    /// use wkt::Timestamp;
-    /// let x = ConnectorVersion::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
-    /// let x = ConnectorVersion::new().set_or_clear_update_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -5548,15 +4152,6 @@ impl ConnectorVersion {
     }
 
     /// Sets the value of [labels][crate::model::ConnectorVersion::labels].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::ConnectorVersion;
-    /// let x = ConnectorVersion::new().set_labels([
-    ///     ("key0", "abc"),
-    ///     ("key1", "xyz"),
-    /// ]);
-    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -5569,15 +4164,6 @@ impl ConnectorVersion {
     }
 
     /// Sets the value of [launch_stage][crate::model::ConnectorVersion::launch_stage].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::ConnectorVersion;
-    /// use google_cloud_connectors_v1::model::LaunchStage;
-    /// let x0 = ConnectorVersion::new().set_launch_stage(LaunchStage::Preview);
-    /// let x1 = ConnectorVersion::new().set_launch_stage(LaunchStage::Ga);
-    /// let x2 = ConnectorVersion::new().set_launch_stage(LaunchStage::Deprecated);
-    /// ```
     pub fn set_launch_stage<T: std::convert::Into<crate::model::LaunchStage>>(
         mut self,
         v: T,
@@ -5587,29 +4173,12 @@ impl ConnectorVersion {
     }
 
     /// Sets the value of [release_version][crate::model::ConnectorVersion::release_version].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::ConnectorVersion;
-    /// let x = ConnectorVersion::new().set_release_version("example");
-    /// ```
     pub fn set_release_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.release_version = v.into();
         self
     }
 
     /// Sets the value of [auth_config_templates][crate::model::ConnectorVersion::auth_config_templates].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::ConnectorVersion;
-    /// use google_cloud_connectors_v1::model::AuthConfigTemplate;
-    /// let x = ConnectorVersion::new()
-    ///     .set_auth_config_templates([
-    ///         AuthConfigTemplate::default()/* use setters */,
-    ///         AuthConfigTemplate::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_auth_config_templates<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -5621,17 +4190,6 @@ impl ConnectorVersion {
     }
 
     /// Sets the value of [config_variable_templates][crate::model::ConnectorVersion::config_variable_templates].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::ConnectorVersion;
-    /// use google_cloud_connectors_v1::model::ConfigVariableTemplate;
-    /// let x = ConnectorVersion::new()
-    ///     .set_config_variable_templates([
-    ///         ConfigVariableTemplate::default()/* use setters */,
-    ///         ConfigVariableTemplate::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_config_variable_templates<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -5643,13 +4201,6 @@ impl ConnectorVersion {
     }
 
     /// Sets the value of [supported_runtime_features][crate::model::ConnectorVersion::supported_runtime_features].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::ConnectorVersion;
-    /// use google_cloud_connectors_v1::model::SupportedRuntimeFeatures;
-    /// let x = ConnectorVersion::new().set_supported_runtime_features(SupportedRuntimeFeatures::default()/* use setters */);
-    /// ```
     pub fn set_supported_runtime_features<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::SupportedRuntimeFeatures>,
@@ -5659,14 +4210,6 @@ impl ConnectorVersion {
     }
 
     /// Sets or clears the value of [supported_runtime_features][crate::model::ConnectorVersion::supported_runtime_features].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::ConnectorVersion;
-    /// use google_cloud_connectors_v1::model::SupportedRuntimeFeatures;
-    /// let x = ConnectorVersion::new().set_or_clear_supported_runtime_features(Some(SupportedRuntimeFeatures::default()/* use setters */));
-    /// let x = ConnectorVersion::new().set_or_clear_supported_runtime_features(None::<SupportedRuntimeFeatures>);
-    /// ```
     pub fn set_or_clear_supported_runtime_features<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::SupportedRuntimeFeatures>,
@@ -5676,25 +4219,12 @@ impl ConnectorVersion {
     }
 
     /// Sets the value of [display_name][crate::model::ConnectorVersion::display_name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::ConnectorVersion;
-    /// let x = ConnectorVersion::new().set_display_name("example");
-    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
     }
 
     /// Sets the value of [egress_control_config][crate::model::ConnectorVersion::egress_control_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::ConnectorVersion;
-    /// use google_cloud_connectors_v1::model::EgressControlConfig;
-    /// let x = ConnectorVersion::new().set_egress_control_config(EgressControlConfig::default()/* use setters */);
-    /// ```
     pub fn set_egress_control_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::EgressControlConfig>,
@@ -5704,14 +4234,6 @@ impl ConnectorVersion {
     }
 
     /// Sets or clears the value of [egress_control_config][crate::model::ConnectorVersion::egress_control_config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::ConnectorVersion;
-    /// use google_cloud_connectors_v1::model::EgressControlConfig;
-    /// let x = ConnectorVersion::new().set_or_clear_egress_control_config(Some(EgressControlConfig::default()/* use setters */));
-    /// let x = ConnectorVersion::new().set_or_clear_egress_control_config(None::<EgressControlConfig>);
-    /// ```
     pub fn set_or_clear_egress_control_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::EgressControlConfig>,
@@ -5721,17 +4243,6 @@ impl ConnectorVersion {
     }
 
     /// Sets the value of [role_grants][crate::model::ConnectorVersion::role_grants].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::ConnectorVersion;
-    /// use google_cloud_connectors_v1::model::RoleGrant;
-    /// let x = ConnectorVersion::new()
-    ///     .set_role_grants([
-    ///         RoleGrant::default()/* use setters */,
-    ///         RoleGrant::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_role_grants<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -5743,13 +4254,6 @@ impl ConnectorVersion {
     }
 
     /// Sets the value of [role_grant][crate::model::ConnectorVersion::role_grant].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::ConnectorVersion;
-    /// use google_cloud_connectors_v1::model::RoleGrant;
-    /// let x = ConnectorVersion::new().set_role_grant(RoleGrant::default()/* use setters */);
-    /// ```
     pub fn set_role_grant<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::RoleGrant>,
@@ -5759,14 +4263,6 @@ impl ConnectorVersion {
     }
 
     /// Sets or clears the value of [role_grant][crate::model::ConnectorVersion::role_grant].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::ConnectorVersion;
-    /// use google_cloud_connectors_v1::model::RoleGrant;
-    /// let x = ConnectorVersion::new().set_or_clear_role_grant(Some(RoleGrant::default()/* use setters */));
-    /// let x = ConnectorVersion::new().set_or_clear_role_grant(None::<RoleGrant>);
-    /// ```
     pub fn set_or_clear_role_grant<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::RoleGrant>,
@@ -5776,13 +4272,6 @@ impl ConnectorVersion {
     }
 
     /// Sets the value of [ssl_config_template][crate::model::ConnectorVersion::ssl_config_template].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::ConnectorVersion;
-    /// use google_cloud_connectors_v1::model::SslConfigTemplate;
-    /// let x = ConnectorVersion::new().set_ssl_config_template(SslConfigTemplate::default()/* use setters */);
-    /// ```
     pub fn set_ssl_config_template<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::SslConfigTemplate>,
@@ -5792,14 +4281,6 @@ impl ConnectorVersion {
     }
 
     /// Sets or clears the value of [ssl_config_template][crate::model::ConnectorVersion::ssl_config_template].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::ConnectorVersion;
-    /// use google_cloud_connectors_v1::model::SslConfigTemplate;
-    /// let x = ConnectorVersion::new().set_or_clear_ssl_config_template(Some(SslConfigTemplate::default()/* use setters */));
-    /// let x = ConnectorVersion::new().set_or_clear_ssl_config_template(None::<SslConfigTemplate>);
-    /// ```
     pub fn set_or_clear_ssl_config_template<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::SslConfigTemplate>,
@@ -5837,26 +4318,12 @@ impl GetConnectorVersionRequest {
     }
 
     /// Sets the value of [name][crate::model::GetConnectorVersionRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::GetConnectorVersionRequest;
-    /// let x = GetConnectorVersionRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [view][crate::model::GetConnectorVersionRequest::view].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::GetConnectorVersionRequest;
-    /// use google_cloud_connectors_v1::model::ConnectorVersionView;
-    /// let x0 = GetConnectorVersionRequest::new().set_view(ConnectorVersionView::Basic);
-    /// let x1 = GetConnectorVersionRequest::new().set_view(ConnectorVersionView::Full);
-    /// ```
     pub fn set_view<T: std::convert::Into<crate::model::ConnectorVersionView>>(
         mut self,
         v: T,
@@ -5900,50 +4367,24 @@ impl ListConnectorVersionsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListConnectorVersionsRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::ListConnectorVersionsRequest;
-    /// let x = ListConnectorVersionsRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListConnectorVersionsRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::ListConnectorVersionsRequest;
-    /// let x = ListConnectorVersionsRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListConnectorVersionsRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::ListConnectorVersionsRequest;
-    /// let x = ListConnectorVersionsRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [view][crate::model::ListConnectorVersionsRequest::view].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::ListConnectorVersionsRequest;
-    /// use google_cloud_connectors_v1::model::ConnectorVersionView;
-    /// let x0 = ListConnectorVersionsRequest::new().set_view(ConnectorVersionView::Basic);
-    /// let x1 = ListConnectorVersionsRequest::new().set_view(ConnectorVersionView::Full);
-    /// ```
     pub fn set_view<T: std::convert::Into<crate::model::ConnectorVersionView>>(
         mut self,
         v: T,
@@ -5981,17 +4422,6 @@ impl ListConnectorVersionsResponse {
     }
 
     /// Sets the value of [connector_versions][crate::model::ListConnectorVersionsResponse::connector_versions].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::ListConnectorVersionsResponse;
-    /// use google_cloud_connectors_v1::model::ConnectorVersion;
-    /// let x = ListConnectorVersionsResponse::new()
-    ///     .set_connector_versions([
-    ///         ConnectorVersion::default()/* use setters */,
-    ///         ConnectorVersion::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_connector_versions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -6003,24 +4433,12 @@ impl ListConnectorVersionsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListConnectorVersionsResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::ListConnectorVersionsResponse;
-    /// let x = ListConnectorVersionsResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListConnectorVersionsResponse::unreachable].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::ListConnectorVersionsResponse;
-    /// let x = ListConnectorVersionsResponse::new().set_unreachable(["a", "b", "c"]);
-    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -6077,36 +4495,18 @@ impl SupportedRuntimeFeatures {
     }
 
     /// Sets the value of [entity_apis][crate::model::SupportedRuntimeFeatures::entity_apis].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::SupportedRuntimeFeatures;
-    /// let x = SupportedRuntimeFeatures::new().set_entity_apis(true);
-    /// ```
     pub fn set_entity_apis<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.entity_apis = v.into();
         self
     }
 
     /// Sets the value of [action_apis][crate::model::SupportedRuntimeFeatures::action_apis].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::SupportedRuntimeFeatures;
-    /// let x = SupportedRuntimeFeatures::new().set_action_apis(true);
-    /// ```
     pub fn set_action_apis<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.action_apis = v.into();
         self
     }
 
     /// Sets the value of [sql_query][crate::model::SupportedRuntimeFeatures::sql_query].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::SupportedRuntimeFeatures;
-    /// let x = SupportedRuntimeFeatures::new().set_sql_query(true);
-    /// ```
     pub fn set_sql_query<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.sql_query = v.into();
         self
@@ -6141,13 +4541,6 @@ impl EgressControlConfig {
     ///
     /// Note that all the setters affecting `oneof_backends` are mutually
     /// exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::EgressControlConfig;
-    /// use google_cloud_connectors_v1::model::egress_control_config;
-    /// let x = EgressControlConfig::new().set_oneof_backends(Some(egress_control_config::OneofBackends::Backends("example".to_string())));
-    /// ```
     pub fn set_oneof_backends<
         T: std::convert::Into<std::option::Option<crate::model::egress_control_config::OneofBackends>>,
     >(
@@ -6176,14 +4569,6 @@ impl EgressControlConfig {
     ///
     /// Note that all the setters affecting `oneof_backends` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::EgressControlConfig;
-    /// let x = EgressControlConfig::new().set_backends("example");
-    /// assert!(x.backends().is_some());
-    /// assert!(x.extraction_rules().is_none());
-    /// ```
     pub fn set_backends<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.oneof_backends = std::option::Option::Some(
             crate::model::egress_control_config::OneofBackends::Backends(v.into()),
@@ -6211,15 +4596,6 @@ impl EgressControlConfig {
     ///
     /// Note that all the setters affecting `oneof_backends` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::EgressControlConfig;
-    /// use google_cloud_connectors_v1::model::ExtractionRules;
-    /// let x = EgressControlConfig::new().set_extraction_rules(ExtractionRules::default()/* use setters */);
-    /// assert!(x.extraction_rules().is_some());
-    /// assert!(x.backends().is_none());
-    /// ```
     pub fn set_extraction_rules<
         T: std::convert::Into<std::boxed::Box<crate::model::ExtractionRules>>,
     >(
@@ -6274,17 +4650,6 @@ impl ExtractionRules {
     }
 
     /// Sets the value of [extraction_rule][crate::model::ExtractionRules::extraction_rule].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::ExtractionRules;
-    /// use google_cloud_connectors_v1::model::ExtractionRule;
-    /// let x = ExtractionRules::new()
-    ///     .set_extraction_rule([
-    ///         ExtractionRule::default()/* use setters */,
-    ///         ExtractionRule::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_extraction_rule<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -6322,13 +4687,6 @@ impl ExtractionRule {
     }
 
     /// Sets the value of [source][crate::model::ExtractionRule::source].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::ExtractionRule;
-    /// use google_cloud_connectors_v1::model::extraction_rule::Source;
-    /// let x = ExtractionRule::new().set_source(Source::default()/* use setters */);
-    /// ```
     pub fn set_source<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::extraction_rule::Source>,
@@ -6338,14 +4696,6 @@ impl ExtractionRule {
     }
 
     /// Sets or clears the value of [source][crate::model::ExtractionRule::source].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::ExtractionRule;
-    /// use google_cloud_connectors_v1::model::extraction_rule::Source;
-    /// let x = ExtractionRule::new().set_or_clear_source(Some(Source::default()/* use setters */));
-    /// let x = ExtractionRule::new().set_or_clear_source(None::<Source>);
-    /// ```
     pub fn set_or_clear_source<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::extraction_rule::Source>,
@@ -6355,12 +4705,6 @@ impl ExtractionRule {
     }
 
     /// Sets the value of [extraction_regex][crate::model::ExtractionRule::extraction_regex].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::ExtractionRule;
-    /// let x = ExtractionRule::new().set_extraction_regex("example");
-    /// ```
     pub fn set_extraction_regex<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -6400,13 +4744,6 @@ pub mod extraction_rule {
         }
 
         /// Sets the value of [source_type][crate::model::extraction_rule::Source::source_type].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_connectors_v1::model::extraction_rule::Source;
-        /// use google_cloud_connectors_v1::model::extraction_rule::SourceType;
-        /// let x0 = Source::new().set_source_type(SourceType::ConfigVariable);
-        /// ```
         pub fn set_source_type<T: std::convert::Into<crate::model::extraction_rule::SourceType>>(
             mut self,
             v: T,
@@ -6416,12 +4753,6 @@ pub mod extraction_rule {
         }
 
         /// Sets the value of [field_id][crate::model::extraction_rule::Source::field_id].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_connectors_v1::model::extraction_rule::Source;
-        /// let x = Source::new().set_field_id("example");
-        /// ```
         pub fn set_field_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.field_id = v.into();
             self
@@ -6579,29 +4910,12 @@ impl DestinationConfig {
     }
 
     /// Sets the value of [key][crate::model::DestinationConfig::key].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::DestinationConfig;
-    /// let x = DestinationConfig::new().set_key("example");
-    /// ```
     pub fn set_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.key = v.into();
         self
     }
 
     /// Sets the value of [destinations][crate::model::DestinationConfig::destinations].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::DestinationConfig;
-    /// use google_cloud_connectors_v1::model::Destination;
-    /// let x = DestinationConfig::new()
-    ///     .set_destinations([
-    ///         Destination::default()/* use setters */,
-    ///         Destination::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_destinations<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -6636,12 +4950,6 @@ impl Destination {
     }
 
     /// Sets the value of [port][crate::model::Destination::port].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::Destination;
-    /// let x = Destination::new().set_port(42);
-    /// ```
     pub fn set_port<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.port = v.into();
         self
@@ -6651,13 +4959,6 @@ impl Destination {
     ///
     /// Note that all the setters affecting `destination` are mutually
     /// exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::Destination;
-    /// use google_cloud_connectors_v1::model::destination;
-    /// let x = Destination::new().set_destination(Some(destination::Destination::ServiceAttachment("example".to_string())));
-    /// ```
     pub fn set_destination<
         T: std::convert::Into<std::option::Option<crate::model::destination::Destination>>,
     >(
@@ -6686,14 +4987,6 @@ impl Destination {
     ///
     /// Note that all the setters affecting `destination` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::Destination;
-    /// let x = Destination::new().set_service_attachment("example");
-    /// assert!(x.service_attachment().is_some());
-    /// assert!(x.host().is_none());
-    /// ```
     pub fn set_service_attachment<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -6720,14 +5013,6 @@ impl Destination {
     ///
     /// Note that all the setters affecting `destination` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::Destination;
-    /// let x = Destination::new().set_host("example");
-    /// assert!(x.host().is_some());
-    /// assert!(x.service_attachment().is_none());
-    /// ```
     pub fn set_host<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.destination =
             std::option::Option::Some(crate::model::destination::Destination::Host(v.into()));
@@ -6804,25 +5089,12 @@ impl Provider {
     }
 
     /// Sets the value of [name][crate::model::Provider::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::Provider;
-    /// let x = Provider::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::Provider::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::Provider;
-    /// use wkt::Timestamp;
-    /// let x = Provider::new().set_create_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -6832,14 +5104,6 @@ impl Provider {
     }
 
     /// Sets or clears the value of [create_time][crate::model::Provider::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::Provider;
-    /// use wkt::Timestamp;
-    /// let x = Provider::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
-    /// let x = Provider::new().set_or_clear_create_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -6849,13 +5113,6 @@ impl Provider {
     }
 
     /// Sets the value of [update_time][crate::model::Provider::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::Provider;
-    /// use wkt::Timestamp;
-    /// let x = Provider::new().set_update_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -6865,14 +5122,6 @@ impl Provider {
     }
 
     /// Sets or clears the value of [update_time][crate::model::Provider::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::Provider;
-    /// use wkt::Timestamp;
-    /// let x = Provider::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
-    /// let x = Provider::new().set_or_clear_update_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -6882,15 +5131,6 @@ impl Provider {
     }
 
     /// Sets the value of [labels][crate::model::Provider::labels].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::Provider;
-    /// let x = Provider::new().set_labels([
-    ///     ("key0", "abc"),
-    ///     ("key1", "xyz"),
-    /// ]);
-    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -6903,12 +5143,6 @@ impl Provider {
     }
 
     /// Sets the value of [documentation_uri][crate::model::Provider::documentation_uri].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::Provider;
-    /// let x = Provider::new().set_documentation_uri("example");
-    /// ```
     pub fn set_documentation_uri<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -6918,36 +5152,18 @@ impl Provider {
     }
 
     /// Sets the value of [external_uri][crate::model::Provider::external_uri].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::Provider;
-    /// let x = Provider::new().set_external_uri("example");
-    /// ```
     pub fn set_external_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.external_uri = v.into();
         self
     }
 
     /// Sets the value of [description][crate::model::Provider::description].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::Provider;
-    /// let x = Provider::new().set_description("example");
-    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [web_assets_location][crate::model::Provider::web_assets_location].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::Provider;
-    /// let x = Provider::new().set_web_assets_location("example");
-    /// ```
     pub fn set_web_assets_location<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -6957,27 +5173,12 @@ impl Provider {
     }
 
     /// Sets the value of [display_name][crate::model::Provider::display_name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::Provider;
-    /// let x = Provider::new().set_display_name("example");
-    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
     }
 
     /// Sets the value of [launch_stage][crate::model::Provider::launch_stage].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::Provider;
-    /// use google_cloud_connectors_v1::model::LaunchStage;
-    /// let x0 = Provider::new().set_launch_stage(LaunchStage::Preview);
-    /// let x1 = Provider::new().set_launch_stage(LaunchStage::Ga);
-    /// let x2 = Provider::new().set_launch_stage(LaunchStage::Deprecated);
-    /// ```
     pub fn set_launch_stage<T: std::convert::Into<crate::model::LaunchStage>>(
         mut self,
         v: T,
@@ -7011,12 +5212,6 @@ impl GetProviderRequest {
     }
 
     /// Sets the value of [name][crate::model::GetProviderRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::GetProviderRequest;
-    /// let x = GetProviderRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -7053,36 +5248,18 @@ impl ListProvidersRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListProvidersRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::ListProvidersRequest;
-    /// let x = ListProvidersRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListProvidersRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::ListProvidersRequest;
-    /// let x = ListProvidersRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListProvidersRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::ListProvidersRequest;
-    /// let x = ListProvidersRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -7117,17 +5294,6 @@ impl ListProvidersResponse {
     }
 
     /// Sets the value of [providers][crate::model::ListProvidersResponse::providers].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::ListProvidersResponse;
-    /// use google_cloud_connectors_v1::model::Provider;
-    /// let x = ListProvidersResponse::new()
-    ///     .set_providers([
-    ///         Provider::default()/* use setters */,
-    ///         Provider::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_providers<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -7139,24 +5305,12 @@ impl ListProvidersResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListProvidersResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::ListProvidersResponse;
-    /// let x = ListProvidersResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListProvidersResponse::unreachable].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::ListProvidersResponse;
-    /// let x = ListProvidersResponse::new().set_unreachable(["a", "b", "c"]);
-    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -7205,12 +5359,6 @@ impl GetRuntimeConfigRequest {
     }
 
     /// Sets the value of [name][crate::model::GetRuntimeConfigRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::GetRuntimeConfigRequest;
-    /// let x = GetRuntimeConfigRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -7276,36 +5424,18 @@ impl RuntimeConfig {
     }
 
     /// Sets the value of [location_id][crate::model::RuntimeConfig::location_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::RuntimeConfig;
-    /// let x = RuntimeConfig::new().set_location_id("example");
-    /// ```
     pub fn set_location_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.location_id = v.into();
         self
     }
 
     /// Sets the value of [connd_topic][crate::model::RuntimeConfig::connd_topic].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::RuntimeConfig;
-    /// let x = RuntimeConfig::new().set_connd_topic("example");
-    /// ```
     pub fn set_connd_topic<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.connd_topic = v.into();
         self
     }
 
     /// Sets the value of [connd_subscription][crate::model::RuntimeConfig::connd_subscription].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::RuntimeConfig;
-    /// let x = RuntimeConfig::new().set_connd_subscription("example");
-    /// ```
     pub fn set_connd_subscription<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -7315,12 +5445,6 @@ impl RuntimeConfig {
     }
 
     /// Sets the value of [control_plane_topic][crate::model::RuntimeConfig::control_plane_topic].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::RuntimeConfig;
-    /// let x = RuntimeConfig::new().set_control_plane_topic("example");
-    /// ```
     pub fn set_control_plane_topic<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -7330,12 +5454,6 @@ impl RuntimeConfig {
     }
 
     /// Sets the value of [control_plane_subscription][crate::model::RuntimeConfig::control_plane_subscription].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::RuntimeConfig;
-    /// let x = RuntimeConfig::new().set_control_plane_subscription("example");
-    /// ```
     pub fn set_control_plane_subscription<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -7345,12 +5463,6 @@ impl RuntimeConfig {
     }
 
     /// Sets the value of [runtime_endpoint][crate::model::RuntimeConfig::runtime_endpoint].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::RuntimeConfig;
-    /// let x = RuntimeConfig::new().set_runtime_endpoint("example");
-    /// ```
     pub fn set_runtime_endpoint<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -7360,15 +5472,6 @@ impl RuntimeConfig {
     }
 
     /// Sets the value of [state][crate::model::RuntimeConfig::state].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::RuntimeConfig;
-    /// use google_cloud_connectors_v1::model::runtime_config::State;
-    /// let x0 = RuntimeConfig::new().set_state(State::Active);
-    /// let x1 = RuntimeConfig::new().set_state(State::Creating);
-    /// let x2 = RuntimeConfig::new().set_state(State::Deleting);
-    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::runtime_config::State>>(
         mut self,
         v: T,
@@ -7378,12 +5481,6 @@ impl RuntimeConfig {
     }
 
     /// Sets the value of [schema_gcs_bucket][crate::model::RuntimeConfig::schema_gcs_bucket].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::RuntimeConfig;
-    /// let x = RuntimeConfig::new().set_schema_gcs_bucket("example");
-    /// ```
     pub fn set_schema_gcs_bucket<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -7393,12 +5490,6 @@ impl RuntimeConfig {
     }
 
     /// Sets the value of [service_directory][crate::model::RuntimeConfig::service_directory].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::RuntimeConfig;
-    /// let x = RuntimeConfig::new().set_service_directory("example");
-    /// ```
     pub fn set_service_directory<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -7408,12 +5499,6 @@ impl RuntimeConfig {
     }
 
     /// Sets the value of [name][crate::model::RuntimeConfig::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::RuntimeConfig;
-    /// let x = RuntimeConfig::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -7610,12 +5695,6 @@ impl GetGlobalSettingsRequest {
     }
 
     /// Sets the value of [name][crate::model::GetGlobalSettingsRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::GetGlobalSettingsRequest;
-    /// let x = GetGlobalSettingsRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -7651,36 +5730,18 @@ impl Settings {
     }
 
     /// Sets the value of [name][crate::model::Settings::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::Settings;
-    /// let x = Settings::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [vpcsc][crate::model::Settings::vpcsc].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::Settings;
-    /// let x = Settings::new().set_vpcsc(true);
-    /// ```
     pub fn set_vpcsc<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.vpcsc = v.into();
         self
     }
 
     /// Sets the value of [payg][crate::model::Settings::payg].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::Settings;
-    /// let x = Settings::new().set_payg(true);
-    /// ```
     pub fn set_payg<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.payg = v.into();
         self
@@ -7721,41 +5782,18 @@ impl SslConfigTemplate {
     }
 
     /// Sets the value of [ssl_type][crate::model::SslConfigTemplate::ssl_type].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::SslConfigTemplate;
-    /// use google_cloud_connectors_v1::model::SslType;
-    /// let x0 = SslConfigTemplate::new().set_ssl_type(SslType::Tls);
-    /// let x1 = SslConfigTemplate::new().set_ssl_type(SslType::Mtls);
-    /// ```
     pub fn set_ssl_type<T: std::convert::Into<crate::model::SslType>>(mut self, v: T) -> Self {
         self.ssl_type = v.into();
         self
     }
 
     /// Sets the value of [is_tls_mandatory][crate::model::SslConfigTemplate::is_tls_mandatory].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::SslConfigTemplate;
-    /// let x = SslConfigTemplate::new().set_is_tls_mandatory(true);
-    /// ```
     pub fn set_is_tls_mandatory<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.is_tls_mandatory = v.into();
         self
     }
 
     /// Sets the value of [server_cert_type][crate::model::SslConfigTemplate::server_cert_type].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::SslConfigTemplate;
-    /// use google_cloud_connectors_v1::model::CertType;
-    /// let x = SslConfigTemplate::new().set_server_cert_type([
-    ///     CertType::Pem,
-    /// ]);
-    /// ```
     pub fn set_server_cert_type<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -7767,15 +5805,6 @@ impl SslConfigTemplate {
     }
 
     /// Sets the value of [client_cert_type][crate::model::SslConfigTemplate::client_cert_type].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::SslConfigTemplate;
-    /// use google_cloud_connectors_v1::model::CertType;
-    /// let x = SslConfigTemplate::new().set_client_cert_type([
-    ///     CertType::Pem,
-    /// ]);
-    /// ```
     pub fn set_client_cert_type<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -7787,17 +5816,6 @@ impl SslConfigTemplate {
     }
 
     /// Sets the value of [additional_variables][crate::model::SslConfigTemplate::additional_variables].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::SslConfigTemplate;
-    /// use google_cloud_connectors_v1::model::ConfigVariableTemplate;
-    /// let x = SslConfigTemplate::new()
-    ///     .set_additional_variables([
-    ///         ConfigVariableTemplate::default()/* use setters */,
-    ///         ConfigVariableTemplate::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_additional_variables<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -7859,28 +5877,12 @@ impl SslConfig {
     }
 
     /// Sets the value of [r#type][crate::model::SslConfig::type].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::SslConfig;
-    /// use google_cloud_connectors_v1::model::SslType;
-    /// let x0 = SslConfig::new().set_type(SslType::Tls);
-    /// let x1 = SslConfig::new().set_type(SslType::Mtls);
-    /// ```
     pub fn set_type<T: std::convert::Into<crate::model::SslType>>(mut self, v: T) -> Self {
         self.r#type = v.into();
         self
     }
 
     /// Sets the value of [trust_model][crate::model::SslConfig::trust_model].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::SslConfig;
-    /// use google_cloud_connectors_v1::model::ssl_config::TrustModel;
-    /// let x0 = SslConfig::new().set_trust_model(TrustModel::Private);
-    /// let x1 = SslConfig::new().set_trust_model(TrustModel::Insecure);
-    /// ```
     pub fn set_trust_model<T: std::convert::Into<crate::model::ssl_config::TrustModel>>(
         mut self,
         v: T,
@@ -7890,13 +5892,6 @@ impl SslConfig {
     }
 
     /// Sets the value of [private_server_certificate][crate::model::SslConfig::private_server_certificate].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::SslConfig;
-    /// use google_cloud_connectors_v1::model::Secret;
-    /// let x = SslConfig::new().set_private_server_certificate(Secret::default()/* use setters */);
-    /// ```
     pub fn set_private_server_certificate<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Secret>,
@@ -7906,14 +5901,6 @@ impl SslConfig {
     }
 
     /// Sets or clears the value of [private_server_certificate][crate::model::SslConfig::private_server_certificate].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::SslConfig;
-    /// use google_cloud_connectors_v1::model::Secret;
-    /// let x = SslConfig::new().set_or_clear_private_server_certificate(Some(Secret::default()/* use setters */));
-    /// let x = SslConfig::new().set_or_clear_private_server_certificate(None::<Secret>);
-    /// ```
     pub fn set_or_clear_private_server_certificate<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Secret>,
@@ -7923,13 +5910,6 @@ impl SslConfig {
     }
 
     /// Sets the value of [client_certificate][crate::model::SslConfig::client_certificate].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::SslConfig;
-    /// use google_cloud_connectors_v1::model::Secret;
-    /// let x = SslConfig::new().set_client_certificate(Secret::default()/* use setters */);
-    /// ```
     pub fn set_client_certificate<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Secret>,
@@ -7939,14 +5919,6 @@ impl SslConfig {
     }
 
     /// Sets or clears the value of [client_certificate][crate::model::SslConfig::client_certificate].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::SslConfig;
-    /// use google_cloud_connectors_v1::model::Secret;
-    /// let x = SslConfig::new().set_or_clear_client_certificate(Some(Secret::default()/* use setters */));
-    /// let x = SslConfig::new().set_or_clear_client_certificate(None::<Secret>);
-    /// ```
     pub fn set_or_clear_client_certificate<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Secret>,
@@ -7956,13 +5928,6 @@ impl SslConfig {
     }
 
     /// Sets the value of [client_private_key][crate::model::SslConfig::client_private_key].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::SslConfig;
-    /// use google_cloud_connectors_v1::model::Secret;
-    /// let x = SslConfig::new().set_client_private_key(Secret::default()/* use setters */);
-    /// ```
     pub fn set_client_private_key<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Secret>,
@@ -7972,14 +5937,6 @@ impl SslConfig {
     }
 
     /// Sets or clears the value of [client_private_key][crate::model::SslConfig::client_private_key].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::SslConfig;
-    /// use google_cloud_connectors_v1::model::Secret;
-    /// let x = SslConfig::new().set_or_clear_client_private_key(Some(Secret::default()/* use setters */));
-    /// let x = SslConfig::new().set_or_clear_client_private_key(None::<Secret>);
-    /// ```
     pub fn set_or_clear_client_private_key<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Secret>,
@@ -7989,13 +5946,6 @@ impl SslConfig {
     }
 
     /// Sets the value of [client_private_key_pass][crate::model::SslConfig::client_private_key_pass].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::SslConfig;
-    /// use google_cloud_connectors_v1::model::Secret;
-    /// let x = SslConfig::new().set_client_private_key_pass(Secret::default()/* use setters */);
-    /// ```
     pub fn set_client_private_key_pass<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Secret>,
@@ -8005,14 +5955,6 @@ impl SslConfig {
     }
 
     /// Sets or clears the value of [client_private_key_pass][crate::model::SslConfig::client_private_key_pass].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::SslConfig;
-    /// use google_cloud_connectors_v1::model::Secret;
-    /// let x = SslConfig::new().set_or_clear_client_private_key_pass(Some(Secret::default()/* use setters */));
-    /// let x = SslConfig::new().set_or_clear_client_private_key_pass(None::<Secret>);
-    /// ```
     pub fn set_or_clear_client_private_key_pass<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Secret>,
@@ -8022,13 +5964,6 @@ impl SslConfig {
     }
 
     /// Sets the value of [server_cert_type][crate::model::SslConfig::server_cert_type].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::SslConfig;
-    /// use google_cloud_connectors_v1::model::CertType;
-    /// let x0 = SslConfig::new().set_server_cert_type(CertType::Pem);
-    /// ```
     pub fn set_server_cert_type<T: std::convert::Into<crate::model::CertType>>(
         mut self,
         v: T,
@@ -8038,13 +5973,6 @@ impl SslConfig {
     }
 
     /// Sets the value of [client_cert_type][crate::model::SslConfig::client_cert_type].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::SslConfig;
-    /// use google_cloud_connectors_v1::model::CertType;
-    /// let x0 = SslConfig::new().set_client_cert_type(CertType::Pem);
-    /// ```
     pub fn set_client_cert_type<T: std::convert::Into<crate::model::CertType>>(
         mut self,
         v: T,
@@ -8054,29 +5982,12 @@ impl SslConfig {
     }
 
     /// Sets the value of [use_ssl][crate::model::SslConfig::use_ssl].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::SslConfig;
-    /// let x = SslConfig::new().set_use_ssl(true);
-    /// ```
     pub fn set_use_ssl<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.use_ssl = v.into();
         self
     }
 
     /// Sets the value of [additional_variables][crate::model::SslConfig::additional_variables].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_connectors_v1::model::SslConfig;
-    /// use google_cloud_connectors_v1::model::ConfigVariable;
-    /// let x = SslConfig::new()
-    ///     .set_additional_variables([
-    ///         ConfigVariable::default()/* use setters */,
-    ///         ConfigVariable::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_additional_variables<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,

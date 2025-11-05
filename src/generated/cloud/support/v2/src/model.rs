@@ -74,24 +74,12 @@ impl Actor {
     }
 
     /// Sets the value of [display_name][crate::model::Actor::display_name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_support_v2::model::Actor;
-    /// let x = Actor::new().set_display_name("example");
-    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
     }
 
     /// Sets the value of [email][crate::model::Actor::email].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_support_v2::model::Actor;
-    /// let x = Actor::new().set_email("example");
-    /// ```
     #[deprecated]
     pub fn set_email<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.email = v.into();
@@ -99,24 +87,12 @@ impl Actor {
     }
 
     /// Sets the value of [google_support][crate::model::Actor::google_support].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_support_v2::model::Actor;
-    /// let x = Actor::new().set_google_support(true);
-    /// ```
     pub fn set_google_support<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.google_support = v.into();
         self
     }
 
     /// Sets the value of [username][crate::model::Actor::username].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_support_v2::model::Actor;
-    /// let x = Actor::new().set_username("example");
-    /// ```
     pub fn set_username<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.username = v.into();
         self
@@ -168,25 +144,12 @@ impl Attachment {
     }
 
     /// Sets the value of [name][crate::model::Attachment::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_support_v2::model::Attachment;
-    /// let x = Attachment::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::Attachment::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_support_v2::model::Attachment;
-    /// use wkt::Timestamp;
-    /// let x = Attachment::new().set_create_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -196,14 +159,6 @@ impl Attachment {
     }
 
     /// Sets or clears the value of [create_time][crate::model::Attachment::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_support_v2::model::Attachment;
-    /// use wkt::Timestamp;
-    /// let x = Attachment::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
-    /// let x = Attachment::new().set_or_clear_create_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -213,13 +168,6 @@ impl Attachment {
     }
 
     /// Sets the value of [creator][crate::model::Attachment::creator].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_support_v2::model::Attachment;
-    /// use google_cloud_support_v2::model::Actor;
-    /// let x = Attachment::new().set_creator(Actor::default()/* use setters */);
-    /// ```
     pub fn set_creator<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Actor>,
@@ -229,14 +177,6 @@ impl Attachment {
     }
 
     /// Sets or clears the value of [creator][crate::model::Attachment::creator].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_support_v2::model::Attachment;
-    /// use google_cloud_support_v2::model::Actor;
-    /// let x = Attachment::new().set_or_clear_creator(Some(Actor::default()/* use setters */));
-    /// let x = Attachment::new().set_or_clear_creator(None::<Actor>);
-    /// ```
     pub fn set_or_clear_creator<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Actor>,
@@ -246,36 +186,18 @@ impl Attachment {
     }
 
     /// Sets the value of [filename][crate::model::Attachment::filename].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_support_v2::model::Attachment;
-    /// let x = Attachment::new().set_filename("example");
-    /// ```
     pub fn set_filename<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filename = v.into();
         self
     }
 
     /// Sets the value of [mime_type][crate::model::Attachment::mime_type].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_support_v2::model::Attachment;
-    /// let x = Attachment::new().set_mime_type("example");
-    /// ```
     pub fn set_mime_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.mime_type = v.into();
         self
     }
 
     /// Sets the value of [size_bytes][crate::model::Attachment::size_bytes].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_support_v2::model::Attachment;
-    /// let x = Attachment::new().set_size_bytes(42);
-    /// ```
     pub fn set_size_bytes<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.size_bytes = v.into();
         self
@@ -318,36 +240,18 @@ impl ListAttachmentsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListAttachmentsRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_support_v2::model::ListAttachmentsRequest;
-    /// let x = ListAttachmentsRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListAttachmentsRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_support_v2::model::ListAttachmentsRequest;
-    /// let x = ListAttachmentsRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListAttachmentsRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_support_v2::model::ListAttachmentsRequest;
-    /// let x = ListAttachmentsRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -381,17 +285,6 @@ impl ListAttachmentsResponse {
     }
 
     /// Sets the value of [attachments][crate::model::ListAttachmentsResponse::attachments].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_support_v2::model::ListAttachmentsResponse;
-    /// use google_cloud_support_v2::model::Attachment;
-    /// let x = ListAttachmentsResponse::new()
-    ///     .set_attachments([
-    ///         Attachment::default()/* use setters */,
-    ///         Attachment::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_attachments<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -403,12 +296,6 @@ impl ListAttachmentsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListAttachmentsResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_support_v2::model::ListAttachmentsResponse;
-    /// let x = ListAttachmentsResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -534,49 +421,24 @@ impl Case {
     }
 
     /// Sets the value of [name][crate::model::Case::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_support_v2::model::Case;
-    /// let x = Case::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [display_name][crate::model::Case::display_name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_support_v2::model::Case;
-    /// let x = Case::new().set_display_name("example");
-    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
     }
 
     /// Sets the value of [description][crate::model::Case::description].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_support_v2::model::Case;
-    /// let x = Case::new().set_description("example");
-    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [classification][crate::model::Case::classification].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_support_v2::model::Case;
-    /// use google_cloud_support_v2::model::CaseClassification;
-    /// let x = Case::new().set_classification(CaseClassification::default()/* use setters */);
-    /// ```
     pub fn set_classification<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::CaseClassification>,
@@ -586,14 +448,6 @@ impl Case {
     }
 
     /// Sets or clears the value of [classification][crate::model::Case::classification].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_support_v2::model::Case;
-    /// use google_cloud_support_v2::model::CaseClassification;
-    /// let x = Case::new().set_or_clear_classification(Some(CaseClassification::default()/* use setters */));
-    /// let x = Case::new().set_or_clear_classification(None::<CaseClassification>);
-    /// ```
     pub fn set_or_clear_classification<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CaseClassification>,
@@ -603,24 +457,12 @@ impl Case {
     }
 
     /// Sets the value of [time_zone][crate::model::Case::time_zone].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_support_v2::model::Case;
-    /// let x = Case::new().set_time_zone("example");
-    /// ```
     pub fn set_time_zone<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.time_zone = v.into();
         self
     }
 
     /// Sets the value of [subscriber_email_addresses][crate::model::Case::subscriber_email_addresses].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_support_v2::model::Case;
-    /// let x = Case::new().set_subscriber_email_addresses(["a", "b", "c"]);
-    /// ```
     pub fn set_subscriber_email_addresses<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -632,28 +474,12 @@ impl Case {
     }
 
     /// Sets the value of [state][crate::model::Case::state].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_support_v2::model::Case;
-    /// use google_cloud_support_v2::model::case::State;
-    /// let x0 = Case::new().set_state(State::New);
-    /// let x1 = Case::new().set_state(State::InProgressGoogleSupport);
-    /// let x2 = Case::new().set_state(State::ActionRequired);
-    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::case::State>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::Case::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_support_v2::model::Case;
-    /// use wkt::Timestamp;
-    /// let x = Case::new().set_create_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -663,14 +489,6 @@ impl Case {
     }
 
     /// Sets or clears the value of [create_time][crate::model::Case::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_support_v2::model::Case;
-    /// use wkt::Timestamp;
-    /// let x = Case::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
-    /// let x = Case::new().set_or_clear_create_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -680,13 +498,6 @@ impl Case {
     }
 
     /// Sets the value of [update_time][crate::model::Case::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_support_v2::model::Case;
-    /// use wkt::Timestamp;
-    /// let x = Case::new().set_update_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -696,14 +507,6 @@ impl Case {
     }
 
     /// Sets or clears the value of [update_time][crate::model::Case::update_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_support_v2::model::Case;
-    /// use wkt::Timestamp;
-    /// let x = Case::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
-    /// let x = Case::new().set_or_clear_update_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -713,13 +516,6 @@ impl Case {
     }
 
     /// Sets the value of [creator][crate::model::Case::creator].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_support_v2::model::Case;
-    /// use google_cloud_support_v2::model::Actor;
-    /// let x = Case::new().set_creator(Actor::default()/* use setters */);
-    /// ```
     pub fn set_creator<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Actor>,
@@ -729,14 +525,6 @@ impl Case {
     }
 
     /// Sets or clears the value of [creator][crate::model::Case::creator].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_support_v2::model::Case;
-    /// use google_cloud_support_v2::model::Actor;
-    /// let x = Case::new().set_or_clear_creator(Some(Actor::default()/* use setters */));
-    /// let x = Case::new().set_or_clear_creator(None::<Actor>);
-    /// ```
     pub fn set_or_clear_creator<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Actor>,
@@ -746,63 +534,30 @@ impl Case {
     }
 
     /// Sets the value of [contact_email][crate::model::Case::contact_email].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_support_v2::model::Case;
-    /// let x = Case::new().set_contact_email("example");
-    /// ```
     pub fn set_contact_email<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.contact_email = v.into();
         self
     }
 
     /// Sets the value of [escalated][crate::model::Case::escalated].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_support_v2::model::Case;
-    /// let x = Case::new().set_escalated(true);
-    /// ```
     pub fn set_escalated<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.escalated = v.into();
         self
     }
 
     /// Sets the value of [test_case][crate::model::Case::test_case].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_support_v2::model::Case;
-    /// let x = Case::new().set_test_case(true);
-    /// ```
     pub fn set_test_case<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.test_case = v.into();
         self
     }
 
     /// Sets the value of [language_code][crate::model::Case::language_code].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_support_v2::model::Case;
-    /// let x = Case::new().set_language_code("example");
-    /// ```
     pub fn set_language_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.language_code = v.into();
         self
     }
 
     /// Sets the value of [priority][crate::model::Case::priority].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_support_v2::model::Case;
-    /// use google_cloud_support_v2::model::case::Priority;
-    /// let x0 = Case::new().set_priority(Priority::P0);
-    /// let x1 = Case::new().set_priority(Priority::P1);
-    /// let x2 = Case::new().set_priority(Priority::P2);
-    /// ```
     pub fn set_priority<T: std::convert::Into<crate::model::case::Priority>>(
         mut self,
         v: T,
@@ -1170,24 +925,12 @@ impl CaseClassification {
     }
 
     /// Sets the value of [id][crate::model::CaseClassification::id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_support_v2::model::CaseClassification;
-    /// let x = CaseClassification::new().set_id("example");
-    /// ```
     pub fn set_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.id = v.into();
         self
     }
 
     /// Sets the value of [display_name][crate::model::CaseClassification::display_name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_support_v2::model::CaseClassification;
-    /// let x = CaseClassification::new().set_display_name("example");
-    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
@@ -1216,12 +959,6 @@ impl GetCaseRequest {
     }
 
     /// Sets the value of [name][crate::model::GetCaseRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_support_v2::model::GetCaseRequest;
-    /// let x = GetCaseRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -1253,25 +990,12 @@ impl CreateCaseRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateCaseRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_support_v2::model::CreateCaseRequest;
-    /// let x = CreateCaseRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [case][crate::model::CreateCaseRequest::case].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_support_v2::model::CreateCaseRequest;
-    /// use google_cloud_support_v2::model::Case;
-    /// let x = CreateCaseRequest::new().set_case(Case::default()/* use setters */);
-    /// ```
     pub fn set_case<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Case>,
@@ -1281,14 +1005,6 @@ impl CreateCaseRequest {
     }
 
     /// Sets or clears the value of [case][crate::model::CreateCaseRequest::case].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_support_v2::model::CreateCaseRequest;
-    /// use google_cloud_support_v2::model::Case;
-    /// let x = CreateCaseRequest::new().set_or_clear_case(Some(Case::default()/* use setters */));
-    /// let x = CreateCaseRequest::new().set_or_clear_case(None::<Case>);
-    /// ```
     pub fn set_or_clear_case<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Case>,
@@ -1348,48 +1064,24 @@ impl ListCasesRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListCasesRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_support_v2::model::ListCasesRequest;
-    /// let x = ListCasesRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListCasesRequest::filter].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_support_v2::model::ListCasesRequest;
-    /// let x = ListCasesRequest::new().set_filter("example");
-    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListCasesRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_support_v2::model::ListCasesRequest;
-    /// let x = ListCasesRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListCasesRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_support_v2::model::ListCasesRequest;
-    /// let x = ListCasesRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -1424,17 +1116,6 @@ impl ListCasesResponse {
     }
 
     /// Sets the value of [cases][crate::model::ListCasesResponse::cases].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_support_v2::model::ListCasesResponse;
-    /// use google_cloud_support_v2::model::Case;
-    /// let x = ListCasesResponse::new()
-    ///     .set_cases([
-    ///         Case::default()/* use setters */,
-    ///         Case::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_cases<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1446,12 +1127,6 @@ impl ListCasesResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListCasesResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_support_v2::model::ListCasesResponse;
-    /// let x = ListCasesResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -1536,48 +1211,24 @@ impl SearchCasesRequest {
     }
 
     /// Sets the value of [parent][crate::model::SearchCasesRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_support_v2::model::SearchCasesRequest;
-    /// let x = SearchCasesRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [query][crate::model::SearchCasesRequest::query].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_support_v2::model::SearchCasesRequest;
-    /// let x = SearchCasesRequest::new().set_query("example");
-    /// ```
     pub fn set_query<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.query = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::SearchCasesRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_support_v2::model::SearchCasesRequest;
-    /// let x = SearchCasesRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::SearchCasesRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_support_v2::model::SearchCasesRequest;
-    /// let x = SearchCasesRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -1612,17 +1263,6 @@ impl SearchCasesResponse {
     }
 
     /// Sets the value of [cases][crate::model::SearchCasesResponse::cases].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_support_v2::model::SearchCasesResponse;
-    /// use google_cloud_support_v2::model::Case;
-    /// let x = SearchCasesResponse::new()
-    ///     .set_cases([
-    ///         Case::default()/* use setters */,
-    ///         Case::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_cases<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1634,12 +1274,6 @@ impl SearchCasesResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::SearchCasesResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_support_v2::model::SearchCasesResponse;
-    /// let x = SearchCasesResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -1685,25 +1319,12 @@ impl EscalateCaseRequest {
     }
 
     /// Sets the value of [name][crate::model::EscalateCaseRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_support_v2::model::EscalateCaseRequest;
-    /// let x = EscalateCaseRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [escalation][crate::model::EscalateCaseRequest::escalation].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_support_v2::model::EscalateCaseRequest;
-    /// use google_cloud_support_v2::model::Escalation;
-    /// let x = EscalateCaseRequest::new().set_escalation(Escalation::default()/* use setters */);
-    /// ```
     pub fn set_escalation<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Escalation>,
@@ -1713,14 +1334,6 @@ impl EscalateCaseRequest {
     }
 
     /// Sets or clears the value of [escalation][crate::model::EscalateCaseRequest::escalation].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_support_v2::model::EscalateCaseRequest;
-    /// use google_cloud_support_v2::model::Escalation;
-    /// let x = EscalateCaseRequest::new().set_or_clear_escalation(Some(Escalation::default()/* use setters */));
-    /// let x = EscalateCaseRequest::new().set_or_clear_escalation(None::<Escalation>);
-    /// ```
     pub fn set_or_clear_escalation<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Escalation>,
@@ -1762,13 +1375,6 @@ impl UpdateCaseRequest {
     }
 
     /// Sets the value of [case][crate::model::UpdateCaseRequest::case].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_support_v2::model::UpdateCaseRequest;
-    /// use google_cloud_support_v2::model::Case;
-    /// let x = UpdateCaseRequest::new().set_case(Case::default()/* use setters */);
-    /// ```
     pub fn set_case<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Case>,
@@ -1778,14 +1384,6 @@ impl UpdateCaseRequest {
     }
 
     /// Sets or clears the value of [case][crate::model::UpdateCaseRequest::case].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_support_v2::model::UpdateCaseRequest;
-    /// use google_cloud_support_v2::model::Case;
-    /// let x = UpdateCaseRequest::new().set_or_clear_case(Some(Case::default()/* use setters */));
-    /// let x = UpdateCaseRequest::new().set_or_clear_case(None::<Case>);
-    /// ```
     pub fn set_or_clear_case<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Case>,
@@ -1795,13 +1393,6 @@ impl UpdateCaseRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateCaseRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_support_v2::model::UpdateCaseRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateCaseRequest::new().set_update_mask(FieldMask::default()/* use setters */);
-    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -1811,14 +1402,6 @@ impl UpdateCaseRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateCaseRequest::update_mask].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_support_v2::model::UpdateCaseRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateCaseRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
-    /// let x = UpdateCaseRequest::new().set_or_clear_update_mask(None::<FieldMask>);
-    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -1850,12 +1433,6 @@ impl CloseCaseRequest {
     }
 
     /// Sets the value of [name][crate::model::CloseCaseRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_support_v2::model::CloseCaseRequest;
-    /// let x = CloseCaseRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -1894,36 +1471,18 @@ impl SearchCaseClassificationsRequest {
     }
 
     /// Sets the value of [query][crate::model::SearchCaseClassificationsRequest::query].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_support_v2::model::SearchCaseClassificationsRequest;
-    /// let x = SearchCaseClassificationsRequest::new().set_query("example");
-    /// ```
     pub fn set_query<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.query = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::SearchCaseClassificationsRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_support_v2::model::SearchCaseClassificationsRequest;
-    /// let x = SearchCaseClassificationsRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::SearchCaseClassificationsRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_support_v2::model::SearchCaseClassificationsRequest;
-    /// let x = SearchCaseClassificationsRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -1957,17 +1516,6 @@ impl SearchCaseClassificationsResponse {
     }
 
     /// Sets the value of [case_classifications][crate::model::SearchCaseClassificationsResponse::case_classifications].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_support_v2::model::SearchCaseClassificationsResponse;
-    /// use google_cloud_support_v2::model::CaseClassification;
-    /// let x = SearchCaseClassificationsResponse::new()
-    ///     .set_case_classifications([
-    ///         CaseClassification::default()/* use setters */,
-    ///         CaseClassification::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_case_classifications<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1979,12 +1527,6 @@ impl SearchCaseClassificationsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::SearchCaseClassificationsResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_support_v2::model::SearchCaseClassificationsResponse;
-    /// let x = SearchCaseClassificationsResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -2050,25 +1592,12 @@ impl Comment {
     }
 
     /// Sets the value of [name][crate::model::Comment::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_support_v2::model::Comment;
-    /// let x = Comment::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::Comment::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_support_v2::model::Comment;
-    /// use wkt::Timestamp;
-    /// let x = Comment::new().set_create_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2078,14 +1607,6 @@ impl Comment {
     }
 
     /// Sets or clears the value of [create_time][crate::model::Comment::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_support_v2::model::Comment;
-    /// use wkt::Timestamp;
-    /// let x = Comment::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
-    /// let x = Comment::new().set_or_clear_create_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2095,13 +1616,6 @@ impl Comment {
     }
 
     /// Sets the value of [creator][crate::model::Comment::creator].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_support_v2::model::Comment;
-    /// use google_cloud_support_v2::model::Actor;
-    /// let x = Comment::new().set_creator(Actor::default()/* use setters */);
-    /// ```
     pub fn set_creator<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Actor>,
@@ -2111,14 +1625,6 @@ impl Comment {
     }
 
     /// Sets or clears the value of [creator][crate::model::Comment::creator].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_support_v2::model::Comment;
-    /// use google_cloud_support_v2::model::Actor;
-    /// let x = Comment::new().set_or_clear_creator(Some(Actor::default()/* use setters */));
-    /// let x = Comment::new().set_or_clear_creator(None::<Actor>);
-    /// ```
     pub fn set_or_clear_creator<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Actor>,
@@ -2128,24 +1634,12 @@ impl Comment {
     }
 
     /// Sets the value of [body][crate::model::Comment::body].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_support_v2::model::Comment;
-    /// let x = Comment::new().set_body("example");
-    /// ```
     pub fn set_body<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.body = v.into();
         self
     }
 
     /// Sets the value of [plain_text_body][crate::model::Comment::plain_text_body].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_support_v2::model::Comment;
-    /// let x = Comment::new().set_plain_text_body("example");
-    /// ```
     #[deprecated]
     pub fn set_plain_text_body<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.plain_text_body = v.into();
@@ -2182,36 +1676,18 @@ impl ListCommentsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListCommentsRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_support_v2::model::ListCommentsRequest;
-    /// let x = ListCommentsRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListCommentsRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_support_v2::model::ListCommentsRequest;
-    /// let x = ListCommentsRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListCommentsRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_support_v2::model::ListCommentsRequest;
-    /// let x = ListCommentsRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -2245,17 +1721,6 @@ impl ListCommentsResponse {
     }
 
     /// Sets the value of [comments][crate::model::ListCommentsResponse::comments].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_support_v2::model::ListCommentsResponse;
-    /// use google_cloud_support_v2::model::Comment;
-    /// let x = ListCommentsResponse::new()
-    ///     .set_comments([
-    ///         Comment::default()/* use setters */,
-    ///         Comment::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_comments<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2267,12 +1732,6 @@ impl ListCommentsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListCommentsResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_support_v2::model::ListCommentsResponse;
-    /// let x = ListCommentsResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -2318,25 +1777,12 @@ impl CreateCommentRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateCommentRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_support_v2::model::CreateCommentRequest;
-    /// let x = CreateCommentRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [comment][crate::model::CreateCommentRequest::comment].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_support_v2::model::CreateCommentRequest;
-    /// use google_cloud_support_v2::model::Comment;
-    /// let x = CreateCommentRequest::new().set_comment(Comment::default()/* use setters */);
-    /// ```
     pub fn set_comment<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Comment>,
@@ -2346,14 +1792,6 @@ impl CreateCommentRequest {
     }
 
     /// Sets or clears the value of [comment][crate::model::CreateCommentRequest::comment].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_support_v2::model::CreateCommentRequest;
-    /// use google_cloud_support_v2::model::Comment;
-    /// let x = CreateCommentRequest::new().set_or_clear_comment(Some(Comment::default()/* use setters */));
-    /// let x = CreateCommentRequest::new().set_or_clear_comment(None::<Comment>);
-    /// ```
     pub fn set_or_clear_comment<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Comment>,
@@ -2389,15 +1827,6 @@ impl Escalation {
     }
 
     /// Sets the value of [reason][crate::model::Escalation::reason].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_support_v2::model::Escalation;
-    /// use google_cloud_support_v2::model::escalation::Reason;
-    /// let x0 = Escalation::new().set_reason(Reason::ResolutionTime);
-    /// let x1 = Escalation::new().set_reason(Reason::TechnicalExpertise);
-    /// let x2 = Escalation::new().set_reason(Reason::BusinessImpact);
-    /// ```
     pub fn set_reason<T: std::convert::Into<crate::model::escalation::Reason>>(
         mut self,
         v: T,
@@ -2407,12 +1836,6 @@ impl Escalation {
     }
 
     /// Sets the value of [justification][crate::model::Escalation::justification].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_support_v2::model::Escalation;
-    /// let x = Escalation::new().set_justification("example");
-    /// ```
     pub fn set_justification<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.justification = v.into();
         self

@@ -79,24 +79,12 @@ impl AccessTuple {
     }
 
     /// Sets the value of [principal][crate::model::AccessTuple::principal].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_policysimulator_v1::model::AccessTuple;
-    /// let x = AccessTuple::new().set_principal("example");
-    /// ```
     pub fn set_principal<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.principal = v.into();
         self
     }
 
     /// Sets the value of [full_resource_name][crate::model::AccessTuple::full_resource_name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_policysimulator_v1::model::AccessTuple;
-    /// let x = AccessTuple::new().set_full_resource_name("example");
-    /// ```
     pub fn set_full_resource_name<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -106,12 +94,6 @@ impl AccessTuple {
     }
 
     /// Sets the value of [permission][crate::model::AccessTuple::permission].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_policysimulator_v1::model::AccessTuple;
-    /// let x = AccessTuple::new().set_permission("example");
-    /// ```
     pub fn set_permission<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.permission = v.into();
         self
@@ -192,27 +174,12 @@ impl ExplainedPolicy {
     }
 
     /// Sets the value of [access][crate::model::ExplainedPolicy::access].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_policysimulator_v1::model::ExplainedPolicy;
-    /// use google_cloud_policysimulator_v1::model::AccessState;
-    /// let x0 = ExplainedPolicy::new().set_access(AccessState::Granted);
-    /// let x1 = ExplainedPolicy::new().set_access(AccessState::NotGranted);
-    /// let x2 = ExplainedPolicy::new().set_access(AccessState::UnknownConditional);
-    /// ```
     pub fn set_access<T: std::convert::Into<crate::model::AccessState>>(mut self, v: T) -> Self {
         self.access = v.into();
         self
     }
 
     /// Sets the value of [full_resource_name][crate::model::ExplainedPolicy::full_resource_name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_policysimulator_v1::model::ExplainedPolicy;
-    /// let x = ExplainedPolicy::new().set_full_resource_name("example");
-    /// ```
     pub fn set_full_resource_name<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -222,13 +189,6 @@ impl ExplainedPolicy {
     }
 
     /// Sets the value of [policy][crate::model::ExplainedPolicy::policy].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_policysimulator_v1::model::ExplainedPolicy;
-    /// use iam_v1::model::Policy;
-    /// let x = ExplainedPolicy::new().set_policy(Policy::default()/* use setters */);
-    /// ```
     pub fn set_policy<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<iam_v1::model::Policy>,
@@ -238,14 +198,6 @@ impl ExplainedPolicy {
     }
 
     /// Sets or clears the value of [policy][crate::model::ExplainedPolicy::policy].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_policysimulator_v1::model::ExplainedPolicy;
-    /// use iam_v1::model::Policy;
-    /// let x = ExplainedPolicy::new().set_or_clear_policy(Some(Policy::default()/* use setters */));
-    /// let x = ExplainedPolicy::new().set_or_clear_policy(None::<Policy>);
-    /// ```
     pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<iam_v1::model::Policy>,
@@ -255,17 +207,6 @@ impl ExplainedPolicy {
     }
 
     /// Sets the value of [binding_explanations][crate::model::ExplainedPolicy::binding_explanations].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_policysimulator_v1::model::ExplainedPolicy;
-    /// use google_cloud_policysimulator_v1::model::BindingExplanation;
-    /// let x = ExplainedPolicy::new()
-    ///     .set_binding_explanations([
-    ///         BindingExplanation::default()/* use setters */,
-    ///         BindingExplanation::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_binding_explanations<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -277,14 +218,6 @@ impl ExplainedPolicy {
     }
 
     /// Sets the value of [relevance][crate::model::ExplainedPolicy::relevance].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_policysimulator_v1::model::ExplainedPolicy;
-    /// use google_cloud_policysimulator_v1::model::HeuristicRelevance;
-    /// let x0 = ExplainedPolicy::new().set_relevance(HeuristicRelevance::Normal);
-    /// let x1 = ExplainedPolicy::new().set_relevance(HeuristicRelevance::High);
-    /// ```
     pub fn set_relevance<T: std::convert::Into<crate::model::HeuristicRelevance>>(
         mut self,
         v: T,
@@ -375,42 +308,18 @@ impl BindingExplanation {
     }
 
     /// Sets the value of [access][crate::model::BindingExplanation::access].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_policysimulator_v1::model::BindingExplanation;
-    /// use google_cloud_policysimulator_v1::model::AccessState;
-    /// let x0 = BindingExplanation::new().set_access(AccessState::Granted);
-    /// let x1 = BindingExplanation::new().set_access(AccessState::NotGranted);
-    /// let x2 = BindingExplanation::new().set_access(AccessState::UnknownConditional);
-    /// ```
     pub fn set_access<T: std::convert::Into<crate::model::AccessState>>(mut self, v: T) -> Self {
         self.access = v.into();
         self
     }
 
     /// Sets the value of [role][crate::model::BindingExplanation::role].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_policysimulator_v1::model::BindingExplanation;
-    /// let x = BindingExplanation::new().set_role("example");
-    /// ```
     pub fn set_role<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.role = v.into();
         self
     }
 
     /// Sets the value of [role_permission][crate::model::BindingExplanation::role_permission].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_policysimulator_v1::model::BindingExplanation;
-    /// use google_cloud_policysimulator_v1::model::binding_explanation::RolePermission;
-    /// let x0 = BindingExplanation::new().set_role_permission(RolePermission::Included);
-    /// let x1 = BindingExplanation::new().set_role_permission(RolePermission::NotIncluded);
-    /// let x2 = BindingExplanation::new().set_role_permission(RolePermission::UnknownInfoDenied);
-    /// ```
     pub fn set_role_permission<
         T: std::convert::Into<crate::model::binding_explanation::RolePermission>,
     >(
@@ -422,14 +331,6 @@ impl BindingExplanation {
     }
 
     /// Sets the value of [role_permission_relevance][crate::model::BindingExplanation::role_permission_relevance].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_policysimulator_v1::model::BindingExplanation;
-    /// use google_cloud_policysimulator_v1::model::HeuristicRelevance;
-    /// let x0 = BindingExplanation::new().set_role_permission_relevance(HeuristicRelevance::Normal);
-    /// let x1 = BindingExplanation::new().set_role_permission_relevance(HeuristicRelevance::High);
-    /// ```
     pub fn set_role_permission_relevance<
         T: std::convert::Into<crate::model::HeuristicRelevance>,
     >(
@@ -441,16 +342,6 @@ impl BindingExplanation {
     }
 
     /// Sets the value of [memberships][crate::model::BindingExplanation::memberships].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_policysimulator_v1::model::BindingExplanation;
-    /// use google_cloud_policysimulator_v1::model::binding_explanation::AnnotatedMembership;
-    /// let x = BindingExplanation::new().set_memberships([
-    ///     ("key0", AnnotatedMembership::default()/* use setters */),
-    ///     ("key1", AnnotatedMembership::default()/* use (different) setters */),
-    /// ]);
-    /// ```
     pub fn set_memberships<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -463,14 +354,6 @@ impl BindingExplanation {
     }
 
     /// Sets the value of [relevance][crate::model::BindingExplanation::relevance].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_policysimulator_v1::model::BindingExplanation;
-    /// use google_cloud_policysimulator_v1::model::HeuristicRelevance;
-    /// let x0 = BindingExplanation::new().set_relevance(HeuristicRelevance::Normal);
-    /// let x1 = BindingExplanation::new().set_relevance(HeuristicRelevance::High);
-    /// ```
     pub fn set_relevance<T: std::convert::Into<crate::model::HeuristicRelevance>>(
         mut self,
         v: T,
@@ -480,13 +363,6 @@ impl BindingExplanation {
     }
 
     /// Sets the value of [condition][crate::model::BindingExplanation::condition].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_policysimulator_v1::model::BindingExplanation;
-    /// use gtype::model::Expr;
-    /// let x = BindingExplanation::new().set_condition(Expr::default()/* use setters */);
-    /// ```
     pub fn set_condition<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<gtype::model::Expr>,
@@ -496,14 +372,6 @@ impl BindingExplanation {
     }
 
     /// Sets or clears the value of [condition][crate::model::BindingExplanation::condition].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_policysimulator_v1::model::BindingExplanation;
-    /// use gtype::model::Expr;
-    /// let x = BindingExplanation::new().set_or_clear_condition(Some(Expr::default()/* use setters */));
-    /// let x = BindingExplanation::new().set_or_clear_condition(None::<Expr>);
-    /// ```
     pub fn set_or_clear_condition<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<gtype::model::Expr>,
@@ -544,15 +412,6 @@ pub mod binding_explanation {
         }
 
         /// Sets the value of [membership][crate::model::binding_explanation::AnnotatedMembership::membership].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_policysimulator_v1::model::binding_explanation::AnnotatedMembership;
-        /// use google_cloud_policysimulator_v1::model::binding_explanation::Membership;
-        /// let x0 = AnnotatedMembership::new().set_membership(Membership::Included);
-        /// let x1 = AnnotatedMembership::new().set_membership(Membership::NotIncluded);
-        /// let x2 = AnnotatedMembership::new().set_membership(Membership::UnknownInfoDenied);
-        /// ```
         pub fn set_membership<
             T: std::convert::Into<crate::model::binding_explanation::Membership>,
         >(
@@ -564,14 +423,6 @@ pub mod binding_explanation {
         }
 
         /// Sets the value of [relevance][crate::model::binding_explanation::AnnotatedMembership::relevance].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_policysimulator_v1::model::binding_explanation::AnnotatedMembership;
-        /// use google_cloud_policysimulator_v1::model::HeuristicRelevance;
-        /// let x0 = AnnotatedMembership::new().set_relevance(HeuristicRelevance::Normal);
-        /// let x1 = AnnotatedMembership::new().set_relevance(HeuristicRelevance::High);
-        /// ```
         pub fn set_relevance<T: std::convert::Into<crate::model::HeuristicRelevance>>(
             mut self,
             v: T,
@@ -961,40 +812,18 @@ impl OrgPolicyViolationsPreview {
     }
 
     /// Sets the value of [name][crate::model::OrgPolicyViolationsPreview::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_policysimulator_v1::model::OrgPolicyViolationsPreview;
-    /// let x = OrgPolicyViolationsPreview::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [state][crate::model::OrgPolicyViolationsPreview::state].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_policysimulator_v1::model::OrgPolicyViolationsPreview;
-    /// use google_cloud_policysimulator_v1::model::PreviewState;
-    /// let x0 = OrgPolicyViolationsPreview::new().set_state(PreviewState::PreviewPending);
-    /// let x1 = OrgPolicyViolationsPreview::new().set_state(PreviewState::PreviewRunning);
-    /// let x2 = OrgPolicyViolationsPreview::new().set_state(PreviewState::PreviewSucceeded);
-    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::PreviewState>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
     }
 
     /// Sets the value of [overlay][crate::model::OrgPolicyViolationsPreview::overlay].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_policysimulator_v1::model::OrgPolicyViolationsPreview;
-    /// use google_cloud_policysimulator_v1::model::OrgPolicyOverlay;
-    /// let x = OrgPolicyViolationsPreview::new().set_overlay(OrgPolicyOverlay::default()/* use setters */);
-    /// ```
     pub fn set_overlay<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::OrgPolicyOverlay>,
@@ -1004,14 +833,6 @@ impl OrgPolicyViolationsPreview {
     }
 
     /// Sets or clears the value of [overlay][crate::model::OrgPolicyViolationsPreview::overlay].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_policysimulator_v1::model::OrgPolicyViolationsPreview;
-    /// use google_cloud_policysimulator_v1::model::OrgPolicyOverlay;
-    /// let x = OrgPolicyViolationsPreview::new().set_or_clear_overlay(Some(OrgPolicyOverlay::default()/* use setters */));
-    /// let x = OrgPolicyViolationsPreview::new().set_or_clear_overlay(None::<OrgPolicyOverlay>);
-    /// ```
     pub fn set_or_clear_overlay<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::OrgPolicyOverlay>,
@@ -1021,25 +842,12 @@ impl OrgPolicyViolationsPreview {
     }
 
     /// Sets the value of [violations_count][crate::model::OrgPolicyViolationsPreview::violations_count].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_policysimulator_v1::model::OrgPolicyViolationsPreview;
-    /// let x = OrgPolicyViolationsPreview::new().set_violations_count(42);
-    /// ```
     pub fn set_violations_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.violations_count = v.into();
         self
     }
 
     /// Sets the value of [resource_counts][crate::model::OrgPolicyViolationsPreview::resource_counts].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_policysimulator_v1::model::OrgPolicyViolationsPreview;
-    /// use google_cloud_policysimulator_v1::model::org_policy_violations_preview::ResourceCounts;
-    /// let x = OrgPolicyViolationsPreview::new().set_resource_counts(ResourceCounts::default()/* use setters */);
-    /// ```
     pub fn set_resource_counts<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::org_policy_violations_preview::ResourceCounts>,
@@ -1049,14 +857,6 @@ impl OrgPolicyViolationsPreview {
     }
 
     /// Sets or clears the value of [resource_counts][crate::model::OrgPolicyViolationsPreview::resource_counts].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_policysimulator_v1::model::OrgPolicyViolationsPreview;
-    /// use google_cloud_policysimulator_v1::model::org_policy_violations_preview::ResourceCounts;
-    /// let x = OrgPolicyViolationsPreview::new().set_or_clear_resource_counts(Some(ResourceCounts::default()/* use setters */));
-    /// let x = OrgPolicyViolationsPreview::new().set_or_clear_resource_counts(None::<ResourceCounts>);
-    /// ```
     pub fn set_or_clear_resource_counts<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::org_policy_violations_preview::ResourceCounts>,
@@ -1066,12 +866,6 @@ impl OrgPolicyViolationsPreview {
     }
 
     /// Sets the value of [custom_constraints][crate::model::OrgPolicyViolationsPreview::custom_constraints].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_policysimulator_v1::model::OrgPolicyViolationsPreview;
-    /// let x = OrgPolicyViolationsPreview::new().set_custom_constraints(["a", "b", "c"]);
-    /// ```
     pub fn set_custom_constraints<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1083,13 +877,6 @@ impl OrgPolicyViolationsPreview {
     }
 
     /// Sets the value of [create_time][crate::model::OrgPolicyViolationsPreview::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_policysimulator_v1::model::OrgPolicyViolationsPreview;
-    /// use wkt::Timestamp;
-    /// let x = OrgPolicyViolationsPreview::new().set_create_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1099,14 +886,6 @@ impl OrgPolicyViolationsPreview {
     }
 
     /// Sets or clears the value of [create_time][crate::model::OrgPolicyViolationsPreview::create_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_policysimulator_v1::model::OrgPolicyViolationsPreview;
-    /// use wkt::Timestamp;
-    /// let x = OrgPolicyViolationsPreview::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
-    /// let x = OrgPolicyViolationsPreview::new().set_or_clear_create_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1159,60 +938,30 @@ pub mod org_policy_violations_preview {
         }
 
         /// Sets the value of [scanned][crate::model::org_policy_violations_preview::ResourceCounts::scanned].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_policysimulator_v1::model::org_policy_violations_preview::ResourceCounts;
-        /// let x = ResourceCounts::new().set_scanned(42);
-        /// ```
         pub fn set_scanned<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.scanned = v.into();
             self
         }
 
         /// Sets the value of [noncompliant][crate::model::org_policy_violations_preview::ResourceCounts::noncompliant].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_policysimulator_v1::model::org_policy_violations_preview::ResourceCounts;
-        /// let x = ResourceCounts::new().set_noncompliant(42);
-        /// ```
         pub fn set_noncompliant<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.noncompliant = v.into();
             self
         }
 
         /// Sets the value of [compliant][crate::model::org_policy_violations_preview::ResourceCounts::compliant].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_policysimulator_v1::model::org_policy_violations_preview::ResourceCounts;
-        /// let x = ResourceCounts::new().set_compliant(42);
-        /// ```
         pub fn set_compliant<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.compliant = v.into();
             self
         }
 
         /// Sets the value of [unenforced][crate::model::org_policy_violations_preview::ResourceCounts::unenforced].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_policysimulator_v1::model::org_policy_violations_preview::ResourceCounts;
-        /// let x = ResourceCounts::new().set_unenforced(42);
-        /// ```
         pub fn set_unenforced<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.unenforced = v.into();
             self
         }
 
         /// Sets the value of [errors][crate::model::org_policy_violations_preview::ResourceCounts::errors].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_policysimulator_v1::model::org_policy_violations_preview::ResourceCounts;
-        /// let x = ResourceCounts::new().set_errors(42);
-        /// ```
         pub fn set_errors<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.errors = v.into();
             self
@@ -1253,25 +1002,12 @@ impl OrgPolicyViolation {
     }
 
     /// Sets the value of [name][crate::model::OrgPolicyViolation::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_policysimulator_v1::model::OrgPolicyViolation;
-    /// let x = OrgPolicyViolation::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [resource][crate::model::OrgPolicyViolation::resource].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_policysimulator_v1::model::OrgPolicyViolation;
-    /// use google_cloud_policysimulator_v1::model::ResourceContext;
-    /// let x = OrgPolicyViolation::new().set_resource(ResourceContext::default()/* use setters */);
-    /// ```
     pub fn set_resource<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ResourceContext>,
@@ -1281,14 +1017,6 @@ impl OrgPolicyViolation {
     }
 
     /// Sets or clears the value of [resource][crate::model::OrgPolicyViolation::resource].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_policysimulator_v1::model::OrgPolicyViolation;
-    /// use google_cloud_policysimulator_v1::model::ResourceContext;
-    /// let x = OrgPolicyViolation::new().set_or_clear_resource(Some(ResourceContext::default()/* use setters */));
-    /// let x = OrgPolicyViolation::new().set_or_clear_resource(None::<ResourceContext>);
-    /// ```
     pub fn set_or_clear_resource<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ResourceContext>,
@@ -1298,13 +1026,6 @@ impl OrgPolicyViolation {
     }
 
     /// Sets the value of [custom_constraint][crate::model::OrgPolicyViolation::custom_constraint].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_policysimulator_v1::model::OrgPolicyViolation;
-    /// use orgpolicy_v2::model::CustomConstraint;
-    /// let x = OrgPolicyViolation::new().set_custom_constraint(CustomConstraint::default()/* use setters */);
-    /// ```
     pub fn set_custom_constraint<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<orgpolicy_v2::model::CustomConstraint>,
@@ -1314,14 +1035,6 @@ impl OrgPolicyViolation {
     }
 
     /// Sets or clears the value of [custom_constraint][crate::model::OrgPolicyViolation::custom_constraint].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_policysimulator_v1::model::OrgPolicyViolation;
-    /// use orgpolicy_v2::model::CustomConstraint;
-    /// let x = OrgPolicyViolation::new().set_or_clear_custom_constraint(Some(CustomConstraint::default()/* use setters */));
-    /// let x = OrgPolicyViolation::new().set_or_clear_custom_constraint(None::<CustomConstraint>);
-    /// ```
     pub fn set_or_clear_custom_constraint<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<orgpolicy_v2::model::CustomConstraint>,
@@ -1331,13 +1044,6 @@ impl OrgPolicyViolation {
     }
 
     /// Sets the value of [error][crate::model::OrgPolicyViolation::error].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_policysimulator_v1::model::OrgPolicyViolation;
-    /// use rpc::model::Status;
-    /// let x = OrgPolicyViolation::new().set_error(Status::default()/* use setters */);
-    /// ```
     pub fn set_error<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<rpc::model::Status>,
@@ -1347,14 +1053,6 @@ impl OrgPolicyViolation {
     }
 
     /// Sets or clears the value of [error][crate::model::OrgPolicyViolation::error].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_policysimulator_v1::model::OrgPolicyViolation;
-    /// use rpc::model::Status;
-    /// let x = OrgPolicyViolation::new().set_or_clear_error(Some(Status::default()/* use setters */));
-    /// let x = OrgPolicyViolation::new().set_or_clear_error(None::<Status>);
-    /// ```
     pub fn set_or_clear_error<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<rpc::model::Status>,
@@ -1412,36 +1110,18 @@ impl ResourceContext {
     }
 
     /// Sets the value of [resource][crate::model::ResourceContext::resource].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_policysimulator_v1::model::ResourceContext;
-    /// let x = ResourceContext::new().set_resource("example");
-    /// ```
     pub fn set_resource<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.resource = v.into();
         self
     }
 
     /// Sets the value of [asset_type][crate::model::ResourceContext::asset_type].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_policysimulator_v1::model::ResourceContext;
-    /// let x = ResourceContext::new().set_asset_type("example");
-    /// ```
     pub fn set_asset_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.asset_type = v.into();
         self
     }
 
     /// Sets the value of [ancestors][crate::model::ResourceContext::ancestors].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_policysimulator_v1::model::ResourceContext;
-    /// let x = ResourceContext::new().set_ancestors(["a", "b", "c"]);
-    /// ```
     pub fn set_ancestors<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1492,17 +1172,6 @@ impl OrgPolicyOverlay {
     }
 
     /// Sets the value of [policies][crate::model::OrgPolicyOverlay::policies].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_policysimulator_v1::model::OrgPolicyOverlay;
-    /// use google_cloud_policysimulator_v1::model::org_policy_overlay::PolicyOverlay;
-    /// let x = OrgPolicyOverlay::new()
-    ///     .set_policies([
-    ///         PolicyOverlay::default()/* use setters */,
-    ///         PolicyOverlay::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_policies<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1514,17 +1183,6 @@ impl OrgPolicyOverlay {
     }
 
     /// Sets the value of [custom_constraints][crate::model::OrgPolicyOverlay::custom_constraints].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_policysimulator_v1::model::OrgPolicyOverlay;
-    /// use google_cloud_policysimulator_v1::model::org_policy_overlay::CustomConstraintOverlay;
-    /// let x = OrgPolicyOverlay::new()
-    ///     .set_custom_constraints([
-    ///         CustomConstraintOverlay::default()/* use setters */,
-    ///         CustomConstraintOverlay::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_custom_constraints<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1567,12 +1225,6 @@ pub mod org_policy_overlay {
         }
 
         /// Sets the value of [policy_parent][crate::model::org_policy_overlay::PolicyOverlay::policy_parent].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_policysimulator_v1::model::org_policy_overlay::PolicyOverlay;
-        /// let x = PolicyOverlay::new().set_policy_parent("example");
-        /// ```
         pub fn set_policy_parent<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -1582,13 +1234,6 @@ pub mod org_policy_overlay {
         }
 
         /// Sets the value of [policy][crate::model::org_policy_overlay::PolicyOverlay::policy].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_policysimulator_v1::model::org_policy_overlay::PolicyOverlay;
-        /// use orgpolicy_v2::model::Policy;
-        /// let x = PolicyOverlay::new().set_policy(Policy::default()/* use setters */);
-        /// ```
         pub fn set_policy<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<orgpolicy_v2::model::Policy>,
@@ -1598,14 +1243,6 @@ pub mod org_policy_overlay {
         }
 
         /// Sets or clears the value of [policy][crate::model::org_policy_overlay::PolicyOverlay::policy].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_policysimulator_v1::model::org_policy_overlay::PolicyOverlay;
-        /// use orgpolicy_v2::model::Policy;
-        /// let x = PolicyOverlay::new().set_or_clear_policy(Some(Policy::default()/* use setters */));
-        /// let x = PolicyOverlay::new().set_or_clear_policy(None::<Policy>);
-        /// ```
         pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<orgpolicy_v2::model::Policy>,
@@ -1641,12 +1278,6 @@ pub mod org_policy_overlay {
         }
 
         /// Sets the value of [custom_constraint_parent][crate::model::org_policy_overlay::CustomConstraintOverlay::custom_constraint_parent].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_policysimulator_v1::model::org_policy_overlay::CustomConstraintOverlay;
-        /// let x = CustomConstraintOverlay::new().set_custom_constraint_parent("example");
-        /// ```
         pub fn set_custom_constraint_parent<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -1656,13 +1287,6 @@ pub mod org_policy_overlay {
         }
 
         /// Sets the value of [custom_constraint][crate::model::org_policy_overlay::CustomConstraintOverlay::custom_constraint].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_policysimulator_v1::model::org_policy_overlay::CustomConstraintOverlay;
-        /// use orgpolicy_v2::model::CustomConstraint;
-        /// let x = CustomConstraintOverlay::new().set_custom_constraint(CustomConstraint::default()/* use setters */);
-        /// ```
         pub fn set_custom_constraint<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<orgpolicy_v2::model::CustomConstraint>,
@@ -1672,14 +1296,6 @@ pub mod org_policy_overlay {
         }
 
         /// Sets or clears the value of [custom_constraint][crate::model::org_policy_overlay::CustomConstraintOverlay::custom_constraint].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_policysimulator_v1::model::org_policy_overlay::CustomConstraintOverlay;
-        /// use orgpolicy_v2::model::CustomConstraint;
-        /// let x = CustomConstraintOverlay::new().set_or_clear_custom_constraint(Some(CustomConstraint::default()/* use setters */));
-        /// let x = CustomConstraintOverlay::new().set_or_clear_custom_constraint(None::<CustomConstraint>);
-        /// ```
         pub fn set_or_clear_custom_constraint<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<orgpolicy_v2::model::CustomConstraint>,
@@ -1730,13 +1346,6 @@ impl CreateOrgPolicyViolationsPreviewOperationMetadata {
     }
 
     /// Sets the value of [request_time][crate::model::CreateOrgPolicyViolationsPreviewOperationMetadata::request_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_policysimulator_v1::model::CreateOrgPolicyViolationsPreviewOperationMetadata;
-    /// use wkt::Timestamp;
-    /// let x = CreateOrgPolicyViolationsPreviewOperationMetadata::new().set_request_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_request_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1746,14 +1355,6 @@ impl CreateOrgPolicyViolationsPreviewOperationMetadata {
     }
 
     /// Sets or clears the value of [request_time][crate::model::CreateOrgPolicyViolationsPreviewOperationMetadata::request_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_policysimulator_v1::model::CreateOrgPolicyViolationsPreviewOperationMetadata;
-    /// use wkt::Timestamp;
-    /// let x = CreateOrgPolicyViolationsPreviewOperationMetadata::new().set_or_clear_request_time(Some(Timestamp::default()/* use setters */));
-    /// let x = CreateOrgPolicyViolationsPreviewOperationMetadata::new().set_or_clear_request_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_request_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1763,13 +1364,6 @@ impl CreateOrgPolicyViolationsPreviewOperationMetadata {
     }
 
     /// Sets the value of [start_time][crate::model::CreateOrgPolicyViolationsPreviewOperationMetadata::start_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_policysimulator_v1::model::CreateOrgPolicyViolationsPreviewOperationMetadata;
-    /// use wkt::Timestamp;
-    /// let x = CreateOrgPolicyViolationsPreviewOperationMetadata::new().set_start_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_start_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1779,14 +1373,6 @@ impl CreateOrgPolicyViolationsPreviewOperationMetadata {
     }
 
     /// Sets or clears the value of [start_time][crate::model::CreateOrgPolicyViolationsPreviewOperationMetadata::start_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_policysimulator_v1::model::CreateOrgPolicyViolationsPreviewOperationMetadata;
-    /// use wkt::Timestamp;
-    /// let x = CreateOrgPolicyViolationsPreviewOperationMetadata::new().set_or_clear_start_time(Some(Timestamp::default()/* use setters */));
-    /// let x = CreateOrgPolicyViolationsPreviewOperationMetadata::new().set_or_clear_start_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1796,51 +1382,24 @@ impl CreateOrgPolicyViolationsPreviewOperationMetadata {
     }
 
     /// Sets the value of [state][crate::model::CreateOrgPolicyViolationsPreviewOperationMetadata::state].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_policysimulator_v1::model::CreateOrgPolicyViolationsPreviewOperationMetadata;
-    /// use google_cloud_policysimulator_v1::model::PreviewState;
-    /// let x0 = CreateOrgPolicyViolationsPreviewOperationMetadata::new().set_state(PreviewState::PreviewPending);
-    /// let x1 = CreateOrgPolicyViolationsPreviewOperationMetadata::new().set_state(PreviewState::PreviewRunning);
-    /// let x2 = CreateOrgPolicyViolationsPreviewOperationMetadata::new().set_state(PreviewState::PreviewSucceeded);
-    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::PreviewState>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
     }
 
     /// Sets the value of [resources_found][crate::model::CreateOrgPolicyViolationsPreviewOperationMetadata::resources_found].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_policysimulator_v1::model::CreateOrgPolicyViolationsPreviewOperationMetadata;
-    /// let x = CreateOrgPolicyViolationsPreviewOperationMetadata::new().set_resources_found(42);
-    /// ```
     pub fn set_resources_found<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.resources_found = v.into();
         self
     }
 
     /// Sets the value of [resources_scanned][crate::model::CreateOrgPolicyViolationsPreviewOperationMetadata::resources_scanned].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_policysimulator_v1::model::CreateOrgPolicyViolationsPreviewOperationMetadata;
-    /// let x = CreateOrgPolicyViolationsPreviewOperationMetadata::new().set_resources_scanned(42);
-    /// ```
     pub fn set_resources_scanned<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.resources_scanned = v.into();
         self
     }
 
     /// Sets the value of [resources_pending][crate::model::CreateOrgPolicyViolationsPreviewOperationMetadata::resources_pending].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_policysimulator_v1::model::CreateOrgPolicyViolationsPreviewOperationMetadata;
-    /// let x = CreateOrgPolicyViolationsPreviewOperationMetadata::new().set_resources_pending(42);
-    /// ```
     pub fn set_resources_pending<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.resources_pending = v.into();
         self
@@ -1888,36 +1447,18 @@ impl ListOrgPolicyViolationsPreviewsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListOrgPolicyViolationsPreviewsRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_policysimulator_v1::model::ListOrgPolicyViolationsPreviewsRequest;
-    /// let x = ListOrgPolicyViolationsPreviewsRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListOrgPolicyViolationsPreviewsRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_policysimulator_v1::model::ListOrgPolicyViolationsPreviewsRequest;
-    /// let x = ListOrgPolicyViolationsPreviewsRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListOrgPolicyViolationsPreviewsRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_policysimulator_v1::model::ListOrgPolicyViolationsPreviewsRequest;
-    /// let x = ListOrgPolicyViolationsPreviewsRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -1953,17 +1494,6 @@ impl ListOrgPolicyViolationsPreviewsResponse {
     }
 
     /// Sets the value of [org_policy_violations_previews][crate::model::ListOrgPolicyViolationsPreviewsResponse::org_policy_violations_previews].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_policysimulator_v1::model::ListOrgPolicyViolationsPreviewsResponse;
-    /// use google_cloud_policysimulator_v1::model::OrgPolicyViolationsPreview;
-    /// let x = ListOrgPolicyViolationsPreviewsResponse::new()
-    ///     .set_org_policy_violations_previews([
-    ///         OrgPolicyViolationsPreview::default()/* use setters */,
-    ///         OrgPolicyViolationsPreview::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_org_policy_violations_previews<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1975,12 +1505,6 @@ impl ListOrgPolicyViolationsPreviewsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListOrgPolicyViolationsPreviewsResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_policysimulator_v1::model::ListOrgPolicyViolationsPreviewsResponse;
-    /// let x = ListOrgPolicyViolationsPreviewsResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -2026,12 +1550,6 @@ impl GetOrgPolicyViolationsPreviewRequest {
     }
 
     /// Sets the value of [name][crate::model::GetOrgPolicyViolationsPreviewRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_policysimulator_v1::model::GetOrgPolicyViolationsPreviewRequest;
-    /// let x = GetOrgPolicyViolationsPreviewRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -2084,25 +1602,12 @@ impl CreateOrgPolicyViolationsPreviewRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateOrgPolicyViolationsPreviewRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_policysimulator_v1::model::CreateOrgPolicyViolationsPreviewRequest;
-    /// let x = CreateOrgPolicyViolationsPreviewRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [org_policy_violations_preview][crate::model::CreateOrgPolicyViolationsPreviewRequest::org_policy_violations_preview].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_policysimulator_v1::model::CreateOrgPolicyViolationsPreviewRequest;
-    /// use google_cloud_policysimulator_v1::model::OrgPolicyViolationsPreview;
-    /// let x = CreateOrgPolicyViolationsPreviewRequest::new().set_org_policy_violations_preview(OrgPolicyViolationsPreview::default()/* use setters */);
-    /// ```
     pub fn set_org_policy_violations_preview<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::OrgPolicyViolationsPreview>,
@@ -2112,14 +1617,6 @@ impl CreateOrgPolicyViolationsPreviewRequest {
     }
 
     /// Sets or clears the value of [org_policy_violations_preview][crate::model::CreateOrgPolicyViolationsPreviewRequest::org_policy_violations_preview].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_policysimulator_v1::model::CreateOrgPolicyViolationsPreviewRequest;
-    /// use google_cloud_policysimulator_v1::model::OrgPolicyViolationsPreview;
-    /// let x = CreateOrgPolicyViolationsPreviewRequest::new().set_or_clear_org_policy_violations_preview(Some(OrgPolicyViolationsPreview::default()/* use setters */));
-    /// let x = CreateOrgPolicyViolationsPreviewRequest::new().set_or_clear_org_policy_violations_preview(None::<OrgPolicyViolationsPreview>);
-    /// ```
     pub fn set_or_clear_org_policy_violations_preview<T>(
         mut self,
         v: std::option::Option<T>,
@@ -2132,12 +1629,6 @@ impl CreateOrgPolicyViolationsPreviewRequest {
     }
 
     /// Sets the value of [org_policy_violations_preview_id][crate::model::CreateOrgPolicyViolationsPreviewRequest::org_policy_violations_preview_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_policysimulator_v1::model::CreateOrgPolicyViolationsPreviewRequest;
-    /// let x = CreateOrgPolicyViolationsPreviewRequest::new().set_org_policy_violations_preview_id("example");
-    /// ```
     pub fn set_org_policy_violations_preview_id<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -2186,36 +1677,18 @@ impl ListOrgPolicyViolationsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListOrgPolicyViolationsRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_policysimulator_v1::model::ListOrgPolicyViolationsRequest;
-    /// let x = ListOrgPolicyViolationsRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListOrgPolicyViolationsRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_policysimulator_v1::model::ListOrgPolicyViolationsRequest;
-    /// let x = ListOrgPolicyViolationsRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListOrgPolicyViolationsRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_policysimulator_v1::model::ListOrgPolicyViolationsRequest;
-    /// let x = ListOrgPolicyViolationsRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -2251,17 +1724,6 @@ impl ListOrgPolicyViolationsResponse {
     }
 
     /// Sets the value of [org_policy_violations][crate::model::ListOrgPolicyViolationsResponse::org_policy_violations].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_policysimulator_v1::model::ListOrgPolicyViolationsResponse;
-    /// use google_cloud_policysimulator_v1::model::OrgPolicyViolation;
-    /// let x = ListOrgPolicyViolationsResponse::new()
-    ///     .set_org_policy_violations([
-    ///         OrgPolicyViolation::default()/* use setters */,
-    ///         OrgPolicyViolation::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_org_policy_violations<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2273,12 +1735,6 @@ impl ListOrgPolicyViolationsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListOrgPolicyViolationsResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_policysimulator_v1::model::ListOrgPolicyViolationsResponse;
-    /// let x = ListOrgPolicyViolationsResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -2338,40 +1794,18 @@ impl Replay {
     }
 
     /// Sets the value of [name][crate::model::Replay::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_policysimulator_v1::model::Replay;
-    /// let x = Replay::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [state][crate::model::Replay::state].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_policysimulator_v1::model::Replay;
-    /// use google_cloud_policysimulator_v1::model::replay::State;
-    /// let x0 = Replay::new().set_state(State::Pending);
-    /// let x1 = Replay::new().set_state(State::Running);
-    /// let x2 = Replay::new().set_state(State::Succeeded);
-    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::replay::State>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
     }
 
     /// Sets the value of [config][crate::model::Replay::config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_policysimulator_v1::model::Replay;
-    /// use google_cloud_policysimulator_v1::model::ReplayConfig;
-    /// let x = Replay::new().set_config(ReplayConfig::default()/* use setters */);
-    /// ```
     pub fn set_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ReplayConfig>,
@@ -2381,14 +1815,6 @@ impl Replay {
     }
 
     /// Sets or clears the value of [config][crate::model::Replay::config].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_policysimulator_v1::model::Replay;
-    /// use google_cloud_policysimulator_v1::model::ReplayConfig;
-    /// let x = Replay::new().set_or_clear_config(Some(ReplayConfig::default()/* use setters */));
-    /// let x = Replay::new().set_or_clear_config(None::<ReplayConfig>);
-    /// ```
     pub fn set_or_clear_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ReplayConfig>,
@@ -2398,13 +1824,6 @@ impl Replay {
     }
 
     /// Sets the value of [results_summary][crate::model::Replay::results_summary].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_policysimulator_v1::model::Replay;
-    /// use google_cloud_policysimulator_v1::model::replay::ResultsSummary;
-    /// let x = Replay::new().set_results_summary(ResultsSummary::default()/* use setters */);
-    /// ```
     pub fn set_results_summary<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::replay::ResultsSummary>,
@@ -2414,14 +1833,6 @@ impl Replay {
     }
 
     /// Sets or clears the value of [results_summary][crate::model::Replay::results_summary].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_policysimulator_v1::model::Replay;
-    /// use google_cloud_policysimulator_v1::model::replay::ResultsSummary;
-    /// let x = Replay::new().set_or_clear_results_summary(Some(ResultsSummary::default()/* use setters */));
-    /// let x = Replay::new().set_or_clear_results_summary(None::<ResultsSummary>);
-    /// ```
     pub fn set_or_clear_results_summary<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::replay::ResultsSummary>,
@@ -2475,61 +1886,30 @@ pub mod replay {
         }
 
         /// Sets the value of [log_count][crate::model::replay::ResultsSummary::log_count].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_policysimulator_v1::model::replay::ResultsSummary;
-        /// let x = ResultsSummary::new().set_log_count(42);
-        /// ```
         pub fn set_log_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.log_count = v.into();
             self
         }
 
         /// Sets the value of [unchanged_count][crate::model::replay::ResultsSummary::unchanged_count].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_policysimulator_v1::model::replay::ResultsSummary;
-        /// let x = ResultsSummary::new().set_unchanged_count(42);
-        /// ```
         pub fn set_unchanged_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.unchanged_count = v.into();
             self
         }
 
         /// Sets the value of [difference_count][crate::model::replay::ResultsSummary::difference_count].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_policysimulator_v1::model::replay::ResultsSummary;
-        /// let x = ResultsSummary::new().set_difference_count(42);
-        /// ```
         pub fn set_difference_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.difference_count = v.into();
             self
         }
 
         /// Sets the value of [error_count][crate::model::replay::ResultsSummary::error_count].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_policysimulator_v1::model::replay::ResultsSummary;
-        /// let x = ResultsSummary::new().set_error_count(42);
-        /// ```
         pub fn set_error_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.error_count = v.into();
             self
         }
 
         /// Sets the value of [oldest_date][crate::model::replay::ResultsSummary::oldest_date].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_policysimulator_v1::model::replay::ResultsSummary;
-        /// use gtype::model::Date;
-        /// let x = ResultsSummary::new().set_oldest_date(Date::default()/* use setters */);
-        /// ```
         pub fn set_oldest_date<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<gtype::model::Date>,
@@ -2539,14 +1919,6 @@ pub mod replay {
         }
 
         /// Sets or clears the value of [oldest_date][crate::model::replay::ResultsSummary::oldest_date].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_policysimulator_v1::model::replay::ResultsSummary;
-        /// use gtype::model::Date;
-        /// let x = ResultsSummary::new().set_or_clear_oldest_date(Some(Date::default()/* use setters */));
-        /// let x = ResultsSummary::new().set_or_clear_oldest_date(None::<Date>);
-        /// ```
         pub fn set_or_clear_oldest_date<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<gtype::model::Date>,
@@ -2556,13 +1928,6 @@ pub mod replay {
         }
 
         /// Sets the value of [newest_date][crate::model::replay::ResultsSummary::newest_date].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_policysimulator_v1::model::replay::ResultsSummary;
-        /// use gtype::model::Date;
-        /// let x = ResultsSummary::new().set_newest_date(Date::default()/* use setters */);
-        /// ```
         pub fn set_newest_date<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<gtype::model::Date>,
@@ -2572,14 +1937,6 @@ pub mod replay {
         }
 
         /// Sets or clears the value of [newest_date][crate::model::replay::ResultsSummary::newest_date].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_policysimulator_v1::model::replay::ResultsSummary;
-        /// use gtype::model::Date;
-        /// let x = ResultsSummary::new().set_or_clear_newest_date(Some(Date::default()/* use setters */));
-        /// let x = ResultsSummary::new().set_or_clear_newest_date(None::<Date>);
-        /// ```
         pub fn set_or_clear_newest_date<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<gtype::model::Date>,
@@ -2786,37 +2143,18 @@ impl ReplayResult {
     }
 
     /// Sets the value of [name][crate::model::ReplayResult::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_policysimulator_v1::model::ReplayResult;
-    /// let x = ReplayResult::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [parent][crate::model::ReplayResult::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_policysimulator_v1::model::ReplayResult;
-    /// let x = ReplayResult::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [access_tuple][crate::model::ReplayResult::access_tuple].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_policysimulator_v1::model::ReplayResult;
-    /// use google_cloud_policysimulator_v1::model::AccessTuple;
-    /// let x = ReplayResult::new().set_access_tuple(AccessTuple::default()/* use setters */);
-    /// ```
     pub fn set_access_tuple<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::AccessTuple>,
@@ -2826,14 +2164,6 @@ impl ReplayResult {
     }
 
     /// Sets or clears the value of [access_tuple][crate::model::ReplayResult::access_tuple].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_policysimulator_v1::model::ReplayResult;
-    /// use google_cloud_policysimulator_v1::model::AccessTuple;
-    /// let x = ReplayResult::new().set_or_clear_access_tuple(Some(AccessTuple::default()/* use setters */));
-    /// let x = ReplayResult::new().set_or_clear_access_tuple(None::<AccessTuple>);
-    /// ```
     pub fn set_or_clear_access_tuple<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AccessTuple>,
@@ -2843,13 +2173,6 @@ impl ReplayResult {
     }
 
     /// Sets the value of [last_seen_date][crate::model::ReplayResult::last_seen_date].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_policysimulator_v1::model::ReplayResult;
-    /// use gtype::model::Date;
-    /// let x = ReplayResult::new().set_last_seen_date(Date::default()/* use setters */);
-    /// ```
     pub fn set_last_seen_date<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<gtype::model::Date>,
@@ -2859,14 +2182,6 @@ impl ReplayResult {
     }
 
     /// Sets or clears the value of [last_seen_date][crate::model::ReplayResult::last_seen_date].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_policysimulator_v1::model::ReplayResult;
-    /// use gtype::model::Date;
-    /// let x = ReplayResult::new().set_or_clear_last_seen_date(Some(Date::default()/* use setters */));
-    /// let x = ReplayResult::new().set_or_clear_last_seen_date(None::<Date>);
-    /// ```
     pub fn set_or_clear_last_seen_date<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<gtype::model::Date>,
@@ -2879,14 +2194,6 @@ impl ReplayResult {
     ///
     /// Note that all the setters affecting `result` are mutually
     /// exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_policysimulator_v1::model::ReplayResult;
-    /// use google_cloud_policysimulator_v1::model::replay_result;
-    /// use google_cloud_policysimulator_v1::model::ReplayDiff;
-    /// let x = ReplayResult::new().set_result(Some(replay_result::Result::Diff(ReplayDiff::default().into())));
-    /// ```
     pub fn set_result<
         T: std::convert::Into<std::option::Option<crate::model::replay_result::Result>>,
     >(
@@ -2913,15 +2220,6 @@ impl ReplayResult {
     ///
     /// Note that all the setters affecting `result` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_policysimulator_v1::model::ReplayResult;
-    /// use google_cloud_policysimulator_v1::model::ReplayDiff;
-    /// let x = ReplayResult::new().set_diff(ReplayDiff::default()/* use setters */);
-    /// assert!(x.diff().is_some());
-    /// assert!(x.error().is_none());
-    /// ```
     pub fn set_diff<T: std::convert::Into<std::boxed::Box<crate::model::ReplayDiff>>>(
         mut self,
         v: T,
@@ -2947,15 +2245,6 @@ impl ReplayResult {
     ///
     /// Note that all the setters affecting `result` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_policysimulator_v1::model::ReplayResult;
-    /// use rpc::model::Status;
-    /// let x = ReplayResult::new().set_error(Status::default()/* use setters */);
-    /// assert!(x.error().is_some());
-    /// assert!(x.diff().is_none());
-    /// ```
     pub fn set_error<T: std::convert::Into<std::boxed::Box<rpc::model::Status>>>(
         mut self,
         v: T,
@@ -3028,25 +2317,12 @@ impl CreateReplayRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateReplayRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_policysimulator_v1::model::CreateReplayRequest;
-    /// let x = CreateReplayRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [replay][crate::model::CreateReplayRequest::replay].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_policysimulator_v1::model::CreateReplayRequest;
-    /// use google_cloud_policysimulator_v1::model::Replay;
-    /// let x = CreateReplayRequest::new().set_replay(Replay::default()/* use setters */);
-    /// ```
     pub fn set_replay<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Replay>,
@@ -3056,14 +2332,6 @@ impl CreateReplayRequest {
     }
 
     /// Sets or clears the value of [replay][crate::model::CreateReplayRequest::replay].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_policysimulator_v1::model::CreateReplayRequest;
-    /// use google_cloud_policysimulator_v1::model::Replay;
-    /// let x = CreateReplayRequest::new().set_or_clear_replay(Some(Replay::default()/* use setters */));
-    /// let x = CreateReplayRequest::new().set_or_clear_replay(None::<Replay>);
-    /// ```
     pub fn set_or_clear_replay<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Replay>,
@@ -3095,13 +2363,6 @@ impl ReplayOperationMetadata {
     }
 
     /// Sets the value of [start_time][crate::model::ReplayOperationMetadata::start_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_policysimulator_v1::model::ReplayOperationMetadata;
-    /// use wkt::Timestamp;
-    /// let x = ReplayOperationMetadata::new().set_start_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_start_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3111,14 +2372,6 @@ impl ReplayOperationMetadata {
     }
 
     /// Sets or clears the value of [start_time][crate::model::ReplayOperationMetadata::start_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_policysimulator_v1::model::ReplayOperationMetadata;
-    /// use wkt::Timestamp;
-    /// let x = ReplayOperationMetadata::new().set_or_clear_start_time(Some(Timestamp::default()/* use setters */));
-    /// let x = ReplayOperationMetadata::new().set_or_clear_start_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3163,12 +2416,6 @@ impl GetReplayRequest {
     }
 
     /// Sets the value of [name][crate::model::GetReplayRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_policysimulator_v1::model::GetReplayRequest;
-    /// let x = GetReplayRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -3228,36 +2475,18 @@ impl ListReplayResultsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListReplayResultsRequest::parent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_policysimulator_v1::model::ListReplayResultsRequest;
-    /// let x = ListReplayResultsRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListReplayResultsRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_policysimulator_v1::model::ListReplayResultsRequest;
-    /// let x = ListReplayResultsRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListReplayResultsRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_policysimulator_v1::model::ListReplayResultsRequest;
-    /// let x = ListReplayResultsRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -3298,17 +2527,6 @@ impl ListReplayResultsResponse {
     }
 
     /// Sets the value of [replay_results][crate::model::ListReplayResultsResponse::replay_results].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_policysimulator_v1::model::ListReplayResultsResponse;
-    /// use google_cloud_policysimulator_v1::model::ReplayResult;
-    /// let x = ListReplayResultsResponse::new()
-    ///     .set_replay_results([
-    ///         ReplayResult::default()/* use setters */,
-    ///         ReplayResult::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_replay_results<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3320,12 +2538,6 @@ impl ListReplayResultsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListReplayResultsResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_policysimulator_v1::model::ListReplayResultsResponse;
-    /// let x = ListReplayResultsResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -3392,16 +2604,6 @@ impl ReplayConfig {
     }
 
     /// Sets the value of [policy_overlay][crate::model::ReplayConfig::policy_overlay].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_policysimulator_v1::model::ReplayConfig;
-    /// use iam_v1::model::Policy;
-    /// let x = ReplayConfig::new().set_policy_overlay([
-    ///     ("key0", Policy::default()/* use setters */),
-    ///     ("key1", Policy::default()/* use (different) setters */),
-    /// ]);
-    /// ```
     pub fn set_policy_overlay<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -3414,13 +2616,6 @@ impl ReplayConfig {
     }
 
     /// Sets the value of [log_source][crate::model::ReplayConfig::log_source].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_policysimulator_v1::model::ReplayConfig;
-    /// use google_cloud_policysimulator_v1::model::replay_config::LogSource;
-    /// let x0 = ReplayConfig::new().set_log_source(LogSource::RecentAccesses);
-    /// ```
     pub fn set_log_source<T: std::convert::Into<crate::model::replay_config::LogSource>>(
         mut self,
         v: T,
@@ -3602,13 +2797,6 @@ impl ReplayDiff {
     }
 
     /// Sets the value of [access_diff][crate::model::ReplayDiff::access_diff].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_policysimulator_v1::model::ReplayDiff;
-    /// use google_cloud_policysimulator_v1::model::AccessStateDiff;
-    /// let x = ReplayDiff::new().set_access_diff(AccessStateDiff::default()/* use setters */);
-    /// ```
     pub fn set_access_diff<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::AccessStateDiff>,
@@ -3618,14 +2806,6 @@ impl ReplayDiff {
     }
 
     /// Sets or clears the value of [access_diff][crate::model::ReplayDiff::access_diff].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_policysimulator_v1::model::ReplayDiff;
-    /// use google_cloud_policysimulator_v1::model::AccessStateDiff;
-    /// let x = ReplayDiff::new().set_or_clear_access_diff(Some(AccessStateDiff::default()/* use setters */));
-    /// let x = ReplayDiff::new().set_or_clear_access_diff(None::<AccessStateDiff>);
-    /// ```
     pub fn set_or_clear_access_diff<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AccessStateDiff>,
@@ -3675,13 +2855,6 @@ impl AccessStateDiff {
     }
 
     /// Sets the value of [baseline][crate::model::AccessStateDiff::baseline].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_policysimulator_v1::model::AccessStateDiff;
-    /// use google_cloud_policysimulator_v1::model::ExplainedAccess;
-    /// let x = AccessStateDiff::new().set_baseline(ExplainedAccess::default()/* use setters */);
-    /// ```
     pub fn set_baseline<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ExplainedAccess>,
@@ -3691,14 +2864,6 @@ impl AccessStateDiff {
     }
 
     /// Sets or clears the value of [baseline][crate::model::AccessStateDiff::baseline].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_policysimulator_v1::model::AccessStateDiff;
-    /// use google_cloud_policysimulator_v1::model::ExplainedAccess;
-    /// let x = AccessStateDiff::new().set_or_clear_baseline(Some(ExplainedAccess::default()/* use setters */));
-    /// let x = AccessStateDiff::new().set_or_clear_baseline(None::<ExplainedAccess>);
-    /// ```
     pub fn set_or_clear_baseline<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ExplainedAccess>,
@@ -3708,13 +2873,6 @@ impl AccessStateDiff {
     }
 
     /// Sets the value of [simulated][crate::model::AccessStateDiff::simulated].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_policysimulator_v1::model::AccessStateDiff;
-    /// use google_cloud_policysimulator_v1::model::ExplainedAccess;
-    /// let x = AccessStateDiff::new().set_simulated(ExplainedAccess::default()/* use setters */);
-    /// ```
     pub fn set_simulated<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ExplainedAccess>,
@@ -3724,14 +2882,6 @@ impl AccessStateDiff {
     }
 
     /// Sets or clears the value of [simulated][crate::model::AccessStateDiff::simulated].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_policysimulator_v1::model::AccessStateDiff;
-    /// use google_cloud_policysimulator_v1::model::ExplainedAccess;
-    /// let x = AccessStateDiff::new().set_or_clear_simulated(Some(ExplainedAccess::default()/* use setters */));
-    /// let x = AccessStateDiff::new().set_or_clear_simulated(None::<ExplainedAccess>);
-    /// ```
     pub fn set_or_clear_simulated<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ExplainedAccess>,
@@ -3741,15 +2891,6 @@ impl AccessStateDiff {
     }
 
     /// Sets the value of [access_change][crate::model::AccessStateDiff::access_change].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_policysimulator_v1::model::AccessStateDiff;
-    /// use google_cloud_policysimulator_v1::model::access_state_diff::AccessChangeType;
-    /// let x0 = AccessStateDiff::new().set_access_change(AccessChangeType::NoChange);
-    /// let x1 = AccessStateDiff::new().set_access_change(AccessChangeType::UnknownChange);
-    /// let x2 = AccessStateDiff::new().set_access_change(AccessChangeType::AccessRevoked);
-    /// ```
     pub fn set_access_change<
         T: std::convert::Into<crate::model::access_state_diff::AccessChangeType>,
     >(
@@ -3998,15 +3139,6 @@ impl ExplainedAccess {
     }
 
     /// Sets the value of [access_state][crate::model::ExplainedAccess::access_state].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_policysimulator_v1::model::ExplainedAccess;
-    /// use google_cloud_policysimulator_v1::model::AccessState;
-    /// let x0 = ExplainedAccess::new().set_access_state(AccessState::Granted);
-    /// let x1 = ExplainedAccess::new().set_access_state(AccessState::NotGranted);
-    /// let x2 = ExplainedAccess::new().set_access_state(AccessState::UnknownConditional);
-    /// ```
     pub fn set_access_state<T: std::convert::Into<crate::model::AccessState>>(
         mut self,
         v: T,
@@ -4016,17 +3148,6 @@ impl ExplainedAccess {
     }
 
     /// Sets the value of [policies][crate::model::ExplainedAccess::policies].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_policysimulator_v1::model::ExplainedAccess;
-    /// use google_cloud_policysimulator_v1::model::ExplainedPolicy;
-    /// let x = ExplainedAccess::new()
-    ///     .set_policies([
-    ///         ExplainedPolicy::default()/* use setters */,
-    ///         ExplainedPolicy::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_policies<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4038,17 +3159,6 @@ impl ExplainedAccess {
     }
 
     /// Sets the value of [errors][crate::model::ExplainedAccess::errors].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_policysimulator_v1::model::ExplainedAccess;
-    /// use rpc::model::Status;
-    /// let x = ExplainedAccess::new()
-    ///     .set_errors([
-    ///         Status::default()/* use setters */,
-    ///         Status::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_errors<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,

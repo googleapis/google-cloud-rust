@@ -72,15 +72,6 @@ impl CheckError {
     }
 
     /// Sets the value of [code][crate::model::CheckError::code].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_servicecontrol_v1::model::CheckError;
-    /// use google_cloud_api_servicecontrol_v1::model::check_error::Code;
-    /// let x0 = CheckError::new().set_code(Code::NotFound);
-    /// let x1 = CheckError::new().set_code(Code::PermissionDenied);
-    /// let x2 = CheckError::new().set_code(Code::ResourceExhausted);
-    /// ```
     pub fn set_code<T: std::convert::Into<crate::model::check_error::Code>>(
         mut self,
         v: T,
@@ -90,37 +81,18 @@ impl CheckError {
     }
 
     /// Sets the value of [subject][crate::model::CheckError::subject].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_servicecontrol_v1::model::CheckError;
-    /// let x = CheckError::new().set_subject("example");
-    /// ```
     pub fn set_subject<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.subject = v.into();
         self
     }
 
     /// Sets the value of [detail][crate::model::CheckError::detail].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_servicecontrol_v1::model::CheckError;
-    /// let x = CheckError::new().set_detail("example");
-    /// ```
     pub fn set_detail<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.detail = v.into();
         self
     }
 
     /// Sets the value of [status][crate::model::CheckError::status].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_servicecontrol_v1::model::CheckError;
-    /// use rpc::model::Status;
-    /// let x = CheckError::new().set_status(Status::default()/* use setters */);
-    /// ```
     pub fn set_status<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<rpc::model::Status>,
@@ -130,14 +102,6 @@ impl CheckError {
     }
 
     /// Sets or clears the value of [status][crate::model::CheckError::status].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_servicecontrol_v1::model::CheckError;
-    /// use rpc::model::Status;
-    /// let x = CheckError::new().set_or_clear_status(Some(Status::default()/* use setters */));
-    /// let x = CheckError::new().set_or_clear_status(None::<Status>);
-    /// ```
     pub fn set_or_clear_status<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<rpc::model::Status>,
@@ -514,72 +478,36 @@ impl Distribution {
     }
 
     /// Sets the value of [count][crate::model::Distribution::count].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_servicecontrol_v1::model::Distribution;
-    /// let x = Distribution::new().set_count(42);
-    /// ```
     pub fn set_count<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.count = v.into();
         self
     }
 
     /// Sets the value of [mean][crate::model::Distribution::mean].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_servicecontrol_v1::model::Distribution;
-    /// let x = Distribution::new().set_mean(42.0);
-    /// ```
     pub fn set_mean<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
         self.mean = v.into();
         self
     }
 
     /// Sets the value of [minimum][crate::model::Distribution::minimum].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_servicecontrol_v1::model::Distribution;
-    /// let x = Distribution::new().set_minimum(42.0);
-    /// ```
     pub fn set_minimum<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
         self.minimum = v.into();
         self
     }
 
     /// Sets the value of [maximum][crate::model::Distribution::maximum].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_servicecontrol_v1::model::Distribution;
-    /// let x = Distribution::new().set_maximum(42.0);
-    /// ```
     pub fn set_maximum<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
         self.maximum = v.into();
         self
     }
 
     /// Sets the value of [sum_of_squared_deviation][crate::model::Distribution::sum_of_squared_deviation].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_servicecontrol_v1::model::Distribution;
-    /// let x = Distribution::new().set_sum_of_squared_deviation(42.0);
-    /// ```
     pub fn set_sum_of_squared_deviation<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
         self.sum_of_squared_deviation = v.into();
         self
     }
 
     /// Sets the value of [bucket_counts][crate::model::Distribution::bucket_counts].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_servicecontrol_v1::model::Distribution;
-    /// let x = Distribution::new().set_bucket_counts([1, 2, 3]);
-    /// ```
     pub fn set_bucket_counts<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -591,17 +519,6 @@ impl Distribution {
     }
 
     /// Sets the value of [exemplars][crate::model::Distribution::exemplars].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_servicecontrol_v1::model::Distribution;
-    /// use api::model::distribution::Exemplar;
-    /// let x = Distribution::new()
-    ///     .set_exemplars([
-    ///         Exemplar::default()/* use setters */,
-    ///         Exemplar::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_exemplars<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -616,14 +533,6 @@ impl Distribution {
     ///
     /// Note that all the setters affecting `bucket_option` are mutually
     /// exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_servicecontrol_v1::model::Distribution;
-    /// use google_cloud_api_servicecontrol_v1::model::distribution;
-    /// use google_cloud_api_servicecontrol_v1::model::distribution::LinearBuckets;
-    /// let x = Distribution::new().set_bucket_option(Some(distribution::BucketOption::LinearBuckets(LinearBuckets::default().into())));
-    /// ```
     pub fn set_bucket_option<
         T: std::convert::Into<std::option::Option<crate::model::distribution::BucketOption>>,
     >(
@@ -654,16 +563,6 @@ impl Distribution {
     ///
     /// Note that all the setters affecting `bucket_option` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_servicecontrol_v1::model::Distribution;
-    /// use google_cloud_api_servicecontrol_v1::model::distribution::LinearBuckets;
-    /// let x = Distribution::new().set_linear_buckets(LinearBuckets::default()/* use setters */);
-    /// assert!(x.linear_buckets().is_some());
-    /// assert!(x.exponential_buckets().is_none());
-    /// assert!(x.explicit_buckets().is_none());
-    /// ```
     pub fn set_linear_buckets<
         T: std::convert::Into<std::boxed::Box<crate::model::distribution::LinearBuckets>>,
     >(
@@ -696,16 +595,6 @@ impl Distribution {
     ///
     /// Note that all the setters affecting `bucket_option` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_servicecontrol_v1::model::Distribution;
-    /// use google_cloud_api_servicecontrol_v1::model::distribution::ExponentialBuckets;
-    /// let x = Distribution::new().set_exponential_buckets(ExponentialBuckets::default()/* use setters */);
-    /// assert!(x.exponential_buckets().is_some());
-    /// assert!(x.linear_buckets().is_none());
-    /// assert!(x.explicit_buckets().is_none());
-    /// ```
     pub fn set_exponential_buckets<
         T: std::convert::Into<std::boxed::Box<crate::model::distribution::ExponentialBuckets>>,
     >(
@@ -738,16 +627,6 @@ impl Distribution {
     ///
     /// Note that all the setters affecting `bucket_option` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_servicecontrol_v1::model::Distribution;
-    /// use google_cloud_api_servicecontrol_v1::model::distribution::ExplicitBuckets;
-    /// let x = Distribution::new().set_explicit_buckets(ExplicitBuckets::default()/* use setters */);
-    /// assert!(x.explicit_buckets().is_some());
-    /// assert!(x.linear_buckets().is_none());
-    /// assert!(x.exponential_buckets().is_none());
-    /// ```
     pub fn set_explicit_buckets<
         T: std::convert::Into<std::boxed::Box<crate::model::distribution::ExplicitBuckets>>,
     >(
@@ -801,36 +680,18 @@ pub mod distribution {
         }
 
         /// Sets the value of [num_finite_buckets][crate::model::distribution::LinearBuckets::num_finite_buckets].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_api_servicecontrol_v1::model::distribution::LinearBuckets;
-        /// let x = LinearBuckets::new().set_num_finite_buckets(42);
-        /// ```
         pub fn set_num_finite_buckets<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.num_finite_buckets = v.into();
             self
         }
 
         /// Sets the value of [width][crate::model::distribution::LinearBuckets::width].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_api_servicecontrol_v1::model::distribution::LinearBuckets;
-        /// let x = LinearBuckets::new().set_width(42.0);
-        /// ```
         pub fn set_width<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
             self.width = v.into();
             self
         }
 
         /// Sets the value of [offset][crate::model::distribution::LinearBuckets::offset].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_api_servicecontrol_v1::model::distribution::LinearBuckets;
-        /// let x = LinearBuckets::new().set_offset(42.0);
-        /// ```
         pub fn set_offset<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
             self.offset = v.into();
             self
@@ -873,36 +734,18 @@ pub mod distribution {
         }
 
         /// Sets the value of [num_finite_buckets][crate::model::distribution::ExponentialBuckets::num_finite_buckets].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_api_servicecontrol_v1::model::distribution::ExponentialBuckets;
-        /// let x = ExponentialBuckets::new().set_num_finite_buckets(42);
-        /// ```
         pub fn set_num_finite_buckets<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.num_finite_buckets = v.into();
             self
         }
 
         /// Sets the value of [growth_factor][crate::model::distribution::ExponentialBuckets::growth_factor].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_api_servicecontrol_v1::model::distribution::ExponentialBuckets;
-        /// let x = ExponentialBuckets::new().set_growth_factor(42.0);
-        /// ```
         pub fn set_growth_factor<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
             self.growth_factor = v.into();
             self
         }
 
         /// Sets the value of [scale][crate::model::distribution::ExponentialBuckets::scale].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_api_servicecontrol_v1::model::distribution::ExponentialBuckets;
-        /// let x = ExponentialBuckets::new().set_scale(42.0);
-        /// ```
         pub fn set_scale<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
             self.scale = v.into();
             self
@@ -945,12 +788,6 @@ pub mod distribution {
         }
 
         /// Sets the value of [bounds][crate::model::distribution::ExplicitBuckets::bounds].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_api_servicecontrol_v1::model::distribution::ExplicitBuckets;
-        /// let x = ExplicitBuckets::new().set_bounds([1.0, 2.0, 3.0]);
-        /// ```
         pub fn set_bounds<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -1079,121 +916,60 @@ impl HttpRequest {
     }
 
     /// Sets the value of [request_method][crate::model::HttpRequest::request_method].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_servicecontrol_v1::model::HttpRequest;
-    /// let x = HttpRequest::new().set_request_method("example");
-    /// ```
     pub fn set_request_method<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_method = v.into();
         self
     }
 
     /// Sets the value of [request_url][crate::model::HttpRequest::request_url].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_servicecontrol_v1::model::HttpRequest;
-    /// let x = HttpRequest::new().set_request_url("example");
-    /// ```
     pub fn set_request_url<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_url = v.into();
         self
     }
 
     /// Sets the value of [request_size][crate::model::HttpRequest::request_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_servicecontrol_v1::model::HttpRequest;
-    /// let x = HttpRequest::new().set_request_size(42);
-    /// ```
     pub fn set_request_size<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.request_size = v.into();
         self
     }
 
     /// Sets the value of [status][crate::model::HttpRequest::status].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_servicecontrol_v1::model::HttpRequest;
-    /// let x = HttpRequest::new().set_status(42);
-    /// ```
     pub fn set_status<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.status = v.into();
         self
     }
 
     /// Sets the value of [response_size][crate::model::HttpRequest::response_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_servicecontrol_v1::model::HttpRequest;
-    /// let x = HttpRequest::new().set_response_size(42);
-    /// ```
     pub fn set_response_size<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.response_size = v.into();
         self
     }
 
     /// Sets the value of [user_agent][crate::model::HttpRequest::user_agent].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_servicecontrol_v1::model::HttpRequest;
-    /// let x = HttpRequest::new().set_user_agent("example");
-    /// ```
     pub fn set_user_agent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.user_agent = v.into();
         self
     }
 
     /// Sets the value of [remote_ip][crate::model::HttpRequest::remote_ip].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_servicecontrol_v1::model::HttpRequest;
-    /// let x = HttpRequest::new().set_remote_ip("example");
-    /// ```
     pub fn set_remote_ip<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.remote_ip = v.into();
         self
     }
 
     /// Sets the value of [server_ip][crate::model::HttpRequest::server_ip].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_servicecontrol_v1::model::HttpRequest;
-    /// let x = HttpRequest::new().set_server_ip("example");
-    /// ```
     pub fn set_server_ip<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.server_ip = v.into();
         self
     }
 
     /// Sets the value of [referer][crate::model::HttpRequest::referer].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_servicecontrol_v1::model::HttpRequest;
-    /// let x = HttpRequest::new().set_referer("example");
-    /// ```
     pub fn set_referer<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.referer = v.into();
         self
     }
 
     /// Sets the value of [latency][crate::model::HttpRequest::latency].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_servicecontrol_v1::model::HttpRequest;
-    /// use wkt::Duration;
-    /// let x = HttpRequest::new().set_latency(Duration::default()/* use setters */);
-    /// ```
     pub fn set_latency<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -1203,14 +979,6 @@ impl HttpRequest {
     }
 
     /// Sets or clears the value of [latency][crate::model::HttpRequest::latency].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_servicecontrol_v1::model::HttpRequest;
-    /// use wkt::Duration;
-    /// let x = HttpRequest::new().set_or_clear_latency(Some(Duration::default()/* use setters */));
-    /// let x = HttpRequest::new().set_or_clear_latency(None::<Duration>);
-    /// ```
     pub fn set_or_clear_latency<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -1220,36 +988,18 @@ impl HttpRequest {
     }
 
     /// Sets the value of [cache_lookup][crate::model::HttpRequest::cache_lookup].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_servicecontrol_v1::model::HttpRequest;
-    /// let x = HttpRequest::new().set_cache_lookup(true);
-    /// ```
     pub fn set_cache_lookup<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.cache_lookup = v.into();
         self
     }
 
     /// Sets the value of [cache_hit][crate::model::HttpRequest::cache_hit].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_servicecontrol_v1::model::HttpRequest;
-    /// let x = HttpRequest::new().set_cache_hit(true);
-    /// ```
     pub fn set_cache_hit<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.cache_hit = v.into();
         self
     }
 
     /// Sets the value of [cache_validated_with_origin_server][crate::model::HttpRequest::cache_validated_with_origin_server].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_servicecontrol_v1::model::HttpRequest;
-    /// let x = HttpRequest::new().set_cache_validated_with_origin_server(true);
-    /// ```
     pub fn set_cache_validated_with_origin_server<T: std::convert::Into<bool>>(
         mut self,
         v: T,
@@ -1259,24 +1009,12 @@ impl HttpRequest {
     }
 
     /// Sets the value of [cache_fill_bytes][crate::model::HttpRequest::cache_fill_bytes].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_servicecontrol_v1::model::HttpRequest;
-    /// let x = HttpRequest::new().set_cache_fill_bytes(42);
-    /// ```
     pub fn set_cache_fill_bytes<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.cache_fill_bytes = v.into();
         self
     }
 
     /// Sets the value of [protocol][crate::model::HttpRequest::protocol].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_servicecontrol_v1::model::HttpRequest;
-    /// let x = HttpRequest::new().set_protocol("example");
-    /// ```
     pub fn set_protocol<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.protocol = v.into();
         self
@@ -1343,25 +1081,12 @@ impl LogEntry {
     }
 
     /// Sets the value of [name][crate::model::LogEntry::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_servicecontrol_v1::model::LogEntry;
-    /// let x = LogEntry::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [timestamp][crate::model::LogEntry::timestamp].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_servicecontrol_v1::model::LogEntry;
-    /// use wkt::Timestamp;
-    /// let x = LogEntry::new().set_timestamp(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_timestamp<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1371,14 +1096,6 @@ impl LogEntry {
     }
 
     /// Sets or clears the value of [timestamp][crate::model::LogEntry::timestamp].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_servicecontrol_v1::model::LogEntry;
-    /// use wkt::Timestamp;
-    /// let x = LogEntry::new().set_or_clear_timestamp(Some(Timestamp::default()/* use setters */));
-    /// let x = LogEntry::new().set_or_clear_timestamp(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_timestamp<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1388,15 +1105,6 @@ impl LogEntry {
     }
 
     /// Sets the value of [severity][crate::model::LogEntry::severity].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_servicecontrol_v1::model::LogEntry;
-    /// use logging_type::model::LogSeverity;
-    /// let x0 = LogEntry::new().set_severity(LogSeverity::Debug);
-    /// let x1 = LogEntry::new().set_severity(LogSeverity::Info);
-    /// let x2 = LogEntry::new().set_severity(LogSeverity::Notice);
-    /// ```
     pub fn set_severity<T: std::convert::Into<logging_type::model::LogSeverity>>(
         mut self,
         v: T,
@@ -1406,13 +1114,6 @@ impl LogEntry {
     }
 
     /// Sets the value of [http_request][crate::model::LogEntry::http_request].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_servicecontrol_v1::model::LogEntry;
-    /// use google_cloud_api_servicecontrol_v1::model::HttpRequest;
-    /// let x = LogEntry::new().set_http_request(HttpRequest::default()/* use setters */);
-    /// ```
     pub fn set_http_request<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::HttpRequest>,
@@ -1422,14 +1123,6 @@ impl LogEntry {
     }
 
     /// Sets or clears the value of [http_request][crate::model::LogEntry::http_request].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_servicecontrol_v1::model::LogEntry;
-    /// use google_cloud_api_servicecontrol_v1::model::HttpRequest;
-    /// let x = LogEntry::new().set_or_clear_http_request(Some(HttpRequest::default()/* use setters */));
-    /// let x = LogEntry::new().set_or_clear_http_request(None::<HttpRequest>);
-    /// ```
     pub fn set_or_clear_http_request<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::HttpRequest>,
@@ -1439,39 +1132,18 @@ impl LogEntry {
     }
 
     /// Sets the value of [trace][crate::model::LogEntry::trace].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_servicecontrol_v1::model::LogEntry;
-    /// let x = LogEntry::new().set_trace("example");
-    /// ```
     pub fn set_trace<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.trace = v.into();
         self
     }
 
     /// Sets the value of [insert_id][crate::model::LogEntry::insert_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_servicecontrol_v1::model::LogEntry;
-    /// let x = LogEntry::new().set_insert_id("example");
-    /// ```
     pub fn set_insert_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.insert_id = v.into();
         self
     }
 
     /// Sets the value of [labels][crate::model::LogEntry::labels].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_servicecontrol_v1::model::LogEntry;
-    /// let x = LogEntry::new().set_labels([
-    ///     ("key0", "abc"),
-    ///     ("key1", "xyz"),
-    /// ]);
-    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -1484,13 +1156,6 @@ impl LogEntry {
     }
 
     /// Sets the value of [operation][crate::model::LogEntry::operation].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_servicecontrol_v1::model::LogEntry;
-    /// use google_cloud_api_servicecontrol_v1::model::LogEntryOperation;
-    /// let x = LogEntry::new().set_operation(LogEntryOperation::default()/* use setters */);
-    /// ```
     pub fn set_operation<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::LogEntryOperation>,
@@ -1500,14 +1165,6 @@ impl LogEntry {
     }
 
     /// Sets or clears the value of [operation][crate::model::LogEntry::operation].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_servicecontrol_v1::model::LogEntry;
-    /// use google_cloud_api_servicecontrol_v1::model::LogEntryOperation;
-    /// let x = LogEntry::new().set_or_clear_operation(Some(LogEntryOperation::default()/* use setters */));
-    /// let x = LogEntry::new().set_or_clear_operation(None::<LogEntryOperation>);
-    /// ```
     pub fn set_or_clear_operation<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::LogEntryOperation>,
@@ -1517,13 +1174,6 @@ impl LogEntry {
     }
 
     /// Sets the value of [source_location][crate::model::LogEntry::source_location].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_servicecontrol_v1::model::LogEntry;
-    /// use google_cloud_api_servicecontrol_v1::model::LogEntrySourceLocation;
-    /// let x = LogEntry::new().set_source_location(LogEntrySourceLocation::default()/* use setters */);
-    /// ```
     pub fn set_source_location<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::LogEntrySourceLocation>,
@@ -1533,14 +1183,6 @@ impl LogEntry {
     }
 
     /// Sets or clears the value of [source_location][crate::model::LogEntry::source_location].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_servicecontrol_v1::model::LogEntry;
-    /// use google_cloud_api_servicecontrol_v1::model::LogEntrySourceLocation;
-    /// let x = LogEntry::new().set_or_clear_source_location(Some(LogEntrySourceLocation::default()/* use setters */));
-    /// let x = LogEntry::new().set_or_clear_source_location(None::<LogEntrySourceLocation>);
-    /// ```
     pub fn set_or_clear_source_location<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::LogEntrySourceLocation>,
@@ -1553,13 +1195,6 @@ impl LogEntry {
     ///
     /// Note that all the setters affecting `payload` are mutually
     /// exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_servicecontrol_v1::model::LogEntry;
-    /// use google_cloud_api_servicecontrol_v1::model::log_entry;
-    /// let x = LogEntry::new().set_payload(Some(log_entry::Payload::TextPayload("example".to_string())));
-    /// ```
     pub fn set_payload<
         T: std::convert::Into<std::option::Option<crate::model::log_entry::Payload>>,
     >(
@@ -1586,16 +1221,6 @@ impl LogEntry {
     ///
     /// Note that all the setters affecting `payload` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_servicecontrol_v1::model::LogEntry;
-    /// use wkt::Any;
-    /// let x = LogEntry::new().set_proto_payload(Any::default()/* use setters */);
-    /// assert!(x.proto_payload().is_some());
-    /// assert!(x.text_payload().is_none());
-    /// assert!(x.struct_payload().is_none());
-    /// ```
     pub fn set_proto_payload<T: std::convert::Into<std::boxed::Box<wkt::Any>>>(
         mut self,
         v: T,
@@ -1621,15 +1246,6 @@ impl LogEntry {
     ///
     /// Note that all the setters affecting `payload` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_servicecontrol_v1::model::LogEntry;
-    /// let x = LogEntry::new().set_text_payload("example");
-    /// assert!(x.text_payload().is_some());
-    /// assert!(x.proto_payload().is_none());
-    /// assert!(x.struct_payload().is_none());
-    /// ```
     pub fn set_text_payload<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.payload =
             std::option::Option::Some(crate::model::log_entry::Payload::TextPayload(v.into()));
@@ -1652,16 +1268,6 @@ impl LogEntry {
     ///
     /// Note that all the setters affecting `payload` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_servicecontrol_v1::model::LogEntry;
-    /// use wkt::Struct;
-    /// let x = LogEntry::new().set_struct_payload(Struct::default()/* use setters */);
-    /// assert!(x.struct_payload().is_some());
-    /// assert!(x.proto_payload().is_none());
-    /// assert!(x.text_payload().is_none());
-    /// ```
     pub fn set_struct_payload<T: std::convert::Into<std::boxed::Box<wkt::Struct>>>(
         mut self,
         v: T,
@@ -1728,48 +1334,24 @@ impl LogEntryOperation {
     }
 
     /// Sets the value of [id][crate::model::LogEntryOperation::id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_servicecontrol_v1::model::LogEntryOperation;
-    /// let x = LogEntryOperation::new().set_id("example");
-    /// ```
     pub fn set_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.id = v.into();
         self
     }
 
     /// Sets the value of [producer][crate::model::LogEntryOperation::producer].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_servicecontrol_v1::model::LogEntryOperation;
-    /// let x = LogEntryOperation::new().set_producer("example");
-    /// ```
     pub fn set_producer<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.producer = v.into();
         self
     }
 
     /// Sets the value of [first][crate::model::LogEntryOperation::first].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_servicecontrol_v1::model::LogEntryOperation;
-    /// let x = LogEntryOperation::new().set_first(true);
-    /// ```
     pub fn set_first<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.first = v.into();
         self
     }
 
     /// Sets the value of [last][crate::model::LogEntryOperation::last].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_servicecontrol_v1::model::LogEntryOperation;
-    /// let x = LogEntryOperation::new().set_last(true);
-    /// ```
     pub fn set_last<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.last = v.into();
         self
@@ -1812,36 +1394,18 @@ impl LogEntrySourceLocation {
     }
 
     /// Sets the value of [file][crate::model::LogEntrySourceLocation::file].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_servicecontrol_v1::model::LogEntrySourceLocation;
-    /// let x = LogEntrySourceLocation::new().set_file("example");
-    /// ```
     pub fn set_file<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.file = v.into();
         self
     }
 
     /// Sets the value of [line][crate::model::LogEntrySourceLocation::line].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_servicecontrol_v1::model::LogEntrySourceLocation;
-    /// let x = LogEntrySourceLocation::new().set_line(42);
-    /// ```
     pub fn set_line<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.line = v.into();
         self
     }
 
     /// Sets the value of [function][crate::model::LogEntrySourceLocation::function].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_servicecontrol_v1::model::LogEntrySourceLocation;
-    /// let x = LogEntrySourceLocation::new().set_function("example");
-    /// ```
     pub fn set_function<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.function = v.into();
         self
@@ -1896,15 +1460,6 @@ impl MetricValue {
     }
 
     /// Sets the value of [labels][crate::model::MetricValue::labels].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_servicecontrol_v1::model::MetricValue;
-    /// let x = MetricValue::new().set_labels([
-    ///     ("key0", "abc"),
-    ///     ("key1", "xyz"),
-    /// ]);
-    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -1917,13 +1472,6 @@ impl MetricValue {
     }
 
     /// Sets the value of [start_time][crate::model::MetricValue::start_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_servicecontrol_v1::model::MetricValue;
-    /// use wkt::Timestamp;
-    /// let x = MetricValue::new().set_start_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_start_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1933,14 +1481,6 @@ impl MetricValue {
     }
 
     /// Sets or clears the value of [start_time][crate::model::MetricValue::start_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_servicecontrol_v1::model::MetricValue;
-    /// use wkt::Timestamp;
-    /// let x = MetricValue::new().set_or_clear_start_time(Some(Timestamp::default()/* use setters */));
-    /// let x = MetricValue::new().set_or_clear_start_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1950,13 +1490,6 @@ impl MetricValue {
     }
 
     /// Sets the value of [end_time][crate::model::MetricValue::end_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_servicecontrol_v1::model::MetricValue;
-    /// use wkt::Timestamp;
-    /// let x = MetricValue::new().set_end_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1966,14 +1499,6 @@ impl MetricValue {
     }
 
     /// Sets or clears the value of [end_time][crate::model::MetricValue::end_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_servicecontrol_v1::model::MetricValue;
-    /// use wkt::Timestamp;
-    /// let x = MetricValue::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
-    /// let x = MetricValue::new().set_or_clear_end_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1986,13 +1511,6 @@ impl MetricValue {
     ///
     /// Note that all the setters affecting `value` are mutually
     /// exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_servicecontrol_v1::model::MetricValue;
-    /// use google_cloud_api_servicecontrol_v1::model::metric_value;
-    /// let x = MetricValue::new().set_value(Some(metric_value::Value::BoolValue(true)));
-    /// ```
     pub fn set_value<
         T: std::convert::Into<std::option::Option<crate::model::metric_value::Value>>,
     >(
@@ -2019,17 +1537,6 @@ impl MetricValue {
     ///
     /// Note that all the setters affecting `value` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_servicecontrol_v1::model::MetricValue;
-    /// let x = MetricValue::new().set_bool_value(true);
-    /// assert!(x.bool_value().is_some());
-    /// assert!(x.int64_value().is_none());
-    /// assert!(x.double_value().is_none());
-    /// assert!(x.string_value().is_none());
-    /// assert!(x.distribution_value().is_none());
-    /// ```
     pub fn set_bool_value<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.value =
             std::option::Option::Some(crate::model::metric_value::Value::BoolValue(v.into()));
@@ -2052,17 +1559,6 @@ impl MetricValue {
     ///
     /// Note that all the setters affecting `value` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_servicecontrol_v1::model::MetricValue;
-    /// let x = MetricValue::new().set_int64_value(42);
-    /// assert!(x.int64_value().is_some());
-    /// assert!(x.bool_value().is_none());
-    /// assert!(x.double_value().is_none());
-    /// assert!(x.string_value().is_none());
-    /// assert!(x.distribution_value().is_none());
-    /// ```
     pub fn set_int64_value<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.value =
             std::option::Option::Some(crate::model::metric_value::Value::Int64Value(v.into()));
@@ -2085,17 +1581,6 @@ impl MetricValue {
     ///
     /// Note that all the setters affecting `value` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_servicecontrol_v1::model::MetricValue;
-    /// let x = MetricValue::new().set_double_value(42.0);
-    /// assert!(x.double_value().is_some());
-    /// assert!(x.bool_value().is_none());
-    /// assert!(x.int64_value().is_none());
-    /// assert!(x.string_value().is_none());
-    /// assert!(x.distribution_value().is_none());
-    /// ```
     pub fn set_double_value<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
         self.value =
             std::option::Option::Some(crate::model::metric_value::Value::DoubleValue(v.into()));
@@ -2118,17 +1603,6 @@ impl MetricValue {
     ///
     /// Note that all the setters affecting `value` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_servicecontrol_v1::model::MetricValue;
-    /// let x = MetricValue::new().set_string_value("example");
-    /// assert!(x.string_value().is_some());
-    /// assert!(x.bool_value().is_none());
-    /// assert!(x.int64_value().is_none());
-    /// assert!(x.double_value().is_none());
-    /// assert!(x.distribution_value().is_none());
-    /// ```
     pub fn set_string_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.value =
             std::option::Option::Some(crate::model::metric_value::Value::StringValue(v.into()));
@@ -2153,18 +1627,6 @@ impl MetricValue {
     ///
     /// Note that all the setters affecting `value` are
     /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_servicecontrol_v1::model::MetricValue;
-    /// use google_cloud_api_servicecontrol_v1::model::Distribution;
-    /// let x = MetricValue::new().set_distribution_value(Distribution::default()/* use setters */);
-    /// assert!(x.distribution_value().is_some());
-    /// assert!(x.bool_value().is_none());
-    /// assert!(x.int64_value().is_none());
-    /// assert!(x.double_value().is_none());
-    /// assert!(x.string_value().is_none());
-    /// ```
     pub fn set_distribution_value<
         T: std::convert::Into<std::boxed::Box<crate::model::Distribution>>,
     >(
@@ -2229,29 +1691,12 @@ impl MetricValueSet {
     }
 
     /// Sets the value of [metric_name][crate::model::MetricValueSet::metric_name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_servicecontrol_v1::model::MetricValueSet;
-    /// let x = MetricValueSet::new().set_metric_name("example");
-    /// ```
     pub fn set_metric_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.metric_name = v.into();
         self
     }
 
     /// Sets the value of [metric_values][crate::model::MetricValueSet::metric_values].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_servicecontrol_v1::model::MetricValueSet;
-    /// use google_cloud_api_servicecontrol_v1::model::MetricValue;
-    /// let x = MetricValueSet::new()
-    ///     .set_metric_values([
-    ///         MetricValue::default()/* use setters */,
-    ///         MetricValue::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_metric_values<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2362,49 +1807,24 @@ impl Operation {
     }
 
     /// Sets the value of [operation_id][crate::model::Operation::operation_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_servicecontrol_v1::model::Operation;
-    /// let x = Operation::new().set_operation_id("example");
-    /// ```
     pub fn set_operation_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.operation_id = v.into();
         self
     }
 
     /// Sets the value of [operation_name][crate::model::Operation::operation_name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_servicecontrol_v1::model::Operation;
-    /// let x = Operation::new().set_operation_name("example");
-    /// ```
     pub fn set_operation_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.operation_name = v.into();
         self
     }
 
     /// Sets the value of [consumer_id][crate::model::Operation::consumer_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_servicecontrol_v1::model::Operation;
-    /// let x = Operation::new().set_consumer_id("example");
-    /// ```
     pub fn set_consumer_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.consumer_id = v.into();
         self
     }
 
     /// Sets the value of [start_time][crate::model::Operation::start_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_servicecontrol_v1::model::Operation;
-    /// use wkt::Timestamp;
-    /// let x = Operation::new().set_start_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_start_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2414,14 +1834,6 @@ impl Operation {
     }
 
     /// Sets or clears the value of [start_time][crate::model::Operation::start_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_servicecontrol_v1::model::Operation;
-    /// use wkt::Timestamp;
-    /// let x = Operation::new().set_or_clear_start_time(Some(Timestamp::default()/* use setters */));
-    /// let x = Operation::new().set_or_clear_start_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2431,13 +1843,6 @@ impl Operation {
     }
 
     /// Sets the value of [end_time][crate::model::Operation::end_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_servicecontrol_v1::model::Operation;
-    /// use wkt::Timestamp;
-    /// let x = Operation::new().set_end_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2447,14 +1852,6 @@ impl Operation {
     }
 
     /// Sets or clears the value of [end_time][crate::model::Operation::end_time].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_servicecontrol_v1::model::Operation;
-    /// use wkt::Timestamp;
-    /// let x = Operation::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
-    /// let x = Operation::new().set_or_clear_end_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2464,15 +1861,6 @@ impl Operation {
     }
 
     /// Sets the value of [labels][crate::model::Operation::labels].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_servicecontrol_v1::model::Operation;
-    /// let x = Operation::new().set_labels([
-    ///     ("key0", "abc"),
-    ///     ("key1", "xyz"),
-    /// ]);
-    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -2485,17 +1873,6 @@ impl Operation {
     }
 
     /// Sets the value of [metric_value_sets][crate::model::Operation::metric_value_sets].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_servicecontrol_v1::model::Operation;
-    /// use google_cloud_api_servicecontrol_v1::model::MetricValueSet;
-    /// let x = Operation::new()
-    ///     .set_metric_value_sets([
-    ///         MetricValueSet::default()/* use setters */,
-    ///         MetricValueSet::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_metric_value_sets<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2507,17 +1884,6 @@ impl Operation {
     }
 
     /// Sets the value of [log_entries][crate::model::Operation::log_entries].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_servicecontrol_v1::model::Operation;
-    /// use google_cloud_api_servicecontrol_v1::model::LogEntry;
-    /// let x = Operation::new()
-    ///     .set_log_entries([
-    ///         LogEntry::default()/* use setters */,
-    ///         LogEntry::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_log_entries<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2529,13 +1895,6 @@ impl Operation {
     }
 
     /// Sets the value of [importance][crate::model::Operation::importance].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_servicecontrol_v1::model::Operation;
-    /// use google_cloud_api_servicecontrol_v1::model::operation::Importance;
-    /// let x0 = Operation::new().set_importance(Importance::High);
-    /// ```
     pub fn set_importance<T: std::convert::Into<crate::model::operation::Importance>>(
         mut self,
         v: T,
@@ -2545,17 +1904,6 @@ impl Operation {
     }
 
     /// Sets the value of [extensions][crate::model::Operation::extensions].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_servicecontrol_v1::model::Operation;
-    /// use wkt::Any;
-    /// let x = Operation::new()
-    ///     .set_extensions([
-    ///         Any::default()/* use setters */,
-    ///         Any::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_extensions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2734,25 +2082,12 @@ impl AllocateQuotaRequest {
     }
 
     /// Sets the value of [service_name][crate::model::AllocateQuotaRequest::service_name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_servicecontrol_v1::model::AllocateQuotaRequest;
-    /// let x = AllocateQuotaRequest::new().set_service_name("example");
-    /// ```
     pub fn set_service_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.service_name = v.into();
         self
     }
 
     /// Sets the value of [allocate_operation][crate::model::AllocateQuotaRequest::allocate_operation].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_servicecontrol_v1::model::AllocateQuotaRequest;
-    /// use google_cloud_api_servicecontrol_v1::model::QuotaOperation;
-    /// let x = AllocateQuotaRequest::new().set_allocate_operation(QuotaOperation::default()/* use setters */);
-    /// ```
     pub fn set_allocate_operation<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::QuotaOperation>,
@@ -2762,14 +2097,6 @@ impl AllocateQuotaRequest {
     }
 
     /// Sets or clears the value of [allocate_operation][crate::model::AllocateQuotaRequest::allocate_operation].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_servicecontrol_v1::model::AllocateQuotaRequest;
-    /// use google_cloud_api_servicecontrol_v1::model::QuotaOperation;
-    /// let x = AllocateQuotaRequest::new().set_or_clear_allocate_operation(Some(QuotaOperation::default()/* use setters */));
-    /// let x = AllocateQuotaRequest::new().set_or_clear_allocate_operation(None::<QuotaOperation>);
-    /// ```
     pub fn set_or_clear_allocate_operation<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::QuotaOperation>,
@@ -2779,12 +2106,6 @@ impl AllocateQuotaRequest {
     }
 
     /// Sets the value of [service_config_id][crate::model::AllocateQuotaRequest::service_config_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_servicecontrol_v1::model::AllocateQuotaRequest;
-    /// let x = AllocateQuotaRequest::new().set_service_config_id("example");
-    /// ```
     pub fn set_service_config_id<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -2864,51 +2185,24 @@ impl QuotaOperation {
     }
 
     /// Sets the value of [operation_id][crate::model::QuotaOperation::operation_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_servicecontrol_v1::model::QuotaOperation;
-    /// let x = QuotaOperation::new().set_operation_id("example");
-    /// ```
     pub fn set_operation_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.operation_id = v.into();
         self
     }
 
     /// Sets the value of [method_name][crate::model::QuotaOperation::method_name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_servicecontrol_v1::model::QuotaOperation;
-    /// let x = QuotaOperation::new().set_method_name("example");
-    /// ```
     pub fn set_method_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.method_name = v.into();
         self
     }
 
     /// Sets the value of [consumer_id][crate::model::QuotaOperation::consumer_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_servicecontrol_v1::model::QuotaOperation;
-    /// let x = QuotaOperation::new().set_consumer_id("example");
-    /// ```
     pub fn set_consumer_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.consumer_id = v.into();
         self
     }
 
     /// Sets the value of [labels][crate::model::QuotaOperation::labels].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_servicecontrol_v1::model::QuotaOperation;
-    /// let x = QuotaOperation::new().set_labels([
-    ///     ("key0", "abc"),
-    ///     ("key1", "xyz"),
-    /// ]);
-    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -2921,17 +2215,6 @@ impl QuotaOperation {
     }
 
     /// Sets the value of [quota_metrics][crate::model::QuotaOperation::quota_metrics].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_servicecontrol_v1::model::QuotaOperation;
-    /// use google_cloud_api_servicecontrol_v1::model::MetricValueSet;
-    /// let x = QuotaOperation::new()
-    ///     .set_quota_metrics([
-    ///         MetricValueSet::default()/* use setters */,
-    ///         MetricValueSet::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_quota_metrics<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2943,15 +2226,6 @@ impl QuotaOperation {
     }
 
     /// Sets the value of [quota_mode][crate::model::QuotaOperation::quota_mode].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_servicecontrol_v1::model::QuotaOperation;
-    /// use google_cloud_api_servicecontrol_v1::model::quota_operation::QuotaMode;
-    /// let x0 = QuotaOperation::new().set_quota_mode(QuotaMode::Normal);
-    /// let x1 = QuotaOperation::new().set_quota_mode(QuotaMode::BestEffort);
-    /// let x2 = QuotaOperation::new().set_quota_mode(QuotaMode::CheckOnly);
-    /// ```
     pub fn set_quota_mode<T: std::convert::Into<crate::model::quota_operation::QuotaMode>>(
         mut self,
         v: T,
@@ -3184,29 +2458,12 @@ impl AllocateQuotaResponse {
     }
 
     /// Sets the value of [operation_id][crate::model::AllocateQuotaResponse::operation_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_servicecontrol_v1::model::AllocateQuotaResponse;
-    /// let x = AllocateQuotaResponse::new().set_operation_id("example");
-    /// ```
     pub fn set_operation_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.operation_id = v.into();
         self
     }
 
     /// Sets the value of [allocate_errors][crate::model::AllocateQuotaResponse::allocate_errors].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_servicecontrol_v1::model::AllocateQuotaResponse;
-    /// use google_cloud_api_servicecontrol_v1::model::QuotaError;
-    /// let x = AllocateQuotaResponse::new()
-    ///     .set_allocate_errors([
-    ///         QuotaError::default()/* use setters */,
-    ///         QuotaError::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_allocate_errors<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3218,17 +2475,6 @@ impl AllocateQuotaResponse {
     }
 
     /// Sets the value of [quota_metrics][crate::model::AllocateQuotaResponse::quota_metrics].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_servicecontrol_v1::model::AllocateQuotaResponse;
-    /// use google_cloud_api_servicecontrol_v1::model::MetricValueSet;
-    /// let x = AllocateQuotaResponse::new()
-    ///     .set_quota_metrics([
-    ///         MetricValueSet::default()/* use setters */,
-    ///         MetricValueSet::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_quota_metrics<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3240,12 +2486,6 @@ impl AllocateQuotaResponse {
     }
 
     /// Sets the value of [service_config_id][crate::model::AllocateQuotaResponse::service_config_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_servicecontrol_v1::model::AllocateQuotaResponse;
-    /// let x = AllocateQuotaResponse::new().set_service_config_id("example");
-    /// ```
     pub fn set_service_config_id<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -3291,15 +2531,6 @@ impl QuotaError {
     }
 
     /// Sets the value of [code][crate::model::QuotaError::code].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_servicecontrol_v1::model::QuotaError;
-    /// use google_cloud_api_servicecontrol_v1::model::quota_error::Code;
-    /// let x0 = QuotaError::new().set_code(Code::ResourceExhausted);
-    /// let x1 = QuotaError::new().set_code(Code::BillingNotActive);
-    /// let x2 = QuotaError::new().set_code(Code::ProjectDeleted);
-    /// ```
     pub fn set_code<T: std::convert::Into<crate::model::quota_error::Code>>(
         mut self,
         v: T,
@@ -3309,37 +2540,18 @@ impl QuotaError {
     }
 
     /// Sets the value of [subject][crate::model::QuotaError::subject].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_servicecontrol_v1::model::QuotaError;
-    /// let x = QuotaError::new().set_subject("example");
-    /// ```
     pub fn set_subject<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.subject = v.into();
         self
     }
 
     /// Sets the value of [description][crate::model::QuotaError::description].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_servicecontrol_v1::model::QuotaError;
-    /// let x = QuotaError::new().set_description("example");
-    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [status][crate::model::QuotaError::status].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_servicecontrol_v1::model::QuotaError;
-    /// use rpc::model::Status;
-    /// let x = QuotaError::new().set_status(Status::default()/* use setters */);
-    /// ```
     pub fn set_status<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<rpc::model::Status>,
@@ -3349,14 +2561,6 @@ impl QuotaError {
     }
 
     /// Sets or clears the value of [status][crate::model::QuotaError::status].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_servicecontrol_v1::model::QuotaError;
-    /// use rpc::model::Status;
-    /// let x = QuotaError::new().set_or_clear_status(Some(Status::default()/* use setters */));
-    /// let x = QuotaError::new().set_or_clear_status(None::<Status>);
-    /// ```
     pub fn set_or_clear_status<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<rpc::model::Status>,
@@ -3568,25 +2772,12 @@ impl CheckRequest {
     }
 
     /// Sets the value of [service_name][crate::model::CheckRequest::service_name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_servicecontrol_v1::model::CheckRequest;
-    /// let x = CheckRequest::new().set_service_name("example");
-    /// ```
     pub fn set_service_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.service_name = v.into();
         self
     }
 
     /// Sets the value of [operation][crate::model::CheckRequest::operation].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_servicecontrol_v1::model::CheckRequest;
-    /// use google_cloud_api_servicecontrol_v1::model::Operation;
-    /// let x = CheckRequest::new().set_operation(Operation::default()/* use setters */);
-    /// ```
     pub fn set_operation<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Operation>,
@@ -3596,14 +2787,6 @@ impl CheckRequest {
     }
 
     /// Sets or clears the value of [operation][crate::model::CheckRequest::operation].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_servicecontrol_v1::model::CheckRequest;
-    /// use google_cloud_api_servicecontrol_v1::model::Operation;
-    /// let x = CheckRequest::new().set_or_clear_operation(Some(Operation::default()/* use setters */));
-    /// let x = CheckRequest::new().set_or_clear_operation(None::<Operation>);
-    /// ```
     pub fn set_or_clear_operation<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Operation>,
@@ -3613,12 +2796,6 @@ impl CheckRequest {
     }
 
     /// Sets the value of [service_config_id][crate::model::CheckRequest::service_config_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_servicecontrol_v1::model::CheckRequest;
-    /// let x = CheckRequest::new().set_service_config_id("example");
-    /// ```
     pub fn set_service_config_id<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -3670,29 +2847,12 @@ impl CheckResponse {
     }
 
     /// Sets the value of [operation_id][crate::model::CheckResponse::operation_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_servicecontrol_v1::model::CheckResponse;
-    /// let x = CheckResponse::new().set_operation_id("example");
-    /// ```
     pub fn set_operation_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.operation_id = v.into();
         self
     }
 
     /// Sets the value of [check_errors][crate::model::CheckResponse::check_errors].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_servicecontrol_v1::model::CheckResponse;
-    /// use google_cloud_api_servicecontrol_v1::model::CheckError;
-    /// let x = CheckResponse::new()
-    ///     .set_check_errors([
-    ///         CheckError::default()/* use setters */,
-    ///         CheckError::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_check_errors<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3704,12 +2864,6 @@ impl CheckResponse {
     }
 
     /// Sets the value of [service_config_id][crate::model::CheckResponse::service_config_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_servicecontrol_v1::model::CheckResponse;
-    /// let x = CheckResponse::new().set_service_config_id("example");
-    /// ```
     pub fn set_service_config_id<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -3719,12 +2873,6 @@ impl CheckResponse {
     }
 
     /// Sets the value of [service_rollout_id][crate::model::CheckResponse::service_rollout_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_servicecontrol_v1::model::CheckResponse;
-    /// let x = CheckResponse::new().set_service_rollout_id("example");
-    /// ```
     pub fn set_service_rollout_id<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -3734,13 +2882,6 @@ impl CheckResponse {
     }
 
     /// Sets the value of [check_info][crate::model::CheckResponse::check_info].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_servicecontrol_v1::model::CheckResponse;
-    /// use google_cloud_api_servicecontrol_v1::model::check_response::CheckInfo;
-    /// let x = CheckResponse::new().set_check_info(CheckInfo::default()/* use setters */);
-    /// ```
     pub fn set_check_info<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::check_response::CheckInfo>,
@@ -3750,14 +2891,6 @@ impl CheckResponse {
     }
 
     /// Sets or clears the value of [check_info][crate::model::CheckResponse::check_info].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_servicecontrol_v1::model::CheckResponse;
-    /// use google_cloud_api_servicecontrol_v1::model::check_response::CheckInfo;
-    /// let x = CheckResponse::new().set_or_clear_check_info(Some(CheckInfo::default()/* use setters */));
-    /// let x = CheckResponse::new().set_or_clear_check_info(None::<CheckInfo>);
-    /// ```
     pub fn set_or_clear_check_info<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::check_response::CheckInfo>,
@@ -3804,12 +2937,6 @@ pub mod check_response {
         }
 
         /// Sets the value of [unused_arguments][crate::model::check_response::CheckInfo::unused_arguments].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_api_servicecontrol_v1::model::check_response::CheckInfo;
-        /// let x = CheckInfo::new().set_unused_arguments(["a", "b", "c"]);
-        /// ```
         pub fn set_unused_arguments<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -3821,13 +2948,6 @@ pub mod check_response {
         }
 
         /// Sets the value of [consumer_info][crate::model::check_response::CheckInfo::consumer_info].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_api_servicecontrol_v1::model::check_response::CheckInfo;
-        /// use google_cloud_api_servicecontrol_v1::model::check_response::ConsumerInfo;
-        /// let x = CheckInfo::new().set_consumer_info(ConsumerInfo::default()/* use setters */);
-        /// ```
         pub fn set_consumer_info<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::check_response::ConsumerInfo>,
@@ -3837,14 +2957,6 @@ pub mod check_response {
         }
 
         /// Sets or clears the value of [consumer_info][crate::model::check_response::CheckInfo::consumer_info].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_api_servicecontrol_v1::model::check_response::CheckInfo;
-        /// use google_cloud_api_servicecontrol_v1::model::check_response::ConsumerInfo;
-        /// let x = CheckInfo::new().set_or_clear_consumer_info(Some(ConsumerInfo::default()/* use setters */));
-        /// let x = CheckInfo::new().set_or_clear_consumer_info(None::<ConsumerInfo>);
-        /// ```
         pub fn set_or_clear_consumer_info<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::check_response::ConsumerInfo>,
@@ -3854,12 +2966,6 @@ pub mod check_response {
         }
 
         /// Sets the value of [api_key_uid][crate::model::check_response::CheckInfo::api_key_uid].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_api_servicecontrol_v1::model::check_response::CheckInfo;
-        /// let x = CheckInfo::new().set_api_key_uid("example");
-        /// ```
         pub fn set_api_key_uid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.api_key_uid = v.into();
             self
@@ -3901,27 +3007,12 @@ pub mod check_response {
         }
 
         /// Sets the value of [project_number][crate::model::check_response::ConsumerInfo::project_number].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_api_servicecontrol_v1::model::check_response::ConsumerInfo;
-        /// let x = ConsumerInfo::new().set_project_number(42);
-        /// ```
         pub fn set_project_number<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
             self.project_number = v.into();
             self
         }
 
         /// Sets the value of [r#type][crate::model::check_response::ConsumerInfo::type].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_api_servicecontrol_v1::model::check_response::ConsumerInfo;
-        /// use google_cloud_api_servicecontrol_v1::model::check_response::consumer_info::ConsumerType;
-        /// let x0 = ConsumerInfo::new().set_type(ConsumerType::Project);
-        /// let x1 = ConsumerInfo::new().set_type(ConsumerType::Folder);
-        /// let x2 = ConsumerInfo::new().set_type(ConsumerType::Organization);
-        /// ```
         pub fn set_type<
             T: std::convert::Into<crate::model::check_response::consumer_info::ConsumerType>,
         >(
@@ -3933,12 +3024,6 @@ pub mod check_response {
         }
 
         /// Sets the value of [consumer_number][crate::model::check_response::ConsumerInfo::consumer_number].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_api_servicecontrol_v1::model::check_response::ConsumerInfo;
-        /// let x = ConsumerInfo::new().set_consumer_number(42);
-        /// ```
         pub fn set_consumer_number<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
             self.consumer_number = v.into();
             self
@@ -4153,29 +3238,12 @@ impl ReportRequest {
     }
 
     /// Sets the value of [service_name][crate::model::ReportRequest::service_name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_servicecontrol_v1::model::ReportRequest;
-    /// let x = ReportRequest::new().set_service_name("example");
-    /// ```
     pub fn set_service_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.service_name = v.into();
         self
     }
 
     /// Sets the value of [operations][crate::model::ReportRequest::operations].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_servicecontrol_v1::model::ReportRequest;
-    /// use google_cloud_api_servicecontrol_v1::model::Operation;
-    /// let x = ReportRequest::new()
-    ///     .set_operations([
-    ///         Operation::default()/* use setters */,
-    ///         Operation::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_operations<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4187,12 +3255,6 @@ impl ReportRequest {
     }
 
     /// Sets the value of [service_config_id][crate::model::ReportRequest::service_config_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_servicecontrol_v1::model::ReportRequest;
-    /// let x = ReportRequest::new().set_service_config_id("example");
-    /// ```
     pub fn set_service_config_id<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -4243,17 +3305,6 @@ impl ReportResponse {
     }
 
     /// Sets the value of [report_errors][crate::model::ReportResponse::report_errors].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_servicecontrol_v1::model::ReportResponse;
-    /// use google_cloud_api_servicecontrol_v1::model::report_response::ReportError;
-    /// let x = ReportResponse::new()
-    ///     .set_report_errors([
-    ///         ReportError::default()/* use setters */,
-    ///         ReportError::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_report_errors<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4265,12 +3316,6 @@ impl ReportResponse {
     }
 
     /// Sets the value of [service_config_id][crate::model::ReportResponse::service_config_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_servicecontrol_v1::model::ReportResponse;
-    /// let x = ReportResponse::new().set_service_config_id("example");
-    /// ```
     pub fn set_service_config_id<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -4280,12 +3325,6 @@ impl ReportResponse {
     }
 
     /// Sets the value of [service_rollout_id][crate::model::ReportResponse::service_rollout_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_api_servicecontrol_v1::model::ReportResponse;
-    /// let x = ReportResponse::new().set_service_rollout_id("example");
-    /// ```
     pub fn set_service_rollout_id<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -4335,12 +3374,6 @@ pub mod report_response {
         }
 
         /// Sets the value of [operation_id][crate::model::report_response::ReportError::operation_id].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_api_servicecontrol_v1::model::report_response::ReportError;
-        /// let x = ReportError::new().set_operation_id("example");
-        /// ```
         pub fn set_operation_id<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -4350,13 +3383,6 @@ pub mod report_response {
         }
 
         /// Sets the value of [status][crate::model::report_response::ReportError::status].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_api_servicecontrol_v1::model::report_response::ReportError;
-        /// use rpc::model::Status;
-        /// let x = ReportError::new().set_status(Status::default()/* use setters */);
-        /// ```
         pub fn set_status<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<rpc::model::Status>,
@@ -4366,14 +3392,6 @@ pub mod report_response {
         }
 
         /// Sets or clears the value of [status][crate::model::report_response::ReportError::status].
-        ///
-        /// # Example
-        /// ```
-        /// # use google_cloud_api_servicecontrol_v1::model::report_response::ReportError;
-        /// use rpc::model::Status;
-        /// let x = ReportError::new().set_or_clear_status(Some(Status::default()/* use setters */));
-        /// let x = ReportError::new().set_or_clear_status(None::<Status>);
-        /// ```
         pub fn set_or_clear_status<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<rpc::model::Status>,

@@ -61,48 +61,24 @@ impl ListLocationsRequest {
     }
 
     /// Sets the value of [name][crate::model::ListLocationsRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_location::model::ListLocationsRequest;
-    /// let x = ListLocationsRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListLocationsRequest::filter].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_location::model::ListLocationsRequest;
-    /// let x = ListLocationsRequest::new().set_filter("example");
-    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListLocationsRequest::page_size].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_location::model::ListLocationsRequest;
-    /// let x = ListLocationsRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListLocationsRequest::page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_location::model::ListLocationsRequest;
-    /// let x = ListLocationsRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -136,17 +112,6 @@ impl ListLocationsResponse {
     }
 
     /// Sets the value of [locations][crate::model::ListLocationsResponse::locations].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_location::model::ListLocationsResponse;
-    /// use google_cloud_location::model::Location;
-    /// let x = ListLocationsResponse::new()
-    ///     .set_locations([
-    ///         Location::default()/* use setters */,
-    ///         Location::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_locations<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -158,12 +123,6 @@ impl ListLocationsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListLocationsResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_location::model::ListLocationsResponse;
-    /// let x = ListLocationsResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -208,12 +167,6 @@ impl GetLocationRequest {
     }
 
     /// Sets the value of [name][crate::model::GetLocationRequest::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_location::model::GetLocationRequest;
-    /// let x = GetLocationRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -261,51 +214,24 @@ impl Location {
     }
 
     /// Sets the value of [name][crate::model::Location::name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_location::model::Location;
-    /// let x = Location::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [location_id][crate::model::Location::location_id].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_location::model::Location;
-    /// let x = Location::new().set_location_id("example");
-    /// ```
     pub fn set_location_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.location_id = v.into();
         self
     }
 
     /// Sets the value of [display_name][crate::model::Location::display_name].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_location::model::Location;
-    /// let x = Location::new().set_display_name("example");
-    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
     }
 
     /// Sets the value of [labels][crate::model::Location::labels].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_location::model::Location;
-    /// let x = Location::new().set_labels([
-    ///     ("key0", "abc"),
-    ///     ("key1", "xyz"),
-    /// ]);
-    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -318,13 +244,6 @@ impl Location {
     }
 
     /// Sets the value of [metadata][crate::model::Location::metadata].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_location::model::Location;
-    /// use wkt::Any;
-    /// let x = Location::new().set_metadata(Any::default()/* use setters */);
-    /// ```
     pub fn set_metadata<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Any>,
@@ -334,14 +253,6 @@ impl Location {
     }
 
     /// Sets or clears the value of [metadata][crate::model::Location::metadata].
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_location::model::Location;
-    /// use wkt::Any;
-    /// let x = Location::new().set_or_clear_metadata(Some(Any::default()/* use setters */));
-    /// let x = Location::new().set_or_clear_metadata(None::<Any>);
-    /// ```
     pub fn set_or_clear_metadata<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Any>,
