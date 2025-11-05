@@ -128,21 +128,15 @@ pub(crate) fn create_transport_span_info(
     response: &reqwest::Response,
     prior_attempt_count: u32,
 ) -> gax::response::internal::TransportSpanInfo {
-    let mut info = gax::response::internal::TransportSpanInfo::default();
-    info.request_resend_count = if prior_attempt_count > 0 {
-        Some(prior_attempt_count as i64)
-    } else {
-        None
-    };
-
-    info.http_status_code = Some(response.status().as_u16());
-    info.url_full = Some(response.url().to_string());
-    if let Some(remote_addr) = response.remote_addr() {
-        info.server_address = Some(remote_addr.ip().to_string());
-        info.server_port = Some(remote_addr.port() as i32);
+    let remote_addr = response.remote_addr();
+    gax::response::internal::TransportSpanInfo {
+        request_resend_count: (prior_attempt_count > 0).then_some(prior_attempt_count as i64),
+        http_status_code: Some(response.status().as_u16()),
+        url_full: Some(response.url().to_string()),
+        server_address: remote_addr.map(|a| a.ip().to_string()),
+        server_port: remote_addr.map(|a| a.port() as i32),
+        ..Default::default()
     }
-
-    info
 }
 
 #[cfg(google_cloud_unstable_tracing)]
