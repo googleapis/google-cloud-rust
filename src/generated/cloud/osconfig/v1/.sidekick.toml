@@ -17,6 +17,6 @@ specification-source = 'google/cloud/osconfig/v1'
 service-config = 'google/cloud/osconfig/v1/osconfig_v1.yaml'
 
 [codec]
-version        = '1.1.0'
+version        = '1.2.0'
 copyright-year = '2025'
 disabled-rustdoc-warnings = "redundant_explicit_links,broken_intra_doc_links,bare_urls,invalid_html_tags"

@@ -19,7 +19,7 @@ specification-source = 'google/cloud/orgpolicy/v1'
 title-override = 'Organization Policy Types'
 
 [codec]
-version        = '1.1.0'
+version        = '1.2.0'
 copyright-year       = '2025'
 
 [[documentation-overrides]]

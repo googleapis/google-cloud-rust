@@ -16,7 +16,7 @@
 
 [package]
 name                   = "google-cloud-monitoring-metricsscope-v1"
-version                = "1.1.0"
+version                = "1.2.0"
 description            = "Google Cloud Client Libraries for Rust - Cloud Monitoring API"
 edition.workspace      = true
 authors.workspace      = true

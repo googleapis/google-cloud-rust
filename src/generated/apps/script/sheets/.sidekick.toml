@@ -19,6 +19,6 @@ specification-source = 'google/apps/script/type/sheets'
 title-override = 'Google Apps Script Types'
 
 [codec]
-version        = '1.1.0'
+version        = '1.2.0'
 copyright-year = '2025'
 'package:apps_script_type' = 'package=google-cloud-apps-script-type,source=google.apps.script.type'

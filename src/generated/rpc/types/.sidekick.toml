@@ -17,6 +17,6 @@ specification-source = 'google/rpc'
 service-config = 'google/rpc/rpc_publish.yaml'
 
 [codec]
-version        = '1.1.0'
+version        = '1.2.0'
 copyright-year = '2024'
 package-name-override = "google-cloud-rpc"
