@@ -116,8 +116,6 @@ pub mod mds {
     //! [gke-link]: https://cloud.google.com/kubernetes-engine
     //! [Metadata Service]: https://cloud.google.com/compute/docs/metadata/overview
 
-    #[warn(unused_imports)]
-    use super::IDTokenCredentialsProvider;
     pub use crate::credentials::mds::idtoken::Builder;
 }
 pub mod impersonated {
@@ -266,8 +264,6 @@ pub mod user_account {
     //! [user account]: https://cloud.google.com/docs/authentication#user-accounts
     //! [Service to Service Authentication]: https://cloud.google.com/run/docs/authenticating/service-to-service
 
-    #[warn(unused_imports)]
-    use super::IDTokenCredentialsProvider;
     pub use crate::credentials::user_account::idtoken::Builder;
 }
 
