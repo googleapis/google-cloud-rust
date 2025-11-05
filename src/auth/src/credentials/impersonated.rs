@@ -668,7 +668,7 @@ struct GenerateAccessTokenResponse {
 }
 
 #[cfg(google_cloud_unstable_id_token)]
-pub mod idtoken {
+pub(crate) mod idtoken {
     use crate::{
         BuildResult, Result,
         credentials::{
@@ -765,7 +765,7 @@ pub mod idtoken {
         ///
         /// # Errors
         ///
-        /// Returns a [BuilderError] for one of the following cases:
+        /// Returns an Error for one of the following cases:
         /// - If the `impersonated_service_account` provided to [`Builder::new`] cannot
         ///   be successfully deserialized into the expected format. This typically happens
         ///   if the JSON value is malformed or missing required fields. For more information,

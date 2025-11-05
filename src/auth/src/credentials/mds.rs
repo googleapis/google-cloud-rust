@@ -398,7 +398,7 @@ impl TokenProvider for MDSAccessTokenProvider {
 }
 
 #[cfg(google_cloud_unstable_id_token)]
-pub mod idtoken {
+pub(crate) mod idtoken {
     //! Types for fetching ID tokens from the metadata service.
     use super::{
         GCE_METADATA_HOST_ENV_VAR, MDS_DEFAULT_URI, METADATA_FLAVOR, METADATA_FLAVOR_VALUE,

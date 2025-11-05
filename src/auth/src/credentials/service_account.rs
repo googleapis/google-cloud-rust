@@ -465,7 +465,7 @@ where
 }
 
 #[cfg(google_cloud_unstable_id_token)]
-pub mod idtoken {
+pub(crate) mod idtoken {
     use crate::Result;
     use crate::build_errors::Error as BuilderError;
     use crate::constants::{JWT_BEARER_GRANT_TYPE, OAUTH2_TOKEN_SERVER_URL};

@@ -529,11 +529,11 @@ impl SubjectTokenProvider for TestSubjectTokenProvider {
 #[cfg(google_cloud_unstable_id_token)]
 pub mod unstable {
     use super::*;
-    use auth::credentials::{
-        idtoken::Builder as IDTokenCredentialBuilder,
-        impersonated::idtoken::Builder as ImpersonatedIDTokenBuilder,
-        mds::idtoken::Builder as IDTokenMDSBuilder,
-        service_account::idtoken::Builder as ServiceAccountIDTokenBuilder,
+    use auth::credentials::idtoken::{
+        Builder as IDTokenCredentialBuilder,
+        impersonated::Builder as ImpersonatedIDTokenBuilder,
+        mds::Builder as IDTokenMDSBuilder,
+        service_account::Builder as ServiceAccountIDTokenBuilder,
     };
     use base64::{Engine as _, engine::general_purpose::URL_SAFE_NO_PAD};
     use scoped_env::ScopedEnv;

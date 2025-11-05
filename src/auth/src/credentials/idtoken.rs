@@ -12,10 +12,49 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+//! Obtain [OIDC ID Tokens].
+//!
+//! `IDTokenCredentials` provide a way to obtain OIDC ID tokens, which are
+//! commonly used for [service to service authentication], like when services are
+//! hosted in Cloud Run or mediated by Identity-Aware Proxy (IAP).
+//! Unlike access tokens, ID tokens are not used to authorize access to
+//! Google Cloud APIs but to verify the identity of a principal.
+//!
+//! This module provides `IDTokenCredentials` which serves as a wrapper around
+//! different credential types that can produce ID tokens, such as service
+//! accounts or metadata server credentials.
+//!
+//! ## Example: Generating ID Tokens using Application Default Credentials
+//!
+//! This example shows how to create `IDTokenCredentials` using the
+//! Application Default Credentials (ADC) flow. The builder will locate
+//! and use the credentials from the environment.
+//!
+//! ```
+//! # use google_cloud_auth::credentials::idtoken;
+//! # use reqwest;
+//! #
+//! # async fn send_id_token() -> anyhow::Result<()> {
+//! let audience = "https://my-service.a.run.app";
+//! let credentials = idtoken::Builder::new(audience).build()?;
+//! let id_token = credentials.id_token().await?;
+//!
+//! // Make request with ID Token as Bearer Token.
+//! let client = reqwest::Client::new();
+//! let target_url = format!("{audience}/api/method");
+//! client.get(target_url)
+//!     .bearer_auth(id_token)
+//!     .send()
+//!     .await?;
+//! # Ok(())
+//! # }
+//! ```
+//!
+//! [OIDC ID Tokens]: https://cloud.google.com/docs/authentication/token-types#identity-tokens
+//! [Service to Service Authentication]: https://cloud.google.com/run/docs/authenticating/service-to-service
+
 use crate::build_errors::Error as BuilderError;
-use crate::credentials::{
-    AdcContents, extract_credential_type, impersonated, load_adc, mds, service_account,
-};
+use crate::credentials::{AdcContents, extract_credential_type, load_adc};
 use crate::token::Token;
 use crate::{BuildResult, Result};
 use base64::{Engine as _, engine::general_purpose::URL_SAFE_NO_PAD};
@@ -26,6 +65,211 @@ use std::future::Future;
 use std::sync::Arc;
 use std::time::{Duration, SystemTime, UNIX_EPOCH};
 use tokio::time::Instant;
+
+pub mod mds {
+    //! Credentials for authenticating with [ID tokens] using [Metadata Service].
+    //!
+    //! Google Cloud environments such as [Google Compute Engine (GCE)][gce-link],
+    //! [Google Kubernetes Engine (GKE)][gke-link], or [Cloud Run] provide a metadata service.
+    //! This is a local service to the VM (or pod) which (as the name implies) provides
+    //! metadata information about the VM. The service also provides access
+    //! tokens associated with the [default service account] for the corresponding
+    //! VM. This module provides a builder for `IDTokenCredentials`
+    //! from such metadata service.
+    //!
+    //! The default host name of the metadata service is `metadata.google.internal`.
+    //! If you would like to use a different hostname, you can set it using the
+    //! `GCE_METADATA_HOST` environment variable.
+    //!
+    //! These credentials are commonly used for [service to service authentication].
+    //! For example, when services are hosted in Cloud Run or mediated by Identity-Aware Proxy (IAP).
+    //! ID tokens are only used to verify the identity of a principal. Google Cloud APIs do not use ID tokens
+    //! for authorization, and therefore cannot be used to access Google Cloud APIs.
+    //!
+    //! ## Example: Creating MDS sourced credentials with target audience and sending ID Tokens.
+    //!
+    //! ```
+    //! # use google_cloud_auth::credentials::idtoken;
+    //! # use reqwest;
+    //! # tokio_test::block_on(async {
+    //! let audience = "https://example.com";
+    //! let credentials = idtoken::mds::Builder::new(audience)
+    //!     .build()?;
+    //! let id_token = credentials.id_token().await?;
+    //!
+    //! // Make request with ID Token as Bearer Token.
+    //! let client = reqwest::Client::new();
+    //! let target_url = format!("{audience}/api/method");
+    //! client.get(target_url)
+    //!     .bearer_auth(id_token)
+    //!     .send()
+    //!     .await?;
+    //! # Ok::<(), anyhow::Error>(())
+    //! # });
+    //! ```    
+    //!
+    //! [Application Default Credentials]: https://cloud.google.com/docs/authentication/application-default-credentials
+    //! [ID tokens]: https://cloud.google.com/docs/authentication/token-types#identity-tokens
+    //! [Cloud Run]: https://cloud.google.com/run
+    //! [default service account]: https://cloud.google.com/iam/docs/service-account-types#default
+    //! [gce-link]: https://cloud.google.com/products/compute
+    //! [gke-link]: https://cloud.google.com/kubernetes-engine
+    //! [Metadata Service]: https://cloud.google.com/compute/docs/metadata/overview
+
+    #[warn(unused_imports)]
+    use super::IDTokenCredentialsProvider;
+    pub use crate::credentials::mds::idtoken::Builder;
+}
+pub mod impersonated {
+    //! Credentials for authenticating with [ID tokens] using [impersonated service accounts].
+    //!
+    //! When the principal you are using doesn't have the permissions you need to
+    //! accomplish your task, or you want to use a service account in a development
+    //! environment, you can use service account impersonation. The typical principals
+    //! used to impersonate a service account are [User Account] or another [Service Account].
+    //!
+    //! The principal that is trying to impersonate a target service account should have
+    //! [Service Account Token Creator Role] on the target service account.
+    //!
+    //! ## Example: Creating impersonated credentials from a JSON object with target audience and sending ID Tokens.
+    //!
+    //! ```
+    //! # use google_cloud_auth::credentials::idtoken;
+    //! # use serde_json::json;
+    //! # use reqwest;    
+    //! # tokio_test::block_on(async {
+    //! let source_credentials = json!({
+    //!     "type": "authorized_user",
+    //!     "client_id": "test-client-id",
+    //!     "client_secret": "test-client-secret",
+    //!     "refresh_token": "test-refresh-token"
+    //! });
+    //!
+    //! let impersonated_credential = json!({
+    //!     "type": "impersonated_service_account",
+    //!     "service_account_impersonation_url": "https://iamcredentials.googleapis.com/v1/projects/-/serviceAccounts/test-principal:generateAccessToken",
+    //!     "source_credentials": source_credentials,
+    //! });
+    //!
+    //! let audience = "https://example.com"
+    //! let credentials = idtoken::impersonated::Builder::new(audience, impersonated_credential)
+    //!     .build()?;
+    //! let id_token = credentials.id_token().await?;
+    //!
+    //! // Make request with ID Token as Bearer Token.
+    //! let client = reqwest::Client::new();
+    //! let target_url = format!("{audience}/api/method");
+    //! client.get(target_url)
+    //!     .bearer_auth(id_token)
+    //!     .send()
+    //!     .await?;
+    //! # Ok::<(), anyhow::Error>(())
+    //! # });
+    //! ```
+    //!
+    //! [Impersonated service accounts]: https://cloud.google.com/docs/authentication/use-service-account-impersonation
+    //! [ID tokens]: https://cloud.google.com/docs/authentication/token-types#identity-tokens
+    //! [User Account]: https://cloud.google.com/docs/authentication#user-accounts
+    //! [Service Account]: https://cloud.google.com/iam/docs/service-account-overview
+    //! [Service Account Token Creator Role]: https://cloud.google.com/docs/authentication/use-service-account-impersonation#required-roles
+    pub use crate::credentials::impersonated::idtoken::Builder;
+}
+pub mod service_account {
+    //! Credentials for authenticating with [ID tokens] using [Service Accounts].
+    //!
+    //! The types in this module allow you to create id tokens, based on
+    //! service account keys and can be used for [service to service authentication].
+    //! For example, when services are hosted in Cloud Run or mediated by Identity-Aware Proxy (IAP).
+    //! ID tokens are only used to verify the identity of a principal. Google Cloud APIs do not use ID tokens
+    //! for authorization, and therefore cannot be used to access Google Cloud APIs.
+    //!
+    //! While the Google Cloud client libraries for Rust automatically use the types
+    //! in this module when ADC finds a service account key file, you may want to
+    //! use these types directly when the service account key is obtained from
+    //! Cloud Secret Manager or a similar service.
+    //!
+    //! # Example
+    //! ```
+    //! # use google_cloud_auth::credentials::idtoken;
+    //! # use reqwest;
+    //! # tokio_test::block_on(async {
+    //! let service_account_key = serde_json::json!({
+    //!     "client_email": "test-client-email",
+    //!     "private_key_id": "test-private-key-id",
+    //!     "private_key": "<YOUR_PKCS8_PEM_KEY_HERE>",
+    //!     "project_id": "test-project-id",
+    //!     "universe_domain": "test-universe-domain",
+    //! });
+    //! let audience = "https://example.com";
+    //! let credentials: Credentials = idtoken::service_account::Builder::new(audience, service_account_key)
+    //!     .build()?;
+    //! let id_token = credentials.id_token().await?;
+    //!
+    //! // Make request with ID Token as Bearer Token.
+    //! let client = reqwest::Client::new();
+    //! let target_url = format!("{audience}/api/method");
+    //! client.get(target_url)
+    //!     .bearer_auth(id_token)
+    //!     .send()
+    //!     .await?;
+    //! # Ok::<(), anyhow::Error>(())
+    //! # });
+    //! ```
+    //!
+    //! [Best practices for using service accounts]: https://cloud.google.com/iam/docs/best-practices-service-accounts#choose-when-to-use
+    //! [ID tokens]: https://cloud.google.com/docs/authentication/token-types#identity-tokens
+    //! [create a service account key]: https://cloud.google.com/iam/docs/keys-create-delete#creating
+    //! [Service Accounts]: https://cloud.google.com/iam/docs/service-account-overview
+    //! [service account key]: https://cloud.google.com/iam/docs/keys-create-delete#creating
+    //! [Service to Service Authentication]: https://cloud.google.com/run/docs/authenticating/service-to-service
+    pub use crate::credentials::service_account::idtoken::Builder;
+}
+pub mod user_account {
+    //! Credentials for authenticating with [ID tokens] from an [user account].
+    //!
+    //! This module provides a builder for `IDTokenCredentials` from
+    //! authorized user credentials, which are typically obtained by running
+    //! `gcloud auth application-default login`.
+    //!
+    //! These credentials are commonly used for [service to service authentication].
+    //! For example, when services are hosted in Cloud Run or mediated by Identity-Aware Proxy (IAP).
+    //! ID tokens are only used to verify the identity of a principal. Google Cloud APIs do not use ID tokens
+    //! for authorization, and therefore cannot be used to access Google Cloud APIs.
+    //!
+    //! ## Example: Creating user account sourced credentials from a JSON object with target audience and sending ID Tokens.
+    //!
+    //! ```
+    //! # use google_cloud_auth::credentials::idtoken;
+    //! # use reqwest;
+    //! # tokio_test::block_on(async {
+    //! let authorized_user = serde_json::json!({
+    //!     "client_id": "YOUR_CLIENT_ID.apps.googleusercontent.com", // Replace with your actual Client ID
+    //!     "client_secret": "YOUR_CLIENT_SECRET", // Replace with your actual Client Secret - LOAD SECURELY!
+    //!     "refresh_token": "YOUR_REFRESH_TOKEN", // Replace with the user's refresh token - LOAD SECURELY!
+    //!     "type": "authorized_user",
+    //! });
+    //! let credentials = idtoken::user_account::Builder::new(authorized_user).build()?;
+    //! let id_token = credentials.id_token().await?;
+    //!
+    //! // Make request with ID Token as Bearer Token.
+    //! let client = reqwest::Client::new();
+    //! let target_url = format!("{audience}/api/method");
+    //! client.get(target_url)
+    //!     .bearer_auth(id_token)
+    //!     .send()
+    //!     .await?;
+    //! # Ok::<(), anyhow::Error>(())
+    //! # });
+    //! ```
+    //!
+    //! [ID tokens]: https://cloud.google.com/docs/authentication/token-types#identity-tokens
+    //! [user account]: https://cloud.google.com/docs/authentication#user-accounts
+    //! [Service to Service Authentication]: https://cloud.google.com/run/docs/authenticating/service-to-service
+
+    #[warn(unused_imports)]
+    use super::IDTokenCredentialsProvider;
+    pub use crate::credentials::user_account::idtoken::Builder;
+}
 
 /// Obtain [OIDC ID Tokens].
 ///
@@ -158,19 +402,17 @@ fn build_id_token_credentials(
     match json {
         None => {
             // TODO(#3587): pass context that is being built from ADC flow.
-            mds::idtoken::Builder::new(audience)
-                .with_format("full")
-                .build()
+            mds::Builder::new(audience).with_format("full").build()
         }
         Some(json) => {
             let cred_type = extract_credential_type(&json)?;
             match cred_type {
                 "authorized_user" => Err(BuilderError::not_supported(format!(
-                    "{cred_type}, use user_account::idtoken::Builder directly."
+                    "{cred_type}, use idtoken::user_account::Builder directly."
                 ))),
-                "service_account" => service_account::idtoken::Builder::new(audience, json).build(),
+                "service_account" => service_account::Builder::new(audience, json).build(),
                 "impersonated_service_account" => {
-                    impersonated::idtoken::Builder::new(audience, json).build()
+                    impersonated::Builder::new(audience, json).build()
                 }
                 "external_account" => {
                     // never gonna be supported for id tokens
@@ -282,7 +524,7 @@ pub(crate) mod tests {
         assert!(err.is_not_supported());
         assert!(
             err.to_string()
-                .contains("authorized_user, use user_account::idtoken::Builder directly.")
+                .contains("authorized_user, use idtoken::user_account::Builder directly.")
         );
         Ok(())
     }

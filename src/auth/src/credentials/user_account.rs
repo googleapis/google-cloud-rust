@@ -493,21 +493,7 @@ struct Oauth2RefreshResponse {
 }
 
 #[cfg(google_cloud_unstable_id_token)]
-pub mod idtoken {
-    /// Credentials for authenticating with [ID tokens] from a [user account].
-    ///
-    /// This module provides a builder for [`IDTokenCredentials`] from
-    /// authorized user credentials, which are typically obtained by running
-    /// `gcloud auth application-default login`.
-    ///
-    /// These credentials are commonly used for [service to service authentication].
-    /// For example, when services are hosted in Cloud Run or mediated by Identity-Aware Proxy (IAP).
-    /// ID tokens are only used to verify the identity of a principal. Google Cloud APIs do not use ID tokens
-    /// for authorization, and therefore cannot be used to access Google Cloud APIs.
-    ///
-    /// [ID tokens]: https://cloud.google.com/docs/authentication/token-types#identity-tokens
-    /// [user account]: https://cloud.google.com/docs/authentication#user-accounts
-    /// [Service to Service Authentication]: https://cloud.google.com/run/docs/authenticating/service-to-service
+pub(crate) mod idtoken {
     use crate::build_errors::Error as BuilderError;
     use crate::constants::OAUTH2_TOKEN_SERVER_URL;
     use crate::{
