@@ -305,21 +305,16 @@ pub(crate) mod tests {
         audience: S,
         claims_to_add: HashMap<&str, Value>,
     ) -> String {
-        let now = SystemTime::now().duration_since(UNIX_EPOCH).unwrap();
-        let then = now + DEFAULT_TEST_TOKEN_EXPIRATION;
-
-        generate_test_id_token_impl(audience.into(), SystemTime::now())
+        generate_test_id_token_impl(audience.into(), claims_to_add, SystemTime::now())
     }
 
-    fn generate_test_id_token_impl(audience: String, now: SystemTime) -> String {
+    fn generate_test_id_token_impl(
+        audience: String,
+        claims_to_add: HashMap<&str, Value>,
+        now: SystemTime,
+    ) -> String {
         let now = now.duration_since(UNIX_EPOCH).unwrap();
         let then = now + DEFAULT_TEST_TOKEN_EXPIRATION;
-        let claims = serde_json::json!({
-            "iss": "test_iss".to_string(),
-            "aud": Some(audience),
-            "exp": then.as_secs(),
-            "iat": now.as_secs(),
-        });
 
         let mut header = Header::new(Algorithm::RS256);
         header.kid = Some(TEST_KEY_ID.to_string());
@@ -348,7 +343,7 @@ pub(crate) mod tests {
     async fn test_parse_id_token() -> TestResult {
         let now = SystemTime::now();
         let audience = "https://example.com".to_string();
-        let id_token = generate_test_id_token_impl(audience, now);
+        let id_token = generate_test_id_token_impl(audience, HashMap::new(), now);
 
         let token = parse_id_token_from_str_impl(id_token.clone(), now)?;
 
