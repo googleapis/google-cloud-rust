@@ -5002,6 +5002,7 @@ name = "grpc-server"
 version = "0.0.0"
 dependencies = [
  "anyhow",
+ "async-trait",
  "google-cloud-auth",
  "google-cloud-gax",
  "google-cloud-gax-internal",
