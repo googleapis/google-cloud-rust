@@ -28,6 +28,7 @@ pub fn handle_redirect(
                 let mut guard = spec.lock().expect("never poisoned");
                 guard.routing_token = redirect.routing_token;
                 guard.read_handle = redirect.read_handle;
+                break;
             }
         }
     }
