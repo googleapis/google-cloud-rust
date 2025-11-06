@@ -87,7 +87,7 @@ impl gax::client_builder::internal::ClientFactory for Factory {
 #[derive(Debug)]
 struct Echo;
 
-#[tonic::async_trait]
+#[async_trait::async_trait]
 impl google::test::v1::echo_service_server::EchoService for Echo {
     async fn echo(
         &self,
