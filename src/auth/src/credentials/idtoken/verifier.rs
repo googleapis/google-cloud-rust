@@ -12,9 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-//! Verify OIDC ID tokens.
+//! Verify [OIDC ID tokens].
 //!
-//! The `Verifier` is used to check the validity of an OIDC ID token.
+//! [Verifier] is used to validate an OIDC ID token.
 //! This includes verifying the token's signature against the appropriate
 //! JSON Web Key Set (JWKS), and validating its claims, such as audience and issuer.
 //!
@@ -34,6 +34,7 @@
 //! #   Ok(())
 //! }
 //! ```
+//! [OIDC ID Tokens]: https://cloud.google.com/docs/authentication/token-types#identity-tokens
 
 use crate::credentials::internal::jwk_client::JwkClient;
 use jsonwebtoken::Validation;
@@ -50,7 +51,7 @@ pub struct Builder {
 }
 
 impl Builder {
-    /// Create a [`Verifier`] for ID Tokens with a target audience
+    /// Create a [Verifier] for ID Tokens with a target audience
     /// for the token verification.
     pub fn new<S: Into<String>>(audience: S) -> Self {
         Self {
@@ -159,10 +160,13 @@ impl Verifier {
     pub async fn verify(&self, token: &str) -> std::result::Result<Map<String, Value>, Error> {
         let header = jsonwebtoken::decode_header(token).map_err(Error::decode)?;
 
-        let key_id = header.kid.ok_or_else(|| Error::missing_field("kid"))?;
+        let key_id = header
+            .kid
+            .ok_or_else(|| Error::missing_header_field("kid"))?;
 
         let mut validation = Validation::new(header.alg);
         validation.leeway = self.clock_skew.as_secs();
+        // TODO(#3591): Support TPC/REP that can have different issuers
         validation.set_issuer(&["https://accounts.google.com", "accounts.google.com"]);
         validation.set_audience(std::slice::from_ref(&self.audience));
 
@@ -176,19 +180,49 @@ impl Verifier {
             .map_err(Error::load_cert)?;
 
         let token = jsonwebtoken::decode::<Map<String, Value>>(&token, &cert, &validation)
-            .map_err(Error::invalid)?;
+            .map_err(|e| match e.clone().into_kind() {
+                jsonwebtoken::errors::ErrorKind::InvalidToken
+                | jsonwebtoken::errors::ErrorKind::Base64(_)
+                | jsonwebtoken::errors::ErrorKind::Json(_)
+                | jsonwebtoken::errors::ErrorKind::Utf8(_) => Error::decode(e),
+                jsonwebtoken::errors::ErrorKind::InvalidAlgorithm => Error::invalid("algorithm", e),
+                jsonwebtoken::errors::ErrorKind::InvalidIssuer => Error::invalid("issuer", e),
+                jsonwebtoken::errors::ErrorKind::InvalidAudience => Error::invalid("audience", e),
+                jsonwebtoken::errors::ErrorKind::InvalidSubject => Error::invalid("subject", e),
+                jsonwebtoken::errors::ErrorKind::ExpiredSignature
+                | jsonwebtoken::errors::ErrorKind::ImmatureSignature => {
+                    Error::invalid("expiration", e)
+                }
+                jsonwebtoken::errors::ErrorKind::MissingRequiredClaim(field) => {
+                    Error::missing_claim_field(field.as_str())
+                }
+                jsonwebtoken::errors::ErrorKind::InvalidSignature
+                | jsonwebtoken::errors::ErrorKind::InvalidEcdsaKey
+                | jsonwebtoken::errors::ErrorKind::InvalidEddsaKey
+                | jsonwebtoken::errors::ErrorKind::InvalidRsaKey(_)
+                | jsonwebtoken::errors::ErrorKind::RsaFailedSigning
+                | jsonwebtoken::errors::ErrorKind::InvalidAlgorithmName
+                | jsonwebtoken::errors::ErrorKind::InvalidKeyFormat => {
+                    Error::invalid("signature", e)
+                }
+                _ => Error::invalid("unkown", e),
+            })?;
 
         let claims = token.claims;
         if let Some(email) = expected_email {
             let email_verified = claims["email_verified"].as_bool().unwrap_or(false);
             if !email_verified {
-                return Err(Error::invalid("email not verified"));
+                return Err(Error::invalid(
+                    "email_verified",
+                    "email_verified claim is missing or value is `false`",
+                ));
             }
             let token_email = claims["email"]
                 .as_str()
-                .ok_or_else(|| Error::missing_field("email"))?;
+                .ok_or_else(|| Error::missing_claim_field("email"))?;
             if !email.eq(token_email) {
-                return Err(Error::invalid("invalid email"));
+                let err_msg = format!("expected `{email}`, but found `{token_email}`");
+                return Err(Error::invalid("email", err_msg));
             }
         }
 
@@ -209,19 +243,24 @@ impl Error {
         matches!(self.0, ErrorKind::Decode(_))
     }
 
+    /// A problem validating JWT token accordingly to set criteria.
+    pub fn is_invalid(&self) -> bool {
+        matches!(self.0, ErrorKind::Invalid(_, _))
+    }
+
     /// A problem fetching certificates to validate the JWT token.
     pub fn is_load_cert(&self) -> bool {
         matches!(self.0, ErrorKind::LoadingCertificate(_))
     }
 
-    /// JWT Token is invalid accordingly to the criteria set in the Verifier.
-    pub fn is_invalid(&self) -> bool {
-        matches!(self.0, ErrorKind::Invalid(_))
+    /// A required field was missing from JWT token header.
+    pub fn is_missing_header_field(&self) -> bool {
+        matches!(self.0, ErrorKind::MissingHeaderField(_))
     }
 
-    /// A required field was missing from JWT token header or claims.
-    pub fn is_missing_field(&self) -> bool {
-        matches!(self.0, ErrorKind::MissingField(_))
+    /// A required field was missing from JWT token claims.
+    pub fn is_missing_claim_field(&self) -> bool {
+        matches!(self.0, ErrorKind::MissingClaimField(_))
     }
 
     /// A problem to decode the JWT token.
@@ -240,17 +279,22 @@ impl Error {
         Error(ErrorKind::LoadingCertificate(source.into()))
     }
 
-    /// Found an invalid token accordingly to criteria set up via Verifier.
-    pub(crate) fn invalid<T>(source: T) -> Error
+    /// Validation error in a given area of the JWT Token.
+    pub(crate) fn invalid<T>(area: &'static str, source: T) -> Error
     where
         T: Into<BoxError>,
     {
-        Error(ErrorKind::Invalid(source.into()))
+        Error(ErrorKind::Invalid(area, source.into()))
     }
 
-    /// A required field was missing from the JWT token header or claims.
-    pub(crate) fn missing_field(field: &'static str) -> Error {
-        Error(ErrorKind::MissingField(field))
+    /// A required field was missing from the JWT token header.
+    pub(crate) fn missing_header_field(field: &'static str) -> Error {
+        Error(ErrorKind::MissingHeaderField(field))
+    }
+
+    /// A required field was missing from the JWT token claims.
+    pub(crate) fn missing_claim_field<S: Into<String>>(field: S) -> Error {
+        Error(ErrorKind::MissingClaimField(field.into()))
     }
 }
 
@@ -258,12 +302,14 @@ impl Error {
 enum ErrorKind {
     #[error("cannot decode JWT token: {0}")]
     Decode(#[source] BoxError),
-    #[error("JWT token is invalid: {0}")]
-    Invalid(#[source] BoxError),
+    #[error("JWT token {0} is invalid: {1}")]
+    Invalid(&'static str, #[source] BoxError),
     #[error("Failed to fetch certificate: {0}")]
     LoadingCertificate(#[source] BoxError),
-    #[error("JWT token header or claims are missing required field: {0}")]
-    MissingField(&'static str),
+    #[error("JWT token header is missing required field: {0}")]
+    MissingHeaderField(&'static str),
+    #[error("JWT token claims is missing required field: {0}")]
+    MissingClaimField(String),
 }
 
 #[cfg(test)]
