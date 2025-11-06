@@ -6033,6 +6033,17 @@ pub trait PredictionService: std::fmt::Debug + Send + Sync {
         gaxi::unimplemented::unimplemented_stub()
     }
 
+    /// Implements [super::client::PredictionService::embed_content].
+    fn embed_content(
+        &self,
+        _req: crate::model::EmbedContentRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::EmbedContentResponse>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
     /// Implements [super::client::PredictionService::list_locations].
     fn list_locations(
         &self,

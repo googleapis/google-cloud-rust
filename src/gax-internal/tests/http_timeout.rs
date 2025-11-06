@@ -229,6 +229,7 @@ mod tests {
     mod tracing_tests {
         use super::*;
         use google_cloud_gax_internal::observability::attributes::error_type_values::CLIENT_TIMEOUT;
+        use google_cloud_gax_internal::observability::attributes::keys::*;
         use google_cloud_test_utils::test_layer::TestLayer;
         use opentelemetry_semantic_conventions::trace as semconv;
 
@@ -278,6 +279,27 @@ mod tests {
                 semconv::ERROR_TYPE,
                 attributes
             );
+
+            assert_eq!(
+                attributes.get(OTEL_STATUS_CODE),
+                Some(&"ERROR".into()),
+                "Span 0: '{}' mismatch, all attributes: {:?}",
+                OTEL_STATUS_CODE,
+                attributes
+            );
+            let status_description = attributes.get(OTEL_STATUS_DESCRIPTION).unwrap();
+            match status_description {
+                google_cloud_test_utils::test_layer::AttributeValue::String(s) => {
+                    assert!(
+                        s.contains("error sending request"),
+                        "Span 0: '{}' should contain 'error sending request', got: {:?}, all attributes: {:?}",
+                        OTEL_STATUS_DESCRIPTION,
+                        s,
+                        attributes
+                    );
+                }
+                _ => panic!("Expected string for {}", OTEL_STATUS_DESCRIPTION),
+            };
 
             Ok(())
         }

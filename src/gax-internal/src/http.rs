@@ -177,36 +177,34 @@ impl ReqwestClient {
             Ok(CacheableResource::NotModified) => unreachable!("headers are not cached"),
         };
 
-        let request = builder.build().map_err(Self::map_send_error)?;
+        let request = builder.build().map_err(map_send_error)?;
 
         #[cfg(google_cloud_unstable_tracing)]
-        let response_result = if self._tracing_enabled {
+        let (reqwest_result, span) = if self._tracing_enabled {
             let span =
                 create_http_attempt_span(&request, options, self.instrumentation, _attempt_count);
             // The instrument call ensures the span is entered/exited as the execute future is polled.
             let result = self.inner.execute(request).instrument(span.clone()).await;
-            // Re-enter the span's context to record response attributes after the future has completed.
-            let _enter = span.enter();
-            record_http_response_attributes(&span, &result);
-            result
+            (result, Some(span))
         } else {
-            self.inner.execute(request).await
+            (self.inner.execute(request).await, None)
         };
         #[cfg(not(google_cloud_unstable_tracing))]
-        let response_result = self.inner.execute(request).await;
+        let reqwest_result = self.inner.execute(request).await;
 
-        let response = response_result.map_err(Self::map_send_error)?;
-        if !response.status().is_success() {
-            return self::to_http_error(response).await;
-        }
-        self::to_http_response(response).await
-    }
+        let intermediate_result = reqwest_result.map_err(map_send_error);
+        let intermediate_result = match intermediate_result {
+            Ok(response) if !response.status().is_success() => self::to_http_error(response).await,
+            other => other,
+        };
 
-    fn map_send_error(err: reqwest::Error) -> Error {
-        match err {
-            e if e.is_timeout() => Error::timeout(e),
-            e => Error::io(e),
+        // Record span before parsing result, after parsing error.
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(s) = span {
+            record_http_response_attributes(&s, intermediate_result.as_ref());
         }
+
+        self::to_http_response(intermediate_result?).await
     }
 
     fn get_retry_policy(&self, options: &gax::options::RequestOptions) -> Arc<dyn RetryPolicy> {
@@ -254,6 +252,37 @@ impl ReqwestClient {
             .polling_backoff_policy()
             .clone()
             .unwrap_or_else(|| self.polling_backoff_policy.clone())
+    }
+}
+
+fn as_inner<E>(error: &reqwest::Error) -> Option<&E>
+where
+    E: std::error::Error + 'static,
+{
+    use std::error::Error as _;
+    let mut e = error.source()?;
+    // Prevent infinite loops due to cycles in the `source()` errors. This seems
+    // unlikely, and it would require effort to create, but it is easy to
+    // prevent.
+    for _ in 0..32 {
+        if let Some(value) = e.downcast_ref::<E>() {
+            return Some(value);
+        }
+        e = e.source()?;
+    }
+    None
+}
+
+pub fn map_send_error(err: reqwest::Error) -> Error {
+    if let Some(e) = as_inner::<hyper::Error>(&err) {
+        if e.is_user() {
+            return Error::ser(err);
+        }
+    }
+    match err {
+        e if e.is_connect() => Error::connect(e),
+        e if e.is_timeout() => Error::timeout(e),
+        e => Error::io(e),
     }
 }
 

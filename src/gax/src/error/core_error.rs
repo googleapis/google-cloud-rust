@@ -580,6 +580,36 @@ impl Error {
 
     /// Not part of the public API, subject to change without notice.
     ///
+    /// A problem connecting with the endpoint.
+    ///
+    /// Examples include DNS errors and broken connections.
+    #[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
+    pub fn connect<T: Into<BoxError>>(source: T) -> Self {
+        Self {
+            kind: ErrorKind::Connect,
+            source: Some(source.into()),
+        }
+    }
+
+    /// Not part of the public API, subject to change without notice.
+    ///
+    /// A problem connecting with the endpoint.
+    ///
+    /// Examples include DNS errors and broken connections.
+    ///
+    /// # Troubleshooting
+    ///
+    /// This indicates a problem starting the request. It always occurs before a
+    /// request is made, so it is always safe to retry, even if the request is
+    /// not idempotent. However, retrying does not indicate the request will
+    /// ever succeed (e.g. if a network is permanently down).
+    #[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
+    pub fn is_connect(&self) -> bool {
+        matches!(&self.kind, ErrorKind::Connect)
+    }
+
+    /// Not part of the public API, subject to change without notice.
+    ///
     /// A problem reported by the transport layer.
     #[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
     pub fn transport<T: Into<BoxError>>(headers: HeaderMap, source: T) -> Self {
@@ -625,14 +655,16 @@ impl Error {
     /// The error was generated before the RPC started and is transient.
     #[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
     pub fn is_transient_and_before_rpc(&self) -> bool {
-        if !matches!(&self.kind, ErrorKind::Authentication) {
-            return false;
+        match &self.kind {
+            ErrorKind::Connect => true,
+            ErrorKind::Authentication => self
+                .source
+                .as_ref()
+                .and_then(|e| e.downcast_ref::<CredentialsError>())
+                .map(|e| e.is_transient())
+                .unwrap_or(false),
+            _ => false,
         }
-        self.source
-            .as_ref()
-            .and_then(|e| e.downcast_ref::<CredentialsError>())
-            .map(|e| e.is_transient())
-            .unwrap_or(false)
     }
 }
 
@@ -654,6 +686,9 @@ impl std::fmt::Display for Error {
             }
             (ErrorKind::Exhausted, Some(e)) => {
                 write!(f, "{e}")
+            }
+            (ErrorKind::Connect, Some(e)) => {
+                write!(f, "cannot connect to endpoint: {e}")
             }
             (ErrorKind::Transport(details), _) => details.display(self.source(), f),
             (ErrorKind::Service(d), _) => {
@@ -685,6 +720,7 @@ enum ErrorKind {
     Authentication,
     Timeout,
     Exhausted,
+    Connect,
     Transport(Box<TransportDetails>),
     Service(Box<ServiceDetails>),
 }
@@ -813,6 +849,29 @@ mod tests {
         let source = wkt::TimestampError::OutOfRange;
         assert!(error.to_string().contains(&source.to_string()), "{error}");
         assert!(!error.is_transient_and_before_rpc(), "{error:?}");
+    }
+
+    #[test]
+    fn connect() {
+        let source = wkt::TimestampError::OutOfRange;
+        let error = Error::connect(source);
+        assert!(error.is_connect(), "{error:?}");
+        assert!(error.source().is_some(), "{error:?}");
+        let got = error
+            .source()
+            .and_then(|e| e.downcast_ref::<wkt::TimestampError>());
+        assert!(
+            matches!(got, Some(wkt::TimestampError::OutOfRange)),
+            "{error:?}"
+        );
+        let source = wkt::TimestampError::OutOfRange;
+        assert!(error.to_string().contains(&source.to_string()), "{error}");
+        assert!(error.is_transient_and_before_rpc(), "{error:?}");
+
+        assert!(error.http_headers().is_none(), "{error:?}");
+        assert!(error.http_status_code().is_none(), "{error:?}");
+        assert!(error.http_payload().is_none(), "{error:?}");
+        assert!(error.status().is_none(), "{error:?}");
     }
 
     #[test]

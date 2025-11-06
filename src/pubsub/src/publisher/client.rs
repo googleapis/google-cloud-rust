@@ -12,37 +12,38 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use std::result::Result::*;
+use crate::publisher::publisher::PublisherBuilder;
+
 /// Client for publishing messages to Pub/Sub topics.
 #[derive(Clone, Debug)]
-pub struct PublisherClient {
+pub struct PublisherFactory {
     pub(crate) inner: crate::generated::gapic_dataplane::client::Publisher,
 }
 
-/// A builder for [PublisherClient].
+/// A builder for [PublisherFactory].
 ///
 /// ```
 /// # async fn sample() -> anyhow::Result<()> {
 /// # use google_cloud_pubsub::*;
 /// # use builder::publisher::ClientBuilder;
-/// # use client::PublisherClient;
-/// let builder : ClientBuilder = PublisherClient::builder();
+/// # use client::PublisherFactory;
+/// let builder : ClientBuilder = PublisherFactory::builder();
 /// let client = builder
 ///     .with_endpoint("https://pubsub.googleapis.com")
 ///     .build().await?;
-/// let publisher_a = client.publisher("projects/my-project/topics/topic-a");
-/// let publisher_b = client.publisher("projects/my-project/topics/topic-b");
+/// let publisher_a = client.publisher("projects/my-project/topics/topic-a").build();
+/// let publisher_b = client.publisher("projects/my-project/topics/topic-b").build();
 /// # Ok(()) }
 /// ```
 pub type ClientBuilder =
     gax::client_builder::ClientBuilder<client_builder::Factory, gaxi::options::Credentials>;
 
 pub(crate) mod client_builder {
-    use super::PublisherClient;
+    use super::PublisherFactory;
 
     pub struct Factory;
     impl gax::client_builder::internal::ClientFactory for Factory {
-        type Client = PublisherClient;
+        type Client = PublisherFactory;
         type Credentials = gaxi::options::Credentials;
         #[allow(unused_mut)]
         async fn build(
@@ -55,13 +56,13 @@ pub(crate) mod client_builder {
     }
 }
 
-impl PublisherClient {
-    /// Returns a builder for [PublisherClient].
+impl PublisherFactory {
+    /// Returns a builder for [PublisherFactory].
     ///
     /// ```no_run
     /// # tokio_test::block_on(async {
-    /// # use google_cloud_pubsub::client::PublisherClient;
-    /// let client = PublisherClient::builder().build().await?;
+    /// # use google_cloud_pubsub::client::PublisherFactory;
+    /// let client = PublisherFactory::builder().build().await?;
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> ClientBuilder {
@@ -82,90 +83,30 @@ impl PublisherClient {
     /// # async fn sample() -> anyhow::Result<()> {
     /// # use google_cloud_pubsub::*;
     /// # use builder::publisher::ClientBuilder;
-    /// # use client::PublisherClient;
+    /// # use client::PublisherFactory;
     /// # use model::PubsubMessage;
-    /// let client = PublisherClient::builder()
+    /// let client = PublisherFactory::builder()
     ///     .with_endpoint("https://pubsub.googleapis.com")
     ///     .build().await?;
-    /// let publisher = client.publisher("projects/my-project/topics/my-topic");
+    /// let publisher = client.publisher("projects/my-project/topics/my-topic").build();
     /// let message_id = publisher.publish(PubsubMessage::new().set_data("Hello, World")).await?;
     /// # Ok(()) }
     /// ```
-    pub fn publisher<T>(&self, topic: T) -> Publisher
+    pub fn publisher<T>(&self, topic: T) -> PublisherBuilder
     where
         T: Into<String>,
     {
-        // In order to configure the Publisher, we will probably want
-        // to return a builder.
-        Publisher {
-            inner: self.inner.clone(),
-            topic: topic.into(),
-        }
-    }
-}
-
-/// Publishes messages to a single topic.
-///
-/// ```
-/// # async fn sample() -> anyhow::Result<()> {
-/// # use google_cloud_pubsub::*;
-/// # use builder::publisher::ClientBuilder;
-/// # use client::PublisherClient;
-/// # use model::PubsubMessage;
-/// let client = PublisherClient::builder()
-///     .with_endpoint("https://pubsub.googleapis.com")
-///     .build().await?;
-/// let publisher = client.publisher("projects/my-project/topics/my-topic");
-/// let message_id = publisher.publish(PubsubMessage::new().set_data("Hello, World"));
-/// # Ok(()) }
-/// ```
-pub struct Publisher {
-    pub(crate) inner: crate::generated::gapic_dataplane::client::Publisher,
-    topic: String,
-}
-
-impl Publisher {
-    /// Publishes a message to the topic.
-    ///
-    /// ```
-    /// # use google_cloud_pubsub::client::Publisher;
-    /// # async fn sample(publisher: Publisher) -> anyhow::Result<()> {
-    /// # use google_cloud_pubsub::model::PubsubMessage;
-    /// let message_id = publisher.publish(PubsubMessage::new().set_data("Hello, World")).await?;
-    /// # Ok(()) }
-    /// ```
-    // This function will eventually return a type that implements Future instead,
-    // which will remove the warning.
-    #[allow(clippy::manual_async_fn)]
-    pub fn publish(
-        &self,
-        msg: crate::model::PubsubMessage,
-    ) -> impl Future<Output = crate::Result<String>> {
-        async {
-            // This will need to be done on the background task. For now, just
-            // do it here to make the types work.
-            let resp = self
-                .inner
-                .publish()
-                .set_topic(self.topic.clone())
-                .set_messages([msg])
-                .send()
-                .await?;
-            match resp.message_ids.first() {
-                Some(value) => Ok(value.to_owned()),
-                _ => Err(crate::Error::io("service returned no message ID")),
-            }
-        }
+        PublisherBuilder::new(self.inner.clone(), topic.into())
     }
 }
 
 #[cfg(test)]
 mod tests {
-    use super::PublisherClient;
+    use super::PublisherFactory;
 
     #[tokio::test]
     async fn builder() -> anyhow::Result<()> {
-        let client = PublisherClient::builder()
+        let client = PublisherFactory::builder()
             .with_credentials(auth::credentials::anonymous::Builder::new().build())
             .build()
             .await?;

@@ -18,7 +18,10 @@ package google.test.v1;
 
 import "google/protobuf/empty.proto";
 
-service EchoService { rpc Echo(EchoRequest) returns (EchoResponse); }
+service EchoService {
+  rpc Echo(EchoRequest) returns (EchoResponse);
+  rpc Chat(stream EchoRequest) returns (stream EchoResponse);
+}
 
 message EchoRequest {
   string message = 1;

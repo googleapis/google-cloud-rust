@@ -16,7 +16,7 @@
 
 //! Google Cloud Client Libraries for Rust - Google Compute Engine API
 //!
-//! This client library was generated from the "20251015" revision of the API.
+//! This client library was generated from the "20251019" revision of the API.
 //!
 //!
 //!

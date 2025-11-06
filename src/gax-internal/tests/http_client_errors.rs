@@ -15,7 +15,10 @@
 #[cfg(all(test, feature = "_internal-http-client"))]
 mod tests {
     use gax::options::*;
-    use serde_json::json;
+    use gax::retry_policy::NeverRetry;
+    use google_cloud_gax_internal::http::ReqwestClient;
+    use google_cloud_gax_internal::options::ClientConfig;
+    use serde_json::{Value, json};
 
     type Result<T> = std::result::Result<T, Box<dyn std::error::Error>>;
 
@@ -25,7 +28,6 @@ mod tests {
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
     async fn test_error_with_status() -> Result<()> {
-        use serde_json::Value;
         let (endpoint, _server) = echo_server::start().await?;
 
         let client = echo_server::builder(endpoint)
@@ -54,12 +56,30 @@ mod tests {
         Ok(())
     }
 
+    #[tokio::test]
+    async fn connection_error() -> Result<()> {
+        let mut config = ClientConfig::default();
+        config.cred = auth::credentials::anonymous::Builder::new().build().into();
+        let mut options = RequestOptions::default();
+        options.set_retry_policy(NeverRetry);
+        let client = ReqwestClient::new(config, "http://localhost:1").await?;
+
+        let builder = client.builder(reqwest::Method::GET, "/".into());
+        let response = client
+            .execute::<Value, Value>(builder, Some(json!({})), options)
+            .await;
+
+        assert!(
+            matches!(response, Err(ref e) if e.is_connect()),
+            "{response:?}"
+        );
+
+        Ok(())
+    }
     #[cfg(all(test, google_cloud_unstable_tracing, feature = "_internal-http-client"))]
     mod tracing_tests {
         use super::*;
-        use google_cloud_gax_internal::http::ReqwestClient;
         use google_cloud_gax_internal::observability::attributes::error_type_values::CLIENT_CONNECTION_ERROR;
-        use google_cloud_gax_internal::options::ClientConfig;
         use google_cloud_test_utils::test_layer::TestLayer;
         use opentelemetry_semantic_conventions::trace as semconv;
 
@@ -70,13 +90,15 @@ mod tests {
             let mut config = ClientConfig::default();
             config.tracing = true;
             config.cred = Some(test_credentials());
+            let mut options = RequestOptions::default();
+            options.set_retry_policy(NeverRetry);
             let client = ReqwestClient::new(config, endpoint).await?;
 
             let guard = TestLayer::initialize();
 
             let builder = client.builder(reqwest::Method::GET, "/".into());
             let result = client
-                .execute::<Value, Value>(builder, Option::<Value>::None, RequestOptions::default())
+                .execute::<Value, Value>(builder, Option::<Value>::None, options)
                 .await;
 
             assert!(result.is_err(), "Expected connection error");
@@ -106,12 +128,35 @@ mod tests {
                 attributes
             );
 
+            assert_eq!(
+                attributes.get(
+                    google_cloud_gax_internal::observability::attributes::keys::OTEL_STATUS_CODE
+                ),
+                Some(&"ERROR".into()),
+                "Span 0: 'otel.status_code' mismatch, all attributes: {:?}",
+                attributes
+            );
+            let status_description = attributes
+                .get(google_cloud_gax_internal::observability::attributes::keys::OTEL_STATUS_DESCRIPTION)
+                .unwrap();
+            match status_description {
+                google_cloud_test_utils::test_layer::AttributeValue::String(s) => {
+                    assert!(
+                        s.contains("error sending request"),
+                        "Span 0: 'otel.status_description' should contain 'error sending request', got: {:?}, all attributes: {:?}",
+                        s,
+                        attributes
+                    );
+                }
+                _ => panic!("Expected string for otel.status_description"),
+            };
+
             Ok(())
         }
 
         #[tokio::test]
         async fn test_redirect_error_with_tracing_on() -> Result<()> {
-            use google_cloud_gax_internal::observability::attributes::error_type_values::CLIENT_REDIRECT_ERROR;
+            use google_cloud_gax_internal::observability::attributes::error_type_values::CLIENT_CONNECTION_ERROR;
             use httptest::{Expectation, ServerPool, matchers::*, responders::*};
             use serde_json::Value;
 
@@ -155,7 +200,7 @@ mod tests {
 
             assert_eq!(
                 attributes.get(semconv::ERROR_TYPE),
-                Some(&CLIENT_REDIRECT_ERROR.into()),
+                Some(&CLIENT_CONNECTION_ERROR.into()),
                 "Span 0: {} mismatch, all attributes: {:?}",
                 semconv::ERROR_TYPE,
                 attributes
@@ -166,6 +211,29 @@ mod tests {
                 semconv::HTTP_RESPONSE_STATUS_CODE,
                 attributes
             );
+
+            assert_eq!(
+                attributes.get(
+                    google_cloud_gax_internal::observability::attributes::keys::OTEL_STATUS_CODE
+                ),
+                Some(&"ERROR".into()),
+                "Span 0: 'otel.status_code' mismatch, all attributes: {:?}",
+                attributes
+            );
+            let status_description = attributes
+                .get(google_cloud_gax_internal::observability::attributes::keys::OTEL_STATUS_DESCRIPTION)
+                .unwrap();
+            match status_description {
+                google_cloud_test_utils::test_layer::AttributeValue::String(s) => {
+                    assert!(
+                        s.contains("error following redirect"),
+                        "Span 0: 'otel.status_description' should contain 'error following redirect', got: {:?}, all attributes: {:?}",
+                        s,
+                        attributes
+                    );
+                }
+                _ => panic!("Expected string for otel.status_description"),
+            };
 
             Ok(())
         }

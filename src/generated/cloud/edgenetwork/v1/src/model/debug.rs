@@ -84,6 +84,10 @@ impl std::fmt::Debug for super::Interconnect {
             &self.device_cloud_resource_name,
         );
         debug_struct.field("physical_ports", &self.physical_ports);
+        debug_struct.field(
+            "remote_peering_network_type",
+            &self.remote_peering_network_type,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -104,6 +108,7 @@ impl std::fmt::Debug for super::InterconnectAttachment {
         debug_struct.field("vlan_id", &self.vlan_id);
         debug_struct.field("mtu", &self.mtu);
         debug_struct.field("state", &self.state);
+        debug_struct.field("peering_type", &self.peering_type);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
