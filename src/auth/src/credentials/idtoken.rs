@@ -69,11 +69,8 @@ use std::time::{Duration, SystemTime, UNIX_EPOCH};
 use tokio::time::Instant;
 
 pub mod impersonated;
-
 pub mod mds;
-
 pub mod service_account;
-
 pub mod user_account;
 
 /// Obtain [OIDC ID Tokens].

@@ -12,7 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-//! Credentials for authenticating with [ID tokens] using [impersonated service accounts].
 //! Obtain [OIDC ID tokens] using [impersonated service accounts].
 //!
 //! When the principal you are using doesn't have the permissions you need to
