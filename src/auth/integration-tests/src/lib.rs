@@ -530,8 +530,7 @@ impl SubjectTokenProvider for TestSubjectTokenProvider {
 pub mod unstable {
     use super::*;
     use auth::credentials::idtoken::{
-        Builder as IDTokenCredentialBuilder,
-        impersonated::Builder as ImpersonatedIDTokenBuilder,
+        Builder as IDTokenCredentialBuilder, impersonated::Builder as ImpersonatedIDTokenBuilder,
         mds::Builder as IDTokenMDSBuilder,
         service_account::Builder as ServiceAccountIDTokenBuilder,
     };

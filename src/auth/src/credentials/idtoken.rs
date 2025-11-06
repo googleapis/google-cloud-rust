@@ -66,58 +66,7 @@ use std::sync::Arc;
 use std::time::{Duration, SystemTime, UNIX_EPOCH};
 use tokio::time::Instant;
 
-pub mod mds {
-    //! Credentials for authenticating with [ID tokens] using [Metadata Service].
-    //!
-    //! Google Cloud environments such as [Google Compute Engine (GCE)][gce-link],
-    //! [Google Kubernetes Engine (GKE)][gke-link], or [Cloud Run] provide a metadata service.
-    //! This is a local service to the VM (or pod) which (as the name implies) provides
-    //! metadata information about the VM. The service also provides access
-    //! tokens associated with the [default service account] for the corresponding
-    //! VM. This module provides a builder for `IDTokenCredentials`
-    //! from such metadata service.
-    //!
-    //! The default host name of the metadata service is `metadata.google.internal`.
-    //! If you would like to use a different hostname, you can set it using the
-    //! `GCE_METADATA_HOST` environment variable.
-    //!
-    //! These credentials are commonly used for [service to service authentication].
-    //! For example, when services are hosted in Cloud Run or mediated by Identity-Aware Proxy (IAP).
-    //! ID tokens are only used to verify the identity of a principal. Google Cloud APIs do not use ID tokens
-    //! for authorization, and therefore cannot be used to access Google Cloud APIs.
-    //!
-    //! ## Example: Creating MDS sourced credentials with target audience and sending ID Tokens.
-    //!
-    //! ```
-    //! # use google_cloud_auth::credentials::idtoken;
-    //! # use reqwest;
-    //! # tokio_test::block_on(async {
-    //! let audience = "https://example.com";
-    //! let credentials = idtoken::mds::Builder::new(audience)
-    //!     .build()?;
-    //! let id_token = credentials.id_token().await?;
-    //!
-    //! // Make request with ID Token as Bearer Token.
-    //! let client = reqwest::Client::new();
-    //! let target_url = format!("{audience}/api/method");
-    //! client.get(target_url)
-    //!     .bearer_auth(id_token)
-    //!     .send()
-    //!     .await?;
-    //! # Ok::<(), anyhow::Error>(())
-    //! # });
-    //! ```    
-    //!
-    //! [Application Default Credentials]: https://cloud.google.com/docs/authentication/application-default-credentials
-    //! [ID tokens]: https://cloud.google.com/docs/authentication/token-types#identity-tokens
-    //! [Cloud Run]: https://cloud.google.com/run
-    //! [default service account]: https://cloud.google.com/iam/docs/service-account-types#default
-    //! [gce-link]: https://cloud.google.com/products/compute
-    //! [gke-link]: https://cloud.google.com/kubernetes-engine
-    //! [Metadata Service]: https://cloud.google.com/compute/docs/metadata/overview
-
-    pub use crate::credentials::mds::idtoken::Builder;
-}
+pub mod mds;
 pub mod impersonated {
     //! Credentials for authenticating with [ID tokens] using [impersonated service accounts].
     //!
